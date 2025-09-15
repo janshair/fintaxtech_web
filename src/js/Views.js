@@ -51,11 +51,13 @@ class HeaderView extends BaseView {
           <a href="/" class="logo" aria-label="Fintaxtech Ltd - Home">
             Fintaxtech
           </a>
+          <!-- Navigation temporarily hidden -->
+          <!--
           <nav class="nav" role="navigation" aria-label="Main navigation">
             <ul class="nav-list">
               <li><a href="/" class="nav-link" data-page="home">Home</a></li>
               <li><a href="/services.html" class="nav-link" data-page="services">Services</a></li>
-              <li><a href="/portfolio.html" class="nav-link" data-page="portfolio">Portfolio</a></li>
+              // <li><a href="/portfolio.html" class="nav-link" data-page="portfolio">Portfolio</a></li>
               <li><a href="/packages.html" class="nav-link" data-page="packages">Packages</a></li>
               <li><a href="/contact.html" class="nav-link" data-page="contact">Get In Touch</a></li>
             </ul>
@@ -65,6 +67,7 @@ class HeaderView extends BaseView {
             <span class="hamburger"></span>
             <span class="hamburger"></span>
           </button>
+          -->
         </div>
       </header>
     `;
@@ -229,7 +232,7 @@ class FooterView extends BaseView {
             <div class="footer-section">
               <h3>Company</h3>
               <ul>
-                <li><a href="/portfolio.html">Our Portfolio</a></li>
+               <!-- <li><a href="/portfolio.html">Our Portfolio</a></li> -->
                 <li><a href="/contact.html">Get In Touch</a></li>
                 <li><a href="/privacy.html">Privacy Policy</a></li>
                 <li><a href="/terms.html">Terms of Service</a></li>

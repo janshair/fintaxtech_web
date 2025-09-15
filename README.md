@@ -236,7 +236,7 @@ This is a private project. For suggestions or issues, please contact us directly
 
 ## 📝 Changelog
 
-### Version 1.0.0 (January 2024)
+### Version 1.0.0 (January 5)
 - Initial release
 - Complete website with all pages
 - MVC architecture implementation
