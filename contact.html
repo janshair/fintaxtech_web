@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ready to start your project? Contact us for a free consultation and quote for your digital needs.">
+    <meta name="keywords" content="contact, consultation, quote, mobile apps, web development, branding">
+    <meta name="author" content="Fintaxtech Ltd">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fintaxtech.com/contact.html">
+    <meta property="og:title" content="Get In Touch - Contact Fintaxtech Ltd">
+    <meta property="og:description" content="Ready to start your project? Contact us for a free consultation and quote for your digital needs.">
+    <meta property="og:image" content="https://fintaxtech.com/src/images/og-contact.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fintaxtech.com/contact.html">
+    <meta property="twitter:title" content="Get In Touch - Contact Fintaxtech Ltd">
+    <meta property="twitter:description" content="Ready to start your project? Contact us for a free consultation and quote for your digital needs.">
+    <meta property="twitter:image" content="https://fintaxtech.com/src/images/og-contact.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://fintaxtech.com/contact.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/src/css/main.css">
+    
+    <title>Get In Touch - Contact Fintaxtech Ltd</title>
+</head>
+<body>
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <a href="/" class="logo" aria-label="Fintaxtech Ltd - Home">
+                Fintaxtech
+            </a>
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="/" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="/services.html" class="nav-link" data-page="services">Services</a></li>
+                    <li><a href="/portfolio.html" class="nav-link" data-page="portfolio">Portfolio</a></li>
+                    <li><a href="/packages.html" class="nav-link" data-page="packages">Packages</a></li>
+                    <li><a href="/contact.html" class="nav-link active" data-page="contact">Get In Touch</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main" role="main">
+        <!-- Page Header -->
+        <section class="section page-header" aria-labelledby="page-title">
+            <div class="container">
+                <h1 id="page-title">Get In Touch</h1>
+                <p class="page-subtitle">Ready to start your project? Let's discuss your digital needs</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact" aria-labelledby="contact-title">
+            <div class="container">
+                <div class="grid grid-2 contact-grid">
+                    <!-- Contact Form -->
+                    <div class="contact-form-container">
+                        <h2 id="contact-title">Send us a Message</h2>
+                        <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+                        
+                        <form id="contact-form" class="contact-form" novalidate>
+                            <div class="form-errors" style="display: none;" role="alert" aria-live="polite"></div>
+                            
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name *</label>
+                                <input type="text" id="name" name="name" class="form-input" required aria-describedby="name-error">
+                                <div id="name-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" id="email" name="email" class="form-input" required aria-describedby="email-error">
+                                <div id="email-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" aria-describedby="phone-error">
+                                <div id="phone-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company" class="form-label">Company Name</label>
+                                <input type="text" id="company" name="company" class="form-input" aria-describedby="company-error">
+                                <div id="company-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="service" class="form-label">Service Interested In *</label>
+                                <select id="service" name="service" class="form-input" required aria-describedby="service-error">
+                                    <option value="">Select a service</option>
+                                    <option value="mobile-apps">Mobile App Development</option>
+                                    <option value="web-development">Website Development</option>
+                                    <option value="branding">Company Branding</option>
+                                    <option value="company-setup">Company Setup Package</option>
+                                    <option value="custom">Custom Solution</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div id="service-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="budget" class="form-label">Project Budget</label>
+                                <select id="budget" name="budget" class="form-input" aria-describedby="budget-error">
+                                    <option value="">Select budget range</option>
+                                    <option value="under-1000">Under £1,000</option>
+                                    <option value="1000-2500">£1,000 - £2,500</option>
+                                    <option value="2500-5000">£2,500 - £5,000</option>
+                                    <option value="5000-10000">£5,000 - £10,000</option>
+                                    <option value="over-10000">Over £10,000</option>
+                                </select>
+                                <div id="budget-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="timeline" class="form-label">Project Timeline</label>
+                                <select id="timeline" name="timeline" class="form-input" aria-describedby="timeline-error">
+                                    <option value="">Select timeline</option>
+                                    <option value="asap">ASAP</option>
+                                    <option value="1-month">Within 1 month</option>
+                                    <option value="2-3-months">2-3 months</option>
+                                    <option value="3-6-months">3-6 months</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                                <div id="timeline-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Project Details *</label>
+                                <textarea id="message" name="message" class="form-textarea" rows="5" required aria-describedby="message-error" placeholder="Tell us about your project, goals, and any specific requirements..."></textarea>
+                                <div id="message-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+                                    <span class="checkmark"></span>
+                                    I'd like to receive updates about new services and offers
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="privacy" name="privacy" value="yes" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/terms.html" target="_blank">Terms of Service</a> *
+                                </label>
+                                <div id="privacy-error" class="field-error" role="alert"></div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">Send Message</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Contact Information -->
+                    <div class="contact-info-container">
+                        <h2>Contact Information</h2>
+                        <p>Get in touch with us through any of the following methods:</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon" aria-hidden="true">📞</div>
+                                <div class="contact-details">
+                                    <h3>Phone</h3>
+                                    <p><a href="tel:+447884594929">+44 7884 594929</a></p>
+                                    <p class="contact-note">Mon-Fri 9AM-6PM GMT</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon" aria-hidden="true">✉️</div>
+                                <div class="contact-details">
+                                    <h3>Email</h3>
+                                    <p><a href="mailto:info@fintaxtech.com">info@fintaxtech.com</a></p>
+                                    <p class="contact-note">We respond within 24 hours</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon" aria-hidden="true">💬</div>
+                                <div class="contact-details">
+                                    <h3>WhatsApp</h3>
+                                    <p><a href="https://wa.me/447884594929" target="_blank" rel="noopener">Message us on WhatsApp</a></p>
+                                    <p class="contact-note">Quick responses available</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon" aria-hidden="true">📍</div>
+                                <div class="contact-details">
+                                    <h3>Location</h3>
+                                    <p>Edinburgh, Scotland, UK</p>
+                                    <p class="contact-note">Serving clients worldwide</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="company-details">
+                            <h3>Company Details</h3>
+                            <ul>
+                                <li><strong>Company Name:</strong> Fintaxtech Ltd</li>
+                                <li><strong>Company Number:</strong> SC807896</li>
+                                <li><strong>Registered Office:</strong> Edinburgh, Scotland, UK</li>
+                                <li><strong>VAT Number:</strong> Available upon request</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="response-time">
+                            <h3>Response Times</h3>
+                            <ul>
+                                <li><strong>Email:</strong> Within 24 hours</li>
+                                <li><strong>Phone:</strong> Immediate during business hours</li>
+                                <li><strong>WhatsApp:</strong> Usually within 2 hours</li>
+                                <li><strong>Contact Form:</strong> Within 24 hours</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section" id="faq" aria-labelledby="faq-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="faq-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Quick answers to common questions about our services</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <h3>How much do your services cost?</h3>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Our pricing varies depending on the project scope and requirements. We offer packages starting from £1,299 for branding, £1,999 for website development, and £2,499 for our complete company setup package. For custom projects, we provide detailed quotes after understanding your specific needs.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <h3>How long does a typical project take?</h3>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Project timelines depend on complexity and scope. Branding projects typically take 2-3 weeks, website development takes 4-6 weeks, and mobile app development takes 8-12 weeks. We'll provide a detailed timeline during our initial consultation.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <h3>Do you work with clients outside the UK?</h3>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes! We work with clients worldwide. Our team is experienced in remote collaboration and can accommodate different time zones. We use modern communication tools to ensure smooth project management regardless of location.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <h3>What happens after I submit the contact form?</h3>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>After you submit the form, we'll review your requirements and respond within 24 hours. We may ask for additional details or schedule a consultation call to better understand your project needs before providing a detailed proposal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fintaxtech Ltd</h3>
+                    <p>Professional digital solutions for modern businesses. Specializing in mobile app development, website development, and company branding.</p>
+                    <div class="contact-info">
+                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:info@fintaxtech.com">info@fintaxtech.com</a></p>
+                        <p><strong>Company No:</strong> SC807896</p>
+                        <p><strong>Registered Office:</strong> Edinburgh, Scotland, UK</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="/services.html#mobile-apps">Mobile App Development</a></li>
+                        <li><a href="/services.html#web-development">Website Development</a></li>
+                        <li><a href="/services.html#branding">Company Branding</a></li>
+                        <li><a href="/packages.html">Our Packages</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="/portfolio.html">Our Portfolio</a></li>
+                        <li><a href="/contact.html">Get In Touch</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/privacy.html#cookies">Cookie Policy</a></li>
+                        <li><a href="https://find-and-update.company-information.service.gov.uk/company/SC807896" target="_blank" rel="noopener">Company House</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fintaxtech Ltd. All rights reserved. | Company Registration: SC807896 | Registered in Scotland</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/447884594929?text=Hi! I'm interested in your digital services. Can you help me?" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener"
+       aria-label="Contact us on WhatsApp">
+        <span class="whatsapp-text">Contact Now</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="/src/AppConstants.js"></script>
+    <script src="/src/js/Models.js"></script>
+    <script src="/src/js/Views.js"></script>
+    <script src="/src/js/Controllers.js"></script>
+    <script src="/src/js/App.js"></script>
+    
+    <!-- Contact Form JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            const formErrors = document.querySelector('.form-errors');
+            
+            // FAQ functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    const answer = faqItem.querySelector('.faq-answer');
+                    const icon = this.querySelector('.faq-icon');
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    
+                    // Close all other FAQ items
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== this) {
+                            otherQuestion.setAttribute('aria-expanded', 'false');
+                            otherQuestion.parentElement.classList.remove('active');
+                            otherQuestion.querySelector('.faq-icon').textContent = '+';
+                        }
+                    });
+                    
+                    // Toggle current FAQ item
+                    if (isExpanded) {
+                        this.setAttribute('aria-expanded', 'false');
+                        faqItem.classList.remove('active');
+                        icon.textContent = '+';
+                    } else {
+                        this.setAttribute('aria-expanded', 'true');
+                        faqItem.classList.add('active');
+                        icon.textContent = '−';
+                    }
+                });
+            });
+            
+            // Form validation
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Clear previous errors
+                clearErrors();
+                
+                // Validate form
+                const isValid = validateForm();
+                
+                if (isValid) {
+                    // Show loading state
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.textContent = 'Sending...';
+                    submitButton.disabled = true;
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        showSuccessMessage();
+                        contactForm.reset();
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }, 2000);
+                }
+            });
+            
+            function validateForm() {
+                let isValid = true;
+                
+                // Required fields
+                const requiredFields = ['name', 'email', 'service', 'message', 'privacy'];
+                
+                requiredFields.forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    const value = field.type === 'checkbox' ? field.checked : field.value.trim();
+                    
+                    if (!value) {
+                        showFieldError(fieldName, `${getFieldLabel(fieldName)} is required`);
+                        isValid = false;
+                    } else if (fieldName === 'email' && !isValidEmail(value)) {
+                        showFieldError(fieldName, 'Please enter a valid email address');
+                        isValid = false;
+                    } else if (fieldName === 'message' && value.length < 10) {
+                        showFieldError(fieldName, 'Message must be at least 10 characters long');
+                        isValid = false;
+                    }
+                });
+                
+                return isValid;
+            }
+            
+            function showFieldError(fieldName, message) {
+                const field = document.getElementById(fieldName);
+                const errorElement = document.getElementById(`${fieldName}-error`);
+                
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                }
+                
+                field.setAttribute('aria-invalid', 'true');
+                field.classList.add('error');
+            }
+            
+            function clearErrors() {
+                const errorElements = document.querySelectorAll('.field-error');
+                errorElements.forEach(element => {
+                    element.textContent = '';
+                    element.style.display = 'none';
+                });
+                
+                const fields = document.querySelectorAll('.form-input, .form-textarea, input[type="checkbox"]');
+                fields.forEach(field => {
+                    field.removeAttribute('aria-invalid');
+                    field.classList.remove('error');
+                });
+                
+                if (formErrors) {
+                    formErrors.style.display = 'none';
+                }
+            }
+            
+            function getFieldLabel(fieldName) {
+                const labels = {
+                    'name': 'Full Name',
+                    'email': 'Email Address',
+                    'phone': 'Phone Number',
+                    'company': 'Company Name',
+                    'service': 'Service',
+                    'budget': 'Budget',
+                    'timeline': 'Timeline',
+                    'message': 'Message',
+                    'privacy': 'Privacy Policy agreement'
+                };
+                return labels[fieldName] || fieldName;
+            }
+            
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            function showSuccessMessage() {
+                const message = document.createElement('div');
+                message.className = 'success-message';
+                message.innerHTML = `
+                    <div class="success-content">
+                        <h3>Thank you!</h3>
+                        <p>Your message has been sent successfully. We'll get back to you within 24 hours.</p>
+                    </div>
+                `;
+                
+                document.body.appendChild(message);
+                
+                setTimeout(() => {
+                    message.remove();
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

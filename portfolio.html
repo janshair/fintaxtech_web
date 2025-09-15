@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our recent projects including mobile apps, websites, and branding work for clients across various industries.">
+    <meta name="keywords" content="portfolio, projects, case studies, mobile apps, websites, branding">
+    <meta name="author" content="Fintaxtech Ltd">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fintaxtech.com/portfolio.html">
+    <meta property="og:title" content="Our Portfolio - Recent Projects & Case Studies">
+    <meta property="og:description" content="Explore our recent projects including mobile apps, websites, and branding work for clients across various industries.">
+    <meta property="og:image" content="https://fintaxtech.com/src/images/og-portfolio.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fintaxtech.com/portfolio.html">
+    <meta property="twitter:title" content="Our Portfolio - Recent Projects & Case Studies">
+    <meta property="twitter:description" content="Explore our recent projects including mobile apps, websites, and branding work for clients across various industries.">
+    <meta property="twitter:image" content="https://fintaxtech.com/src/images/og-portfolio.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://fintaxtech.com/portfolio.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/src/css/main.css">
+    
+    <title>Our Portfolio - Recent Projects & Case Studies | Fintaxtech Ltd</title>
+</head>
+<body>
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <a href="/" class="logo" aria-label="Fintaxtech Ltd - Home">
+                Fintaxtech
+            </a>
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="/" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="/services.html" class="nav-link" data-page="services">Services</a></li>
+                    <li><a href="/portfolio.html" class="nav-link active" data-page="portfolio">Portfolio</a></li>
+                    <li><a href="/packages.html" class="nav-link" data-page="packages">Packages</a></li>
+                    <li><a href="/contact.html" class="nav-link" data-page="contact">Get In Touch</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main" role="main">
+        <!-- Page Header -->
+        <section class="section page-header" aria-labelledby="page-title">
+            <div class="container">
+                <h1 id="page-title">Our Portfolio</h1>
+                <p class="page-subtitle">Explore our recent projects and see how we bring ideas to life</p>
+            </div>
+        </section>
+
+        <!-- Portfolio Filter -->
+        <section class="section portfolio-filter-section" aria-labelledby="filter-title">
+            <div class="container">
+                <h2 id="filter-title" class="sr-only">Filter Portfolio</h2>
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all" aria-pressed="true">All Projects</button>
+                    <button class="filter-btn" data-filter="website" aria-pressed="false">Websites</button>
+                    <button class="filter-btn" data-filter="mobile" aria-pressed="false">Mobile Apps</button>
+                    <button class="filter-btn" data-filter="branding" aria-pressed="false">Branding</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Grid -->
+        <section class="section" id="portfolio-grid" aria-labelledby="portfolio-title">
+            <div class="container">
+                <h2 id="portfolio-title" class="sr-only">Portfolio Projects</h2>
+                <div class="grid grid-3 portfolio-grid">
+                    <!-- Website Project 1 -->
+                    <div class="card portfolio-card" data-category="website">
+                        <div class="portfolio-image-container">
+                            <img src="/src/images/portfolio/website-1.jpg" alt="E-commerce Platform - Modern e-commerce solution with advanced features" class="portfolio-image" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <h3>E-commerce Platform</h3>
+                                <p>Website Development</p>
+                                <button class="btn btn-primary" onclick="openProjectModal('ecommerce')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>E-commerce Platform</h3>
+                            <p>Modern e-commerce solution with advanced features and seamless user experience.</p>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-category">Website Development</span>
+                                <span class="portfolio-tech">React, Node.js, MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile App Project 1 -->
+                    <div class="card portfolio-card" data-category="mobile">
+                        <div class="portfolio-image-container">
+                            <img src="/src/images/portfolio/mobile-app-1.jpg" alt="Fitness Tracking App - Comprehensive fitness tracking application" class="portfolio-image" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <h3>Fitness Tracking App</h3>
+                                <p>Mobile App</p>
+                                <button class="btn btn-primary" onclick="openProjectModal('fitness')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>Fitness Tracking App</h3>
+                            <p>Comprehensive fitness tracking application with social features and analytics.</p>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-category">Mobile App</span>
+                                <span class="portfolio-tech">React Native, Firebase</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Branding Project 1 -->
+                    <div class="card portfolio-card" data-category="branding">
+                        <div class="portfolio-image-container">
+                            <img src="/src/images/portfolio/branding-1.jpg" alt="Tech Startup Branding - Complete brand identity for fintech startup" class="portfolio-image" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <h3>Tech Startup Branding</h3>
+                                <p>Branding</p>
+                                <button class="btn btn-primary" onclick="openProjectModal('tech-branding')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>Tech Startup Branding</h3>
+                            <p>Complete brand identity for a fintech startup including logo, guidelines, and marketing materials.</p>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-category">Branding</span>
+                                <span class="portfolio-tech">Brand Strategy, Visual Identity</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Website Project 2 -->
+                    <div class="card portfolio-card" data-category="website">
+                        <div class="portfolio-image-container">
+                            <img src="/src/images/portfolio/website-2.jpg" alt="Corporate Website - Professional corporate website with CMS" class="portfolio-image" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <h3>Corporate Website</h3>
+                                <p>Website Development</p>
+                                <button class="btn btn-primary" onclick="openProjectModal('corporate')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>Corporate Website</h3>
+                            <p>Professional corporate website with content management system and multilingual support.</p>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-category">Website Development</span>
+                                <span class="portfolio-tech">WordPress, PHP, MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile App Project 2 -->
+                    <div class="card portfolio-card" data-category="mobile">
+                        <div class="portfolio-image-container">
+                            <img src="/src/images/portfolio/mobile-app-2.jpg" alt="Food Delivery App - Mobile app for food delivery service" class="portfolio-image" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <h3>Food Delivery App</h3>
+                                <p>Mobile App</p>
+                                <button class="btn btn-primary" onclick="openProjectModal('food-delivery')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>Food Delivery App</h3>
+                            <p>Mobile app for food delivery service with real-time tracking and payment integration.</p>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-category">Mobile App</span>
+                                <span class="portfolio-tech">Flutter, Firebase, Stripe</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Branding Project 2 -->
+                    <div class="card portfolio-card" data-category="branding">
+                        <div class="portfolio-image-container">
+                            <img src="/src/images/portfolio/branding-2.jpg" alt="Restaurant Branding - Complete brand identity for restaurant chain" class="portfolio-image" loading="lazy">
+                            <div class="portfolio-overlay">
+                                <h3>Restaurant Branding</h3>
+                                <p>Branding</p>
+                                <button class="btn btn-primary" onclick="openProjectModal('restaurant-branding')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>Restaurant Branding</h3>
+                            <p>Complete brand identity for restaurant chain including logo, menu design, and marketing materials.</p>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-category">Branding</span>
+                                <span class="portfolio-tech">Brand Strategy, Print Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Statistics -->
+        <section class="section stats-section" aria-labelledby="stats-title">
+            <div class="container">
+                <h2 id="stats-title" class="sr-only">Project Statistics</h2>
+                <div class="grid grid-4">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section" id="cta" aria-labelledby="cta-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="cta-title">Ready to Start Your Project?</h2>
+                    <p class="section-subtitle">Let's create something amazing together</p>
+                </div>
+                <div class="text-center">
+                    <a href="/contact.html" class="btn btn-primary btn-large">Get In Touch</a>
+                    <a href="/packages.html" class="btn btn-secondary btn-large">View Packages</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-body">
+                <h2 id="modal-title">Project Details</h2>
+                <div id="modal-content">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fintaxtech Ltd</h3>
+                    <p>Professional digital solutions for modern businesses. Specializing in mobile app development, website development, and company branding.</p>
+                    <div class="contact-info">
+                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:info@fintaxtech.com">info@fintaxtech.com</a></p>
+                        <p><strong>Company No:</strong> SC807896</p>
+                        <p><strong>Registered Office:</strong> Edinburgh, Scotland, UK</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="/services.html#mobile-apps">Mobile App Development</a></li>
+                        <li><a href="/services.html#web-development">Website Development</a></li>
+                        <li><a href="/services.html#branding">Company Branding</a></li>
+                        <li><a href="/packages.html">Our Packages</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="/portfolio.html">Our Portfolio</a></li>
+                        <li><a href="/contact.html">Get In Touch</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/privacy.html#cookies">Cookie Policy</a></li>
+                        <li><a href="https://find-and-update.company-information.service.gov.uk/company/SC807896" target="_blank" rel="noopener">Company House</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fintaxtech Ltd. All rights reserved. | Company Registration: SC807896 | Registered in Scotland</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/447884594929?text=Hi! I'm interested in your digital services. Can you help me?" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener"
+       aria-label="Contact us on WhatsApp">
+        <span class="whatsapp-text">Contact Now</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="/src/AppConstants.js"></script>
+    <script src="/src/js/Models.js"></script>
+    <script src="/src/js/Views.js"></script>
+    <script src="/src/js/Controllers.js"></script>
+    <script src="/src/js/App.js"></script>
+    
+    <!-- Portfolio-specific JavaScript -->
+    <script>
+        // Portfolio filter functionality
+        function initPortfolioFilter() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+                    
+                    // Update active button
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-pressed', 'false');
+                    });
+                    button.classList.add('active');
+                    button.setAttribute('aria-pressed', 'true');
+                    
+                    // Filter portfolio items
+                    portfolioCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.3s ease-in';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // Project modal functionality
+        function openProjectModal(projectId) {
+            const modal = document.getElementById('project-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            // Project data (in real app, this would come from an API)
+            const projects = {
+                'ecommerce': {
+                    title: 'E-commerce Platform',
+                    description: 'A modern e-commerce solution built with React and Node.js, featuring advanced product filtering, secure payment processing, and real-time inventory management.',
+                    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe', 'AWS'],
+                    features: ['Product Catalog', 'Shopping Cart', 'Payment Processing', 'Order Management', 'Admin Dashboard'],
+                    image: '/src/images/portfolio/website-1.jpg',
+                    category: 'Website Development'
+                },
+                'fitness': {
+                    title: 'Fitness Tracking App',
+                    description: 'A comprehensive fitness tracking application with social features, workout plans, and detailed analytics to help users achieve their fitness goals.',
+                    technologies: ['React Native', 'Firebase', 'Redux', 'Chart.js'],
+                    features: ['Workout Tracking', 'Social Features', 'Progress Analytics', 'Goal Setting', 'Nutrition Logging'],
+                    image: '/src/images/portfolio/mobile-app-1.jpg',
+                    category: 'Mobile App'
+                },
+                'tech-branding': {
+                    title: 'Tech Startup Branding',
+                    description: 'Complete brand identity for a fintech startup, including logo design, brand guidelines, and marketing materials that establish a strong market presence.',
+                    technologies: ['Adobe Creative Suite', 'Brand Strategy', 'Visual Identity'],
+                    features: ['Logo Design', 'Brand Guidelines', 'Business Cards', 'Website Design', 'Marketing Materials'],
+                    image: '/src/images/portfolio/branding-1.jpg',
+                    category: 'Branding'
+                }
+            };
+
+            const project = projects[projectId];
+            if (project) {
+                modalContent.innerHTML = `
+                    <div class="project-details">
+                        <img src="${project.image}" alt="${project.title}" class="project-image">
+                        <div class="project-info">
+                            <h3>${project.title}</h3>
+                            <p class="project-category">${project.category}</p>
+                            <p class="project-description">${project.description}</p>
+                            
+                            <div class="project-technologies">
+                                <h4>Technologies Used</h4>
+                                <div class="tech-tags">
+                                    ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                                </div>
+                            </div>
+                            
+                            <div class="project-features">
+                                <h4>Key Features</h4>
+                                <ul>
+                                    ${project.features.map(feature => `<li>${feature}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                modal.style.display = 'block';
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal functionality
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initPortfolioFilter();
+            
+            // Close modal events
+            document.querySelector('.modal-close').addEventListener('click', closeProjectModal);
+            document.getElementById('project-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'project-modal') {
+                    closeProjectModal();
+                }
+            });
+            
+            // Close modal on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeProjectModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
