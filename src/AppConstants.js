@@ -12,7 +12,7 @@ const AppConstants = {
     PHONE: "+447884594929",
     WHATSAPP_URL: "https://wa.me/447884594929",
     EMAIL: "info@fintaxtech.com",
-    REGISTERED_OFFICE: "Edinburgh, Scotland, United Kingdom"
+    REGISTERED_OFFICE: "Dundee, Scotland, United Kingdom"
   },
 
   // Design Tokens - Dark Theme
@@ -61,23 +61,23 @@ const AppConstants = {
 
   // Image Paths
   IMAGES: {
-    LOGO: "/src/images/logo.svg",
-    HERO_BG: "/src/images/hero-bg.jpg",
-    PLACEHOLDER: "/src/images/placeholder.jpg",
+    LOGO: "./src/images/logo.svg",
+    HERO_BG: "./src/images/hero-bg.jpg",
+    PLACEHOLDER: "./src/images/placeholder.jpg",
     // Portfolio Placeholders
     PORTFOLIO: {
-      WEBSITE_1: "/src/images/portfolio/website-1.jpg",
-      WEBSITE_2: "/src/images/portfolio/website-2.jpg",
-      MOBILE_APP_1: "/src/images/portfolio/mobile-app-1.jpg",
-      MOBILE_APP_2: "/src/images/portfolio/mobile-app-2.jpg",
-      BRANDING_1: "/src/images/portfolio/branding-1.jpg",
-      BRANDING_2: "/src/images/portfolio/branding-2.jpg"
+      WEBSITE_1: "./src/images/placeholder.svg",
+      WEBSITE_2: "./src/images/placeholder.svg",
+      MOBILE_APP_1: "./src/images/placeholder.svg",
+      MOBILE_APP_2: "./src/images/placeholder.svg",
+      BRANDING_1: "./src/images/placeholder.svg",
+      BRANDING_2: "./src/images/placeholder.svg"
     },
     // Service Icons
     SERVICES: {
-      MOBILE_APPS: "/src/images/icons/mobile-apps.svg",
-      WEB_DEVELOPMENT: "/src/images/icons/web-development.svg",
-      BRANDING: "/src/images/icons/branding.svg"
+      MOBILE_APPS: "./src/images/icons/mobile-apps.svg",
+      WEB_DEVELOPMENT: "./src/images/icons/web-development.svg",
+      BRANDING: "./src/images/icons/branding.svg"
     }
   },
 
@@ -116,21 +116,21 @@ const AppConstants = {
     WEBSITE: {
       title: "E-commerce Platform",
       description: "Modern e-commerce solution with advanced features and seamless user experience.",
-      image: "/src/images/portfolio/website-1.jpg",
+      image: "./src/images/placeholder.svg",
       category: "Website Development",
       technologies: ["React", "Node.js", "MongoDB"]
     },
     MOBILE_APP: {
       title: "Fitness Tracking App",
       description: "Comprehensive fitness tracking application with social features and analytics.",
-      image: "/src/images/portfolio/mobile-app-1.jpg",
+      image: "./src/images/placeholder.svg",
       category: "Mobile App",
       technologies: ["React Native", "Firebase", "Redux"]
     },
     BRANDING: {
       title: "Tech Startup Branding",
       description: "Complete brand identity for a fintech startup including logo, guidelines, and marketing materials.",
-      image: "/src/images/portfolio/branding-1.jpg",
+      image: "./src/images/placeholder.svg",
       category: "Branding",
       technologies: ["Brand Strategy", "Visual Identity", "Marketing"]
     }
@@ -190,27 +190,62 @@ const AppConstants = {
     HOME: {
       title: "Fintaxtech Ltd - Professional Digital Solutions",
       description: "Leading provider of mobile app development, website development, and company branding services. Based in Scotland, serving clients worldwide.",
-      keywords: "mobile app development, website development, branding, digital solutions, Scotland"
+      keywords: "mobile app development, website development, branding, digital solutions, Scotland",
+      ogImage: "./src/images/og-image.jpg"
     },
     SERVICES: {
       title: "Our Services - Mobile Apps, Web Development & Branding",
       description: "Comprehensive digital services including mobile app development, website development, and company branding solutions.",
-      keywords: "mobile apps, web development, branding, digital services"
+      keywords: "mobile apps, web development, branding, digital services",
+      ogImage: "./src/images/og-services.jpg"
     },
     PORTFOLIO: {
       title: "Our Portfolio - Recent Projects & Case Studies",
       description: "Explore our recent projects including mobile apps, websites, and branding work for clients across various industries.",
-      keywords: "portfolio, projects, case studies, mobile apps, websites, branding"
+      keywords: "portfolio, projects, case studies, mobile apps, websites, branding",
+      ogImage: "./src/images/og-portfolio.jpg"
     },
     PACKAGES: {
       title: "Our Packages - Affordable Digital Solutions",
       description: "Choose from our carefully crafted packages for mobile app development, website development, and branding services.",
-      keywords: "packages, pricing, mobile apps, web development, branding"
+      keywords: "packages, pricing, mobile apps, web development, branding",
+      ogImage: "./src/images/og-packages.jpg"
     },
     CONTACT: {
       title: "Get In Touch - Contact Fintaxtech Ltd",
       description: "Ready to start your project? Contact us for a free consultation and quote for your digital needs.",
-      keywords: "contact, consultation, quote, mobile apps, web development, branding"
+      keywords: "contact, consultation, quote, mobile apps, web development, branding",
+      ogImage: "./src/images/og-contact.jpg"
+    }
+  },
+
+  // Hero Section Content
+  HERO: {
+    title: "Professional Digital Solutions",
+    subtitle: "Transform your business with cutting-edge mobile apps, stunning websites, and compelling brand identities. We're Fintaxtech Ltd, your trusted partner in digital innovation.",
+    primaryButton: "Get Started",
+    secondaryButton: "View Our Work",
+    primaryButtonLink: "/contact.html",
+    secondaryButtonLink: "/portfolio.html"
+  },
+
+  // Section Headers
+  SECTIONS: {
+    SERVICES: {
+      title: "Our Services",
+      subtitle: "Comprehensive digital solutions tailored to your business needs"
+    },
+    PORTFOLIO: {
+      title: "Recent Work",
+      subtitle: "Explore our latest projects and see how we bring ideas to life"
+    },
+    PACKAGES: {
+      title: "Our Packages",
+      subtitle: "Choose the perfect package for your digital needs"
+    },
+    CTA: {
+      title: "Ready to Get Started?",
+      subtitle: "Let's discuss your project and bring your vision to life"
     }
   },
 
@@ -220,7 +255,7 @@ const AppConstants = {
       lastUpdated: "2024-01-01",
       controller: "Fintaxtech Ltd",
       companyNumber: "SC807896",
-      registeredOffice: "Edinburgh, Scotland, United Kingdom",
+      registeredOffice: "Dundee, Scotland, United Kingdom",
       contactEmail: "privacy@fintaxtech.com"
     },
     TERMS_OF_SERVICE: {

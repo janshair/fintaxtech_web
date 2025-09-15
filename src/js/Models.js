@@ -533,7 +533,7 @@ class SEOModel extends BaseModel {
       "email": "info@fintaxtech.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Edinburgh",
+        "addressLocality": "Dundee",
         "addressRegion": "Scotland",
         "addressCountry": "United Kingdom"
       },
