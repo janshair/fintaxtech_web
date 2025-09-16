@@ -2,6 +2,43 @@
 
 A modern, responsive website for Fintaxtech Ltd, a digital solutions company specializing in mobile app development, website development, and company branding services.
 
+To connect your GitHub Pages site to your GoDaddy domain (fintaxtech.co.uk), follow these steps:
+
+1. Add a CNAME file to your GitHub Pages repository
+In your repository (fintaxtech_web), create a file named CNAME (no extension) in the root directory.
+Inside the CNAME file, add your custom domain:
+2. Configure DNS settings on GoDaddy
+Log in to your GoDaddy account and go to your domain's DNS management page.
+
+Remove any existing A or CNAME records for @ or www that you don't need.
+
+Add or edit these records:
+
+For root domain (fintaxtech.co.uk):
+
+Type: A
+Name: @
+Value:
+
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+
+(Add all four A records, one for each IP.)
+For www subdomain (optional):
+
+Type: CNAME
+Name: www
+Value: janshair.github.io. (note the trailing dot)
+3. Wait for DNS propagation
+DNS changes can take a few minutes to several hours to propagate.
+
+4. Enforce HTTPS (recommended)
+Go to your repository’s Settings > Pages.
+Under "Custom domain", enter fintaxtech.co.uk and save.
+Check "Enforce HTTPS" once it’s available.
+
 ## 🌟 Features
 
 - **Multi-page Static Website** with clean, modern design
