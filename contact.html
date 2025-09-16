@@ -339,7 +339,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Fintaxtech Ltd. All rights reserved. | Company Registration: SC807896 | Registered in Scotland</p>
+                <p>&copy; 2025 Fintaxtech Ltd. All rights reserved. | Company Registration: SC807896 | Registered in Scotland</p>
             </div>
         </div>
     </footer>
@@ -411,16 +411,16 @@
                     // Show loading state
                     const submitButton = contactForm.querySelector('button[type="submit"]');
                     const originalText = submitButton.textContent;
-                    submitButton.textContent = 'Sending...';
+                    submitButton.textContent = 'Redirecting to WhatsApp...';
                     submitButton.disabled = true;
                     
-                    // Simulate form submission
+                    // Prepare WhatsApp message with form data
+                    const formData = prepareWhatsAppMessage();
+                    
+                    // Redirect to WhatsApp after a short delay
                     setTimeout(() => {
-                        showSuccessMessage();
-                        contactForm.reset();
-                        submitButton.textContent = originalText;
-                        submitButton.disabled = false;
-                    }, 2000);
+                        redirectToWhatsApp(formData);
+                    }, 1000);
                 }
             });
             
@@ -498,6 +498,63 @@
             function isValidEmail(email) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return emailRegex.test(email);
+            }
+            
+            function prepareWhatsAppMessage() {
+                const formData = new FormData(contactForm);
+                const message = [];
+                
+                // Add header
+
+                message.push(""); // Empty line
+                
+                // Add form fields with labels
+                const fieldLabels = {
+                    'name': 'First Name',
+                    'email': 'Email',
+                    'phone': 'Phone Number',
+                    'company': 'Company Name',
+                    'service': 'Service Interested In',
+                    'budget': 'Project Budget',
+                    'timeline': 'Project Timeline',
+                    'message': 'Project Details'
+                };
+                
+                // Add each field that has a value
+                Object.keys(fieldLabels).forEach(fieldName => {
+                    const value = formData.get(fieldName);
+                    if (value && value.trim() !== '') {
+                        message.push(`${fieldLabels[fieldName]}: ${value.trim()}`);
+                    }
+                });
+                
+                // Add newsletter subscription status
+                const newsletter = formData.get('newsletter');
+                if (newsletter) {
+                    message.push("Newsletter Subscription: Yes");
+                }
+                
+                // Add footer
+                message.push(""); // Empty line
+                
+                return message.join('\n');
+            }
+            
+            function redirectToWhatsApp(message) {
+                const phoneNumber = '447884594929'; // Your WhatsApp number
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                
+                // Open WhatsApp in a new tab
+                window.open(whatsappUrl, '_blank');
+                
+                // Reset form after redirect
+                contactForm.reset();
+                
+                // Reset button state
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                submitButton.textContent = 'Send Message';
+                submitButton.disabled = false;
             }
             
             function showSuccessMessage() {
