@@ -79,90 +79,6 @@
     }
     </script>
 
-    <!-- Scripts -->
-    <script src="./src/AppConstants.js"></script>
-    <script src="./src/js/ContentManager.js"></script>
-    <script src="./src/js/Models.js"></script>
-    <script src="./src/js/Views.js"></script>
-    <script src="./src/js/Controllers.js"></script>
-    <script src="./src/js/App.js"></script>
-    
-    <!-- Initialize Content Manager -->
-    <script>
-        // Initialize content manager after all scripts are loaded
-        window.addEventListener('load', function() {
-            console.log('Window loaded, initializing ContentManager...');
-            console.log('AppConstants available:', typeof AppConstants !== 'undefined');
-            console.log('ContentManager available:', typeof ContentManager !== 'undefined');
-            
-            if (typeof ContentManager !== 'undefined' && typeof AppConstants !== 'undefined') {
-                try {
-                    window.contentManager = new ContentManager();
-                    console.log('ContentManager initialized successfully');
-                } catch (error) {
-                    console.error('Error initializing ContentManager:', error);
-                }
-            } else {
-                console.error('Required scripts not loaded');
-                // Fallback: try again after a short delay
-                setTimeout(() => {
-                    if (typeof ContentManager !== 'undefined' && typeof AppConstants !== 'undefined') {
-                        window.contentManager = new ContentManager();
-                    }
-                }, 500);
-            }
-        });
-
-        // Mobile menu fallback - temporarily disabled
-        /*
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileToggle = document.querySelector('.mobile-menu-toggle');
-            const nav = document.querySelector('.nav');
-            
-            if (mobileToggle && nav) {
-                mobileToggle.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                    const isOpen = nav.classList.contains('active');
-                    mobileToggle.setAttribute('aria-expanded', isOpen);
-                    mobileToggle.classList.toggle('active');
-                    document.body.style.overflow = isOpen ? 'hidden' : '';
-                });
-
-                // Close menu when clicking on nav links
-                const navLinks = nav.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        nav.classList.remove('active');
-                        mobileToggle.setAttribute('aria-expanded', 'false');
-                        mobileToggle.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!nav.contains(e.target) && !mobileToggle.contains(e.target) && nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        mobileToggle.setAttribute('aria-expanded', 'false');
-                        mobileToggle.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-
-                // Close menu on escape key
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        mobileToggle.setAttribute('aria-expanded', 'false');
-                        mobileToggle.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-            }
-        });
-        */
-    </script>
-    
     <title>Fintaxtech Ltd - Professional Digital Solutions</title>
 </head>
 <body>
@@ -385,10 +301,9 @@
                     <p class="section-subtitle">Let's discuss your project and bring your vision to life</p>
                 </div>
                 <div class="text-center">
-                    <a href="/contact.html" class="btn btn-primary btn-large">Get In Touch</a>
+                    <a href="/contact.html" class="btn btn-primary btn-large" style="color:#fff;">Get In Touch</a>
                     <span style="margin-left:30px"></span>
-
-                    <a href="tel:+447884594929" class="btn btn-secondary btn-large">Call Us Now</a>
+                    <a href="tel:+447884594929" class="btn btn-secondary btn-large" style="color:#6ee14c;">Call Us Now</a>
                 </div>
             </div>
         </section>
@@ -473,5 +388,89 @@
         <span class="whatsapp-text">Contact Now</span>
     </a>
 
+    <!-- Scripts -->
+    <script src="./src/AppConstants.js"></script>
+    <script src="./src/js/ContentManager.js"></script>
+    <script src="./src/js/Models.js"></script>
+    <script src="./src/js/Views.js"></script>
+    <script src="./src/js/Controllers.js"></script>
+    <script src="./src/js/App.js"></script>
+    
+    <!-- Initialize Content Manager -->
+    <script>
+        // Initialize content manager after all scripts are loaded
+        window.addEventListener('load', function() {
+            console.log('Window loaded, initializing ContentManager...');
+            console.log('AppConstants available:', typeof AppConstants !== 'undefined');
+            console.log('ContentManager available:', typeof ContentManager !== 'undefined');
+            
+            if (typeof ContentManager !== 'undefined' && typeof AppConstants !== 'undefined') {
+                try {
+                    window.contentManager = new ContentManager();
+                    console.log('ContentManager initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing ContentManager:', error);
+                }
+            } else {
+                console.error('Required scripts not loaded');
+                // Fallback: try again after a short delay
+                setTimeout(() => {
+                    if (typeof ContentManager !== 'undefined' && typeof AppConstants !== 'undefined') {
+                        window.contentManager = new ContentManager();
+                    }
+                }, 500);
+            }
+        });
+
+        // Mobile menu fallback - temporarily disabled
+        /*
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('.nav');
+            
+            if (mobileToggle && nav) {
+                mobileToggle.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                    const isOpen = nav.classList.contains('active');
+                    mobileToggle.setAttribute('aria-expanded', isOpen);
+                    mobileToggle.classList.toggle('active');
+                    document.body.style.overflow = isOpen ? 'hidden' : '';
+                });
+
+                // Close menu when clicking on nav links
+                const navLinks = nav.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        nav.classList.remove('active');
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                        mobileToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target) && !mobileToggle.contains(e.target) && nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                        mobileToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+
+                // Close menu on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                        mobileToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+        });
+        */
+    </script>
+    
 </body>
 </html>
