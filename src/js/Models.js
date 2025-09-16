@@ -402,36 +402,36 @@ class SEOModel extends BaseModel {
         title: 'Fintaxtech Ltd - Professional Digital Solutions',
         description: 'Leading provider of mobile app development, website development, and company branding services. Based in Scotland, serving clients worldwide.',
         keywords: 'mobile app development, website development, branding, digital solutions, Scotland',
-        canonical: 'https://fintaxtech.com/',
-        ogImage: 'https://fintaxtech.com/src/images/og-image.jpg'
+        canonical: 'https://fintaxtech.co.uk/',
+        ogImage: 'https://fintaxtech.co.uk/src/images/og-image.jpg'
       },
       services: {
         title: 'Our Services - Mobile Apps, Web Development & Branding',
         description: 'Comprehensive digital services including mobile app development, website development, and company branding solutions.',
         keywords: 'mobile apps, web development, branding, digital services',
-        canonical: 'https://fintaxtech.com/services.html',
-        ogImage: 'https://fintaxtech.com/src/images/og-services.jpg'
+        canonical: 'https://fintaxtech.co.uk/services.html',
+        ogImage: 'https://fintaxtech.co.uk/src/images/og-services.jpg'
       },
       portfolio: {
         title: 'Our Portfolio - Recent Projects & Case Studies',
         description: 'Explore our recent projects including mobile apps, websites, and branding work for clients across various industries.',
         keywords: 'portfolio, projects, case studies, mobile apps, websites, branding',
-        canonical: 'https://fintaxtech.com/portfolio.html',
-        ogImage: 'https://fintaxtech.com/src/images/og-portfolio.jpg'
+        canonical: 'https://fintaxtech.co.uk/portfolio.html',
+        ogImage: 'https://fintaxtech.co.uk/src/images/og-portfolio.jpg'
       },
       packages: {
         title: 'Our Packages - Affordable Digital Solutions',
         description: 'Choose from our carefully crafted packages for mobile app development, website development, and branding services.',
         keywords: 'packages, pricing, mobile apps, web development, branding',
-        canonical: 'https://fintaxtech.com/packages.html',
-        ogImage: 'https://fintaxtech.com/src/images/og-packages.jpg'
+        canonical: 'https://fintaxtech.co.uk/packages.html',
+        ogImage: 'https://fintaxtech.co.uk/src/images/og-packages.jpg'
       },
       contact: {
         title: 'Get In Touch - Contact Fintaxtech Ltd',
         description: 'Ready to start your project? Contact us for a free consultation and quote for your digital needs.',
         keywords: 'contact, consultation, quote, mobile apps, web development, branding',
-        canonical: 'https://fintaxtech.com/contact.html',
-        ogImage: 'https://fintaxtech.com/src/images/og-contact.jpg'
+        canonical: 'https://fintaxtech.co.uk/contact.html',
+        ogImage: 'https://fintaxtech.co.uk/src/images/og-contact.jpg'
       }
     };
   }
@@ -528,9 +528,9 @@ class SEOModel extends BaseModel {
       "@type": "LocalBusiness",
       "name": "Fintaxtech Ltd",
       "description": "Professional digital solutions including mobile app development, website development, and company branding services.",
-      "url": "https://fintaxtech.com",
+      "url": "https://fintaxtech.co.uk",
       "telephone": "+447884594929",
-      "email": "info@fintaxtech.com",
+      "email": "info@fintaxtech.co.uk",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Dundee",

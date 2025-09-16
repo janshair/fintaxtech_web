@@ -11,14 +11,14 @@ const AppConstants = {
     COMPANY_HOUSE_URL: "https://find-and-update.company-information.service.gov.uk/company/SC807896",
     PHONE: "+447884594929",
     WHATSAPP_URL: "https://wa.me/447884594929",
-    EMAIL: "info@fintaxtech.com",
+    EMAIL: "info@fintaxtech.co.uk",
     REGISTERED_OFFICE: "Dundee, Scotland, United Kingdom"
   },
 
   // Design Tokens - Dark Theme
   COLORS: {
-    PRIMARY: "#00D4FF",
-    PRIMARY_DARK: "#0099CC",
+    PRIMARY: "#00D400",
+    PRIMARY_DARK: "#009900",
     SECONDARY: "#FF6B35",
     ACCENT: "#7B68EE",
     BACKGROUND: "#0A0A0A",
@@ -252,14 +252,14 @@ const AppConstants = {
   // Legal Content
   LEGAL: {
     PRIVACY_POLICY: {
-      lastUpdated: "2024-01-01",
+      lastUpdated: "2025-01-01",
       controller: "Fintaxtech Ltd",
       companyNumber: "SC807896",
       registeredOffice: "Dundee, Scotland, United Kingdom",
-      contactEmail: "privacy@fintaxtech.com"
+      contactEmail: "privacy@fintaxtech.co.uk"
     },
     TERMS_OF_SERVICE: {
-      lastUpdated: "2024-01-01",
+      lastUpdated: "2025-01-01",
       governingLaw: "Scotland, United Kingdom",
       companyNumber: "SC807896"
     }

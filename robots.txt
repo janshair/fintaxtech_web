@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://fintaxtech.com/sitemap.xml
+Sitemap: https://fintaxtech.co.uk/sitemap.xml
 
 # Disallow admin areas (if any)
 Disallow: /admin/

@@ -37,7 +37,7 @@ Save the file and refresh your website to see the changes.
 COMPANY: {
   NAME: "Fintaxtech Ltd",                    // Your company name
   PHONE: "+447884594929",                    // Your phone number
-  EMAIL: "info@fintaxtech.com",              // Your email address
+  EMAIL: "info@fintaxtech.co.uk",              // Your email address
   REGISTERED_OFFICE: "Dundee, Scotland, UK"  // Your business address
 }
 ```
@@ -119,7 +119,7 @@ Find: `PHONE: "+447884594929"`
 Change to: `PHONE: "+44 YOUR NEW NUMBER"`
 
 ### Update Email Address
-Find: `EMAIL: "info@fintaxtech.com"`
+Find: `EMAIL: "info@fintaxtech.co.uk"`
 Change to: `EMAIL: "your-new-email@domain.com"`
 
 ### Change Service Descriptions

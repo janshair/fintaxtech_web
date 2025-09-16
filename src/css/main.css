@@ -52,8 +52,8 @@ img:not([src])::after, img[src=""]::after {
 /* CSS Custom Properties (CSS Variables) */
 :root {
   /* Colors */
-  --color-primary: #00D4FF;
-  --color-primary-dark: #0099CC;
+  --color-primary: #00D400;
+  --color-primary-dark: #009900;
   --color-secondary: #FF6B35;
   --color-accent: #7B68EE;
   --color-background: #0A0A0A;
@@ -779,7 +779,7 @@ a:hover, a:focus {
   }
 
   /* Original mobile menu code - commented out for now */
-  /*
+  
   .nav {
     position: fixed;
     top: 70px;
@@ -813,7 +813,7 @@ a:hover, a:focus {
     border-radius: 8px;
     margin: var(--spacing-xs) 0;
   }
-  */
+  
 
   .hero h1 {
     font-size: 2.5rem;

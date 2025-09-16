@@ -222,7 +222,7 @@ All design elements are centralized in `src/AppConstants.js`:
 
 **Fintaxtech Ltd**
 - **Phone**: +44 7884 594929
-- **Email**: info@fintaxtech.com
+- **Email**: info@fintaxtech.co.uk
 - **Company Number**: SC807896
 - **Registered Office**: Dundee, Scotland, UK
 

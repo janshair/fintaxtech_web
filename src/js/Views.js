@@ -213,7 +213,7 @@ class FooterView extends BaseView {
               <p>Professional digital solutions for modern businesses. Specializing in mobile app development, website development, and company branding.</p>
               <div class="contact-info">
                 <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>
-                <p><strong>Email:</strong> <a href="mailto:info@fintaxtech.com">info@fintaxtech.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:info@fintaxtech.co.uk">info@fintaxtech.co.uk</a></p>
                 <p><strong>Company No:</strong> SC807896</p>
                 <p><strong>Registered Office:</strong> Dundee, Scotland, UK</p>
               </div>

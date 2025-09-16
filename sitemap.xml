@@ -6,7 +6,7 @@
     
     <!-- Homepage -->
     <url>
-        <loc>https://fintaxtech.com/</loc>
+        <loc>https://fintaxtech.co.uk/</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
@@ -14,7 +14,7 @@
     
     <!-- Services Page -->
     <url>
-        <loc>https://fintaxtech.com/services.html</loc>
+        <loc>https://fintaxtech.co.uk/services.html</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
@@ -22,7 +22,7 @@
     
     <!-- Portfolio Page -->
     <url>
-        <loc>https://fintaxtech.com/portfolio.html</loc>
+        <loc>https://fintaxtech.co.uk/portfolio.html</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -30,7 +30,7 @@
     
     <!-- Packages Page -->
     <url>
-        <loc>https://fintaxtech.com/packages.html</loc>
+        <loc>https://fintaxtech.co.uk/packages.html</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -38,7 +38,7 @@
     
     <!-- Contact Page -->
     <url>
-        <loc>https://fintaxtech.com/contact.html</loc>
+        <loc>https://fintaxtech.co.uk/contact.html</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -46,7 +46,7 @@
     
     <!-- Privacy Policy -->
     <url>
-        <loc>https://fintaxtech.com/privacy.html</loc>
+        <loc>https://fintaxtech.co.uk/privacy.html</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
@@ -54,7 +54,7 @@
     
     <!-- Terms of Service -->
     <url>
-        <loc>https://fintaxtech.com/terms.html</loc>
+        <loc>https://fintaxtech.co.uk/terms.html</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
