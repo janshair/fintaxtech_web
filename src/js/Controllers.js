@@ -364,6 +364,13 @@ class NavigationController extends BaseController {
 class CookieController extends BaseController {
   constructor(model, view) {
     super(model, view);
+    this.shouldShowBanner = true; // Always show banner on load
+  }
+
+  init() {
+    super.init();
+    // Always show cookie banner on initialization
+    this.showCookieBanner();
   }
 
   bindModelEvents() {
@@ -412,12 +419,14 @@ class CookieController extends BaseController {
     this.model.acceptAll();
     this.loadAnalytics();
     this.loadMarketing();
+    this.hideCookieBanner();
   }
 
   rejectAllCookies() {
     this.model.rejectAll();
     this.removeAnalytics();
     this.removeMarketing();
+    this.hideCookieBanner();
   }
 
   saveCookiePreferences(preferences) {
@@ -437,6 +446,8 @@ class CookieController extends BaseController {
     } else {
       this.removeMarketing();
     }
+    
+    this.hideCookieBanner();
   }
 
   updateCookieCategory(category, enabled) {
@@ -538,6 +549,155 @@ class CookieController extends BaseController {
     setTimeout(() => {
       notification.remove();
     }, 3000);
+  }
+
+  showCookieBanner() {
+    // Always show cookie banner on page load
+    const existingBanner = document.querySelector('.cookie-banner');
+    if (existingBanner) {
+      existingBanner.remove();
+    }
+
+    const banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.innerHTML = `
+      <div class="cookie-banner-content">
+        <div class="cookie-banner-text">
+          <h3>Cookie Preferences</h3>
+          <p>We use cookies to enhance your browsing experience and analyze our traffic. Please choose your cookie preferences.</p>
+        </div>
+        <div class="cookie-banner-actions">
+          <button class="btn btn-secondary cookie-reject-all">Reject All</button>
+          <button class="btn btn-outline cookie-customize">Customize</button>
+          <button class="btn btn-primary cookie-accept-all">Accept All</button>
+        </div>
+      </div>
+    `;
+    
+    banner.style.cssText = `
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 9999;
+      padding: 1rem;
+      animation: slideUp 0.3s ease-out;
+    `;
+
+    document.body.appendChild(banner);
+
+    // Bind events to the banner buttons
+    banner.querySelector('.cookie-accept-all').addEventListener('click', () => {
+      this.acceptAllCookies();
+    });
+
+    banner.querySelector('.cookie-reject-all').addEventListener('click', () => {
+      this.rejectAllCookies();
+    });
+
+    banner.querySelector('.cookie-customize').addEventListener('click', () => {
+      this.showCookieCustomization();
+    });
+  }
+
+  hideCookieBanner() {
+    const banner = document.querySelector('.cookie-banner');
+    if (banner) {
+      banner.remove();
+    }
+  }
+
+  showCookieCustomization() {
+    // Show detailed cookie preferences modal
+    const modal = document.createElement('div');
+    modal.className = 'cookie-modal';
+    modal.innerHTML = `
+      <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+          <h2>Cookie Preferences</h2>
+          <button class="cookie-modal-close">&times;</button>
+        </div>
+        <div class="cookie-modal-body">
+          <div class="cookie-category">
+            <h3>Essential Cookies</h3>
+            <p>These cookies are necessary for the website to function properly.</p>
+            <label class="toggle">
+              <input type="checkbox" checked disabled>
+              <span class="toggle-slider"></span>
+              Always Active
+            </label>
+          </div>
+          <div class="cookie-category">
+            <h3>Analytics Cookies</h3>
+            <p>Help us understand how visitors interact with our website.</p>
+            <label class="toggle">
+              <input type="checkbox" id="analytics-toggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="cookie-category">
+            <h3>Marketing Cookies</h3>
+            <p>Used to track visitors across websites for marketing purposes.</p>
+            <label class="toggle">
+              <input type="checkbox" id="marketing-toggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="cookie-modal-footer">
+          <button class="btn btn-secondary cookie-modal-reject">Reject All</button>
+          <button class="btn btn-primary cookie-modal-save">Save Preferences</button>
+        </div>
+      </div>
+    `;
+
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    `;
+
+    document.body.appendChild(modal);
+
+    // Bind modal events
+    modal.querySelector('.cookie-modal-close').addEventListener('click', () => {
+      modal.remove();
+    });
+
+    modal.querySelector('.cookie-modal-reject').addEventListener('click', () => {
+      this.rejectAllCookies();
+      modal.remove();
+    });
+
+    modal.querySelector('.cookie-modal-save').addEventListener('click', () => {
+      const analytics = modal.querySelector('#analytics-toggle').checked;
+      const marketing = modal.querySelector('#marketing-toggle').checked;
+      
+      this.saveCookiePreferences({
+        essential: true,
+        analytics: analytics,
+        marketing: marketing
+      });
+      
+      modal.remove();
+    });
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.remove();
+      }
+    });
   }
 }
 

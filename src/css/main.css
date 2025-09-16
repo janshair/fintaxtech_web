@@ -612,6 +612,64 @@ a:hover, a:focus {
   color: var(--color-text-muted);
 }
 
+/* Social Media Buttons */
+.social-media {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+}
+
+.social-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border);
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.social-link.facebook:hover {
+  color: #1877f2;
+}
+
+.social-link.instagram:hover {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive social media */
+@media (max-width: 768px) {
+  .social-media {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .social-link {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+  }
+}
+
 /* WhatsApp Floating Button */
 .whatsapp-float {
   position: fixed;
