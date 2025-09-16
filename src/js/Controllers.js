@@ -552,11 +552,11 @@ class CookieController extends BaseController {
   }
 
   showCookieBanner() {
-    // Always show cookie banner on page load
-    const existingBanner = document.querySelector('.cookie-banner');
-    if (existingBanner) {
-      existingBanner.remove();
-    }
+    // Only show cookie banner if not already accepted/rejected in this session
+    if (window.sessionStorage.getItem('cookieBannerDismissed')) return;
+
+    let existingBanner = document.querySelector('.cookie-banner');
+    if (existingBanner) existingBanner.remove();
 
     const banner = document.createElement('div');
     banner.className = 'cookie-banner';
@@ -566,7 +566,7 @@ class CookieController extends BaseController {
           <h3>Cookie Preferences</h3>
           <p>We use cookies to enhance your browsing experience and analyze our traffic. Please choose your cookie preferences.</p>
         </div>
-        <div class="cookie-banner-actions">
+        <div class="cookie-banner-actions" style="display: flex; justify-content: center; align-items: center; gap: 30px;">
           <button class="btn btn-secondary cookie-reject-all">Reject All</button>
           <button class="btn btn-outline cookie-customize">Customize</button>
           <button class="btn btn-primary cookie-accept-all">Accept All</button>
@@ -579,9 +579,10 @@ class CookieController extends BaseController {
       bottom: 0;
       left: 0;
       right: 0;
-      background: white;
-      border-top: 1px solid #e0e0e0;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      background: #1A1A1A;
+      color: #fff;
+      border-top: 1px solid #333;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
       z-index: 9999;
       padding: 1rem;
       animation: slideUp 0.3s ease-out;
@@ -591,10 +592,12 @@ class CookieController extends BaseController {
 
     // Bind events to the banner buttons
     banner.querySelector('.cookie-accept-all').addEventListener('click', () => {
+      window.sessionStorage.setItem('cookieBannerDismissed', '1');
       this.acceptAllCookies();
     });
 
     banner.querySelector('.cookie-reject-all').addEventListener('click', () => {
+      window.sessionStorage.setItem('cookieBannerDismissed', '1');
       this.rejectAllCookies();
     });
 

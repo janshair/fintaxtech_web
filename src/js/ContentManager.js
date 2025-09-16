@@ -57,13 +57,13 @@ class ContentManager {
 
   updatePageTitle() {
     const currentPage = this.getCurrentPage();
-    const metaData = this.constants.META[currentPage] || this.constants.META.home;
+    const metaData = this.constants.META[currentPage] || this.constants.META.HOME;
     document.title = metaData.title;
   }
 
   updateMetaTags() {
     const currentPage = this.getCurrentPage();
-    const metaData = this.constants.META[currentPage] || this.constants.META.home;
+    const metaData = this.constants.META[currentPage.toUpperCase()] || this.constants.META.home;
     
     // Update meta description
     this.updateMetaTag('description', metaData.description);
