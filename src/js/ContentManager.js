@@ -57,13 +57,13 @@ class ContentManager {
 
   updatePageTitle() {
     const currentPage = this.getCurrentPage();
-    const metaData = this.constants.META[currentPage] || this.constants.META.HOME;
+    const metaData = this.constants.META[currentPage] || this.constants.META.home;
     document.title = metaData.title;
   }
 
   updateMetaTags() {
     const currentPage = this.getCurrentPage();
-    const metaData = this.constants.META[currentPage.toUpperCase()] || this.constants.META.home;
+    const metaData = this.constants.META[currentPage] || this.constants.META.home;
     
     // Update meta description
     this.updateMetaTag('description', metaData.description);
@@ -127,10 +127,11 @@ class ContentManager {
     }
     
     if (heroActions) {
-      heroActions.innerHTML = `
-        <a href="${this.constants.HERO.primaryButtonLink}" class="btn btn-primary">${this.constants.HERO.primaryButton}</a>
-        <a href="${this.constants.HERO.secondaryButtonLink}" class="btn btn-secondary">${this.constants.HERO.secondaryButton}</a>
-      `;
+      let html = `<a href="${this.constants.HERO.primaryButtonLink}" class="btn btn-primary">${this.constants.HERO.primaryButton}</a>`;
+      if (this.constants.HERO.secondaryButton && this.constants.HERO.secondaryButtonLink) {
+        html += ` <a href="${this.constants.HERO.secondaryButtonLink}" class="btn btn-secondary">${this.constants.HERO.secondaryButton}</a>`;
+      }
+      heroActions.innerHTML = html;
     }
   }
 

@@ -221,12 +221,12 @@ const AppConstants = {
 
   // Hero Section Content
   HERO: {
-    title: "Professional Digital Solutions",
-    subtitle: "Transform your business with cutting-edge mobile apps, stunning websites, and compelling brand identities. We're Fintaxtech Ltd, your trusted partner in digital innovation.",
-    primaryButton: "Get Started",
-    secondaryButton: "View Our Work",
-    primaryButtonLink: "/contact.html",
-    secondaryButtonLink: "/portfolio.html"
+  title: "Professional Digital Solutions",
+  subtitle: "Transform your business with cutting-edge mobile apps, stunning websites, and compelling brand identities. We're Fintaxtech Ltd, your trusted partner in digital innovation.",
+  primaryButton: "Get Started",
+  // secondaryButton: "View Our Work",
+  primaryButtonLink: "/contact.html",
+  // secondaryButtonLink: "/portfolio.html"
   },
 
   // Section Headers
