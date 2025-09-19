@@ -732,6 +732,26 @@ a:hover, a:focus {
   color: var(--color-text-secondary);
 }
 
+.cookie-banner-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .cookie-banner-actions {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .cookie-banner-actions .btn {
+    width: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
+    box-sizing: border-box;
+  }
+}
+
 .cookie-consent-actions {
   display: flex;
   gap: var(--spacing-md);

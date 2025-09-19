@@ -566,7 +566,7 @@ class CookieController extends BaseController {
           <h3>Cookie Preferences</h3>
           <p>We use cookies to enhance your browsing experience and analyze our traffic. Please choose your cookie preferences.</p>
         </div>
-        <div class="cookie-banner-actions" style="display: flex; justify-content: center; align-items: center; gap: 30px;">
+        <div class="cookie-banner-actions">
           <button class="btn btn-secondary cookie-reject-all">Reject All</button>
           <button class="btn btn-outline cookie-customize">Customize</button>
           <button class="btn btn-primary cookie-accept-all">Accept All</button>
