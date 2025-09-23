@@ -245,7 +245,7 @@ class FooterView extends BaseView {
                 <li><a href="/privacy.html">Privacy Policy</a></li>
                 <li><a href="/terms.html">Terms of Service</a></li>
                 <li><a href="/privacy.html#cookies">Cookie Policy</a></li>
-                <li><a href="https://find-and-update.company-information.service.gov.uk/company/SC807896" target="_blank" rel="noopener">Company House</a></li>
+                
               </ul>
             </div>
           </div>

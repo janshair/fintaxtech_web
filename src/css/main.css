@@ -599,10 +599,22 @@ a:hover, a:focus {
 .footer-section ul li a {
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .footer-section ul li a:hover {
   color: var(--color-primary);
+}
+
+/* Ensure inline SVG icons in Legal links are visible and sized */
+.footer-section ul li a svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  display: inline-block;
+  fill: currentColor;
 }
 
 .footer-bottom {
