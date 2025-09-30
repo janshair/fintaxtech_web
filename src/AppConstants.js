@@ -291,7 +291,7 @@ const AppConstants = {
   WHATSAPP: {
     MESSAGE: "Hi! I'm interested in your digital services. Can you help me?",
     BUTTON_TEXT: "Message Us",
-    FLOATING_TEXT: "Contact Now"
+    FLOATING_TEXT: "Whatsapp Now"
   }
 };
 
