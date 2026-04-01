@@ -11,7 +11,7 @@ const AppConstants = {
     COMPANY_HOUSE_URL: "https://find-and-update.company-information.service.gov.uk/company/SC807896",
     PHONE: "+447884594929",
     WHATSAPP_URL: "https://wa.me/447884594929",
-    EMAIL: "info@fintaxtech.co.uk",
+    EMAIL: "ask@fintaxtech.co.uk",
     REGISTERED_OFFICE: "Dundee, Scotland, United Kingdom"
   },
 

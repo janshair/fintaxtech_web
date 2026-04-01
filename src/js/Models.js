@@ -530,7 +530,7 @@ class SEOModel extends BaseModel {
       "description": "Professional digital solutions including mobile app development, website development, and company branding services.",
       "url": "https://fintaxtech.co.uk",
       "telephone": "+447884594929",
-      "email": "info@fintaxtech.co.uk",
+      "email": "ask@fintaxtech.co.uk",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Dundee",
