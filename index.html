@@ -3,517 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Leading provider of mobile app development, website development, and company branding services. Based in Scotland, serving clients worldwide. Looking for website development near you? Fintaxtech Ltd offers professional web design and digital solutions in Dundee and across Scotland.">
-    <meta name="keywords" content="mobile app development, website development, branding, digital solutions, Scotland">
-    <meta name="author" content="Fintaxtech Ltd">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fintaxtech.co.uk/">
-    <meta property="og:title" content="Fintaxtech Ltd - Professional Digital Solutions">
-    <meta property="og:description" content="Leading provider of mobile app development, website development, and company branding services. Based in Scotland, serving clients worldwide.">
-    <meta property="og:image" content="https://fintaxtech.co.uk/src/images/og-image.jpg">
-    <meta property="og:site_name" content="Fintaxtech Ltd">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://fintaxtech.co.uk/">
-    <meta property="twitter:title" content="Fintaxtech Ltd - Professional Digital Solutions">
-    <meta property="twitter:description" content="Leading provider of mobile app development, website development, and company branding services. Based in Scotland, serving clients worldwide.">
-    <meta property="twitter:image" content="https://fintaxtech.co.uk/src/images/og-image.jpg">
-    <meta property="twitter:site" content="@fintaxtechuk">
-    <meta property="twitter:creator" content="@fintaxtechuk">
-    
-    <!-- Social Media Profiles -->
-    <meta property="fb:pages" content="https://www.facebook.com/fintaxtechuk/">
-    <meta property="og:see_also" content="https://www.facebook.com/fintaxtechuk/">
-    <meta property="og:see_also" content="https://www.instagram.com/fintaxtechuk/">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://fintaxtech.co.uk/">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./src/images/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="./src/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./src/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./src/images/favicon-16x16.png">
-    
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="./src/css/main.css">
-    
-    <!-- JSON-LD Structured Data: LocalBusiness -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Fintaxtech Ltd",
-        "description": "Professional digital solutions including mobile app development, website development, and company branding services.",
-        "url": "https://fintaxtech.co.uk",
-        "logo": "https://fintaxtech.co.uk/src/images/logo.png",
-        "image": [
-            "https://fintaxtech.co.uk/src/images/og-image.jpg"
-        ],
-        "telephone": "+447884594929",
-        "email": "ask@fintaxtech.co.uk",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "79 Yarrow Terrace",
-            "addressLocality": "Dundee",
-            "addressRegion": "Scotland",
-            "postalCode": "DD2 4DX",
-            "addressCountry": "United Kingdom"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "56.4690051",
-            "longitude": "-3.0176404"
-        },
-        "sameAs": [
-            "https://www.facebook.com/fintaxtechuk/",
-            "https://www.instagram.com/fintaxtechuk/"
-        ],
-        "foundingDate": "2024",
-        "numberOfEmployees": "1-10",
-        "priceRange": "£££",
-        "service": [
-            "Mobile App Development",
-            "Website Development",
-            "Company Branding",
-            "Logo design"
-        ],
-        "openingHoursSpecification": [
-            {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-            }
-        ],
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+447884594929",
-            "contactType": "customer service",
-            "areaServed": "GB",
-            "availableLanguage": ["English"]
+    <meta name="color-scheme" content="light">
+    <title>Fintaxtech Ltd</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background: #ffffff;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      .logo-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        text-align: center;
+      }
+      .logo-wrap img {
+        display: block;
+        max-width: min(90vw, 480px);
+        height: auto;
+      }
+      .email-animated {
+        color: #000000;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: clamp(0.95rem, 2.8vw, 1.125rem);
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        animation: emailReveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+      }
+      .email-animated:hover,
+      .email-animated:focus-visible {
+        text-decoration: underline;
+        outline: none;
+      }
+      @keyframes emailReveal {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
         }
-    }
-    </script>
-    <!-- JSON-LD Structured Data: WebSite -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Fintaxtech Ltd",
-        "url": "https://fintaxtech.co.uk/",
-        "publisher": {
-            "@type": "Organization",
-            "name": "Fintaxtech Ltd",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://fintaxtech.co.uk/src/images/logo.png"
-            }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-    }
-    </script>
-
-    <!-- Scripts -->
-    <script src="./src/AppConstants.js"></script>
-    <!-- <script src="./src/js/ContentManager.js"></script> -->
-
-    <title>Fintaxtech Ltd - Professional Digital Solutions</title>
+      }
+    </style>
 </head>
 <body>
-    <!-- Skip to Content Link -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <!-- Header -->
-    <header class="header" role="banner">
-        <div class="header-container">
-            <a href="/" class="logo" aria-label="Fintaxtech Ltd - Home">
-                Fintaxtech
-            </a>
-            
-            <!-- Navigation temporarily hidden -->
-
-            <nav class="nav" role="navigation" aria-label="Main navigation">
-                <ul class="nav-list">
-                    <li><a href="/" class="nav-link active" data-page="home">Home</a></li>
-                    <li><a href="/services.html" class="nav-link" data-page="services">Services</a></li>
-                    <!-- <li><a href="/portfolio.html" class="nav-link" data-page="portfolio">Portfolio</a></li> -->
-                    <li><a href="/packages.html" class="nav-link" data-page="packages">Packages</a></li>
-                    <li><a href="/contact.html" class="nav-link" data-page="contact">Get In Touch</a></li>
-                </ul>
-            </nav>
-
-            <!-- Mobile menu temporarily hidden -->
-
-            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
-            </button>
-
-            
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main id="main-content" class="main" role="main">
-        <!-- Hero Section -->
-        <section class="hero" aria-labelledby="hero-title">
-            <div class="hero-content">
-                <h1 id="hero-title">Professional Digital Solutions</h1>
-                <p>Transform your business with cutting-edge mobile apps, stunning websites, and compelling brand identities. We're Fintaxtech Ltd, your trusted partner in digital innovation.</p>
-                <div class="hero-actions">
-                    <a href="/contact.html" class="btn btn-primary">Get Started</a>
-                    <a href="/portfolio.html" class="btn btn-secondary" style="display:none;">View Our Work</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section class="section" id="services" aria-labelledby="services-title">
-            <div class="container">
-                <div class="section-header">
-                    <h2 id="services-title">Our Services</h2>
-                    <p class="section-subtitle">Comprehensive digital solutions tailored to your business needs</p>
-                </div>
-                <div class="grid grid-3">
-                    <div class="card service-card">
-                        <div class="service-icon" aria-hidden="true">📱</div>
-                        <h3>Mobile App Development</h3>
-                        <p>Custom iOS and Android applications built with modern frameworks and best practices. From concept to App Store.</p>
-                        <ul class="service-features">
-                            <li>Native iOS & Android</li>
-                            <li>Cross-platform solutions</li>
-                            <li>UI/UX Design</li>
-                            <li>App Store optimization</li>
-                        </ul>
-                        <!-- <a href="/services.html" class="btn btn-secondary">Learn More</a> -->
-                    </div>
-                    <div class="card service-card">
-                        <div class="service-icon" aria-hidden="true">🌐</div>
-                        <h3>Website Development</h3>
-                        <p>Responsive, fast, and SEO-optimized websites that drive business growth and engage your audience.</p>
-                        <ul class="service-features">
-                            <li>Responsive Design</li>
-                            <li>SEO Optimization</li>
-                            <li>Performance</li>
-                            <li>Security</li>
-                        </ul>
-                        <!-- <a href="/services.html" class="btn btn-secondary">Learn More</a> -->
-                    </div>
-                    <div class="card service-card">
-                        <div class="service-icon" aria-hidden="true">🎨</div>
-                        <h3>Company Branding</h3>
-                        <p>Complete brand identity solutions including logo design, guidelines, and marketing materials.</p>
-                        <ul class="service-features">
-                            <li>Logo Design</li>
-                            <li>Brand Guidelines</li>
-                            <li>Marketing Materials</li>
-                            <li>Digital Assets</li>
-                        </ul>
-                        <!-- <a href="/services.html" class="btn btn-secondary">Learn More</a> -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Preview Section -->
-         <!--
-        <section class="section" id="portfolio-preview" aria-labelledby="portfolio-title">
-            <div class="container">
-                <div class="section-header">
-                    <h2 id="portfolio-title">Recent Work</h2>
-                    <p class="section-subtitle">Explore our latest projects and see how we bring ideas to life</p>
-                </div>
-                <div class="grid grid-3">
-                    <div class="card portfolio-card">
-                        <img src="./src/images/placeholder.svg" alt="E-commerce Platform" class="portfolio-image" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3>E-commerce Platform</h3>
-                            <p>Website Development</p>
-                        </div>
-                        <div class="portfolio-content">
-                            <h3>E-commerce Platform</h3>
-                            <p>Modern e-commerce solution with advanced features and seamless user experience.</p>
-                            <span class="portfolio-category">Website Development</span>
-                        </div>
-                    </div>
-                    <div class="card portfolio-card">
-                        <img src="./src/images/placeholder.svg" alt="Fitness Tracking App" class="portfolio-image" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3>Fitness Tracking App</h3>
-                            <p>Mobile App</p>
-                        </div>
-                        <div class="portfolio-content">
-                            <h3>Fitness Tracking App</h3>
-                            <p>Comprehensive fitness tracking application with social features and analytics.</p>
-                            <span class="portfolio-category">Mobile App</span>
-                        </div>
-                    </div>
-                    <div class="card portfolio-card">
-                        <img src="./src/images/placeholder.svg" alt="Tech Startup Branding" class="portfolio-image" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3>Tech Startup Branding</h3>
-                            <p>Branding</p>
-                        </div>
-                        <div class="portfolio-content">
-                            <h3>Tech Startup Branding</h3>
-                            <p>Complete brand identity for a fintech startup including logo, guidelines, and marketing materials.</p>
-                            <span class="portfolio-category">Branding</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <a href="/portfolio.html" class="btn btn-primary">View All Projects</a>
-                </div>
-            </div>
-        </section>
-
-    -->
-
-        <!-- Packages Preview Section -->
-        <section class="section" id="packages-preview" aria-labelledby="packages-title">
-            <div class="container">
-                <div class="section-header">
-                    <h2 id="packages-title">Our Packages</h2>
-                    <p class="section-subtitle">Choose the perfect package for your digital needs</p>
-                </div>
-                <div class="grid grid-3">
-                    <div class="card package-card">
-                        <!-- <div class="package-badge">Most Popular</div> -->
-                        <h3>Company Setup</h3>
-                    </br>
-                        <p class="package-subtitle">Branding + Static Website</p>
-                        <div class="package-price">£2,499</div>
-                        <ul class="package-features">
-                            <li>Custom Logo Design</li>
-                            <li>Brand Guidelines</li>
-                            <li>5-Page Static Website</li>
-                            <li>SEO Optimization</li>
-                            <li>Mobile Responsive</li>
-                            <li>1 Year Hosting</li>
-                        </ul>
-                        <!-- <a href="/packages.html" class="btn btn-secondary">Choose Package</a> -->
-                    </div>
-                    <div class="card package-card">
-                        <h3>Static Website Development </h3>
-                        <p class="package-subtitle">Custom Web Solutions</p>
-                        <div class="package-price">£1,999</div>
-                        <ul class="package-features">
-                            <li>Custom Design</li>
-                            <!-- <li>Content Management</li> -->
-                            <!-- <li>E-commerce Integration</li> -->
-                            <li>Performance Optimization</li>
-                            <li>Security Features</li>
-                            <li>6 Months Support</li>
-                        </ul>
-                        <!-- <a href="/packages.html" class="btn btn-secondary">Choose Package</a> -->
-                    </div>
-                    <div class="card package-card">
-                        <h3>Branding Package</h3>
-                        <p class="package-subtitle">Complete Brand Identity</p>
-                        <div class="package-price">£1,299</div>
-                        <ul class="package-features">
-                            <li>Logo Design (3 concepts)</li>
-                            <li>Brand Guidelines</li>
-                            <li>Business Cards</li>
-                            <li>Letterhead Design</li>
-                            <li>Social Media Kit</li>
-                            <li>Brand Strategy</li>
-                        </ul>
-                        <!-- <a href="/packages.html" class="btn btn-secondary">Choose Package</a> -->
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <br><br>
-                    <a href="/packages.html" class="btn btn-primary">View All Packages</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="section" id="cta" aria-labelledby="cta-title">
-            <div class="container">
-                <div class="section-header">
-                    <h2 id="cta-title">Ready to Get Started?</h2>
-                    <p class="section-subtitle">Let's discuss your project and bring your vision to life</p>
-                </div>
-                <div class="text-center">
-                    <a href="/contact.html" class="btn btn-primary btn-large" style="color:#fff;">Get In Touch</a>
-                    <span style="margin-left:30px"></span>
-                    <a href="tel:+447884594929" class="btn btn-secondary btn-large" style="color:#6ee14c;">Call Us Now</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Fintaxtech Ltd</h3>
-                    <p>Professional digital solutions for modern businesses. Specializing in mobile app development, website development, and company branding.</p>
-                    <div class="contact-info">
-                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>
-                        <p><strong>Email:</strong> <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>
-                        <p><strong>Company No:</strong> SC807896</p>
-                        <p><strong>Registered Office:</strong> <script>document.write(AppConstants.COMPANY.REGISTERED_OFFICE);</script></p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Services</h3>
-                    <ul>
-                        <li><a href="/services.html">Mobile App Development</a></li>
-                        <li><a href="/services.html">Website Development</a></li>
-                        <li><a href="/services.html">Company Branding</a></li>
-                        <li><a href="/packages.html">Our Packages</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Company</h3>
-                    <ul>
-                        <!-- <li><a href="/portfolio.html">Our Portfolio</a></li> -->
-                        <li><a href="/contact.html">Get In Touch</a></li>
-                        <li><a href="/privacy.html">Privacy Policy</a></li>
-                        <li><a href="/terms.html">Terms of Service</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <ul>
-                        <li><a href="/privacy.html">Privacy Policy</a></li>
-                        <li><a href="/terms.html">Terms of Service</a></li>
-                        <li><a href="/privacy.html#cookies">Cookie Policy</a></li>
-                    </ul>
-                </div>
-                
-
-                <div class="footer-section">
-                    <h3>Social Media</h3>
-                    <ul>
-                        <li><a href="https://www.facebook.com/fintaxtechuk/" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a></li>
-                        <li><a href="https://www.instagram.com/fintaxtechuk/" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a></li>
-                    </ul>
-                </div>
-                
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Fintaxtech Ltd. All rights reserved. | Company Registration: SC807896 | Registered in Scotland</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/447884594929?text=Hi! I'm interested in your digital services. Can you help me?" 
-       class="whatsapp-float" 
-       target="_blank" 
-       rel="noopener"
-       aria-label="Contact us on WhatsApp">
-        <span class="whatsapp-text">Contact Now</span>
-    </a>
-    
-    <!-- Initialize Content Manager -->
-    <script>
-        // Initialize content manager after all scripts are loaded
-        window.addEventListener('load', function() {
-            console.log('Window loaded, initializing ContentManager...');
-            console.log('AppConstants available:', typeof AppConstants !== 'undefined');
-            console.log('ContentManager available:', typeof ContentManager !== 'undefined');
-            
-            if (typeof ContentManager !== 'undefined' && typeof AppConstants !== 'undefined') {
-                try {
-                    window.contentManager = new ContentManager();
-                    console.log('ContentManager initialized successfully');
-                } catch (error) {
-                    console.error('Error initializing ContentManager:', error);
-                }
-            } else {
-                console.error('Required scripts not loaded');
-                // Fallback: try again after a short delay
-                setTimeout(() => {
-                    if (typeof ContentManager !== 'undefined' && typeof AppConstants !== 'undefined') {
-                        window.contentManager = new ContentManager();
-                    }
-                }, 500);
-            }
-        });
-
-        // Mobile menu fallback - temporarily disabled
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileToggle = document.querySelector('.mobile-menu-toggle');
-            const nav = document.querySelector('.nav');
-            
-            if (mobileToggle && nav) {
-                mobileToggle.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                    const isOpen = nav.classList.contains('active');
-                    mobileToggle.setAttribute('aria-expanded', isOpen);
-                    mobileToggle.classList.toggle('active');
-                    document.body.style.overflow = isOpen ? 'hidden' : '';
-                });
-
-                // Close menu when clicking on nav links
-                const navLinks = nav.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        nav.classList.remove('active');
-                        mobileToggle.setAttribute('aria-expanded', 'false');
-                        mobileToggle.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!nav.contains(e.target) && !mobileToggle.contains(e.target) && nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        mobileToggle.setAttribute('aria-expanded', 'false');
-                        mobileToggle.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-
-                // Close menu on escape key
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        mobileToggle.setAttribute('aria-expanded', 'false');
-                        mobileToggle.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-            }
-        });
-        
-    </script>
-    <!-- Moved non-essential scripts to end for better performance -->
-    <script src="./src/js/Models.js"></script>
-    <script src="./src/js/Views.js"></script>
-    <script src="./src/js/Controllers.js"></script>
-    <script src="./src/js/App.js"></script>
-    
+    <div class="logo-wrap">
+        <img src="./ftt_logo.png" alt="Fintaxtech">
+        <a class="email-animated" href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>
+    </div>
 </body>
 </html>
