@@ -256,7 +256,7 @@ const AppConstants = {
       controller: "Fintaxtech Ltd",
       companyNumber: "SC807896",
       registeredOffice: "Dundee, Scotland, United Kingdom",
-      contactEmail: "privacy@fintaxtech.co.uk"
+      contactEmail: "ask@fintaxtech.co.uk"
     },
     TERMS_OF_SERVICE: {
       lastUpdated: "2025-01-01",
