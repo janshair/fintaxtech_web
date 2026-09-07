@@ -1,0 +1,97 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Consent from '../components/Consent.astro';
+import { company, home } from '../content/site';
+import '@fontsource/archivo/latin-600.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '../styles/site.css';
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title, description = home.intro, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, company.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head
+    ><meta charset="UTF-8" /><meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+    /><title>{title} | {company.name}</title><meta name="description" content={description} /><meta
+      name="color-scheme"
+      content="light dark"
+    /><link rel="canonical" href={canonical} /><link
+      rel="icon"
+      type="image/svg+xml"
+      href="/mark.svg"
+    />{noindex && <meta name="robots" content="noindex,follow" />}<meta
+      property="og:title"
+      content={`${title} | ${company.name}`}
+    /><meta property="og:description" content={description} /><meta
+      property="og:type"
+      content="website"
+    /><meta property="og:url" content={canonical} /><meta
+      property="og:image"
+      content={`${company.url}/social.png`}
+    /><meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('ftt:theme');
+        document.documentElement.dataset.theme =
+          t === 'light' || t === 'dark'
+            ? t
+            : matchMedia('(prefers-color-scheme:dark)').matches
+              ? 'dark'
+              : 'light';
+      } catch {
+        document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme:dark)').matches
+          ? 'dark'
+          : 'light';
+      }
+    </script>
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: company.legal,
+        url: company.url,
+        email: company.email,
+        telephone: company.phone,
+        logo: company.url + '/mark.svg',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '79 Yarrow Terrace',
+          addressLocality: 'Dundee',
+          postalCode: 'DD2 4DX',
+          addressCountry: 'GB',
+        },
+      })}
+    />
+    <noscript
+      ><style>
+        .main-nav {
+          display: flex;
+          width: 100%;
+          order: 5;
+        }
+        .menu-toggle,
+        .theme-button,
+        [data-consent-manage] {
+          display: none;
+        }
+      </style></noscript
+    ></head
+  ><body
+    ><Header /><main id="main"><slot /></main><Footer /><Consent /><script>
+      import '../scripts/site';
+    </script></body
+  >
+</html>

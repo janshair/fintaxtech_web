@@ -1,0 +1,59 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { promoStatus, promoCopy as c } from '../content/promo';
+const closed = promoStatus === 'closed';
+---
+
+<SiteLayout title={closed ? c.closedTitle : c.title} noindex
+  ><div class="container">
+    <header class="page-head">
+      <h1>{closed ? c.closedTitle : c.title}</h1><p class="lead">
+        {closed ? c.closedText : c.intro}
+      </p>{
+        !closed && (
+          <>
+            <>
+              <p class="price">{c.price}</p>
+              <p>{promoStatus === 'final-place' ? c.final : c.available}</p>
+              <p class="notice">{c.notice}</p>
+              <p>{c.hold}</p>
+            </>
+          </>
+        )
+      }<a class="button primary" href="/start/" id={closed ? 'standard-start' : 'promo-start'}
+        >{closed ? c.standard : c.start}</a
+      >
+    </header>{
+      !closed && (
+        <div class="prose">
+          {[
+            [c.eligibilityTitle, c.eligibility],
+            [c.scopeTitle, c.scope],
+            [c.exclusionsTitle, c.exclusions],
+          ].map(([title, items]) => (
+            <section>
+              <h2>{title}</h2>
+              <ul>{Array.isArray(items) && items.map((x) => <li>{x}</li>)}</ul>
+            </section>
+          ))}
+        </div>
+      )
+    }
+  </div><script>
+    import { setPromoIntent } from '../lib/storage';
+    import { track } from '../lib/analytics';
+    import { quizCopy } from '../content/questionnaire';
+    track('promo_viewed');
+    document.querySelector('#promo-start')?.addEventListener('click', (event) => {
+      if (!setPromoIntent()) {
+        event.preventDefault();
+        const notice = document.createElement('p');
+        notice.setAttribute('role', 'alert');
+        notice.textContent = quizCopy.storageUnavailable;
+        document.querySelector('.page-head')?.append(notice);
+        return;
+      }
+      track('promo_application_started');
+    });
+  </script></SiteLayout
+>

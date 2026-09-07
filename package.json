@@ -1,0 +1,39 @@
+{
+  "name": "fintaxtech-website",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "verify": "pnpm check && pnpm test && pnpm build && pnpm check:output",
+    "assets": "node --experimental-strip-types scripts/brand-assets.mjs",
+    "format": "prettier --write src tests scripts docs README.md",
+    "check:output": "node scripts/check-output.mjs"
+  },
+  "dependencies": {
+    "@fontsource/archivo": "^5.2.6",
+    "@fontsource/ibm-plex-mono": "^5.2.6",
+    "@fontsource/ibm-plex-sans": "^5.2.6",
+    "astro": "^7.3.1",
+    "jspdf": "^4.2.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.55.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.35.4",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

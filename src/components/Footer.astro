@@ -1,0 +1,32 @@
+---
+import { company, ui, consentCopy, navigation } from '../content/site';
+import { services } from '../content/services';
+import { legalLinks } from '../content/pages';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2>{company.name}</h2><p>{company.tagline}</p><p>
+          <a href={`mailto:${company.email}`}>{company.email}</a><br /><a
+            href={`tel:+${company.whatsapp}`}>{company.phone}</a
+          >
+        </p><p class="muted">{company.hours}</p>
+      </div>
+      <nav class="footer-links" aria-label={ui.footerNav}>
+        <h3>{ui.services}</h3>{services.map((s) => <a href={`/services/${s.id}/`}>{s.name}</a>)}{
+          navigation.slice(2).map(([href, label]) => <a href={href}>{label}</a>)
+        }<a href="/selected-work/">{ui.work}</a>
+      </nav>
+      <div class="footer-links">
+        <h3>{ui.legal}</h3>{legalLinks.map(([href, label]) => <a href={href}>{label}</a>)}<button
+          class="button"
+          data-consent-manage>{consentCopy.manage}</button
+        >
+      </div>
+    </div><div class="footer-bottom">
+      <p>{ui.registration}</p><p>{company.address}</p><p>{ui.copyright}</p>
+    </div>
+  </div>
+</footer>

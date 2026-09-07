@@ -1,0 +1,7 @@
+legacy-site/
+public/
+dist/
+node_modules/
+pnpm-lock.yaml
+test-results/
+docs/visual-checks/

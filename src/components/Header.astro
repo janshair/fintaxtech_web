@@ -1,0 +1,30 @@
+---
+import Mark from './Mark.astro';
+import { company, ui, navigation } from '../content/site';
+---
+
+<a class="skip" href="#main">{ui.skip}</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/"><span class="brand-mark"><Mark /></span>{company.name}</a>
+    <nav id="main-navigation" class="main-nav" aria-label={ui.nav}>
+      {
+        navigation.map(([href, label]) => (
+          <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+    <button class="button theme-button" id="theme-toggle" aria-label={ui.theme} title={ui.theme}
+      ><span aria-hidden="true">◐</span></button
+    >
+    <button
+      class="button menu-toggle"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="main-navigation">{ui.menu}</button
+    >
+    <a class="button primary header-cta" href="/start/">{ui.start}</a>
+  </div>
+</header>

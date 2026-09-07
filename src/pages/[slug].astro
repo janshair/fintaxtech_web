@@ -1,0 +1,62 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { pages } from '../content/pages';
+import { company, ui } from '../content/site';
+export function getStaticPaths() {
+  return Object.entries(pages).map(([slug, page]) => ({ params: { slug }, props: { page } }));
+}
+const { page } = Astro.props;
+---
+
+<SiteLayout title={page.title} description={page.intro}
+  ><div class="container">
+    <header class="page-head">
+      <p class="eyebrow">{company.name}</p><h1>{page.title}</h1><p class="lead">{page.intro}</p>
+    </header><div class="prose">
+      {page.legal && <p class="notice">{ui.draftLegal}</p>}{
+        page.sections.map(([title, text]) => (
+          <section>
+            <>
+              <h2>{title}</h2>
+              <p>{text}</p>
+            </>
+          </section>
+        ))
+      }
+    </div>{
+      Astro.params.slug === 'contact' && (
+        <div class="contact-links section">
+          <>
+            <a class="button" href={`mailto:${company.email}`}>
+              {company.email}
+            </a>
+            <a class="button" href={`tel:+${company.whatsapp}`}>
+              {company.phone}
+            </a>
+            <a class="button" href={`https://wa.me/${company.whatsapp}`}>
+              {ui.whatsapp}
+            </a>
+            <a class="button primary" href="/start/">
+              {ui.start}
+            </a>
+          </>
+        </div>
+      )
+    }{
+      Astro.params.slug === 'selected-work' && (
+        <div class="section">
+          <a
+            class="button"
+            href="https://askappliancerepairs.com/"
+            data-external-project
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {ui.external} ↗
+          </a>
+        </div>
+      )
+    }
+  </div>{!page.legal && <FinalCTA />}</SiteLayout
+>
