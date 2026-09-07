@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { ui } from '../content/site';
+---
+
+<SiteLayout title={ui.notFound} noindex
+  ><section class="container page-head">
+    <p class="eyebrow">404</p><h1>{ui.notFound}</h1><p class="lead">{ui.notFoundText}</p><div
+      class="actions"
+    >
+      <a class="button primary" href="/">{ui.backHome}</a><a class="button" href="/services/"
+        >{ui.services}</a
+      >
+    </div>
+  </section></SiteLayout
+>

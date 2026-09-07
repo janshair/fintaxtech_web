@@ -1,0 +1,12 @@
+---
+import { services } from '../content/services';
+import ServiceCard from './ServiceCard.astro';
+interface Props {
+  mode?: 'information' | 'questionnaire';
+}
+const { mode = 'information' } = Astro.props;
+---
+
+<div class="service-grid">
+  {services.map((service) => <ServiceCard service={service} mode={mode} />)}
+</div>

@@ -1,0 +1,8 @@
+---
+import { brandMark } from '../design/brand';
+const { class: className = '' } = Astro.props;
+---
+
+<svg class={className} viewBox={brandMark.viewBox} aria-hidden="true" focusable="false"
+  ><path fill="currentColor" d={brandMark.path}></path></svg
+>

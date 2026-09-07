@@ -1,0 +1,107 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Mark from '../components/Mark.astro';
+import ServiceSelector from '../components/ServiceSelector.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import { company, ui, home as c } from '../content/site';
+import { services } from '../content/services';
+import { pages } from '../content/pages';
+---
+
+<SiteLayout title={company.tagline}>
+  <section class="container hero">
+    <div>
+      <p class="eyebrow">{company.tagline}</p><h1>{c.title}</h1><p class="lead">{c.intro}</p><div
+        class="actions"
+      >
+        <a class="button primary" href="#choose">{ui.choose}</a><a
+          class="button"
+          href="/how-it-works/">{ui.how}</a
+        >
+      </div>
+    </div><div class="hero-art">
+      <div class="hero-mark" role="img" aria-label={ui.markAlt}><Mark /></div>
+    </div>
+  </section>
+  <ServiceSelector id="choose" />
+  <section class="section">
+    <div class="container split">
+      <div><p class="eyebrow">{c.why}</p><h2>{c.whyTitle}</h2></div><div>
+        {
+          c.reasons.map(([title, text]) => (
+            <article class="reason">
+              <>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">{ui.services}</p><h2>{c.four}</h2>{
+        services.map((s) => (
+          <article class="service-row">
+            <>
+              <h3>{s.name}</h3>
+              <div>
+                <>
+                  <p>{s.capabilities.join('. ')}.</p>
+                  <a class="text-link" href={`/services/${s.id}/`}>
+                    {ui.explore} →
+                  </a>
+                </>
+              </div>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">{ui.process}</p><h2>{c.processTitle}</h2><ol class="steps">
+        {c.steps.map((s) => <li>{s}</li>)}
+      </ol><p class="muted">{c.pdfNotice}</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container split">
+      <h2>{c.priceTitle}</h2><div>
+        <p class="lead">{c.priceText}</p><a class="text-link" href="/pricing/"
+          >{pages.pricing.title} →</a
+        >
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">{ui.work}</p><h2>{pages['selected-work'].sections[0][0]}</h2><p
+          class="muted"
+        >
+          {pages['selected-work'].intro}
+        </p>
+      </div><div class="work-panel">
+        <p>{pages['selected-work'].sections[0][1]}</p><a href="/selected-work/">{ui.work} →</a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <h2>{c.faqTitle}</h2>{
+        c.faqs.map(([q, a]) => (
+          <details>
+            <>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </>
+          </details>
+        ))
+      }
+    </div>
+  </section><FinalCTA />
+</SiteLayout>

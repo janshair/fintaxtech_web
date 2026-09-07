@@ -1,0 +1,25 @@
+---
+import { consentCopy as c } from '../content/site';
+---
+
+<aside id="consent-banner" class="consent-banner" aria-labelledby="consent-title" hidden>
+  <strong id="consent-title">{c.title}</strong><p>
+    {c.description}
+    <a href="/cookies/">{c.link}</a>
+  </p><div class="actions">
+    <button class="button" data-consent="accepted">{c.accept}</button><button
+      class="button"
+      data-consent="rejected">{c.reject}</button
+    ><button class="button" data-consent-manage>{c.manage}</button>
+  </div>
+</aside>
+<dialog id="consent-dialog" aria-labelledby="preferences-title">
+  <h2 id="preferences-title">{c.manage}</h2><h3>{c.essential}</h3><p>{c.essentialDetail}</p><label
+    ><input type="checkbox" id="analytics-choice" /> {c.analytics}</label
+  ><p>{c.analyticsDetail}</p><div class="actions">
+    <button class="button" id="consent-save">{c.save}</button><button
+      class="button"
+      id="consent-close">{c.close}</button
+    >
+  </div>
+</dialog>

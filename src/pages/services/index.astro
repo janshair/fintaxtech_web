@@ -1,0 +1,50 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { services, serviceCopy as c } from '../../content/services';
+import { ui } from '../../content/site';
+import FinalCTA from '../../components/FinalCTA.astro';
+import ServiceHelp from '../../components/ServiceHelp.astro';
+---
+
+<SiteLayout title={ui.services} description={c.intro}
+  ><div class="container">
+    <header class="page-head">
+      <p class="eyebrow">{ui.services}</p><h1>{c.title}</h1><p class="lead">{c.intro}</p>
+    </header>{
+      services.map((s) => (
+        <article class="service-row">
+          <>
+            <div>
+              <>
+                <p class="eyebrow">{s.number}</p>
+                <h2>{s.name}</h2>
+              </>
+            </div>
+            <div>
+              <>
+                <p>{s.description}</p>
+                <p>{s.suits}</p>
+                <ul>
+                  {s.capabilities.map((x) => (
+                    <li>{x}</li>
+                  ))}
+                </ul>
+                <p>{s.boundary}</p>
+                <div class="actions">
+                  <>
+                    <a class="button" href={`/services/${s.id}/`}>
+                      {ui.explore}
+                    </a>
+                    <a class="button primary" href={`/start/?service=${s.id}`}>
+                      {ui.requirements}
+                    </a>
+                  </>
+                </div>
+              </>
+            </div>
+          </>
+        </article>
+      ))
+    }<div class="section"><ServiceHelp layout="stacked" /></div>
+  </div><FinalCTA /></SiteLayout
+>

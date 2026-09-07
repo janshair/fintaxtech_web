@@ -1,0 +1,10 @@
+import { writeFile } from 'node:fs/promises';
+import sharp from 'sharp';
+import { brandMark } from '../src/design/brand.ts';
+import { company } from '../src/content/site.ts';
+const path = brandMark.path;
+const mark = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 720"><path fill="#0b0d10" d="${path}"/></svg>`;
+await writeFile('public/mark.svg', mark);
+await sharp(Buffer.from(mark)).resize(380, 360).png().toFile('public/mark-print.png');
+const social = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#f7f7f3"/><g transform="translate(800 170) scale(.4)"><path fill="#0b0d10" d="${path}"/></g><text x="70" y="220" fill="#0b0d10" font-family="Arial,sans-serif" font-size="64" font-weight="bold">${company.name}</text><text x="70" y="315" fill="#596170" font-family="Arial,sans-serif" font-size="40">${company.tagline}</text><path d="M70 385H250" stroke="#2563eb" stroke-width="8"/></svg>`;
+await sharp(Buffer.from(social)).png().toFile('public/social.png');

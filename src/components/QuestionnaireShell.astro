@@ -1,0 +1,25 @@
+---
+import ServiceSelector from './ServiceSelector.astro';
+import { quizCopy as c } from '../content/questionnaire';
+---
+
+<div id="start-selection">
+  <header class="container selector-intro">
+    <h1 id="start-title" tabindex="-1">{c.title}</h1>
+    <p class="lead">{c.intro}</p>
+    <p class="notice">{c.memory}</p>
+    <p class="notice" id="quiz-fallback">{c.noScript}</p>
+  </header>
+  <ServiceSelector id="start-choose" mode="questionnaire" />
+</div>
+<div class="quiz" id="questionnaire" hidden></div>
+<dialog id="exit-dialog" aria-labelledby="exit-title">
+  <h2 id="exit-title">{c.exitTitle}</h2><p>{c.exitText}</p><div class="actions">
+    <button class="button" id="exit-stay">{c.stay}</button><button class="button" id="exit-confirm"
+      >{c.leave}</button
+    >
+  </div>
+</dialog>
+<script>
+  import '../scripts/questionnaire';
+</script>

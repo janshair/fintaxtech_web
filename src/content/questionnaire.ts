@@ -1,0 +1,161 @@
+import type { Question } from '../lib/types';
+export const quizCopy = {
+  title: 'Tell us what you want to create',
+  intro:
+    'Most questions use quick choices. Your answers stay in this page’s memory. FinTaxTech receives nothing automatically. At the end, create a PDF and choose how to share it.',
+  memory: 'Closing or reloading this page clears your answers. Download a PDF to keep a copy.',
+  begin: 'Begin',
+  back: 'Back',
+  continue: 'Continue',
+  exit: 'Exit questionnaire',
+  exitTitle: 'Leave this questionnaire?',
+  exitText: 'Your answers will be cleared. You can return to the questionnaire or leave now.',
+  stay: 'Keep answering',
+  leave: 'Leave and clear answers',
+  later: 'Save PDF for later',
+  partial: 'Save an unfinished summary',
+  partialText:
+    'You can download the visible answers completed so far. The PDF is an unfinished summary, not a resumable form.',
+  resume: 'Return to questions',
+  stage1: 'Project enquiry',
+  stage2: 'Detailed requirements',
+  short: 'Branding requirements',
+  progress: (n: number, total: number) => `Question ${n} of ${total}`,
+  chooseOne: 'Choose one.',
+  chooseMany: 'Choose all that apply. “None” and “Not sure” cannot be combined with other answers.',
+  chooseLimit: (n: number) => `Choose up to ${n}. Uncheck an answer to replace it.`,
+  optional: 'Optional. Please avoid passwords or unnecessary sensitive information.',
+  errorRequired: 'Choose an answer to continue.',
+  errorLimit: (n: number) => `Choose no more than ${n} answers.`,
+  errorExclusive: 'Choose either “None” / “Not sure”, or the applicable options.',
+  errorLength: 'Keep this answer within 2,000 characters.',
+  reviewTitle: 'Review your requirements',
+  reviewIntro: 'Check each answer before creating your PDF. Hidden follow-up answers are excluded.',
+  edit: 'Edit',
+  create: 'Create PDF',
+  creating: 'Creating your PDF locally…',
+  ready: 'Your project enquiry PDF is ready',
+  readyText:
+    'Nothing has been sent. Download your PDF, then attach it in your email or WhatsApp app. Device sharing is available when supported.',
+  download: 'Download PDF',
+  email: 'Continue by email',
+  whatsapp: 'Continue on WhatsApp',
+  share: 'Share from this device',
+  shareCancelled: 'Sharing was cancelled. Your PDF is still available to download.',
+  shareFailed: 'Device sharing could not open. Download the PDF and attach it manually.',
+  pdfFailed:
+    'The PDF could not be created in this browser. Try again, or use your review to prepare an email. Your answers remain on this page.',
+  protect: 'Protect my PDF with a password',
+  protectionUnavailable:
+    'Password protection is not available in this release. Downloads are unprotected. If you need protection, use a trusted PDF tool and send the password separately.',
+  assetsTitle: 'Would you like a short Branding Requirements Questionnaire?',
+  assetsText:
+    'It opens in a new tab. Keep this website questionnaire open to preserve your answers. Branding produces its own PDF.',
+  assetsOpen: 'Open branding questions in a new tab',
+  assetsLater: 'I will provide assets later',
+  contentNotice:
+    'Please supply one approved Website Content File. We provide the structure after engagement. Edit, approve, save, and return that single file; we do not reconcile content scattered across messages or versions.',
+  sensitiveNotice:
+    'Do not paste sensitive source material here. We will review suitability and agree a secure transfer method after engagement.',
+  authorityNotice:
+    'We need confirmation that you have authority to supply and process the material before work begins.',
+  noneYet: 'No answers yet',
+  notProvided: 'Not provided',
+  customerTitle: 'Your contact details',
+  customerIntro:
+    'Optional for a standard enquiry. Included only in your local PDF so we can reply when you choose to send it.',
+  name: 'Your name',
+  company: 'Company name',
+  emailLabel: 'Email address',
+  phone: 'Telephone or WhatsApp',
+  companyNumber: 'UK company number',
+  contactContinue: 'Review answers',
+  emailError: 'Enter a valid email address or leave it blank.',
+  companyError: 'Enter the UK company name and an eight-character company number.',
+  routingTitle: 'What would help your business most?',
+  routingIntro:
+    'Choose the outcome closest to what you need. This selects a service, not a paid package.',
+  routingOptions: [
+    'A recognisable visual identity',
+    'A place for customers to find or buy from my business online',
+    'An app for customers or my team',
+    'Useful content from source documents',
+  ],
+  routingContact: 'Still unsure? Talk to us',
+  pdfTitle: 'Project Enquiry Summary',
+  pdfShortTitle: 'Branding Requirements',
+  pdfDate: 'Created',
+  pdfService: 'Service',
+  pdfCustomer: 'Customer details',
+  pdfAnswers: 'Requirements',
+  pdfAssumptions: 'Assumptions and exclusions',
+  pdfNext: 'Next steps',
+  pdfPartial: 'Unfinished summary — some questions have not been answered.',
+  pdfNextText:
+    'Share this PDF with ask@fintaxtech.co.uk or +44 7884 594929. We aim to reply within two UK business days. Scope and any quotation are confirmed manually. This PDF does not create a contract or reserve capacity.',
+  pdfFooter: 'Fintaxtech Ltd · SC807896 · fintaxtech.co.uk/terms/',
+  pdfFilename: 'FinTaxTech-project-enquiry.pdf',
+  shareSubject: 'Project enquiry',
+  shareBody:
+    'Hello FinTaxTech, I would like to discuss a project. I will attach my enquiry PDF to this message.',
+  declarationTitle: 'Eligibility declarations',
+  companyDetails: 'Company details for manual eligibility verification',
+  promoFieldIntro:
+    'These details are required for campaign verification. Completing the form does not reserve a place.',
+  complete: 'Review and create PDF',
+  newProject: 'Start another enquiry',
+  noScript:
+    'Enable JavaScript to use the questionnaire and create a PDF locally. Alternatively, email ask@fintaxtech.co.uk or call +44 7884 594929.',
+  storageUnavailable:
+    'Local campaign preferences are unavailable in this browser. Contact us directly if you are enquiring about a campaign.',
+};
+export const promoQuestions: Question[] = [
+  {
+    id: 'promo-uk',
+    stage: 0,
+    label: 'Is the business a UK limited company?',
+    type: 'single',
+    optional: false,
+    options: ['Yes', 'No', 'Not sure'],
+  },
+  {
+    id: 'promo-recent',
+    stage: 0,
+    label: 'Was the company incorporated within the previous six months?',
+    type: 'single',
+    optional: false,
+    options: ['Yes', 'No', 'Not sure'],
+  },
+  {
+    id: 'promo-website',
+    stage: 0,
+    label: 'Does the business already have a website?',
+    type: 'single',
+    optional: false,
+    options: ['No', 'Yes', 'Not sure'],
+  },
+];
+export const redesignGate: Question = {
+  id: 'websites-1-1',
+  stage: 2,
+  label: 'Is this website a new build or a complete redesign and rebuild?',
+  type: 'single',
+  optional: false,
+  options: ['New business website', 'Complete redesign and rebuild', 'Not sure'],
+};
+export const customPage: Question = {
+  id: 'websites-custom-page',
+  stage: 2,
+  label: 'What is the custom page called?',
+  type: 'text',
+  optional: true,
+  when: { id: 'websites-2-2', includes: 'Custom page' },
+};
+export const avoidDetail: Question = {
+  id: 'branding-avoid-detail',
+  stage: 2,
+  label: 'What should the design avoid?',
+  type: 'text',
+  optional: true,
+  when: { id: 'branding-2-10', includes: 'Add a detail' },
+};

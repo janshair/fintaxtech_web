@@ -1,0 +1,22 @@
+---
+import type { Service } from '../content/services';
+import { selectorCopy } from '../content/site';
+interface Props {
+  service: Service;
+  mode?: 'information' | 'questionnaire';
+}
+const { service, mode = 'information' } = Astro.props;
+const href =
+  mode === 'questionnaire' ? `/start/?service=${service.id}` : `/services/${service.id}/`;
+---
+
+<a
+  class="service-card"
+  href={href}
+  data-start-service={mode === 'questionnaire' ? service.id : undefined}
+>
+  <span class="number">{service.number}</span>
+  <h3>{service.short}</h3>
+  <p>{service.description}</p>
+  <span class="arrow" aria-hidden="true">{selectorCopy.cardArrow}</span>
+</a>
