@@ -30,4 +30,4 @@ jobs:
         with:
           name: browser-test-results
           path: test-results/
-# Deliberately no deployment job: preserve the repository's existing Pages source settings.
+# Deployment lives in deploy.yml (Pages source must be set to "GitHub Actions").
