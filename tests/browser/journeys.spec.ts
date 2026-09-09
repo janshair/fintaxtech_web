@@ -106,7 +106,7 @@ test('closed promo, sitemap and static fallbacks', async ({ page, request }) => 
   await page.evaluate(() => sessionStorage.setItem('ftt:promo-intent', 'yes'));
   await page.goto('/start/');
   await expect(
-    page.getByRole('heading', { name: 'Tell us what you want to create' }),
+    page.getByRole('heading', { name: 'What would you like FinTaxTech to help you create?' }),
   ).toBeVisible();
   expect(await page.locator('body').innerText()).not.toContain('£999');
 });
@@ -162,6 +162,8 @@ test('marketing navigation works without JavaScript', async ({ browser }) => {
     'What does your business need next?',
   );
   await page.goto('http://localhost:4323/start/');
+  await expect(page.locator('.service-card')).toHaveCount(4);
+  await page.goto('http://localhost:4323/enquiry/');
   await expect(page.locator('#quiz-fallback')).toBeVisible();
   await context.close();
 });

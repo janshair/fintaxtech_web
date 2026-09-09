@@ -4,15 +4,31 @@ import ServiceHelp from './ServiceHelp.astro';
 import { selectorCopy } from '../content/site';
 interface Props {
   id: string;
+  headingLevel?: 'h1' | 'h2';
+  headingId?: string;
   mode?: 'information' | 'questionnaire';
 }
-const { id, mode = 'information' } = Astro.props;
+const {
+  id,
+  mode = 'information',
+  headingLevel: Heading = 'h2',
+  headingId = `${id}-title`,
+} = Astro.props;
 ---
 
-<section class="section service-selector" id={id} aria-labelledby={`${id}-title`}>
+<section class="section service-selector" id={id} aria-labelledby={headingId}>
   <div class="container">
-    <h2 id={`${id}-title`}>{selectorCopy.title}</h2>
-    <ServiceCards mode={mode} />
+    <Heading class="selector-heading" id={headingId} tabindex={Heading === 'h1' ? -1 : undefined}
+      >{selectorCopy.title}</Heading
+    >
+    <ServiceCards mode={mode} headingLevel={Heading === 'h1' ? 'h2' : 'h3'} />
     <ServiceHelp mode={mode} />
   </div>
 </section>
+
+<style>
+  .selector-heading {
+    font-size: var(--h2);
+    margin: 0 0 var(--space-5);
+  }
+</style>

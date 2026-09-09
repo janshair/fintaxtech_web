@@ -1,7 +1,27 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import QuestionnaireShell from '../components/QuestionnaireShell.astro';
-import { quizCopy as c } from '../content/questionnaire';
+import ServiceSelector from '../components/ServiceSelector.astro';
+import { startCopy as c } from '../content/start';
+import { seoPages } from '../content/seo';
 ---
 
-<SiteLayout title={c.title} description={c.intro}><QuestionnaireShell /></SiteLayout>
+<SiteLayout title={seoPages['/start/'].title} description={seoPages['/start/'].description}>
+  <div id="start-selection">
+    <div class="container selector-intro">
+      <p class="lead">{c.intro}</p>
+      <p>{c.process}</p>
+      <p class="notice">{c.privacy}</p>
+    </div>
+    <ServiceSelector
+      id="start-choose"
+      mode="questionnaire"
+      headingLevel="h1"
+      headingId="start-title"
+    />
+  </div>
+  <script>
+    import { legacyJourneyURL } from '../lib/journey-url';
+    const destination = legacyJourneyURL(location.search);
+    if (destination) location.replace(destination);
+  </script>
+</SiteLayout>

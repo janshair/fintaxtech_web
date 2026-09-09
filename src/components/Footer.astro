@@ -18,7 +18,7 @@ import { legalLinks } from '../content/pages';
       <nav class="footer-links" aria-label={ui.footerNav}>
         <h3>{ui.services}</h3>{services.map((s) => <a href={`/services/${s.id}/`}>{s.name}</a>)}{
           navigation.slice(2).map(([href, label]) => <a href={href}>{label}</a>)
-        }<a href="/selected-work/">{ui.work}</a>
+        }<a href="/start/">{ui.start}</a><a href="/selected-work/">{ui.work}</a>
       </nav>
       <div class="footer-links">
         <h3>{ui.legal}</h3>{legalLinks.map(([href, label]) => <a href={href}>{label}</a>)}<button

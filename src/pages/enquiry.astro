@@ -1,0 +1,7 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import QuestionnaireShell from '../components/QuestionnaireShell.astro';
+import { quizCopy as c } from '../content/questionnaire';
+---
+
+<SiteLayout title={c.title} description={c.intro} noindex><QuestionnaireShell /></SiteLayout>

@@ -9,11 +9,11 @@ async function selectorMetrics(page: Page) {
   return page.locator('.service-selector').evaluate((section) => {
     const selectors = [
       '.container',
-      'h2',
+      '.selector-heading',
       '.service-grid',
       '.service-card',
       '.number',
-      'h3',
+      '.service-card-heading',
       '.service-card p',
       '.arrow',
       '.unsure',
@@ -85,7 +85,9 @@ for (const width of [1024, 1280, 1440, 320, 390]) {
         await page.evaluate(() => document.fonts.ready);
         await page.mouse.move(0, 0);
         const selector = page.locator('.service-selector');
-        await expect(selector.getByRole('heading', { level: 2 })).toHaveText(selectorCopy.title);
+        await expect(selector.getByRole('heading', { level: name === 'start' ? 1 : 2 })).toHaveText(
+          selectorCopy.title,
+        );
         await expect(selector.locator('.service-card')).toHaveCount(4);
         await expect(selector.getByRole('link', { name: ui.notSure, exact: true })).toBeVisible();
         await expect(selector.getByRole('button')).toHaveCount(0);
@@ -158,7 +160,7 @@ test('shared card links preserve keyboard activation and questionnaire back navi
     await expect(card).toBeFocused();
     await expect(card).toHaveCSS('outline-style', 'solid');
     await card.press('Enter');
-    await expect(page).toHaveURL(/\/start\/$/);
+    await expect(page).toHaveURL(/\/enquiry\//);
     await expect(page.locator('#questionnaire h1')).toHaveText(service.name);
     await expect(page.locator('#start-selection')).toBeHidden();
     await page.getByRole('button', { name: quizCopy.begin, exact: true }).click();

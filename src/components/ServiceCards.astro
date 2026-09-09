@@ -2,11 +2,16 @@
 import { services } from '../content/services';
 import ServiceCard from './ServiceCard.astro';
 interface Props {
+  headingLevel?: 'h2' | 'h3';
   mode?: 'information' | 'questionnaire';
 }
-const { mode = 'information' } = Astro.props;
+const { mode = 'information', headingLevel = 'h3' } = Astro.props;
 ---
 
 <div class="service-grid">
-  {services.map((service) => <ServiceCard service={service} mode={mode} />)}
+  {
+    services.map((service) => (
+      <ServiceCard service={service} mode={mode} headingLevel={headingLevel} />
+    ))
+  }
 </div>

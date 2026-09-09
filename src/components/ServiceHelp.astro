@@ -8,7 +8,7 @@ const { mode = 'information', layout = 'inline' } = Astro.props;
 ---
 
 <div class={layout === 'inline' ? 'unsure' : undefined}>
-  <a href="/start/?route=help" data-start-routing={mode === 'questionnaire' ? '' : undefined}>
+  <a href="/enquiry/?route=help" data-start-routing={mode === 'questionnaire' ? '' : undefined}>
     {ui.notSure}
     <span aria-hidden="true">{` ${selectorCopy.helpArrow}`}</span>
   </a>

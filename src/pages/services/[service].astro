@@ -14,7 +14,7 @@ const { service: s } = Astro.props;
       <p class="eyebrow">{s.number} / {s.name}</p><h1>{s.title}</h1><p class="lead">
         {s.description}
       </p><div class="actions">
-        <a class="button primary" href={`/start/?service=${s.id}`}>{c.lead}</a>
+        <a class="button primary" href={`/enquiry/?service=${s.id}`}>{c.lead}</a>
       </div>
     </header><div class="split section">
       <h2>{c.capabilities}</h2><ul>{s.capabilities.map((x) => <li>{x}</li>)}</ul>
@@ -39,11 +39,12 @@ const { service: s } = Astro.props;
       }
     </section><section class="section">
       <h2>{c.brief}</h2><p>{c.briefText}</p><div class="actions">
-        <a class="button" href={`/start/?service=${s.id}&stage=2`}>{c.brief}</a><a
+        <a class="button" href={`/enquiry/?service=${s.id}&stage=2`}>{c.brief}</a><a
           class="button primary"
-          href={`/start/?service=${s.id}`}>{ui.requirements}</a
+          href={`/enquiry/?service=${s.id}`}>{ui.requirements}</a
         >
       </div>
     </section>
+    <p><a href="/start/">{ui.choose}</a></p>
   </div></SiteLayout
 >

@@ -50,7 +50,12 @@ export const seoPages: Record<string, PageSEO> = {
       'See how FinTaxTech takes your project from guided requirements and a written proposal through design, development, review and handover.',
   },
   '/start/': {
-    title: ui.start,
+    title: 'Start Your Brand, Website, App or Content Project',
+    description:
+      'Choose a FinTaxTech service, answer structured questions and create a private enquiry PDF to download and share manually by email or WhatsApp.',
+  },
+  '/enquiry/': {
+    title: 'Prepare Your Private Project Enquiry',
     description:
       'Prepare your project requirements locally, review your answers and download an enquiry PDF to share with FinTaxTech.',
     noindex: true,

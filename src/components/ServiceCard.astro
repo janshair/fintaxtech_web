@@ -2,12 +2,13 @@
 import type { Service } from '../content/services';
 import { selectorCopy } from '../content/site';
 interface Props {
+  headingLevel?: 'h2' | 'h3';
   service: Service;
   mode?: 'information' | 'questionnaire';
 }
-const { service, mode = 'information' } = Astro.props;
+const { service, mode = 'information', headingLevel: Heading = 'h3' } = Astro.props;
 const href =
-  mode === 'questionnaire' ? `/start/?service=${service.id}` : `/services/${service.id}/`;
+  mode === 'questionnaire' ? `/enquiry/?service=${service.id}` : `/services/${service.id}/`;
 ---
 
 <a
@@ -16,7 +17,14 @@ const href =
   data-start-service={mode === 'questionnaire' ? service.id : undefined}
 >
   <span class="number">{service.number}</span>
-  <h3>{service.short}</h3>
+  <Heading class="service-card-heading">{service.short}</Heading>
   <p>{service.description}</p>
   <span class="arrow" aria-hidden="true">{selectorCopy.cardArrow}</span>
 </a>
+
+<style>
+  .service-card-heading {
+    font-size: var(--h3);
+    margin: 0 0 var(--space-3);
+  }
+</style>

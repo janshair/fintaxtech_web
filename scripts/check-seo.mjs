@@ -125,7 +125,10 @@ assert.deepEqual(
     .sort(),
 );
 assert.equal(new Set(urls).size, urls.length);
-assert(!urls.some((u) => /\?|\/promo\/|\/start\//.test(u)));
+assert.equal(urls.filter((url) => url === origin + '/start/').length, 1);
+assert.equal(rows.find((row) => row.path === '/start/').noindex, false);
+assert.equal(rows.find((row) => row.path === '/enquiry/').noindex, true);
+assert(!urls.some((u) => /\?|\/promo\/|\/enquiry\//.test(u)));
 const robots = await readFile('dist/robots.txt', 'utf8');
 assert.match(robots, /User-agent: \*/);
 assert(!/^Disallow:\s*\S/m.test(robots));
@@ -134,6 +137,15 @@ for (const property of ['title', 'description']) {
   const values = rows.filter((r) => !r.noindex).map((r) => r[property]);
   assert.equal(new Set(values).size, values.length, `Duplicate ${property}`);
 }
+const start = docs.get('/start/');
+assert.equal(text(elements(start, 'h1')[0]), 'What would you like FinTaxTech to help you create?');
+assert.equal(elements(start, 'a').filter((n) => attr(n, 'class') === 'service-card').length, 4);
+for (const phrase of [
+  'structured questions',
+  'private enquiry PDF',
+  'Nothing is sent automatically',
+])
+  assert(text(start).includes(phrase));
 const broken = [];
 for (const [path, doc] of docs)
   for (const tag of ['a', 'link', 'script', 'img'])

@@ -20,8 +20,10 @@ const closed = promoStatus === 'closed';
             </>
           </>
         )
-      }<a class="button primary" href="/start/" id={closed ? 'standard-start' : 'promo-start'}
-        >{closed ? c.standard : c.start}</a
+      }<a
+        class="button primary"
+        href={closed ? '/start/' : '/enquiry/'}
+        id={closed ? 'standard-start' : 'promo-start'}>{closed ? c.standard : c.start}</a
       >
     </header>{
       !closed && (

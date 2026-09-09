@@ -320,7 +320,7 @@ function assetBranch() {
   clear('assets');
   title(c.assetsTitle);
   paragraph(c.assetsText, 'lead');
-  const a = link(c.assetsOpen, '/start/?service=branding&brief=short&stage=2', 'button primary');
+  const a = link(c.assetsOpen, '/enquiry/?service=branding&brief=short&stage=2', 'button primary');
   a.target = '_blank';
   a.rel = 'noopener';
   a.addEventListener('click', () => {
