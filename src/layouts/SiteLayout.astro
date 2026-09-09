@@ -1,4 +1,7 @@
 ---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { seoPages, seoCopy } from '../content/seo';
+import { structuredData } from '../lib/seo';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Consent from '../components/Consent.astro';
@@ -8,13 +11,19 @@ import '@fontsource/ibm-plex-sans/latin-400.css';
 import '@fontsource/ibm-plex-sans/latin-600.css';
 import '@fontsource/ibm-plex-mono/latin-500.css';
 import '../styles/site.css';
+import tokens from '../styles/tokens.css?raw';
+const themeBackgrounds = [...tokens.matchAll(/--bg:\s*([^;]+);/g)].map((match) => match[1]);
 interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
 }
-const { title, description = home.intro, noindex = false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, company.url);
+const pathname = Astro.url.pathname.replace(/(\.html)\/$/, '$1').replace(/^\/404\/$/, '/404.html');
+const configured = seoPages[pathname];
+const title = configured?.title ?? Astro.props.title;
+const description = configured?.description ?? Astro.props.description ?? home.intro;
+const noindex = Astro.props.noindex || configured?.noindex || false;
+const canonical = new URL(pathname, company.url);
 ---
 
 <!doctype html>
@@ -29,7 +38,7 @@ const canonical = new URL(Astro.url.pathname, company.url);
     /><link rel="canonical" href={canonical} /><link
       rel="icon"
       type="image/svg+xml"
-      href="/mark.svg"
+      href="/favicon.svg"
     />{noindex && <meta name="robots" content="noindex,follow" />}<meta
       property="og:title"
       content={`${title} | ${company.name}`}
@@ -39,7 +48,22 @@ const canonical = new URL(Astro.url.pathname, company.url);
     /><meta property="og:url" content={canonical} /><meta
       property="og:image"
       content={`${company.url}/social.png`}
-    /><meta name="twitter:card" content="summary_large_image" />
+    /><meta property="og:site_name" content={company.name} />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={seoCopy.imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | ${company.name}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${company.url}/social.png`} />
+    <meta name="twitter:image:alt" content={seoCopy.imageAlt} />
+    <meta
+      name="theme-color"
+      content={themeBackgrounds[0]}
+      media="(prefers-color-scheme: light)"
+    /><meta name="theme-color" content={themeBackgrounds[1]} media="(prefers-color-scheme: dark)" />
     <script is:inline>
       try {
         const t = localStorage.getItem('ftt:theme');
@@ -58,22 +82,9 @@ const canonical = new URL(Astro.url.pathname, company.url);
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        name: company.legal,
-        url: company.url,
-        email: company.email,
-        telephone: company.phone,
-        logo: company.url + '/mark.svg',
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: '79 Yarrow Terrace',
-          addressLocality: 'Dundee',
-          postalCode: 'DD2 4DX',
-          addressCountry: 'GB',
-        },
-      })}
+      set:html={JSON.stringify(
+        structuredData(pathname, `${title} | ${company.name}`, description),
+      ).replace(/</g, '\\u003c')}
     />
     <noscript
       ><style>
@@ -90,7 +101,7 @@ const canonical = new URL(Astro.url.pathname, company.url);
       </style></noscript
     ></head
   ><body
-    ><Header /><main id="main"><slot /></main><Footer /><Consent /><script>
+    ><Header /><main id="main"><Breadcrumbs /><slot /></main><Footer /><Consent /><script>
       import '../scripts/site';
     </script></body
   >

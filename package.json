@@ -10,10 +10,12 @@
     "check": "astro check",
     "test": "vitest run",
     "test:browser": "playwright test",
-    "verify": "pnpm check && pnpm test && pnpm build && pnpm check:output",
+    "verify": "pnpm check && pnpm test && pnpm build && pnpm check:output && pnpm check:seo",
     "assets": "node --experimental-strip-types scripts/brand-assets.mjs",
     "format": "prettier --write src tests scripts docs README.md",
-    "check:output": "node scripts/check-output.mjs"
+    "check:output": "node scripts/check-output.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "audit:lighthouse": "node scripts/audit-lighthouse.mjs"
   },
   "dependencies": {
     "@fontsource/archivo": "^5.2.6",
@@ -26,6 +28,8 @@
     "@astrojs/check": "^0.9.4",
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.55.0",
+    "lighthouse": "^13.4.1",
+    "parse5": "^8.0.1",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.35.4",

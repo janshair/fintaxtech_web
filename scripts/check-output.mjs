@@ -14,8 +14,6 @@ const all = await files('dist');
 assert.equal(await readFile('CNAME', 'utf8'), await readFile('dist/CNAME', 'utf8'));
 assert(all.includes('dist/404.html'));
 assert(all.includes('dist/.nojekyll'));
-for (const path of ['invoice/privacy.html', 'reprocket/privacy.html', 'reprocket/terms.html'])
-  assert.equal(await readFile(path, 'utf8'), await readFile('dist/' + path, 'utf8'));
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
 assert(!sitemap.includes('/promo'));
 assert.match(
@@ -23,9 +21,7 @@ assert.match(
   /name="robots" content="noindex,follow"/,
 );
 const broken = [];
-for (const file of all.filter(
-  (f) => f.endsWith('.html') && !f.includes('/invoice/') && !f.includes('/reprocket/'),
-)) {
+for (const file of all.filter((f) => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
   assert(!html.includes('x-dc') && !html.includes('support.js') && !html.includes('dc.html'), file);
   if (!file.includes('/promo/')) assert(!html.includes('£999'), file);
@@ -43,5 +39,5 @@ for (const file of all.filter(
 }
 assert.deepEqual(broken, []);
 console.log(
-  `Static output verified: ${all.filter((f) => f.endsWith('.html')).length} HTML files, internal links/assets, CNAME, preserved app policies, 404, sitemap and no Claude runtime.`,
+  `Static output verified: ${all.filter((f) => f.endsWith('.html')).length} HTML files, internal links/assets, CNAME, shared app policy pages, 404, sitemap and no Claude runtime.`,
 );

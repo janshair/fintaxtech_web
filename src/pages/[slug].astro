@@ -1,4 +1,7 @@
 ---
+import SocialLinks from '../components/SocialLinks.astro';
+import { socialCopy } from '../content/social';
+import { seoCopy, seoPages, appPolicyPaths } from '../content/seo';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import { pages } from '../content/pages';
@@ -56,6 +59,39 @@ const { page } = Astro.props;
             {ui.external} ↗
           </a>
         </div>
+      )
+    }
+    {
+      Astro.params.slug === 'privacy' && (
+        <section>
+          <>
+            <h2>{seoCopy.appPolicies}</h2>
+            <ul>
+              {appPolicyPaths.map((path) => (
+                <li>
+                  <a href={path}>{seoPages[path].title}</a>
+                </li>
+              ))}
+            </ul>
+          </>
+        </section>
+      )
+    }
+    {
+      Astro.params.slug === 'contact' && (
+        <section>
+          <>
+            <h2>{socialCopy.title}</h2>
+            <SocialLinks />
+          </>
+        </section>
+      )
+    }
+    {
+      ['about', 'pricing', 'how-it-works', 'selected-work'].includes(Astro.params.slug ?? '') && (
+        <p>
+          <a href="/services/">{seoCopy.related}</a>
+        </p>
       )
     }
   </div>{!page.legal && <FinalCTA />}</SiteLayout

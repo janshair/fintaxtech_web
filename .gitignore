@@ -10,6 +10,15 @@ build/
 .output/
 .astro/
 docs/
+
+# Local reports, reference material and retired website
+/audit/
+/legacy-site/
+*.md
+!README.md
+!AGENTS.md
+!SKILL.md
+
 # Deployment / hosting caches
 .vercel/
 .netlify/

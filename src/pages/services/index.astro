@@ -33,7 +33,7 @@ import ServiceHelp from '../../components/ServiceHelp.astro';
                 <div class="actions">
                   <>
                     <a class="button" href={`/services/${s.id}/`}>
-                      {ui.explore}
+                      {s.name}
                     </a>
                     <a class="button primary" href={`/start/?service=${s.id}`}>
                       {ui.requirements}

@@ -1,0 +1,42 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { appPolicies } from '../../content/app-policies';
+import { seoPages } from '../../content/seo';
+export function getStaticPaths() {
+  return Object.keys(appPolicies).map((path) => {
+    const [, app, document] = path.split('/');
+    return { params: { app, document: document.replace(/\.html$/, '') }, props: { path } };
+  });
+}
+const { path } = Astro.props;
+---
+
+<SiteLayout title={seoPages[path].title}
+  ><div class="app-policy" set:html={appPolicies[path]} /></SiteLayout
+>
+<style is:global>
+  .app-policy .legal-content {
+    max-width: var(--reading);
+  }
+  .app-policy h1 {
+    font-size: var(--question-heading);
+  }
+  .app-policy h2 {
+    font-size: var(--prose-heading);
+    margin-top: var(--space-7);
+  }
+  .app-policy .table-scroll {
+    overflow-x: auto;
+  }
+  .app-policy table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .app-policy th,
+  .app-policy td {
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+  }
+</style>

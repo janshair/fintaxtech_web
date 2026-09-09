@@ -1,15 +1,26 @@
 import { readPreference, writePreference } from '../lib/storage';
 import { initAnalytics, setAnalyticsConsent, track } from '../lib/analytics';
 initAnalytics();
+function syncThemeMetadata() {
+  const color = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+  document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+    meta.content = color;
+    meta.removeAttribute('media');
+  });
+}
+syncThemeMetadata();
 document.querySelector('#theme-toggle')?.addEventListener('click', () => {
   const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = theme;
+  syncThemeMetadata();
   writePreference('theme', theme);
   track('theme_changed');
 });
 matchMedia('(prefers-color-scheme:dark)').addEventListener('change', (event) => {
-  if (!readPreference('theme'))
+  if (!readPreference('theme')) {
     document.documentElement.dataset.theme = event.matches ? 'dark' : 'light';
+    syncThemeMetadata();
+  }
 });
 const menu = document.querySelector<HTMLButtonElement>('#menu-toggle');
 const nav = document.querySelector<HTMLElement>('#main-navigation');

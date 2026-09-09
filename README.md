@@ -35,31 +35,31 @@ On Linux CI use `pnpm exec playwright install --with-deps chromium firefox webki
 
 ## Find things quickly
 
-| Location                       | Purpose                                                                             |
-| ------------------------------ | ----------------------------------------------------------------------------------- |
-| `src/pages/`                   | Routes. `about/`, for example, is generated from the shared information-page route. |
-| `src/layouts/SiteLayout.astro` | One HTML document frame, metadata, shared header/footer/consent.                    |
-| `src/components/`              | Reusable header, footer, logo, service cards, consent and questionnaire shell.      |
-| `src/content/site.ts`          | Company details, navigation, homepage, shared interface and consent wording.        |
-| `src/content/services.ts`      | Four service descriptions, capabilities, ownership and exclusions.                  |
-| `src/content/pages.ts`         | About, process, pricing, contact, Selected Work and legal page content.             |
-| `src/content/questions.ts`     | Both stages of all four approved questionnaires.                                    |
-| `src/content/questionnaire.ts` | Form controls, errors, contact labels, PDF wording and extra conditional questions. |
-| `src/content/promo.ts`         | Manual promotion status and campaign wording.                                       |
-| `src/styles/tokens.css`        | Light/dark colours, typefaces, type sizes, spacing and dimensions.                  |
-| `postcss.config.cjs`           | Named mobile/tablet/desktop breakpoints used by the CSS.                            |
-| `src/styles/site.css`          | Layout and reusable visual styles, using the tokens.                                |
-| `src/design/`                  | Shared logo path and PDF design tokens.                                             |
-| `src/lib/rules.ts`             | Visibility, branching, routing, campaign gating and summary selection.              |
-| `src/lib/validation.ts`        | Required answers, limits, exclusive choices and contact validation.                 |
-| `src/lib/pdf.ts`               | A4 PDF layout and browser-side generation, loaded on demand.                        |
-| `src/lib/storage.ts`           | Only theme, consent and one-use campaign intent. No answers.                        |
-| `src/lib/analytics.ts`         | Consent gate and an allowlist of payload-free event calls.                          |
-| `src/lib/sharing.ts`           | Download, mailto, WhatsApp and device-share handoffs.                               |
-| `src/scripts/`                 | Browser interaction and questionnaire screen composition.                           |
-| `public/`                      | Files copied unchanged to the build, including CNAME, icons and app policies.       |
-| `legacy-site/`                 | Previous website, kept for reference and excluded from the build.                   |
-| `docs/`                        | Implementation decisions, validation results and visual comparison captures.        |
+| Location                       | Purpose                                                                               |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| `src/pages/`                   | Routes. `about/`, for example, is generated from the shared information-page route.   |
+| `src/layouts/SiteLayout.astro` | One HTML document frame, metadata, shared header/footer/consent.                      |
+| `src/components/`              | Reusable header, footer, logo, service cards, consent and questionnaire shell.        |
+| `src/content/site.ts`          | Company details, navigation, homepage, shared interface and consent wording.          |
+| `src/content/services.ts`      | Four service descriptions, capabilities, ownership and exclusions.                    |
+| `src/content/pages.ts`         | About, process, pricing, contact, Selected Work and legal page content.               |
+| `src/content/questions.ts`     | Both stages of all four approved questionnaires.                                      |
+| `src/content/questionnaire.ts` | Form controls, errors, contact labels, PDF wording and extra conditional questions.   |
+| `src/content/promo.ts`         | Manual promotion status and campaign wording.                                         |
+| `src/styles/tokens.css`        | Light/dark colours, typefaces, type sizes, spacing and dimensions.                    |
+| `postcss.config.cjs`           | Named mobile/tablet/desktop breakpoints used by the CSS.                              |
+| `src/styles/site.css`          | Layout and reusable visual styles, using the tokens.                                  |
+| `src/design/`                  | Shared logo path and PDF design tokens.                                               |
+| `src/lib/rules.ts`             | Visibility, branching, routing, campaign gating and summary selection.                |
+| `src/lib/validation.ts`        | Required answers, limits, exclusive choices and contact validation.                   |
+| `src/lib/pdf.ts`               | A4 PDF layout and browser-side generation, loaded on demand.                          |
+| `src/lib/storage.ts`           | Only theme, consent and one-use campaign intent. No answers.                          |
+| `src/lib/analytics.ts`         | Consent gate and an allowlist of payload-free event calls.                            |
+| `src/lib/sharing.ts`           | Download, mailto, WhatsApp and device-share handoffs.                                 |
+| `src/scripts/`                 | Browser interaction and questionnaire screen composition.                             |
+| `public/`                      | Files copied unchanged to the build, including CNAME, the social image and PDF fonts. |
+| `legacy-site/`                 | Optional local archive, ignored by Git and excluded from the build.                   |
+| `docs/`                        | Implementation decisions, validation results and visual comparison captures.          |
 
 `dist/` is generated output. Do not edit it to change website content; the next build overwrites it.
 
@@ -111,17 +111,9 @@ Never add the campaign route to navigation, the footer or sitemap. `noindex` is 
 
 The existing root `CNAME` still contains `fintaxtech.co.uk`. `public/CNAME` is an identical copy and the build puts it at `dist/CNAME`. Keep those values aligned. The original invoice and Reprocket policy URLs are preserved. No DNS, Pages source branch, remote settings or production deployment was changed during implementation.
 
-The repository had no tracked deployment workflow. The new `check.yml` only checks and builds; it uploads `github-pages-static-site` as a downloadable artifact on pull requests or a manual run. It cannot deploy. This avoids silently changing the existing branch-based Pages setup.
+The existing `.github/workflows/deploy.yml` builds and deploys GitHub Pages on a push to `main` or a manual run. `.github/workflows/check.yml` runs validation. This SEO update does not change either workflow or the custom domain.
 
-To publish when ready:
-
-1. Run `pnpm verify` and `pnpm test:browser`. Resolve the launch content items in `docs/implementation-plan.md`.
-2. Inspect **GitHub → repository Settings → Pages** and record the existing source branch/folder, custom domain and HTTPS settings. These remote settings cannot be inferred from CNAME alone.
-3. Keep that source selection. In a separate checkout of the existing publication branch, place the **contents** of `dist/` in the currently configured Pages folder. Include `.nojekyll`, `CNAME`, the 404, `_astro` assets and preserved app-policy folders. Do not publish `src/`, `node_modules/` or `legacy-site/`.
-4. Review and commit the publication changes, then push that publication branch when authorised. If the source and publication branch are currently the same, decide explicitly how to keep Astro source outside the published folder before publishing; do not overwrite this working tree with generated files.
-5. Check `https://fintaxtech.co.uk/`, its 404, both themes, a PDF download, contact links, sitemap, app-policy URLs and the campaign's noindex. Confirm **Enforce HTTPS** is enabled and the custom-domain certificate is valid. Submit the sitemap in the existing Search Console account if one is available.
-
-If you later choose GitHub Actions as the Pages source, use Astro's [official GitHub Pages instructions](https://docs.astro.build/en/guides/deploy/github/). That is an explicit hosting-settings change, not part of this implementation. GitHub Pages needs the built files; it does not run Astro itself.
+When an authorised release is ready, run `pnpm verify` and `pnpm test:browser`, review the changes, and use the existing release process. A push to `main` triggers deployment, so do not push merely to preview a change. Afterwards, check the production homepage, questionnaire/PDF download, Contact links, sitemap, app-policy URLs and `/promo/` noindex. Keep HTTPS and the existing Pages configuration enabled.
 
 ## Roll back
 
@@ -138,3 +130,19 @@ Publish that checkout's original files through the same existing Pages path if r
 The implementation is testable locally. Professionally approved legal text and AI-provider disclosures, confirmed campaign availability, fuller approved case-study evidence, and an optional Analytics ID remain owner-supplied inputs. The site makes no unverified work or legal-compliance claims. See `docs/implementation-plan.md` for the exact decisions and `docs/validation.md` for checks and limits.
 
 Proprietary to Fintaxtech Ltd. Font licences are included with their packages and `public/fonts/LICENSE-DejaVu.txt`.
+
+## SEO and social profiles
+
+Edit page search titles and descriptions in `src/content/seo.ts`. Most information-page entries start with their title and introduction from `pages.ts`; focused overrides live in `seo.ts`. Service metadata uses `services.ts`. Keep a distinct description for each public page. The sitemap reads the same registry; utility entries marked `noindex` are excluded. A new public route needs an entry here, and `pnpm verify` catches omissions, duplicate metadata and broken links in the actual built HTML.
+
+Edit social names and URLs in `src/content/social.ts`. The shared `SocialLinks.astro` component appears in the footer and Contact page, and the same URLs populate the Organisation’s `sameAs` data. The shared layout provides canonical URLs, sharing tags and structured data. `src/lib/seo.ts` describes the relationships between the company, website, pages, services and breadcrumbs. The existing 1200×630 `public/social.png` is the default sharing image. Theme metadata and the adaptive favicon read the central colour tokens.
+
+The three app-policy pages now use the shared layout. Their policy wording lives in `src/content/app-policies.ts`; the root `invoice/` and `reprocket/` HTML files are retained as historical references. A small build integration preserves the exact `.html` public URLs. Output checks compare policy text against those references so a wording change must be deliberate.
+
+`pnpm check:seo` checks a production build. `pnpm audit:lighthouse https://fintaxtech.co.uk live` runs desktop and mobile SEO checks and writes local diagnostic reports under the ignored `docs/seo-audit/` folder. Run it against a local production preview to check unreleased changes. Scores do not prove indexation or search rankings. The optional local `SEO-AUDIT.md` report and `audit/` snapshots are ignored by Git.
+
+After an authorised deployment, select the verified `fintaxtech.co.uk` property in Google Search Console, open **Indexing → Sitemaps**, enter `https://fintaxtech.co.uk/sitemap.xml` (or just `sitemap.xml` if the prefix is displayed), and click **Submit**. Confirm **Success**. Keep `/start/` and `/promo/` out of indexing requests.
+
+## Keeping the repository light
+
+Git ignores generated output, dependencies, local audit reports, the retired website archive and Markdown other than `README.md`, `AGENTS.md` and `SKILL.md`. Ignored files can remain on your computer without entering future commits. Source code, tests, the dependency lockfile, deployment configuration, asset/font licences and the root app-policy reference files remain tracked because development or validation needs them. The previous website remains available in Git history; ignoring it does not erase that history or reduce its existing size.

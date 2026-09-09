@@ -1,4 +1,5 @@
 ---
+import SocialLinks from './SocialLinks.astro';
 import { company, ui, consentCopy, navigation } from '../content/site';
 import { services } from '../content/services';
 import { legalLinks } from '../content/pages';
@@ -25,7 +26,7 @@ import { legalLinks } from '../content/pages';
           data-consent-manage>{consentCopy.manage}</button
         >
       </div>
-    </div><div class="footer-bottom">
+    </div><SocialLinks location="footer" /><div class="footer-bottom">
       <p>{ui.registration}</p><p>{company.address}</p><p>{ui.copyright}</p>
     </div>
   </div>
