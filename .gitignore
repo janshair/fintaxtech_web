@@ -18,6 +18,7 @@ docs/
 !README.md
 !AGENTS.md
 !SKILL.md
+!src/content/blog/**/*.md
 
 # Deployment / hosting caches
 .vercel/

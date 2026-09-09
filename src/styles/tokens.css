@@ -26,6 +26,7 @@
   --gutter: clamp(1.25rem, 4vw, 2rem);
   --width: 74rem;
   --reading: 46rem;
+  --comparison-label-width: 10rem;
   --radius: 0.25rem;
   --small: 0.875rem;
   --body: 1rem;

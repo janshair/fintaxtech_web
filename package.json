@@ -18,11 +18,14 @@
     "audit:lighthouse": "node scripts/audit-lighthouse.mjs"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.0",
+    "@astrojs/rss": "^4.0.19",
     "@fontsource/archivo": "^5.2.6",
     "@fontsource/ibm-plex-mono": "^5.2.6",
     "@fontsource/ibm-plex-sans": "^5.2.6",
     "astro": "^7.3.1",
-    "jspdf": "^4.2.0"
+    "jspdf": "^4.2.0",
+    "satteri": "^0.10.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

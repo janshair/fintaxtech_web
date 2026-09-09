@@ -1,7 +1,8 @@
 ---
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { seoPages, seoCopy } from '../content/seo';
-import { structuredData } from '../lib/seo';
+import { structuredData, absoluteURL, type ArticleSEO, type SocialImage } from '../lib/seo';
+import { blogCopy } from '../content/blog';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Consent from '../components/Consent.astro';
@@ -17,6 +18,8 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  article?: ArticleSEO;
+  socialImage?: SocialImage;
 }
 const pathname = Astro.url.pathname.replace(/(\.html)\/$/, '$1').replace(/^\/404\/$/, '/404.html');
 const configured = seoPages[pathname];
@@ -24,6 +27,15 @@ const title = configured?.title ?? Astro.props.title;
 const description = configured?.description ?? Astro.props.description ?? home.intro;
 const noindex = Astro.props.noindex || configured?.noindex || false;
 const canonical = new URL(pathname, company.url);
+const { article } = Astro.props;
+const socialImage = Astro.props.socialImage ?? {
+  url: '/social.png',
+  width: 1200,
+  height: 630,
+  type: 'image/png',
+  alt: seoCopy.imageAlt,
+};
+const imageURL = absoluteURL(socialImage.url);
 ---
 
 <!doctype html>
@@ -44,21 +56,42 @@ const canonical = new URL(pathname, company.url);
       content={`${title} | ${company.name}`}
     /><meta property="og:description" content={description} /><meta
       property="og:type"
-      content="website"
+      content={article ? 'article' : 'website'}
     /><meta property="og:url" content={canonical} /><meta
       property="og:image"
-      content={`${company.url}/social.png`}
+      content={imageURL}
     /><meta property="og:site_name" content={company.name} />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:alt" content={seoCopy.imageAlt} />
+    <meta property="og:image:width" content={String(socialImage.width)} />
+    <meta property="og:image:height" content={String(socialImage.height)} />
+    <meta property="og:image:type" content={socialImage.type} />
+    <meta property="og:image:alt" content={socialImage.alt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | ${company.name}`} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${company.url}/social.png`} />
-    <meta name="twitter:image:alt" content={seoCopy.imageAlt} />
+    <meta name="twitter:image" content={imageURL} />
+    <meta name="twitter:image:alt" content={socialImage.alt} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={blogCopy.feedTitle}
+      href={absoluteURL('/rss.xml')}
+    />
+    {
+      article && (
+        <>
+          <meta property="article:published_time" content={article.pubDate.toISOString()} />
+          {article.updatedDate && (
+            <meta property="article:modified_time" content={article.updatedDate.toISOString()} />
+          )}
+          <meta property="article:section" content={article.category} />
+          <meta name="author" content={article.author} />
+          {article.tags.map((tag) => (
+            <meta property="article:tag" content={tag} />
+          ))}
+        </>
+      )
+    }
     <meta
       name="theme-color"
       content={themeBackgrounds[0]}
@@ -83,7 +116,7 @@ const canonical = new URL(pathname, company.url);
       is:inline
       type="application/ld+json"
       set:html={JSON.stringify(
-        structuredData(pathname, `${title} | ${company.name}`, description),
+        structuredData(pathname, `${title} | ${company.name}`, description, article, imageURL),
       ).replace(/</g, '\\u003c')}
     />
     <noscript
@@ -101,7 +134,8 @@ const canonical = new URL(pathname, company.url);
       </style></noscript
     ></head
   ><body
-    ><Header /><main id="main"><Breadcrumbs /><slot /></main><Footer /><Consent /><script>
+    ><Header /><main id="main"><Breadcrumbs title={title} /><slot /></main><Footer /><Consent
+    /><script>
       import '../scripts/site';
     </script></body
   >

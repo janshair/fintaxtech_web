@@ -145,6 +145,35 @@ After an authorised deployment, select the verified `fintaxtech.co.uk` property 
 
 ## Keeping the repository light
 
-Git ignores generated output, dependencies, local audit reports, the retired website archive and Markdown other than `README.md`, `AGENTS.md` and `SKILL.md`. Ignored files can remain on your computer without entering future commits. Source code, tests, the dependency lockfile, deployment configuration, asset/font licences and the root app-policy reference files remain tracked because development or validation needs them. The previous website remains available in Git history; ignoring it does not erase that history or reduce its existing size.
+Git ignores generated output, dependencies, local audit reports, the retired website archive and Markdown other than blog source files under `src/content/blog/`, `README.md`, `AGENTS.md` and `SKILL.md`. Ignored files can remain on your computer without entering future commits. Source code, tests, the dependency lockfile, deployment configuration, asset/font licences and the root app-policy reference files remain tracked because development or validation needs them. The previous website remains available in Git history; ignoring it does not erase that history or reduce its existing size.
 
 The `/start/` sales page renders its explanation and four choices as static HTML. Its links open the separate, noindex `/enquiry/` questionnaire. Review and PDF screens exist only in browser memory there. Old `/start/?service=…` bookmarks redirect in the browser to the appropriate enquiry; the static sales-page canonical consolidates query aliases onto `/start/`. GitHub Pages cannot send different robots headers for different query strings.
+
+## Adding a blog article
+
+Create a Markdown file in `src/content/blog/`, for example `planning-your-app.md`. Markdown is plain text: `##` starts a section, a blank line starts a paragraph, and `[link text](/services/mobile-apps/)` creates a link. Start with this metadata between the two `---` lines:
+
+```yaml
+---
+title: Planning your business app
+description: Questions to help your business define the users, features and ongoing support its next app will need.
+pubDate: 2026-09-09
+author: FinTaxTech
+category: Mobile App Development
+tags: [App planning, Android, iOS]
+draft: true
+cta: mobile-apps
+---
+```
+
+Write the article below it, starting with `##` headings. The layout supplies the only H1 from `title`. Use descriptive link text and standard Markdown tables; tables automatically become keyboard-scrollable on small screens. The category links back to a service when it exactly matches a service name in `src/content/services.ts`.
+
+The filename becomes `/blog/planning-your-app/`. Optionally add `slug: a-different-address` to override it; use lowercase words separated by hyphens. Published slugs must be unique. Add `updatedDate: 2026-09-10` after a substantive update; it cannot precede publication. Dates are displayed consistently in UK English. `cta: mobile-apps` selects the existing mobile questionnaire; omit it or use `cta: general` for the shared project CTA.
+
+Images are optional. If you have a real image, put it in `src/assets/blog/` and add `featuredImage: ../../assets/blog/your-image.png` and an accurate `imageAlt: ...` to the metadata. Supply both fields or neither. Astro creates optimised WebP assets for cards, the article and social sharing. Body images can use ordinary Markdown with a relative path and useful alt text. Without a featured image, sharing uses the existing FinTaxTech brand image. The first article's supplied illustrations are stored as compressed WebP files in its own folder under `src/assets/blog/`.
+
+Run `pnpm dev` to preview and change `draft` to `false` when ready to include the post. Drafts are excluded from article routes, Blog, Latest Articles, RSS and the sitemap, including during local preview. A publication date is descriptive, not a scheduling switch: `draft: false` publishes in the next build even if the date is in the future. Never put confidential content in this public repository, including draft files.
+
+Before releasing, run `pnpm verify` and `pnpm test:browser`. Check `/blog/` and your article in light and dark modes. The collection automatically updates the list (newest first), homepage's latest three, `/rss.xml`, and `/sitemap.xml`; there is no per-article page file or SEO registry entry to edit. Publishing still follows the existing authorised GitHub Pages release process.
+
+Blog interface wording lives in `src/content/blog.ts`, the validated collection in `src/content.config.ts`, publishing rules in `src/lib/blog-posts.ts`, reusable components in `src/components/blog/`, and the article layout in `src/layouts/ArticleLayout.astro`. Article typography and table styling live in `src/styles/blog.css` and reuse the existing design tokens. The shared site layout provides social metadata and structured data without adding a browser runtime to the blog.

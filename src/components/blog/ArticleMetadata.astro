@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { blogCopy } from '../../content/blog';
+import { formatPostDate } from '../../lib/blog-posts';
+interface Props {
+  data: CollectionEntry<'blog'>['data'];
+  compact?: boolean;
+}
+const { data, compact = false } = Astro.props;
+---
+
+<div class="article-meta">
+  <span class="article-category">{data.category}</span>
+  <span
+    >{blogCopy.published}{' '}
+    <time datetime={data.pubDate.toISOString()}>{formatPostDate(data.pubDate)}</time></span
+  >
+  {
+    !compact && (
+      <>
+        {data.updatedDate && (
+          <span>
+            {blogCopy.updated}{' '}
+            <time datetime={data.updatedDate.toISOString()}>
+              {formatPostDate(data.updatedDate)}
+            </time>
+          </span>
+        )}
+        <span>
+          {blogCopy.by} {data.author}
+        </span>
+      </>
+    )
+  }
+</div>
+<style>
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    font-size: var(--small);
+    color: var(--muted);
+  }
+  .article-category {
+    color: var(--accent);
+    font-weight: var(--weight-strong);
+  }
+</style>

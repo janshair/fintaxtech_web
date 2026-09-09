@@ -1,0 +1,10 @@
+---
+import FinalCTA from '../FinalCTA.astro';
+import { blogCopy } from '../../content/blog';
+interface Props {
+  cta?: 'mobile-apps' | 'general';
+}
+const content = Astro.props.cta === 'mobile-apps' ? blogCopy.mobileCTA : {};
+---
+
+<FinalCTA {...content} />

@@ -3,6 +3,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import Mark from '../components/Mark.astro';
 import ServiceSelector from '../components/ServiceSelector.astro';
 import FinalCTA from '../components/FinalCTA.astro';
+import LatestArticles from '../components/blog/LatestArticles.astro';
 import { company, ui, home as c } from '../content/site';
 import { services } from '../content/services';
 import { pages } from '../content/pages';
@@ -103,5 +104,5 @@ import { pages } from '../content/pages';
         ))
       }
     </div>
-  </section><FinalCTA />
+  </section><LatestArticles /><FinalCTA />
 </SiteLayout>

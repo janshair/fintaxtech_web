@@ -1,0 +1,95 @@
+.blog-article {
+  padding-block: var(--space-8) var(--space-9);
+}
+.article-heading,
+.article-body,
+.article-footer {
+  max-width: var(--reading);
+  margin-inline: auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.article-heading {
+  padding-bottom: var(--space-8);
+}
+.article-heading h1 {
+  font-size: var(--question-heading);
+}
+.article-heading img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-6);
+  border-radius: var(--radius);
+}
+.article-body h2 {
+  font-size: var(--h2);
+  margin-block: var(--space-8) var(--space-5);
+}
+.article-body h3 {
+  margin-top: var(--space-6);
+}
+.article-body > :first-child {
+  margin-top: 0;
+}
+.article-body hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin-block: var(--space-8);
+}
+.article-body img {
+  height: auto;
+}
+.article-body blockquote {
+  margin-inline: 0;
+  padding-left: var(--space-5);
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+}
+.article-body pre {
+  overflow-x: auto;
+  padding: var(--space-5);
+}
+.article-body .table-scroll {
+  overflow-x: auto;
+  margin-block: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.article-body .table-scroll:focus-visible {
+  outline-offset: var(--focus-offset-small);
+}
+.article-body table {
+  border-collapse: collapse;
+  min-width: var(--reading);
+  width: 100%;
+  font-size: var(--small);
+}
+.article-body :is(th, td) {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+.article-body :is(th, td):first-child {
+  width: var(--comparison-label-width);
+  min-width: var(--comparison-label-width);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+.article-body th {
+  background: var(--soft);
+  font-weight: var(--weight-strong);
+}
+.article-body td {
+  background: var(--surface);
+}
+.article-body tr:last-child td {
+  border-bottom: 0;
+}
+.article-footer {
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+}

@@ -1,3 +1,4 @@
+import { blogCopy } from './blog';
 export const company = {
   name: 'FinTaxTech',
   legal: 'Fintaxtech Ltd',
@@ -54,6 +55,7 @@ export const navigation = [
   ['/how-it-works/', 'How It Works'],
   ['/pricing/', 'Pricing'],
   ['/about/', 'About'],
+  ['/blog/', blogCopy.label],
   ['/contact/', 'Contact'],
 ];
 export const home = {

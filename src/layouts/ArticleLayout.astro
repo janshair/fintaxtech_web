@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import SiteLayout from './SiteLayout.astro';
+import ArticleMetadata from '../components/blog/ArticleMetadata.astro';
+import BlogCTA from '../components/blog/BlogCTA.astro';
+import { blogCopy } from '../content/blog';
+import { services } from '../content/services';
+import '../styles/blog.css';
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+const { post } = Astro.props;
+const { data } = post;
+const related = services.find((service) => service.name === data.category);
+const featured = data.featuredImage;
+const social = featured
+  ? await getImage({ src: featured, width: Math.min(featured.width, 1200), format: 'webp' })
+  : undefined;
+const socialImage = social
+  ? {
+      url: social.src,
+      width: Number(social.attributes.width),
+      height: Number(social.attributes.height),
+      type: 'image/webp',
+      alt: data.imageAlt!,
+    }
+  : undefined;
+---
+
+<SiteLayout
+  title={data.title}
+  description={data.description}
+  article={data}
+  socialImage={socialImage}
+>
+  <article class="container blog-article">
+    <header class="article-heading">
+      <h1>{data.title}</h1>
+      <p class="lead">{data.description}</p>
+      <ArticleMetadata data={data} />
+      {
+        featured && (
+          <Image
+            src={featured}
+            alt={data.imageAlt!}
+            width={Math.min(featured.width, 1120)}
+            widths={[390, 736, 1120].filter((width) => width <= featured.width)}
+            sizes="(max-width: 768px) 100vw, 736px"
+            format="webp"
+            loading="eager"
+          />
+        )
+      }
+    </header>
+    <div class="article-body"><slot /></div>
+    <footer class="article-footer">
+      {
+        data.tags.length > 0 && (
+          <p class="muted">
+            {blogCopy.tags}: {data.tags.join(' · ')}
+          </p>
+        )
+      }
+      <nav class="actions" aria-label={blogCopy.label}>
+        <a href="/blog/">{blogCopy.back}</a>
+        {related && <a href={`/services/${related.id}/`}>{related.name}</a>}
+        <a href="/rss.xml">{blogCopy.rss}</a>
+      </nav>
+    </footer>
+  </article>
+  <BlogCTA cta={data.cta} />
+</SiteLayout>

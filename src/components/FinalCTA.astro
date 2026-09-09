@@ -1,11 +1,21 @@
 ---
 import { ui } from '../content/site';
+interface Props {
+  title?: string;
+  description?: string;
+  href?: string;
+  label?: string;
+}
+const {
+  title = ui.finalTitle,
+  description = ui.finalText,
+  href = '/start/',
+  label = ui.start,
+} = Astro.props;
 ---
 
 <section class="final-cta">
   <div class="container">
-    <h2>{ui.finalTitle}</h2><p>{ui.finalText}</p><a class="button primary" href="/start/"
-      >{ui.start}</a
-    >
+    <h2>{title}</h2><p>{description}</p><a class="button primary" href={href}>{label}</a>
   </div>
 </section>

@@ -64,7 +64,11 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     assert.equal(meta(name).length, 1, `${path}: ${name}`);
   assert.equal(meta('og:url')[0], canonical[0]);
   assert.equal(meta('og:title')[0], titles[0]);
-  assert.equal(meta('og:image')[0], origin + '/social.png');
+  const socialImage = new URL(meta('og:image')[0]);
+  assert.equal(socialImage.origin, origin);
+  assert((await stat(join('dist', decodeURIComponent(socialImage.pathname)))).isFile());
+  assert.equal(meta('twitter:image')[0], socialImage.href);
+  assert(Number(meta('og:image:width')[0]) > 0 && Number(meta('og:image:height')[0]) > 0);
   const graph = elements(doc, 'script')
     .filter((n) => attr(n, 'type') === 'application/ld+json')
     .flatMap((n) => JSON.parse(text(n))['@graph']);
@@ -76,6 +80,18 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     path,
   );
   const crumbs = graph.find((n) => n['@type'] === 'BreadcrumbList');
+  if (/^\/blog\/[^/]+\/$/.test(path)) {
+    const article = graph.find((n) => n['@type'] === 'BlogPosting');
+    assert(article, `${path}: missing BlogPosting`);
+    assert(!noindex, path);
+    assert.equal(meta('og:type')[0], 'article');
+    assert.equal(article.headline, text(elements(doc, 'h1')[0]));
+    assert.equal(article.url, canonical[0]);
+    assert.equal(article.datePublished, meta('article:published_time')[0]);
+    assert(!Number.isNaN(Date.parse(article.datePublished)));
+    assert.equal(crumbs.itemListElement[1].item, origin + '/blog/');
+    assert(!html.includes('[OPTIONAL IMAGE]') && !/src="(?:image-1|image)\.png"/.test(html));
+  }
   if (path !== '/' && !noindex) {
     assert(crumbs, path);
     assert.equal(crumbs.itemListElement.at(-1).item, canonical[0]);
@@ -125,6 +141,26 @@ assert.deepEqual(
     .sort(),
 );
 assert.equal(new Set(urls).size, urls.length);
+const articleURLs = rows
+  .filter((row) => /^\/blog\/[^/]+\/$/.test(row.path))
+  .map((row) => row.canonical)
+  .sort();
+const feed = await readFile('dist/rss.xml', 'utf8');
+const feedURLs = [...feed.matchAll(/<item>[\s\S]*?<link>([^<]+)<\/link>/g)].map(
+  (match) => match[1],
+);
+assert.deepEqual(
+  [...feedURLs].sort(),
+  articleURLs,
+  'RSS must contain every published article once',
+);
+const blogList = elements(docs.get('/blog/'), 'article').filter(
+  (node) => attr(node, 'class') === 'article-card',
+);
+assert.deepEqual(
+  blogList.flatMap((node) => elements(node, 'a').map((link) => origin + attr(link, 'href'))).sort(),
+  articleURLs,
+);
 assert.equal(urls.filter((url) => url === origin + '/start/').length, 1);
 assert.equal(rows.find((row) => row.path === '/start/').noindex, false);
 assert.equal(rows.find((row) => row.path === '/enquiry/').noindex, true);

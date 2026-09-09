@@ -1,4 +1,5 @@
 import { pages } from './pages';
+import { blogCopy } from './blog';
 import { services } from './services';
 import { home, ui } from './site';
 export const seoCopy = {
@@ -13,6 +14,7 @@ export interface PageSEO {
   noindex?: boolean;
 }
 export const seoPages: Record<string, PageSEO> = {
+  '/blog/': { title: blogCopy.seoTitle, description: blogCopy.description },
   ...Object.fromEntries(
     Object.entries(pages).map(([slug, p]) => [
       `/${slug}/`,

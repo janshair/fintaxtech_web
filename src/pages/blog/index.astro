@@ -1,0 +1,30 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ArticleList from '../../components/blog/ArticleList.astro';
+import BlogCTA from '../../components/blog/BlogCTA.astro';
+import { blogCopy } from '../../content/blog';
+import { getPublishedPosts } from '../../lib/blog';
+const posts = await getPublishedPosts();
+---
+
+<SiteLayout title={blogCopy.seoTitle} description={blogCopy.description}>
+  <section class="container blog-intro">
+    <p class="eyebrow">{blogCopy.label}</p>
+    <h1>{blogCopy.title}</h1>
+    <p class="lead">{blogCopy.description}</p>
+    <p><a href="/rss.xml">{blogCopy.rss}</a></p>
+  </section>
+  <div class="container blog-list"><ArticleList posts={posts} /></div>
+  <BlogCTA />
+</SiteLayout>
+<style>
+  .blog-intro {
+    padding-block: var(--space-8);
+  }
+  h1 {
+    max-width: var(--reading);
+  }
+  .blog-list {
+    padding-bottom: var(--space-9);
+  }
+</style>

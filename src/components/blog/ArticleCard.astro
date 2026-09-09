@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import ArticleMetadata from './ArticleMetadata.astro';
+import { postURL } from '../../lib/blog-posts';
+interface Props {
+  post: CollectionEntry<'blog'>;
+  heading?: 'h2' | 'h3';
+}
+const { post, heading: Heading = 'h2' } = Astro.props;
+const titleId = `article-${post.id}`;
+---
+
+<article class="article-card">
+  <a href={postURL(post)} aria-labelledby={titleId}>
+    {
+      post.data.featuredImage && (
+        <Image
+          src={post.data.featuredImage}
+          alt={post.data.imageAlt!}
+          width={560}
+          format="webp"
+          loading="lazy"
+        />
+      )
+    }
+    <ArticleMetadata data={post.data} compact />
+    <Heading id={titleId}>{post.data.title}</Heading>
+    <p>{post.data.description}</p>
+    <span class="card-arrow" aria-hidden="true">↗</span>
+  </a>
+</article>
+<style>
+  .article-card {
+    height: 100%;
+  }
+  a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+  }
+  a:hover {
+    border-color: var(--accent);
+  }
+  :is(h2, h3) {
+    font-size: var(--prose-heading);
+    margin: 0;
+  }
+  p {
+    color: var(--muted);
+    margin: 0;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+  .card-arrow {
+    margin-top: auto;
+    align-self: flex-end;
+    color: var(--accent);
+    font-size: var(--icon-size);
+  }
+</style>

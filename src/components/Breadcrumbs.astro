@@ -1,8 +1,12 @@
 ---
 import { breadcrumbs } from '../lib/seo';
 import { seoCopy } from '../content/seo';
+interface Props {
+  title?: string;
+}
 const items = breadcrumbs(
   Astro.url.pathname.replace(/(\.html)\/$/, '$1').replace(/^\/404\/$/, '/404.html'),
+  Astro.props.title,
 );
 ---
 
