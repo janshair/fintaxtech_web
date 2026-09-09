@@ -18,6 +18,23 @@ const entry = (id: string, draft = false, date = '2026-09-09') => ({
 });
 
 describe('blog publishing', () => {
+  it('keeps a distinct SEO title and recognises the company legal-name author', () => {
+    expect(blogFields.parse({ ...fields, seoTitle: 'Short search title' }).seoTitle).toBe(
+      'Short search title',
+    );
+    expect(blogFields.safeParse({ ...fields, seoTitle: '' }).success).toBe(false);
+    const article = { ...fields, author: 'FinTaxTech Ltd.' };
+    const graph = structuredData(
+      '/blog/checklist/',
+      'Short search title | FinTaxTech',
+      fields.description,
+      article,
+    )['@graph'];
+    expect(graph.find((node) => node['@type'] === 'BlogPosting')).toMatchObject({
+      headline: fields.title,
+      author: { '@id': 'https://fintaxtech.co.uk/#organization' },
+    });
+  });
   it('excludes drafts and orders newest first without mutating the collection', () => {
     const input = [entry('old', false, '2026-01-01'), entry('draft', true), entry('new')];
     expect(publishedPosts(input).map(postURL)).toEqual(['/blog/new/', '/blog/old/']);

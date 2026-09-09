@@ -168,6 +168,8 @@ cta: mobile-apps
 
 Write the article below it, starting with `##` headings. The layout supplies the only H1 from `title`. Use descriptive link text and standard Markdown tables; tables automatically become keyboard-scrollable on small screens. The category links back to a service when it exactly matches a service name in `src/content/services.ts`.
 
+For a shorter search and social-sharing title, add an optional `seoTitle` without the `| FinTaxTech` suffix (the shared layout adds that). The full `title` still supplies the article heading, card title and breadcrumbs. Company authors such as `FinTaxTech` or `FinTaxTech Ltd.` use the site's Organisation structured data.
+
 The filename becomes `/blog/planning-your-app/`. Optionally add `slug: a-different-address` to override it; use lowercase words separated by hyphens. Published slugs must be unique. Add `updatedDate: 2026-09-10` after a substantive update; it cannot precede publication. Dates are displayed consistently in UK English. `cta: mobile-apps` selects the existing mobile questionnaire; omit it or use `cta: general` for the shared project CTA.
 
 Images are optional. If you have a real image, put it in `src/assets/blog/` and add `featuredImage: ../../assets/blog/your-image.png` and an accurate `imageAlt: ...` to the metadata. Supply both fields or neither. Astro creates optimised WebP assets for cards, the article and social sharing. Body images can use ordinary Markdown with a relative path and useful alt text. Without a featured image, sharing uses the existing FinTaxTech brand image. The first article's supplied illustrations are stored as compressed WebP files in its own folder under `src/assets/blog/`.

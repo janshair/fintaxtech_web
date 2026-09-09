@@ -50,6 +50,10 @@
   overflow-x: auto;
   padding: var(--space-5);
 }
+.article-body .contains-task-list {
+  list-style: none;
+  padding-left: 0;
+}
 .article-body .table-scroll {
   overflow-x: auto;
   margin-block: var(--space-6);

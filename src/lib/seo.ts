@@ -19,6 +19,8 @@ export interface SocialImage {
   alt: string;
 }
 export const absoluteURL = (path: string) => new URL(path, company.url).href;
+const normalizeAuthor = (name: string) => name.trim().replace(/\.$/, '').toLowerCase();
+const organizationNames = [company.name, company.legal].map(normalizeAuthor);
 export function breadcrumbs(path: string, title?: string) {
   if (path === '/' || seoPages[path]?.noindex) return [];
   const items = [{ name: ui.home, url: absoluteURL('/') }];
@@ -84,10 +86,9 @@ export function structuredData(
               description,
               datePublished: article.pubDate.toISOString(),
               ...(article.updatedDate ? { dateModified: article.updatedDate.toISOString() } : {}),
-              author:
-                article.author === company.name
-                  ? { '@id': organization }
-                  : { '@type': 'Person', name: article.author },
+              author: organizationNames.includes(normalizeAuthor(article.author))
+                ? { '@id': organization }
+                : { '@type': 'Person', name: article.author },
               publisher: { '@id': organization },
               mainEntityOfPage: { '@id': url + '#webpage' },
               isPartOf: { '@id': absoluteURL('/blog/#webpage') },

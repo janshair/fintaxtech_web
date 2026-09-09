@@ -134,8 +134,8 @@ const imageURL = absoluteURL(socialImage.url);
       </style></noscript
     ></head
   ><body
-    ><Header /><main id="main"><Breadcrumbs title={title} /><slot /></main><Footer /><Consent
-    /><script>
+    ><Header /><main id="main"><Breadcrumbs title={article?.title ?? title} /><slot /></main><Footer
+    /><Consent /><script>
       import '../scripts/site';
     </script></body
   >

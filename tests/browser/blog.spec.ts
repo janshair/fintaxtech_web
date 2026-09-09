@@ -14,10 +14,13 @@ for (const theme of ['light', 'dark']) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/blog/');
       await expect(page.locator('h1')).toHaveText(blogCopy.title);
-      await expect(page.locator('.article-meta time').locator('..')).toHaveText(
+      const listedArticle = page
+        .locator('.article-card')
+        .filter({ has: page.getByRole('link', { name: title, exact: true }) });
+      await expect(listedArticle.locator('.article-meta time').locator('..')).toHaveText(
         'Published 9 September 2026',
       );
-      await expect(page.locator('.article-card img')).toBeVisible();
+      await expect(listedArticle.locator('img')).toBeVisible();
       await expect(
         page.locator('footer').getByRole('link', { name: 'Blog', exact: true }),
       ).toHaveCount(1);
