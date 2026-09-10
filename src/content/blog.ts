@@ -15,6 +15,7 @@ export const blogCopy = {
   by: 'By',
   tags: 'Topics',
   table: 'Comparison table — scroll horizontally to read all columns',
+  tableRowHeading: 'Comparison item',
   mobileCTA: {
     title: 'Plan your mobile app with FinTaxTech',
     description:

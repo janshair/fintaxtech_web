@@ -76,7 +76,7 @@ Flutter draws its own interface rather than using the platform's, which is exact
 
 **A small team owns the whole thing.** Two or three developers can realistically maintain a Flutter app across both platforms. The same team maintaining two native codebases will be stretched thin.
 
-**Where it gets uncomfortable:** deep hardware integration, heavy background processing, and any moment a platform ships something new — you wait for plugin support, or write the native code yourself and lose part of the saving. App size is larger, and the app never quite feels like the platform it's on. Most business users don't mind. Some audiences do.
+**Where it gets uncomfortable:** Deep hardware integration, heavy background processing, and any moment a platform ships something new — you wait for plugin support, or write the native code yourself and lose part of the saving. App size is larger, and the app never quite feels like the platform it's on. Most business users don't mind. Some audiences do.
 
 ---
 
