@@ -114,8 +114,19 @@ for (const theme of ['light', 'dark']) {
     await expect(page).toHaveURL('/enquiry/?service=mobile-apps');
     await expect(page.locator('#questionnaire h1')).toHaveText('Mobile App Development');
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,follow');
+    await page.goto('/blog/');
+    const latestURLs = await page
+      .locator('.article-card a')
+      .evaluateAll((links) => links.slice(0, 3).map((link) => link.getAttribute('href')));
     await page.goto('/');
     await expect(page.getByRole('heading', { name: blogCopy.latest })).toBeVisible();
+    expect(
+      await page
+        .locator('.article-card a')
+        .evaluateAll((links) => links.map((link) => link.getAttribute('href'))),
+    ).toEqual(latestURLs);
+    // Older articles remain reachable through Blog after leaving the three latest homepage slots.
+    await page.getByRole('link', { name: blogCopy.all }).click();
     await page.locator('.article-card').getByRole('link', { name: title }).click();
     await expect(page).toHaveURL(route);
     await page

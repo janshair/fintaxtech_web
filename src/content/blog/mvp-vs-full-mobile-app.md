@@ -3,7 +3,7 @@ title: 'MVP vs Full Mobile App: What Should Your Business Build First?'
 seoTitle: 'MVP vs Full Mobile App: What Should You Build First?'
 description: Learn whether your business should begin with an MVP or a fuller mobile app, what the first release must include, and which features can wait.
 slug: mvp-vs-full-mobile-app
-pubDate: 2026-09-09
+pubDate: 2026-09-10
 author: FinTaxTech Ltd.
 category: Mobile App Development
 tags: [MVP, App planning, Project scope]
