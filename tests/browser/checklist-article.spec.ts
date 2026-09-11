@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { blogCopy } from '../../src/content/blog';
 
 const route = '/blog/mobile-app-requirements-checklist/';
 const canonical = `https://fintaxtech.co.uk${route}`;
@@ -95,6 +96,7 @@ for (const theme of ['light', 'dark']) {
     await page.locator('.final-cta a').click();
     await expect(page).toHaveURL('/start/');
     await page.goto('/');
+    await page.getByRole('link', { name: blogCopy.all }).click();
     await expect(
       page.locator('.article-card').getByRole('link', { name: title, exact: true }),
     ).toHaveCount(1);

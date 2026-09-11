@@ -29,7 +29,7 @@ for (const theme of ['light', 'dark']) {
       await expect(page).toHaveURL(path);
       await expect(page).toHaveTitle(seoTitle);
       await expect(page.locator('h1')).toHaveText(title);
-      await expect(page.locator('.article-meta')).toContainText('Published 9 September 2026');
+      await expect(page.locator('.article-meta')).toContainText('Published 10 September 2026');
       await expect(page.locator('.article-meta')).toContainText('By FinTaxTech Ltd.');
       await expect(page.locator('meta[name=description]')).toHaveAttribute('content', description);
       await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', canonical);
@@ -104,6 +104,7 @@ for (const theme of ['light', 'dark']) {
     await page.locator('.final-cta a').click();
     await expect(page).toHaveURL('/start/');
     await page.goto('/');
+    await page.getByRole('link', { name: blogCopy.all }).click();
     await expect(
       page.locator('.article-card').getByRole('link', { name: title, exact: true }),
     ).toHaveCount(1);
@@ -132,7 +133,7 @@ test('MVP article, table, checklist and schema are static and discoverable', asy
   expect(graph.find((node: any) => node['@type'] === 'BlogPosting')).toMatchObject({
     headline: title,
     description,
-    datePublished: '2026-09-09T00:00:00.000Z',
+    datePublished: '2026-09-10T00:00:00.000Z',
     author: { '@id': 'https://fintaxtech.co.uk/#organization' },
     url: canonical,
   });
