@@ -1,6 +1,6 @@
 export type PromoStatus = 'available' | 'final-place' | 'closed';
 // Owner changes this manually only after confirming the campaign and accepted payments.
-export const promoStatus: PromoStatus = 'closed';
+export const promoStatus: PromoStatus = 'available';
 export const promoCopy = {
   title: 'New Business Launch Promotion',
   price: '£999',
