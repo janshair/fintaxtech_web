@@ -6,10 +6,10 @@ export default defineConfig({
   workers: 3,
   use: { baseURL: 'http://localhost:4323', trace: 'retain-on-failure' },
   webServer: {
-    command: 'pnpm build && pnpm exec astro preview --host 127.0.0.1 --port 4323',
+    // GitHub Pages serves directory index files with or without a trailing slash.
+    // Override only preview routing; keep the production build configuration unchanged.
+    command: `pnpm build && node --input-type=module -e "import { preview } from 'astro'; await preview({ trailingSlash: 'ignore', server: { host: '127.0.0.1', port: 4323 } });"`,
     url: 'http://localhost:4323',
-    // Keep Astro attached to Playwright instead of auto-detaching in agent environments.
-    env: { ASTRO_PREVIEW_BACKGROUND: '1' },
     reuseExistingServer: false,
   },
   projects: [

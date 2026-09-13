@@ -1,7 +1,7 @@
 import { pages } from './pages';
 import { blogCopy } from './blog';
 import { services } from './services';
-import { home, ui } from './site';
+import { contactRedirect, home, ui } from './site';
 export const seoCopy = {
   imageAlt: 'FinTaxTech — Complexity made clear.',
   breadcrumbs: 'Breadcrumb',
@@ -12,6 +12,7 @@ export interface PageSEO {
   title: string;
   description: string;
   noindex?: boolean;
+  canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
   '/blog/': { title: blogCopy.seoTitle, description: blogCopy.description },
@@ -42,9 +43,10 @@ export const seoPages: Record<string, PageSEO> = {
       'Meet FinTaxTech, a digital and creative partner for businesses worldwide. Learn about our human-reviewed approach and customer-owned business accounts.',
   },
   '/contact/': {
-    title: 'Contact FinTaxTech',
-    description:
-      'Discuss your brand, website, mobile app or content project with FinTaxTech by email or WhatsApp. We work remotely with customers worldwide.',
+    title: contactRedirect.title,
+    description: contactRedirect.message,
+    canonical: contactRedirect.destination,
+    noindex: true,
   },
   '/how-it-works/': {
     title: 'How Our Project Process Works',

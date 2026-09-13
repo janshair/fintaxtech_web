@@ -26,7 +26,7 @@ const configured = seoPages[pathname];
 const title = configured?.title ?? Astro.props.title;
 const description = configured?.description ?? Astro.props.description ?? home.intro;
 const noindex = Astro.props.noindex || configured?.noindex || false;
-const canonical = new URL(pathname, company.url);
+const canonical = new URL(configured?.canonical ?? pathname, company.url);
 const { article } = Astro.props;
 const socialImage = Astro.props.socialImage ?? {
   url: '/social.png',

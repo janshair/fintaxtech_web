@@ -46,7 +46,8 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
   assert(meta('description')[0].length > 20, path);
   assert.equal(elements(doc, 'h1').length, 1, path);
   assert.equal(attr(elements(doc, 'html')[0], 'lang'), 'en', path);
-  assert.deepEqual(canonical, [origin + path], path);
+  assert.deepEqual(canonical, [origin + (path === '/contact/' ? '/start' : path)], path);
+  if (path === '/contact/') assert(noindex, 'Contact redirect must remain noindex');
   for (const name of [
     'og:title',
     'og:description',
@@ -164,7 +165,7 @@ assert.deepEqual(
 assert.equal(urls.filter((url) => url === origin + '/start/').length, 1);
 assert.equal(rows.find((row) => row.path === '/start/').noindex, false);
 assert.equal(rows.find((row) => row.path === '/enquiry/').noindex, true);
-assert(!urls.some((u) => /\?|\/promo\/|\/enquiry\//.test(u)));
+assert(!urls.some((u) => /\?|\/promo\/|\/enquiry\/|\/contact\//.test(u)));
 const robots = await readFile('dist/robots.txt', 'utf8');
 assert.match(robots, /User-agent: \*/);
 assert(!/^Disallow:\s*\S/m.test(robots));
@@ -191,15 +192,20 @@ for (const [path, doc] of docs)
       const url = new URL(raw, origin + path);
       if (url.origin !== origin) continue;
       let target = 'dist' + url.pathname + (url.pathname.endsWith('/') ? 'index.html' : '');
+      let documentPath = url.pathname;
       try {
+        if ((await stat(target)).isDirectory()) {
+          target = join(target, 'index.html');
+          documentPath += '/';
+        }
         assert((await stat(target)).isFile());
-        if (url.hash && docs.has(url.pathname)) {
+        if (url.hash && docs.has(documentPath)) {
           const ids = [];
           function walk(n) {
             if (attr(n, 'id')) ids.push(attr(n, 'id'));
             for (const c of n.childNodes ?? []) walk(c);
           }
-          walk(docs.get(url.pathname));
+          walk(docs.get(documentPath));
           assert(ids.includes(decodeURIComponent(url.hash.slice(1))));
         }
       } catch {

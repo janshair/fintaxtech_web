@@ -12,7 +12,7 @@ for (const theme of ['light', 'dark'] as const) {
     for (const width of [390, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       for (const route of [
-        '/contact/',
+        '/start/',
         '/invoice/privacy.html',
         '/reprocket/privacy.html',
         '/reprocket/terms.html',
@@ -43,7 +43,8 @@ for (const theme of ['light', 'dark'] as const) {
       }
     }
     await page.goto('/contact/');
-    const social = page.locator('main').getByRole('link', { name: 'GitHub', exact: true });
+    await expect(page).toHaveURL(/\/start\/?$/);
+    const social = page.locator('footer').getByRole('link', { name: 'GitHub', exact: true });
     // Intercept the destination to verify native Enter/new-tab behaviour without relying on a social network.
     await page
       .context()

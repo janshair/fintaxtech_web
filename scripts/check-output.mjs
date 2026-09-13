@@ -14,8 +14,10 @@ const all = await files('dist');
 assert.equal(await readFile('CNAME', 'utf8'), await readFile('dist/CNAME', 'utf8'));
 assert(all.includes('dist/404.html'));
 assert(all.includes('dist/.nojekyll'));
+assert(all.includes('dist/contact/index.html'));
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
 assert(!sitemap.includes('/promo'));
+assert(!sitemap.includes('/contact'));
 assert.match(
   await readFile('dist/promo/index.html', 'utf8'),
   /name="robots" content="noindex,follow"/,
@@ -29,8 +31,9 @@ for (const file of all.filter((f) => f.endsWith('.html'))) {
   for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)/g)) {
     const url = match[1];
     if (url.startsWith('//')) continue;
-    const target = 'dist' + (url.endsWith('/') ? url + 'index.html' : url);
+    let target = 'dist' + (url.endsWith('/') ? url + 'index.html' : url);
     try {
+      if ((await stat(target)).isDirectory()) target = join(target, 'index.html');
       assert((await stat(target)).isFile());
     } catch {
       broken.push({ file, url });

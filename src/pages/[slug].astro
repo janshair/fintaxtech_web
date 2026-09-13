@@ -1,13 +1,13 @@
 ---
-import SocialLinks from '../components/SocialLinks.astro';
-import { socialCopy } from '../content/social';
 import { seoCopy, seoPages, appPolicyPaths } from '../content/seo';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import { pages } from '../content/pages';
 import { company, ui } from '../content/site';
 export function getStaticPaths() {
-  return Object.entries(pages).map(([slug, page]) => ({ params: { slug }, props: { page } }));
+  return Object.entries(pages)
+    .filter(([slug]) => slug !== 'contact')
+    .map(([slug, page]) => ({ params: { slug }, props: { page } }));
 }
 const { page } = Astro.props;
 ---
@@ -28,25 +28,6 @@ const { page } = Astro.props;
         ))
       }
     </div>{
-      Astro.params.slug === 'contact' && (
-        <div class="contact-links section">
-          <>
-            <a class="button" href={`mailto:${company.email}`}>
-              {company.email}
-            </a>
-            <a class="button" href={`tel:+${company.whatsapp}`}>
-              {company.phone}
-            </a>
-            <a class="button" href={`https://wa.me/${company.whatsapp}`}>
-              {ui.whatsapp}
-            </a>
-            <a class="button primary" href="/start/">
-              {ui.start}
-            </a>
-          </>
-        </div>
-      )
-    }{
       Astro.params.slug === 'selected-work' && (
         <div class="section">
           <a
@@ -73,16 +54,6 @@ const { page } = Astro.props;
                 </li>
               ))}
             </ul>
-          </>
-        </section>
-      )
-    }
-    {
-      Astro.params.slug === 'contact' && (
-        <section>
-          <>
-            <h2>{socialCopy.title}</h2>
-            <SocialLinks />
           </>
         </section>
       )
