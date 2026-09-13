@@ -26,10 +26,14 @@ export const services = [
     name: 'Website Design and Development',
     short: 'Website',
     description: 'A new site, built to explain what you do and bring in enquiries.',
-    title: 'A website that moves your business forward.',
+    title: 'Website design and development for your business.',
+    intro:
+      'From a new business website to a complete website redesign, we plan, design and build around what your visitors need to understand and do.',
+    serviceArea:
+      'Based in Dundee, Scotland, we provide web design and website development remotely for clients across the UK and worldwide.',
     capabilities: [
       'Brochure websites and landing pages',
-      'Complete redesigns and rebuilds',
+      'Complete website redesigns and rebuilds',
       'Ecommerce and booking experiences',
       'Web applications, dashboards and accounts',
       'Back ends, databases and integrations',
@@ -46,10 +50,15 @@ export const services = [
     name: 'Mobile App Development',
     short: 'Mobile app',
     description: 'An app your customers or your team can use every day.',
-    title: 'Turn a product idea into an app people can use.',
+    title: 'Mobile app development for iOS and Android.',
+    intro:
+      'We create new mobile apps and complete rebuilds for customers and internal teams. Your users, device features and long-term support needs guide the choice of technology.',
+    serviceArea:
+      'FinTaxTech is an app developer based in Dundee, Scotland, providing iOS and Android app development remotely for clients across the UK and worldwide.',
     capabilities: [
-      'Native Android and iOS',
-      'Kotlin Multiplatform and Flutter',
+      'Native iOS apps in Swift and native Android apps in Kotlin, with interfaces built for each platform',
+      'Flutter apps using a shared Dart codebase and user interface for iOS and Android',
+      'Kotlin Multiplatform apps sharing business logic while retaining native iOS and Android interfaces',
       'Product planning and UX/UI',
       'Back-end services and administration tools',
       'Quality assurance and store-submission support',
@@ -88,6 +97,8 @@ export const services = [
   short: string;
   description: string;
   title: string;
+  intro?: string;
+  serviceArea?: string;
   capabilities: string[];
   suits: string;
   boundary: string;

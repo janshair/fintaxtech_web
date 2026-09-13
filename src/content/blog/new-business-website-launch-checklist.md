@@ -189,6 +189,6 @@ Examples communicate visual preferences more clearly than vague adjectives. A ge
 
 ## Tell us about your project
 
-If you're planning a new site or a complete redesign, tell us what your visitors need to understand and do. We'll use your answers to propose a suitable scope, including a simpler static site when that is enough. We build new websites and complete rebuilds; partial repairs of legacy code are outside our scope.
+If you're planning a new site or a complete redesign, tell us what your visitors need to understand and do. We'll use your answers to propose a suitable scope, including a simpler static site when that is enough. We build [new websites and complete rebuilds](/services/websites/); partial repairs of legacy code are outside our scope.
 
 **[Describe your project →](https://fintaxtech.co.uk/start)**

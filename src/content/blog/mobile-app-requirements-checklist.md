@@ -246,7 +246,7 @@ Copy this and fill it in before you brief anyone.
 
 ## Send us your answers
 
-FinTaxTech designs and develops new mobile products and complete app redesigns for clients worldwide. We do not take on isolated repairs to poor-quality legacy code.
+FinTaxTech designs and develops [new mobile products and complete app redesigns](/services/mobile-apps/) for clients worldwide. We do not take on isolated repairs to poor-quality legacy code.
 
 Our guided questionnaire helps us understand the outcome, users, scope and technical needs of your app. Your answers remain on your device unless you choose to share the generated document with us. If you request a quotation, we will assess the requirements individually rather than forcing the project into a generic package.
 

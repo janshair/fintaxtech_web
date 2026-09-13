@@ -12,8 +12,10 @@ const { service: s } = Astro.props;
   ><div class="container">
     <header class="page-head">
       <p class="eyebrow">{s.number} / {s.name}</p><h1>{s.title}</h1><p class="lead">
-        {s.description}
-      </p><div class="actions">
+        {s.intro ?? s.description}
+      </p>
+      {s.serviceArea && <p>{s.serviceArea}</p>}
+      <div class="actions">
         <a class="button primary" href={`/enquiry/?service=${s.id}`}>{c.lead}</a>
       </div>
     </header><div class="split section">

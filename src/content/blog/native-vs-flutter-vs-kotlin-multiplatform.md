@@ -152,7 +152,7 @@ Only then do we recommend an approach, in writing, with the trade-offs stated pl
 
 ## Plan your mobile app with FinTaxTech
 
-The right technology should follow the product requirements rather than personal preference. If you are planning a new Android or iOS app, or a complete rebuild, FinTaxTech can help you define those requirements before recommending an approach.
+The right technology should follow the product requirements rather than personal preference. If you are planning [a new Android or iOS app, or a complete rebuild](/services/mobile-apps/), FinTaxTech can help you define those requirements before recommending an approach.
 
 Our structured mobile-app questionnaire asks about your users, platforms, key features, device capabilities, data, integrations and long-term support. Your answers remain in your browser until you generate a project-enquiry PDF and choose to share it with us.
 

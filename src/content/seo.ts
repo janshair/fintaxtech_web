@@ -37,6 +37,16 @@ export const seoPages: Record<string, PageSEO> = {
     description:
       'Explore FinTaxTech’s branding, website development, mobile app development and AI-assisted content services for businesses worldwide.',
   },
+  '/services/websites/': {
+    title: 'Website Design and Development UK',
+    description:
+      'Website design and development for UK and worldwide clients. Based in Dundee, Scotland, we create new business websites and complete redesigns.',
+  },
+  '/services/mobile-apps/': {
+    title: 'Mobile App Development UK',
+    description:
+      'UK mobile app development from Dundee, Scotland. New iOS and Android apps and complete rebuilds using native tools, Flutter or Kotlin Multiplatform.',
+  },
   '/about/': {
     title: 'About FinTaxTech',
     description:
