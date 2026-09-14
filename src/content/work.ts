@@ -15,5 +15,6 @@ export const featuredWork = {
     label: 'Client feedback',
     quote: "They didn't just build a website; they became a trusted partner in our online growth.",
     attribution: 'Usman Riaz, owner of Ask Appliance Repairs',
+    disclosure: '',
   },
 } as const;
