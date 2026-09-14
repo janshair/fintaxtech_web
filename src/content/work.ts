@@ -11,4 +11,10 @@ export const featuredWork = {
     'Mobile view of the Ask Appliance Repairs website showing its repair booking hero and service cards.',
   desktopCaption: 'Desktop website',
   mobileCaption: 'Mobile website',
+  feedback: {
+    label: 'Client feedback',
+    quote: "They didn't just build a website; they became a trusted partner in our online growth.",
+    attribution: 'Usman Riaz, owner of Ask Appliance Repairs',
+    disclosure: 'Usman Riaz is the FinTaxTech founder’s brother-in-law.',
+  },
 } as const;

@@ -374,12 +374,42 @@ button {
 .work-panel h3 {
   font-size: var(--h2);
 }
+.work-showcase-head {
+  display: grid;
+  gap: var(--space-7);
+  margin-bottom: var(--space-8);
+}
 .work-showcase-intro {
   max-width: var(--reading);
-  margin-bottom: var(--space-8);
 }
 .work-showcase-intro p:not(.eyebrow) {
   color: var(--muted);
+}
+.work-feedback {
+  margin: 0;
+  padding: var(--space-5);
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+}
+.work-feedback-label {
+  margin-bottom: var(--space-4);
+  font-size: var(--small);
+  font-weight: var(--weight-strong);
+}
+.work-feedback blockquote {
+  margin: 0 0 var(--space-5);
+  font-size: var(--lead);
+  line-height: var(--line);
+}
+.work-feedback figcaption {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: var(--small);
+}
+.work-feedback-attribution {
+  color: var(--text);
+  font-weight: var(--weight-strong);
 }
 .work-previews {
   display: grid;
@@ -644,6 +674,9 @@ textarea {
   font: var(--weight-strong) var(--h1) var(--font-heading);
 }
 @media (--tablet) {
+  .work-showcase-head {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
   .work-previews {
     grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
   }

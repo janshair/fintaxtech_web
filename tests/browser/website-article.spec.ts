@@ -114,7 +114,7 @@ test('website article content, hero dimensions and SEO are present without JavaS
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('.article-body h2')).toHaveCount(14);
   await expect(page.locator('.article-body input[type=checkbox]:disabled')).toHaveCount(10);
-  await expect(page.locator('.article-meta')).toContainText('Published 10 September 2026');
+  await expect(page.locator('.article-meta')).toContainText('Published 11 September 2026');
   await expect(page.locator('.article-meta')).toContainText('By FinTaxTech Ltd.');
   await expect(page.locator('meta[name=description]')).toHaveAttribute('content', description);
   await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', canonical);
@@ -138,7 +138,7 @@ test('website article content, hero dimensions and SEO are present without JavaS
   expect(graph.find((node: any) => node['@type'] === 'BlogPosting')).toMatchObject({
     headline: title,
     description,
-    datePublished: '2026-09-10T00:00:00.000Z',
+    datePublished: '2026-09-11T00:00:00.000Z',
     author: { '@id': 'https://fintaxtech.co.uk/#organization' },
     url: canonical,
   });

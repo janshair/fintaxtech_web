@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { mkdir } from 'node:fs/promises';
+import { promoCopy, promoStatus } from '../../src/content/promo';
 test.beforeEach(async ({ page }, testInfo) => {
   if (testInfo.title.startsWith('consent')) return;
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
@@ -97,9 +98,14 @@ test('stage two conditional changes remove stale review answers', async ({ page 
       .filter({ hasText: 'For a redesign, what happens to the current site?' }),
   ).toHaveCount(0);
 });
-test('closed promo, sitemap and static fallbacks', async ({ page, request }) => {
+test('promo status, sitemap and static fallbacks', async ({ page, request }) => {
   await page.goto('/promo/');
-  await expect(page.getByRole('heading', { name: 'This promotion has closed' })).toBeVisible();
+  if (promoStatus === 'closed') {
+    await expect(page.getByRole('heading', { name: promoCopy.closedTitle })).toBeVisible();
+  } else {
+    await expect(page.getByRole('heading', { name: promoCopy.title })).toBeVisible();
+    await expect(page.locator('.price')).toHaveText(promoCopy.price);
+  }
   expect(await page.locator('meta[name=robots]').getAttribute('content')).toContain('noindex');
   const sitemap = await (await request.get('/sitemap.xml')).text();
   expect(sitemap).not.toContain('/promo');

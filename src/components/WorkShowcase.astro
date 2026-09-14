@@ -6,19 +6,29 @@ import { featuredWork as work } from '../content/work';
 ---
 
 <section class="section work-showcase" aria-labelledby="featured-work-title">
-  <div class="work-showcase-intro">
-    <p class="eyebrow">{work.category}</p>
-    <h2 id="featured-work-title">{work.name}</h2>
-    <p>{work.summary}</p>
-    <a
-      class="button"
-      href={work.url}
-      data-external-project
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {work.visitLabel} ↗
-    </a>
+  <div class="work-showcase-head">
+    <div class="work-showcase-intro">
+      <p class="eyebrow">{work.category}</p>
+      <h2 id="featured-work-title">{work.name}</h2>
+      <p>{work.summary}</p>
+      <a
+        class="button"
+        href={work.url}
+        data-external-project
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {work.visitLabel} ↗
+      </a>
+    </div>
+    <figure class="work-feedback">
+      <p class="work-feedback-label">{work.feedback.label}</p>
+      <blockquote>{work.feedback.quote}</blockquote>
+      <figcaption>
+        <span class="work-feedback-attribution">{work.feedback.attribution}</span>
+        <span>{work.feedback.disclosure}</span>
+      </figcaption>
+    </figure>
   </div>
   <div class="work-previews">
     <figure>

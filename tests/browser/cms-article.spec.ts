@@ -104,7 +104,7 @@ test('CMS article publishes complete static HTML, metadata and feeds', async ({
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('.article-body h2')).toHaveCount(15);
   await expect(page.locator('.article-body input[type=checkbox]:disabled')).toHaveCount(11);
-  await expect(page.locator('.article-meta')).toContainText('Published 11 September 2026');
+  await expect(page.locator('.article-meta')).toContainText('Published 12 September 2026');
   await expect(page.locator('.article-meta')).toContainText('By FinTaxTech Ltd.');
   await expect(page.locator('.article-body')).toContainText(
     'The editor manages content, the build process produces the site, and visitors receive finished static pages.',
@@ -134,7 +134,7 @@ test('CMS article publishes complete static HTML, metadata and feeds', async ({
   expect(graph.find((node: any) => node['@type'] === 'BlogPosting')).toMatchObject({
     headline: title,
     description,
-    datePublished: '2026-09-11T00:00:00.000Z',
+    datePublished: '2026-09-12T00:00:00.000Z',
     author: { '@id': 'https://fintaxtech.co.uk/#organization' },
     url: canonical,
   });
