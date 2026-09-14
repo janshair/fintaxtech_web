@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
+import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
+import { featuredWork as work } from '../content/work';
+---
+
+<section class="section work-showcase" aria-labelledby="featured-work-title">
+  <div class="work-showcase-intro">
+    <p class="eyebrow">{work.category}</p>
+    <h2 id="featured-work-title">{work.name}</h2>
+    <p>{work.summary}</p>
+    <a
+      class="button"
+      href={work.url}
+      data-external-project
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {work.visitLabel} ↗
+    </a>
+  </div>
+  <div class="work-previews">
+    <figure>
+      <a class="work-preview work-preview-desktop" href={desktop.src}>
+        <Image src={desktop} alt={work.desktopAlt} loading="eager" decoding="async" />
+      </a>
+      <figcaption>{work.desktopCaption}</figcaption>
+    </figure>
+    <figure>
+      <a class="work-preview work-preview-mobile" href={mobile.src}>
+        <Image src={mobile} alt={work.mobileAlt} loading="eager" decoding="async" />
+      </a>
+      <figcaption>{work.mobileCaption}</figcaption>
+    </figure>
+  </div>
+</section>

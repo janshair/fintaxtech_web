@@ -2,6 +2,7 @@
 import { seoCopy, seoPages, appPolicyPaths } from '../content/seo';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import FinalCTA from '../components/FinalCTA.astro';
+import WorkShowcase from '../components/WorkShowcase.astro';
 import { pages } from '../content/pages';
 import { company, ui } from '../content/site';
 export function getStaticPaths() {
@@ -27,21 +28,7 @@ const { page } = Astro.props;
           </section>
         ))
       }
-    </div>{
-      Astro.params.slug === 'selected-work' && (
-        <div class="section">
-          <a
-            class="button"
-            href="https://askappliancerepairs.com/"
-            data-external-project
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {ui.external} ↗
-          </a>
-        </div>
-      )
-    }
+    </div>{Astro.params.slug === 'selected-work' && <WorkShowcase />}
     {
       Astro.params.slug === 'privacy' && (
         <section>

@@ -7,6 +7,7 @@ import LatestArticles from '../components/blog/LatestArticles.astro';
 import { company, ui, home as c } from '../content/site';
 import { services } from '../content/services';
 import { pages } from '../content/pages';
+import { featuredWork } from '../content/work';
 ---
 
 <SiteLayout title={company.tagline}>
@@ -81,13 +82,11 @@ import { pages } from '../content/pages';
   <section class="section">
     <div class="container split">
       <div>
-        <p class="eyebrow">{ui.work}</p><h2>{pages['selected-work'].sections[0][0]}</h2><p
-          class="muted"
-        >
+        <p class="eyebrow">{ui.work}</p><h2>{featuredWork.name}</h2><p class="muted">
           {pages['selected-work'].intro}
         </p>
       </div><div class="work-panel">
-        <p>{pages['selected-work'].sections[0][1]}</p><a href="/selected-work/">{ui.work} →</a>
+        <p>{featuredWork.summary}</p><a href="/selected-work/">{ui.work} →</a>
       </div>
     </div>
   </section>

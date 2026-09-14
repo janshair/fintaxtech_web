@@ -374,6 +374,45 @@ button {
 .work-panel h3 {
   font-size: var(--h2);
 }
+.work-showcase-intro {
+  max-width: var(--reading);
+  margin-bottom: var(--space-8);
+}
+.work-showcase-intro p:not(.eyebrow) {
+  color: var(--muted);
+}
+.work-previews {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+.work-previews figure {
+  min-width: 0;
+  margin: 0;
+}
+.work-preview {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.work-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.work-preview-mobile {
+  max-width: 15rem;
+  margin-inline: auto;
+}
+.work-previews figcaption {
+  margin-top: var(--space-3);
+  color: var(--muted);
+  font-size: var(--small);
+  text-align: center;
+}
 details {
   border-top: 1px solid var(--border);
   padding-block: var(--space-5);
@@ -605,6 +644,9 @@ textarea {
   font: var(--weight-strong) var(--h1) var(--font-heading);
 }
 @media (--tablet) {
+  .work-previews {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  }
   .hero {
     grid-template-columns: 1.35fr 1fr;
     gap: var(--space-8);
