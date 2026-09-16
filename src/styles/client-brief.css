@@ -1,35 +1,35 @@
-.logo-brief > h1 {
+.client-brief > h1 {
   margin-bottom: var(--space-5);
 }
-.logo-brief .brief-field {
+.client-brief .brief-field {
   margin-block: var(--space-7);
 }
-.logo-brief .brief-field legend {
+.client-brief .brief-field legend {
   font-weight: var(--weight-strong);
   margin-bottom: var(--space-3);
 }
-.logo-brief .brief-field legend small {
+.client-brief .brief-field legend small {
   display: block;
   font-weight: normal;
   color: var(--muted);
 }
-.logo-brief .brief-examples {
+.client-brief .brief-examples {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--brief-choice-width)), 1fr));
 }
-.logo-brief .brief-example {
+.client-brief .brief-example {
   flex-wrap: wrap;
   align-content: start;
 }
-.logo-brief .brief-example img {
+.client-brief .brief-example img {
   width: 100%;
   height: auto;
   border-radius: var(--radius);
 }
-.logo-brief .brief-other {
+.client-brief .brief-other {
   margin-top: var(--space-4);
 }
-.logo-brief input[type='date'],
-.logo-brief input[type='url'] {
+.client-brief input[type='date'],
+.client-brief input[type='url'] {
   width: 100%;
   min-width: 0;
   padding: var(--space-4);
@@ -38,54 +38,55 @@
   background: var(--surface);
   color: var(--text);
 }
-.logo-brief input[type='file'] {
+.client-brief input[type='file'] {
   width: 100%;
   max-width: 100%;
 }
-.logo-brief .brief-reference,
-.logo-brief .brief-competitor {
+.client-brief .brief-reference,
+.client-brief .brief-competitor,
+.client-brief .brief-page {
   padding: var(--space-5);
   margin-block: var(--space-5);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
 }
-.logo-brief .brief-reference img {
+.client-brief .brief-reference img {
   display: block;
   width: auto;
   max-height: var(--brief-preview-height);
   object-fit: contain;
   margin-bottom: var(--space-4);
 }
-.logo-brief .brief-reference figcaption {
+.client-brief .brief-reference figcaption {
   overflow-wrap: anywhere;
   white-space: pre-wrap;
 }
-.logo-brief figure {
+.client-brief figure {
   margin-inline: 0;
 }
-.logo-brief .brief-review dt {
+.client-brief .brief-review dt {
   color: var(--muted);
   margin-top: var(--space-4);
 }
-.logo-brief .brief-review dd {
+.client-brief .brief-review dd {
   margin: var(--space-2) 0 var(--space-4);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-.logo-brief .brief-review section {
+.client-brief .brief-review section {
   padding-block: var(--space-5);
   border-bottom: 1px solid var(--border);
 }
-.logo-brief .brief-review h3 {
+.client-brief .brief-review h3 {
   margin-bottom: var(--space-4);
 }
-.logo-brief .quiz-progress {
+.client-brief .quiz-progress {
   margin-bottom: var(--space-4);
 }
-.logo-brief .brief-status {
+.client-brief .brief-status {
   margin-block: var(--space-4);
 }
-.logo-brief [aria-invalid='true'] {
+.client-brief [aria-invalid='true'] {
   border-color: var(--error);
 }

@@ -1,28 +1,33 @@
-import { logoBriefCopy as c, logoBriefSections as sections } from '../content/logo-brief';
+import { clientBriefDefinitions } from '../lib/client-brief/definitions';
 import { company } from '../content/site';
 import {
-  briefSummary,
+  createBriefRules,
   emptyBrief,
   hasOther,
   includesAnswer,
-  invalidSection,
   isVisible,
   limits,
-  pruneBrief,
   toggleChoice,
-  validateField,
-} from '../lib/logo-brief/rules';
+} from '../lib/client-brief/rules';
 import { prepareReference } from '../lib/logo-brief/images';
 import { download } from '../lib/sharing';
-import type { BriefField } from '../lib/logo-brief/types';
+import type { BriefField } from '../lib/client-brief/types';
 
-const root = document.querySelector<HTMLElement>('#logo-brief-form')!;
-const intro = document.querySelector<HTMLElement>('#logo-brief-intro')!;
-const begin = document.querySelector<HTMLButtonElement>('#logo-brief-begin')!;
+const shell = document.querySelector<HTMLElement>('[data-client-brief]')!;
+const definition =
+  clientBriefDefinitions[shell.dataset.clientBrief as keyof typeof clientBriefDefinitions];
+const { copy: c } = definition;
+const { briefSummary, invalidSection, pruneBrief, validateField, visibleSections } =
+  createBriefRules(definition.sections);
+let sections = visibleSections({});
+const root = shell.querySelector<HTMLElement>('[data-brief-form]')!;
+const intro = shell.querySelector<HTMLElement>('[data-brief-intro]')!;
+const begin = shell.querySelector<HTMLButtonElement>('[data-brief-begin]')!;
 let state = emptyBrief();
 let position = 0;
 let dirty = false;
 let busy = false;
+let lifetime = 0;
 let errors: Record<string, string> = {};
 let imageMessage = '';
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string, className?: string) {
@@ -141,7 +146,12 @@ function renderField(field: BriefField) {
       other.querySelector('input')!.required = true;
       wrap.append(other);
     }
-  } else if (field.type === 'text' || field.type === 'long' || field.type === 'date') {
+  } else if (
+    field.type === 'text' ||
+    field.type === 'long' ||
+    field.type === 'date' ||
+    field.type === 'url'
+  ) {
     const label = textField(
       field.id,
       field.label,
@@ -156,7 +166,13 @@ function renderField(field: BriefField) {
           if (confirmation) confirmation.textContent = c.confirmation(value);
         }
       },
-      field.type === 'long' ? 'textarea' : field.type === 'date' ? 'date' : 'text',
+      field.type === 'long'
+        ? 'textarea'
+        : field.type === 'date'
+          ? 'date'
+          : field.type === 'url'
+            ? 'url'
+            : 'text',
       field.type === 'long' ? limits.long : limits.short,
     );
     label.querySelector('span')!.classList.add('sr-only');
@@ -215,6 +231,46 @@ function renderField(field: BriefField) {
     add.id = 'add-competitor';
     add.disabled = busy || state.competitors.length >= limits.competitors;
     wrap.append(add);
+  } else if (field.type === 'pages') {
+    state.additionalPages.forEach((page, index) => {
+      const item = el('div', undefined, 'brief-page');
+      item.append(el('h3', c.additionalPage(index + 1)));
+      const name = textField(
+        `page-name-${page.id}`,
+        c.pageName,
+        page.name,
+        (value) => (page.name = value),
+      );
+      name.querySelector('input')!.required = true;
+      item.append(
+        name,
+        textField(
+          `page-purpose-${page.id}`,
+          c.pagePurpose,
+          page.purpose,
+          (value) => (page.purpose = value),
+        ),
+      );
+      const remove = button(c.remove, () => {
+        dirty = true;
+        state.additionalPages.splice(index, 1);
+        delete errors[field.id];
+        render(false, 'add-page');
+      });
+      remove.setAttribute('aria-label', c.removePage(index + 1));
+      item.append(remove);
+      wrap.append(item);
+    });
+    const add = button(c.addPage, () => {
+      if (state.additionalPages.length >= limits.additionalPages) return;
+      const id = crypto.randomUUID();
+      dirty = true;
+      state.additionalPages.push({ id, name: '', purpose: '' });
+      render(false, `page-name-${id}`);
+    });
+    add.id = 'add-page';
+    add.disabled = busy || state.additionalPages.length >= limits.additionalPages;
+    wrap.append(add);
   } else if (field.type === 'images') {
     state.images.forEach((reference, index) => {
       const item = el('div', undefined, 'brief-reference');
@@ -244,10 +300,23 @@ function renderField(field: BriefField) {
     status.setAttribute('role', 'status');
     wrap.append(status);
   }
+  if (field.followUp?.values.some((value) => includesAnswer(state.answers[field.id], value))) {
+    const notice = el('div', undefined, 'notice');
+    notice.append(el('p', field.followUp.text));
+    if (field.followUp.link) {
+      const link = el('a', field.followUp.link.label);
+      link.href = field.followUp.link.href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      notice.append(link);
+    }
+    wrap.append(notice);
+  }
   if (errors[field.id]) {
     const error = el('p', errors[field.id], 'error');
     error.id = `error-${field.id}`;
     error.setAttribute('role', 'alert');
+    error.tabIndex = -1;
     wrap.append(error);
     wrap.querySelectorAll('input, textarea').forEach((control) => {
       control.setAttribute('aria-invalid', 'true');
@@ -281,6 +350,7 @@ function imagePicker(replaceId?: string, label = c.addImages) {
       render(false, input.id);
       return;
     }
+    const operationLifetime = lifetime;
     busy = true;
     imageMessage = c.processing;
     render(false);
@@ -288,6 +358,7 @@ function imagePicker(replaceId?: string, label = c.addImages) {
       // Process sequentially to bound peak image memory; apply the batch only on success.
       const prepared = [];
       for (const file of files) prepared.push(await prepareReference(file));
+      if (operationLifetime !== lifetime) return;
       if (replaceId) {
         const index = state.images.findIndex((image) => image.id === replaceId);
         if (index !== -1)
@@ -302,6 +373,7 @@ function imagePicker(replaceId?: string, label = c.addImages) {
     } catch (error) {
       imageMessage = error instanceof Error ? error.message : c.imageInvalid;
     } finally {
+      if (operationLifetime !== lifetime) return;
       busy = false;
       render(
         false,
@@ -317,6 +389,7 @@ function imagePicker(replaceId?: string, label = c.addImages) {
   return wrap;
 }
 function render(focus = true, focusId?: string) {
+  sections = visibleSections(state.answers);
   root.hidden = false;
   intro.hidden = true;
   root.replaceChildren();
@@ -363,7 +436,10 @@ function render(focus = true, focusId?: string) {
     }
     if (Object.keys(errors).length) {
       render(false);
-      root.querySelector<HTMLElement>('[aria-invalid]')?.focus();
+      (
+        root.querySelector<HTMLElement>('[aria-invalid]') ??
+        root.querySelector<HTMLElement>('[role=alert]')
+      )?.focus();
     } else if (position < sections.length - 1) {
       position++;
       render();
@@ -427,14 +503,16 @@ function review() {
     c.download,
     async () => {
       if (busy) return;
+      const operationLifetime = lifetime;
       busy = true;
       status.textContent = c.downloading;
       root
         .querySelectorAll<HTMLButtonElement>('button')
         .forEach((button) => (button.disabled = true));
       try {
-        const { createLogoBriefPDF } = await import('../lib/logo-brief/pdf');
-        const blob = await createLogoBriefPDF(state);
+        const { createClientBriefPDF } = await import('../lib/client-brief/pdf');
+        const blob = await createClientBriefPDF(definition, state);
+        if (operationLifetime !== lifetime) return;
         download(blob, c.pdfFilename);
         // Do not retain a Blob in journey state. Recreate it from current answers for each download.
         status.textContent = c.downloaded;
@@ -475,6 +553,7 @@ window.addEventListener('beforeunload', (event) => {
 });
 // Clear answers on navigation, including browsers that restore a page from their back/forward cache.
 window.addEventListener('pagehide', () => {
+  lifetime++;
   state = emptyBrief();
   dirty = false;
 });

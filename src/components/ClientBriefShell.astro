@@ -1,0 +1,25 @@
+---
+import { clientBriefDefinitions } from '../lib/client-brief/definitions';
+import '../styles/client-brief.css';
+interface Props {
+  kind: keyof typeof clientBriefDefinitions;
+}
+const { kind } = Astro.props;
+const { copy: c } = clientBriefDefinitions[kind];
+---
+
+<section class="quiz client-brief" data-client-brief={kind} aria-labelledby="client-brief-title">
+  <h1 id="client-brief-title">{c.title}</h1>
+  <p class="lead">{c.intro}</p>
+  <p class="notice">{c.privacy}</p>
+  <div data-brief-intro>
+    <p>{c.access}</p>
+    <p>{c.workflow}</p>
+    <button type="button" class="button primary" data-brief-begin hidden>{c.begin}</button>
+    <noscript><p class="notice">{c.noScript}</p></noscript>
+  </div>
+  <div data-brief-form hidden></div>
+</section>
+<script>
+  import '../scripts/client-brief';
+</script>

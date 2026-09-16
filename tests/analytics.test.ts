@@ -19,19 +19,23 @@ function browser() {
   return append;
 }
 describe('analytics privacy boundary', () => {
-  it.each(['/client/logo-brief', '/client/logo-brief/', '/client/logo-brief/index.html'])(
-    'never loads analytics or emits events on %s',
-    async (path) => {
-      const append = browser();
-      location.pathname = path;
-      const a = await import('../src/lib/analytics');
-      a.setAnalyticsConsent(true);
-      a.track('theme_changed');
-      a.initAnalytics();
-      expect(append).not.toHaveBeenCalled();
-      expect(window.gtag).toBeUndefined();
-    },
-  );
+  it.each([
+    '/client/logo-brief',
+    '/client/logo-brief/',
+    '/client/logo-brief/index.html',
+    '/client/website-brief',
+    '/client/website-brief/',
+    '/client/website-brief/index.html',
+  ])('never loads analytics or emits events on %s', async (path) => {
+    const append = browser();
+    location.pathname = path;
+    const a = await import('../src/lib/analytics');
+    a.setAnalyticsConsent(true);
+    a.track('theme_changed');
+    a.initAnalytics();
+    expect(append).not.toHaveBeenCalled();
+    expect(window.gtag).toBeUndefined();
+  });
   it('loads nothing before consent or on rejection', async () => {
     const append = browser();
     const a = await import('../src/lib/analytics');

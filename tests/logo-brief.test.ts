@@ -166,5 +166,5 @@ it('creates a complete local multi-page PDF with long text and five embedded ref
   state.answers.trading = 'Unsupported 🪿';
   await expect(createLogoBriefPDF(state)).rejects.toThrow('Unsupported PDF glyph');
   state.answers.trading = '';
-  await expect(createLogoBriefPDF(state)).rejects.toThrow('Incomplete logo brief');
+  await expect(createLogoBriefPDF(state)).rejects.toThrow('Incomplete client brief');
 });

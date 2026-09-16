@@ -1,0 +1,9 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ClientBriefShell from '../../components/ClientBriefShell.astro';
+import { websiteBriefCopy as c } from '../../content/website-brief';
+---
+
+<SiteLayout title={c.title} description={c.description} noindex>
+  <ClientBriefShell kind="website" />
+</SiteLayout>
