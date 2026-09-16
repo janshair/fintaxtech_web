@@ -1,0 +1,20 @@
+---
+import { logoBriefCopy as c } from '../content/logo-brief';
+import '../styles/logo-brief.css';
+---
+
+<section class="quiz logo-brief" aria-labelledby="logo-brief-title">
+  <h1 id="logo-brief-title">{c.title}</h1>
+  <p class="lead">{c.intro}</p>
+  <p class="notice">{c.privacy}</p>
+  <div id="logo-brief-intro">
+    <p>{c.access}</p>
+    <p>{c.workflow}</p>
+    <button type="button" class="button primary" id="logo-brief-begin" hidden>{c.begin}</button>
+    <noscript><p class="notice">{c.noScript}</p></noscript>
+  </div>
+  <div id="logo-brief-form" hidden></div>
+</section>
+<script>
+  import '../scripts/logo-brief';
+</script>

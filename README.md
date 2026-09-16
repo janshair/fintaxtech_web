@@ -91,6 +91,18 @@ Password protection is deliberately unavailable. The installed jsPDF encryption 
 
 Email and WhatsApp links prepare generic messages with the approved contact details. The visitor attaches the PDF themselves. Device file sharing appears only if supported. The site never claims a message was sent.
 
+## Post-payment logo brief
+
+The unlisted `/client/logo-brief/` page is for clients whose advance payment you have confirmed manually. Send its link yourself after payment. It is not access-controlled: anyone with the URL can open it. It has a self-referencing canonical and `noindex,nofollow`, and is excluded from navigation, the sitemap, Blog and RSS. The public `/start/` enquiry remains separate.
+
+Edit questions, choices, help text and messages in `src/content/logo-brief.ts`. The shared site layout surrounds `LogoBriefShell.astro`; the small additional styles use the existing theme tokens. Branching and validation live in `src/lib/logo-brief/rules.ts`, local image processing in `images.ts`, PDF layout in `pdf.ts`, and page interaction in `src/scripts/logo-brief.ts`. The 13 supplied illustrations live in `public/images/logo-brief/`.
+
+Answers, image previews and resized image copies stay in page memory. Nothing is uploaded, and analytics is disabled on this route even with existing consent. Up to five PNG/JPEG/WebP files of 5 MB each are accepted; copies are reduced to a maximum 1,600-pixel side and embedded in the PDF. Very large decoded images are rejected. Downloaded files remain on the visitor's device. Refreshing or closing clears the form; the browser's leave warning is best-effort, particularly on mobile. A page restored from browser history starts empty.
+
+The PDF generator loads only when Download PDF is selected, reuses the bundled Unicode font and colours, and does not retain the generated PDF in journey state. Password protection is deliberately absent because the current library does not provide verified modern encryption. Unsupported characters, including some emoji, produce a clear error instead of corrupt PDF text. Customers download the PDF and attach it manually in email or WhatsApp; the links do not send answers or attach a file automatically.
+
+For a quick manual check: open the route at desktop and phone widths; use Tab/Space and Back/Next; select and deselect Other; choose five personality traits; toggle No preference; add, replace and remove an image; review the brief and download its PDF. Check captions and page breaks, then reload and confirm the form is empty. Automated coverage is in `tests/logo-brief.test.ts` and `tests/browser/logo-brief.spec.ts`; run `pnpm verify` and `pnpm exec playwright test tests/browser/logo-brief.spec.ts`.
+
 ## Analytics and consent
 
 Without a measurement ID, no Analytics script loads even after acceptance. To enable it after approval, copy `.env.example` to `.env`, supply `PUBLIC_GA_MEASUREMENT_ID=G-…`, then rebuild. This ID is public configuration, not a secret.

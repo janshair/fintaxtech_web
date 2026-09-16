@@ -1,3 +1,4 @@
+import { logoBriefCopy } from '../content/logo-brief';
 import { company } from '../content/site';
 import { readPreference } from './storage';
 const events = [
@@ -27,6 +28,11 @@ declare global {
   }
 }
 export function setAnalyticsConsent(allowed: boolean) {
+  if (
+    location.pathname.replace(/\/index\.html$/, '/').replace(/\/$/, '') ===
+    logoBriefCopy.route.replace(/\/$/, '')
+  )
+    return;
   permitted = allowed;
   if (!measurementId || !/^G-[A-Z0-9]+$/.test(measurementId)) return;
   (window as unknown as Record<string, unknown>)[`ga-disable-${measurementId}`] = !allowed;
@@ -76,6 +82,11 @@ export function setAnalyticsConsent(allowed: boolean) {
 }
 // Deliberately accepts no payload: answers, service text, URLs, filenames and PII cannot flow here.
 export function track(event: EventName) {
+  if (
+    location.pathname.replace(/\/index\.html$/, '/').replace(/\/$/, '') ===
+    logoBriefCopy.route.replace(/\/$/, '')
+  )
+    return;
   if (!permitted || !events.includes(event)) return;
   window.gtag?.('event', event, {
     page_location: location.origin + location.pathname,

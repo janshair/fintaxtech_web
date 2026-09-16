@@ -1,5 +1,6 @@
 import { pdfTokens as t } from '../design/pdf-tokens';
 import { jsPDF } from 'jspdf';
+import { loadPDFFont, checkPDFGlyphs } from './pdf-font';
 import { company } from '../content/site';
 import { quizCopy as c } from '../content/questionnaire';
 import { promoCopy, promoStatus } from '../content/promo';
@@ -15,18 +16,7 @@ export interface PDFInput {
 export const supportsSecurePasswordProtection = false;
 export async function createPDF({ journey, customer, partial = false }: PDFInput): Promise<Blob> {
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
-  // Local Unicode font covers Latin, Greek, Cyrillic and several other scripts.
-  // Reject unsupported glyphs rather than silently dropping customer text.
-  const response = await fetch('/fonts/DejaVuSans.ttf');
-  if (!response.ok) throw new Error('Font unavailable');
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  let binary = '';
-  for (let i = 0; i < bytes.length; i += 8192)
-    binary += String.fromCharCode(...bytes.subarray(i, i + 8192));
-  doc.addFileToVFS('FinTaxTech.ttf', btoa(binary));
-  doc.addFont('FinTaxTech.ttf', 'FinTaxTech', 'normal');
-  doc.setFont('FinTaxTech');
-  doc.setLanguage('en-GB');
+  await loadPDFFont(doc);
   doc.setProperties({ title: c.pdfTitle, author: company.legal, creator: company.name });
   let y = t.layout.start as number;
   const { margin, width, bottom } = t.layout;
@@ -39,13 +29,7 @@ export async function createPDF({ journey, customer, partial = false }: PDFInput
     size: number = t.type.body,
     color: readonly [number, number, number] = t.color.text,
   ) {
-    const font = doc.getFont().metadata as unknown as {
-      characterToGlyph: (code: number) => number;
-    };
-    for (const character of value) {
-      const code = character.codePointAt(0)!;
-      if (code > 32 && !font.characterToGlyph(code)) throw new Error('Unsupported PDF glyph');
-    }
+    checkPDFGlyphs(doc, value);
     doc.setFontSize(size);
     doc.setTextColor(...color);
     const lines = doc.splitTextToSize(value, width) as string[];

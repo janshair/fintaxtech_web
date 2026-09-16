@@ -14,11 +14,11 @@ export function canShare(file: File): boolean {
 export async function share(file: File) {
   await navigator.share({ files: [file], title: c.shareSubject });
 }
-export function download(blob: Blob) {
+export function download(blob: Blob, filename: string = c.pdfFilename) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = c.pdfFilename;
+  a.download = filename;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

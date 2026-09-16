@@ -1,3 +1,4 @@
+import { logoBriefCopy } from './logo-brief';
 import { pages } from './pages';
 import { blogCopy } from './blog';
 import { services } from './services';
@@ -12,9 +13,16 @@ export interface PageSEO {
   title: string;
   description: string;
   noindex?: boolean;
+  nofollow?: boolean;
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [logoBriefCopy.route]: {
+    title: logoBriefCopy.title,
+    description: logoBriefCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
   '/blog/': { title: blogCopy.seoTitle, description: blogCopy.description },
   ...Object.fromEntries(
     Object.entries(pages).map(([slug, p]) => [

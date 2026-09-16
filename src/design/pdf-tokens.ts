@@ -1,6 +1,7 @@
 // PDF always uses the approved light palette and A4 dimensions (millimetres).
 export const pdfTokens = {
   color: {
+    paper: [255, 255, 255],
     text: [11, 13, 16],
     muted: [89, 97, 112],
     accent: [37, 99, 235],
