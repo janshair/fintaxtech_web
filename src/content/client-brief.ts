@@ -70,6 +70,11 @@ export const briefCopy = {
   pageDuplicate:
     'Each additional page needs a unique name. Use the listed choices for standard pages.',
   scopeReview: 'Scope review',
+  rowRequired: 'Add at least one entry and complete its required fields.',
+  rowLimit: (max: number) => `Add no more than ${max} entries.`,
+  rowDuplicate:
+    'Use a unique name for each entry. Choose a listed feature using its checkbox instead of adding it again.',
+  invalidURLs: 'Enter one complete http:// or https:// app link per line.',
 };
 export type BriefCopy = typeof briefCopy & {
   route: string;

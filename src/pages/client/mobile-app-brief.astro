@@ -1,0 +1,9 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ClientBriefShell from '../../components/ClientBriefShell.astro';
+import { mobileAppBriefCopy as c } from '../../content/mobile-app-brief';
+---
+
+<SiteLayout title={c.title} description={c.description} noindex>
+  <ClientBriefShell kind="mobile" />
+</SiteLayout>

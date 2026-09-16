@@ -11,8 +11,26 @@ export interface BriefField {
     | 'competitors'
     | 'images'
     | 'url'
-    | 'pages';
+    | 'pages'
+    | 'urls'
+    | 'rows';
   options?: string[];
+  optionsFrom?: { id: string; exclude?: string[] };
+  otherField?: string;
+  repeat?: {
+    title: (n: number) => string;
+    add: string;
+    remove: (n: number) => string;
+    max?: number;
+    unique?: { key: string; againstOptionsFrom?: string };
+    fields: {
+      key: string;
+      label: string;
+      type: 'text' | 'single';
+      options?: string[];
+      optional?: boolean;
+    }[];
+  };
   optional?: boolean;
   max?: number;
   help?: string;
@@ -54,6 +72,7 @@ export interface BriefState {
   competitors: Competitor[];
   additionalPages: AdditionalPage[];
   images: ReferenceImage[];
+  rows: Record<string, { id: string; values: Record<string, string> }[]>;
 }
 export interface BriefRow {
   label: string;

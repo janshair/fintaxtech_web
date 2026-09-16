@@ -26,6 +26,9 @@ describe('analytics privacy boundary', () => {
     '/client/website-brief',
     '/client/website-brief/',
     '/client/website-brief/index.html',
+    '/client/mobile-app-brief',
+    '/client/mobile-app-brief/',
+    '/client/mobile-app-brief/index.html',
   ])('never loads analytics or emits events on %s', async (path) => {
     const append = browser();
     location.pathname = path;

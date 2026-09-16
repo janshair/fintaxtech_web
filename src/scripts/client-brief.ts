@@ -3,7 +3,8 @@ import { company } from '../content/site';
 import {
   createBriefRules,
   emptyBrief,
-  hasOther,
+  requiresOtherText,
+  fieldOptions,
   includesAnswer,
   isVisible,
   limits,
@@ -75,6 +76,65 @@ function textField(
   wrap.append(input);
   return wrap;
 }
+function renderRows(field: BriefField, wrap: HTMLElement) {
+  const repeat = field.repeat!;
+  const rows = (state.rows[field.id] ??= []);
+  rows.forEach((row, index) => {
+    const item = el('fieldset', undefined, 'brief-row');
+    item.append(el('legend', repeat.title(index + 1)));
+    for (const part of repeat.fields) {
+      const id = `${field.id}-${row.id}-${part.key}`;
+      if (part.type === 'text') {
+        const label = textField(id, part.label, row.values[part.key] ?? '', (value) => {
+          row.values[part.key] = value;
+        });
+        label.querySelector('input')!.required = !part.optional;
+        item.append(label);
+      } else {
+        const group = el('fieldset', undefined, 'field');
+        group.append(el('legend', part.label));
+        const choices = el('div', undefined, 'choices');
+        for (const option of part.options ?? []) {
+          const label = el('label', undefined, 'choice');
+          const input = el('input');
+          input.type = 'radio';
+          input.name = id;
+          input.value = option;
+          input.required = !part.optional;
+          input.checked = row.values[part.key] === option;
+          input.addEventListener('change', () => {
+            dirty = true;
+            row.values[part.key] = option;
+          });
+          label.append(input, el('span', option));
+          choices.append(label);
+        }
+        group.append(choices);
+        item.append(group);
+      }
+    }
+    const remove = button(c.remove, () => {
+      dirty = true;
+      rows.splice(index, 1);
+      delete errors[field.id];
+      render(false, `add-${field.id}`);
+    });
+    remove.setAttribute('aria-label', repeat.remove(index + 1));
+    item.append(remove);
+    wrap.append(item);
+  });
+  const add = button(repeat.add, () => {
+    if (repeat.max && rows.length >= repeat.max) return;
+    const id = crypto.randomUUID();
+    dirty = true;
+    rows.push({ id, values: {} });
+    delete errors[field.id];
+    render(false, `${field.id}-${id}-${repeat.fields[0].key}`);
+  });
+  add.id = `add-${field.id}`;
+  add.disabled = busy || !!(repeat.max && rows.length >= repeat.max);
+  wrap.append(add);
+}
 function renderField(field: BriefField) {
   const wrap = el('fieldset', undefined, 'brief-field');
   wrap.id = `field-${field.id}`;
@@ -98,7 +158,7 @@ function renderField(field: BriefField) {
       wrap.append(count);
     }
     const choices = el('div', undefined, field.examples ? 'choices brief-examples' : 'choices');
-    field.options!.forEach((option, index) => {
+    fieldOptions(field, state.answers).forEach((option, index) => {
       const example = field.examples?.[option];
       const label = el('label', undefined, example ? 'choice brief-example' : 'choice');
       const input = el('input');
@@ -135,7 +195,7 @@ function renderField(field: BriefField) {
       choices.append(label);
     });
     wrap.append(choices);
-    if (hasOther(field, state.answers)) {
+    if (requiresOtherText(field, state.answers)) {
       const other = textField(
         `${field.id}Other`,
         c.specify,
@@ -150,7 +210,8 @@ function renderField(field: BriefField) {
     field.type === 'text' ||
     field.type === 'long' ||
     field.type === 'date' ||
-    field.type === 'url'
+    field.type === 'url' ||
+    field.type === 'urls'
   ) {
     const label = textField(
       field.id,
@@ -166,19 +227,21 @@ function renderField(field: BriefField) {
           if (confirmation) confirmation.textContent = c.confirmation(value);
         }
       },
-      field.type === 'long'
+      field.type === 'long' || field.type === 'urls'
         ? 'textarea'
         : field.type === 'date'
           ? 'date'
           : field.type === 'url'
             ? 'url'
             : 'text',
-      field.type === 'long' ? limits.long : limits.short,
+      field.type === 'long' || field.type === 'urls' ? limits.long : limits.short,
     );
     label.querySelector('span')!.classList.add('sr-only');
     const control = label.querySelector('input, textarea')!;
     if (!field.optional) control.setAttribute('required', '');
     wrap.append(label);
+  } else if (field.type === 'rows') {
+    renderRows(field, wrap);
   } else if (field.type === 'confirm') {
     const label = el('label', undefined, 'choice');
     const input = el('input');

@@ -44,7 +44,8 @@
 }
 .client-brief .brief-reference,
 .client-brief .brief-competitor,
-.client-brief .brief-page {
+.client-brief .brief-page,
+.client-brief .brief-row {
   padding: var(--space-5);
   margin-block: var(--space-5);
   border: 1px solid var(--border);

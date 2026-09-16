@@ -1,3 +1,4 @@
+import { mobileAppBriefCopy } from './mobile-app-brief';
 import { websiteBriefCopy } from './website-brief';
 import { logoBriefCopy } from './logo-brief';
 import { pages } from './pages';
@@ -18,6 +19,12 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [mobileAppBriefCopy.route]: {
+    title: mobileAppBriefCopy.title,
+    description: mobileAppBriefCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
   [websiteBriefCopy.route]: {
     title: websiteBriefCopy.title,
     description: websiteBriefCopy.description,

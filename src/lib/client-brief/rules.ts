@@ -15,6 +15,7 @@ export const emptyBrief = (): BriefState => ({
   competitors: [],
   images: [],
   additionalPages: [],
+  rows: {},
 });
 export const includesAnswer = (value: BriefAnswers[string], option: string) =>
   Array.isArray(value) ? value.includes(option) : value === option;
@@ -22,6 +23,17 @@ export const isVisible = (field: BriefField, answers: BriefAnswers): boolean =>
   !field.when || field.when.values.some((value) => includesAnswer(answers[field.when!.id], value));
 export const hasOther = (field: BriefField, answers: BriefAnswers) =>
   isVisible(field, answers) && includesAnswer(answers[field.id], c.other);
+export const requiresOtherText = (field: BriefField, answers: BriefAnswers) =>
+  hasOther(field, answers) && !field.otherField;
+export const fieldOptions = (field: BriefField, answers: BriefAnswers): string[] => {
+  const source = field.optionsFrom ? answers[field.optionsFrom.id] : undefined;
+  return [
+    ...(Array.isArray(source)
+      ? source.filter((option) => !field.optionsFrom?.exclude?.includes(option))
+      : []),
+    ...(field.options ?? []),
+  ];
+};
 export function toggleChoice(field: BriefField, selected: string[], option: string): string[] {
   if (selected.includes(option)) return selected.filter((item) => item !== option);
   const exclusive = field.exclusive ?? [c.noPreference];
@@ -40,14 +52,47 @@ export function createBriefRules(sections: BriefSection[]) {
     );
   function pruneBrief(state: BriefState) {
     for (const field of sections.flatMap((s) => s.fields)) {
-      if (!isVisible(field, state.answers)) delete state.answers[field.id];
-      if (!hasOther(field, state.answers)) delete state.answers[`${field.id}Other`];
+      if (!isVisible(field, state.answers)) {
+        delete state.answers[field.id];
+        if (field.type === 'rows') delete state.rows[field.id];
+      }
+      if (!requiresOtherText(field, state.answers)) delete state.answers[`${field.id}Other`];
+      if (field.optionsFrom && Array.isArray(state.answers[field.id])) {
+        const allowed = fieldOptions(field, state.answers);
+        state.answers[field.id] = (state.answers[field.id] as string[]).filter((value) =>
+          allowed.includes(value),
+        );
+      }
     }
     if (state.answers.references !== 'Yes') state.images = [];
   }
   function validateField(field: BriefField, state: BriefState): string | undefined {
     if (!isVisible(field, state.answers)) return;
     const answer = state.answers[field.id];
+    if (field.type === 'rows' && field.repeat) {
+      const rows = state.rows[field.id] ?? [];
+      if (!rows.length) return field.optional ? undefined : c.rowRequired;
+      if (field.repeat.max && rows.length > field.repeat.max) return c.rowLimit(field.repeat.max);
+      const source = sections
+        .flatMap((section) => section.fields)
+        .find((f) => f.id === field.repeat?.unique?.againstOptionsFrom);
+      const names = new Set((source?.options ?? []).map(normalizedPageName));
+      for (const row of rows) {
+        for (const part of field.repeat.fields) {
+          const value = row.values[part.key] ?? '';
+          if (!value.trim() && !part.optional) return c.missing;
+          if (value.length > limits.short) return c.tooLong(limits.short);
+          if (part.type === 'single' && value && !part.options?.includes(value))
+            return c.invalidChoice;
+        }
+        if (field.repeat.unique) {
+          const key = normalizedPageName(row.values[field.repeat.unique.key] ?? '');
+          if (names.has(key)) return c.rowDuplicate;
+          names.add(key);
+        }
+      }
+      return;
+    }
     if (field.type === 'competitors') {
       if (state.competitors.length > limits.competitors) return c.maxCompetitors;
       for (const competitor of state.competitors) {
@@ -104,7 +149,10 @@ export function createBriefRules(sections: BriefSection[]) {
     )
       return field.optional ? undefined : c.missing;
     if (field.type === 'multi') {
-      if (!Array.isArray(answer) || answer.some((item) => !field.options?.includes(item)))
+      if (
+        !Array.isArray(answer) ||
+        answer.some((item) => !fieldOptions(field, state.answers).includes(item))
+      )
         return c.invalidChoice;
       if (field.max && answer.length > field.max) return c.tooMany(field.max);
       if (
@@ -115,7 +163,7 @@ export function createBriefRules(sections: BriefSection[]) {
     } else if (field.type === 'single') {
       if (typeof answer !== 'string' || !field.options?.includes(answer)) return c.invalidChoice;
     } else {
-      const max = field.type === 'long' ? limits.long : limits.short;
+      const max = field.type === 'long' || field.type === 'urls' ? limits.long : limits.short;
       if (typeof answer !== 'string') return c.missing;
       if (answer.length > max) return c.tooLong(max);
       if (field.type === 'url') {
@@ -123,6 +171,15 @@ export function createBriefRules(sections: BriefSection[]) {
           if (!['http:', 'https:'].includes(new URL(answer).protocol)) return c.invalidURL;
         } catch {
           return c.invalidURL;
+        }
+      }
+      if (field.type === 'urls') {
+        for (const line of answer.split(/\r?\n/).filter((line) => line.trim())) {
+          try {
+            if (!['http:', 'https:'].includes(new URL(line.trim()).protocol)) return c.invalidURLs;
+          } catch {
+            return c.invalidURLs;
+          }
         }
       }
       if (
@@ -133,7 +190,7 @@ export function createBriefRules(sections: BriefSection[]) {
       )
         return c.invalidDate;
     }
-    if (hasOther(field, state.answers)) {
+    if (requiresOtherText(field, state.answers)) {
       const detail = state.answers[`${field.id}Other`];
       if (typeof detail !== 'string' || !detail.trim()) return c.missing;
       if (detail.length > limits.short) return c.tooLong(limits.short);
@@ -153,6 +210,15 @@ export function createBriefRules(sections: BriefSection[]) {
       rows: section.fields
         .filter((field) => isVisible(field, state.answers) && field.type !== 'images')
         .flatMap((field) => {
+          if (field.type === 'rows' && field.repeat) {
+            const repeat = field.repeat;
+            return (state.rows[field.id] ?? []).map((row, index) => ({
+              label: repeat.title(index + 1),
+              value: repeat.fields
+                .map((part) => `${part.label}: ${row.values[part.key]?.trim() || c.notProvided}`)
+                .join('\n'),
+            }));
+          }
           if (field.type === 'pages' && state.additionalPages.length)
             return state.additionalPages.map((page, index) => ({
               label: c.additionalPage(index + 1),
@@ -171,7 +237,7 @@ export function createBriefRules(sections: BriefSection[]) {
           else if (field.type === 'confirm') value = answer === true ? c.confirmed : c.notProvided;
           else if (answer) {
             const format = (item: string) =>
-              item === c.other
+              item === c.other && !field.otherField
                 ? `${c.other}: ${String(state.answers[`${field.id}Other`] ?? '').trim()}`
                 : item;
             value = Array.isArray(answer)
