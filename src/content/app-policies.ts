@@ -1,7 +1,209 @@
 // Existing app-policy wording, migrated from the archived root HTML files.
 export const appPolicies: Record<string, string> = {
-  '/invoice/privacy.html':
-    '\n        <section class="section page-header" aria-labelledby="page-title">\n            <div class="container">\n                <h1 id="page-title">Quick Invoice — Privacy Policy</h1>\n                <p>How the Quick Invoice mobile app handles your information.</p>\n            </div>\n        </section>\n\n        <section class="section" id="privacy-content" aria-labelledby="privacy-title">\n            <div class="container">\n                <div class="legal-content">\n                    <h2 id="privacy-title">About this policy</h2>\n                    <p><strong>Last updated:</strong> 5 September 2026</p>\n                    <p>\n                        This policy covers the <strong>Quick Invoice</strong> mobile app published by\n                        Fintaxtech Ltd. It is separate from the\n                        <a href="/privacy/">privacy policy for the Fintaxtech website and services</a>,\n                        which governs our website and client work.\n                    </p>\n                    <p>\n                        Quick Invoice is built to work without an account. There is no sign-up, no login,\n                        and no server of ours holding your documents.\n                    </p>\n\n                    <div class="key-claim">\n                        <p>\n                            <strong>Your invoices, receipts and client details never leave your device.</strong>\n                            They are stored only in the app\'s private storage on your phone. We cannot see\n                            them, and we have no way to retrieve them.\n                        </p>\n                    </div>\n\n                    <h2>Who we are</h2>\n                    <p>\n                        Fintaxtech Ltd is the data controller for the limited personal data described in\n                        this policy.\n                    </p>\n                    <div class="contact-details">\n                        <p><strong>Fintaxtech Ltd</strong></p>\n                        <p>Company Number: SC807896 (registered in Scotland)</p>\n                        <p>Registered Office: Dundee, Scotland, United Kingdom</p>\n                        <p>Privacy enquiries: <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>\n                        <p>General enquiries: <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>\n                    </div>\n\n                    <h2>What stays on your device</h2>\n                    <p>\n                        The following is created and stored entirely on your phone. It is never uploaded to\n                        us or to anyone else:\n                    </p>\n                    <ul>\n                        <li>Invoices and receipts, including line items, quantities, prices, tax, discounts and notes</li>\n                        <li>Client records — names, email addresses, phone numbers and postal addresses</li>\n                        <li>Your business profile — business name, logo, currency, tax label and rate, numbering prefixes and payment terms</li>\n                        <li>Any PDF you generate, and any backup file you export</li>\n                        <li>App settings, including your appearance and privacy choices</li>\n                    </ul>\n                    <p>\n                        If you uninstall the app, this data is deleted with it. Because we never receive a\n                        copy, we cannot restore it for you — please keep your own backup using\n                        <strong>Settings → Export all data</strong>.\n                    </p>\n\n                    <h2>What does leave your device</h2>\n                    <p>\n                        Three services process a small amount of data so that purchases work and — only if\n                        you allow it — so that we can fix crashes and understand which features get used.\n                    </p>\n\n                    <div class="table-scroll" tabindex="0">\n                        <table>\n                            <caption>Third parties that process data for Quick Invoice</caption>\n                            <thead>\n                                <tr>\n                                    <th scope="col">Service</th>\n                                    <th scope="col">What it receives</th>\n                                    <th scope="col">Why</th>\n                                    <th scope="col">Your control</th>\n                                </tr>\n                            </thead>\n                            <tbody>\n                                <tr>\n                                    <th scope="row">RevenueCat, Inc.</th>\n                                    <td>An anonymous app-generated identifier, and your subscription or purchase status. No name, email or document content.</td>\n                                    <td>To know whether you have Quick Invoice Pro, and to restore purchases on a new device.</td>\n                                    <td>Always active. The app cannot sell or restore a subscription without it.</td>\n                                </tr>\n                                <tr>\n                                    <th scope="row">Google Play Billing</th>\n                                    <td>Your payment details, handled entirely by Google. They never pass through the app.</td>\n                                    <td>To take payment for a subscription or lifetime purchase.</td>\n                                    <td>Only used when you choose to buy.</td>\n                                </tr>\n                                <tr>\n                                    <th scope="row">Google Firebase<br>(Analytics &amp; Crashlytics)</th>\n                                    <td>Anonymous usage events — for example that an invoice was created, without any of its content — plus crash reports containing the technical fault, your device model, OS version and app version.</td>\n                                    <td>To fix crashes and see which features are used.</td>\n                                    <td><strong>Off unless you turn it on.</strong> Nothing is sent until you opt in, and you can withdraw at any time.</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </div>\n\n                    <h2>Analytics and crash reporting are opt-in</h2>\n                    <p>\n                        When you first set up the app you are asked whether you are willing to share\n                        anonymous usage and crash data. <strong>The default is no.</strong> Until you\n                        actively choose to share it, Firebase Analytics and Crashlytics collect and transmit\n                        nothing at all.\n                    </p>\n                    <p>\n                        You can change your mind whenever you like in\n                        <strong>Settings → Share anonymous usage data</strong>. Turning it off stops\n                        collection immediately.\n                    </p>\n                    <p>\n                        These events are designed so that they cannot carry your content. An event records\n                        that an invoice was created and how many line items it had — never the client, the\n                        amounts, or anything you typed.\n                    </p>\n                    <p>\n                        Quick Invoice does <strong>not</strong> collect an advertising identifier, does not\n                        show adverts, and does not track you across other apps or websites.\n                    </p>\n\n                    <h2>Permissions the app asks for</h2>\n                    <div class="table-scroll" tabindex="0">\n                        <table>\n                            <caption>Why each permission is requested</caption>\n                            <thead>\n                                <tr>\n                                    <th scope="col">Permission</th>\n                                    <th scope="col">When</th>\n                                    <th scope="col">What happens to the data</th>\n                                </tr>\n                            </thead>\n                            <tbody>\n                                <tr>\n                                    <th scope="row">Contacts</th>\n                                    <td>Only when you tap “Import from contacts”.</td>\n                                    <td>The details of the one contact you pick are copied into a client record on your device. Nothing is uploaded, and your address book is not read otherwise. You can decline and still add clients by hand.</td>\n                                </tr>\n                                <tr>\n                                    <th scope="row">Photos</th>\n                                    <td>Only when you choose a business logo.</td>\n                                    <td>Handled by the Android system photo picker, so the app never gains access to your photo library. The one image you select is copied into the app\'s private storage.</td>\n                                </tr>\n                                <tr>\n                                    <th scope="row">Internet</th>\n                                    <td>On launch and when purchasing.</td>\n                                    <td>Used for the services in the table above. Creating, editing and exporting documents all work fully offline.</td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </div>\n\n                    <h2>Legal basis for processing</h2>\n                    <p>Under the UK GDPR we rely on:</p>\n                    <ul>\n                        <li><strong>Performance of a contract</strong> — for purchase and subscription data. Without it we could not provide or restore Quick Invoice Pro.</li>\n                        <li><strong>Consent</strong> — for analytics and crash reporting. You give it freely, and you may withdraw it at any time in Settings without losing any app functionality.</li>\n                    </ul>\n\n                    <h2>How long data is kept</h2>\n                    <ul>\n                        <li><strong>On your device:</strong> until you delete it. Nothing expires or is removed automatically.</li>\n                        <li><strong>Purchase records:</strong> retained by RevenueCat and Google for as long as needed to support your subscription and to meet their own legal and accounting obligations, in line with their retention schedules.</li>\n                        <li><strong>Analytics and crash data:</strong> retained by Google Firebase according to the retention period configured for the project, and deleted when that period expires.</li>\n                    </ul>\n\n                    <h2>Your rights</h2>\n                    <p>\n                        You have the right to access, correct, erase, restrict and port your personal data,\n                        and to object to processing. Because Quick Invoice has no accounts, the two rights\n                        that matter most are built directly into the app and need no request to us:\n                    </p>\n                    <ul>\n                        <li><strong>Portability</strong> — <em>Settings → Export all data</em> produces a readable JSON file containing everything the app holds, which you can save or send wherever you like.</li>\n                        <li><strong>Erasure</strong> — <em>Settings → Delete all data</em> permanently removes every invoice, receipt, client and setting from the device. This cannot be undone, and it does not cancel a subscription — see below.</li>\n                    </ul>\n                    <p>\n                        For anything that involves data held by us or our processors — including a request\n                        relating to your purchase record — contact\n                        <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>. We will\n                        respond within one month.\n                    </p>\n\n                    <h2>Managing or cancelling a subscription</h2>\n                    <p>\n                        Subscriptions are managed by Google Play, not by us. Deleting the app or its data\n                        does not cancel a subscription. Use <strong>Settings → Manage subscription</strong>\n                        in the app, or your Google Play account, to cancel.\n                    </p>\n\n                    <h2 id="cookies">Cookies</h2>\n                    <p>\n                        The Quick Invoice app does not use cookies. If you visit this website, the\n                        <a href="/cookies/">website cookie policy</a> applies instead.\n                    </p>\n\n                    <h2>Children</h2>\n                    <p>\n                        Quick Invoice is a business tool intended for adults. It is not directed at\n                        children, and we do not knowingly collect data from anyone under 13.\n                    </p>\n\n                    <h2>International transfers</h2>\n                    <p>\n                        RevenueCat and Google are based in the United States and may process data outside\n                        the UK. Both provide safeguards for international transfers under UK data\n                        protection law, including standard contractual clauses.\n                    </p>\n\n                    <h2>Changes to this policy</h2>\n                    <p>\n                        If we change how the app handles data we will update this page and revise the date\n                        at the top. A material change — for example enabling a new service that transmits\n                        data — will also be surfaced in the app before it takes effect.\n                    </p>\n\n                    <h2>Complaints</h2>\n                    <p>\n                        Please contact us first at\n                        <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a> so we can put\n                        things right. You also have the right to complain to the UK supervisory authority:\n                    </p>\n                    <div class="ico-details">\n                        <p><strong>Information Commissioner\'s Office (ICO)</strong></p>\n                        <p>Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</p>\n                        <p>Helpline: 0303 123 1113</p>\n                        <p><a href="https://ico.org.uk/" target="_blank" rel="noopener">ico.org.uk</a></p>\n                    </div>\n                </div>\n            </div>\n        </section>\n    ',
+  '/invoice/privacy.html': `
+    <div class="container">
+      <header class="page-head">
+        <p class="eyebrow">Fintaxtech Ltd</p>
+        <h1>Safos — Privacy Policy</h1>
+        <p class="lead">How the Safos invoice app handles your information.</p>
+      </header>
+      <div class="prose">
+        <p class="notice">
+          <strong>Your invoices, receipts and client details never leave your device.</strong> They
+          are stored only in the app's private storage on your phone. We cannot see them, and we
+          have no way to retrieve them.
+        </p>
+        <section>
+          <h2>About this policy</h2>
+          <p><strong>Last updated:</strong> 17 September 2026</p>
+          <p>
+            This policy covers the <strong>Safos</strong> invoice and receipt app published by
+            Fintaxtech Ltd. It is separate from the
+            <a href="/privacy/">privacy notice for the Fintaxtech website and services</a>, which
+            covers our website and client work.
+          </p>
+          <p>
+            Safos works without an account. There is no sign-up, no login, and no server of ours
+            holding your documents. The app is free, and nothing is sold inside it.
+          </p>
+        </section>
+        <section>
+          <h2>Who we are</h2>
+          <p>
+            Fintaxtech Ltd is the data controller for the limited personal data described in this
+            policy.
+          </p>
+          <ul>
+            <li>Fintaxtech Ltd, company number SC807896, registered in Scotland</li>
+            <li>Registered office: Dundee, Scotland, United Kingdom</li>
+            <li>Enquiries: <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>What stays on your device</h2>
+          <p>
+            All of the following is created and stored entirely on your phone, and is never
+            uploaded to us or to anyone else:
+          </p>
+          <ul>
+            <li>Invoices and receipts, including line items, quantities, prices, tax, discounts and notes</li>
+            <li>Client records — names, email addresses, phone numbers and postal addresses</li>
+            <li>Your business profile — business name, logo, currency, tax label and rate, numbering and payment terms</li>
+            <li>Any PDF you generate, and any backup file you export</li>
+            <li>App settings, including your appearance and privacy choices</li>
+          </ul>
+          <p>
+            Uninstalling the app deletes all of it. Because we never receive a copy, we cannot
+            restore it for you — keep your own copy using <strong>Settings &rarr; Export all
+            data</strong>.
+          </p>
+        </section>
+        <section>
+          <h2>What leaves your device</h2>
+          <p>
+            Only diagnostics, and only if you turn them on. Safos sells nothing in the app, so no
+            purchase or payment data is processed at all.
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th scope="col">Service</th><th scope="col">What it receives</th><th scope="col">Your control</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Google Firebase Analytics</th>
+                  <td>Anonymous usage events, such as that an invoice was created, without any of its content.</td>
+                  <td><strong>Off unless you turn it on.</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">Google Firebase Crashlytics</th>
+                  <td>Crash reports: the technical fault, your device model, OS version and app version.</td>
+                  <td><strong>Off unless you turn it on.</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section>
+          <h2>Analytics and crash reporting are opt-in</h2>
+          <p>
+            During setup you are asked whether you are willing to share anonymous usage and crash
+            data. <strong>The default is no.</strong> Until you actively choose to share it,
+            nothing is collected or transmitted.
+          </p>
+          <p>
+            You can change your mind at any time in <strong>Settings &rarr; Share analytics and
+            crash reports</strong>. Turning it off stops collection immediately.
+          </p>
+          <p>
+            These events cannot carry your content: an event records that an invoice was created
+            and how many line items it had, never the client, the amounts, or anything you typed.
+            Safos does not collect an advertising identifier, shows no adverts, and does not track
+            you across other apps or websites.
+          </p>
+        </section>
+        <section>
+          <h2>Permissions the app asks for</h2>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th scope="col">Permission</th><th scope="col">When</th><th scope="col">What happens</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Contacts</th>
+                  <td>Only when you tap “Import from contacts”.</td>
+                  <td>The one contact you pick is copied into a client record on your device. Your address book is not read otherwise, and you can decline and still add clients by hand.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Photos</th>
+                  <td>Only when you choose a business logo.</td>
+                  <td>Handled by the Android system photo picker, so the app never gains access to your photo library. The image you pick is copied into the app's private storage.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Internet</th>
+                  <td>Only to send diagnostics you opted into.</td>
+                  <td>Creating, editing and exporting documents all work fully offline.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section>
+          <h2>Legal basis for processing</h2>
+          <p>
+            Under the UK GDPR we rely on <strong>consent</strong> for analytics and crash
+            reporting. You give it freely, and you may withdraw it at any time in Settings without
+            losing any app functionality.
+          </p>
+        </section>
+        <section>
+          <h2>How long data is kept</h2>
+          <ul>
+            <li><strong>On your device:</strong> until you delete it. Nothing expires or is removed automatically.</li>
+            <li><strong>Diagnostics you opted into:</strong> retained by Google Firebase for the retention period configured for the project, then deleted.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Your rights</h2>
+          <p>
+            You have the right to access, correct, erase, restrict and port your personal data, and
+            to object to processing. Because Safos has no accounts, the two that matter most are
+            built into the app and need no request to us:
+          </p>
+          <ul>
+            <li><strong>Portability</strong> — <em>Settings &rarr; Export all data</em> produces a readable JSON file containing everything the app holds, which you can save or send wherever you like.</li>
+            <li><strong>Erasure</strong> — delete any invoice, receipt or client in the app, and uninstalling Safos removes everything it stored on the device.</li>
+          </ul>
+          <p>
+            For anything involving data held by us or by our processors, contact
+            <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>. We will respond within
+            one month.
+          </p>
+        </section>
+        <section>
+          <h2>Cookies</h2>
+          <p>
+            The Safos app does not use cookies. If you visit this website, the
+            <a href="/cookies/">cookie policy</a> applies instead.
+          </p>
+        </section>
+        <section>
+          <h2>Children</h2>
+          <p>
+            Safos is a business tool intended for adults. It is not directed at children, and we do
+            not knowingly collect data from anyone under 13.
+          </p>
+        </section>
+        <section>
+          <h2>International transfers</h2>
+          <p>
+            Google is based in the United States and may process opted-in diagnostics outside the
+            UK, with safeguards for international transfers under UK data protection law, including
+            standard contractual clauses.
+          </p>
+        </section>
+        <section>
+          <h2>Changes to this policy</h2>
+          <p>
+            If we change how the app handles data we will update this page and revise the date at
+            the top. A material change, such as enabling a service that transmits data, will also
+            be surfaced in the app before it takes effect.
+          </p>
+        </section>
+        <section>
+          <h2>Complaints</h2>
+          <p>
+            Please contact us first at <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>
+            so we can put things right. You also have the right to complain to the UK supervisory
+            authority, the Information Commissioner's Office: Wycliffe House, Water Lane, Wilmslow,
+            Cheshire, SK9 5AF, helpline 0303 123 1113,
+            <a href="https://ico.org.uk/" rel="noopener">ico.org.uk</a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  `,
   '/reprocket/privacy.html':
     '\n        <!-- Page Header -->\n        <section class="section page-header" aria-labelledby="page-title">\n            <div class="container">\n                <h1 id="page-title">RepRocket Privacy Policy</h1>\n                <p class="page-subtitle">How the RepRocket app collects, uses, and protects your information</p>\n                <p class="last-updated">Last updated: September 5, 2026</p>\n            </div>\n        </section>\n\n        <!-- Privacy Policy Content -->\n        <section class="section" id="privacy-content" aria-labelledby="privacy-title">\n            <div class="container">\n                <div class="legal-content">\n                    <p>This Privacy Policy is specific to the <strong>RepRocket</strong> mobile app (Gym Log &amp; AI Tracker) for iOS and Android, published by Fintaxtech Ltd. It is written to reflect exactly what the app does. For our general company privacy policy covering the fintaxtech.co.uk website, see <a href="/privacy/">here</a>.</p>\n\n                    <h2 id="privacy-title">1. Introduction</h2>\n                    <p>Fintaxtech Ltd ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains what information RepRocket collects, how it is used, and the choices you have.</p>\n\n                    <p>We are a company registered in Scotland with company number SC807896. Our registered office is in Dundee, Scotland, United Kingdom.</p>\n\n                    <h2>2. Information We Collect</h2>\n\n                    <h3>2.1 Your Workout Data — Stored on Your Device Only</h3>\n                    <p>RepRocket has no user accounts and no backend server. Everything you enter — your workout plans, exercise library, logged sets and sessions, and profile details such as name, weight, height, and unit preferences — is stored <strong>locally on your device only</strong>. We never receive, see, or store this data on our own systems. Uninstalling the app permanently deletes it.</p>\n\n                    <h3>2.2 Analytics Data</h3>\n                    <p>We use <strong>Firebase Analytics</strong> (provided by Google) to understand how the app is used and to improve it. This includes:</p>\n                    <ul>\n                        <li><strong>App usage events:</strong> anonymous events such as a workout being started or finished, a plan being created, or a setting being changed. These events record what happened, not who you are — they never include your name, email, or the content of your workout data.</li>\n                        <li><strong>Automatic screen views:</strong> which screens of the app are opened.</li>\n                        <li><strong>Basic technical information:</strong> device model, operating system version, app version, and a general, coarse geographic region derived from IP address. This is collected automatically by the Firebase SDK.</li>\n                        <li><strong>A random installation identifier</strong> generated by Firebase to group events from the same install of the app — not linked to your name or any account, because none exists.</li>\n                    </ul>\n\n                    <h3>2.3 Crash and Diagnostic Data</h3>\n                    <p>We use <strong>Firebase Crashlytics</strong> (Google) to detect and fix bugs. If the app crashes or encounters an error, Crashlytics automatically collects a crash report: the stack trace, device model, operating system version, and app version at the time of the crash. This helps us identify and fix problems; it is not used to identify you personally.</p>\n\n                    <h3>2.4 Remote Configuration</h3>\n                    <p>We use <strong>Firebase Remote Config</strong> (Google) to control feature availability without requiring an app update. This service may receive basic app and device information to determine which configuration to serve, in the same way any Firebase service does.</p>\n\n                    <h3>2.5 What We Do Not Collect</h3>\n                    <ul>\n                        <li><strong>No accounts, names, or email addresses</strong> are collected by us — RepRocket has no sign-in.</li>\n                        <li><strong>No health platform data.</strong> RepRocket does not connect to Apple Health, Health Connect, or any other health platform. All fitness data stays in the app\'s own local storage.</li>\n                        <li><strong>No location tracking.</strong> The app does not request or use GPS or precise location.</li>\n                        <li><strong>No advertising identifiers.</strong> RepRocket does not use advertising SDKs; on Android the advertising ID permission is explicitly excluded from the app.</li>\n                        <li><strong>No payment card details.</strong> If in-app subscriptions become available, purchases are processed entirely by the Apple App Store or Google Play — see Section 6.</li>\n                    </ul>\n\n                    <h2>3. How We Use Information</h2>\n                    <p>We use the analytics and crash data described above only to:</p>\n                    <ul>\n                        <li>Understand which features are used and how, to guide what we build next</li>\n                        <li>Identify, diagnose, and fix bugs and crashes</li>\n                        <li>Decide which app features to enable via remote configuration</li>\n                        <li>Comply with legal obligations where applicable</li>\n                    </ul>\n                    <p>We do not use this information for advertising, and we do not build advertising profiles.</p>\n\n                    <h2>4. Legal Basis for Processing</h2>\n                    <p>Under the UK GDPR and EU GDPR, we rely on the following legal grounds:</p>\n                    <ul>\n                        <li><strong>Legitimate Interests:</strong> to understand app usage and fix defects, in a way that does not override your privacy rights, since the data involved is not linked to your identity</li>\n                        <li><strong>Legal Obligation:</strong> to comply with applicable laws where relevant</li>\n                    </ul>\n\n                    <h2>5. Information Sharing and Disclosure</h2>\n                    <p>The only third party that processes data on our behalf is <strong>Google, through its Firebase platform</strong> (Analytics, Crashlytics, and Remote Config). Google processes this data as our data processor, under its own <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy and security documentation</a>. We do not sell, rent, or share your information with advertisers or any other third party. We may disclose information if required by law or to protect our legal rights.</p>\n\n                    <h2>6. In-App Purchases and Subscriptions</h2>\n                    <p>If RepRocket offers a paid subscription or in-app purchase, that purchase is handled entirely by the Apple App Store or Google Play Billing. We never receive or store your payment card details. Apple\'s and Google\'s own privacy policies govern the payment information you provide to them. You manage, view, and cancel any subscription through your Apple ID or Google Play account settings, not within RepRocket or through us directly.</p>\n\n                    <h2>7. Data Retention</h2>\n                    <ul>\n                        <li><strong>Your workout data:</strong> stays on your device for as long as the app is installed, and is deleted immediately when you uninstall it.</li>\n                        <li><strong>Analytics and crash data:</strong> retained by Firebase according to Google\'s standard retention periods (currently up to 14 months for Analytics event data), after which it is automatically deleted.</li>\n                    </ul>\n\n                    <h2>8. Your Rights and Data Deletion</h2>\n                    <p>Because RepRocket has no accounts, most information about you cannot be tied back to a specific identity, and much of what exists is already on your own device under your control:</p>\n                    <ul>\n                        <li>To delete your workout data, use any in-app data management option available, or simply uninstall the app.</li>\n                        <li>To request deletion of analytics or crash data associated with your device, contact us at <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a> and we will action this with Google to the extent technically possible.</li>\n                    </ul>\n                    <p>Under GDPR you also have the right to access, rectify, restrict, or object to processing, and to lodge a complaint with a supervisory authority — see Section 11.</p>\n\n                    <h2>9. International Data Transfers</h2>\n                    <p>Firebase\'s infrastructure may process data outside the UK and European Economic Area. Google provides appropriate safeguards for such transfers, including Standard Contractual Clauses, as described in its <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy documentation</a>.</p>\n\n                    <h2>10. Children\'s Privacy</h2>\n                    <p>RepRocket is not directed to children under 16 years of age, and we do not knowingly collect personal information from children under 16. Since the app collects no names, emails, or account information from anyone, this risk is limited by design.</p>\n\n                    <h2>11. Your Rights and Supervisory Authority</h2>\n                    <p>Under GDPR, you have the right to access, correct, restrict, or object to how your information is processed, and the right to lodge a complaint with the Information Commissioner\'s Office (ICO) if you believe we have not handled your information appropriately:</p>\n                    <div class="ico-details">\n                        <p><strong>Information Commissioner\'s Office</strong></p>\n                        <p>Website: <a href="https://ico.org.uk" target="_blank" rel="noopener">https://ico.org.uk</a></p>\n                        <p>Phone: 0303 123 1113</p>\n                    </div>\n\n                    <h2>12. Changes to This Privacy Policy</h2>\n                    <p>We may update this Privacy Policy as the app changes — for example, if a feature that collects new data types is added. We will update the "Last updated" date above, and material changes will be reflected in the app\'s store listing update notes.</p>\n\n                    <h2>13. Contact Information</h2>\n                    <p>If you have any questions about this Privacy Policy or RepRocket\'s data practices, please contact us:</p>\n                    <div class="contact-details">\n                        <p><strong>Data Controller:</strong> Fintaxtech Ltd</p>\n                        <p><strong>Email:</strong> <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>\n                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>\n                        <p><strong>Address:</strong> Dundee, Scotland, United Kingdom</p>\n                        <p><strong>Company Number:</strong> SC807896</p>\n                    </div>\n                </div>\n            </div>\n        </section>\n    ',
   '/reprocket/terms.html':
