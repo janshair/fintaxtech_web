@@ -91,3 +91,8 @@
 .client-brief [aria-invalid='true'] {
   border-color: var(--error);
 }
+
+/* Safari can retain desktop legend widths when a nested fieldset uses grid. */
+.client-brief .brief-row fieldset.field {
+  display: block;
+}
