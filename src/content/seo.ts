@@ -106,24 +106,24 @@ export const seoPages: Record<string, PageSEO> = {
     description: 'Find FinTaxTech services or return to the homepage.',
     noindex: true,
   },
-  '/invoice/privacy.html': {
+  '/safos/privacy.html': {
     title: 'Safos Privacy Policy',
     description:
       'How the Safos invoice app by Fintaxtech Ltd handles invoices, receipts, client details, optional analytics and privacy choices.',
   },
-  '/reprocket/privacy.html': {
-    title: 'RepRocket Privacy Policy',
+  '/metoni/privacy.html': {
+    title: 'Metoni Privacy Policy',
     description:
-      'How RepRocket, the gym log and AI tracker by Fintaxtech Ltd, collects, uses and protects app information.',
+      'How Metoni, the gym log and AI tracker by Fintaxtech Ltd, collects, uses and protects app information.',
   },
-  '/reprocket/terms.html': {
-    title: 'RepRocket Terms of Use',
+  '/metoni/terms.html': {
+    title: 'Metoni Terms of Use',
     description:
-      'Read the terms governing use of RepRocket, the gym log and AI tracker by Fintaxtech Ltd.',
+      'Read the terms governing use of Metoni, the gym log and AI tracker by Fintaxtech Ltd.',
   },
 };
 export const indexablePaths = Object.keys(seoPages).filter((path) => !seoPages[path].noindex);
 
 export const appPolicyPaths = indexablePaths.filter(
-  (path) => path.startsWith('/invoice/') || path.startsWith('/reprocket/'),
+  (path) => path.startsWith('/safos/') || path.startsWith('/metoni/'),
 );

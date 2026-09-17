@@ -1,211 +1,264 @@
 // Existing app-policy wording, migrated from the archived root HTML files.
 export const appPolicies: Record<string, string> = {
-  '/invoice/privacy.html': `
-    <div class="container">
-      <header class="page-head">
-        <p class="eyebrow">Fintaxtech Ltd</p>
-        <h1>Safos — Privacy Policy</h1>
-        <p class="lead">How the Safos invoice app handles your information.</p>
-      </header>
-      <div class="prose">
-        <p class="notice">
-          <strong>Your invoices, receipts and client details never leave your device.</strong> They
-          are stored only in the app's private storage on your phone. We cannot see them, and we
-          have no way to retrieve them.
-        </p>
-        <section>
-          <h2>About this policy</h2>
-          <p><strong>Last updated:</strong> 17 September 2026</p>
-          <p>
-            This policy covers the <strong>Safos</strong> invoice and receipt app published by
-            Fintaxtech Ltd. It is separate from the
-            <a href="/privacy/">privacy notice for the Fintaxtech website and services</a>, which
-            covers our website and client work.
-          </p>
-          <p>
-            Safos works without an account. There is no sign-up, no login, and no server of ours
-            holding your documents. The app is free, and nothing is sold inside it.
-          </p>
-        </section>
-        <section>
-          <h2>Who we are</h2>
-          <p>
-            Fintaxtech Ltd is the data controller for the limited personal data described in this
-            policy.
-          </p>
-          <ul>
-            <li>Fintaxtech Ltd, company number SC807896, registered in Scotland</li>
-            <li>Registered office: Dundee, Scotland, United Kingdom</li>
-            <li>Enquiries: <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></li>
-          </ul>
-        </section>
-        <section>
-          <h2>What stays on your device</h2>
-          <p>
-            All of the following is created and stored entirely on your phone, and is never
-            uploaded to us or to anyone else:
-          </p>
-          <ul>
-            <li>Invoices and receipts, including line items, quantities, prices, tax, discounts and notes</li>
-            <li>Client records — names, email addresses, phone numbers and postal addresses</li>
-            <li>Your business profile — business name, logo, currency, tax label and rate, numbering and payment terms</li>
-            <li>Any PDF you generate, and any backup file you export</li>
-            <li>App settings, including your appearance and privacy choices</li>
-          </ul>
-          <p>
-            Uninstalling the app deletes all of it. Because we never receive a copy, we cannot
-            restore it for you — keep your own copy using <strong>Settings &rarr; Export all
-            data</strong>.
-          </p>
-        </section>
-        <section>
-          <h2>What leaves your device</h2>
-          <p>
-            Only diagnostics, and only if you turn them on. Safos sells nothing in the app, so no
-            purchase or payment data is processed at all.
-          </p>
-          <div class="table-scroll">
-            <table>
-              <thead>
-                <tr><th scope="col">Service</th><th scope="col">What it receives</th><th scope="col">Your control</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Google Firebase Analytics</th>
-                  <td>Anonymous usage events, such as that an invoice was created, without any of its content.</td>
-                  <td><strong>Off unless you turn it on.</strong></td>
-                </tr>
-                <tr>
-                  <th scope="row">Google Firebase Crashlytics</th>
-                  <td>Crash reports: the technical fault, your device model, OS version and app version.</td>
-                  <td><strong>Off unless you turn it on.</strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-        <section>
-          <h2>Analytics and crash reporting are opt-in</h2>
-          <p>
-            During setup you are asked whether you are willing to share anonymous usage and crash
-            data. <strong>The default is no.</strong> Until you actively choose to share it,
-            nothing is collected or transmitted.
-          </p>
-          <p>
-            You can change your mind at any time in <strong>Settings &rarr; Share analytics and
-            crash reports</strong>. Turning it off stops collection immediately.
-          </p>
-          <p>
-            These events cannot carry your content: an event records that an invoice was created
-            and how many line items it had, never the client, the amounts, or anything you typed.
-            Safos does not collect an advertising identifier, shows no adverts, and does not track
-            you across other apps or websites.
-          </p>
-        </section>
-        <section>
-          <h2>Permissions the app asks for</h2>
-          <div class="table-scroll">
-            <table>
-              <thead>
-                <tr><th scope="col">Permission</th><th scope="col">When</th><th scope="col">What happens</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Contacts</th>
-                  <td>Only when you tap “Import from contacts”.</td>
-                  <td>The one contact you pick is copied into a client record on your device. Your address book is not read otherwise, and you can decline and still add clients by hand.</td>
-                </tr>
-                <tr>
-                  <th scope="row">Photos</th>
-                  <td>Only when you choose a business logo.</td>
-                  <td>Handled by the Android system photo picker, so the app never gains access to your photo library. The image you pick is copied into the app's private storage.</td>
-                </tr>
-                <tr>
-                  <th scope="row">Internet</th>
-                  <td>Only to send diagnostics you opted into.</td>
-                  <td>Creating, editing and exporting documents all work fully offline.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-        <section>
-          <h2>Legal basis for processing</h2>
-          <p>
-            Under the UK GDPR we rely on <strong>consent</strong> for analytics and crash
-            reporting. You give it freely, and you may withdraw it at any time in Settings without
-            losing any app functionality.
-          </p>
-        </section>
-        <section>
-          <h2>How long data is kept</h2>
-          <ul>
-            <li><strong>On your device:</strong> until you delete it. Nothing expires or is removed automatically.</li>
-            <li><strong>Diagnostics you opted into:</strong> retained by Google Firebase for the retention period configured for the project, then deleted.</li>
-          </ul>
-        </section>
-        <section>
-          <h2>Your rights</h2>
-          <p>
-            You have the right to access, correct, erase, restrict and port your personal data, and
-            to object to processing. Because Safos has no accounts, the two that matter most are
-            built into the app and need no request to us:
-          </p>
-          <ul>
-            <li><strong>Portability</strong> — <em>Settings &rarr; Export all data</em> produces a readable JSON file containing everything the app holds, which you can save or send wherever you like.</li>
-            <li><strong>Erasure</strong> — delete any invoice, receipt or client in the app, and uninstalling Safos removes everything it stored on the device.</li>
-          </ul>
-          <p>
-            For anything involving data held by us or by our processors, contact
-            <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>. We will respond within
-            one month.
-          </p>
-        </section>
-        <section>
-          <h2>Cookies</h2>
-          <p>
-            The Safos app does not use cookies. If you visit this website, the
-            <a href="/cookies/">cookie policy</a> applies instead.
-          </p>
-        </section>
-        <section>
-          <h2>Children</h2>
-          <p>
-            Safos is a business tool intended for adults. It is not directed at children, and we do
-            not knowingly collect data from anyone under 13.
-          </p>
-        </section>
-        <section>
-          <h2>International transfers</h2>
-          <p>
-            Google is based in the United States and may process opted-in diagnostics outside the
-            UK, with safeguards for international transfers under UK data protection law, including
-            standard contractual clauses.
-          </p>
-        </section>
-        <section>
-          <h2>Changes to this policy</h2>
-          <p>
-            If we change how the app handles data we will update this page and revise the date at
-            the top. A material change, such as enabling a service that transmits data, will also
-            be surfaced in the app before it takes effect.
-          </p>
-        </section>
-        <section>
-          <h2>Complaints</h2>
-          <p>
-            Please contact us first at <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>
-            so we can put things right. You also have the right to complain to the UK supervisory
-            authority, the Information Commissioner's Office: Wycliffe House, Water Lane, Wilmslow,
-            Cheshire, SK9 5AF, helpline 0303 123 1113,
-            <a href="https://ico.org.uk/" rel="noopener">ico.org.uk</a>.
-          </p>
-        </section>
-      </div>
-    </div>
+  '/safos/privacy.html': `
+    <section class="section page-header" aria-labelledby="page-title">
+        <div class="container">
+            <h1 id="page-title">Safos — Privacy Policy</h1>
+            <p>How the Safos mobile app handles your information.</p>
+        </div>
+    </section>
+
+    <section class="section" id="privacy-content" aria-labelledby="privacy-title">
+        <div class="container">
+            <div class="legal-content">
+                <h2 id="privacy-title">About this policy</h2>
+                <p><strong>Last updated:</strong> 5 September 2026</p>
+                <p>
+                    This policy covers the <strong>Safos</strong> mobile app published by
+                    Fintaxtech Ltd. It is separate from the
+                    <a href="/privacy/">privacy policy for the Fintaxtech website and services</a>,
+                    which governs our website and client work.
+                </p>
+                <p>
+                    Safos is built to work without an account. There is no sign-up, no login,
+                    and no server of ours holding your documents.
+                </p>
+
+                <div class="key-claim">
+                    <p>
+                        <strong>Your invoices, receipts and client details never leave your device.</strong>
+                        They are stored only in the app's private storage on your phone. We cannot see
+                        them, and we have no way to retrieve them.
+                    </p>
+                </div>
+
+                <h2>Who we are</h2>
+                <p>
+                    Fintaxtech Ltd is the data controller for the limited personal data described in
+                    this policy.
+                </p>
+                <div class="contact-details">
+                    <p><strong>Fintaxtech Ltd</strong></p>
+                    <p>Company Number: SC807896 (registered in Scotland)</p>
+                    <p>Registered Office: Dundee, Scotland, United Kingdom</p>
+                    <p>Privacy enquiries: <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>
+                    <p>General enquiries: <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>
+                </div>
+
+                <h2>What stays on your device</h2>
+                <p>
+                    The following is created and stored entirely on your phone. It is never uploaded to
+                    us or to anyone else:
+                </p>
+                <ul>
+                    <li>Invoices and receipts, including line items, quantities, prices, tax, discounts and notes</li>
+                    <li>Client records — names, email addresses, phone numbers and postal addresses</li>
+                    <li>Your business profile — business name, logo, currency, tax label and rate, numbering
+                        prefixes and payment terms</li>
+                    <li>Any PDF you generate, and any backup file you export</li>
+                    <li>App settings, including your appearance and privacy choices</li>
+                </ul>
+                <p>
+                    If you uninstall the app, this data is deleted with it. Because we never receive a
+                    copy, we cannot restore it for you — please keep your own backup using
+                    <strong>Settings → Export all data</strong>.
+                </p>
+
+                <h2>What does leave your device</h2>
+                <p>
+                    Three services process a small amount of data so that purchases work and — only if
+                    you allow it — so that we can fix crashes and understand which features get used.
+                </p>
+
+                <div class="table-scroll">
+                    <table>
+                        <caption>Third parties that process data for Safos</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Service</th>
+                                <th scope="col">What it receives</th>
+                                <th scope="col">Why</th>
+                                <th scope="col">Your control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">RevenueCat, Inc.</th>
+                                <td>An anonymous app-generated identifier, and your subscription or purchase status.
+                                    No name, email or document content.</td>
+                                <td>To know whether you have Safos Pro, and to restore purchases on a new device.
+                                </td>
+                                <td>Always active. The app cannot sell or restore a subscription without it.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Google Play Billing</th>
+                                <td>Your payment details, handled entirely by Google. They never pass through the
+                                    app.</td>
+                                <td>To take payment for a subscription or lifetime purchase.</td>
+                                <td>Only used when you choose to buy.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Google Firebase<br>(Analytics &amp; Crashlytics)</th>
+                                <td>Anonymous usage events — for example that an invoice was created, without any of
+                                    its content — plus crash reports containing the technical fault, your device
+                                    model, OS version and app version.</td>
+                                <td>To fix crashes and see which features are used.</td>
+                                <td><strong>Off unless you turn it on.</strong> Nothing is sent until you opt in,
+                                    and you can withdraw at any time.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Analytics and crash reporting are opt-in</h2>
+                <p>
+                    When you first set up the app you are asked whether you are willing to share
+                    anonymous usage and crash data. <strong>The default is no.</strong> Until you
+                    actively choose to share it, Firebase Analytics and Crashlytics collect and transmit
+                    nothing at all.
+                </p>
+                <p>
+                    You can change your mind whenever you like in
+                    <strong>Settings → Share anonymous usage data</strong>. Turning it off stops
+                    collection immediately.
+                </p>
+                <p>
+                    These events are designed so that they cannot carry your content. An event records
+                    that an invoice was created and how many line items it had — never the client, the
+                    amounts, or anything you typed.
+                </p>
+                <p>
+                    Safos does <strong>not</strong> collect an advertising identifier, does not
+                    show adverts, and does not track you across other apps or websites.
+                </p>
+
+                <h2>Permissions the app asks for</h2>
+                <div class="table-scroll">
+                    <table>
+                        <caption>Why each permission is requested</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Permission</th>
+                                <th scope="col">When</th>
+                                <th scope="col">What happens to the data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Contacts</th>
+                                <td>Only when you tap “Import from contacts”.</td>
+                                <td>The details of the one contact you pick are copied into a client record on your
+                                    device. Nothing is uploaded, and your address book is not read otherwise. You
+                                    can decline and still add clients by hand.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Photos</th>
+                                <td>Only when you choose a business logo.</td>
+                                <td>Handled by the Android system photo picker, so the app never gains access to
+                                    your photo library. The one image you select is copied into the app's private
+                                    storage.</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Internet</th>
+                                <td>On launch and when purchasing.</td>
+                                <td>Used for the services in the table above. Creating, editing and exporting
+                                    documents all work fully offline.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Legal basis for processing</h2>
+                <p>Under the UK GDPR we rely on:</p>
+                <ul>
+                    <li><strong>Performance of a contract</strong> — for purchase and subscription data. Without it
+                        we could not provide or restore Safos Pro.</li>
+                    <li><strong>Consent</strong> — for analytics and crash reporting. You give it freely, and you
+                        may withdraw it at any time in Settings without losing any app functionality.</li>
+                </ul>
+
+                <h2>How long data is kept</h2>
+                <ul>
+                    <li><strong>On your device:</strong> until you delete it. Nothing expires or is removed
+                        automatically.</li>
+                    <li><strong>Purchase records:</strong> retained by RevenueCat and Google for as long as needed
+                        to support your subscription and to meet their own legal and accounting obligations, in line
+                        with their retention schedules.</li>
+                    <li><strong>Analytics and crash data:</strong> retained by Google Firebase according to the
+                        retention period configured for the project, and deleted when that period expires.</li>
+                </ul>
+
+                <h2>Your rights</h2>
+                <p>
+                    You have the right to access, correct, erase, restrict and port your personal data,
+                    and to object to processing. Because Safos has no accounts, the two rights
+                    that matter most are built directly into the app and need no request to us:
+                </p>
+                <ul>
+                    <li><strong>Portability</strong> — <em>Settings → Export all data</em> produces a readable JSON
+                        file containing everything the app holds, which you can save or send wherever you like.</li>
+                    <li><strong>Erasure</strong> — <em>Settings → Delete all data</em> permanently removes every
+                        invoice, receipt, client and setting from the device. This cannot be undone, and it does not
+                        cancel a subscription — see below.</li>
+                </ul>
+                <p>
+                    For anything that involves data held by us or our processors — including a request
+                    relating to your purchase record — contact
+                    <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>. We will
+                    respond within one month.
+                </p>
+
+                <h2>Managing or cancelling a subscription</h2>
+                <p>
+                    Subscriptions are managed by Google Play, not by us. Deleting the app or its data
+                    does not cancel a subscription. Use <strong>Settings → Manage subscription</strong>
+                    in the app, or your Google Play account, to cancel.
+                </p>
+
+                <h2 id="cookies">Cookies</h2>
+                <p>
+                    The Safos app does not use cookies. If you visit this website, the
+                    <a href="/privacy/">website cookie policy</a> applies instead.
+                </p>
+
+                <h2>Children</h2>
+                <p>
+                    Safos is a business tool intended for adults. It is not directed at
+                    children, and we do not knowingly collect data from anyone under 13.
+                </p>
+
+                <h2>International transfers</h2>
+                <p>
+                    RevenueCat and Google are based in the United States and may process data outside
+                    the UK. Both provide safeguards for international transfers under UK data
+                    protection law, including standard contractual clauses.
+                </p>
+
+                <h2>Changes to this policy</h2>
+                <p>
+                    If we change how the app handles data we will update this page and revise the date
+                    at the top. A material change — for example enabling a new service that transmits
+                    data — will also be surfaced in the app before it takes effect.
+                </p>
+
+                <h2>Complaints</h2>
+                <p>
+                    Please contact us first at
+                    <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a> so we can put
+                    things right. You also have the right to complain to the UK supervisory authority:
+                </p>
+                <div class="ico-details">
+                    <p><strong>Information Commissioner's Office (ICO)</strong></p>
+                    <p>Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</p>
+                    <p>Helpline: 0303 123 1113</p>
+                    <p><a href="https://ico.org.uk/" target="_blank" rel="noopener">ico.org.uk</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
   `,
-  '/reprocket/privacy.html':
-    '\n        <!-- Page Header -->\n        <section class="section page-header" aria-labelledby="page-title">\n            <div class="container">\n                <h1 id="page-title">RepRocket Privacy Policy</h1>\n                <p class="page-subtitle">How the RepRocket app collects, uses, and protects your information</p>\n                <p class="last-updated">Last updated: September 5, 2026</p>\n            </div>\n        </section>\n\n        <!-- Privacy Policy Content -->\n        <section class="section" id="privacy-content" aria-labelledby="privacy-title">\n            <div class="container">\n                <div class="legal-content">\n                    <p>This Privacy Policy is specific to the <strong>RepRocket</strong> mobile app (Gym Log &amp; AI Tracker) for iOS and Android, published by Fintaxtech Ltd. It is written to reflect exactly what the app does. For our general company privacy policy covering the fintaxtech.co.uk website, see <a href="/privacy/">here</a>.</p>\n\n                    <h2 id="privacy-title">1. Introduction</h2>\n                    <p>Fintaxtech Ltd ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains what information RepRocket collects, how it is used, and the choices you have.</p>\n\n                    <p>We are a company registered in Scotland with company number SC807896. Our registered office is in Dundee, Scotland, United Kingdom.</p>\n\n                    <h2>2. Information We Collect</h2>\n\n                    <h3>2.1 Your Workout Data — Stored on Your Device Only</h3>\n                    <p>RepRocket has no user accounts and no backend server. Everything you enter — your workout plans, exercise library, logged sets and sessions, and profile details such as name, weight, height, and unit preferences — is stored <strong>locally on your device only</strong>. We never receive, see, or store this data on our own systems. Uninstalling the app permanently deletes it.</p>\n\n                    <h3>2.2 Analytics Data</h3>\n                    <p>We use <strong>Firebase Analytics</strong> (provided by Google) to understand how the app is used and to improve it. This includes:</p>\n                    <ul>\n                        <li><strong>App usage events:</strong> anonymous events such as a workout being started or finished, a plan being created, or a setting being changed. These events record what happened, not who you are — they never include your name, email, or the content of your workout data.</li>\n                        <li><strong>Automatic screen views:</strong> which screens of the app are opened.</li>\n                        <li><strong>Basic technical information:</strong> device model, operating system version, app version, and a general, coarse geographic region derived from IP address. This is collected automatically by the Firebase SDK.</li>\n                        <li><strong>A random installation identifier</strong> generated by Firebase to group events from the same install of the app — not linked to your name or any account, because none exists.</li>\n                    </ul>\n\n                    <h3>2.3 Crash and Diagnostic Data</h3>\n                    <p>We use <strong>Firebase Crashlytics</strong> (Google) to detect and fix bugs. If the app crashes or encounters an error, Crashlytics automatically collects a crash report: the stack trace, device model, operating system version, and app version at the time of the crash. This helps us identify and fix problems; it is not used to identify you personally.</p>\n\n                    <h3>2.4 Remote Configuration</h3>\n                    <p>We use <strong>Firebase Remote Config</strong> (Google) to control feature availability without requiring an app update. This service may receive basic app and device information to determine which configuration to serve, in the same way any Firebase service does.</p>\n\n                    <h3>2.5 What We Do Not Collect</h3>\n                    <ul>\n                        <li><strong>No accounts, names, or email addresses</strong> are collected by us — RepRocket has no sign-in.</li>\n                        <li><strong>No health platform data.</strong> RepRocket does not connect to Apple Health, Health Connect, or any other health platform. All fitness data stays in the app\'s own local storage.</li>\n                        <li><strong>No location tracking.</strong> The app does not request or use GPS or precise location.</li>\n                        <li><strong>No advertising identifiers.</strong> RepRocket does not use advertising SDKs; on Android the advertising ID permission is explicitly excluded from the app.</li>\n                        <li><strong>No payment card details.</strong> If in-app subscriptions become available, purchases are processed entirely by the Apple App Store or Google Play — see Section 6.</li>\n                    </ul>\n\n                    <h2>3. How We Use Information</h2>\n                    <p>We use the analytics and crash data described above only to:</p>\n                    <ul>\n                        <li>Understand which features are used and how, to guide what we build next</li>\n                        <li>Identify, diagnose, and fix bugs and crashes</li>\n                        <li>Decide which app features to enable via remote configuration</li>\n                        <li>Comply with legal obligations where applicable</li>\n                    </ul>\n                    <p>We do not use this information for advertising, and we do not build advertising profiles.</p>\n\n                    <h2>4. Legal Basis for Processing</h2>\n                    <p>Under the UK GDPR and EU GDPR, we rely on the following legal grounds:</p>\n                    <ul>\n                        <li><strong>Legitimate Interests:</strong> to understand app usage and fix defects, in a way that does not override your privacy rights, since the data involved is not linked to your identity</li>\n                        <li><strong>Legal Obligation:</strong> to comply with applicable laws where relevant</li>\n                    </ul>\n\n                    <h2>5. Information Sharing and Disclosure</h2>\n                    <p>The only third party that processes data on our behalf is <strong>Google, through its Firebase platform</strong> (Analytics, Crashlytics, and Remote Config). Google processes this data as our data processor, under its own <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy and security documentation</a>. We do not sell, rent, or share your information with advertisers or any other third party. We may disclose information if required by law or to protect our legal rights.</p>\n\n                    <h2>6. In-App Purchases and Subscriptions</h2>\n                    <p>If RepRocket offers a paid subscription or in-app purchase, that purchase is handled entirely by the Apple App Store or Google Play Billing. We never receive or store your payment card details. Apple\'s and Google\'s own privacy policies govern the payment information you provide to them. You manage, view, and cancel any subscription through your Apple ID or Google Play account settings, not within RepRocket or through us directly.</p>\n\n                    <h2>7. Data Retention</h2>\n                    <ul>\n                        <li><strong>Your workout data:</strong> stays on your device for as long as the app is installed, and is deleted immediately when you uninstall it.</li>\n                        <li><strong>Analytics and crash data:</strong> retained by Firebase according to Google\'s standard retention periods (currently up to 14 months for Analytics event data), after which it is automatically deleted.</li>\n                    </ul>\n\n                    <h2>8. Your Rights and Data Deletion</h2>\n                    <p>Because RepRocket has no accounts, most information about you cannot be tied back to a specific identity, and much of what exists is already on your own device under your control:</p>\n                    <ul>\n                        <li>To delete your workout data, use any in-app data management option available, or simply uninstall the app.</li>\n                        <li>To request deletion of analytics or crash data associated with your device, contact us at <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a> and we will action this with Google to the extent technically possible.</li>\n                    </ul>\n                    <p>Under GDPR you also have the right to access, rectify, restrict, or object to processing, and to lodge a complaint with a supervisory authority — see Section 11.</p>\n\n                    <h2>9. International Data Transfers</h2>\n                    <p>Firebase\'s infrastructure may process data outside the UK and European Economic Area. Google provides appropriate safeguards for such transfers, including Standard Contractual Clauses, as described in its <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy documentation</a>.</p>\n\n                    <h2>10. Children\'s Privacy</h2>\n                    <p>RepRocket is not directed to children under 16 years of age, and we do not knowingly collect personal information from children under 16. Since the app collects no names, emails, or account information from anyone, this risk is limited by design.</p>\n\n                    <h2>11. Your Rights and Supervisory Authority</h2>\n                    <p>Under GDPR, you have the right to access, correct, restrict, or object to how your information is processed, and the right to lodge a complaint with the Information Commissioner\'s Office (ICO) if you believe we have not handled your information appropriately:</p>\n                    <div class="ico-details">\n                        <p><strong>Information Commissioner\'s Office</strong></p>\n                        <p>Website: <a href="https://ico.org.uk" target="_blank" rel="noopener">https://ico.org.uk</a></p>\n                        <p>Phone: 0303 123 1113</p>\n                    </div>\n\n                    <h2>12. Changes to This Privacy Policy</h2>\n                    <p>We may update this Privacy Policy as the app changes — for example, if a feature that collects new data types is added. We will update the "Last updated" date above, and material changes will be reflected in the app\'s store listing update notes.</p>\n\n                    <h2>13. Contact Information</h2>\n                    <p>If you have any questions about this Privacy Policy or RepRocket\'s data practices, please contact us:</p>\n                    <div class="contact-details">\n                        <p><strong>Data Controller:</strong> Fintaxtech Ltd</p>\n                        <p><strong>Email:</strong> <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>\n                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>\n                        <p><strong>Address:</strong> Dundee, Scotland, United Kingdom</p>\n                        <p><strong>Company Number:</strong> SC807896</p>\n                    </div>\n                </div>\n            </div>\n        </section>\n    ',
-  '/reprocket/terms.html':
-    '\n        <!-- Page Header -->\n        <section class="section page-header" aria-labelledby="page-title">\n            <div class="container">\n                <h1 id="page-title">RepRocket Terms of Use</h1>\n                <p class="page-subtitle">Legal terms governing your use of the RepRocket app</p>\n                <p class="last-updated">Last updated: September 5, 2026</p>\n            </div>\n        </section>\n\n        <!-- Terms Content -->\n        <section class="section" id="terms-content" aria-labelledby="terms-title">\n            <div class="container">\n                <div class="legal-content">\n                    <p>These Terms of Use apply specifically to the <strong>RepRocket</strong> mobile app (Gym Log &amp;\n                        AI Tracker) for iOS and Android. For our general company terms covering the fintaxtech.co.uk\n                        website and client services, see <a href="/terms/">here</a>.</p>\n\n                    <h2 id="terms-title">1. Acceptance of Terms</h2>\n                    <p>By downloading, installing, or using RepRocket ("the App"), you agree to be bound by these Terms\n                        of Use ("Terms"). If you do not agree, do not use the App. The App is provided by Fintaxtech Ltd\n                        ("we," "our," or "us"), a company registered in Scotland with company number SC807896.</p>\n\n                    <h2>2. License to Use the App</h2>\n                    <p>Subject to your compliance with these Terms, we grant you a personal, non-exclusive,\n                        non-transferable, revocable licence to download and use RepRocket on any Apple- or\n                        Android-branded device that you own or control, as permitted by the App Store\'s or Google Play\'s\n                        usage rules. All rights not expressly granted to you are reserved by us.</p>\n\n                    <h2>3. Not Medical or Professional Advice</h2>\n                    <p>RepRocket is a workout logging and tracking tool. It does not provide medical, health, or\n                        professional fitness advice, and any AI-assisted suggestions or summaries the App may offer are\n                        for general informational purposes only. Consult a physician or qualified professional before\n                        beginning any exercise programme, particularly if you have a pre-existing health condition. You\n                        use the App, and undertake any exercise you log or plan through it, entirely at your own risk.\n                    </p>\n\n                    <h2>4. Your Data and Content</h2>\n                    <p>The workout plans, exercise entries, and session logs you create in the App ("Your Content") are\n                        stored locally on your device. You are solely responsible for the accuracy of Your Content and\n                        for backing it up — we do not hold a copy, and uninstalling the App or losing your device may\n                        permanently delete it. See our <a href="/reprocket/privacy.html">Privacy Policy</a> for how the\n                        App handles data more broadly.</p>\n\n                    <h2>5. Acceptable Use</h2>\n                    <p>You agree not to:</p>\n                    <ul>\n                        <li>Reverse-engineer, decompile, or attempt to extract the source code of the App, except where\n                            applicable law expressly permits it</li>\n                        <li>Use the App for any unlawful purpose or in a way that could damage, disable, or impair it\n                        </li>\n                        <li>Interfere with the App\'s underlying services (including our use of Firebase) or attempt to\n                            gain unauthorised access to them</li>\n                        <li>Remove, obscure, or alter any proprietary notices in the App</li>\n                    </ul>\n\n                    <h2>6. Subscriptions and In-App Purchases</h2>\n                    <p>Where the App offers a paid subscription or one-time purchase, that purchase is billed and\n                        processed entirely by the Apple App Store or Google Play Billing, under their respective terms.\n                        We do not receive or store your payment card details.</p>\n                    <ul>\n                        <li><strong>Auto-renewal:</strong> subscriptions, where offered, renew automatically unless\n                            cancelled at least 24 hours before the end of the current period, in accordance with Apple\'s\n                            or Google\'s subscription rules.</li>\n                        <li><strong>Cancellation:</strong> manage or cancel a subscription through your Apple ID account\n                            settings or your Google Play account settings — we cannot cancel it on your behalf.</li>\n                        <li><strong>Refunds:</strong> refund requests are handled by Apple or Google according to their\n                            own refund policies, not by us directly.</li>\n                    </ul>\n\n                    <h2>7. Intellectual Property</h2>\n                    <p>The RepRocket name, logo, app design, and all associated branding are the property of Fintaxtech\n                        Ltd. Nothing in these Terms transfers any intellectual property rights to you beyond the limited\n                        licence in Section 2.</p>\n\n                    <h2>8. Third-Party Services</h2>\n                    <p>RepRocket uses Google\'s Firebase platform for analytics, crash reporting, and remote\n                        configuration, as described in our <a href="/reprocket/privacy.html">Privacy Policy</a>. Your\n                        use of the App is also subject to the usage terms of the App Store or Google Play through which\n                        you downloaded it.</p>\n\n                    <h2>9. No Warranty</h2>\n                    <p>The App is provided "as is" and "as available," without warranties of any kind, express or\n                        implied, including but not limited to warranties of merchantability, fitness for a particular\n                        purpose, accuracy, or non-infringement. We do not warrant that the App will be uninterrupted,\n                        error-free, or compatible with every device.</p>\n\n                    <h2>10. Limitation of Liability</h2>\n                    <p>To the maximum extent permitted by law, Fintaxtech Ltd shall not be liable for any indirect,\n                        incidental, special, or consequential damages, or for any loss of data, arising from your use\n                        of, or inability to use, the App — including any loss of Your Content stored locally on your\n                        device. Our total liability for any claim arising from the App shall not exceed the amount you\n                        paid us for the App or any in-app purchase in the twelve months preceding the claim, or £50 if\n                        you have not made any such payment.</p>\n\n                    <h2>11. Termination</h2>\n                    <p>You may stop using the App and delete it from your device at any time. We may suspend or\n                        discontinue the App, or terminate your licence to use it, if you breach these Terms, or if we\n                        decide to discontinue the App generally, with notice provided through the App Store, Google\n                        Play, or the app\'s store listing where practicable.</p>\n\n                    <h2>12. Changes to the App or These Terms</h2>\n                    <p>We may update the App, or these Terms, from time to time. Material changes to these Terms will be\n                        reflected in the "Last updated" date above and, where appropriate, in the app update\'s release\n                        notes. Continued use of the App after a change takes effect constitutes acceptance of the\n                        revised Terms.</p>\n\n                    <h2>13. Governing Law and Jurisdiction</h2>\n                    <p>These Terms are governed by the laws of Scotland. Any disputes arising from these Terms or your\n                        use of the App shall be subject to the exclusive jurisdiction of the Scottish courts, without\n                        prejudice to any mandatory consumer-protection rights you may have in your country of residence.\n                    </p>\n\n                    <h2>14. Apple App Store Additional Terms</h2>\n                    <p>If you downloaded the App from the Apple App Store, you acknowledge the following, which apply in\n                        addition to (and, in the event of conflict regarding Apple\'s role, take precedence over) the\n                        rest of these Terms:</p>\n                    <ul>\n                        <li>These Terms are between you and Fintaxtech Ltd only, not with Apple. Apple is not\n                            responsible for the App or its content.</li>\n                        <li>The licence granted here is limited to use on Apple-branded devices that you own or control,\n                            as permitted by Apple\'s Usage Rules in the App Store Terms of Service.</li>\n                        <li>Apple has no obligation to furnish any maintenance or support services for the App.</li>\n                        <li>In the event of any failure of the App to conform to an applicable warranty, you may notify\n                            Apple, and Apple will refund the purchase price (if any) — to the maximum extent permitted\n                            by law, Apple has no other warranty obligation with respect to the App.</li>\n                        <li>Apple is not responsible for addressing any claims by you or a third party relating to the\n                            App, including product liability claims, claims that the App fails to conform to legal or\n                            regulatory requirements, and consumer protection claims.</li>\n                        <li>Apple is not responsible for the investigation, defence, settlement, or discharge of any\n                            third-party claim that the App infringes their intellectual property rights.</li>\n                        <li>You represent that you are not located in a country subject to a US Government embargo or on\n                            any US Government restricted-parties list, and that you will comply with all applicable\n                            export laws.</li>\n                        <li>Apple and its subsidiaries are third-party beneficiaries of these Terms, and upon your\n                            acceptance, Apple has the right to enforce them against you.</li>\n                    </ul>\n\n                    <h2>15. Google Play Additional Terms</h2>\n                    <p>If you downloaded the App from Google Play, your use is also subject to the Google Play Terms of\n                        Service. In the event of a conflict between these Terms and Google Play\'s terms regarding\n                        Google\'s own role as a distribution platform, Google Play\'s terms shall govern that aspect.</p>\n\n                    <h2>16. Severability</h2>\n                    <p>If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions\n                        shall continue in full force and effect.</p>\n\n                    <h2>17. Contact Information</h2>\n                    <p>If you have any questions about these Terms, please contact us:</p>\n                    <div class="contact-details">\n                        <p><strong>Fintaxtech Ltd</strong></p>\n                        <p><strong>Email:</strong> <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>\n                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>\n                        <p><strong>Address:</strong> Dundee, Scotland, United Kingdom</p>\n                        <p><strong>Company Number:</strong> SC807896</p>\n                    </div>\n\n                    <h2>18. Acceptance</h2>\n                    <p>By downloading, installing, or using RepRocket, you acknowledge that you have read, understood,\n                        and agree to be bound by these Terms of Use.</p>\n                </div>\n            </div>\n        </section>\n    ',
+  '/metoni/privacy.html':
+    '\n        <!-- Page Header -->\n        <section class="section page-header" aria-labelledby="page-title">\n            <div class="container">\n                <h1 id="page-title">Metoni Privacy Policy</h1>\n                <p class="page-subtitle">How the Metoni app collects, uses, and protects your information</p>\n                <p class="last-updated">Last updated: September 5, 2026</p>\n            </div>\n        </section>\n\n        <!-- Privacy Policy Content -->\n        <section class="section" id="privacy-content" aria-labelledby="privacy-title">\n            <div class="container">\n                <div class="legal-content">\n                    <p>This Privacy Policy is specific to the <strong>Metoni</strong> mobile app (Gym Log &amp; AI Tracker) for iOS and Android, published by Fintaxtech Ltd. It is written to reflect exactly what the app does. For our general company privacy policy covering the fintaxtech.co.uk website, see <a href="/privacy/">here</a>.</p>\n\n                    <h2 id="privacy-title">1. Introduction</h2>\n                    <p>Fintaxtech Ltd ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains what information Metoni collects, how it is used, and the choices you have.</p>\n\n                    <p>We are a company registered in Scotland with company number SC807896. Our registered office is in Dundee, Scotland, United Kingdom.</p>\n\n                    <h2>2. Information We Collect</h2>\n\n                    <h3>2.1 Your Workout Data — Stored on Your Device Only</h3>\n                    <p>Metoni has no user accounts and no backend server. Everything you enter — your workout plans, exercise library, logged sets and sessions, and profile details such as name, weight, height, and unit preferences — is stored <strong>locally on your device only</strong>. We never receive, see, or store this data on our own systems. Uninstalling the app permanently deletes it.</p>\n\n                    <h3>2.2 Analytics Data</h3>\n                    <p>We use <strong>Firebase Analytics</strong> (provided by Google) to understand how the app is used and to improve it. This includes:</p>\n                    <ul>\n                        <li><strong>App usage events:</strong> anonymous events such as a workout being started or finished, a plan being created, or a setting being changed. These events record what happened, not who you are — they never include your name, email, or the content of your workout data.</li>\n                        <li><strong>Automatic screen views:</strong> which screens of the app are opened.</li>\n                        <li><strong>Basic technical information:</strong> device model, operating system version, app version, and a general, coarse geographic region derived from IP address. This is collected automatically by the Firebase SDK.</li>\n                        <li><strong>A random installation identifier</strong> generated by Firebase to group events from the same install of the app — not linked to your name or any account, because none exists.</li>\n                    </ul>\n\n                    <h3>2.3 Crash and Diagnostic Data</h3>\n                    <p>We use <strong>Firebase Crashlytics</strong> (Google) to detect and fix bugs. If the app crashes or encounters an error, Crashlytics automatically collects a crash report: the stack trace, device model, operating system version, and app version at the time of the crash. This helps us identify and fix problems; it is not used to identify you personally.</p>\n\n                    <h3>2.4 Remote Configuration</h3>\n                    <p>We use <strong>Firebase Remote Config</strong> (Google) to control feature availability without requiring an app update. This service may receive basic app and device information to determine which configuration to serve, in the same way any Firebase service does.</p>\n\n                    <h3>2.5 What We Do Not Collect</h3>\n                    <ul>\n                        <li><strong>No accounts, names, or email addresses</strong> are collected by us — Metoni has no sign-in.</li>\n                        <li><strong>No health platform data.</strong> Metoni does not connect to Apple Health, Health Connect, or any other health platform. All fitness data stays in the app\'s own local storage.</li>\n                        <li><strong>No location tracking.</strong> The app does not request or use GPS or precise location.</li>\n                        <li><strong>No advertising identifiers.</strong> Metoni does not use advertising SDKs; on Android the advertising ID permission is explicitly excluded from the app.</li>\n                        <li><strong>No payment card details.</strong> If in-app subscriptions become available, purchases are processed entirely by the Apple App Store or Google Play — see Section 6.</li>\n                    </ul>\n\n                    <h2>3. How We Use Information</h2>\n                    <p>We use the analytics and crash data described above only to:</p>\n                    <ul>\n                        <li>Understand which features are used and how, to guide what we build next</li>\n                        <li>Identify, diagnose, and fix bugs and crashes</li>\n                        <li>Decide which app features to enable via remote configuration</li>\n                        <li>Comply with legal obligations where applicable</li>\n                    </ul>\n                    <p>We do not use this information for advertising, and we do not build advertising profiles.</p>\n\n                    <h2>4. Legal Basis for Processing</h2>\n                    <p>Under the UK GDPR and EU GDPR, we rely on the following legal grounds:</p>\n                    <ul>\n                        <li><strong>Legitimate Interests:</strong> to understand app usage and fix defects, in a way that does not override your privacy rights, since the data involved is not linked to your identity</li>\n                        <li><strong>Legal Obligation:</strong> to comply with applicable laws where relevant</li>\n                    </ul>\n\n                    <h2>5. Information Sharing and Disclosure</h2>\n                    <p>The only third party that processes data on our behalf is <strong>Google, through its Firebase platform</strong> (Analytics, Crashlytics, and Remote Config). Google processes this data as our data processor, under its own <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy and security documentation</a>. We do not sell, rent, or share your information with advertisers or any other third party. We may disclose information if required by law or to protect our legal rights.</p>\n\n                    <h2>6. In-App Purchases and Subscriptions</h2>\n                    <p>If Metoni offers a paid subscription or in-app purchase, that purchase is handled entirely by the Apple App Store or Google Play Billing. We never receive or store your payment card details. Apple\'s and Google\'s own privacy policies govern the payment information you provide to them. You manage, view, and cancel any subscription through your Apple ID or Google Play account settings, not within Metoni or through us directly.</p>\n\n                    <h2>7. Data Retention</h2>\n                    <ul>\n                        <li><strong>Your workout data:</strong> stays on your device for as long as the app is installed, and is deleted immediately when you uninstall it.</li>\n                        <li><strong>Analytics and crash data:</strong> retained by Firebase according to Google\'s standard retention periods (currently up to 14 months for Analytics event data), after which it is automatically deleted.</li>\n                    </ul>\n\n                    <h2>8. Your Rights and Data Deletion</h2>\n                    <p>Because Metoni has no accounts, most information about you cannot be tied back to a specific identity, and much of what exists is already on your own device under your control:</p>\n                    <ul>\n                        <li>To delete your workout data, use any in-app data management option available, or simply uninstall the app.</li>\n                        <li>To request deletion of analytics or crash data associated with your device, contact us at <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a> and we will action this with Google to the extent technically possible.</li>\n                    </ul>\n                    <p>Under GDPR you also have the right to access, rectify, restrict, or object to processing, and to lodge a complaint with a supervisory authority — see Section 11.</p>\n\n                    <h2>9. International Data Transfers</h2>\n                    <p>Firebase\'s infrastructure may process data outside the UK and European Economic Area. Google provides appropriate safeguards for such transfers, including Standard Contractual Clauses, as described in its <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy documentation</a>.</p>\n\n                    <h2>10. Children\'s Privacy</h2>\n                    <p>Metoni is not directed to children under 16 years of age, and we do not knowingly collect personal information from children under 16. Since the app collects no names, emails, or account information from anyone, this risk is limited by design.</p>\n\n                    <h2>11. Your Rights and Supervisory Authority</h2>\n                    <p>Under GDPR, you have the right to access, correct, restrict, or object to how your information is processed, and the right to lodge a complaint with the Information Commissioner\'s Office (ICO) if you believe we have not handled your information appropriately:</p>\n                    <div class="ico-details">\n                        <p><strong>Information Commissioner\'s Office</strong></p>\n                        <p>Website: <a href="https://ico.org.uk" target="_blank" rel="noopener">https://ico.org.uk</a></p>\n                        <p>Phone: 0303 123 1113</p>\n                    </div>\n\n                    <h2>12. Changes to This Privacy Policy</h2>\n                    <p>We may update this Privacy Policy as the app changes — for example, if a feature that collects new data types is added. We will update the "Last updated" date above, and material changes will be reflected in the app\'s store listing update notes.</p>\n\n                    <h2>13. Contact Information</h2>\n                    <p>If you have any questions about this Privacy Policy or Metoni\'s data practices, please contact us:</p>\n                    <div class="contact-details">\n                        <p><strong>Data Controller:</strong> Fintaxtech Ltd</p>\n                        <p><strong>Email:</strong> <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>\n                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>\n                        <p><strong>Address:</strong> Dundee, Scotland, United Kingdom</p>\n                        <p><strong>Company Number:</strong> SC807896</p>\n                    </div>\n                </div>\n            </div>\n        </section>\n    ',
+  '/metoni/terms.html':
+    '\n        <!-- Page Header -->\n        <section class="section page-header" aria-labelledby="page-title">\n            <div class="container">\n                <h1 id="page-title">Metoni Terms of Use</h1>\n                <p class="page-subtitle">Legal terms governing your use of the Metoni app</p>\n                <p class="last-updated">Last updated: September 5, 2026</p>\n            </div>\n        </section>\n\n        <!-- Terms Content -->\n        <section class="section" id="terms-content" aria-labelledby="terms-title">\n            <div class="container">\n                <div class="legal-content">\n                    <p>These Terms of Use apply specifically to the <strong>Metoni</strong> mobile app (Gym Log &amp;\n                        AI Tracker) for iOS and Android. For our general company terms covering the fintaxtech.co.uk\n                        website and client services, see <a href="/terms/">here</a>.</p>\n\n                    <h2 id="terms-title">1. Acceptance of Terms</h2>\n                    <p>By downloading, installing, or using Metoni ("the App"), you agree to be bound by these Terms\n                        of Use ("Terms"). If you do not agree, do not use the App. The App is provided by Fintaxtech Ltd\n                        ("we," "our," or "us"), a company registered in Scotland with company number SC807896.</p>\n\n                    <h2>2. License to Use the App</h2>\n                    <p>Subject to your compliance with these Terms, we grant you a personal, non-exclusive,\n                        non-transferable, revocable licence to download and use Metoni on any Apple- or\n                        Android-branded device that you own or control, as permitted by the App Store\'s or Google Play\'s\n                        usage rules. All rights not expressly granted to you are reserved by us.</p>\n\n                    <h2>3. Not Medical or Professional Advice</h2>\n                    <p>Metoni is a workout logging and tracking tool. It does not provide medical, health, or\n                        professional fitness advice, and any AI-assisted suggestions or summaries the App may offer are\n                        for general informational purposes only. Consult a physician or qualified professional before\n                        beginning any exercise programme, particularly if you have a pre-existing health condition. You\n                        use the App, and undertake any exercise you log or plan through it, entirely at your own risk.\n                    </p>\n\n                    <h2>4. Your Data and Content</h2>\n                    <p>The workout plans, exercise entries, and session logs you create in the App ("Your Content") are\n                        stored locally on your device. You are solely responsible for the accuracy of Your Content and\n                        for backing it up — we do not hold a copy, and uninstalling the App or losing your device may\n                        permanently delete it. See our <a href="/metoni/privacy.html">Privacy Policy</a> for how the\n                        App handles data more broadly.</p>\n\n                    <h2>5. Acceptable Use</h2>\n                    <p>You agree not to:</p>\n                    <ul>\n                        <li>Reverse-engineer, decompile, or attempt to extract the source code of the App, except where\n                            applicable law expressly permits it</li>\n                        <li>Use the App for any unlawful purpose or in a way that could damage, disable, or impair it\n                        </li>\n                        <li>Interfere with the App\'s underlying services (including our use of Firebase) or attempt to\n                            gain unauthorised access to them</li>\n                        <li>Remove, obscure, or alter any proprietary notices in the App</li>\n                    </ul>\n\n                    <h2>6. Subscriptions and In-App Purchases</h2>\n                    <p>Where the App offers a paid subscription or one-time purchase, that purchase is billed and\n                        processed entirely by the Apple App Store or Google Play Billing, under their respective terms.\n                        We do not receive or store your payment card details.</p>\n                    <ul>\n                        <li><strong>Auto-renewal:</strong> subscriptions, where offered, renew automatically unless\n                            cancelled at least 24 hours before the end of the current period, in accordance with Apple\'s\n                            or Google\'s subscription rules.</li>\n                        <li><strong>Cancellation:</strong> manage or cancel a subscription through your Apple ID account\n                            settings or your Google Play account settings — we cannot cancel it on your behalf.</li>\n                        <li><strong>Refunds:</strong> refund requests are handled by Apple or Google according to their\n                            own refund policies, not by us directly.</li>\n                    </ul>\n\n                    <h2>7. Intellectual Property</h2>\n                    <p>The Metoni name, logo, app design, and all associated branding are the property of Fintaxtech\n                        Ltd. Nothing in these Terms transfers any intellectual property rights to you beyond the limited\n                        licence in Section 2.</p>\n\n                    <h2>8. Third-Party Services</h2>\n                    <p>Metoni uses Google\'s Firebase platform for analytics, crash reporting, and remote\n                        configuration, as described in our <a href="/metoni/privacy.html">Privacy Policy</a>. Your\n                        use of the App is also subject to the usage terms of the App Store or Google Play through which\n                        you downloaded it.</p>\n\n                    <h2>9. No Warranty</h2>\n                    <p>The App is provided "as is" and "as available," without warranties of any kind, express or\n                        implied, including but not limited to warranties of merchantability, fitness for a particular\n                        purpose, accuracy, or non-infringement. We do not warrant that the App will be uninterrupted,\n                        error-free, or compatible with every device.</p>\n\n                    <h2>10. Limitation of Liability</h2>\n                    <p>To the maximum extent permitted by law, Fintaxtech Ltd shall not be liable for any indirect,\n                        incidental, special, or consequential damages, or for any loss of data, arising from your use\n                        of, or inability to use, the App — including any loss of Your Content stored locally on your\n                        device. Our total liability for any claim arising from the App shall not exceed the amount you\n                        paid us for the App or any in-app purchase in the twelve months preceding the claim, or £50 if\n                        you have not made any such payment.</p>\n\n                    <h2>11. Termination</h2>\n                    <p>You may stop using the App and delete it from your device at any time. We may suspend or\n                        discontinue the App, or terminate your licence to use it, if you breach these Terms, or if we\n                        decide to discontinue the App generally, with notice provided through the App Store, Google\n                        Play, or the app\'s store listing where practicable.</p>\n\n                    <h2>12. Changes to the App or These Terms</h2>\n                    <p>We may update the App, or these Terms, from time to time. Material changes to these Terms will be\n                        reflected in the "Last updated" date above and, where appropriate, in the app update\'s release\n                        notes. Continued use of the App after a change takes effect constitutes acceptance of the\n                        revised Terms.</p>\n\n                    <h2>13. Governing Law and Jurisdiction</h2>\n                    <p>These Terms are governed by the laws of Scotland. Any disputes arising from these Terms or your\n                        use of the App shall be subject to the exclusive jurisdiction of the Scottish courts, without\n                        prejudice to any mandatory consumer-protection rights you may have in your country of residence.\n                    </p>\n\n                    <h2>14. Apple App Store Additional Terms</h2>\n                    <p>If you downloaded the App from the Apple App Store, you acknowledge the following, which apply in\n                        addition to (and, in the event of conflict regarding Apple\'s role, take precedence over) the\n                        rest of these Terms:</p>\n                    <ul>\n                        <li>These Terms are between you and Fintaxtech Ltd only, not with Apple. Apple is not\n                            responsible for the App or its content.</li>\n                        <li>The licence granted here is limited to use on Apple-branded devices that you own or control,\n                            as permitted by Apple\'s Usage Rules in the App Store Terms of Service.</li>\n                        <li>Apple has no obligation to furnish any maintenance or support services for the App.</li>\n                        <li>In the event of any failure of the App to conform to an applicable warranty, you may notify\n                            Apple, and Apple will refund the purchase price (if any) — to the maximum extent permitted\n                            by law, Apple has no other warranty obligation with respect to the App.</li>\n                        <li>Apple is not responsible for addressing any claims by you or a third party relating to the\n                            App, including product liability claims, claims that the App fails to conform to legal or\n                            regulatory requirements, and consumer protection claims.</li>\n                        <li>Apple is not responsible for the investigation, defence, settlement, or discharge of any\n                            third-party claim that the App infringes their intellectual property rights.</li>\n                        <li>You represent that you are not located in a country subject to a US Government embargo or on\n                            any US Government restricted-parties list, and that you will comply with all applicable\n                            export laws.</li>\n                        <li>Apple and its subsidiaries are third-party beneficiaries of these Terms, and upon your\n                            acceptance, Apple has the right to enforce them against you.</li>\n                    </ul>\n\n                    <h2>15. Google Play Additional Terms</h2>\n                    <p>If you downloaded the App from Google Play, your use is also subject to the Google Play Terms of\n                        Service. In the event of a conflict between these Terms and Google Play\'s terms regarding\n                        Google\'s own role as a distribution platform, Google Play\'s terms shall govern that aspect.</p>\n\n                    <h2>16. Severability</h2>\n                    <p>If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions\n                        shall continue in full force and effect.</p>\n\n                    <h2>17. Contact Information</h2>\n                    <p>If you have any questions about these Terms, please contact us:</p>\n                    <div class="contact-details">\n                        <p><strong>Fintaxtech Ltd</strong></p>\n                        <p><strong>Email:</strong> <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a></p>\n                        <p><strong>Phone:</strong> <a href="tel:+447884594929">+44 7884 594929</a></p>\n                        <p><strong>Address:</strong> Dundee, Scotland, United Kingdom</p>\n                        <p><strong>Company Number:</strong> SC807896</p>\n                    </div>\n\n                    <h2>18. Acceptance</h2>\n                    <p>By downloading, installing, or using Metoni, you acknowledge that you have read, understood,\n                        and agree to be bound by these Terms of Use.</p>\n                </div>\n            </div>\n        </section>\n    ',
 };

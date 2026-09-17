@@ -13,9 +13,9 @@ for (const theme of ['light', 'dark'] as const) {
       await page.setViewportSize({ width, height: 900 });
       for (const route of [
         '/start/',
-        '/invoice/privacy.html',
-        '/reprocket/privacy.html',
-        '/reprocket/terms.html',
+        '/safos/privacy.html',
+        '/metoni/privacy.html',
+        '/metoni/terms.html',
       ]) {
         const response = await page.goto(route);
         expect([200, 304]).toContain(response?.status());

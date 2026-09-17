@@ -125,7 +125,7 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
   });
 }
 // Preserve all policy wording while allowing corrected links and shared navigation.
-for (const path of ['/invoice/privacy.html', '/reprocket/privacy.html', '/reprocket/terms.html']) {
+for (const path of ['/safos/privacy.html']) {
   const archived = parse(await readFile(path.slice(1), 'utf8'));
   const original = elements(archived, 'main')[0];
   const migrated = elements(docs.get(path), 'div').find((n) => attr(n, 'class') === 'app-policy');

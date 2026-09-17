@@ -131,7 +131,7 @@ Never add the campaign route to navigation, the footer or sitemap. `noindex` is 
 
 ## GitHub Pages: preserve the current setup
 
-The existing root `CNAME` still contains `fintaxtech.co.uk`. `public/CNAME` is an identical copy and the build puts it at `dist/CNAME`. Keep those values aligned. The original invoice and Reprocket policy URLs are preserved. No DNS, Pages source branch, remote settings or production deployment was changed during implementation.
+The existing root `CNAME` still contains `fintaxtech.co.uk`. `public/CNAME` is an identical copy and the build puts it at `dist/CNAME`. Keep those values aligned. The original invoice and Metoni policy URLs are preserved. No DNS, Pages source branch, remote settings or production deployment was changed during implementation.
 
 The existing `.github/workflows/deploy.yml` builds and deploys GitHub Pages on a push to `main` or a manual run. `.github/workflows/check.yml` runs validation. This SEO update does not change either workflow or the custom domain.
 
@@ -159,7 +159,7 @@ Edit page search titles and descriptions in `src/content/seo.ts`. Most informati
 
 Edit social names and URLs in `src/content/social.ts`. The shared `SocialLinks.astro` component appears in the footer and Contact page, and the same URLs populate the Organisation’s `sameAs` data. The shared layout provides canonical URLs, sharing tags and structured data. `src/lib/seo.ts` describes the relationships between the company, website, pages, services and breadcrumbs. The existing 1200×630 `public/social.png` is the default sharing image. Theme metadata and the adaptive favicon read the central colour tokens.
 
-The three app-policy pages now use the shared layout. Their policy wording lives in `src/content/app-policies.ts`; the root `invoice/` and `reprocket/` HTML files are retained as historical references. A small build integration preserves the exact `.html` public URLs. Output checks compare policy text against those references so a wording change must be deliberate.
+The three app-policy pages now use the shared layout. Their policy wording lives in `src/content/app-policies.ts`; the root `invoice/` and `Metoni/` HTML files are retained as historical references. A small build integration preserves the exact `.html` public URLs. Output checks compare policy text against those references so a wording change must be deliberate.
 
 `pnpm check:seo` checks a production build. `pnpm audit:lighthouse https://fintaxtech.co.uk live` runs desktop and mobile SEO checks and writes local diagnostic reports under the ignored `docs/seo-audit/` folder. Run it against a local production preview to check unreleased changes. Scores do not prove indexation or search rankings. The optional local `SEO-AUDIT.md` report and `audit/` snapshots are ignored by Git.
 
