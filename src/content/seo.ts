@@ -107,9 +107,9 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
   },
   '/invoice/privacy.html': {
-    title: 'Quick Invoice Privacy Policy',
+    title: 'Safos Privacy Policy',
     description:
-      'How the Quick Invoice app by Fintaxtech Ltd handles invoices, receipts, client details, optional analytics and privacy choices.',
+      'How the Safos invoice app by Fintaxtech Ltd handles invoices, receipts, client details, optional analytics and privacy choices.',
   },
   '/reprocket/privacy.html': {
     title: 'RepRocket Privacy Policy',
