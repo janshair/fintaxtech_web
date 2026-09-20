@@ -1,3 +1,5 @@
+import { company } from './site';
+
 export interface InfoPage {
   title: string;
   intro: string;
@@ -107,10 +109,7 @@ export const pages: Record<string, InfoPage> = {
         'Talk to FinTaxTech',
         'Email and WhatsApp are the simplest ways to begin. Zoom meetings are available by arrangement.',
       ],
-      [
-        'Working hours',
-        'Monday to Friday, 09:00–17:00 UK time. We aim to reply within two UK business days.',
-      ],
+      ['Working hours', `${company.hours}. ${company.response}`],
       [
         'Sharing your requirements',
         'Download your enquiry PDF and attach it in your email or WhatsApp app. The website cannot confirm that a message was sent.',

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { socialProfiles } from '../../src/content/social';
+import { publicProfiles } from '../../src/content/social';
 for (const theme of ['light', 'dark'] as const) {
   test(`social links and app policies remain accessible in ${theme} mode`, async ({
     page,
@@ -22,11 +22,12 @@ for (const theme of ['light', 'dark'] as const) {
         await expect(page.locator('h1')).toHaveCount(1);
         await expect(page.locator('body > header')).toHaveCount(1);
         await expect(page.locator('body > footer')).toHaveCount(1);
+        await expect(page.locator('footer')).toContainText('Monday to Friday, 09:00–18:00 UK time');
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
           true,
         );
         expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-        for (const profile of socialProfiles) {
+        for (const profile of publicProfiles) {
           const link = page
             .locator('footer')
             .getByRole('link', { name: profile.label, exact: true });

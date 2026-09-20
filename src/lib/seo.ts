@@ -1,6 +1,6 @@
 import { company, ui } from '../content/site';
 import { seoPages } from '../content/seo';
-import { socialProfiles } from '../content/social';
+import { publicProfiles } from '../content/social';
 import { services } from '../content/services';
 import { blogCopy } from '../content/blog';
 export interface ArticleSEO {
@@ -55,7 +55,7 @@ export function structuredData(
         logo: absoluteURL('/mark.svg'),
         email: company.email,
         telephone: company.phone,
-        sameAs: socialProfiles.map((s) => s.url),
+        sameAs: publicProfiles.map((s) => s.url),
       },
       {
         '@type': 'WebSite',

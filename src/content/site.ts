@@ -8,7 +8,7 @@ export const company = {
   whatsapp: '447884594929',
   number: 'SC807896',
   address: '79 Yarrow Terrace, Dundee, Scotland, DD2 4DX',
-  hours: 'Monday to Friday, 09:00–17:00 UK time',
+  hours: 'Monday to Friday, 09:00–18:00 UK time',
   response: 'We aim to reply within two UK business days.',
   url: 'https://fintaxtech.co.uk',
 };

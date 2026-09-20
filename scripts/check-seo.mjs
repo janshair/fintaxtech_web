@@ -74,8 +74,16 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     .filter((n) => attr(n, 'type') === 'application/ld+json')
     .flatMap((n) => JSON.parse(text(n))['@graph']);
   const org = graph.find((n) => n['@type'] === 'Organization');
-  assert.equal(org.sameAs.length, 5, path);
-  assert.equal(new Set(org.sameAs).size, 5, path);
+  assert.equal(org.sameAs.length, 6, path);
+  assert.equal(new Set(org.sameAs).size, 6, path);
+  assert(
+    org.sameAs.some(
+      (url) =>
+        url ===
+        'https://www.google.com/maps/place/Fintaxtech+Ltd/data=!4m2!3m1!1s0x0:0x1ad7a271b0b7a76d',
+    ),
+    path,
+  );
   assert(
     graph.some((n) => n['@type'] === 'WebSite'),
     path,

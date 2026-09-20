@@ -1,5 +1,5 @@
 ---
-import { socialCopy, socialProfiles } from '../content/social';
+import { socialCopy, publicProfiles } from '../content/social';
 interface Props {
   location?: 'footer' | 'contact';
 }
@@ -12,7 +12,7 @@ const { location = 'contact' } = Astro.props;
 >
   <ul>
     {
-      socialProfiles.map((profile) => (
+      publicProfiles.map((profile) => (
         <li>
           <a href={profile.url} target="_blank" rel="noopener noreferrer">
             <>
