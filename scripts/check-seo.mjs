@@ -165,7 +165,9 @@ assert.deepEqual(
 assert.equal(urls.filter((url) => url === origin + '/start/').length, 1);
 assert.equal(rows.find((row) => row.path === '/start/').noindex, false);
 assert.equal(rows.find((row) => row.path === '/enquiry/').noindex, true);
-assert(!urls.some((u) => /\?|\/promo\/|\/enquiry\/|\/contact\//.test(u)));
+assert.equal(rows.find((row) => row.path === '/promo/').noindex, false);
+assert.equal(urls.filter((url) => url === origin + '/promo/').length, 1);
+assert(!urls.some((u) => /\?|\/enquiry\/|\/contact\/|\/client\//.test(u)));
 const robots = await readFile('dist/robots.txt', 'utf8');
 assert.match(robots, /User-agent: \*/);
 assert(!/^Disallow:\s*\S/m.test(robots));

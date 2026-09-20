@@ -70,9 +70,9 @@ export const appPolicies: Record<string, string> = {
                     you allow it — so that we can fix crashes and understand which features get used.
                 </p>
 
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0" role="region" aria-labelledby="safos-data-table">
                     <table>
-                        <caption>Third parties that process data for Safos</caption>
+                        <caption id="safos-data-table">Third parties that process data for Safos</caption>
                         <thead>
                             <tr>
                                 <th scope="col">Service</th>
@@ -133,9 +133,9 @@ export const appPolicies: Record<string, string> = {
                 </p>
 
                 <h2>Permissions the app asks for</h2>
-                <div class="table-scroll">
+                <div class="table-scroll" tabindex="0" role="region" aria-labelledby="safos-permissions-table">
                     <table>
-                        <caption>Why each permission is requested</caption>
+                        <caption id="safos-permissions-table">Why each permission is requested</caption>
                         <thead>
                             <tr>
                                 <th scope="col">Permission</th>

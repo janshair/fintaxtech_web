@@ -170,6 +170,6 @@ test('blog HTML, sitemap and RSS work without JavaScript', async ({ browser, pag
   const sitemap = await parseXML('/sitemap.xml', 'loc');
   expect(sitemap.filter((url) => url === `https://fintaxtech.co.uk${route}`)).toHaveLength(1);
   expect(sitemap).toContain('https://fintaxtech.co.uk/blog/');
-  expect(sitemap).not.toContain('https://fintaxtech.co.uk/promo/');
+  expect(sitemap).toContain('https://fintaxtech.co.uk/promo/');
   expect(sitemap).not.toContain('https://fintaxtech.co.uk/enquiry/');
 });

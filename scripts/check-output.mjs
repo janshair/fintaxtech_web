@@ -16,11 +16,10 @@ assert(all.includes('dist/404.html'));
 assert(all.includes('dist/.nojekyll'));
 assert(all.includes('dist/contact/index.html'));
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
-assert(!sitemap.includes('/promo'));
+assert.equal((sitemap.match(/<loc>https:\/\/fintaxtech.co.uk\/promo\/<\/loc>/g) ?? []).length, 1);
 assert(!sitemap.includes('/contact'));
-assert.match(
-  await readFile('dist/promo/index.html', 'utf8'),
-  /name="robots" content="noindex,follow"/,
+assert(
+  !/name="robots" content="[^"]*noindex/.test(await readFile('dist/promo/index.html', 'utf8')),
 );
 const broken = [];
 for (const file of all.filter((f) => f.endsWith('.html'))) {

@@ -3,14 +3,26 @@ export type PromoStatus = 'available' | 'final-place' | 'closed';
 export const promoStatus: PromoStatus = 'available';
 export const promoCopy = {
   title: 'New Business Launch Promotion',
+  seoTitle: 'New Business Branding & Website Promotion',
+  seoDescription:
+    'Explore FinTaxTech’s £999 branding and static website offer for the first five eligible new UK companies. Read the scope, exclusions and application terms.',
+  closedSEODescription:
+    'The current FinTaxTech launch-offer allocation is closed. Review its eligibility and scope, or enquire about a standard branding and website project.',
+  linkLabel: 'New business launch promotion: offer and eligibility',
+  termsLink: 'Read the service and payment terms',
+  ongoing:
+    'Our launch promotion is ongoing, with no scheduled expiry date. The published £999 offer is limited to the first five eligible customers accepted; this page does not show a live count of places.',
+  changes:
+    'Future allocations may have a different price or terms. FinTaxTech will confirm the applicable offer in writing before you make a payment. Submission alone does not guarantee the published price or a place.',
   price: '£999',
   intro:
     'An agreed branding package and static website for the first five eligible customers accepted.',
-  closedTitle: 'This promotion has closed',
+  closedTitle: 'The current promotional allocation is closed',
   closedText:
-    'Promotional applications are not currently being accepted. You can still start a standard project enquiry.',
-  available: 'Places may remain, subject to eligibility and scope verification.',
-  final: 'The final place may be under review. No availability is promised.',
+    'The current offer is no longer accepting applications. Any future allocation and its terms will be published here. You can still start a standard project enquiry.',
+  available: 'Availability at the published price must be confirmed manually by FinTaxTech.',
+  final:
+    'The allocation is under manual review. No place is promised; ask FinTaxTech to confirm availability.',
   notice:
     'Completing the questionnaire does not reserve a place. FinTaxTech confirms eligibility and scope first. A place is secured only when the initial £499.50 payment clears.',
   hold: 'An approved place may be held for five working days while payment clears.',

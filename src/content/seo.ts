@@ -1,3 +1,4 @@
+import { promoCopy, promoStatus } from './promo';
 import { mobileAppBriefCopy } from './mobile-app-brief';
 import { websiteBriefCopy } from './website-brief';
 import { logoBriefCopy } from './logo-brief';
@@ -97,9 +98,9 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
   },
   '/promo/': {
-    title: 'FinTaxTech Promotion',
-    description: 'Check the status and terms of the FinTaxTech promotion.',
-    noindex: true,
+    title: promoStatus === 'closed' ? promoCopy.closedTitle : promoCopy.seoTitle,
+    description:
+      promoStatus === 'closed' ? promoCopy.closedSEODescription : promoCopy.seoDescription,
   },
   '/404.html': {
     title: ui.notFound,

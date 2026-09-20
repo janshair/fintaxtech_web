@@ -28,7 +28,7 @@ for (const theme of ['light', 'dark'] as const) {
     const sitemap = await (await request.get('/sitemap.xml')).text();
     expect(sitemap.match(/<loc>https:\/\/fintaxtech.co.uk\/start\/<\/loc>/g)).toHaveLength(1);
     expect(sitemap).not.toContain('/enquiry/');
-    expect(sitemap).not.toContain('/promo/');
+    expect(sitemap).toContain('https://fintaxtech.co.uk/promo/');
     const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').innerText());
     expect(
       schema['@graph'].find((n: any) => n['@type'] === 'BreadcrumbList').itemListElement.at(-1)

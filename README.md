@@ -123,11 +123,11 @@ Before enabling the property, disable Enhanced Measurement, Google signals and a
 
 ## Campaign changes
 
-`src/content/promo.ts` contains one manually controlled status: `available`, `final-place` or `closed`. It defaults to `closed` because no current availability was supplied. Change it only after verifying campaign approval and accepted payments, then rebuild and publish.
+`src/content/promo.ts` contains one manually controlled status: `available`, `final-place` or `closed`. The owner confirmed on 20 September 2026 that the promotion is ongoing, with no scheduled expiry. The current status is `available`, meaning applications can be reviewed, not that places are verified to remain. The published £999 allocation is still limited to the first five eligible customers accepted. Confirm availability manually before accepting payment; update the price, allocation terms, payment amounts and PDF wording together before publishing any future offer. If an allocation closes or its terms cease to apply, set `closed` and rebuild/publish promptly. There is no automatic expiry or live capacity counter.
 
 The active page's action sets a one-use local campaign flag and opens the ordinary website questionnaire without a campaign URL parameter. Company fields and eligibility declarations support manual review; no eligibility or reservation is granted automatically. The questionnaire contains no price. Only its campaign PDF includes the offer. A closed build rejects stale campaign intent and prevents new campaign PDFs. Already-open older builds and already-downloaded PDFs cannot be retroactively withdrawn by a static host; the availability disclaimer applies to all of them.
 
-Never add the campaign route to navigation, the footer or sitemap. `noindex` is present and robots.txt allows crawling so a search engine can read it. This route is unlisted, not private or access-controlled.
+The campaign route is now a public, indexable offer page with a self-referencing canonical, a sitemap entry and an internal link from Pricing. This reverses the earlier hidden-promotion policy. Its terms remain readable in the generated HTML even when the current allocation is closed; the closed page clearly stops applications and links to a standard enquiry. Keep robots.txt crawlable. No live availability or appraised customer count is advertised.
 
 ## GitHub Pages: preserve the current setup
 
@@ -135,7 +135,7 @@ The existing root `CNAME` still contains `fintaxtech.co.uk`. `public/CNAME` is a
 
 The existing `.github/workflows/deploy.yml` builds and deploys GitHub Pages on a push to `main` or a manual run. `.github/workflows/check.yml` runs validation. This SEO update does not change either workflow or the custom domain.
 
-When an authorised release is ready, run `pnpm verify` and `pnpm test:browser`, review the changes, and use the existing release process. A push to `main` triggers deployment, so do not push merely to preview a change. Afterwards, check the production homepage, questionnaire/PDF download, Contact links, sitemap, app-policy URLs and `/promo/` noindex. Keep HTTPS and the existing Pages configuration enabled.
+When an authorised release is ready, run `pnpm verify` and `pnpm test:browser`, review the changes, and use the existing release process. A push to `main` triggers deployment, so do not push merely to preview a change. Afterwards, check the production homepage, questionnaire/PDF download, Contact links, sitemap, app-policy URLs and `/promo/` indexability and current offer status. Keep HTTPS and the existing Pages configuration enabled.
 
 ## Roll back
 
@@ -163,7 +163,7 @@ The three app-policy pages now use the shared layout. Their policy wording lives
 
 `pnpm check:seo` checks a production build. `pnpm audit:lighthouse https://fintaxtech.co.uk live` runs desktop and mobile SEO checks and writes local diagnostic reports under the ignored `docs/seo-audit/` folder. Run it against a local production preview to check unreleased changes. Scores do not prove indexation or search rankings. The optional local `SEO-AUDIT.md` report and `audit/` snapshots are ignored by Git.
 
-After an authorised deployment, select the verified `fintaxtech.co.uk` property in Google Search Console, open **Indexing → Sitemaps**, enter `https://fintaxtech.co.uk/sitemap.xml` (or just `sitemap.xml` if the prefix is displayed), and click **Submit**. Confirm **Success**. The public `/start/` sales page is indexable. Keep `/enquiry/` (including all questionnaire query URLs) and `/promo/` out of indexing requests.
+After an authorised deployment, select the verified `fintaxtech.co.uk` property in Google Search Console, open **Indexing → Sitemaps**, enter `https://fintaxtech.co.uk/sitemap.xml` (or just `sitemap.xml` if the prefix is displayed), and click **Submit**. Confirm **Success**. The public `/start/` sales page is indexable. Request indexing for the canonical `/promo/` offer page as well. Keep `/enquiry/` (including all questionnaire query URLs) and `/client/` production briefs out of indexing requests. Those utility routes deliberately remain noindex.
 
 ## Keeping the repository light
 
@@ -213,3 +213,11 @@ Answers remain in page memory, clear on refresh/navigation and never enter analy
 Customers download the PDF and attach it manually to their own email or WhatsApp message. Nothing sends automatically. Password protection is not offered because the shared PDF generator does not implement verified encryption; PDFs are unencrypted. The existing font-support and browser-leave-warning limitations also apply.
 
 Run `pnpm verify` and `pnpm exec playwright test tests/browser/mobile-app-brief.spec.ts tests/browser/website-brief.spec.ts tests/browser/logo-brief.spec.ts` when changing shared brief logic. For a manual check, complete both project types, test Other, None, feature duplicates and ten-row limit, remove/edit custom features and systems, change standard features to check priorities update, and download a PDF from review. Test both themes on a phone, keyboard navigation, and refresh clearing the answers. Automated browser checks also confirm no answer-bearing requests or storage and no analytics on the route.
+
+### Indexing investigation (20 September 2026)
+
+Direct HTTP checks of the deployed `/start/`, Blog and all 14 published articles found 200 responses, self-referencing HTTPS canonical URLs, crawlable HTML content, no robots/header indexing blocks and canonical sitemap entries. All articles were linked from the static Blog listing; the Start page and Blog have shared navigation links. HTTP, www and slashless Start variants resolve to the canonical origin/path. `/start/index.html` is a duplicate with the correct canonical, not another landing page. No speculative copy or schema changes were made to those pages. The four supplied social profiles already match both the footer and Organization `sameAs`; the existing genuine GitHub profile is retained.
+
+This cannot determine Google’s current exclusion reason. For `/start/` and two or three affected canonical article URLs, collect URL Inspection’s exact indexing reason, last crawl, crawl/fetch/indexing permissions, referring page/sitemap, user-declared canonical and Google-selected canonical. Compare **Test live URL** with the indexed/crawled result; inspect the tested HTML if Google sees different content. Include any manual-action or security warnings. Sitemap inclusion and valid HTML do not guarantee indexing.
+
+The base `/enquiry/` is a JavaScript questionnaire shell, not a distinct search landing page. Indexing it would add little value alongside `/start/` and the service pages. Preserve `noindex,follow`, the query-free `/enquiry/` canonical and sitemap exclusion for all service query variants.

@@ -106,9 +106,9 @@ test('promo status, sitemap and static fallbacks', async ({ page, request }) => 
     await expect(page.getByRole('heading', { name: promoCopy.title })).toBeVisible();
     await expect(page.locator('.price')).toHaveText(promoCopy.price);
   }
-  expect(await page.locator('meta[name=robots]').getAttribute('content')).toContain('noindex');
+  await expect(page.locator('meta[name=robots]')).toHaveCount(0);
   const sitemap = await (await request.get('/sitemap.xml')).text();
-  expect(sitemap).not.toContain('/promo');
+  expect(sitemap).toContain('https://fintaxtech.co.uk/promo/');
   await page.evaluate(() => sessionStorage.setItem('ftt:promo-intent', 'yes'));
   await page.goto('/start/');
   await expect(

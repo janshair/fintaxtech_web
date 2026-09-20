@@ -1,4 +1,5 @@
 ---
+import { promoCopy } from '../content/promo';
 import { seoCopy, seoPages, appPolicyPaths } from '../content/seo';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import FinalCTA from '../components/FinalCTA.astro';
@@ -28,7 +29,15 @@ const { page } = Astro.props;
           </section>
         ))
       }
-    </div>{Astro.params.slug === 'selected-work' && <WorkShowcase />}
+    </div>
+    {
+      Astro.params.slug === 'pricing' && (
+        <p>
+          <a href="/promo/">{promoCopy.linkLabel}</a>
+        </p>
+      )
+    }
+    {Astro.params.slug === 'selected-work' && <WorkShowcase />}
     {
       Astro.params.slug === 'privacy' && (
         <section>
