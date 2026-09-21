@@ -32,9 +32,9 @@ Each of those situations favours a different file. Receiving the full set at the
 
 ## Vector and raster: the difference that matters most
 
-There are two families of image file, and nearly every format question comes back to which family a file belongs to.
+There are two families of image file, and nearly every format question comes down to which family a file belongs to.
 
-**Raster files** are made of pixels, a fixed grid of coloured squares. Enlarge one beyond its size and the edges turn soft or jagged. PNG and JPG are raster formats.
+**Raster files** are made of pixels, a fixed grid of coloured squares. Enlarge one beyond its original size and the edges turn soft or jagged. PNG and JPG are raster formats.
 
 **Vector files** are made of shapes described mathematically: lines, curves and fills. They can be scaled to any size without losing sharpness, because the shapes are redrawn at every size. SVG, EPS and AI are vector formats, and a PDF can contain vector artwork.
 
@@ -48,7 +48,7 @@ SVG (Scalable Vector Graphics) is the vector format made for the web. A logo in 
 
 It's the format your web developer will normally prefer for the site header. Most design tools also accept it.
 
-Its limits are practical rather than technical. Some upload forms, such as certain social media profile uploads and some email clients, don't accept SVG. Support in office software varies by version. Keep PNG copies for those cases.
+Its limits are practical rather than technical. Some places won't accept SVG, including certain social media profile uploads and some email clients. Support in office software varies by version. Keep PNG copies for those cases.
 
 ## PNG: transparency and everyday use
 
@@ -56,17 +56,17 @@ PNG is a raster format that supports **transparent backgrounds**, so the logo si
 
 That makes PNG the everyday workhorse: social media profiles, Word and PowerPoint documents, email signatures, online marketplaces and anywhere that won't take SVG.
 
-Because PNG is raster, ask for it in several sizes rather than one. A small file for email signatures and a large one for presentations are both useful. Enlarging a small PNG always shows.
+Because PNG is raster, ask for it in several sizes rather than one. A small file for email signatures and a large one for presentations are both useful. A small PNG enlarged for a bigger space always looks blurred.
 
 ## JPG: fine for photographs, poor for logos
 
-JPG (or JPEG) is designed for photographs. It compresses images by discarding detail the eye is unlikely to miss in a photo, and it has no transparency.
+JPG (or JPEG) is designed for photographs. It compresses images by discarding detail the eye is unlikely to notice in a photo, and it has no transparency.
 
 For logos, both of those are problems. Compression can leave faint blotches around sharp edges and flat colours, and the logo always arrives on a solid background. A JPG of your logo is occasionally useful for a system that accepts nothing else, but it shouldn't be your main file.
 
 ## PDF: printing, sharing and approval
 
-PDF is the format most people can open, which makes it ideal for sharing and approving artwork. A PDF can also hold vector artwork, so a properly exported PDF logo scales cleanly.
+PDF is a format almost anyone can open, which makes it ideal for sharing and approving artwork. A PDF can also hold vector artwork, so a properly exported PDF logo scales cleanly.
 
 Many printers accept PDF for professional print work. Some ask for a specific print standard, particular colour settings or bleed around the artwork. Requirements differ between printers, so always check with yours before sending files.
 
@@ -84,23 +84,23 @@ You may never open either yourself. Having them means that when a supplier asks 
 
 Screens and printers create colour in different ways, so the same logo can look noticeably different across them.
 
-- **RGB** is how screens make colour, by mixing red, green and blue light. Web colours are usually written as HEX codes (such as `#2563EB`), which are RGB values in a different notation. Use RGB files for anything viewed on a screen.
-- **CMYK** is how most printed material is made, from cyan, magenta, yellow and black inks. Some bright screen colours, particularly vivid blues and greens, can't be reproduced exactly in CMYK and print slightly duller.
+- **RGB** is how screens make colour, by mixing red, green and blue light. Web colours are usually written as hex codes (such as `#2563EB`), which are RGB values in a different notation. Use RGB files for anything viewed on a screen.
+- **CMYK** is how most printed material is produced, using cyan, magenta, yellow and black inks. Some bright screen colours, particularly vivid blues and greens, can't be reproduced exactly in CMYK and print slightly duller.
 - **Pantone** is a system of standardised ink colours. Specifying a Pantone reference helps a printer match a colour consistently across jobs and suppliers, which matters for signage, packaging and branded merchandise.
 
 Paper, fabric, screen settings and printing method all affect the result too. For anything important or expensive, ask for a printed proof before the full run. Embroidery and vinyl use their own thread and material colour ranges, so the supplier will match your colours as closely as their materials allow.
 
 ## Light, dark, monochrome and icon-only versions
 
-A professional logo usually comes in several versions, because a single colour version won't suit every background or process.
+A professional logo usually comes in several versions, because one version alone won't suit every background or process.
 
 ![One example mark in four versions: full colour on a light background, reversed on a dark background, single-colour black, and an icon-only version](../../assets/blog/logo-file-formats-explained/logo-file-formats-explained-variations.png)
 
-- **Full colour**, the primary version, for light backgrounds.
-- **Reversed or light**, for dark backgrounds and photographs.
-- **Monochrome**, in solid black and in solid white, for single-colour printing, stamps, engraving, embroidery and faxes.
-- **Icon-only** (sometimes called a mark or monogram), for small square spaces: favicons, app icons and social profile pictures.
-- **Horizontal and stacked layouts**, where the logo has a name alongside the symbol, so it fits both wide and square spaces.
+- **Full colour**, the primary version, for light backgrounds
+- **Reversed or light**, for dark backgrounds and photographs
+- **Monochrome**, in solid black and in solid white, for single-colour printing, stamps, engraving and embroidery
+- **Icon-only** (sometimes called a mark or monogram), for small square spaces: favicons, app icons and social profile pictures
+- **Horizontal and stacked layouts**, where the logo has a name alongside the symbol, so it fits both wide and square spaces
 
 ## Which format for which job
 
@@ -111,7 +111,7 @@ Software and supplier requirements vary, so treat this as a starting point and c
 | Website header | SVG | PNG (large) | JPG |
 | Favicon and browser tab | PNG or ICO (icon-only) | SVG, where supported | Full logo with small text |
 | Social media profiles and posts | PNG | JPG for photo posts | SVG (often not accepted) |
-| Word, PowerPoint, Google Docs | PNG | SVG, in newer versions | JPG |
+| Word, PowerPoint, Google Docs | PNG | SVG, in recent Microsoft Office versions | JPG |
 | Email signature | PNG (small) | — | SVG, large files |
 | Business cards and stationery | Print-ready PDF | EPS, AI | Small PNG |
 | Signage and vehicle graphics | EPS, AI or vector PDF | SVG | Any raster file |
@@ -122,13 +122,13 @@ Software and supplier requirements vary, so treat this as a starting point and c
 
 The exact contents depend on what you agreed, but a sound handover usually covers:
 
-- Vector files: SVG, PDF and EPS, plus the AI or other source file if agreed.
-- PNG files with transparent backgrounds, in several sizes.
-- Each version: Full colour, reversed, black, white and icon-only.
-- RGB versions for screen and CMYK or Pantone versions for print.
-- A short guide to colour codes (HEX, RGB, CMYK and any Pantone references), fonts, minimum size and clear space.
-- Names and licence details for any fonts used in the logo.
-- Clear file names, organised into folders by format or use.
+- vector files: SVG, PDF and EPS, plus the AI or other source file if agreed
+- PNG files with transparent backgrounds, in several sizes
+- each version: full colour, reversed, black, white and icon-only
+- RGB versions for screen and CMYK or Pantone versions for print
+- a short guide to colour codes (hex, RGB, CMYK and any Pantone references), fonts, minimum size and clear space
+- names and licence details for any fonts used in the logo
+- clear file names, organised into folders by format or use
 
 ## Source files and ownership
 
@@ -139,7 +139,7 @@ Whether you receive source files, and what rights you have to use and modify the
 ## Questions to ask before approving delivery
 
 - Which formats and versions are included, and are any missing from this list?
-- Are the vector files genuinely vector, not raster images saved in a vector format?
+- Are the vector files genuinely vector, rather than raster images saved in a vector format?
 - Will I receive the editable source files, or agreed access to them?
 - Are colour codes provided for both screen and print?
 - Which fonts are used, and do their licences cover how I'll use the logo?
@@ -153,7 +153,7 @@ Whether you receive source files, and what rights you have to use and modify the
 - [ ] Print-ready PDF
 - [ ] EPS and/or AI for suppliers
 - [ ] Full-colour, reversed, black, white and icon-only versions
-- [ ] RGB/HEX, CMYK and any Pantone colour references
+- [ ] RGB/hex, CMYK and any Pantone colour references
 - [ ] Font names and licence details
 - [ ] Minimum size and clear-space guidance
 - [ ] Source files, or agreed access to them, confirmed in writing

@@ -17,7 +17,7 @@ Most first websites contain both too much and too little. Too much in the sense 
 
 This is the launch checklist we use to help new businesses make sensible choices. Some items need time or paid tools; many simply need a clear decision before design begins.
 
-A note up front: nothing here guarantees you'll rank on Google. Search results depend on competition, your market and a great deal outside anyone's control. What these items do is give a new site a sound starting position, so that the content and reputation you build afterwards has something solid underneath it.
+A note up front: nothing here guarantees you'll rank on Google. Search results depend on competition, your market and a great deal outside anyone's control. What these items do is give a new site a sound starting position, so that the content and reputation you build afterwards have something solid underneath it.
 
 ---
 
@@ -45,11 +45,11 @@ If you can publish fixed prices or starting prices accurately, they can help vis
 - Opening hours, including whether you answer outside them
 - Response time you'll actually meet — "we reply within one working day" is a commitment, so only write it if it's true
 
-Make the preferred contact route easy to find on every page. That may be a phone number, email address, booking link or a clear project questionnaire, depending on how you actually work.
+Make the preferred contact route easy to find on every page. That may be a phone number, an email address, a booking link or a clear project questionnaire, depending on how you actually work.
 
 ### An enquiry route that you've tested end to end
 
-A form is one option, not a requirement. A static website can instead invite a visitor to email, call, message you, or complete an on-device questionnaire and share its PDF. Whatever you choose, test the full journey before launch:
+A form is one option, not a requirement. A static website can instead invite visitors to email, call or message you, or to complete an on-device questionnaire and share the resulting PDF. Whatever you choose, test the full journey before launch:
 
 - Can the visitor understand what happens after they enquire?
 - Does the message or document actually reach the right person?
@@ -90,7 +90,7 @@ If you are brand new and have none of this, do not fabricate it. Explain your ex
 
 ### A Google Business Profile
 
-This sits outside the website and is useful for eligible businesses that meet customers in person, either at their premises or in a service area. Online-only businesses generally are not eligible. If you qualify, keep the profile accurate and consistent with the contact details on your site. [Google Business Profile eligibility rules](https://support.google.com/business/answer/13763036?hl=en)
+This sits outside the website and is useful for eligible businesses that meet customers in person, either at their premises or in a service area. Online-only businesses are generally not eligible. If you qualify, keep the profile accurate and consistent with the contact details on your site. [Google Business Profile eligibility rules](https://support.google.com/business/answer/13763036?hl=en)
 
 ---
 
@@ -112,16 +112,16 @@ This is easier to build in than to retrofit, and it overlaps almost entirely wit
 
 - Text contrast strong enough to read in sunlight
 - Informative images have useful alternative text; decorative images are marked as decorative
-- Form fields have real labels, not just placeholder text that vanishes when typing
+- Form fields have real labels, not just placeholder text that vanishes when someone starts typing
 - The site is navigable by keyboard alone, with a visible focus outline
 - Headings used in order, describing structure rather than chosen for size
-- Video captioned if you have any
+- Captions on any videos
 
 These checks make the site usable for more people. Some also help search engines understand its content, but accessibility and SEO are not the same thing. [W3C accessibility guidance](https://www.w3.org/WAI/tips/developing/)
 
 ### Speed
 
-Compress images before upload and serve them in a modern format. Don't load a dozen third-party scripts. Limit custom fonts to one or two weights. Test on a mid-range Android phone over mobile data rather than on office broadband.
+Compress images before uploading them and serve them in a modern format. Don't load a dozen third-party scripts. Limit custom fonts to one or two weights. Test on a mid-range Android phone over mobile data rather than on office broadband.
 
 A well-built static site can be fast because pages are pre-built, though images, scripts and hosting still matter. If you're weighing up your options, our article on [static websites, CMS platforms and headless options](/blog/does-your-website-need-a-cms) goes through the trade-offs.
 
@@ -139,7 +139,7 @@ This is the foundation, not a ranking strategy:
 - A custom 404 page that helps people rather than stranding them
 - Important public content present in crawlable HTML or otherwise confirmed visible to search engines
 
-These checks reduce avoidable technical barriers; they do not guarantee indexing or rankings. Google can render JavaScript, but pre-rendered content is often simpler for crawlers and visitors. Continue by publishing genuinely useful information grounded in what your customers ask and what your business knows firsthand. [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) · [Google JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
+These checks reduce avoidable technical barriers; they do not guarantee indexing or rankings. Google can render JavaScript, but pre-rendered content is often simpler for crawlers and visitors. Continue by publishing genuinely useful information grounded in what your customers ask and what your business knows first-hand. [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) · [Google JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
 
 ---
 
@@ -155,7 +155,7 @@ Launching without these is normal. Adding them later is straightforward.
 
 **Customer accounts and logins.** This is the largest single step in cost and complexity, and the point where a website becomes an application — with a database, personal data obligations and a permanent security responsibility attached. Our article on [website versus web application](/blog/website-vs-web-application) covers when that's genuinely warranted.
 
-**Live chat, pop-ups, newsletter signups.** Fine later. At launch they mostly add clutter and slow the page.
+**Live chat, pop-ups, newsletter sign-ups.** Fine later. At launch they mostly add clutter and slow the page.
 
 **Multiple languages.** Add them when you can support customers in those languages and keep translated content accurate.
 
@@ -167,11 +167,11 @@ Launching without these is normal. Adding them later is straightforward.
 
 Have these ready and you'll get better quotes, faster, from everyone you speak to.
 
-- [ ] One sentence describing what you do and who for
+- [ ] One sentence describing what you do and who you do it for
 - [ ] The list of services you want pages for
 - [ ] Pricing information, if you publish it, or a clear explanation of how quoting works
 - [ ] Preferred contact method, relevant address and opening hours, and any response-time commitment you can meet
-- [ ] Applicable company disclosures; for a UK limited company, name, number, registered office and place of registration
+- [ ] Applicable company disclosures: for a UK limited company, the name, number, registered office and place of registration
 - [ ] Any existing logo and brand assets, plus permission or licences to use them
 - [ ] Photographs of your premises, team and work
 - [ ] Any testimonials, reviews or case studies you can use, with permission
@@ -189,6 +189,6 @@ Examples communicate visual preferences more clearly than vague adjectives. A ge
 
 ## Tell us about your project
 
-If you're planning a new site or a complete redesign, tell us what your visitors need to understand and do. We'll use your answers to propose a suitable scope, including a simpler static site when that is enough. We build [new websites and complete rebuilds](/services/websites/); partial repairs of legacy code are outside our scope.
+If you're planning a new site or a complete redesign, tell us what your visitors need to understand and do. We'll use your answers to propose a suitable scope, including a simpler static site when that is enough. We build [new websites and complete rebuilds](/services/websites/); partial repairs to legacy code are outside our scope.
 
-**[Describe your project →](https://fintaxtech.co.uk/start)**
+**[Describe your project →](http://localhost:4321/enquiry/?service=websites)**
