@@ -112,16 +112,16 @@ Store developer account fees are set by Apple and Google, may vary by region and
 
 ## Questions to settle before development begins
 
-- **Ownership:** who owns the app, its code and its data, and is that confirmed in writing?
-- **Source code:** where is the code kept, and will you have access to the repository?
-- **Store accounts:** are the Apple and Google developer accounts in your business's name?
-- **Hosting:** whose account hosts the backend, and who pays for it?
-- **Credentials:** where are passwords, signing keys and certificates stored, and who can access them?
-- **Monitoring:** which crash-reporting and uptime tools will be used, and who receives the alerts?
-- **Response expectations:** how quickly will problems be acknowledged and fixed, and does that differ for urgent issues?
-- **Warranty:** how long is the defect-correction period, and what counts as a defect?
-- **Maintenance arrangements:** is routine maintenance included, on a retainer or quoted as needed?
-- **Exit and handover:** if you change supplier, what will you receive, in what state, and how will access be transferred?
+- **Ownership:** Who owns the app, its code and its data, and is that confirmed in writing?
+- **Source code:** Where is the code kept, and will you have access to the repository?
+- **Store accounts:** Are the Apple and Google developer accounts in your business's name?
+- **Hosting:** Whose account hosts the backend, and who pays for it?
+- **Credentials:** Where are passwords, signing keys and certificates stored, and who can access them?
+- **Monitoring:** Which crash-reporting and uptime tools will be used, and who receives the alerts?
+- **Response expectations:** How quickly will problems be acknowledged and fixed, and does that differ for urgent issues?
+- **Warranty:** How long is the defect-correction period, and what counts as a defect?
+- **Maintenance arrangements:** Is routine maintenance included, on a retainer or quoted as needed?
+- **Exit and handover:** If you change supplier, what will you receive, in what state, and how will access be transferred?
 
 ## Your post-launch checklist
 
