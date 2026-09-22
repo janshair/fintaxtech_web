@@ -123,7 +123,7 @@ These checks make the site usable for more people. Some also help search engines
 
 Compress images before uploading them and serve them in a modern format. Don't load a dozen third-party scripts. Limit custom fonts to one or two weights. Test on a mid-range Android phone over mobile data rather than on office broadband.
 
-A well-built static site can be fast because pages are pre-built, though images, scripts and hosting still matter. If you're weighing up your options, our article on [static websites, CMS platforms and headless options](/blog/does-your-website-need-a-cms) goes through the trade-offs.
+A well-built static site can be fast because pages are pre-built, though images, scripts and hosting still matter. If you're weighing up your options, our article on [static websites, CMS platforms and headless options](/blog/does-your-website-need-a-cms/) goes through the trade-offs.
 
 ### Search visibility groundwork
 
@@ -149,11 +149,11 @@ Launching without these is normal. Adding them later is straightforward.
 
 **A blog.** Start one when you have useful questions to answer and someone who can maintain it. An old article can still help readers if it remains accurate; freshness for its own sake is not the goal.
 
-**A CMS.** If content changes rarely and one person handles updates, an editing interface may add complexity without much benefit. Regular publishing by a non-technical team can make a CMS worthwhile. We've written about [how to make that call](/blog/does-your-website-need-a-cms) in detail.
+**A CMS.** If content changes rarely and one person handles updates, an editing interface may add complexity without much benefit. Regular publishing by a non-technical team can make a CMS worthwhile. We've written about [how to make that call](/blog/does-your-website-need-a-cms/) in detail.
 
 **Booking systems.** A phone number or enquiry route may be enough at first. If bookings are central to the business from day one, choose a suitable off-the-shelf tool rather than delaying a core customer journey.
 
-**Customer accounts and logins.** This is the largest single step in cost and complexity, and the point where a website becomes an application — with a database, personal data obligations and a permanent security responsibility attached. Our article on [website versus web application](/blog/website-vs-web-application) covers when that's genuinely warranted.
+**Customer accounts and logins.** This is the largest single step in cost and complexity, and the point where a website becomes an application — with a database, personal data obligations and a permanent security responsibility attached. Our article on [website versus web application](/blog/website-vs-web-application/) covers when that's genuinely warranted.
 
 **Live chat, pop-ups, newsletter sign-ups.** Fine later. At launch they mostly add clutter and slow the page.
 
@@ -191,4 +191,4 @@ Examples communicate visual preferences more clearly than vague adjectives. A ge
 
 If you're planning a new site or a complete redesign, tell us what your visitors need to understand and do. We'll use your answers to propose a suitable scope, including a simpler static site when that is enough. We build [new websites and complete rebuilds](/services/websites/); partial repairs to legacy code are outside our scope.
 
-**[Describe your project →](http://localhost:4321/enquiry/?service=websites)**
+**[Describe your project →](/enquiry/?service=websites)**

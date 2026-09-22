@@ -45,7 +45,7 @@ The logo is one component. The identity is the system that makes everything else
 
 **Typography.** One or two typefaces, with defined roles for headings and body text. Check the licence for each intended use, including web embedding and logo artwork; permission for one use does not necessarily cover another. Open-licensed families are often a practical starting point.
 
-**Imagery.** What your photographs or illustrations show, and how they look. Images of actual work, people or premises can help when relevant and available — a point we also make in our [website launch checklist](/blog/new-business-website-launch-checklist). A short direction on subject, crop and mood helps keep things consistent.
+**Imagery.** What your photographs or illustrations show, and how they look. Images of actual work, people or premises can help when relevant and available — a point we also make in our [website launch checklist](/blog/new-business-website-launch-checklist/). A short direction on subject, crop and mood helps keep things consistent.
 
 **Voice.** How you write. Formal or plain, first person or third, technical or everyday. Three example sentences and a short list of words you do and don't use will do more for consistency than a page of adjectives.
 
@@ -64,7 +64,7 @@ For many businesses just starting, this is a useful baseline. Businesses with ex
 - **A one-page usage note** — colours, fonts, minimum size, clear space, and the things not to do
 - **A basic social avatar** cropped from the mark, checked at the size it actually appears
 
-That can be a short document and a folder of files. It gives a website designer, printer or social-media manager a consistent starting point without asking anyone to guess.
+That can be a short document and a folder of files. It gives a website designer, printer or social media manager a consistent starting point without asking anyone to guess.
 
 ---
 
@@ -72,7 +72,7 @@ That can be a short document and a folder of files. It gives a website designer,
 
 **A full brand manual.** Thirty pages of rules for a business still deciding what it sells. Write the one-pager now; expand it when there are enough people producing material to need it.
 
-**An extensive brand strategy programme.** You still need to decide who you serve, what you offer and how you want to be understood before drawing a logo. What can often wait is a large research exercise or lengthy set of personas. For a complex or highly competitive launch, deeper strategy may be worth doing immediately.
+**An extensive brand strategy programme.** You still need to decide who you serve, what you offer and how you want to be understood before drawing a logo. What can often wait is a large research exercise or a lengthy set of personas. For a complex or highly competitive launch, deeper strategy may be worth doing immediately.
 
 **A complete stationery and collateral set.** Letterheads, folders, presentation templates, vehicle livery. Commission each one when you need it.
 
@@ -112,7 +112,7 @@ So the checks above still apply, whatever produced the first sketch. Speed in th
 
 ## Before you commission anything
 
-- [ ] The one-sentence description of what your business does and who for
+- [ ] A one-sentence description of what your business does and who it's for
 - [ ] Your proposed business name and where you intend to trade
 - [ ] Domain and social handles checked for availability
 - [ ] Relevant trade-mark and business-name searches completed; professional advice considered if conflicts appear
@@ -125,7 +125,7 @@ So the checks above still apply, whatever produced the first sketch. Speed in th
 - [ ] Confirmation that font licences cover how you'll actually use them
 - [ ] A clear list of the items you need at launch, so proposals cover the same scope
 
-Before agreeing to a quote, check exactly which editable files and rights you will receive, when they transfer, and which third-party licences remain in place. Paying for design work does not, by itself, always transfer copyright: in the UK, a [copyright assignment must be in writing and signed by the owner](https://www.gov.uk/using-somebody-elses-intellectual-property/copyright). With FinTaxTech, ownership of agreed final deliverables passes after full payment, subject to third-party licences; our internal prompts, workflows and methods remain ours. The written proposal sets out the details.
+Before agreeing to a quote, check exactly which editable files and rights you will receive, when they transfer, and which third-party licences remain in place. Paying for design work does not by itself transfer copyright: in the UK, a [copyright assignment must be in writing and signed by the owner](https://www.gov.uk/using-somebody-elses-intellectual-property/copyright). With FinTaxTech, ownership of agreed final deliverables passes after full payment, subject to third-party licences; our internal prompts, workflows and methods remain ours. The written proposal sets out the details.
 
 ---
 

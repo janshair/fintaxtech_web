@@ -31,7 +31,7 @@ The two are priced very differently, and a vague brief can be read as either. If
 
 ### Pages, and how different they are
 
-Ten pages built from one template is a smaller job than five pages that each need their own layout. A services page, a pricing page with a comparison table and a case study with a photo gallery are three separate design problems.
+Building ten pages from one template is a smaller job than building five pages that each need their own layout. A services page, a pricing page with a comparison table and a case study with a photo gallery are three separate design problems.
 
 Count the pages, then count how many of them are genuinely different.
 

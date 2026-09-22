@@ -91,7 +91,7 @@ Things that may recur, depending on the app:
 
 **Third-party services.** Payment processing, maps, messaging, error monitoring, analytics. Some are free at low volume; some are usage-priced.
 
-**Maintenance.** Both platforms release major operating system versions annually, and both periodically raise the requirements an app must meet to stay listed. Libraries and certificates need keeping current. An unmaintained app degrades quietly and then breaks.
+**Maintenance.** Both platforms release major operating system versions annually, and both periodically raise the requirements for new submissions and updates. Libraries and certificates need keeping current. An unmaintained app degrades quietly and then breaks.
 
 **New features.** Whatever you learn once real users arrive.
 

@@ -35,7 +35,7 @@ State the exact name, spelled and capitalised as you intend to use it. "FinTaxTe
 
 Note whether the legal name and the trading name differ, and which one the logo should carry. A limited company called Smith Holdings Ltd trading as Riverside Joinery needs the second on its signage.
 
-If you have a tagline, include it and say whether it must appear in the logo. Often it shouldn't — taglines lock up badly at small sizes and date faster than the mark. A designer may offer a version with and without.
+If you have a tagline, include it and say whether it must appear in the logo. Often it shouldn't — taglines lock up badly at small sizes and date faster than the mark. A designer may offer versions with and without it.
 
 If you don't have a tagline, say so plainly. Don't ask the designer to invent one unless that's in scope and priced.
 
@@ -61,7 +61,7 @@ Give three to five adjectives and, more usefully, a contrast for each.
 
 "Professional but not corporate." "Friendly but not childish." "Modern but not trend-chasing." The second half of each pair tells a designer where the edge is, and that's the part that prevents wasted rounds.
 
-A second exercise worth doing: if your business were a shop on a high street, which shop would it be? People answer that more honestly than they answer "describe your brand values."
+A second exercise worth doing: if your business were a shop on a high street, which shop would it be? People answer that more honestly than they answer "describe your brand values".
 
 ## Visual styles you like — and don't
 
@@ -69,7 +69,7 @@ Both halves matter, and the dislikes are usually more informative.
 
 Say whether you lean toward wordmarks (text only), a symbol with text, or a monogram. Say whether you want something illustrative or geometric, detailed or minimal.
 
-Then name what to avoid. Common and worth stating if true: gradients, script fonts, clip-art-style icons, swooshes, globes, anything with a person silhouette, anything that looks like a technology company when you're a bakery.
+Then name what to avoid. Common and worth stating if true: gradients, script fonts, clip-art-style icons, swooshes, globes, anything with a human silhouette, anything that looks like a technology company when you're a bakery.
 
 If your trade has a visual cliché you're tired of — the tooth for dentists, the house outline for builders, the scales for solicitors — say so. Some clients want the cliché because customers recognise it instantly. That's a legitimate choice, but it should be a choice.
 
@@ -154,7 +154,7 @@ Things that usually restrict a designer without improving the result:
 - **Naming exact fonts**, unless you already have a brand typeface in use.
 - **Prescribing layout** — which element sits where, at what angle.
 - **Exact hex codes**, unless they're fixed by existing assets like vehicles or premises.
-- **Demanding the mark 'tell the whole story'.** Logos identify; they don't explain. Anything needing a paragraph to decode won't survive being 32 pixels wide.
+- **Demanding that the mark "tell the whole story".** Logos identify; they don't explain. Anything needing a paragraph to decode won't survive being 32 pixels wide.
 - **Asking for a trend.** Trends date, and rebranding costs more than getting it right once.
 
 The distinction to hold onto: constraints from reality are useful, and constraints from imagination are not. "It must work embroidered in one colour" helps. "It must be a hexagon" doesn't.

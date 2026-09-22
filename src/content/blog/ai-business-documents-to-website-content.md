@@ -138,7 +138,7 @@ If a document contains something that shouldn't leave your building at all, reda
 
 The third and fourth items save the most time. The fifth prevents the most rework — content projects stall when three people give contradictory feedback and nobody can settle it.
 
-If you're planning a whole new site rather than just the copy, our [website launch checklist](/blog/new-business-website-launch-checklist) covers the rest of what you'll need ready.
+If you're planning a whole new site rather than just the copy, our [website launch checklist](/blog/new-business-website-launch-checklist/) covers the rest of what you'll need ready.
 
 ---
 

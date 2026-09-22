@@ -1,13 +1,14 @@
 ---
-title: Native vs Flutter vs Kotlin Multiplatform for Business Apps
+title: 'Native vs Flutter vs Kotlin Multiplatform for Business Apps'
+seoTitle: 'Native vs Flutter vs Kotlin Multiplatform for Business Apps'
 description: Compare native Android and iOS, Flutter and Kotlin Multiplatform for business apps, including user experience, device features, cost and maintenance.
 slug: native-vs-flutter-vs-kotlin-multiplatform
 pubDate: 2026-09-09
-author: FinTaxTech
+author: FinTaxTech Ltd.
 category: Mobile App Development
 tags: [Android, iOS, Flutter, Kotlin Multiplatform, App planning]
 featuredImage: ../../assets/blog/native-vs-flutter-vs-kotlin-multiplatform/mobile-platforms.webp
-imageAlt: Three phones displaying Android and Apple, Flutter, and Kotlin logos.
+imageAlt: Three phones displaying Android and Apple, Flutter, and Kotlin logos
 draft: false
 cta: mobile-apps
 ---
@@ -92,7 +93,7 @@ KMP shares the logic and keeps the interface native. That combination fits a nar
 
 **Correctness across platforms is a hard requirement.** Regulated calculations, financial figures, anything where two platforms producing two different answers is a serious problem rather than a bug.
 
-**Where it gets uncomfortable:** you still build and maintain two interfaces, so the saving is partial. iOS tooling and debugging around KMP is still rougher than Android's, and the talent pool is smaller than for either native or Flutter. It's the least commoditised of the three choices.
+**Where it gets uncomfortable:** You still build and maintain two interfaces, so the saving is partial. iOS tooling and debugging around KMP are still rougher than Android's, and the talent pool is smaller than for either native or Flutter. It's the least commoditised of the three choices.
 
 ---
 

@@ -84,7 +84,7 @@ So a PWA is a real option, not a universal substitute. Its suitability depends o
 ## A short checklist
 
 1. **Who are the users** — the public, existing customers, or your own staff? Staff apps skip the discovery problem entirely.
-2. **What must they accomplish?** Write it as verbs. Read and enquire points to a website. Submit, track and approve points to an application.
+2. **What must they accomplish?** Write it as verbs. Read and enquire point to a website. Submit, track and approve point to an application.
 3. **How often?** Daily, weekly, or twice a year. Frequency is an important signal, but it isn't the only one.
 4. **How do they find you?** If the answer is search, you need a website regardless of what else you build.
 5. **Does it need the device?** Camera, Bluetooth, sustained background location, offline operation. List them specifically, then check whether each is genuinely required.

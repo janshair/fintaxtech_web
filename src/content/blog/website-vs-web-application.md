@@ -39,7 +39,7 @@ A website exists to explain, build trust and generate enquiries. Visitors read, 
 
 The typical shape is a homepage, service pages, company information, useful resources or case studies, and a contact route. Information mainly flows outward. A visitor might send an enquiry, subscribe to updates or download a resource.
 
-Success is usually measured in visibility and conversion—qualified visits, enquiries and booked conversations. The site may collect form submissions, but it does not normally maintain an ongoing personalised workspace for every visitor.
+Success is usually measured in visibility and conversion — qualified visits, enquiries and booked conversations. The site may collect form submissions, but it does not normally maintain an ongoing personalised workspace for every visitor.
 
 That is not a limitation. For many businesses it is the whole job, and extra machinery would not improve the customer journey.
 
@@ -78,7 +78,7 @@ A web application is not simply a website with extra pages. It is operational so
 
 A website is the right answer when your online presence needs to bring people to you rather than serve them once they arrive.
 
-That is the case if buying from you happens through a conversation, quotation or meeting. It also applies when customers need to understand and trust you before engaging—professional services, consultancies, trades and clinics, for example—and when the main outcome you need is a qualified enquiry.
+That is the case if buying from you happens through a conversation, quotation or meeting. It also applies when customers need to understand and trust you before engaging (professional services, consultancies, trades and clinics, for example), and when the main outcome you need is a qualified enquiry.
 
 The test: **if nobody ever needed a personalised workspace, would anything be lost?** If the honest answer is no, build the website well and focus your effort on useful content, trust and a clear enquiry journey.
 
@@ -88,7 +88,7 @@ The test: **if nobody ever needed a personalised workspace, would anything be lo
 
 A web application is right when the value happens _inside_ the software, repeatedly.
 
-The signals are recognisable. Users come back regularly to do something rather than read something. Each user's view depends on their own data. There's a process with stages — submitted, in review, approved. Something today is handled by email, spreadsheets and manual copying, and it's straining. Or your staff need to see and manage what customers have done.
+The signals are recognisable. Users come back regularly to do something rather than read something. Each user's view depends on their own data. There's a process with stages — submitted, in review, approved. Or your staff need to see and manage what customers have done.
 
 One useful signal is a repeated process currently handled through email, spreadsheets and manual copying. Measure its volume, errors and delays before deciding whether custom software is justified.
 
@@ -170,7 +170,7 @@ Ask what each moving part does for a user. Parts that can't answer shouldn't be 
 
 ## 12. How AI assists delivery while people remain responsible for architecture and security
 
-AI tooling can accelerate parts of web delivery—page scaffolding, component code, content drafts, test preparation and routine migrations. FinTaxTech uses it to make delivery more focused while keeping people responsible for the result.
+AI tooling can accelerate parts of web delivery: page scaffolding, component code, content drafts, test preparation and routine migrations. FinTaxTech uses it to make delivery more focused while keeping people responsible for the result.
 
 AI should not own the consequential decisions: whether a login is needed, how read-only access should work, where personal data lives, how long it is retained, or what happens to a half-finished submission when the connection drops. Those architecture and security choices require informed human accountability.
 

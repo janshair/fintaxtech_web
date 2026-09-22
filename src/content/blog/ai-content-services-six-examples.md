@@ -63,7 +63,7 @@ These are illustrations of the kind of work involved, not guarantees of what any
 
 **Source material:** process notes, a handful of procedure documents, screenshots, and whatever your most experienced person explains verbally to every newcomer.
 
-**Output:** a guide in sequence: what happens first, what the new person needs, who to ask, what to do when something goes wrong. It works equally for onboarding a new customer or a new member of staff.
+**Output:** a guide in sequence: what happens first, what the new person needs, who to ask, what to do when something goes wrong. It works equally well for onboarding a new customer or a new member of staff.
 
 **What a person checks:** whether the documented process matches the real one. Written procedures drift from practice, and the gaps are invisible to whoever wrote them. Someone who does the job needs to read the draft, not only someone who manages it.
 
@@ -111,7 +111,7 @@ A note on suitability: not every document is appropriate. You need permission to
 
 ## A sensible workflow
 
-1. **Enquiry.** Describe what you have and what you want, in general terms. Don't attach confidential files at this stage: enquiry forms send email, and email isn't a secure channel.
+1. **Enquiry.** Describe what you have and what you want, in general terms. Don't include confidential material at this stage. Our questionnaire creates a PDF on your device, and email or messaging isn't a suitable channel for sensitive documents.
 2. **Scope and quote.** What's being produced, in what format, how many revision rounds, what's excluded and what fact-checking is included. Agreed in writing before work starts.
 3. **Document transfer.** An appropriate transfer method is set up once you've engaged us. If personal data is involved, the handling arrangements are settled here.
 4. **Drafting.** Extraction, structuring and first-pass copy.

@@ -84,13 +84,13 @@ These decisions belong in the requirements, not in assumptions made after develo
 
 ## 5. How to identify the app's single core journey
 
-Finish this sentence with no "and" in it: _a user opens the app in order to \______._
+Finish this sentence with no "and" in it: _a user opens the app in order to …_
 
 Then map that journey as a straight line of steps, from opening the app to the moment of value. Book a slot. Submit a claim. Log a job. Check a balance. Usually four to seven steps.
 
 Now test each step with one question: **if this step disappeared, could the user still get the result?** If yes, it isn't core. Cut it.
 
-Two useful signals. If your sentence needs "and," you have two journeys and should pick the one with more users behind it. And if a step exists only to make things nicer rather than possible, it belongs in version two.
+Two useful signals. If your sentence needs "and", you have two journeys and should pick the one with more users behind it. And if a step exists only to make things nicer rather than possible, it belongs in version two.
 
 What remains is your MVP. Everything else in the app supports it.
 
@@ -136,7 +136,7 @@ Speed and quality are often treated as a dial you turn between. For the first re
 
 The reliable way to move faster is to **build less**: fewer screens, fewer features and fewer integrations. That is a scope decision which can be documented and revisited after learning from users.
 
-The tempting alternative is to build the same amount of software to a lower standard—skip the tests, hard-code values, mix business logic into screens and promise to deal with it later. That creates technical debt and makes every later change harder to predict.
+The tempting alternative is to build the same amount of software to a lower standard — skip the tests, hard-code values, mix business logic into screens and promise to deal with it later. That creates technical debt and makes every later change harder to predict.
 
 The distinction is straightforward. Cutting scope leaves you with a small, solid app. Cutting quality leaves you with a small, fragile one, and only one of those is worth building on.
 

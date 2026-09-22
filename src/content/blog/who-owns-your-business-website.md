@@ -33,7 +33,7 @@ Two things matter here.
 
 **Who can actually get into the account.** Registrant details and account access are separate. Your business can be named as registrant while the login sits with someone else.
 
-Agencies managing domains on a client's behalf isn't unusual or improper — it's often genuinely easier. It just needs stating plainly, along with what happens if you part ways.
+An agency managing domains on a client's behalf isn't unusual or improper — it's often genuinely easier. It just needs stating plainly, along with what happens if you part ways.
 
 Questions worth asking before launch:
 
@@ -122,7 +122,7 @@ That last export point is worth thinking about before you choose how the site is
 
 ## What to agree before work starts
 
-Five questions to put to any website developer, before signing:
+Five questions to put to any website developer before signing:
 
 1. **What exactly do I receive at the end**, file by file?
 2. **What rights do I have over it**, and are any parts licensed to me rather than transferred?
