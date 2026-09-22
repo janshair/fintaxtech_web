@@ -1,3 +1,4 @@
+import { promptBriefCopy } from './prompt-brief';
 import { promoCopy, promoStatus } from './promo';
 import { mobileAppBriefCopy } from './mobile-app-brief';
 import { websiteBriefCopy } from './website-brief';
@@ -20,6 +21,12 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [promptBriefCopy.route]: {
+    title: promptBriefCopy.title,
+    description: promptBriefCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
   [mobileAppBriefCopy.route]: {
     title: mobileAppBriefCopy.title,
     description: mobileAppBriefCopy.description,

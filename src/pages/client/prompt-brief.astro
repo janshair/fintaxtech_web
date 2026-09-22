@@ -1,0 +1,9 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ClientBriefShell from '../../components/ClientBriefShell.astro';
+import { promptBriefCopy as c } from '../../content/prompt-brief';
+---
+
+<SiteLayout title={c.title} description={c.description} noindex>
+  <ClientBriefShell kind="prompt" />
+</SiteLayout>

@@ -221,3 +221,13 @@ Direct HTTP checks of the deployed `/start/`, Blog and all 14 published articles
 This cannot determine Google’s current exclusion reason. For `/start/` and two or three affected canonical article URLs, collect URL Inspection’s exact indexing reason, last crawl, crawl/fetch/indexing permissions, referring page/sitemap, user-declared canonical and Google-selected canonical. Compare **Test live URL** with the indexed/crawled result; inspect the tested HTML if Google sees different content. Include any manual-action or security warnings. Sitemap inclusion and valid HTML do not guarantee indexing.
 
 The base `/enquiry/` is a JavaScript questionnaire shell, not a distinct search landing page. Indexing it would add little value alongside `/start/` and the service pages. Preserve `noindex,follow`, the query-free `/enquiry/` canonical and sitemap exclusion for all service query variants.
+
+### AI content production brief
+
+Send `/client/prompt-brief/` manually after confirming advance payment. The customer-facing title is **AI Content Production Brief**. Like the other client briefs, it uses the shared shell, conditional validation, review screen and lazy-loaded local PDF generator. It is unlisted, has `noindex,nofollow`, is excluded from analytics and does not appear in the public navigation, sitemap or RSS. An unlisted URL is not access control.
+
+Edit its copy and questions in `src/content/prompt-brief.ts`; registration lives in `src/lib/client-brief/definitions.ts`. All Other choices require short details, another language requires a language name, and a fixed deadline requires a valid date and reason. Tone allows up to three choices, or FinTaxTech to recommend alone. Source formats are optional when no material is available or formats are unknown. Reviewer and approver identities are agreed separately, so customers need not enter personal details.
+
+No source documents are uploaded or stored. Answers stay in page memory and clear on refresh or leaving. Customers download `FinTaxTech-ai-content-production-brief.pdf` and manually share it and their sources separately through the agreed channel. The PDF includes permissions/sensitivity notes and the scope disclaimer. The existing PDF is unencrypted; no password-protection control or security claim is added. The public enquiry is unchanged.
+
+Run `pnpm verify` and `pnpm test:browser`. New coverage lives in `tests/prompt-brief.test.ts` and `tests/browser/prompt-brief.spec.ts`, with a reusable sample in `tests/fixtures/prompt-brief.ts`. It covers required conditional details, tone limits, review/editing, local downloads, mobile keyboard access, both themes, reload clearing, and absence of answer-bearing requests or storage.

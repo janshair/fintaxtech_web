@@ -20,6 +20,9 @@ function browser() {
 }
 describe('analytics privacy boundary', () => {
   it.each([
+    '/client/prompt-brief',
+    '/client/prompt-brief/',
+    '/client/prompt-brief/index.html',
     '/client/logo-brief',
     '/client/logo-brief/',
     '/client/logo-brief/index.html',

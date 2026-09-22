@@ -1,3 +1,5 @@
+export type BriefKind = 'logo' | 'website' | 'mobile' | 'prompt';
+
 export interface BriefField {
   id: string;
   label: string;

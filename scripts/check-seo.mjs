@@ -47,6 +47,7 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
   assert.equal(elements(doc, 'h1').length, 1, path);
   assert.equal(attr(elements(doc, 'html')[0], 'lang'), 'en', path);
   assert.deepEqual(canonical, [origin + (path === '/contact/' ? '/start' : path)], path);
+  if (path.startsWith('/client/')) assert.deepEqual(meta('robots'), ['noindex,nofollow'], path);
   if (path === '/contact/') assert(noindex, 'Contact redirect must remain noindex');
   for (const name of [
     'og:title',
