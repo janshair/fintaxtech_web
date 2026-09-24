@@ -1,3 +1,4 @@
+import { automationCopy } from '../content/ai-automation';
 import { pdfTokens as t } from '../design/pdf-tokens';
 import { jsPDF } from 'jspdf';
 import { loadPDFFont, checkPDFGlyphs } from './pdf-font';
@@ -17,7 +18,11 @@ export const supportsSecurePasswordProtection = false;
 export async function createPDF({ journey, customer, partial = false }: PDFInput): Promise<Blob> {
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
   await loadPDFFont(doc);
-  doc.setProperties({ title: c.pdfTitle, author: company.legal, creator: company.name });
+  doc.setProperties({
+    title: journey.service === 'ai-automation' ? automationCopy.pdfTitle : c.pdfTitle,
+    author: company.legal,
+    creator: company.name,
+  });
   let y = t.layout.start as number;
   const { margin, width, bottom } = t.layout;
   function page() {
@@ -53,7 +58,13 @@ export async function createPDF({ journey, customer, partial = false }: PDFInput
   doc.text(company.name, 38, y);
   y = 35;
   text(`${company.email}  |  ${company.phone}`, 9);
-  heading(journey.short ? c.pdfShortTitle : c.pdfTitle);
+  heading(
+    journey.short
+      ? c.pdfShortTitle
+      : journey.service === 'ai-automation'
+        ? automationCopy.pdfTitle
+        : c.pdfTitle,
+  );
   text(
     `${c.pdfDate}: ${new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(new Date())}`,
     9,

@@ -1,4 +1,4 @@
-export type ServiceId = 'branding' | 'websites' | 'mobile-apps' | 'prompt-services';
+export type ServiceId = 'branding' | 'websites' | 'mobile-apps' | 'ai-automation';
 export type Answer = string | string[];
 export type Answers = Record<string, Answer>;
 export interface Question {
@@ -9,7 +9,8 @@ export interface Question {
   stage: number;
   options?: string[];
   max?: number;
-  when?: { id: string; includes: string };
+  help?: string;
+  when?: { id: string; includes: string | string[] };
 }
 export interface Journey {
   service: ServiceId;

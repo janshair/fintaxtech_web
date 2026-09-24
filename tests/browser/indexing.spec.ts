@@ -24,6 +24,7 @@ test('canonical public pages and every article are crawlable without JavaScript;
     '/promo/',
     '/services/websites/',
     '/services/mobile-apps/',
+    '/services/ai-automation/',
     ...articles,
   ]) {
     expect(paths.filter((p) => p === path)).toHaveLength(1);
@@ -40,6 +41,7 @@ test('canonical public pages and every article are crawlable without JavaScript;
     '?service=websites',
     '?service=mobile-apps',
     '?service=prompt-services',
+    '?service=ai-automation',
   ]) {
     expect((await page.goto('http://localhost:4323/enquiry/' + service))?.status()).toBe(200);
     await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,follow');

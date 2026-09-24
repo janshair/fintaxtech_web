@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import StaticRedirect from '../../components/StaticRedirect.astro';
+import { automationCopy } from '../../content/ai-automation';
+const c = automationCopy.redirect;
+---
+
+<SiteLayout title={c.title}>
+  <StaticRedirect
+    title={c.title}
+    message={c.message}
+    destination={c.destination}
+    label={c.link}
+    id="automation-redirect-link"
+  />
+</SiteLayout>

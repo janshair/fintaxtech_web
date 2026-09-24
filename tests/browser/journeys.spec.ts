@@ -28,7 +28,7 @@ test('all services create local PDFs without sending answers', async ({ page }, 
   page.on('request', (r) => {
     if (!r.url().startsWith('http://localhost:4323')) outgoing.push(r.url());
   });
-  for (const service of ['branding', 'websites', 'mobile-apps', 'prompt-services']) {
+  for (const service of ['branding', 'websites', 'mobile-apps', 'ai-automation']) {
     await begin(page, service);
     await complete(page);
     await expect(
@@ -174,7 +174,7 @@ test('marketing navigation works without JavaScript', async ({ browser }) => {
   await context.close();
 });
 
-for (const service of ['branding', 'websites', 'mobile-apps', 'prompt-services']) {
+for (const service of ['branding', 'websites', 'mobile-apps', 'ai-automation']) {
   test(`detailed ${service} brief produces a PDF`, async ({ page }, testInfo) => {
     await begin(page, service, '&stage=2');
     await complete(page);

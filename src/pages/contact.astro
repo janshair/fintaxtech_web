@@ -1,23 +1,15 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import StaticRedirect from '../components/StaticRedirect.astro';
 import { contactRedirect, ui } from '../content/site';
 ---
 
 <SiteLayout title={contactRedirect.title}>
-  <section class="container page-head">
-    <h1>{contactRedirect.title}</h1>
-    <p class="lead">{contactRedirect.message}</p>
-    <a id="contact-redirect-link" class="button primary" href={contactRedirect.destination}>
-      {ui.start}
-    </a>
-  </section>
-  <script is:inline>
-    const link = document.getElementById('contact-redirect-link');
-    if (link) {
-      // Keep the original query and fragment intact, including repeated and encoded values.
-      const target = link.getAttribute('href') + window.location.search + window.location.hash;
-      link.setAttribute('href', target);
-      window.location.replace(target);
-    }
-  </script>
+  <StaticRedirect
+    title={contactRedirect.title}
+    message={contactRedirect.message}
+    destination={contactRedirect.destination}
+    label={ui.start}
+    id="contact-redirect-link"
+  />
 </SiteLayout>

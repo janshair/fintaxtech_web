@@ -5,7 +5,7 @@ description: 'Learn which business documents can become website content, what hu
 slug: ai-business-documents-to-website-content
 pubDate: 2026-09-14
 author: FinTaxTech Ltd.
-category: Prompt Services
+category: AI Automation
 tags: [AI-assisted content, Website content, Content planning]
 featuredImage: ../../assets/blog/ai-business-documents-to-website-content/ai-business-documents-to-website-content-hero.png
 imageAlt: Business documents passing through a human review checkpoint to become structured website content

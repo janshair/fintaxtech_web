@@ -1,31 +1,38 @@
+import {
+  automationCopy,
+  automationWorkflowFields,
+  contentAutomation,
+  workflowAutomations,
+} from './ai-automation';
 import { briefCopy, type BriefCopy } from './client-brief';
 import type { BriefSection } from '../lib/client-brief/types';
 
 export const promptBriefCopy: BriefCopy = {
   ...briefCopy,
   route: '/client/prompt-brief/',
-  title: 'AI Content Production Brief',
+  title: 'AI Automation Production Brief',
   description:
-    'Prepare your post-payment AI-assisted content brief locally, review your requirements and download a PDF to share manually with FinTaxTech.',
+    'Prepare your post-payment AI Automation brief locally, review your requirements and download a PDF to share manually with FinTaxTech.',
   intro:
-    'Complete this brief after FinTaxTech has confirmed your advance payment. It records the production requirements for your agreed AI-assisted content project; it is not a quote request.',
+    'Complete this brief after FinTaxTech has confirmed your advance payment. It records the production requirements for your agreed AI Automation project; it is not a quote request.',
   privacy:
     'Your answers stay in this page’s memory. Nothing is sent automatically or saved by this website. Refreshing or closing clears the brief. Download your PDF before leaving. Do not enter confidential records, credentials or personal data.',
   workflow:
-    'This form does not upload or store source documents. Download the brief PDF, then share it and your source material separately with FinTaxTech through the agreed channel. Confirm permission to use the sources and identify any specialist reviewer or final approver separately. Public availability does not automatically mean permission to reuse. AI-assisted content needs human checking before publication or use.',
-  begin: 'Begin AI content brief',
-  reviewTitle: 'Review your AI content brief',
+    automationCopy.boundary +
+    ' This form does not upload or store source documents. Download the brief PDF, then share it and your source material separately with FinTaxTech through the agreed channel. Confirm permission to use the sources and identify any specialist reviewer or final approver separately. Public availability does not automatically mean permission to reuse. AI-assisted content needs human checking before publication or use.',
+  begin: 'Begin AI Automation brief',
+  reviewTitle: 'Review your AI Automation brief',
   reviewIntro:
-    'Check your content choices, source readiness, review requirements and output formats. Only applicable answers appear in the PDF. Nothing has been sent. Share source documents separately after downloading your brief.',
+    'Check your process or content requirements, source readiness, human approvals and outputs. Only applicable answers appear in the PDF. Nothing has been sent. Share source documents separately after downloading your brief.',
   disclaimer:
-    'This brief records production requirements and does not alter the agreed proposal, scope or price. Source permissions, factual accuracy and any specialist review must be confirmed before publication or use.',
-  pdfFilename: 'FinTaxTech-ai-content-production-brief.pdf',
+    'Automations need agreed human review, approval and exception handling. This brief records production requirements and does not alter the agreed proposal, scope or price. Source permissions, factual accuracy and any specialist review must be confirmed before publication or use.',
+  pdfFilename: 'FinTaxTech-ai-automation-production-brief.pdf',
 };
 
 const sensitivityNote =
   'These content categories need accuracy, scope and privacy review. Agree who will check any specialist claims before use. Do not enter confidential records, credentials or personal data; describe the content category only.';
 
-export const promptBriefSections: BriefSection[] = [
+const contentSections: BriefSection[] = [
   {
     title: 'The content you need',
     fields: [
@@ -265,6 +272,9 @@ export const promptBriefSections: BriefSection[] = [
       },
     ],
   },
+];
+
+const completionSections: BriefSection[] = [
   {
     title: 'Your deadline',
     fields: [
@@ -307,4 +317,55 @@ export const promptBriefSections: BriefSection[] = [
       },
     ],
   },
+];
+
+export const promptBriefSections: BriefSection[] = [
+  {
+    title: 'Your automation project',
+    fields: [
+      {
+        id: 'automationKind',
+        label: automationCopy.projectLabel,
+        type: 'single',
+        options: automationCopy.projectOptions,
+        help: automationCopy.privacy,
+      },
+    ],
+  },
+  ...contentSections.map((section) => ({
+    ...section,
+    when: { id: 'automationKind', values: [contentAutomation] },
+  })),
+  ...[
+    automationWorkflowFields.slice(0, 4),
+    automationWorkflowFields.slice(4, 7),
+    automationWorkflowFields.slice(7),
+  ].map((fields, index) => ({
+    title: automationCopy.workflowSections[index],
+    when: { id: 'automationKind', values: workflowAutomations },
+    fields: fields.map((field) => ({ ...field, id: `workflow-${field.id}` })),
+  })),
+  {
+    title: 'Approved assistant knowledge',
+    when: { id: 'automationKind', values: ['AI assistant or knowledge helper'] },
+    fields: [
+      {
+        id: 'knowledge',
+        label: automationCopy.knowledgeLabel,
+        type: 'long',
+      },
+    ],
+  },
+  {
+    title: 'System connections',
+    when: { id: 'automationKind', values: ['Connection between business systems'] },
+    fields: [
+      {
+        id: 'connection',
+        label: automationCopy.connectionLabel,
+        type: 'long',
+      },
+    ],
+  },
+  ...completionSections,
 ];

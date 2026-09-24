@@ -6,7 +6,7 @@ export function exclusive(value: string) {
   );
 }
 export function validateAnswer(q: Question, a: Answer | undefined): string | null {
-  if (a === undefined || a.length === 0) {
+  if (a === undefined || a.length === 0 || (typeof a === 'string' && !a.trim())) {
     return q.optional ? null : c.errorRequired;
   }
   if (q.type === 'text') {

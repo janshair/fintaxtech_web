@@ -23,7 +23,7 @@ describe('approved questionnaire coverage', () => {
       [8, 11],
       [9, 11],
       [11, 10],
-      [10, 12],
+      [26, 28],
     ]);
   });
   it('uses unique ids and no budget or price questions', () => {
@@ -39,7 +39,13 @@ describe('approved questionnaire coverage', () => {
           expect(
             validateAnswer(
               q as Question,
-              q.type === 'text' ? '' : q.type === 'multi' ? [q.options![0]] : q.options![0],
+              q.type === 'text'
+                ? q.optional
+                  ? ''
+                  : 'Process description'
+                : q.type === 'multi'
+                  ? [q.options![0]]
+                  : q.options![0],
             ),
           ).toBeNull();
         }
@@ -103,7 +109,7 @@ describe('business boundaries', () => {
       'branding',
       'websites',
       'mobile-apps',
-      'prompt-services',
+      'ai-automation',
     ]));
   it('validates limits, exclusive options and unexpected options', () => {
     const q: Question = {

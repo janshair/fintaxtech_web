@@ -1,3 +1,5 @@
+import { normalizeService } from '../lib/journey-url';
+import { automationCopy } from '../content/ai-automation';
 import { quizCopy as c } from '../content/questionnaire';
 import { services } from '../content/services';
 import { promoStatus } from '../content/promo';
@@ -189,7 +191,9 @@ function question() {
   const helper = el(
     'p',
     q.type === 'text'
-      ? c.optional
+      ? q.optional
+        ? c.optional
+        : c.requiredText
       : q.max
         ? c.chooseLimit(q.max)
         : q.type === 'multi'
@@ -204,6 +208,7 @@ function question() {
     const input = el('textarea');
     input.value = String(journey.answers[q.id] ?? '');
     input.maxLength = 2000;
+    input.required = !q.optional;
     input.setAttribute('aria-label', q.label);
     input.addEventListener('input', () => {
       journey.answers[q.id] = input.value;
@@ -254,11 +259,12 @@ function question() {
   root.append(form);
   if (q.id === 'websites-1-5' || q.id === 'websites-2-4') paragraph(c.assetsText, 'muted');
   if (
-    journey.service === 'prompt-services' &&
-    (q.id === 'prompt-services-1-8' || q.id === 'prompt-services-2-11')
+    journey.service === 'ai-automation' &&
+    (q.id === 'ai-automation-1-8' || q.id === 'ai-automation-2-11')
   )
     paragraph(c.sensitiveNotice, 'notice');
-  if (q.id === 'prompt-services-2-10') paragraph(c.authorityNotice, 'notice');
+  if (q.help) paragraph(q.help, 'notice');
+  if (q.id === 'ai-automation-2-10') paragraph(c.authorityNotice, 'notice');
   const error = errorNode();
   const controls = actions();
   controls.append(
@@ -508,7 +514,8 @@ function ready() {
   paragraph(c.memory, 'notice');
   const error = errorNode();
   const controls = actions();
-  controls.append(button(c.download, () => download(pdf!), 'button primary'));
+  const filename = journey.service === 'ai-automation' ? automationCopy.pdfFilename : c.pdfFilename;
+  controls.append(button(c.download, () => download(pdf!, filename), 'button primary'));
   const email = link(c.email, emailHref());
   email.addEventListener('click', () => track('email_selected'));
   const wa = link(c.whatsapp, whatsappHref());
@@ -516,7 +523,7 @@ function ready() {
   wa.rel = 'noopener noreferrer';
   wa.addEventListener('click', () => track('whatsapp_selected'));
   controls.append(email, wa);
-  const file = new File([pdf!], c.pdfFilename, { type: 'application/pdf' });
+  const file = new File([pdf!], filename, { type: 'application/pdf' });
   if (canShare(file))
     controls.append(
       button(c.share, async () => {
@@ -553,7 +560,7 @@ window.addEventListener('beforeunload', (event) => {
   }
 });
 // URLs accept only non-personal routing values; no answers, campaign marker or customer fields.
-const requestedService = params.get('service');
+const requestedService = normalizeService(params.get('service')) ?? null;
 if (journey.promo) start('websites');
 else if (isService(requestedService)) start(requestedService);
 else if (params.get('route') === 'help') routing();

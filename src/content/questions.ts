@@ -1,5 +1,6 @@
+import { automationEnquiryQuestions } from './ai-automation';
 import type { Question, ServiceId } from '../lib/types';
-export const questionSets = {
+const baseQuestionSets = {
   branding: {
     '1': [
       {
@@ -74,7 +75,7 @@ export const questionSets = {
         type: 'single',
         optional: false,
         stage: 1,
-        options: ['Website', 'Mobile app', 'Prompt service', 'None', 'Not sure'],
+        options: ['Website', 'Mobile app', 'AI Automation', 'None', 'Not sure'],
       },
       {
         id: 'branding-1-7',
@@ -828,10 +829,10 @@ export const questionSets = {
       },
     ],
   },
-  'prompt-services': {
+  'ai-automation': {
     '1': [
       {
-        id: 'prompt-services-1-1',
+        id: 'ai-automation-1-1',
         label: 'What type of content is involved?',
         type: 'single',
         optional: false,
@@ -848,7 +849,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-1-2',
+        id: 'ai-automation-1-2',
         label: 'What source material is available?',
         type: 'single',
         optional: false,
@@ -862,7 +863,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-1-3',
+        id: 'ai-automation-1-3',
         label: 'What should FinTaxTech do?',
         type: 'single',
         optional: false,
@@ -879,7 +880,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-1-4',
+        id: 'ai-automation-1-4',
         label: 'How long is the source material?',
         type: 'single',
         optional: false,
@@ -887,7 +888,7 @@ export const questionSets = {
         options: ['1–10 pages', '11–30', '31–75', 'More than 75', 'Not sure'],
       },
       {
-        id: 'prompt-services-1-5',
+        id: 'ai-automation-1-5',
         label: 'Which output is required?',
         type: 'single',
         optional: false,
@@ -903,7 +904,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-1-6',
+        id: 'ai-automation-1-6',
         label: 'How much human review is expected?',
         type: 'single',
         optional: false,
@@ -916,7 +917,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-1-7',
+        id: 'ai-automation-1-7',
         label: 'When is it needed?',
         type: 'single',
         optional: false,
@@ -930,7 +931,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-1-8',
+        id: 'ai-automation-1-8',
         label: 'Does the material contain sensitive information?',
         type: 'single',
         optional: false,
@@ -944,7 +945,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-1-9',
+        id: 'ai-automation-1-9',
         label: 'How should we continue?',
         type: 'single',
         optional: false,
@@ -952,7 +953,7 @@ export const questionSets = {
         options: ['Email', 'WhatsApp', 'Zoom call'],
       },
       {
-        id: 'prompt-services-1-10',
+        id: 'ai-automation-1-10',
         label: 'Anything else we should know?',
         type: 'text',
         optional: true,
@@ -961,7 +962,7 @@ export const questionSets = {
     ],
     '2': [
       {
-        id: 'prompt-services-2-1',
+        id: 'ai-automation-2-1',
         label: 'What is the primary output?',
         type: 'single',
         optional: false,
@@ -977,7 +978,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-2',
+        id: 'ai-automation-2-2',
         label: 'Who is the audience?',
         type: 'single',
         optional: false,
@@ -993,7 +994,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-3',
+        id: 'ai-automation-2-3',
         label: 'Which tone is required?',
         type: 'single',
         optional: false,
@@ -1009,7 +1010,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-4',
+        id: 'ai-automation-2-4',
         label: 'How closely should the output follow the source?',
         type: 'single',
         optional: false,
@@ -1022,7 +1023,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-5',
+        id: 'ai-automation-2-5',
         label: 'How much detail is required?',
         type: 'single',
         optional: false,
@@ -1036,7 +1037,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-6',
+        id: 'ai-automation-2-6',
         label: 'How should source references appear?',
         type: 'single',
         optional: false,
@@ -1051,7 +1052,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-7',
+        id: 'ai-automation-2-7',
         label: 'Which formats are required?',
         type: 'multi',
         optional: false,
@@ -1067,7 +1068,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-8',
+        id: 'ai-automation-2-8',
         label: 'What presentation level is expected?',
         type: 'single',
         optional: false,
@@ -1080,7 +1081,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-9',
+        id: 'ai-automation-2-9',
         label: 'How should uncertain or missing information be handled?',
         type: 'single',
         optional: false,
@@ -1088,7 +1089,7 @@ export const questionSets = {
         options: ['Flag it', 'Ask before continuing', 'State assumptions', 'Omit it', 'Not sure'],
       },
       {
-        id: 'prompt-services-2-10',
+        id: 'ai-automation-2-10',
         label: 'Does the customer have authority to supply and process the material?',
         type: 'single',
         optional: false,
@@ -1096,7 +1097,7 @@ export const questionSets = {
         options: ['Yes', 'Permission pending', 'Unsure'],
       },
       {
-        id: 'prompt-services-2-11',
+        id: 'ai-automation-2-11',
         label: 'Does the material contain sensitive content?',
         type: 'single',
         optional: false,
@@ -1111,7 +1112,7 @@ export const questionSets = {
         ],
       },
       {
-        id: 'prompt-services-2-12',
+        id: 'ai-automation-2-12',
         label: 'Additional requirements',
         type: 'text',
         optional: true,
@@ -1120,3 +1121,11 @@ export const questionSets = {
     ],
   },
 } satisfies Record<ServiceId, Record<'1' | '2', Question[]>>;
+
+export const questionSets = {
+  ...baseQuestionSets,
+  'ai-automation': {
+    '1': automationEnquiryQuestions('1', baseQuestionSets['ai-automation']['1']),
+    '2': automationEnquiryQuestions('2', baseQuestionSets['ai-automation']['2']),
+  },
+};

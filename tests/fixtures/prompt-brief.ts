@@ -3,6 +3,7 @@ import { emptyBrief } from '../../src/lib/client-brief/rules';
 export function completePromptBrief() {
   const state = emptyBrief();
   state.answers = {
+    automationKind: 'Content or document processing',
     content: ['Website content', 'Blog/article', 'Other'],
     contentOther: 'Customer guide',
     purpose: 'Explain',

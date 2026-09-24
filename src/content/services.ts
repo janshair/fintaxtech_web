@@ -1,3 +1,4 @@
+import { automationCopy } from './ai-automation';
 import type { ServiceId } from '../lib/types';
 export const services = [
   {
@@ -72,21 +73,22 @@ export const services = [
     number: '03',
   },
   {
-    id: 'prompt-services',
-    name: 'Prompt Services',
-    short: 'Content from my documents',
-    description: 'Turn source documents into the content you need, reviewed by a person.',
-    title: 'Turn source documents into useful content.',
+    id: 'ai-automation',
+    name: automationCopy.name,
+    short: automationCopy.name,
+    description: automationCopy.description,
+    title: automationCopy.headline,
     capabilities: [
-      'Content creation and rewriting',
-      'Summarisation and extraction',
-      'Restructuring and conversion',
-      'Analysis and recommendations',
-      'Human editorial review',
+      'AI-assisted content and document processing',
+      'Extraction, classification, summarisation and restructuring',
+      'Repeatable business workflows',
+      'AI assistants based on approved business information',
+      'Connections between suitable business tools and APIs',
+      'Human review, approval and exception handling',
     ],
-    suits: 'Teams with source documents who need clear, structured content for a defined audience.',
-    boundary:
-      'A managed service, with no downloadable prompt products. Highly sensitive or regulated material requires review and may be declined.',
+    suits:
+      'Teams with a defined, repetitive business process who want an AI-assisted workflow with appropriate human oversight.',
+    boundary: automationCopy.boundary,
     ownership:
       'You must have authority to supply and process the material. After engagement, transfer documents securely. Internal prompts, workflows, and templates remain ours.',
     number: '04',
@@ -108,7 +110,7 @@ export const services = [
 export const serviceCopy = {
   title: 'Four ways to move your business forward.',
   intro:
-    'Brands, websites, mobile apps, and managed content services. Choose a starting point. We will help make the requirements clear.',
+    'Brands, websites, mobile apps, and AI Automation. Choose a starting point. We will help make the requirements clear.',
   capabilities: 'What we can create',
   suits: 'Is this the right fit?',
   boundary: 'A clear scope from the start',

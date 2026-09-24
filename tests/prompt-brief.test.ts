@@ -9,7 +9,7 @@ const fields = sections.flatMap((s) => s.fields);
 const field = (id: string) => fields.find((f) => f.id === id)!;
 afterEach(() => vi.unstubAllGlobals());
 
-describe('AI content production brief', () => {
+describe('AI Automation production brief', () => {
   it('accepts a complete brief and does not require unavailable source formats or final notes', () => {
     const state = completePromptBrief();
     expect(invalidSection(state)).toBe(-1);
@@ -88,7 +88,7 @@ describe('AI content production brief', () => {
   });
 });
 
-it('creates the AI content PDF using the shared generator and rejects incomplete briefs', async () => {
+it('creates the AI Automation PDF using the shared generator and rejects incomplete briefs', async () => {
   vi.stubGlobal('fetch', async (path: string) => new Response(await readFile(`public${path}`)));
   const { createClientBriefPDF } = await import('../src/lib/client-brief/pdf');
   const state = completePromptBrief();
@@ -102,7 +102,7 @@ it('creates the AI content PDF using the shared generator and rejects incomplete
   );
   const bytes = Buffer.from(await pdf.arrayBuffer());
   expect(bytes.subarray(0, 5).toString()).toBe('%PDF-');
-  expect(bytes.toString('latin1')).toContain('/Title (AI Content Production Brief)');
+  expect(bytes.toString('latin1')).toContain('/Title (AI Automation Production Brief)');
   expect(bytes.toString('latin1')).not.toContain('/Encrypt');
   await mkdir('tmp/prompt-brief-qa', { recursive: true });
   await writeFile('tmp/prompt-brief-qa/complete.pdf', bytes);

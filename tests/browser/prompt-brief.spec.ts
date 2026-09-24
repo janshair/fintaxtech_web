@@ -66,7 +66,7 @@ test('static route is unlisted, noindex/nofollow and excluded from analytics eve
     '/',
     '/start/',
     '/blog/',
-    '/services/prompt-services/',
+    '/services/ai-automation/',
   ]) {
     const res = await request.get(path);
     expect(res.status()).toBe(200);
@@ -81,6 +81,8 @@ test('keyboard validation, Other and tone limit work in responsive light and dar
   page,
 }, info) => {
   await begin(page);
+  await page.getByLabel('Content or document processing', { exact: true }).check();
+  await next(page);
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Other', { exact: true }).focus();

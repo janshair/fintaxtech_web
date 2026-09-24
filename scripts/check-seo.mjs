@@ -46,7 +46,18 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
   assert(meta('description')[0].length > 20, path);
   assert.equal(elements(doc, 'h1').length, 1, path);
   assert.equal(attr(elements(doc, 'html')[0], 'lang'), 'en', path);
-  assert.deepEqual(canonical, [origin + (path === '/contact/' ? '/start' : path)], path);
+  assert.deepEqual(
+    canonical,
+    [
+      origin +
+        (path === '/contact/'
+          ? '/start'
+          : path === '/services/prompt-services/'
+            ? '/services/ai-automation/'
+            : path),
+    ],
+    path,
+  );
   if (path.startsWith('/client/')) assert.deepEqual(meta('robots'), ['noindex,nofollow'], path);
   if (path === '/contact/') assert(noindex, 'Contact redirect must remain noindex');
   for (const name of [
@@ -97,6 +108,13 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     assert.equal(meta('og:type')[0], 'article');
     assert.equal(article.headline, text(elements(doc, 'h1')[0]));
     assert.equal(article.url, canonical[0]);
+    if (
+      [
+        '/blog/ai-business-documents-to-website-content/',
+        '/blog/ai-content-services-six-examples/',
+      ].includes(path)
+    )
+      assert.equal(article.articleSection, 'AI Automation', path);
     assert.equal(article.datePublished, meta('article:published_time')[0]);
     assert(!Number.isNaN(Date.parse(article.datePublished)));
     assert.equal(crumbs.itemListElement[1].item, origin + '/blog/');
@@ -106,7 +124,7 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     assert(crumbs, path);
     assert.equal(crumbs.itemListElement.at(-1).item, canonical[0]);
   }
-  if (/^\/services\/[^/]+\/$/.test(path))
+  if (/^\/services\/[^/]+\/$/.test(path) && !noindex)
     assert(
       graph.some((n) => n['@type'] === 'Service'),
       path,

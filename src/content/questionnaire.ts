@@ -24,6 +24,8 @@ export const quizCopy = {
   chooseOne: 'Choose one.',
   chooseMany: 'Choose all that apply. “None” and “Not sure” cannot be combined with other answers.',
   chooseLimit: (n: number) => `Choose up to ${n}. Uncheck an answer to replace it.`,
+  requiredText:
+    'Required. Describe the process without personal data or credentials. If unknown, say Not sure.',
   optional: 'Optional. Please avoid passwords or unnecessary sensitive information.',
   errorRequired: 'Choose an answer to continue.',
   errorLimit: (n: number) => `Choose no more than ${n} answers.`,
@@ -79,7 +81,7 @@ export const quizCopy = {
     'A recognisable visual identity',
     'A place for customers to find or buy from my business online',
     'An app for customers or my team',
-    'Useful content from source documents',
+    'AI-assisted automation of repetitive business work',
   ],
   routingContact: 'Still unsure? Talk to us',
   pdfTitle: 'Project Enquiry Summary',

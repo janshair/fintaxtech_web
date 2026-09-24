@@ -7,6 +7,12 @@ describe('legacy questionnaire URLs', () => {
     );
     expect(legacyJourneyURL('?route=help')).toBe('/enquiry/?route=help');
   });
+  it('maps legacy automation links to the current service', () => {
+    expect(legacyJourneyURL('?service=prompt-services&stage=2')).toBe(
+      '/enquiry/?service=ai-automation&stage=2',
+    );
+    expect(legacyJourneyURL('?service=ai-automation')).toBe('/enquiry/?service=ai-automation');
+  });
   it('never forwards personal fields, unknown values or arbitrary destinations', () => {
     expect(
       legacyJourneyURL(

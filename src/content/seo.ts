@@ -1,3 +1,4 @@
+import { automationCopy } from './ai-automation';
 import { promptBriefCopy } from './prompt-brief';
 import { promoCopy, promoStatus } from './promo';
 import { mobileAppBriefCopy } from './mobile-app-brief';
@@ -21,6 +22,12 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [automationCopy.redirect.route]: {
+    title: automationCopy.redirect.title,
+    description: automationCopy.redirect.message,
+    canonical: automationCopy.redirect.destination,
+    noindex: true,
+  },
   [promptBriefCopy.route]: {
     title: promptBriefCopy.title,
     description: promptBriefCopy.description,
@@ -63,9 +70,13 @@ export const seoPages: Record<string, PageSEO> = {
   ),
   '/': { title: 'Brand, Website & Mobile App Development', description: home.intro },
   '/services/': {
-    title: 'Branding, Websites, Mobile Apps & Content Services',
+    title: 'Branding, Websites, Mobile Apps & AI Automation',
     description:
-      'Explore FinTaxTech’s branding, website development, mobile app development and AI-assisted content services for businesses worldwide.',
+      'Explore FinTaxTech’s branding, website development, mobile app development and AI Automation services for businesses worldwide.',
+  },
+  '/services/ai-automation/': {
+    title: automationCopy.name,
+    description: automationCopy.description,
   },
   '/services/websites/': {
     title: 'Website Design and Development UK',
@@ -94,7 +105,7 @@ export const seoPages: Record<string, PageSEO> = {
       'See how FinTaxTech takes your project from guided requirements and a written proposal through design, development, review and handover.',
   },
   '/start/': {
-    title: 'Start Your Brand, Website, App or Content Project',
+    title: 'Start Your Brand, Website, App or Automation Project',
     description:
       'Choose a FinTaxTech service, answer structured questions and create a private enquiry PDF to download and share manually by email or WhatsApp.',
   },

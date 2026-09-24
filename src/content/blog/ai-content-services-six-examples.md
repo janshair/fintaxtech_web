@@ -5,7 +5,7 @@ description: 'Six practical examples of what an AI-assisted content service can 
 slug: ai-content-services-six-examples
 pubDate: 2026-09-19
 author: FinTaxTech Ltd.
-category: Prompt Services
+category: AI Automation
 tags: [AI-assisted content, Business documents, Content services]
 featuredImage: ../../assets/blog/ai-content-services-six-examples/ai-content-services-six-examples-hero.png
 imageAlt: Business documents passing through a review checkpoint into six structured content outputs
@@ -134,4 +134,4 @@ If most of those have answers, there's probably something useful to be made from
 
 Describe your source material and what you'd like at the end of it. We'll tell you honestly whether there's enough there to work from, and what we'd need from you along the way.
 
-**[Start your project →](https://fintaxtech.co.uk/enquiry/?service=prompt-services)**
+**[Start your project →](https://fintaxtech.co.uk/enquiry/?service=ai-automation)**

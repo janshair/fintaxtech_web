@@ -24,7 +24,13 @@ export function visibleQuestions(journey: Journey): Question[] {
     questions.splice(questions.length - 1, 0, avoidDetail);
   if (journey.promo && journey.service === 'websites')
     questions = [...promoQuestions, ...questions];
-  return questions.filter((q) => !q.when || includes(journey.answers, q.when.id, q.when.includes));
+  return questions.filter(
+    (q) =>
+      !q.when ||
+      (Array.isArray(q.when.includes) ? q.when.includes : [q.when.includes]).some((value) =>
+        includes(journey.answers, q.when!.id, value),
+      ),
+  );
 }
 export function includes(answers: Answers, id: string, value: string): boolean {
   const a = answers[id];
@@ -53,5 +59,5 @@ export function pruneHiddenAnswers(journey: Journey): Answers {
   return Object.fromEntries(Object.entries(journey.answers).filter(([id]) => ids.has(id)));
 }
 export function routeService(index: number) {
-  return (['branding', 'websites', 'mobile-apps', 'prompt-services'] as const)[index];
+  return (['branding', 'websites', 'mobile-apps', 'ai-automation'] as const)[index];
 }

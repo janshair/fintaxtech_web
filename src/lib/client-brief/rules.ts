@@ -51,8 +51,11 @@ export function createBriefRules(sections: BriefSection[]) {
         section.when.values.some((value) => includesAnswer(answers[section.when!.id], value)),
     );
   function pruneBrief(state: BriefState) {
+    const applicable = new Set(
+      visibleSections(state.answers).flatMap((section) => section.fields.map((field) => field.id)),
+    );
     for (const field of sections.flatMap((s) => s.fields)) {
-      if (!isVisible(field, state.answers)) {
+      if (!applicable.has(field.id) || !isVisible(field, state.answers)) {
         delete state.answers[field.id];
         if (field.type === 'rows') delete state.rows[field.id];
       }

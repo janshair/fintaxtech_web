@@ -67,7 +67,7 @@ export const navigation = [
 export const home = {
   title: 'What does your business need next?',
   intro:
-    'FinTaxTech helps businesses worldwide create brands, websites, mobile apps, and AI-assisted content through a clear, structured process.',
+    'FinTaxTech helps businesses worldwide with branding, websites, mobile apps and AI Automation through a clear, structured process.',
   why: 'Why FinTaxTech',
   whyTitle: 'A capable partner asking clear questions.',
   reasons: [

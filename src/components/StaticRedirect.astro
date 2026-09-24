@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  message: string;
+  destination: string;
+  label: string;
+  id: string;
+}
+const { title, message, destination, label, id } = Astro.props;
+---
+
+<section class="container page-head">
+  <h1>{title}</h1>
+  <p class="lead">{message}</p>
+  <a id={id} class="button primary" href={destination} data-static-redirect>{label}</a>
+</section>
+<script is:inline>
+  const link = document.querySelector('[data-static-redirect]');
+  if (link) {
+    const target = link.getAttribute('href') + window.location.search + window.location.hash;
+    link.setAttribute('href', target);
+    window.location.replace(target);
+  }
+</script>
