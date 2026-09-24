@@ -50,7 +50,7 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     canonical,
     [
       origin +
-        (['/contact/', '/contact.html'].includes(path)
+        (path === '/contact.html'
           ? '/start/'
           : path === '/services/prompt-services/'
             ? '/services/ai-automation/'
@@ -59,8 +59,7 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     path,
   );
   if (path.startsWith('/client/')) assert.deepEqual(meta('robots'), ['noindex,nofollow'], path);
-  if (['/contact/', '/contact.html'].includes(path))
-    assert(noindex, 'Contact redirect must remain noindex');
+  if (path === '/contact.html') assert(noindex, 'Contact redirect must remain noindex');
   for (const name of [
     'og:title',
     'og:description',
@@ -195,7 +194,7 @@ assert.equal(rows.find((row) => row.path === '/start/').noindex, false);
 assert.equal(rows.find((row) => row.path === '/enquiry/').noindex, true);
 assert.equal(rows.find((row) => row.path === '/promo/').noindex, false);
 assert.equal(urls.filter((url) => url === origin + '/promo/').length, 1);
-assert(!urls.some((u) => /\?|\/enquiry\/|\/contact\/|\/client\//.test(u)));
+assert(!urls.some((u) => /\?|\/enquiry\/|\/contact\.html|\/client\//.test(u)));
 const robots = await readFile('dist/robots.txt', 'utf8');
 assert.match(robots, /User-agent: \*/);
 assert(!/^Disallow:\s*\S/m.test(robots));

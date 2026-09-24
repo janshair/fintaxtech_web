@@ -1,5 +1,15 @@
 ---
-import ContactRedirectPage from './contact.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import StaticRedirect from '../components/StaticRedirect.astro';
+import { contactRedirect, ui } from '../content/site';
 ---
 
-<ContactRedirectPage />
+<SiteLayout title={contactRedirect.title}>
+  <StaticRedirect
+    title={contactRedirect.title}
+    message={contactRedirect.message}
+    destination={contactRedirect.destination}
+    label={ui.start}
+    id="contact-redirect-link"
+  />
+</SiteLayout>

@@ -18,7 +18,8 @@ assert(all.includes('dist/contact/index.html'));
 assert(all.includes('dist/contact.html'));
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
 assert.equal((sitemap.match(/<loc>https:\/\/fintaxtech.co.uk\/promo\/<\/loc>/g) ?? []).length, 1);
-assert(!sitemap.includes('/contact'));
+assert(sitemap.includes('<loc>https://fintaxtech.co.uk/contact/</loc>'));
+assert(!sitemap.includes('/contact.html'));
 assert(
   !/name="robots" content="[^"]*noindex/.test(await readFile('dist/promo/index.html', 'utf8')),
 );
