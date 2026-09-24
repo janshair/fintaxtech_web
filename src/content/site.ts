@@ -50,7 +50,8 @@ export const ui = {
   nojs: 'The information on this site is available without JavaScript. To use the questionnaire and create a PDF, enable JavaScript or contact us by email or WhatsApp.',
 };
 export const contactRedirect = {
-  destination: '/start',
+  legacyRoute: '/contact.html',
+  destination: '/start/',
   title: 'Continue to Start Your Project',
   message:
     'You are being redirected to Start Your Project. If you are not redirected automatically, use the link below.',

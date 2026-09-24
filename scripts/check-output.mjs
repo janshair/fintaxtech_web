@@ -15,6 +15,7 @@ assert.equal(await readFile('CNAME', 'utf8'), await readFile('dist/CNAME', 'utf8
 assert(all.includes('dist/404.html'));
 assert(all.includes('dist/.nojekyll'));
 assert(all.includes('dist/contact/index.html'));
+assert(all.includes('dist/contact.html'));
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
 assert.equal((sitemap.match(/<loc>https:\/\/fintaxtech.co.uk\/promo\/<\/loc>/g) ?? []).length, 1);
 assert(!sitemap.includes('/contact'));

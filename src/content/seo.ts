@@ -93,12 +93,17 @@ export const seoPages: Record<string, PageSEO> = {
     description:
       'Meet FinTaxTech, a digital and creative partner for businesses worldwide. Learn about our human-reviewed approach and customer-owned business accounts.',
   },
-  '/contact/': {
-    title: contactRedirect.title,
-    description: contactRedirect.message,
-    canonical: contactRedirect.destination,
-    noindex: true,
-  },
+  ...Object.fromEntries(
+    ['/contact/', contactRedirect.legacyRoute].map((route) => [
+      route,
+      {
+        title: contactRedirect.title,
+        description: contactRedirect.message,
+        canonical: contactRedirect.destination,
+        noindex: true,
+      },
+    ]),
+  ),
   '/how-it-works/': {
     title: 'How Our Project Process Works',
     description:

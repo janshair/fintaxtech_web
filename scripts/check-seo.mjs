@@ -50,8 +50,8 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     canonical,
     [
       origin +
-        (path === '/contact/'
-          ? '/start'
+        (['/contact/', '/contact.html'].includes(path)
+          ? '/start/'
           : path === '/services/prompt-services/'
             ? '/services/ai-automation/'
             : path),
@@ -59,7 +59,8 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     path,
   );
   if (path.startsWith('/client/')) assert.deepEqual(meta('robots'), ['noindex,nofollow'], path);
-  if (path === '/contact/') assert(noindex, 'Contact redirect must remain noindex');
+  if (['/contact/', '/contact.html'].includes(path))
+    assert(noindex, 'Contact redirect must remain noindex');
   for (const name of [
     'og:title',
     'og:description',
