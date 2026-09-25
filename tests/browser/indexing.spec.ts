@@ -22,6 +22,7 @@ test('canonical public pages and every article are crawlable without JavaScript;
   for (const path of [
     '/start/',
     '/promo/',
+    '/services/branding/',
     '/services/websites/',
     '/services/mobile-apps/',
     '/services/ai-automation/',

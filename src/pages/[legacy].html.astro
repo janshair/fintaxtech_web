@@ -1,0 +1,22 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import StaticRedirect from '../components/StaticRedirect.astro';
+import { legacyRedirects } from '../content/legacy-redirects';
+export function getStaticPaths() {
+  return legacyRedirects.map((redirect) => ({
+    params: { legacy: redirect.slug },
+    props: { redirect },
+  }));
+}
+const { redirect } = Astro.props;
+---
+
+<SiteLayout title={redirect.title}>
+  <StaticRedirect
+    title={redirect.title}
+    message={redirect.message}
+    destination={redirect.destination}
+    label={redirect.label}
+    id="legacy-redirect-link"
+  />
+</SiteLayout>

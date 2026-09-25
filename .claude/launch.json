@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "astro-dev",
+      "runtimeExecutable": "/Users/janshair/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "runtimeArgs": ["/Users/janshair/web/fintaxtech_web/node_modules/astro/bin/astro.mjs", "dev", "--port", "4321"],
+      "port": 4321
+    }
+  ]
+}

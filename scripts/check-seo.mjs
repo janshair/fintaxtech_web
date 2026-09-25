@@ -3,6 +3,13 @@ import { readFile, readdir, stat, writeFile, mkdir } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { join } from 'node:path';
 const origin = 'https://fintaxtech.co.uk';
+const redirectDestinations = {
+  '/privacy.html': '/privacy/',
+  '/portfolio.html': '/selected-work/',
+  '/services.html': '/services/',
+  '/contact.html': '/start/',
+  '/services/prompt-services/': '/services/ai-automation/',
+};
 async function files(dir) {
   return (
     await Promise.all(
@@ -46,20 +53,9 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
   assert(meta('description')[0].length > 20, path);
   assert.equal(elements(doc, 'h1').length, 1, path);
   assert.equal(attr(elements(doc, 'html')[0], 'lang'), 'en', path);
-  assert.deepEqual(
-    canonical,
-    [
-      origin +
-        (path === '/contact.html'
-          ? '/start/'
-          : path === '/services/prompt-services/'
-            ? '/services/ai-automation/'
-            : path),
-    ],
-    path,
-  );
+  assert.deepEqual(canonical, [origin + (redirectDestinations[path] ?? path)], path);
   if (path.startsWith('/client/')) assert.deepEqual(meta('robots'), ['noindex,nofollow'], path);
-  if (path === '/contact.html') assert(noindex, 'Contact redirect must remain noindex');
+  if (redirectDestinations[path]) assert(noindex, `${path}: Redirect must remain noindex`);
   for (const name of [
     'og:title',
     'og:description',

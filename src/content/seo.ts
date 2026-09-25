@@ -1,3 +1,4 @@
+import { legacyRedirects } from './legacy-redirects';
 import { automationCopy } from './ai-automation';
 import { promptBriefCopy } from './prompt-brief';
 import { promoCopy, promoStatus } from './promo';
@@ -22,6 +23,17 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  ...Object.fromEntries(
+    legacyRedirects.map((redirect) => [
+      redirect.route,
+      {
+        title: redirect.title,
+        description: redirect.message,
+        canonical: redirect.destination,
+        noindex: true,
+      },
+    ]),
+  ),
   [automationCopy.redirect.route]: {
     title: automationCopy.redirect.title,
     description: automationCopy.redirect.message,
