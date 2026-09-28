@@ -76,3 +76,5 @@ desktop.ini
 # Local scratch
 scratch/
 tmp/
+src/.DS_Store
+.DS_Store
