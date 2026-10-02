@@ -1,6 +1,6 @@
 ---
 title: 'Who Owns AI-Assisted Content? What Your Business Should Confirm in Writing'
-seoTitle: 'Who Owns AI-Assisted Content? UK Business Guide'
+seoTitle: 'Who Owns AI-Assisted Content? A UK Business Owner Guide'
 description: 'A practical guide for UK business owners to ownership of AI-assisted content: what UK guidance says, what tool terms cover and what to agree in writing.'
 slug: who-owns-ai-assisted-content
 pubDate: 2026-10-02

@@ -1,7 +1,7 @@
 ---
 title: 'Redesign or Rebuild? How to Tell When Your Business Website Needs Replacing'
-seoTitle: 'Redesign or Rebuild? When to Replace Your Website'
-description: 'How to tell whether your business website needs new content, a redesign or a full rebuild — the signs, the trade-offs and the questions to answer first.'
+seoTitle: 'Redesign or Rebuild Your Website? A UK Business Guide'
+description: 'How to tell whether your business website needs new content, a redesign or a full rebuild — the signs, the trade-offs and the questions to answer first. Guidance from a web agency in Scotland.'
 slug: redesign-or-rebuild-business-website
 pubDate: 2026-09-25
 author: FinTaxTech Ltd.

@@ -1,7 +1,7 @@
 ---
 title: 'Who Owns Your Business Website After Launch? Domains, Hosting, Code and Content Explained'
-seoTitle: 'Who Owns Your Business Website After Launch? A Practical Guide'
-description: 'Domains, hosting, code, content and licensed assets are separate things with separate ownership. What to check and agree before your website launches.'
+seoTitle: 'Who Owns Your Business Website After Launch? UK Guide'
+description: 'Domains, hosting, code, content and licensed assets are separate things with separate ownership. What UK businesses should check and agree before their website launches.'
 slug: who-owns-your-business-website
 pubDate: 2026-09-17
 author: FinTaxTech Ltd.

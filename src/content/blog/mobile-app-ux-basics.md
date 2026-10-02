@@ -1,7 +1,7 @@
 ---
 title: 'Mobile App UX Basics: Designing Screens Your Customers Can Use First Time'
-seoTitle: 'Mobile App UX Basics for Business Owners'
-description: 'A practical guide to mobile app UX: screen purpose, navigation, tap target sizes, forms, empty states and testing designs before development begins.'
+seoTitle: 'Mobile App UX Basics for UK Business Owners'
+description: 'A practical guide to mobile app UX for UK business owners: screen purpose, navigation, tap targets, forms, empty states and testing designs before development begins.'
 slug: mobile-app-ux-basics
 pubDate: 2026-09-28
 author: FinTaxTech Ltd.

@@ -1,7 +1,7 @@
 ---
 title: 'Native vs Flutter vs Kotlin Multiplatform for Business Apps'
-seoTitle: 'Native vs Flutter vs Kotlin Multiplatform for Business Apps'
-description: Compare native Android and iOS, Flutter and Kotlin Multiplatform for business apps, including user experience, device features, cost and maintenance.
+seoTitle: 'Native vs Flutter vs Kotlin Multiplatform for UK Business Apps'
+description: Compare native Android and iOS, Flutter and Kotlin Multiplatform for business apps, including user experience, device features, cost and maintenance. Written by a mobile app developer in Scotland.
 slug: native-vs-flutter-vs-kotlin-multiplatform
 pubDate: 2026-09-09
 author: FinTaxTech Ltd.

@@ -1,7 +1,7 @@
 ---
 title: 'Why Do Mobile App Quotes Vary So Much? Features, Platforms and Ongoing Costs Explained'
-seoTitle: 'Why Do Mobile App Quotes Vary So Much? A Practical Explanation'
-description: 'Understand what drives mobile app pricing — platforms, features, backend work and ongoing costs — and what to prepare before requesting a quote.'
+seoTitle: 'Why Do Mobile App Quotes Vary So Much? UK Pricing Explained'
+description: 'Understand what drives mobile app pricing in the UK — platforms, features, backend work and ongoing costs — and what to prepare before requesting a quote from an app developer.'
 slug: why-mobile-app-quotes-vary
 pubDate: 2026-09-18
 author: FinTaxTech Ltd.

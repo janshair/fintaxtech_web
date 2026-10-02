@@ -1,7 +1,7 @@
 ---
 title: 'What Should a New Business Website Include? A Practical Launch Checklist'
-seoTitle: 'What Should a New Business Website Include? A Launch Checklist'
-description: 'A practical checklist of what a new business website needs at launch — the essentials, trust signals, mobile and accessibility checks, and what can safely wait.'
+seoTitle: 'New Business Website Checklist | Web Designer Scotland'
+description: 'A practical checklist of what a new business website needs at launch — the essentials, trust signals, mobile and accessibility checks, and what can safely wait. From a web design agency in Dundee, Scotland.'
 slug: new-business-website-launch-checklist
 pubDate: 2026-09-13
 author: FinTaxTech Ltd.

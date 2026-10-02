@@ -1,7 +1,7 @@
 ---
 title: 'Does Your Business Need a Mobile App or a Mobile-Friendly Website?'
-seoTitle: 'Does Your Business Need a Mobile App or a Mobile-Friendly Website?'
-description: 'Decide whether your idea should start as a mobile-friendly website, a web application or a mobile app — with a practical checklist and worked examples.'
+seoTitle: 'Mobile App or Mobile-Friendly Website? A UK Business Guide'
+description: 'Decide whether your idea should start as a mobile-friendly website, a web application or a mobile app — a practical checklist for UK businesses, with worked examples.'
 slug: mobile-app-or-mobile-friendly-website
 pubDate: 2026-09-15
 author: FinTaxTech Ltd.

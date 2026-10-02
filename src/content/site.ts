@@ -68,7 +68,7 @@ export const navigation = [
 export const home = {
   title: 'What does your business need next?',
   intro:
-    'FinTaxTech helps businesses worldwide with branding, websites, mobile apps and AI Automation through a clear, structured process.',
+    'FinTaxTech is a branding, website and mobile app agency based in Dundee, Scotland. We help businesses worldwide through a clear, structured process.',
   why: 'Why FinTaxTech',
   whyTitle: 'A capable partner asking clear questions.',
   reasons: [

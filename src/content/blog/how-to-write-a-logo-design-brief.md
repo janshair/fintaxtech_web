@@ -1,7 +1,7 @@
 ---
 title: 'How to Write a Logo Design Brief: A Practical Checklist for New Businesses'
-seoTitle: 'How to Write a Logo Design Brief: Checklist for New Businesses'
-description: 'Learn what to include in a logo design brief, from your audience and brand personality to practical uses, file requirements and approval responsibilities.'
+seoTitle: 'How to Write a Logo Design Brief | UK Business Checklist'
+description: 'Learn what to include in a logo design brief for a UK business, from your audience and brand personality to practical uses, file requirements and approval responsibilities.'
 slug: how-to-write-a-logo-design-brief
 pubDate: 2026-09-16
 author: FinTaxTech Ltd.

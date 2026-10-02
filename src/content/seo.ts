@@ -76,34 +76,34 @@ export const seoPages: Record<string, PageSEO> = {
       `/services/${s.id}/`,
       {
         title: s.name,
-        description: `${s.description} Explore FinTaxTech’s ${s.name.toLowerCase()} service, project scope and delivery process.`,
+        description: `${s.description} Explore FinTaxTech's ${s.name.toLowerCase()} service, project scope and delivery process.`,
       },
     ]),
   ),
-  '/': { title: 'Brand, Website & Mobile App Development', description: home.intro },
+  '/': { title: 'Brand, Website & Mobile App Development | Dundee', description: home.intro },
   '/services/': {
-    title: 'Branding, Websites, Mobile Apps & AI Automation',
+    title: 'Branding, Websites, Mobile Apps & AI Automation | Dundee',
     description:
-      'Explore FinTaxTech’s branding, website development, mobile app development and AI Automation services for businesses worldwide.',
+      "Explore FinTaxTech's branding, website development, mobile app development and AI Automation services. Based in Dundee, Scotland, working with businesses worldwide.",
   },
   '/services/ai-automation/': {
-    title: automationCopy.name,
+    title: `${automationCopy.name} | Scotland`,
     description: automationCopy.description,
   },
   '/services/websites/': {
-    title: 'Website Design and Development UK',
+    title: 'Website Design & Development Dundee, Scotland',
     description:
-      'Website design and development for UK and worldwide clients. Based in Dundee, Scotland, we create new business websites and complete redesigns.',
+      'Website design and development based in Dundee, Scotland, for UK and worldwide clients. New business websites, redesigns and performance rebuilds.',
   },
   '/services/mobile-apps/': {
-    title: 'Mobile App Development UK',
+    title: 'Mobile App Development Dundee, Scotland',
     description:
-      'UK mobile app development from Dundee, Scotland. New iOS and Android apps and complete rebuilds using native tools, Flutter or Kotlin Multiplatform.',
+      'Mobile app development from Dundee, Scotland. New iOS and Android apps and complete rebuilds using native tools, Flutter or Kotlin Multiplatform.',
   },
   '/about/': {
-    title: 'About FinTaxTech',
+    title: 'About FinTaxTech | Web & App Agency, Dundee',
     description:
-      'Meet FinTaxTech, a digital and creative partner for businesses worldwide. Learn about our human-reviewed approach and customer-owned business accounts.',
+      'FinTaxTech is a web and mobile app agency based in Dundee, Scotland. Learn about our human-reviewed approach and customer-owned business accounts.',
   },
   [contactRedirect.legacyRoute]: {
     title: contactRedirect.title,

@@ -1,7 +1,7 @@
 ---
 title: 'Mobile App Requirements Checklist: What to Prepare Before Development'
-seoTitle: Mobile App Requirements Checklist
-description: Define your app's users, platforms, essential features, data, integrations, ownership and ongoing support before requesting a development quotation.
+seoTitle: Mobile App Requirements Checklist | App Developer Scotland
+description: Define your app's users, platforms, essential features, data, integrations, ownership and ongoing support before requesting a mobile app development quotation in the UK.
 slug: mobile-app-requirements-checklist
 pubDate: 2026-09-09
 author: FinTaxTech Ltd.

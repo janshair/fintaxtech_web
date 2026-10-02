@@ -1,7 +1,7 @@
 ---
 title: 'Does Your Business Website Need a CMS? Static, Headless and Managed Options Explained'
-seoTitle: Does Your Business Website Need a CMS?
-description: Compare static websites, traditional CMS platforms and headless CMS options to choose the right content-management approach for your business.
+seoTitle: Does Your Business Website Need a CMS? UK Guide
+description: Compare static websites, traditional CMS platforms and headless CMS options to choose the right content-management approach for your UK business.
 slug: does-your-website-need-a-cms
 pubDate: 2026-09-12
 author: FinTaxTech Ltd.
