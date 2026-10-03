@@ -7,7 +7,7 @@ const canonical = `https://fintaxtech.co.uk${route}`;
 const title =
   'Does Your Business Website Need a CMS? Static, Headless and Managed Options Explained';
 const description =
-  'Compare static websites, traditional CMS platforms and headless CMS options to choose the right content-management approach for your business.';
+  'Compare static websites, traditional CMS platforms and headless CMS options to choose the right content-management approach for your UK business.';
 const alts = [
   'Three structured content documents flowing into a finished business website',
   'Content moving from an editor through a build process into three static pages',
@@ -99,7 +99,7 @@ test('CMS article publishes complete static HTML, metadata and feeds', async ({
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   expect((await page.goto(`http://localhost:4323${route}`))?.status()).toBe(200);
-  await expect(page).toHaveTitle('Does Your Business Website Need a CMS? | FinTaxTech');
+  await expect(page).toHaveTitle('Does Your Business Website Need a CMS? UK Guide | FinTaxTech');
   await expect(page.locator('h1')).toHaveText(title);
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('.article-body h2')).toHaveCount(15);

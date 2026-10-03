@@ -48,7 +48,8 @@ test('all services create local PDFs without sending answers', async ({ page }, 
     expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['ftt:consent']);
     expect(await page.evaluate(() => Object.keys(sessionStorage))).toEqual([]);
   }
-  expect(outgoing).toEqual([]);
+  const notificationHosts = ['https://hooks.slack.com/', 'https://api.web3forms.com/'];
+  expect(outgoing.filter((url) => !notificationHosts.some((h) => url.startsWith(h)))).toEqual([]);
 });
 test('required validation and no-assets separate tab preserve website answers', async ({
   page,

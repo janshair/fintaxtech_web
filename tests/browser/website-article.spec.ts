@@ -5,9 +5,9 @@ import { blogCopy } from '../../src/content/blog';
 const route = '/blog/website-vs-web-application/';
 const canonical = `https://fintaxtech.co.uk${route}`;
 const title = 'Website vs Web Application: What Does Your Business Actually Need?';
-const seoTitle = 'Website vs Web Application: Which Does Your Business Need? | FinTaxTech';
+const seoTitle = 'Website vs Web Application: Which Does Your UK Business Need? | FinTaxTech';
 const description =
-  'Understand the difference between a business website and a web application, when you need each, and how to choose the right approach.';
+  'Understand the difference between a business website and a web application, when you need each, and how to choose the right approach — with guidance from a web development agency in Scotland.';
 const alts = [
   'A content-led business website beside a task-led web application dashboard',
   'A public content website connected to a private application dashboard',

@@ -5,9 +5,9 @@ import { blogCopy } from '../../src/content/blog';
 const route = '/blog/mobile-app-requirements-checklist/';
 const canonical = `https://fintaxtech.co.uk${route}`;
 const title = 'Mobile App Requirements Checklist: What to Prepare Before Development';
-const seoTitle = 'Mobile App Requirements Checklist | FinTaxTech';
+const seoTitle = 'Mobile App Requirements Checklist | App Developer Scotland | FinTaxTech';
 const description =
-  "Define your app's users, platforms, essential features, data, integrations, ownership and ongoing support before requesting a development quotation.";
+  "Define your app's users, platforms, essential features, data, integrations, ownership and ongoing support before requesting a mobile app development quotation in the UK.";
 const alts = [
   'A mobile phone beside a completed project-planning checklist',
   'Three selected features for version one beside seven ideas reserved for later',

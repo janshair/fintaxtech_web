@@ -1,0 +1,141 @@
+---
+const slackWebhook = import.meta.env.PUBLIC_SLACK_WEBHOOK ?? '';
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+---
+
+<form id="contact-form" novalidate>
+  <div class="form-row">
+    <label for="cf-name">Your name</label>
+    <input id="cf-name" name="name" type="text" autocomplete="name" required />
+  </div>
+  <div class="form-row">
+    <label for="cf-email">Email address</label>
+    <input id="cf-email" name="email" type="email" autocomplete="email" required />
+  </div>
+  <div class="form-row">
+    <label for="cf-service">Service you are interested in</label>
+    <select id="cf-service" name="service" required>
+      <option value="" disabled selected>Choose a service…</option>
+      <option>Branding and Graphic Design</option>
+      <option>Website Design and Development</option>
+      <option>Mobile App Development</option>
+      <option>AI Automation</option>
+      <option>Not sure yet</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="cf-message">Message</label>
+    <textarea id="cf-message" name="message" required placeholder="Tell us a little about your project or question…"></textarea>
+  </div>
+  <div id="cf-error" class="error" role="alert" aria-live="polite"></div>
+  <button type="submit" class="button" id="cf-submit">Send message</button>
+  <div id="cf-success" class="cf-success" hidden>
+    <p><strong>Message sent.</strong> We will reply within one business day.</p>
+  </div>
+</form>
+
+<script define:vars={{ slackWebhook, web3formsKey }}>
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('cf-submit');
+  const errorBox = document.getElementById('cf-error');
+  const successBox = document.getElementById('cf-success');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.textContent = '';
+
+    const data = Object.fromEntries(new FormData(form));
+    if (!data.name || !data.email || !data.service || !data.message) {
+      errorBox.textContent = 'Please fill in all fields before sending.';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    const [slackResult, emailResult] = await Promise.allSettled([
+      slackWebhook ? sendSlack(data, slackWebhook) : Promise.resolve(),
+      web3formsKey ? sendWeb3Forms(data, web3formsKey) : Promise.resolve(),
+    ]);
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send message';
+
+    if (slackResult.status === 'rejected') {
+      console.warn('Slack notification failed:', slackResult.reason);
+    }
+
+    if (emailResult.status === 'rejected') {
+      errorBox.textContent =
+        'Something went wrong. Please email us directly at ask@fintaxtech.co.uk.';
+    } else {
+      form.hidden = true;
+      successBox.hidden = false;
+    }
+  });
+
+  async function sendSlack(data, webhook) {
+    const text =
+      `*New contact from fintaxtech.co.uk*\n` +
+      `*Name:* ${data.name}\n` +
+      `*Email:* ${data.email}\n` +
+      `*Service:* ${data.service}\n` +
+      `*Message:* ${data.message}`;
+    // text/plain avoids CORS preflight — Slack accepts JSON body regardless of content-type
+    const res = await fetch(webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ text }),
+    });
+    if (!res.ok) throw new Error('Slack error');
+  }
+
+  async function sendWeb3Forms(data, key) {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: key,
+        subject: `New enquiry from ${data.name} — ${data.service}`,
+        from_name: data.name,
+        ...data,
+      }),
+    });
+    if (!res.ok) throw new Error('Web3Forms error');
+  }
+</script>
+
+<style>
+  #contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    max-width: var(--reading);
+    margin-top: var(--space-6);
+  }
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  label {
+    font-weight: var(--weight-strong);
+    font-size: var(--small);
+  }
+  select {
+    width: 100%;
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+  }
+  .cf-success {
+    padding: var(--space-5);
+    border: 1px solid var(--success);
+    border-radius: var(--radius);
+    color: var(--success);
+  }
+</style>
