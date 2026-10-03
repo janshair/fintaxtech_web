@@ -5,9 +5,9 @@ import { blogCopy } from '../../src/content/blog';
 const path = '/blog/mvp-vs-full-mobile-app/';
 const canonical = `https://fintaxtech.co.uk${path}`;
 const title = 'MVP vs Full Mobile App: What Should Your Business Build First?';
-const seoTitle = 'MVP vs Full Mobile App: What Should You Build First? | FinTaxTech';
+const seoTitle = 'MVP vs Full Mobile App: What Should UK Businesses Build First? | FinTaxTech';
 const description =
-  'Learn whether your business should begin with an MVP or a fuller mobile app, what the first release must include, and which features can wait.';
+  'Learn whether your business should begin with an MVP or a fuller mobile app, what the first release must include, and which features can wait. Guidance from a Dundee-based app developer.';
 const alts = [
   'A focused mobile app beside a broader app containing multiple feature modules',
   'Five connected steps representing the core journey, surrounded by six optional ideas',

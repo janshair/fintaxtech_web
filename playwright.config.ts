@@ -8,7 +8,7 @@ export default defineConfig({
   webServer: {
     // GitHub Pages serves directory index files with or without a trailing slash.
     // Override only preview routing; keep the production build configuration unchanged.
-    command: `pnpm build && node --input-type=module -e "import { preview } from 'astro'; await preview({ trailingSlash: 'ignore', server: { host: '127.0.0.1', port: 4323 } });"`,
+    command: `node node_modules/astro/bin/astro.mjs build && node --input-type=module -e "import { preview } from 'astro'; await preview({ trailingSlash: 'ignore', server: { host: '127.0.0.1', port: 4323 } });"`,
     url: 'http://localhost:4323',
     reuseExistingServer: false,
   },

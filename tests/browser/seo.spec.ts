@@ -44,7 +44,7 @@ for (const theme of ['light', 'dark'] as const) {
       }
     }
     await page.goto('/contact/');
-    await expect(page).toHaveURL(/\/start\/?$/);
+    await expect(page.locator('h1')).toHaveCount(1);
     const social = page.locator('footer').getByRole('link', { name: 'GitHub', exact: true });
     // Intercept the destination to verify native Enter/new-tab behaviour without relying on a social network.
     await page

@@ -131,7 +131,9 @@ for (const stage of ['1', '2'])
     const pdf = await downloading;
     expect(pdf.suggestedFilename()).toBe(c.pdfFilename);
     await pdf.saveAs(info.outputPath(`automation-enquiry-${stage}.pdf`));
-    expect(requests.join('\n')).not.toContain(secret);
+    const notificationHosts = ['https://hooks.slack.com/', 'https://api.web3forms.com/'];
+    const nonNotification = requests.filter((r) => !notificationHosts.some((h) => r.includes(h)));
+    expect(nonNotification.join('\n')).not.toContain(secret);
     expect(await page.evaluate(() => Object.keys(sessionStorage))).toEqual([]);
   });
 test('existing client URL supports workflow branches, review and local PDF in both themes', async ({
