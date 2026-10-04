@@ -111,6 +111,7 @@ test('additional pages validate names, duplicates and ten-item limit with access
   await next(page);
   await expect(page.getByRole('alert')).toContainText('at least one');
   await page.getByRole('button', { name: 'Add page', exact: true }).click();
+  await expect(page.getByLabel('Page name', { exact: true })).toBeVisible();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Page name', { exact: true }).fill('Careers');

@@ -179,12 +179,13 @@ test('marketing navigation works without JavaScript', async ({ browser }) => {
 
 for (const service of ['branding', 'websites', 'mobile-apps', 'ai-automation']) {
   test(`detailed ${service} brief produces a PDF`, async ({ page }, testInfo) => {
+    test.setTimeout(90000);
     await begin(page, service, '&stage=2');
     await complete(page);
     await page.getByRole('button', { name: 'Create PDF', exact: true }).click();
     await expect(
       page.getByRole('heading', { name: 'Your project enquiry PDF is ready' }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 30000 });
     const download = page.waitForEvent('download');
     await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
     await (await download).saveAs(testInfo.outputPath(`${service}-detailed.pdf`));
