@@ -17,7 +17,7 @@ async function complete(page) {
     const options = page.locator(
       '#questionnaire input[type=radio],#questionnaire input[type=checkbox]',
     );
-    if (await options.count()) await options.first().check();
+    if (await options.count()) await options.first().check({ force: true });
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
   }
   await page.getByRole('button', { name: 'Review answers', exact: true }).click();

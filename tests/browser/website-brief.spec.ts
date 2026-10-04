@@ -23,7 +23,7 @@ async function fillCurrent(page: Page) {
     if (!(await wrap.count())) continue;
     if (field.type === 'single' || field.type === 'multi') {
       if (!(await wrap.locator('input:checked').count()))
-        await wrap.locator('input').first().check();
+        await wrap.locator('input').first().check({ force: true });
     } else if (['text', 'url', 'date'].includes(field.type) && !field.optional) {
       const input = page.locator(`#${field.id}`);
       if (!(await input.inputValue()))
