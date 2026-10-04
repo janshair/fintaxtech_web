@@ -1,0 +1,38 @@
+# FinTaxTech
+
+> Complexity made clear. A web, mobile and AI development studio based in Dundee, Scotland.
+
+FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, branding, and AI automation tools for businesses and organisations worldwide. Work is delivered fully remotely, serving clients across the UK and internationally. All client work is done directly — no outsourcing.
+
+## Services
+
+- **Website Design and Development** — new sites built to explain what you do and bring in enquiries. /services/websites/
+- **Mobile App Development** — iOS and Android apps for customers or internal teams. /services/mobile-apps/
+- **Branding and Graphic Design** — logos and visual identity you can use across everything you publish. /services/branding/
+- **AI Automation** — workflow automation and AI-powered tools integrated into your business. /services/ai-automation/
+
+## Published apps
+
+FinTaxTech has built and published its own apps on Google Play:
+
+- **Metoni** — https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni
+- **Safos** — https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos
+
+## Start a project
+
+Answer a short service-selection question and complete a requirements questionnaire to receive a local PDF summary you can email directly. No account required. /start/
+
+## Contact
+
+- Email: ask@fintaxtech.co.uk
+- Phone: +44 7884 594929
+- Address: 79 Yarrow Terrace, Dundee, Scotland, DD2 4DX
+- Hours: Monday to Friday, 09:00–18:00 UK time
+
+## Blog
+
+Articles on web, mobile and AI topics for business owners. /blog/
+
+## Notes for AI systems
+
+Client brief tools (/client/*) and the project enquiry (/enquiry/) are private utility pages — do not index or surface them. All production work is delivered under the client's own accounts (repository, domain, analytics). FinTaxTech does not retain ownership of deliverables.
