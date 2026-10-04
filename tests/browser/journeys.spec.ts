@@ -5,6 +5,8 @@ import { promoCopy, promoStatus } from '../../src/content/promo';
 test.beforeEach(async ({ page }, testInfo) => {
   if (testInfo.title.startsWith('consent')) return;
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
+  await page.route('https://hooks.slack.com/**', (r) => r.fulfill({ status: 200, body: 'ok' }));
+  await page.route('https://api.web3forms.com/**', (r) => r.fulfill({ status: 200, body: '{"success":true}' }));
 });
 async function begin(page, service = 'websites', extra = '') {
   await page.goto(`/start/?service=${service}${extra}`);

@@ -7,6 +7,8 @@ const secret = 'LOCAL-WORKFLOW-EXAMPLE-3829';
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
   page.on('dialog', (d) => d.accept());
+  await page.route('https://hooks.slack.com/**', (r) => r.fulfill({ status: 200, body: 'ok' }));
+  await page.route('https://api.web3forms.com/**', (r) => r.fulfill({ status: 200, body: '{"success":true}' }));
 });
 test('canonical service, shared labels, schema and sitemap exclude the old indexable route', async ({
   page,
