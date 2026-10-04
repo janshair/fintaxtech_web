@@ -1,3 +1,18 @@
+export const publishedApps = [
+  {
+    name: 'Metoni',
+    summary: 'A mobile app built and published by FinTaxTech, available on Android.',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni',
+    visitLabel: 'View Metoni on Google Play',
+  },
+  {
+    name: 'Safos',
+    summary: 'A mobile app built and published by FinTaxTech, available on Android.',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos',
+    visitLabel: 'View Safos on Google Play',
+  },
+] as const;
+
 export const featuredWork = {
   name: 'Ask Appliance Repairs',
   category: 'Website design and development',

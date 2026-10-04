@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
 import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
-import { featuredWork as work } from '../content/work';
+import { featuredWork as work, publishedApps } from '../content/work';
 ---
 
 <section class="section work-showcase" aria-labelledby="featured-work-title">
@@ -45,3 +45,56 @@ import { featuredWork as work } from '../content/work';
     </figure>
   </div>
 </section>
+
+<section class="section" aria-labelledby="published-apps-title">
+  <p class="eyebrow">Mobile app development</p>
+  <h2 id="published-apps-title">Published apps</h2>
+  <ul class="app-list">
+    {publishedApps.map((app) => (
+      <li class="app-card">
+        <div>
+          <h3>{app.name}</h3>
+          <p>{app.summary}</p>
+        </div>
+        <a
+          class="button"
+          href={app.playStoreUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {app.visitLabel} ↗
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .app-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .app-card {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .app-card h3 {
+    margin: 0 0 0.5rem;
+  }
+  .app-card p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .app-card .button {
+    align-self: flex-start;
+  }
+</style>

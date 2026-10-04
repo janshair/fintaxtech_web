@@ -118,7 +118,7 @@ export const pages: Record<string, InfoPage> = {
   },
   'selected-work': {
     title: 'Selected Work',
-    intro: 'Explore a website project built by FinTaxTech for Ask Appliance Repairs.',
+    intro: 'A sample of websites and apps built by FinTaxTech.',
     sections: [],
   },
   privacy: {
