@@ -27,7 +27,7 @@ async function advanceTo(page: Page, title: string) {
         if (!(await wrap.locator('input:checked').count())) {
           const value = answers[field.id];
           for (const option of Array.isArray(value) ? value : [String(value)])
-            await wrap.getByLabel(option, { exact: true }).check();
+            await wrap.getByLabel(option, { exact: true }).click();
         }
         const detail = wrap.getByLabel('Please specify', { exact: true });
         if (await detail.count()) await detail.fill(secret);
@@ -81,7 +81,7 @@ test('keyboard validation, Other and tone limit work in responsive light and dar
   page,
 }, info) => {
   await begin(page);
-  await page.getByLabel('Content or document processing', { exact: true }).check();
+  await page.getByLabel('Content or document processing', { exact: true }).click();
   await next(page);
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
@@ -90,8 +90,8 @@ test('keyboard validation, Other and tone limit work in responsive light and dar
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Please specify').fill(secret);
-  await page.getByLabel('Other', { exact: true }).uncheck();
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.getByLabel('Other', { exact: true }).click();
+  await page.getByLabel('Other', { exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveValue('');
   await page.getByLabel('Please specify').fill(secret);
   await next(page);
@@ -100,11 +100,11 @@ test('keyboard validation, Other and tone limit work in responsive light and dar
   await expect(page.getByLabel('Please specify')).toHaveValue(secret);
   await advanceTo(page, 'Your preferred tone');
   for (const tone of ['Professional', 'Friendly', 'Concise'])
-    await page.getByLabel(tone, { exact: true }).check();
+    await page.getByLabel(tone, { exact: true }).click();
   await page.getByLabel('Technical', { exact: true }).click();
   await expect(page.getByLabel('Technical', { exact: true })).not.toBeChecked();
   await expect(page.getByRole('status')).toContainText('3 of 3');
-  await page.getByLabel('FinTaxTech to recommend', { exact: true }).check();
+  await page.getByLabel('FinTaxTech to recommend', { exact: true }).click();
   await expect(page.getByLabel('Professional', { exact: true })).not.toBeChecked();
   for (const [width, theme] of [
     [320, 'light'],
@@ -128,19 +128,19 @@ test('conditional language/deadline, review editing, PDF and source sharing stay
   page.on('request', (r) => requests.push(`${r.method()} ${r.url()} ${r.postData() ?? ''}`));
   await begin(page);
   await advanceTo(page, 'Language');
-  await page.getByLabel('Another language', { exact: true }).check();
+  await page.getByLabel('Another language', { exact: true }).click();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Which language?', { exact: true }).fill('French');
   await advanceTo(page, 'Your deadline');
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await next(page);
   await expect(page.getByRole('alert')).toHaveCount(2);
   await page.getByLabel('Deadline date', { exact: true }).fill('2026-12-31');
   await page.getByLabel('Reason for the deadline', { exact: true }).fill('Launch date');
-  await page.getByLabel('No fixed date', { exact: true }).check();
+  await page.getByLabel('No fixed date', { exact: true }).click();
   await expect(page.locator('#deadlineDate')).toHaveCount(0);
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await expect(page.locator('#deadlineDate')).toHaveValue('');
   await advanceTo(page, 'Anything else');
   await page.getByLabel('Anything else we should know?', { exact: true }).fill(secret);
@@ -161,7 +161,7 @@ test('conditional language/deadline, review editing, PDF and source sharing stay
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: info.outputPath('review-mobile-dark.png'), fullPage: true });
   await page.getByRole('button', { name: 'Edit answers: Language', exact: true }).click();
-  await page.getByLabel('UK English', { exact: true }).check();
+  await page.getByLabel('UK English', { exact: true }).click();
   await expect(page.locator('#languageDetail')).toHaveCount(0);
   await advanceTo(page, 'Anything else');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();

@@ -92,7 +92,7 @@ async function completePublic(page: Page) {
     const options = page.locator(
       '#questionnaire input[type=radio], #questionnaire input[type=checkbox]',
     );
-    if (await options.count()) await options.first().check();
+    if (await options.count()) await options.first().click();
     const input = page.locator('#questionnaire textarea');
     if (await input.count()) await input.fill(secret);
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
@@ -108,12 +108,12 @@ for (const stage of ['1', '2'])
     page.on('request', (r) => requests.push(`${r.method()} ${r.url()} ${r.postData() ?? ''}`));
     await page.goto(`/enquiry/?service=ai-automation&stage=${stage}`);
     await page.getByRole('button', { name: 'Begin', exact: true }).click();
-    await page.getByLabel(contentAutomation, { exact: true }).check();
+    await page.getByLabel(contentAutomation, { exact: true }).click();
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
     await expect(page.locator('#questionnaire h1')).toHaveText(
       stage === '1' ? 'What type of content is involved?' : 'What is the primary output?',
     );
-    await page.locator('#questionnaire input[type=radio]').first().check();
+    await page.locator('#questionnaire input[type=radio]').first().click();
     await page.getByRole('button', { name: 'Back', exact: true }).click();
     await page.getByLabel('AI assistant or knowledge helper', { exact: true }).focus();
     await page.keyboard.press('Space');
@@ -146,7 +146,7 @@ test('existing client URL supports workflow branches, review and local PDF in bo
   await expect(page.locator('h1')).toHaveText('AI Automation Production Brief');
   await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,nofollow');
   await page.getByRole('button', { name: promptBriefCopy.begin }).click();
-  await page.getByLabel('Connection between business systems', { exact: true }).check();
+  await page.getByLabel('Connection between business systems', { exact: true }).click();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('alert').first()).toBeVisible();
@@ -165,7 +165,7 @@ test('existing client URL supports workflow branches, review and local PDF in bo
     for (const f of promptBriefSections.find((s) => s.title === title)!.fields) {
       const wrap = page.locator(`#field-${f.id}`);
       if (!(await wrap.count())) continue;
-      if (f.type === 'single' || f.type === 'multi') await wrap.locator('input').first().check();
+      if (f.type === 'single' || f.type === 'multi') await wrap.locator('input').first().click();
       else await wrap.locator('input, textarea').fill(secret);
     }
     const next = page.getByRole('button', {
@@ -184,7 +184,7 @@ test('existing client URL supports workflow branches, review and local PDF in bo
   await page
     .getByRole('button', { name: 'Edit answers: Your automation project', exact: true })
     .click();
-  await page.getByLabel(contentAutomation, { exact: true }).check();
+  await page.getByLabel(contentAutomation, { exact: true }).click();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.locator('[data-brief-form] h2')).toHaveText('The content you need');
   expect(requests.join('\n')).not.toContain(secret);
