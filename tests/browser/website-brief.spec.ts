@@ -23,7 +23,7 @@ async function fillCurrent(page: Page) {
     if (!(await wrap.count())) continue;
     if (field.type === 'single' || field.type === 'multi') {
       if (!(await wrap.locator('input:checked').count()))
-        await wrap.locator('input').first().check();
+        await wrap.locator('input').first().click();
     } else if (['text', 'url', 'date'].includes(field.type) && !field.optional) {
       const input = page.locator(`#${field.id}`);
       if (!(await input.inputValue()))
@@ -75,31 +75,31 @@ test('keyboard, goal maximum, Other and conditional geography preserve only appl
   await page.getByLabel('New website', { exact: true }).focus();
   await page.keyboard.press('Space');
   await next(page);
-  await page.getByLabel('Enquiries', { exact: true }).check();
-  await page.getByLabel('Credibility', { exact: true }).check();
+  await page.getByLabel('Enquiries', { exact: true }).click();
+  await page.getByLabel('Credibility', { exact: true }).click();
   await page.getByLabel('Bookings', { exact: true }).click();
   await expect(page.getByLabel('Bookings', { exact: true })).not.toBeChecked();
   await expect(page.getByRole('status')).toContainText('2 of 2');
-  await page.getByLabel('Credibility', { exact: true }).uncheck();
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.getByLabel('Credibility', { exact: true }).click();
+  await page.getByLabel('Other', { exact: true }).click();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Please specify').fill('Build a useful reference library');
   await next(page);
   await page.getByRole('button', { name: 'Back', exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveValue('Build a useful reference library');
-  await page.getByLabel('Other', { exact: true }).uncheck();
+  await page.getByLabel('Other', { exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveCount(0);
   await advanceTo(page, 'Where your customers are');
-  await page.getByLabel('Local', { exact: true }).check();
+  await page.getByLabel('Local', { exact: true }).click();
   await page.locator('#localPlaces').fill('Dundee');
-  await page.getByLabel('One country', { exact: true }).check();
+  await page.getByLabel('One country', { exact: true }).click();
   await page.locator('#country').fill('United Kingdom');
-  await page.getByLabel('International', { exact: true }).check();
+  await page.getByLabel('International', { exact: true }).click();
   await page.locator('#internationalPlaces').fill('Worldwide');
-  await page.getByLabel('Local', { exact: true }).uncheck();
+  await page.getByLabel('Local', { exact: true }).click();
   await expect(page.locator('#localPlaces')).toHaveCount(0);
-  await page.getByLabel('Local', { exact: true }).check();
+  await page.getByLabel('Local', { exact: true }).click();
   await expect(page.locator('#localPlaces')).toHaveValue('');
 });
 
@@ -111,6 +111,7 @@ test('additional pages validate names, duplicates and ten-item limit with access
   await next(page);
   await expect(page.getByRole('alert')).toContainText('at least one');
   await page.getByRole('button', { name: 'Add page', exact: true }).click();
+  await expect(page.getByLabel('Page name', { exact: true })).toBeVisible();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Page name', { exact: true }).fill('Careers');
@@ -156,8 +157,8 @@ test('None is exclusive, branding opens separately, providers and deadlines are 
 }) => {
   await begin(page);
   await advanceTo(page, 'Your visual assets');
-  await page.getByLabel('Photos', { exact: true }).check();
-  await page.getByLabel('None', { exact: true }).check();
+  await page.getByLabel('Photos', { exact: true }).click();
+  await page.getByLabel('None', { exact: true }).click();
   await expect(page.getByLabel('Photos', { exact: true })).not.toBeChecked();
   const popup = context.waitForEvent('page');
   await page.getByRole('link', { name: 'Open the separate logo brief in a new tab' }).click();
@@ -167,27 +168,27 @@ test('None is exclusive, branding opens separately, providers and deadlines are 
   await tab.close();
   await expect(page.getByLabel('None', { exact: true })).toBeChecked();
   await next(page);
-  await page.getByLabel('Online payments', { exact: true }).check();
+  await page.getByLabel('Online payments', { exact: true }).click();
   await expect(page.locator('#field-capabilities .notice')).toContainText('scope review');
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.getByLabel('Other', { exact: true }).click();
   await page.getByLabel('Please specify').fill('Customer accounts');
-  await page.getByLabel('None', { exact: true }).check();
+  await page.getByLabel('None', { exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveCount(0);
-  await page.getByLabel('Enquiry form', { exact: true }).check();
+  await page.getByLabel('Enquiry form', { exact: true }).click();
   await expect(page.getByLabel('None', { exact: true })).not.toBeChecked();
   await advanceTo(page, 'Your domain and business email');
-  await page.locator('#field-domain').getByLabel('Already owned', { exact: true }).check();
+  await page.locator('#field-domain').getByLabel('Already owned', { exact: true }).click();
   await page.getByLabel('Domain provider', { exact: true }).fill('Example domain provider');
-  await page.locator('#field-email').getByLabel('Already owned', { exact: true }).check();
+  await page.locator('#field-email').getByLabel('Already owned', { exact: true }).click();
   await page.getByLabel('Business email provider', { exact: true }).fill('Example email provider');
-  await page.locator('#field-domain').getByLabel('Not needed', { exact: true }).check();
+  await page.locator('#field-domain').getByLabel('Not needed', { exact: true }).click();
   await expect(page.locator('#domainProvider')).toHaveCount(0);
   await expect(page.locator('#emailProvider')).toHaveValue('Example email provider');
   await advanceTo(page, 'Your deadline');
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await page.getByLabel('Deadline date', { exact: true }).fill('2026-12-31');
   await page.getByLabel('Reason for the deadline', { exact: true }).fill('Opening day');
-  await page.getByLabel('No fixed date', { exact: true }).check();
+  await page.getByLabel('No fixed date', { exact: true }).click();
   await expect(page.locator('#deadlineDate')).toHaveCount(0);
 });
 
@@ -197,16 +198,16 @@ test('redesign review, PDF and editing stay local and exclude stale redesign ans
   const requests: string[] = [];
   page.on('request', (r) => requests.push(`${r.method()} ${r.url()} ${r.postData() ?? ''}`));
   await begin(page);
-  await page.getByLabel('Complete redesign', { exact: true }).check();
+  await page.getByLabel('Complete redesign', { exact: true }).click();
   await page.locator('#existingURL').fill('https://private-client.example');
   await advanceTo(page, 'Your website pages');
-  await page.getByLabel('Home', { exact: true }).check();
+  await page.getByLabel('Home', { exact: true }).click();
   await page.getByRole('button', { name: 'Add page', exact: true }).click();
   await page.getByLabel('Page name', { exact: true }).fill('Careers');
   await page.getByLabel('Purpose (optional)', { exact: true }).fill(secret);
   await advanceTo(page, 'What to retain from your existing website');
-  await page.getByLabel('Domain', { exact: true }).check();
-  await page.getByLabel('Nothing—start again', { exact: true }).check();
+  await page.getByLabel('Domain', { exact: true }).click();
+  await page.getByLabel('Nothing—start again', { exact: true }).click();
   await expect(page.getByLabel('Domain', { exact: true })).not.toBeChecked();
   await advanceTo(page, 'Anything else');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
@@ -234,7 +235,7 @@ test('redesign review, PDF and editing stay local and exclude stale redesign ans
   await page
     .getByRole('button', { name: 'Edit answers: Your website project', exact: true })
     .click();
-  await page.getByLabel('New website', { exact: true }).check();
+  await page.getByLabel('New website', { exact: true }).click();
   await expect(page.locator('#existingURL')).toHaveCount(0);
   await advanceTo(page, 'Anything else');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();

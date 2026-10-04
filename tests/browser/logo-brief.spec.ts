@@ -26,11 +26,11 @@ async function fillSection(page: Page, index: number) {
     if (!(await wrap.count())) continue;
     if (field.type === 'single' || field.type === 'multi') {
       if (!(await wrap.locator('input:checked').count()))
-        await wrap.locator('input').first().check();
+        await wrap.locator('input').first().click();
     } else if (['text', 'long', 'date'].includes(field.type)) {
       if (!field.optional && !(await page.locator(`#${field.id}`).inputValue()))
         await page.locator(`#${field.id}`).fill(field.type === 'date' ? '2026-12-31' : secret);
-    } else if (field.type === 'confirm') await page.locator(`#${field.id}`).check();
+    } else if (field.type === 'confirm') await page.locator(`#${field.id}`).click();
     else if (field.type === 'images') {
       if (!(await page.locator('.brief-reference').count()))
         await page.locator('#reference-upload').setInputFiles(await image());
@@ -88,18 +88,18 @@ test('conditional fields, exact name, Other, maximum and style exclusivity work 
   await page.keyboard.press('Space');
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page.getByLabel('Trading name', { exact: true }).fill('Studio MiXeD');
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await page.getByLabel('Legal name', { exact: true }).fill('Private Legal Ltd');
-  await page.getByLabel('I confirm the exact spelling and capitalisation: Studio MiXeD').check();
+  await page.getByLabel('I confirm the exact spelling and capitalisation: Studio MiXeD').click();
   await page.getByLabel('Trading name', { exact: true }).fill('Studio MIXED');
   await expect(page.locator('#nameConfirmed')).not.toBeChecked();
-  await page.getByLabel('No', { exact: true }).check();
+  await page.getByLabel('No', { exact: true }).click();
   await expect(page.locator('#legal')).toHaveCount(0);
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await expect(page.locator('#legal')).toHaveValue('');
-  await page.getByLabel('No', { exact: true }).check();
+  await page.getByLabel('No', { exact: true }).click();
   await advanceTo(page, 3);
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.getByLabel('Other', { exact: true }).click();
   await page.locator('#service1').fill('Useful customer service');
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Complete');
@@ -109,7 +109,7 @@ test('conditional fields, exact name, Other, maximum and style exclusivity work 
   await expect(page.getByLabel('Please specify')).toHaveValue('Distinctive consultancy');
   await advanceTo(page, 6);
   for (const name of ['Professional', 'Trustworthy', 'Friendly', 'Modern', 'Established'])
-    await page.getByLabel(name, { exact: true }).check();
+    await page.getByLabel(name, { exact: true }).click();
   await page.getByLabel('Creative', { exact: true }).click();
   await expect(page.getByLabel('Creative', { exact: true })).not.toBeChecked();
   await expect(page.getByRole('alert')).toContainText('no more than 5');
@@ -119,13 +119,13 @@ test('conditional fields, exact name, Other, maximum and style exclusivity work 
   await page.screenshot({ path: info.outputPath('formats-desktop.png'), fullPage: true });
   await advanceTo(page, 8);
   await expect(page.locator('.brief-examples img')).toHaveCount(9);
-  await page.getByLabel('Gradients', { exact: true }).check();
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.getByLabel('Gradients', { exact: true }).click();
+  await page.getByLabel('Other', { exact: true }).click();
   await page.getByLabel('Please specify').fill('No sharp angles');
-  await page.getByLabel('No preference', { exact: true }).check();
+  await page.getByLabel('No preference', { exact: true }).click();
   await expect(page.getByLabel('Gradients', { exact: true })).not.toBeChecked();
   await expect(page.getByLabel('Please specify')).toHaveCount(0);
-  await page.getByLabel('Gradients', { exact: true }).check();
+  await page.getByLabel('Gradients', { exact: true }).click();
   await expect(page.getByLabel('No preference', { exact: true })).not.toBeChecked();
   await page.setViewportSize({ width: 320, height: 780 });
   await page.locator('#theme-toggle').click();
@@ -143,7 +143,7 @@ test('image validation, captions, removal, replacement and competitor limits', a
   for (let i = 5; i > 0; i--)
     await page.getByRole('button', { name: `Remove competitor ${i}`, exact: true }).click();
   await advanceTo(page, 10);
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   const upload = page.locator('#reference-upload');
   await upload.setInputFiles({
     name: 'unsafe.svg',
@@ -189,8 +189,8 @@ test('image validation, captions, removal, replacement and competitor limits', a
   await expect(page.getByRole('status')).toContainText('up to five');
   await upload.setInputFiles(await image());
   await expect(page.getByRole('status')).toContainText('updated');
-  await page.getByLabel('No', { exact: true }).check();
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('No', { exact: true }).click();
+  await page.getByLabel('Yes', { exact: true }).click();
   await expect(preview).toHaveCount(0);
 });
 

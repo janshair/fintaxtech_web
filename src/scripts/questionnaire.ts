@@ -497,6 +497,7 @@ async function generate(error: HTMLElement) {
     pdf = await createPDF({ journey, customer: customerRows(), partial });
     track('pdf_generated');
     ready();
+    sendNotifications();
   } catch {
     track('pdf_generation_failed');
     error.textContent = c.pdfFailed;
@@ -559,6 +560,50 @@ window.addEventListener('beforeunload', (event) => {
     event.preventDefault();
   }
 });
+function sendNotifications() {
+  const slackWebhook = import.meta.env.PUBLIC_SLACK_WEBHOOK as string | undefined;
+  const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined;
+  if (!slackWebhook && !web3formsKey) return;
+
+  const serviceName = services.find((s) => s.id === journey.service)?.name ?? journey.service;
+  const questions = visibleQuestions(journey);
+  const answerLines = questions
+    .map((q) => {
+      const ans = journey.answers[q.id];
+      return `${q.label}: ${Array.isArray(ans) ? ans.join(', ') : (ans ?? 'Not provided')}`;
+    })
+    .join('\n');
+  const contactLines = customerRows()
+    .map((r) => `${r.label}: ${r.value}`)
+    .join('\n');
+
+  if (slackWebhook) {
+    const slackText =
+      `*New enquiry — ${serviceName}*\n\n` +
+      `*Contact*\n${contactLines}\n\n` +
+      `*Answers*\n${answerLines}`;
+    // text/plain avoids CORS preflight — Slack accepts JSON body regardless of content-type
+    fetch(slackWebhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ text: slackText }),
+    }).catch(() => {});
+  }
+
+  if (web3formsKey) {
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: web3formsKey,
+        subject: `New enquiry from ${customer.name} — ${serviceName}`,
+        from_name: customer.name,
+        email: customer.email,
+        message: `${contactLines}\n\n${answerLines}`,
+      }),
+    }).catch(() => {});
+  }
+}
 // URLs accept only non-personal routing values; no answers, campaign marker or customer fields.
 const requestedService = normalizeService(params.get('service')) ?? null;
 if (journey.promo) start('websites');

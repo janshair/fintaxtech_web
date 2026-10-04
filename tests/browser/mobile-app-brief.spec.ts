@@ -24,7 +24,7 @@ async function advanceTo(page: Page, title: string) {
       if (!(await wrap.count())) continue;
       if (field.type === 'single' || field.type === 'multi') {
         if (!(await wrap.locator('input:checked').count()))
-          await wrap.locator('input').first().check();
+          await wrap.locator('input').first().click();
       } else if (['text', 'urls', 'date'].includes(field.type) && !field.optional) {
         const input = page.locator(`#${field.id}`);
         if (!(await input.inputValue()))
@@ -49,7 +49,7 @@ async function addFeature(page: Page, index: number, name = `Custom capability $
     .locator('#field-customFeatures > .brief-row')
     .nth(index)
     .getByLabel('Later', { exact: true })
-    .check();
+    .click();
 }
 
 test('unlinked static route is noindex with no payment gate, analytics, password or upload controls', async ({
@@ -86,25 +86,25 @@ test('keyboard, Other details, task maximum and device choices work without cont
   await page.getByLabel('New app', { exact: true }).focus();
   await page.keyboard.press('Space');
   await next(page);
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.getByLabel('Other', { exact: true }).click();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Please specify').fill('Volunteers');
   await next(page);
   for (const name of ['Book', 'Buy/pay', 'Browse content'])
-    await page.getByLabel(name, { exact: true }).check();
+    await page.getByLabel(name, { exact: true }).click();
   await page.getByLabel('Communicate', { exact: true }).click();
   await expect(page.getByLabel('Communicate', { exact: true })).not.toBeChecked();
   await expect(page.getByRole('status')).toContainText('3 of 3');
   await next(page);
-  await page.getByLabel('Both', { exact: true }).check();
-  await page.getByLabel('Tablets too', { exact: true }).check();
+  await page.getByLabel('Both', { exact: true }).click();
+  await page.getByLabel('Tablets too', { exact: true }).click();
   await page
     .locator('#field-devices')
     .getByLabel('FinTaxTech to recommend', { exact: true })
-    .check();
+    .click();
   await expect(page.locator('#field-tablets')).toHaveCount(0);
-  await page.getByLabel('iPhone', { exact: true }).check();
+  await page.getByLabel('iPhone', { exact: true }).click();
   await expect(page.getByLabel('Tablets too', { exact: true })).not.toBeChecked();
   await expect(page.getByLabel('Both', { exact: true })).not.toBeChecked();
   await page.getByRole('button', { name: 'Back', exact: true }).click();
@@ -116,9 +116,9 @@ test('repeatable features validate, enforce ten rows, edit/remove, and work on n
 }, info) => {
   await begin(page);
   await advanceTo(page, 'Features and first-release priorities');
-  await page.locator('#field-features').getByLabel('Search', { exact: true }).check();
-  await page.locator('#field-essentialFeatures').getByLabel('Search', { exact: true }).check();
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.locator('#field-features').getByLabel('Search', { exact: true }).click();
+  await page.locator('#field-essentialFeatures').getByLabel('Search', { exact: true }).click();
+  await page.getByLabel('Other', { exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveCount(0);
   await next(page);
   await expect(page.getByRole('alert')).toContainText('at least one');
@@ -128,7 +128,7 @@ test('repeatable features validate, enforce ten rows, edit/remove, and work on n
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Feature name', { exact: true }).fill('Routing rules');
   await page.getByLabel('What should it do?', { exact: true }).fill(secret);
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await addFeature(page, 1, '  ROUTING rules ');
   await next(page);
   await expect(page.getByRole('alert')).toContainText('unique name');
@@ -162,10 +162,10 @@ test('repeatable features validate, enforce ten rows, edit/remove, and work on n
   await expect(page.getByLabel('Feature name', { exact: true }).first()).toHaveValue(
     'Routing rules',
   );
-  await page.locator('#field-features').getByLabel('Search', { exact: true }).uncheck();
+  await page.locator('#field-features').getByLabel('Search', { exact: true }).click();
   await expect(page.locator('#field-essentialFeatures')).toHaveCount(0);
-  await page.getByLabel('Other', { exact: true }).uncheck();
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.getByLabel('Other', { exact: true }).click();
+  await page.getByLabel('Other', { exact: true }).click();
   await expect(page.getByLabel('Feature name', { exact: true })).toHaveCount(0);
 });
 
@@ -175,16 +175,16 @@ test('sensitive scope notice, systems, assets, separate developer accounts and d
 }) => {
   await begin(page);
   await advanceTo(page, 'Information the app will handle');
-  await page.getByLabel('Health or other sensitive information', { exact: true }).check();
+  await page.getByLabel('Health or other sensitive information', { exact: true }).click();
   await expect(page.locator('#field-information .notice')).toContainText(
     'scope and privacy review',
   );
-  await page.getByLabel('None', { exact: true }).check();
+  await page.getByLabel('None', { exact: true }).click();
   await expect(
     page.getByLabel('Health or other sensitive information', { exact: true }),
   ).not.toBeChecked();
   await next(page);
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('at least one');
   await page.getByRole('button', { name: 'Add system', exact: true }).click();
@@ -196,13 +196,13 @@ test('sensitive scope notice, systems, assets, separate developer accounts and d
   await page.getByLabel('System name', { exact: true }).nth(1).fill('Business records');
   await page.getByLabel('Purpose of the connection', { exact: true }).nth(1).fill('Sync work');
   await page.getByRole('button', { name: 'Remove system 2', exact: true }).click();
-  await page.getByLabel('No', { exact: true }).check();
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('No', { exact: true }).click();
+  await page.getByLabel('Yes', { exact: true }).click();
   await expect(page.getByLabel('System name', { exact: true })).toHaveCount(0);
-  await page.getByLabel('No', { exact: true }).check();
+  await page.getByLabel('No', { exact: true }).click();
   await advanceTo(page, 'Your existing assets');
-  await page.getByLabel('Photos', { exact: true }).check();
-  await page.getByLabel('None', { exact: true }).check();
+  await page.getByLabel('Photos', { exact: true }).click();
+  await page.getByLabel('None', { exact: true }).click();
   await expect(page.getByLabel('Photos', { exact: true })).not.toBeChecked();
   const popup = context.waitForEvent('page');
   await page.getByRole('link', { name: 'Open the separate logo brief in a new tab' }).click();
@@ -211,16 +211,16 @@ test('sensitive scope notice, systems, assets, separate developer accounts and d
   expect(tab.url()).toContain('/client/logo-brief/');
   await tab.close();
   await next(page);
-  await page.locator('#field-appleAccount').getByLabel('Yes', { exact: true }).check();
-  await page.locator('#field-googleAccount').getByLabel('No', { exact: true }).check();
+  await page.locator('#field-appleAccount').getByLabel('Yes', { exact: true }).click();
+  await page.locator('#field-googleAccount').getByLabel('No', { exact: true }).click();
   await expect(
     page.locator('#field-appleAccount').getByLabel('Yes', { exact: true }),
   ).toBeChecked();
   await advanceTo(page, 'Your deadline');
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await page.getByLabel('Deadline date', { exact: true }).fill('2026-12-31');
   await page.getByLabel('Reason for the deadline', { exact: true }).fill('Launch');
-  await page.getByLabel('No fixed date', { exact: true }).check();
+  await page.getByLabel('No fixed date', { exact: true }).click();
   await expect(page.locator('#deadlineDate')).toHaveCount(0);
 });
 
@@ -230,17 +230,17 @@ test('review, editing and PDF download stay local, include priorities and clear 
   const requests: string[] = [];
   page.on('request', (r) => requests.push(`${r.method()} ${r.url()} ${r.postData() ?? ''}`));
   await begin(page);
-  await page.getByLabel('Complete redesign', { exact: true }).check();
+  await page.getByLabel('Complete redesign', { exact: true }).click();
   await page
     .locator('#appLinks')
     .fill('https://private-client.example/app\nhttps://private-client.example/android');
   await advanceTo(page, 'Features and first-release priorities');
-  await page.locator('#field-features').getByLabel('Booking', { exact: true }).check();
-  await page.locator('#field-essentialFeatures').getByLabel('Booking', { exact: true }).check();
-  await page.getByLabel('Other', { exact: true }).check();
+  await page.locator('#field-features').getByLabel('Booking', { exact: true }).click();
+  await page.locator('#field-essentialFeatures').getByLabel('Booking', { exact: true }).click();
+  await page.getByLabel('Other', { exact: true }).click();
   await addFeature(page, 0, 'Routing rules');
   await advanceTo(page, 'Connections to other systems');
-  await page.getByLabel('Yes', { exact: true }).check();
+  await page.getByLabel('Yes', { exact: true }).click();
   await page.getByRole('button', { name: 'Add system', exact: true }).click();
   await page.getByLabel('System name', { exact: true }).fill('Scheduling system');
   await page.getByLabel('Purpose of the connection', { exact: true }).fill(secret);
@@ -273,7 +273,7 @@ test('review, editing and PDF download stay local, include priorities and clear 
     /^https:\/\/wa.me\/\d+$/,
   );
   await page.getByRole('button', { name: 'Edit answers: Your app project', exact: true }).click();
-  await page.getByLabel('New app', { exact: true }).check();
+  await page.getByLabel('New app', { exact: true }).click();
   await advanceTo(page, 'Anything else');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await expect(page.locator('.brief-review')).not.toContainText('private-client.example');

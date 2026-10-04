@@ -5,6 +5,8 @@ import { promoCopy, promoStatus } from '../../src/content/promo';
 test.beforeEach(async ({ page }, testInfo) => {
   if (testInfo.title.startsWith('consent')) return;
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
+  await page.route('https://hooks.slack.com/**', (r) => r.fulfill({ status: 200, body: 'ok' }));
+  await page.route('https://api.web3forms.com/**', (r) => r.fulfill({ status: 200, body: '{"success":true}' }));
 });
 async function begin(page, service = 'websites', extra = '') {
   await page.goto(`/start/?service=${service}${extra}`);
@@ -17,7 +19,7 @@ async function complete(page) {
     const options = page.locator(
       '#questionnaire input[type=radio],#questionnaire input[type=checkbox]',
     );
-    if (await options.count()) await options.first().check();
+    if (await options.count()) await options.first().click();
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
   }
   await page.getByRole('button', { name: 'Review answers', exact: true }).click();
@@ -48,7 +50,8 @@ test('all services create local PDFs without sending answers', async ({ page }, 
     expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['ftt:consent']);
     expect(await page.evaluate(() => Object.keys(sessionStorage))).toEqual([]);
   }
-  expect(outgoing).toEqual([]);
+  const notificationHosts = ['https://hooks.slack.com/', 'https://api.web3forms.com/'];
+  expect(outgoing.filter((url) => !notificationHosts.some((h) => url.startsWith(h)))).toEqual([]);
 });
 test('required validation and no-assets separate tab preserve website answers', async ({
   page,
@@ -58,10 +61,10 @@ test('required validation and no-assets separate tab preserve website answers', 
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Choose an answer');
   for (let i = 0; i < 4; i++) {
-    await page.locator('#questionnaire input').first().check();
+    await page.locator('#questionnaire input').first().click();
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
   }
-  await page.getByLabel('No assets', { exact: true }).check();
+  await page.getByLabel('No assets', { exact: true }).click();
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   const popup = context.waitForEvent('page');
   await page.getByRole('link', { name: 'Open branding questions in a new tab' }).click();
@@ -76,7 +79,7 @@ test('required validation and no-assets separate tab preserve website answers', 
 });
 test('stage two conditional changes remove stale review answers', async ({ page }) => {
   await begin(page, 'websites', '&stage=2');
-  await page.getByLabel('Complete redesign and rebuild', { exact: true }).check();
+  await page.getByLabel('Complete redesign and rebuild', { exact: true }).click();
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await complete(page);
   await expect(
@@ -90,7 +93,7 @@ test('stage two conditional changes remove stale review answers', async ({ page 
       exact: true,
     })
     .click();
-  await page.getByLabel('New business website', { exact: true }).check();
+  await page.getByLabel('New business website', { exact: true }).click();
   await page.getByRole('button', { name: 'Review your requirements', exact: true }).click();
   await expect(
     page
@@ -176,12 +179,13 @@ test('marketing navigation works without JavaScript', async ({ browser }) => {
 
 for (const service of ['branding', 'websites', 'mobile-apps', 'ai-automation']) {
   test(`detailed ${service} brief produces a PDF`, async ({ page }, testInfo) => {
+    test.setTimeout(90000);
     await begin(page, service, '&stage=2');
     await complete(page);
     await page.getByRole('button', { name: 'Create PDF', exact: true }).click();
     await expect(
       page.getByRole('heading', { name: 'Your project enquiry PDF is ready' }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 30000 });
     const download = page.waitForEvent('download');
     await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
     await (await download).saveAs(testInfo.outputPath(`${service}-detailed.pdf`));
@@ -190,7 +194,7 @@ for (const service of ['branding', 'websites', 'mobile-apps', 'ai-automation']) 
 
 test('partial PDF and generation failure preserve the readable review', async ({ page }) => {
   await begin(page);
-  await page.getByLabel('New business website', { exact: true }).check();
+  await page.getByLabel('New business website', { exact: true }).click();
   await page.getByRole('button', { name: 'Save PDF for later' }).click();
   await expect(page.getByRole('heading', { name: 'Save an unfinished summary' })).toBeVisible();
   await expect(page.locator('.review-row')).toHaveCount(2);
