@@ -82,8 +82,17 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     .filter((n) => attr(n, 'type') === 'application/ld+json')
     .flatMap((n) => JSON.parse(text(n))['@graph']);
   const org = graph.find((n) => n['@type'] === 'Organization');
-  assert.equal(org.sameAs.length, 6, path);
-  assert.equal(new Set(org.sameAs).size, 6, path);
+  assert.equal(org.sameAs.length, 7, path);
+  assert.equal(new Set(org.sameAs).size, 7, path);
+  assert.equal(org.identifier.value, 'SC807896', path);
+  assert.equal(org.identifier.propertyID, 'Companies House', path);
+  assert.equal(
+    org.identifier.url,
+    'https://find-and-update.company-information.service.gov.uk/company/SC807896',
+    path,
+  );
+  assert(org.sameAs.includes(org.identifier.url), path);
+  assert(org.description.includes('Dundee, Scotland'), path);
   assert(
     org.sameAs.some(
       (url) =>

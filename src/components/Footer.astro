@@ -27,7 +27,9 @@ import { legalLinks } from '../content/pages';
         >
       </div>
     </div><SocialLinks location="footer" /><div class="footer-bottom">
-      <p>{ui.registration}</p><p>{company.address}</p><p>{ui.copyright}</p>
+      <p><a href={company.registryURL}>{ui.registration}</a></p><p>{company.address}</p><p>
+        {ui.copyright}
+      </p>
     </div>
   </div>
 </footer>

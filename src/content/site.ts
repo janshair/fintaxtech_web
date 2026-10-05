@@ -11,6 +11,10 @@ export const company = {
   hours: 'Monday to Friday, 09:00–18:00 UK time',
   response: 'We aim to reply within two UK business days.',
   url: 'https://fintaxtech.co.uk',
+  description:
+    'FinTaxTech is the trading name of Fintaxtech Ltd (SC807896), a website, mobile app, branding and AI automation business based in Dundee, Scotland, working remotely with clients across the UK and worldwide.',
+  registryName: 'Companies House',
+  registryURL: 'https://find-and-update.company-information.service.gov.uk/company/SC807896',
 };
 export const ui = {
   home: 'Home',

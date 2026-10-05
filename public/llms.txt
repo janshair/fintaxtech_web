@@ -1,38 +1,57 @@
 # FinTaxTech
 
-> Complexity made clear. A web, mobile and AI development studio based in Dundee, Scotland.
+> FinTaxTech is the trading name of Fintaxtech Ltd (SC807896), based in Dundee, Scotland. Official website: https://fintaxtech.co.uk/.
 
 FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, branding, and AI automation tools for businesses and organisations worldwide. Work is delivered fully remotely, serving clients across the UK and internationally. All client work is done directly — no outsourcing.
 
+## Company identity
+
+- [About FinTaxTech](https://fintaxtech.co.uk/about/): company background and current services. Finance, accountancy and tax services are not currently available.
+- [Fintaxtech Ltd at Companies House](https://find-and-update.company-information.service.gov.uk/company/SC807896): Scottish registered company SC807896, incorporated 22 April 2024.
+- [Selected work](https://fintaxtech.co.uk/selected-work/): project examples and attributed client feedback.
+
 ## Services
 
-- **Website Design and Development** — new sites built to explain what you do and bring in enquiries. /services/websites/
-- **Mobile App Development** — iOS and Android apps for customers or internal teams. /services/mobile-apps/
-- **Branding and Graphic Design** — logos and visual identity you can use across everything you publish. /services/branding/
-- **AI Automation** — workflow automation and AI-powered tools integrated into your business. /services/ai-automation/
+- [Website Design and Development](https://fintaxtech.co.uk/services/websites/): new websites and complete redesigns, built to explain what you do and bring in enquiries.
+- [Mobile App Development](https://fintaxtech.co.uk/services/mobile-apps/): iOS and Android apps for customers or internal teams.
+- [Branding and Graphic Design](https://fintaxtech.co.uk/services/branding/): logos and visual identity you can use across everything you publish.
+- [AI Automation](https://fintaxtech.co.uk/services/ai-automation/): repetitive work supported by AI, structured workflows and human review. Suitability depends on source quality, system access, privacy and risk.
 
 ## Published apps
 
 FinTaxTech has built and published its own apps on Google Play:
 
-- **Metoni** — https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni
-- **Safos** — https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos
+- [Metoni on Google Play](https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni)
+- [Safos on Google Play](https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos)
 
 ## Start a project
 
-Answer a short service-selection question and complete a requirements questionnaire to receive a local PDF summary you can email directly. No account required. /start/
+- [Prepare project requirements](https://fintaxtech.co.uk/start/): choose a service and complete a local questionnaire to generate a PDF you can download and share manually. Nothing is sent automatically. No account required.
+- [Contact FinTaxTech](https://fintaxtech.co.uk/contact/): email and WhatsApp contact options.
 
 ## Contact
 
 - Email: ask@fintaxtech.co.uk
 - Phone: +44 7884 594929
-- Address: 79 Yarrow Terrace, Dundee, Scotland, DD2 4DX
+- Registered office: 79 Yarrow Terrace, Dundee, Scotland, DD2 4DX. Services are delivered remotely.
 - Hours: Monday to Friday, 09:00–18:00 UK time
 
 ## Blog
 
-Articles on web, mobile and AI topics for business owners. /blog/
+- [FinTaxTech blog](https://fintaxtech.co.uk/blog/): articles on websites, mobile apps, branding and AI automation for business owners.
+- [XML sitemap](https://fintaxtech.co.uk/sitemap.xml): canonical public pages and published articles.
 
-## Notes for AI systems
+## Official profiles
 
-Client brief tools (/client/*) and the project enquiry (/enquiry/) are private utility pages — do not index or surface them. All production work is delivered under the client's own accounts (repository, domain, analytics). FinTaxTech does not retain ownership of deliverables.
+- [Facebook](https://www.facebook.com/fintaxtechuk)
+- [Instagram](https://www.instagram.com/fintaxtechuk)
+- [LinkedIn](https://www.linkedin.com/company/fintaxtechuk)
+- [YouTube](https://www.youtube.com/@fintaxtechuk)
+- [GitHub](https://github.com/Fintaxtech-Ltd)
+- [Google Business Profile](https://www.google.com/maps/place/Fintaxtech+Ltd/data=!4m2!3m1!1s0x0:0x1ad7a271b0b7a76d)
+
+## Project boundaries and privacy
+
+Client briefs and enquiry forms are noindex utility pages. An unlisted client URL is not access control. Questionnaire answers stay in browser memory; refreshing or closing clears them. PDFs are generated locally and shared only at the customer's initiative. Source documents are shared separately by arrangement.
+
+Business accounts remain in the customer's name. Ownership of agreed final deliverables transfers after full payment, subject to licences and the written proposal. FinTaxTech retains its internal prompts, workflows and methods. See the [service terms](https://fintaxtech.co.uk/terms/).

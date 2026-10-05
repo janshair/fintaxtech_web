@@ -76,8 +76,8 @@ export const pages: Record<string, InfoPage> = {
     ],
   },
   about: {
-    title: 'Complexity made clear.',
-    intro: 'A global digital partner, registered in Dundee, Scotland.',
+    title: 'About FinTaxTech',
+    intro: company.description,
     sections: [
       [
         'Finance. Tax. Technology.',
