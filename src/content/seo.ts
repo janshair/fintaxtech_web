@@ -1,4 +1,5 @@
 import { legacyRedirects } from './legacy-redirects';
+import { metoni, metoniSupport } from './metoni';
 import { automationCopy } from './ai-automation';
 import { promptBriefCopy } from './prompt-brief';
 import { promoCopy, promoStatus } from './promo';
@@ -23,6 +24,8 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [metoni.route]: { title: metoni.seoTitle, description: metoni.description },
+  [metoni.supportRoute]: { title: metoniSupport.title, description: metoniSupport.description },
   ...Object.fromEntries(
     legacyRedirects.map((redirect) => [
       redirect.route,
@@ -156,5 +159,5 @@ export const seoPages: Record<string, PageSEO> = {
 export const indexablePaths = Object.keys(seoPages).filter((path) => !seoPages[path].noindex);
 
 export const appPolicyPaths = indexablePaths.filter(
-  (path) => path.startsWith('/safos/') || path.startsWith('/metoni/'),
+  (path) => (path.startsWith('/safos/') || path.startsWith('/metoni/')) && path.endsWith('.html'),
 );

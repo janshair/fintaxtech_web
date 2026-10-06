@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import MetoniDownloads from '../../components/metoni/MetoniDownloads.astro';
+import MetoniLinks from '../../components/metoni/MetoniLinks.astro';
+import MetoniMedia from '../../components/metoni/MetoniMedia.astro';
+import { metoni } from '../../content/metoni';
+import { metoniMedia, metoniSocial } from '../../content/metoni-media';
+---
+
+<SiteLayout title={metoni.seoTitle} description={metoni.description} socialImage={metoniSocial}>
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">{metoni.eyebrow}</p>
+      {
+        metoniMedia.icon && (
+          <Image
+            class="metoni-icon"
+            src={metoniMedia.icon}
+            alt={metoniMedia.iconAlt}
+            width={96}
+            height={96}
+            loading="eager"
+          />
+        )
+      }
+      <h1>{metoni.name}</h1>
+      <p class="metoni-headline">{metoni.headline}</p>
+      <p class="lead">{metoni.intro}</p>
+      <MetoniDownloads />
+      <MetoniLinks />
+    </header>
+    <MetoniMedia />
+    <section class="section" aria-labelledby="metoni-features">
+      <h2 id="metoni-features">{metoni.featuresTitle}</h2>
+      <div class="metoni-features">
+        {
+          metoni.features.map(([title, description]) => (
+            <section>
+              <>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </>
+            </section>
+          ))
+        }
+      </div>
+    </section>
+    <section class="section" aria-labelledby="metoni-download">
+      <h2 id="metoni-download">{metoni.ctaTitle}</h2>
+      <p>{metoni.ctaText}</p>
+      <MetoniDownloads />
+      <a href={metoni.supportRoute}>{metoni.supportLabel}</a>
+    </section>
+  </div>
+</SiteLayout>
+<style>
+  .metoni-icon {
+    display: block;
+    margin-bottom: var(--space-5);
+    border-radius: var(--radius);
+  }
+  .metoni-headline {
+    font-family: var(--font-heading);
+    font-size: var(--h2);
+    line-height: var(--line-heading);
+    max-width: var(--reading);
+    margin-top: var(--space-5);
+  }
+  .metoni-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--brief-choice-width)), 1fr));
+    gap: var(--space-7);
+  }
+</style>

@@ -21,6 +21,8 @@ FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, 
 
 FinTaxTech has built and published its own apps on Google Play:
 
+- [Metoni — workout planner and log](https://fintaxtech.co.uk/metoni/): Android app with offline workout planning and logging; iOS is in development.
+- [Metoni support](https://fintaxtech.co.uk/metoni/support/): troubleshooting, contact information and policy links.
 - [Metoni on Google Play](https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni)
 - [Safos on Google Play](https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos)
 

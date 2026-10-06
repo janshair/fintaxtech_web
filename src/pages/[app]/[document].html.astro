@@ -2,6 +2,7 @@
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { appPolicies } from '../../content/app-policies';
 import { seoPages } from '../../content/seo';
+import MetoniLinks from '../../components/metoni/MetoniLinks.astro';
 export function getStaticPaths() {
   return Object.keys(appPolicies).map((path) => {
     const [, app, document] = path.split('/');
@@ -12,7 +13,13 @@ const { path } = Astro.props;
 ---
 
 <SiteLayout title={seoPages[path].title}
-  ><div class="app-policy" set:html={appPolicies[path]} /></SiteLayout
+  ><div class="app-policy" set:html={appPolicies[path]} />{
+    path.startsWith('/metoni/') && (
+      <div class="container">
+        <MetoniLinks />
+      </div>
+    )
+  }</SiteLayout
 >
 <style is:global>
   .app-policy .legal-content {

@@ -1,0 +1,28 @@
+---
+import { metoni } from '../../content/metoni';
+interface Props {
+  appStoreURL?: string;
+}
+const { appStoreURL = metoni.appStoreURL } = Astro.props;
+---
+
+<div class="actions">
+  <a class="button primary" href={metoni.playStoreURL} target="_blank" rel="noopener noreferrer"
+    >{metoni.playLabel}</a
+  >
+  {
+    appStoreURL && (
+      <a class="button" href={appStoreURL} target="_blank" rel="noopener noreferrer">
+        {metoni.appStoreLabel}
+      </a>
+    )
+  }
+</div>
+<p class="muted platform-status">
+  {metoni.androidStatus}<br />{appStoreURL ? metoni.iosAvailableStatus : metoni.iosStatus}
+</p>
+<style>
+  .platform-status {
+    margin-top: var(--space-4);
+  }
+</style>

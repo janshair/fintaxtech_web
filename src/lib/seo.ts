@@ -3,6 +3,7 @@ import { seoPages } from '../content/seo';
 import { publicProfiles } from '../content/social';
 import { services } from '../content/services';
 import { blogCopy } from '../content/blog';
+import { metoni } from '../content/metoni';
 export interface ArticleSEO {
   title: string;
   pubDate: Date;
@@ -24,6 +25,8 @@ const organizationNames = [company.name, company.legal].map(normalizeAuthor);
 export function breadcrumbs(path: string, title?: string) {
   if (path === '/' || seoPages[path]?.noindex) return [];
   const items = [{ name: ui.home, url: absoluteURL('/') }];
+  if (path.startsWith(metoni.route) && path !== metoni.route)
+    items.push({ name: metoni.name, url: absoluteURL(metoni.route) });
   if (path.startsWith('/services/') && path !== '/services/')
     items.push({ name: ui.services, url: absoluteURL('/services/') });
   if (path.startsWith('/blog/') && path !== '/blog/')
@@ -80,10 +83,34 @@ export function structuredData(
         description,
         isPartOf: { '@id': website },
         ...(path === '/about/' ? { mainEntity: { '@id': organization } } : {}),
+        ...(path === metoni.route ? { mainEntity: { '@id': absoluteURL('/metoni/#app') } } : {}),
         ...(crumbs.length ? { breadcrumb: { '@id': url + '#breadcrumb' } } : {}),
         ...(service ? { mainEntity: { '@id': url + '#service' } } : {}),
         ...(article ? { mainEntity: { '@id': url + '#article' } } : {}),
       },
+      ...(path === metoni.route
+        ? [
+            {
+              '@type': 'MobileApplication',
+              '@id': absoluteURL('/metoni/#app'),
+              name: metoni.name,
+              description: metoni.description,
+              url,
+              operatingSystem: metoni.appStoreURL ? ['Android', 'iOS'] : 'Android',
+              image,
+              applicationCategory: 'HealthApplication',
+              installUrl: metoni.playStoreURL,
+              downloadUrl: metoni.appStoreURL
+                ? [metoni.playStoreURL, metoni.appStoreURL]
+                : metoni.playStoreURL,
+              publisher: { '@id': organization },
+              creator: { '@id': organization },
+              mainEntityOfPage: { '@id': url + '#webpage' },
+              featureList: metoni.features.map(([title]) => title),
+              softwareHelp: { '@type': 'WebPage', url: absoluteURL(metoni.supportRoute) },
+            },
+          ]
+        : []),
       ...(article
         ? [
             {

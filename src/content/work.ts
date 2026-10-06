@@ -1,8 +1,12 @@
+import { metoni } from './metoni';
+export const workCopy = { appsEyebrow: 'Mobile app development', appsTitle: 'Our published apps' };
 export const publishedApps = [
   {
-    name: 'Metoni',
-    summary: 'A mobile app built and published by FinTaxTech, available on Android.',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni',
+    name: metoni.name,
+    summary: metoni.summary,
+    pageURL: metoni.route,
+    pageLabel: metoni.exploreLabel,
+    playStoreUrl: metoni.playStoreURL,
     visitLabel: 'View Metoni on Google Play',
   },
   {

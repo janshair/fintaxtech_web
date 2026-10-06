@@ -239,3 +239,21 @@ The fourth service is defined in `src/content/services.ts`, with shared position
 New enquiry links use `service=ai-automation`. Both `/start/` legacy links and `/enquiry/` also accept `service=prompt-services`, normalising it to the current service before rendering. Enquiry URLs remain noindex. Existing content articles retain their original URLs and wording; their category is AI Automation.
 
 The unlinked `/client/prompt-brief/` route remains available, now titled AI Automation Production Brief. Both public enquiry stages and the production brief first ask what should be automated. Content/document projects retain the existing content questions. Other projects collect process, trigger, inputs, steps, systems/access, output, frequency, volume, approvals, exceptions and sensitivity, with extra assistant-knowledge or system-connection details when relevant. Switching project type removes hidden answers from review and PDF. No documents, credentials or actual customer records should be entered. Answers stay local; PDFs are downloaded and shared manually.
+
+### Metoni marketing and support
+
+- Marketing URL: `https://fintaxtech.co.uk/metoni/`
+- Support URL: `https://fintaxtech.co.uk/metoni/support/`
+- Existing policies remain at `/metoni/privacy.html` and `/metoni/terms.html`.
+
+Edit the product wording, FAQs and store links in `src/content/metoni.ts`. The shared site layout supplies the header, footer, themes, SEO and breadcrumbs. The two pages are registered in `src/content/seo.ts`, so the existing static sitemap includes them automatically. Selected Work links to the marketing page and keeps a secondary Google Play action.
+
+The App Store link is deliberately absent until `metoni.appStoreURL` has a real public URL. Set that field only after the iOS release is available, then rebuild; the download component, support availability copy and application schema use that setting. Do not use a placeholder App Store URL.
+
+`src/assets/metoni/` contains optimised WebP images from the supplied Android Play Store material. `src/content/metoni-media.ts` imports those images and holds their alt text and captions. Astro produces responsive image sizes with explicit dimensions; screenshots are not cropped or stretched. The product social image is also reused on support.
+
+The supplied 42-second 1080p H.264 video is stored at `public/metoni/promotional-video.mp4` (10,265,276 bytes, about 9.79 MiB), with an extracted WebP poster and on-screen-text captions. The MP4 was remuxed for fast-start playback without re-encoding the picture. The original file remains unchanged.
+
+The media component supports an optional local video with a poster, controls, no autoplay and no preload. Configure `metoniMedia.video` only after reviewing the actual video. Supply its local `/metoni/...mp4` URL, MIME type, poster import, description and transcript/visual description. Spoken audio needs accurate WebVTT captions; set the `captions` URL and put the VTT under `public/metoni/`. Keep video size small for mobile visitors. GitHub warns above 50 MiB and blocks files above 100 MiB in regular Git; do not add oversized media or use a Git LFS pointer as a Pages video.
+
+Run `pnpm verify` and `pnpm test:browser`. Metoni tests cover public routes, the portfolio link, policy compatibility, sitemap, application metadata, contact actions, keyboard focus, both themes and narrow screens. The existing app privacy policy describes Firebase analytics and diagnostics; do not change the marketing into a blanket “no data collected” claim without verifying the released app and store declarations.

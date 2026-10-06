@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
 import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
-import { featuredWork as work, publishedApps } from '../content/work';
+import { featuredWork as work, publishedApps, workCopy } from '../content/work';
 ---
 
 <section class="section work-showcase" aria-labelledby="featured-work-title">
@@ -47,25 +47,27 @@ import { featuredWork as work, publishedApps } from '../content/work';
 </section>
 
 <section class="section" aria-labelledby="published-apps-title">
-  <p class="eyebrow">Mobile app development</p>
-  <h2 id="published-apps-title">Published apps</h2>
+  <p class="eyebrow">{workCopy.appsEyebrow}</p>
+  <h2 id="published-apps-title">{workCopy.appsTitle}</h2>
   <ul class="app-list">
-    {publishedApps.map((app) => (
-      <li class="app-card">
-        <div>
-          <h3>{app.name}</h3>
-          <p>{app.summary}</p>
-        </div>
-        <a
-          class="button"
-          href={app.playStoreUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {app.visitLabel} ↗
-        </a>
-      </li>
-    ))}
+    {
+      publishedApps.map((app) => (
+        <li class="app-card">
+          <div>
+            <h3>{'pageURL' in app ? <a href={app.pageURL}>{app.name}</a> : app.name}</h3>
+            <p>{app.summary}</p>
+          </div>
+          {'pageURL' in app && (
+            <a class="button primary" href={app.pageURL}>
+              {app.pageLabel}
+            </a>
+          )}
+          <a class="button" href={app.playStoreUrl} target="_blank" rel="noopener noreferrer">
+            {app.visitLabel} ↗
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </section>
 
@@ -80,6 +82,7 @@ import { featuredWork as work, publishedApps } from '../content/work';
     margin-top: 1.5rem;
   }
   .app-card {
+    margin: 0;
     border: 1px solid var(--border);
     border-radius: 0.5rem;
     padding: 1.5rem;

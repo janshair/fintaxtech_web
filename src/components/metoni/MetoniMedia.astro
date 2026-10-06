@@ -1,0 +1,98 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { metoni } from '../../content/metoni';
+import { metoniMedia } from '../../content/metoni-media';
+const { screenshots, video } = metoniMedia;
+const poster = video
+  ? await getImage({ src: video.poster, format: 'webp', width: Math.min(1200, video.poster.width) })
+  : undefined;
+---
+
+{
+  screenshots.length > 0 && (
+    <section class="section" aria-labelledby="metoni-gallery">
+      <h2 id="metoni-gallery">{metoni.galleryTitle}</h2>
+      <div class="metoni-gallery">
+        {screenshots.map(({ image, alt, caption }) => (
+          <figure>
+            <Image
+              src={image}
+              alt={alt}
+              widths={[320, 640, 960]}
+              sizes="(max-width: 600px) 85vw, 320px"
+              format="webp"
+              loading="lazy"
+            />
+            <figcaption>{caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )
+}
+{
+  video && poster && (
+    <section class="section" aria-labelledby="metoni-video">
+      <h2 id="metoni-video">{metoni.videoTitle}</h2>
+      <p id="metoni-video-description">{video.description}</p>
+      <video
+        controls
+        playsinline
+        preload="none"
+        poster={poster.src}
+        width={video.poster.width}
+        height={video.poster.height}
+        aria-labelledby="metoni-video"
+        aria-describedby="metoni-video-description"
+      >
+        <source src={video.src} type={video.type} />
+        {video.captions && (
+          <track
+            kind="captions"
+            src={video.captions}
+            srclang="en"
+            label={metoni.captionLanguage}
+            default
+          />
+        )}
+        <p>
+          {metoni.videoFallback} <a href={video.src}>{metoni.videoDownload}</a>
+        </p>
+      </video>
+      <p>
+        <a href={video.src}>{metoni.videoDownload}</a>
+      </p>
+      <details>
+        <>
+          <summary>{metoni.transcriptTitle}</summary>
+          <p>{video.transcript}</p>
+        </>
+      </details>
+    </section>
+  )
+}
+<style>
+  .metoni-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--metoni-screenshot-width)), 1fr));
+    gap: var(--space-6);
+  }
+  figure {
+    margin: 0;
+  }
+  figure img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius);
+  }
+  figcaption {
+    margin-top: var(--space-3);
+    color: var(--muted);
+  }
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+</style>

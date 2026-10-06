@@ -1,0 +1,69 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import MetoniLinks from '../../components/metoni/MetoniLinks.astro';
+import { metoni, metoniSupport as copy } from '../../content/metoni';
+import { metoniSocial } from '../../content/metoni-media';
+import { company } from '../../content/site';
+const emailURL = `mailto:${company.email}?subject=${encodeURIComponent(copy.emailSubject)}`;
+---
+
+<SiteLayout title={copy.title} description={copy.description} socialImage={metoniSocial}>
+  <div class="container">
+    <header class="page-head"><h1>{copy.title}</h1><p class="lead">{copy.intro}</p></header>
+    <div class="prose">
+      <section>
+        <h2>{copy.contactTitle}</h2>
+        <address>
+          <strong>{copy.companyName}</strong><br />
+          <a href={emailURL}>{company.email}</a><br />
+          <a href={`tel:+${company.whatsapp}`}>{company.phone}</a><br />
+          {copy.addressLabel}: {company.address}
+        </address>
+        <p>{company.hours}. {company.response}</p>
+      </section>
+      <section>
+        <h2>{copy.platformsTitle}</h2><p>{copy.platforms}</p><a
+          href={metoni.playStoreURL}
+          target="_blank"
+          rel="noopener noreferrer">{metoni.playLabel}</a
+        >
+      </section>
+      <section>
+        <h2>{copy.troubleshootingTitle}</h2><ol>
+          {copy.troubleshooting.map((step) => <li>{step}</li>)}
+        </ol>
+      </section>
+      <section>
+        <h2>{copy.reportTitle}</h2><p>{copy.reportIntro}</p><ul>
+          {copy.reportDetails.map((detail) => <li>{detail}</li>)}
+        </ul>
+        <p class="notice">{copy.privacyWarning}</p><a class="button primary" href={emailURL}
+          >{copy.emailLabel}</a
+        >
+      </section>
+      <section><h2>{copy.feedbackTitle}</h2><p>{copy.feedback}</p></section>
+      <section>
+        <h2>{copy.faqTitle}</h2>{
+          copy.faq.map(([question, answer]) => (
+            <section>
+              <>
+                <h3>{question}</h3>
+                <p>{answer}</p>
+              </>
+            </section>
+          ))
+        }
+      </section>
+      <MetoniLinks />
+    </div>
+  </div>
+</SiteLayout>
+<style>
+  address {
+    font-style: normal;
+    margin-bottom: var(--space-5);
+  }
+  .prose > section {
+    margin-bottom: var(--space-8);
+  }
+</style>

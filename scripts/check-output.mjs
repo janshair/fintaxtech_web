@@ -11,6 +11,14 @@ async function files(dir) {
   ).flat();
 }
 const all = await files('dist');
+// Native video must remain a real, reasonably sized GitHub Pages asset, not an LFS pointer.
+for (const file of all.filter((path) => /\.(mp4|webm|mov)$/i.test(path))) {
+  const size = (await stat(file)).size;
+  assert(size <= 100 * 1024 * 1024, `${file}: exceeds GitHub's 100 MiB file limit`);
+  if (size > 50 * 1024 * 1024)
+    console.warn(`${file}: exceeds GitHub's 50 MiB warning threshold; optimise before publishing`);
+  assert(size > 1024, `${file}: video is too small; check for an LFS pointer or placeholder`);
+}
 assert.equal(await readFile('CNAME', 'utf8'), await readFile('dist/CNAME', 'utf8'));
 assert(all.includes('dist/404.html'));
 assert(all.includes('dist/.nojekyll'));
