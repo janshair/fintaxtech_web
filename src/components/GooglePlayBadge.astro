@@ -1,0 +1,30 @@
+---
+// Official artwork includes Google's required clear space; keep it intact.
+// Source: https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png
+import badge from '../assets/store-badges/google-play-en.png';
+interface Props {
+  href: string;
+  label: string;
+}
+const { href, label } = Astro.props;
+---
+
+<a class="google-play-badge" href={href} target="_blank" rel="noopener noreferrer">
+  <img src={badge.src} alt={label} width={badge.width} height={badge.height} decoding="async" />
+</a>
+
+<style>
+  .google-play-badge {
+    display: inline-block;
+    width: var(--store-badge-width);
+    max-width: 100%;
+    align-self: flex-start;
+    flex-shrink: 0;
+    border-radius: var(--radius);
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

@@ -1,6 +1,51 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { metoni } from '../../src/content/metoni';
+import { publishedApps } from '../../src/content/work';
+
+test('shared Google Play badges retain app destinations, keyboard access and responsive artwork', async ({
+  page,
+}, info) => {
+  await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
+  for (const theme of ['light', 'dark']) {
+    await page.addInitScript((theme) => localStorage.setItem('ftt:theme', theme), theme);
+    for (const width of [320, 390, 1280]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const route of ['/selected-work/', metoni.route]) {
+        await page.goto(route);
+        const badges = page.locator('.google-play-badge');
+        await expect(badges).toHaveCount(2);
+        for (let i = 0; i < 2; i++) {
+          const badge = badges.nth(i);
+          const expected =
+            route === metoni.route
+              ? { url: metoni.playStoreURL, label: metoni.playLabel }
+              : { url: publishedApps[i].playStoreUrl, label: publishedApps[i].visitLabel };
+          await expect(badge).toHaveAttribute('href', expected.url);
+          await expect(badge).toHaveAccessibleName(expected.label);
+          await expect(badge).toHaveAttribute('rel', 'noopener noreferrer');
+          await badge.focus();
+          await expect(badge).toBeFocused();
+          const img = badge.locator('img');
+          await expect
+            .poll(() => img.evaluate((e: HTMLImageElement) => e.complete && e.naturalWidth > 0))
+            .toBe(true);
+          const size = await img.boundingBox();
+          expect(size!.width / size!.height).toBeCloseTo(646 / 250);
+          expect(size!.height).toBeGreaterThan(44);
+        }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+          true,
+        );
+        if (info.project.name === 'chromium' && width === 1280) {
+          await page.locator(route === metoni.route ? '.page-head' : '.app-list').screenshot({
+            path: `test-results/play-badges-${route === metoni.route ? 'metoni' : 'work'}-${theme}.png`,
+          });
+        }
+      }
+    }
+  }
+});
 
 test('Metoni routes, store destinations and static metadata', async ({
   page,

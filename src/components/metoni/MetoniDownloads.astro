@@ -1,5 +1,6 @@
 ---
 import { metoni } from '../../content/metoni';
+import GooglePlayBadge from '../GooglePlayBadge.astro';
 interface Props {
   appStoreURL?: string;
 }
@@ -7,9 +8,7 @@ const { appStoreURL = metoni.appStoreURL } = Astro.props;
 ---
 
 <div class="actions">
-  <a class="button primary" href={metoni.playStoreURL} target="_blank" rel="noopener noreferrer"
-    >{metoni.playLabel}</a
-  >
+  <GooglePlayBadge href={metoni.playStoreURL} label={metoni.playLabel} />
   {
     appStoreURL && (
       <a class="button" href={appStoreURL} target="_blank" rel="noopener noreferrer">
