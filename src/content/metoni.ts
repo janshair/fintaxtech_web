@@ -1,25 +1,26 @@
 // Confirm the public App Store URL before enabling the iOS download action.
 export const metoni = {
-  name: 'Metoni',
+  name: 'Metoni: Workout Tracker',
   route: '/metoni/',
   supportRoute: '/metoni/support/',
   privacyRoute: '/metoni/privacy.html',
   termsRoute: '/metoni/terms.html',
   playStoreURL: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni',
   appStoreURL: undefined as string | undefined,
-  seoTitle: 'Metoni — Offline Gym & Cardio Workout Planner',
+  seoTitle: 'Metoni: Workout Tracker',
   description:
-    'Plan workouts, log strength and cardio sessions, and review your training history with Metoni. Fast, offline workout logging on Android, with no account required.',
+    'Log strength-training sets, use exercise rest timers, follow workout plans and review session history with Metoni. Available on Android, with no account required.',
   eyebrow: 'Built and published by FinTaxTech',
   headline: 'Plan your workout. Log it. Get back to training.',
   intro:
-    'A fast, offline gym and cardio workout planner and log. Keep your routine, record your sets and review previous sessions without creating an account.',
-  summary: 'An offline gym and cardio workout planner and log, built and published by FinTaxTech.',
+    'A strength-training workout tracker. Log sets during a live workout, follow your plans and review session history without creating an account. Your workout data stays on your device.',
+  summary:
+    'A strength-training workout tracker with on-device workout storage and no account required, published by Fintaxtech Ltd.',
   exploreLabel: 'Explore Metoni',
   playLabel: 'Get Metoni on Google Play',
   appStoreLabel: 'Download Metoni on the App Store',
   androidStatus: 'Android — available on Google Play',
-  iosStatus: 'iOS — in development',
+  iosStatus: 'iPhone and iPad — App Store release pending; not yet available',
   iosAvailableStatus: 'iOS — available on the App Store',
   linksLabel: 'Metoni information',
   supportLabel: 'Metoni support',
@@ -28,33 +29,24 @@ export const metoni = {
   overviewLabel: 'About Metoni',
   featuresTitle: 'Built for the time between sets',
   features: [
+    ['Fast mid-workout logging', 'Record weights and reps quickly during a live workout.'],
+    ['Workout plans', 'Keep workout plans ready for your next session.'],
+    ['Kilograms or pounds', 'Choose kg or lb in Settings.'],
     [
-      'Fast mid-workout logging',
-      'Choose an exercise, record the weight and reps, and carry on. Your previous session is there for reference while you log.',
-    ],
-    [
-      'Plans and freeform sessions',
-      'Create a routine to follow or log a freeform session when you want to train without a plan.',
-    ],
-    [
-      'Strength and cardio together',
-      'Record strength work with weights and reps, and cardio with duration, distance or level as appropriate to the exercise.',
-    ],
-    [
-      'Suggestions you control',
-      'Metoni can suggest a small increase in weight or reps based on your previous session. You confirm each change; suggestions do not guarantee progress.',
+      'Rule-based weight suggestions',
+      'When every working set of an exercise hits its target reps at the same weight, Metoni suggests adding the weight increment you choose for that exercise. Warm-up sets are ignored.',
     ],
     [
       'A rest timer for each exercise',
       'Set different rest periods for different exercises, rather than using one timer setting for every movement.',
     ],
     [
-      'History and progress',
-      'Review past sessions, exercise history, weekly volume, training streaks and weekly completion.',
+      'Session history and activity',
+      'Review total volume, sets, reps and duration per session, plus a day streak and weekly activity.',
     ],
     [
-      'Your own exercises',
-      'Add custom exercises and muscle groups when the existing exercise library does not cover your routine.',
+      'Exercise library and your own exercises',
+      'Browse 135 exercises across 9 muscle groups, or add your own exercises.',
     ],
     [
       'Offline, with no account',
@@ -79,10 +71,10 @@ export const metoni = {
 export const metoniSupport = {
   title: 'Metoni support',
   description:
-    'Get help with Metoni, the offline gym and cardio workout log. Contact FinTaxTech, troubleshoot a problem, or share feedback and feature requests.',
+    'Get help with Metoni: Workout Tracker. Contact Fintaxtech Ltd, troubleshoot a problem, or share feedback and feature requests.',
   intro:
     'Need help with Metoni? Email us with a short description of the problem. We also welcome feedback and ideas for future versions.',
-  companyName: 'FinTaxTech Ltd',
+  companyName: 'Fintaxtech Ltd',
   contactTitle: 'Contact the Metoni team',
   addressLabel: 'Registered office',
   emailLabel: 'Email Metoni support',
@@ -90,7 +82,7 @@ export const metoniSupport = {
   platformsTitle: 'Supported platforms',
   platforms: metoni.appStoreURL
     ? 'Metoni is available on Android through Google Play and on iOS through the App Store. Check the relevant store listing for compatibility with your device.'
-    : 'Metoni is currently available on Android through Google Play. The iOS version is in development and is not yet available on the App Store. Check Google Play for compatibility with your device.',
+    : 'Metoni is available on Android through Google Play. The iPhone and iPad App Store release is pending and is not yet available. Check Google Play for compatibility with your device.',
   troubleshootingTitle: 'Try these steps first',
   troubleshooting: [
     'Check Google Play for an available Metoni update.',
@@ -123,14 +115,20 @@ export const metoniSupport = {
       'Yes. Workout planning and logging work offline. The privacy policy separately explains analytics, crash reporting and remote configuration.',
     ],
     [
-      'Can I record cardio as well as lifting?',
-      'Yes. Metoni supports strength and cardio exercises in your workout log.',
+      'Where is my data stored?',
+      'Your workout data is stored on your device. The privacy policy explains the separate analytics, crash reporting and remote configuration services.',
     ],
-    ['Can I add my own exercises?', 'Yes. You can add custom exercises and muscle groups.'],
+    ['Can I add my own exercises?', 'Yes. You can add your own exercises.'],
     [
-      'Do suggestions change my workout automatically?',
-      'No. You confirm suggested changes to weight or reps.',
+      'How do weight suggestions work?',
+      'When every working set of an exercise hits its target reps at the same weight, Metoni suggests adding the weight increment you choose for that exercise. Warm-up sets are ignored.',
     ],
+    [
+      'How do I switch kg/lb or the theme?',
+      'Choose kg or lb and the light or dark theme in Settings.',
+    ],
+    ['How do I export or import a plan?', 'Go to Settings › Workout Plans › plan menu.'],
+    ['How do I delete my data?', 'Delete the app to remove your locally stored workout data.'],
     [
       'Can support recover my workout records?',
       'FinTaxTech does not hold a copy of your locally stored workout records. Uninstalling the app can permanently delete them; we cannot restore them from our systems.',
@@ -139,7 +137,7 @@ export const metoniSupport = {
       'Is Metoni available for iPhone?',
       metoni.appStoreURL
         ? 'Yes. Metoni is available on the App Store. Check the listing for compatibility with your device.'
-        : 'The iOS version is in development. There is no public App Store download link or announced release date yet.',
+        : 'The iPhone and iPad App Store release is pending. It is not yet available; we will add a download link after approval.',
     ],
   ],
 };

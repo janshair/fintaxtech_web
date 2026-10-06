@@ -7,13 +7,12 @@ import session from '../assets/metoni/session.webp';
 import home from '../assets/metoni/home_dark.webp';
 import library from '../assets/metoni/library_chest.webp';
 import rest from '../assets/metoni/active_dark.webp';
-import videoPoster from '../assets/metoni/video-poster.webp';
 export const metoniSocial = {
   url: social.src,
   width: social.width,
   height: social.height,
   type: 'image/webp',
-  alt: 'Metoni: offline gym planner and workout log, showing light and dark app screens.',
+  alt: 'Metoni: Workout Tracker, showing light and dark app screens.',
 };
 
 // Android captures supplied from rr-design/playstore. Screenshots retain their full aspect ratio.
@@ -36,16 +35,6 @@ export const metoniMedia: {
   screenshots: MetoniScreenshot[];
   video?: MetoniVideo;
 } = {
-  video: {
-    src: '/metoni/promotional-video.mp4',
-    type: 'video/mp4',
-    poster: videoPoster,
-    captions: '/metoni/promotional-video.vtt',
-    description:
-      'A 42-second demonstration of Metoni: start a workout plan, record sets, review a weight suggestion, browse workout history and customise exercises.',
-    transcript:
-      'Music plays throughout, with no spoken narration. The Metoni icon appears with the words “Gym planner & workout log”. A phone shows a planned workout under “Start your plan in one tap”. The demonstration records squat sets and shows previous weights and reps. An Apply Suggestion button appears; the suggested increase requires confirmation. Under “Track every session”, the home screen shows recent activity and the workout history opens. Under “Tune every exercise”, the demonstration opens settings and the exercise library, then filters the exercise list by muscle group. The closing screen reads “Offline. No account. Just training.” and “Get Metoni free on Google Play”.',
-  },
   icon,
   iconAlt: 'Metoni app icon',
   screenshots: [

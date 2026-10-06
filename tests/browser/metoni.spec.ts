@@ -57,6 +57,9 @@ test('Metoni routes, store destinations and static metadata', async ({
   for (const route of [metoni.route, metoni.supportRoute, metoni.privacyRoute, metoni.termsRoute]) {
     expect((await staticPage.goto(route))?.status()).toBe(200);
     await expect(staticPage.locator('h1')).toHaveCount(1);
+    await expect(staticPage.locator('main')).not.toContainText(
+      /\bAI\b|artificial intelligence|\bPro\b|subscriptions?|[£$€]\d/i,
+    );
     await expect(staticPage.locator('link[rel=canonical]')).toHaveAttribute(
       'href',
       `https://fintaxtech.co.uk${route}`,
@@ -137,48 +140,8 @@ for (const theme of ['light', 'dark'])
     }
   });
 
-test('Metoni video loads only on demand and plays with captions and a readable alternative', async ({
-  page,
-  request,
-}) => {
-  await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
-  const mediaRequests: string[] = [];
-  page.on('request', (r) => {
-    if (r.url().endsWith('/metoni/promotional-video.mp4')) mediaRequests.push(r.url());
-  });
+test('Metoni launch page omits the outdated promotional video', async ({ page }) => {
   await page.goto(metoni.route);
-  const video = page.locator('video');
-  await video.scrollIntoViewIfNeeded();
-  await expect(video).toHaveAttribute('controls', '');
-  await expect(video).toHaveAttribute('preload', 'none');
-  await expect(video).not.toHaveAttribute('autoplay');
-  await expect(video).toHaveAttribute('poster', /video-poster.*\.webp$/);
-  await expect(video.locator('track')).toHaveAttribute('kind', 'captions');
-  expect(mediaRequests).toHaveLength(0);
-  const vtt = await request.get('/metoni/promotional-video.vtt');
-  expect(vtt.status()).toBe(200);
-  expect(await vtt.text()).toContain('WEBVTT');
-  await video.focus();
-  await expect(video).toBeFocused();
-  // Mute only the test playback so the automated suite does not play audio on the user's computer.
-  await video.evaluate(async (v: HTMLVideoElement) => {
-    v.muted = true;
-    await v.play();
-  });
-  await expect
-    .poll(() => video.evaluate((v: HTMLVideoElement) => v.currentTime))
-    .toBeGreaterThan(0);
-  const state = await video.evaluate((v: HTMLVideoElement) => ({
-    duration: v.duration,
-    width: v.videoWidth,
-    height: v.videoHeight,
-    error: v.error,
-  }));
-  expect(state.duration).toBeGreaterThan(42);
-  expect(state.duration).toBeLessThan(43);
-  expect(state.width / state.height).toBeCloseTo(16 / 9);
-  expect(state.error).toBeNull();
-  await video.evaluate((v: HTMLVideoElement) => v.pause());
-  await page.getByText(metoni.transcriptTitle, { exact: true }).click();
-  await expect(page.locator('details[open]')).toContainText('Apply Suggestion');
+  await expect(page.locator('video')).toHaveCount(0);
+  await expect(page.getByText(metoni.transcriptTitle, { exact: true })).toHaveCount(0);
 });

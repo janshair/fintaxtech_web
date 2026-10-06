@@ -148,12 +148,11 @@ export const seoPages: Record<string, PageSEO> = {
   '/metoni/privacy.html': {
     title: 'Metoni Privacy Policy',
     description:
-      'How Metoni, the gym log and AI tracker by Fintaxtech Ltd, collects, uses and protects app information.',
+      'How Metoni, a workout tracker by Fintaxtech Ltd, collects, uses and protects app information on iOS and Android.',
   },
   '/metoni/terms.html': {
     title: 'Metoni Terms of Use',
-    description:
-      'Read the terms governing use of Metoni, the gym log and AI tracker by Fintaxtech Ltd.',
+    description: 'Read the terms governing use of Metoni, a workout tracker by Fintaxtech Ltd.',
   },
 };
 export const indexablePaths = Object.keys(seoPages).filter((path) => !seoPages[path].noindex);
