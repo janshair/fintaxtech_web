@@ -34,43 +34,59 @@ const poster = video
   video && poster && (
     <section class="section" aria-labelledby="metoni-video">
       <h2 id="metoni-video">{metoni.videoTitle}</h2>
-      <p id="metoni-video-description">{video.description}</p>
-      <video
-        controls
-        playsinline
-        preload="none"
-        poster={poster.src}
-        width={video.poster.width}
-        height={video.poster.height}
-        aria-labelledby="metoni-video"
-        aria-describedby="metoni-video-description"
-      >
-        <source src={video.src} type={video.type} />
-        {video.captions && (
-          <track
-            kind="captions"
-            src={video.captions}
-            srclang="en"
-            label={metoni.captionLanguage}
-            default
+      <p id="metoni-video-description">{metoni.videoPrivacy}</p>
+      <div class="youtube-video" data-youtube-video>
+        <img
+          src={poster.src}
+          width={poster.attributes.width}
+          height={poster.attributes.height}
+          alt=""
+          loading="lazy"
+        />
+        <button
+          class="button primary"
+          type="button"
+          aria-describedby="metoni-video-description"
+          hidden
+        >
+          {metoni.videoLoad}
+        </button>
+        <template>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?playsinline=1&rel=0`}
+            title={metoni.videoFrameTitle}
+            allow="encrypted-media; fullscreen; picture-in-picture"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"
+            tabindex="0"
           />
-        )}
-        <p>
-          {metoni.videoFallback} <a href={video.src}>{metoni.videoDownload}</a>
-        </p>
-      </video>
+        </template>
+      </div>
       <p>
-        <a href={video.src}>{metoni.videoDownload}</a>
+        {metoni.videoFallback}{' '}
+        <a href={`https://youtu.be/${video.youtubeId}`} target="_blank" rel="noopener noreferrer">
+          {metoni.videoLink}
+        </a>
       </p>
-      <details>
-        <>
-          <summary>{metoni.transcriptTitle}</summary>
-          <p>{video.transcript}</p>
-        </>
-      </details>
     </section>
   )
 }
+<script>
+  document.querySelectorAll<HTMLElement>('[data-youtube-video]').forEach((container) => {
+    const button = container.querySelector('button');
+    const template = container.querySelector('template');
+    if (!button || !template) return;
+    button.hidden = false;
+    button.addEventListener(
+      'click',
+      () => {
+        container.replaceChildren(template.content.cloneNode(true));
+        container.querySelector('iframe')?.focus();
+      },
+      { once: true },
+    );
+  });
+</script>
 <style>
   .metoni-gallery {
     display: grid;
@@ -90,9 +106,30 @@ const poster = video
     margin-top: var(--space-3);
     color: var(--muted);
   }
-  video {
+  .youtube-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: var(--video-min-height);
+    margin-bottom: var(--space-5);
+    background: var(--surface);
+  }
+  .youtube-video img,
+  .youtube-video :global(iframe) {
     display: block;
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    border: 0;
+    object-fit: contain;
+  }
+  .youtube-video button {
+    position: absolute;
+    bottom: var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - var(--space-6));
   }
 </style>

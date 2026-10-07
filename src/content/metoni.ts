@@ -59,11 +59,12 @@ export const metoni = {
   ],
   galleryTitle: 'A look inside Metoni',
   videoTitle: 'See Metoni in action',
-  videoFallback:
-    'This browser cannot play the Metoni promotional video. Use the video link or read the description below.',
-  videoDownload: 'Open the Metoni promotional video',
-  transcriptTitle: 'Video transcript and visual description',
-  captionLanguage: 'English',
+  videoLoad: 'Load YouTube video',
+  videoFrameTitle: 'Metoni promotional video on YouTube',
+  videoPrivacy:
+    'Choose Load YouTube video to connect to YouTube and load its player. YouTube may then process your data. The video does not play automatically.',
+  videoFallback: 'If the player does not load, you can watch the video directly on YouTube.',
+  videoLink: 'Watch Metoni on YouTube',
   ctaTitle: 'Your next workout, ready to log',
   ctaText: 'Explore Metoni on Google Play, or contact us if you need help.',
 };

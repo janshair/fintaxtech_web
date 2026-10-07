@@ -7,6 +7,7 @@ import session from '../assets/metoni/session.webp';
 import home from '../assets/metoni/home_dark.webp';
 import library from '../assets/metoni/library_chest.webp';
 import rest from '../assets/metoni/active_dark.webp';
+import videoPoster from '../assets/metoni/video-poster.webp';
 export const metoniSocial = {
   url: social.src,
   width: social.width,
@@ -22,12 +23,8 @@ export interface MetoniScreenshot {
   caption: string;
 }
 export interface MetoniVideo {
-  src: string;
-  type: string;
+  youtubeId: string;
   poster: ImageMetadata;
-  captions?: string;
-  description: string;
-  transcript: string;
 }
 export const metoniMedia: {
   icon?: ImageMetadata;
@@ -35,6 +32,7 @@ export const metoniMedia: {
   screenshots: MetoniScreenshot[];
   video?: MetoniVideo;
 } = {
+  video: { youtubeId: 'x-koq6t8YC4', poster: videoPoster },
   icon,
   iconAlt: 'Metoni app icon',
   screenshots: [

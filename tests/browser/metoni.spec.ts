@@ -140,8 +140,61 @@ for (const theme of ['light', 'dark'])
     }
   });
 
-test('Metoni launch page omits the outdated promotional video', async ({ page }) => {
+test('Metoni loads YouTube only on keyboard activation and keeps a no-JavaScript fallback', async ({
+  page,
+  browser,
+  request,
+}, info) => {
+  await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
+  const youtubeRequests: string[] = [];
+  page.on('request', (r) => {
+    if (/youtube|ytimg|googlevideo/.test(r.url())) youtubeRequests.push(r.url());
+  });
+  // Verify our integration deterministically without depending on YouTube's network or consent UI.
+  await page.route('https://www.youtube-nocookie.com/embed/**', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'text/html',
+      body: '<!doctype html><title>Video test</title>',
+    }),
+  );
   await page.goto(metoni.route);
   await expect(page.locator('video')).toHaveCount(0);
-  await expect(page.getByText(metoni.transcriptTitle, { exact: true })).toHaveCount(0);
+  await expect(page.locator('iframe')).toHaveCount(0);
+  const load = page.getByRole('button', { name: metoni.videoLoad, exact: true });
+  await load.scrollIntoViewIfNeeded();
+  expect(youtubeRequests).toEqual([]);
+  if (info.project.name === 'chromium')
+    await page
+      .locator('section[aria-labelledby="metoni-video"]')
+      .screenshot({ path: 'test-results/metoni-youtube.png' });
+  await load.focus();
+  await load.press('Enter');
+  const player = page.getByTitle(metoni.videoFrameTitle, { exact: true });
+  await expect(player).toHaveAttribute(
+    'src',
+    'https://www.youtube-nocookie.com/embed/x-koq6t8YC4?playsinline=1&rel=0',
+  );
+  await expect(player).toHaveAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+  await expect(player).toBeFocused();
+  await expect.poll(() => youtubeRequests.length).toBe(1);
+  for (const width of [320, 390, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    const box = await player.boundingBox();
+    expect(box!.height).toBeGreaterThanOrEqual(200);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+  }
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const staticPage = await context.newPage();
+  await staticPage.goto(metoni.route);
+  await expect(staticPage.getByRole('link', { name: metoni.videoLink })).toHaveAttribute(
+    'href',
+    'https://youtu.be/x-koq6t8YC4',
+  );
+  await expect(staticPage.getByRole('button', { name: metoni.videoLoad })).toHaveCount(0);
+  await context.close();
+  for (const removed of ['promotional-video.mp4', 'promotional-video.vtt'])
+    expect((await request.get(`/metoni/${removed}`)).status()).toBe(404);
 });

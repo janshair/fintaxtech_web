@@ -21,7 +21,8 @@ describe('Metoni publishing', () => {
     expect(metoni.name).toBe('Metoni: Workout Tracker');
     expect(metoni.features.flat().join(' ')).toContain('135 exercises across 9 muscle groups');
     expect(metoniSupport.faq.flat().join(' ')).toContain('Settings › Workout Plans › plan menu');
-    expect(metoniMedia.video).toBeUndefined();
+    expect(metoniMedia.video?.youtubeId).toBe('x-koq6t8YC4');
+    expect(metoniMedia.video).not.toHaveProperty('src');
     for (const route of [metoni.privacyRoute, metoni.termsRoute]) {
       expect(appPolicies[route]).toContain(company.address);
       expect(appPolicies[route]).toContain('6 October 2026');
