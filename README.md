@@ -257,3 +257,29 @@ The promotional video is hosted on YouTube. Set `metoniMedia.video.youtubeId` in
 The old 9.79 MiB MP4 was removed from the website assets. This reduces future builds and checkouts, but does not erase the file from past Git commits.
 
 Run `pnpm verify` and `pnpm test:browser`. Metoni tests cover public routes, the portfolio link, policy compatibility, sitemap, application metadata, contact actions, keyboard focus, both themes and narrow screens. The existing app privacy policy describes Firebase analytics and diagnostics; do not change the marketing into a blanket “no data collected” claim without verifying the released app and store declarations.
+
+### Careers and vacancies
+
+Vacancies live in `src/content/jobs/*.md`. The file name becomes the URL: `frontend-developer.md` is published at `/careers/frontend-developer/`. Use lower-case words separated by hyphens. The careers index and footer link use the existing shared layout; shared careers labels live in `src/content/careers.ts`.
+
+Start a new file with this frontmatter, followed by the job description in Markdown:
+
+```yaml
+---
+title: Front-End Developer
+summary: Help build accessible, fast static websites with Astro and TypeScript.
+location: Remote or Dundee, Scotland
+active: true
+publishedDate: 2026-10-07
+---
+```
+
+`active` is a required Boolean: use `true` or `false` without quotes. Only `active: true` jobs appear in the listing, sitemap and generated detail pages. They are sorted newest first. When a role closes, set `active: false`, rebuild and deploy: its old detail URL then returns the site's 404 page. If all roles are inactive, `/careers/` shows “There are currently no active vacancies”. Publication and closing dates are descriptive; they do not replace the active flag or schedule a deployment.
+
+Optional fields are `department`, `employmentType` and `closingDate`. Employment types use `FULL_TIME`, `PART_TIME`, `CONTRACTOR`, `TEMPORARY`, `INTERN`, `VOLUNTEER`, `PER_DIEM` or `OTHER`; the page displays readable labels. A closing date cannot precede the publication date. Omit unknown details rather than guessing them.
+
+For a known physical location, optional `jobLocation` fields `locality`, `region` and a two-letter `country` code provide structured address data. The first vacancy uses Dundee, Scotland, GB. No remote applicant-country restrictions or fully remote classification are inferred from the display location. Confirm these details before adding more specific remote-job search metadata.
+
+Start Markdown headings at `##`: the layout supplies the only H1, metadata and final plain-text CV email instruction. Do not add an application form or repeat that instruction in each Markdown file. Active detail pages receive JobPosting data from the rendered description; the index does not. The existing SEO output checks validate the generated HTML and schema.
+
+Run `pnpm verify` and `pnpm test:browser`. Unit tests validate the schema and active-job filter. A separate build test copies the site into a temporary directory, tests active/inactive fixtures and the no-vacancies state, then removes the copy. It never changes real vacancies or the normal build output. Job Markdown is explicitly allowed by `.gitignore` so new vacancies can be committed.

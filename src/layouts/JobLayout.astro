@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SiteLayout from './SiteLayout.astro';
+import JobMetadata from '../components/careers/JobMetadata.astro';
+import { careersCopy } from '../content/careers';
+import { company } from '../content/site';
+import '../styles/blog.css';
+interface Props {
+  job: CollectionEntry<'jobs'>;
+}
+const { job } = Astro.props;
+if (!job.rendered?.html) throw new Error(`Missing rendered job description: ${job.id}`);
+---
+
+<SiteLayout
+  title={job.data.title}
+  description={job.data.summary}
+  job={{ ...job.data, descriptionHTML: job.rendered.html }}
+>
+  <article class="container blog-article job-detail">
+    <header class="article-heading">
+      <p><a href={careersCopy.route}>{careersCopy.back}</a></p>
+      <h1>{job.data.title}</h1>
+      <p class="lead">{job.data.summary}</p>
+      <JobMetadata data={job.data} />
+    </header>
+    <div class="article-body">
+      <slot /><p class="job-application">
+        {careersCopy.application}<a href={`mailto:${company.email}`}>{company.email}</a>.
+      </p>
+    </div>
+  </article>
+</SiteLayout>

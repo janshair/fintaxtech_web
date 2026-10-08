@@ -1,0 +1,16 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import JobLayout from '../../layouts/JobLayout.astro';
+import { getActiveJobs } from '../../lib/jobs';
+import { jobSlug } from '../../lib/job-posts';
+export async function getStaticPaths() {
+  return (await getActiveJobs()).map((job) => ({ params: { slug: jobSlug(job) }, props: { job } }));
+}
+interface Props {
+  job: CollectionEntry<'jobs'>;
+}
+const { job } = Astro.props;
+const { Content } = await render(job);
+---
+
+<JobLayout job={job}><Content /></JobLayout>

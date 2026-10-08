@@ -3,6 +3,7 @@ import SocialLinks from './SocialLinks.astro';
 import { company, ui, consentCopy, navigation } from '../content/site';
 import { services } from '../content/services';
 import { legalLinks } from '../content/pages';
+import { careersCopy } from '../content/careers';
 ---
 
 <footer class="site-footer">
@@ -21,10 +22,9 @@ import { legalLinks } from '../content/pages';
         }<a href="/start/">{ui.start}</a><a href="/selected-work/">{ui.work}</a>
       </nav>
       <div class="footer-links">
-        <h3>{ui.legal}</h3>{legalLinks.map(([href, label]) => <a href={href}>{label}</a>)}<button
-          class="button"
-          data-consent-manage>{consentCopy.manage}</button
-        >
+        <h3>{ui.legal}</h3><a href={careersCopy.route}>{careersCopy.label}</a>{
+          legalLinks.map(([href, label]) => <a href={href}>{label}</a>)
+        }<button class="button" data-consent-manage>{consentCopy.manage}</button>
       </div>
     </div><SocialLinks location="footer" /><div class="footer-bottom">
       <p><a href={company.registryURL}>{ui.registration}</a></p><p>{company.address}</p><p>

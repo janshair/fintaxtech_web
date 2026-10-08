@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import JobMetadata from './JobMetadata.astro';
+import { careersCopy } from '../../content/careers';
+import { jobURL } from '../../lib/job-posts';
+interface Props {
+  jobs: CollectionEntry<'jobs'>[];
+}
+const { jobs } = Astro.props;
+---
+
+{
+  jobs.length ? (
+    <ul class="job-list" role="list">
+      {jobs.map((job) => (
+        <li>
+          <article class="job-card">
+            <h3>
+              <a href={jobURL(job)}>{job.data.title}</a>
+            </h3>
+            <p>{job.data.summary}</p>
+            <JobMetadata data={job.data} />
+          </article>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>{careersCopy.empty}</p>
+  )
+}
+<style>
+  .job-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+  li {
+    margin: 0;
+    min-width: 0;
+  }
+  .job-card {
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow-wrap: anywhere;
+  }
+  h3 {
+    margin-bottom: var(--space-4);
+  }
+  p {
+    max-width: var(--reading);
+  }
+</style>

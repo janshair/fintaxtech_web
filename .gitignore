@@ -19,6 +19,7 @@ docs/
 !AGENTS.md
 !SKILL.md
 !src/content/blog/**/*.md
+!src/content/jobs/*.md
 
 # Deployment / hosting caches
 .vercel/

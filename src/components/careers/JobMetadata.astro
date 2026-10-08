@@ -1,0 +1,68 @@
+---
+import type { JobData } from '../../lib/job-schema';
+import { careersCopy } from '../../content/careers';
+import { formatPostDate } from '../../lib/blog-posts';
+interface Props {
+  data: JobData;
+}
+const { data } = Astro.props;
+---
+
+<dl class="job-meta">
+  <div><dt>{careersCopy.location}</dt><dd>{data.location}</dd></div>
+  <div>
+    <dt>{careersCopy.published}</dt><dd>
+      <time datetime={data.publishedDate.toISOString()}>{formatPostDate(data.publishedDate)}</time>
+    </dd>
+  </div>
+  {
+    data.department && (
+      <div>
+        <>
+          <dt>{careersCopy.department}</dt>
+          <dd>{data.department}</dd>
+        </>
+      </div>
+    )
+  }
+  {
+    data.employmentType && (
+      <div>
+        <>
+          <dt>{careersCopy.employmentType}</dt>
+          <dd>{careersCopy.employmentTypes[data.employmentType]}</dd>
+        </>
+      </div>
+    )
+  }
+  {
+    data.closingDate && (
+      <div>
+        <>
+          <dt>{careersCopy.closing}</dt>
+          <dd>
+            <time datetime={data.closingDate.toISOString()}>
+              {formatPostDate(data.closingDate)}
+            </time>
+          </dd>
+        </>
+      </div>
+    )
+  }
+</dl>
+<style>
+  .job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-6);
+    margin-block: var(--space-5);
+    font-size: var(--small);
+  }
+  dt {
+    font-weight: var(--weight-strong);
+  }
+  dd {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>

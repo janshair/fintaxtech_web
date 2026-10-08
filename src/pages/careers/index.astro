@@ -1,0 +1,18 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import JobList from '../../components/careers/JobList.astro';
+import { careersCopy } from '../../content/careers';
+import { getActiveJobs } from '../../lib/jobs';
+const jobs = await getActiveJobs();
+---
+
+<SiteLayout title={careersCopy.title} description={careersCopy.description}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{careersCopy.title}</h1><p class="lead">{careersCopy.intro}</p>
+    </header>
+    <section class="section" aria-labelledby="vacancies">
+      <h2 id="vacancies">{careersCopy.vacancies}</h2><JobList jobs={jobs} />
+    </section>
+  </div>
+</SiteLayout>

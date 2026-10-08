@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { blogFields, validUpdatedDate } from './lib/blog-schema';
+import { jobFields } from './lib/job-schema';
 
 const blog = defineCollection({
   // Preserve independent entries so duplicate explicit slugs can fail the build instead of overwriting a post.
@@ -21,4 +22,12 @@ const blog = defineCollection({
         path: ['imageAlt'],
       }),
 });
-export const collections = { blog };
+const jobs = defineCollection({
+  loader: glob({
+    pattern: '*.md',
+    base: './src/content/jobs',
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  }),
+  schema: jobFields,
+});
+export const collections = { blog, jobs };

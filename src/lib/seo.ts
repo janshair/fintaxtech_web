@@ -4,6 +4,8 @@ import { publicProfiles } from '../content/social';
 import { services } from '../content/services';
 import { blogCopy } from '../content/blog';
 import { metoni } from '../content/metoni';
+import { careersCopy } from '../content/careers';
+import { jobStructuredData, type JobSEO } from './job-seo';
 export interface ArticleSEO {
   title: string;
   pubDate: Date;
@@ -31,6 +33,8 @@ export function breadcrumbs(path: string, title?: string) {
     items.push({ name: ui.services, url: absoluteURL('/services/') });
   if (path.startsWith('/blog/') && path !== '/blog/')
     items.push({ name: blogCopy.label, url: absoluteURL('/blog/') });
+  if (path.startsWith(careersCopy.route) && path !== careersCopy.route)
+    items.push({ name: careersCopy.label, url: absoluteURL(careersCopy.route) });
   items.push({ name: seoPages[path]?.title ?? title ?? company.name, url: absoluteURL(path) });
   return items;
 }
@@ -40,11 +44,13 @@ export function structuredData(
   description: string,
   article?: ArticleSEO,
   image = absoluteURL('/social.png'),
+  job?: JobSEO,
 ) {
   const url = absoluteURL(path);
   const organization = absoluteURL('/#organization');
   const website = absoluteURL('/#website');
-  const crumbs = breadcrumbs(path, article?.title);
+  const crumbs = breadcrumbs(path, article?.title ?? job?.title);
+  const jobPosting = jobStructuredData(path, job);
   const service = services.find((s) => path === `/services/${s.id}/`);
   return {
     '@context': 'https://schema.org',
@@ -87,7 +93,9 @@ export function structuredData(
         ...(crumbs.length ? { breadcrumb: { '@id': url + '#breadcrumb' } } : {}),
         ...(service ? { mainEntity: { '@id': url + '#service' } } : {}),
         ...(article ? { mainEntity: { '@id': url + '#article' } } : {}),
+        ...(jobPosting ? { mainEntity: { '@id': jobPosting['@id'] } } : {}),
       },
+      ...(jobPosting ? [jobPosting] : []),
       ...(path === metoni.route
         ? [
             {

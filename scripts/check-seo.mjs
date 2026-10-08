@@ -106,6 +106,30 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     path,
   );
   const crumbs = graph.find((n) => n['@type'] === 'BreadcrumbList');
+  const posting = graph.find((n) => n['@type'] === 'JobPosting');
+  if (/^\/careers\/[^/]+\/$/.test(path)) {
+    assert(posting, `${path}: missing JobPosting`);
+    assert(!noindex, path);
+    assert.equal(posting.title, text(elements(doc, 'h1')[0]));
+    assert.equal(posting.url, canonical[0]);
+    assert(!Number.isNaN(Date.parse(posting.datePosted)));
+    assert.equal(posting.hiringOrganization['@id'], org['@id']);
+    assert.equal(crumbs.itemListElement[1].item, origin + '/careers/');
+    const main = elements(doc, 'main')[0];
+    const application = elements(main, 'p').find((n) => attr(n, 'class') === 'job-application');
+    assert.equal(text(application), 'If you want to apply, send your CV to ask@fintaxtech.co.uk.');
+    assert.equal(attr(elements(application, 'a')[0], 'href'), 'mailto:ask@fintaxtech.co.uk');
+    assert.equal(elements(main, 'form').length, 0);
+    assert.equal(elements(main, 'button').length, 0);
+    const body = elements(main, 'div').find((n) => attr(n, 'class') === 'article-body');
+    assert.equal(
+      text(parse(posting.description)).replace(/\s+/g, ' ').trim(),
+      text(body).replace(/\s+/g, ' ').trim(),
+      `${path}: schema must match the visible job description`,
+    );
+  } else {
+    assert(!posting, `${path}: JobPosting belongs only on a job detail page`);
+  }
   if (/^\/blog\/[^/]+\/$/.test(path)) {
     const article = graph.find((n) => n['@type'] === 'BlogPosting');
     assert(article, `${path}: missing BlogPosting`);
@@ -174,6 +198,21 @@ assert.deepEqual(
     .sort(),
 );
 assert.equal(new Set(urls).size, urls.length);
+const jobURLs = rows
+  .filter((row) => /^\/careers\/[^/]+\/$/.test(row.path))
+  .map((row) => row.canonical)
+  .sort();
+const careers = docs.get('/careers/');
+const listedJobs = elements(careers, 'article').filter(
+  (node) => attr(node, 'class') === 'job-card',
+);
+assert.deepEqual(
+  listedJobs
+    .flatMap((node) => elements(node, 'a').map((link) => origin + attr(link, 'href')))
+    .sort(),
+  jobURLs,
+  'Careers listing must match generated detail pages',
+);
 const articleURLs = rows
   .filter((row) => /^\/blog\/[^/]+\/$/.test(row.path))
   .map((row) => row.canonical)

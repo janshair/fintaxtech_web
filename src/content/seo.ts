@@ -1,4 +1,5 @@
 import { legacyRedirects } from './legacy-redirects';
+import { careersCopy } from './careers';
 import { metoni, metoniSupport } from './metoni';
 import { automationCopy } from './ai-automation';
 import { promptBriefCopy } from './prompt-brief';
@@ -24,6 +25,7 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [careersCopy.route]: { title: careersCopy.title, description: careersCopy.description },
   [metoni.route]: { title: metoni.seoTitle, description: metoni.description },
   [metoni.supportRoute]: { title: metoniSupport.title, description: metoniSupport.description },
   ...Object.fromEntries(

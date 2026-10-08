@@ -2,6 +2,7 @@
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { seoPages, seoCopy } from '../content/seo';
 import { structuredData, absoluteURL, type ArticleSEO, type SocialImage } from '../lib/seo';
+import type { JobSEO } from '../lib/job-seo';
 import { blogCopy } from '../content/blog';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -19,6 +20,7 @@ interface Props {
   description?: string;
   noindex?: boolean;
   article?: ArticleSEO;
+  job?: JobSEO;
   socialImage?: SocialImage;
 }
 const pathname = Astro.url.pathname.replace(/(\.html)\/$/, '$1').replace(/^\/404\/$/, '/404.html');
@@ -27,7 +29,7 @@ const title = configured?.title ?? Astro.props.title;
 const description = configured?.description ?? Astro.props.description ?? home.intro;
 const noindex = Astro.props.noindex || configured?.noindex || false;
 const canonical = new URL(configured?.canonical ?? pathname, company.url);
-const { article } = Astro.props;
+const { article, job } = Astro.props;
 const socialImage = Astro.props.socialImage ?? {
   url: '/social.png',
   width: 1200,
@@ -123,7 +125,7 @@ const imageURL = absoluteURL(socialImage.url);
       is:inline
       type="application/ld+json"
       set:html={JSON.stringify(
-        structuredData(pathname, `${title} | ${company.name}`, description, article, imageURL),
+        structuredData(pathname, `${title} | ${company.name}`, description, article, imageURL, job),
       ).replace(/</g, '\\u003c')}
     />
     <noscript
