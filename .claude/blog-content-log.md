@@ -3,7 +3,7 @@
 The live index at https://fintaxtech.co.uk/blog/ is the source of truth. This file is a
 working record for the daily article task.
 
-## Published (as at 2026-10-07)
+## Published (as at 2026-10-08)
 
 Mobile App Development (9): mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
@@ -17,10 +17,11 @@ small-business-website-quotes-vary, redesign-or-rebuild-business-website,
 what-slows-a-website-build-down, website-copy-that-answers-customer-questions,
 do-you-need-a-booking-system-or-a-contact-form
 
-Branding and Graphic Design (7): logo-vs-brand-identity, how-to-write-a-logo-design-brief,
+Branding and Graphic Design (8): logo-vs-brand-identity, how-to-write-a-logo-design-brief,
 logo-file-formats-explained, what-to-include-in-brand-guidelines,
 stationery-and-marketing-assets-after-logo, choosing-brand-colours-and-fonts,
-designing-for-print-without-owning-a-press
+designing-for-print-without-owning-a-press,
+rebrand-or-refresh-your-business-brand
 
 AI Automation (7): ai-business-documents-to-website-content, ai-content-services-six-examples,
 ai-confidential-business-documents, how-to-review-ai-assisted-content,
@@ -32,6 +33,7 @@ which-business-tasks-to-hand-to-ai-first
 - 2026-10-05: do-you-need-a-booking-system-or-a-contact-form — pushed to main, awaiting owner review
 - 2026-10-06: designing-for-print-without-owning-a-press — pushed to main, awaiting owner review
 - 2026-10-07: push-notifications-without-annoying-people — pushed to main, awaiting owner review
+- 2026-10-08: rebrand-or-refresh-your-business-brand — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -45,6 +47,7 @@ which-business-tasks-to-hand-to-ai-first
 4. ~~Do You Need a Booking System, or Just a Contact Form? (Website Design and Development; websites)~~ published 2026-10-05
 5. ~~Designing for Print Without Owning a Press: What to Hand Your Printer (Branding and Graphic Design; branding)~~ published 2026-10-06
 6. ~~Push Notifications Without Annoying People: What to Plan Before You Build (Mobile App Development; mobile-apps)~~ published 2026-10-07
+7. ~~Rebrand or Refresh? How to Tell What Your Existing Brand Actually Needs (Branding and Graphic Design; branding)~~ added 2026-10-08 as queue was exhausted (Branding and AI had fewest articles); published 2026-10-08
 
 ## Conventions reminder
 
