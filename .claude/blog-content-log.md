@@ -3,7 +3,7 @@
 The live index at https://fintaxtech.co.uk/blog/ is the source of truth. This file is a
 working record for the daily article task.
 
-## Published (as at 2026-10-08)
+## Published (as at 2026-10-09)
 
 Mobile App Development (9): mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
@@ -37,7 +37,7 @@ which-business-tasks-to-hand-to-ai-first
 
 ## Drafted, not yet published
 
-(none)
+- 2026-10-09: ai-document-extraction-explained — on branch blog/ai-document-extraction-explained, not published (push to main rejected as non-fast-forward although remote main matched local parent; likely branch protection)
 
 ## Queue
 
@@ -48,6 +48,7 @@ which-business-tasks-to-hand-to-ai-first
 5. ~~Designing for Print Without Owning a Press: What to Hand Your Printer (Branding and Graphic Design; branding)~~ published 2026-10-06
 6. ~~Push Notifications Without Annoying People: What to Plan Before You Build (Mobile App Development; mobile-apps)~~ published 2026-10-07
 7. ~~Rebrand or Refresh? How to Tell What Your Existing Brand Actually Needs (Branding and Graphic Design; branding)~~ added 2026-10-08 as queue was exhausted (Branding and AI had fewest articles); published 2026-10-08
+8. ~~AI Document Extraction Explained: Turning Forms, Letters and PDFs into Organised Information (AI Automation; ai-automation)~~ added 2026-10-09 as queue was exhausted (AI Automation had fewest articles, 7); drafted 2026-10-09
 
 ## Conventions reminder
 
