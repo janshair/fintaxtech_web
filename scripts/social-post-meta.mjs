@@ -1,8 +1,10 @@
 // Posts newly published blog articles to the FinTaxTech Facebook Page and Instagram account.
 //
 // Reads social/posts/<slug>.json files (written by the daily blog routine), waits until the
-// article URL is live, then publishes once per network. Duplicate posts are avoided by checking
-// the Page feed and Instagram media before publishing, so re-running is safe.
+// article URL is live, then publishes the same portrait image to both networks. Facebook posts are
+// photo posts with no links in the text, because the Page has a monthly limit on link posts.
+// Duplicate posts are avoided by checking the Page feed and Instagram media before publishing,
+// so re-running is safe.
 //
 // Env: META_SYSTEM_TOKEN, META_PAGE_ID (GitHub secrets), DRY_RUN, SLUG, SOURCE_SHA,
 //      MAX_AGE_DAYS (default 2), GRAPH_VERSION (default v23.0).
@@ -24,6 +26,9 @@ const log = (line) => {
   summary.push(line);
 };
 let failed = false;
+
+// Anything Facebook might turn into a link: full URLs, www., or bare domains.
+const LINK_RE = /https?:\/\/|www\.|\b[a-z0-9-]+\.(?:co\.uk|com|net|org|io|uk)\b/i;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
@@ -64,9 +69,13 @@ async function loadPosts() {
     if (!post.slug || `${post.slug}.json` !== file) problems.push('slug must match the file name');
     if (post.url !== `https://fintaxtech.co.uk/blog/${post.slug}/`) problems.push('url must be the article URL');
     if (!/^\d{4}-\d{2}-\d{2}$/.test(post.date || '')) problems.push('date must be YYYY-MM-DD');
-    if (!norm(post.facebook?.message).includes(post.url)) problems.push('facebook.message must contain the article URL');
+    if (!norm(post.title)) problems.push('title is required');
+    if (!/\.jpe?g$/i.test(post.image || '')) problems.push('image must be a .jpg path in the repo');
+    const fbMessage = norm(post.facebook?.message);
+    if (!fbMessage) problems.push('facebook.message is required');
+    if (LINK_RE.test(fbMessage)) problems.push('facebook.message must not contain links or domain names');
+    if (post.title && !fbMessage.includes(norm(post.title))) problems.push('facebook.message must name the article title');
     if (!norm(post.instagram?.caption)) problems.push('instagram.caption is required');
-    if (!/\.jpe?g$/i.test(post.instagram?.image || '')) problems.push('instagram.image must be a .jpg path in the repo');
     if (problems.length) {
       log(`- ❌ \`${file}\`: ${problems.join('; ')}`);
       failed = true;
@@ -116,20 +125,28 @@ async function main() {
       continue;
     }
 
-    // Facebook: link post, skipped if the Page already has a post containing the article URL.
+    const imageUrl = `https://raw.githubusercontent.com/${REPO}/${SHA}/${post.image}`;
+    if (!(await waitForUrl(imageUrl, { attempts: 3, delayMs: 5_000, contentType: 'image/jpeg' }))) {
+      log(`❌ Image is not a reachable JPEG: ${imageUrl}`);
+      failed = true;
+      continue;
+    }
+
+    // Facebook: photo post with the message as its caption, skipped if a recent post starts the same way.
     try {
       const feed = await graph(`${env.META_PAGE_ID}/posts`, { token: pageToken, params: { fields: 'message', limit: '50' } });
-      if (feed.data.some((p) => norm(p.message).includes(post.url))) {
+      const fbMarker = norm(post.facebook.message).slice(0, 80);
+      if (feed.data.some((p) => norm(p.message).startsWith(fbMarker))) {
         log('Facebook: already posted, skipping');
       } else if (DRY_RUN) {
-        log(`Facebook: would post ${norm(post.facebook.message).length} characters with link`);
+        log(`Facebook: would post image ${post.image} with ${norm(post.facebook.message).length} characters of text`);
       } else {
-        const res = await graph(`${env.META_PAGE_ID}/feed`, {
+        const res = await graph(`${env.META_PAGE_ID}/photos`, {
           token: pageToken,
           method: 'POST',
-          params: { message: post.facebook.message, link: post.url },
+          params: { url: imageUrl, caption: post.facebook.message },
         });
-        log(`Facebook: ✅ posted (${res.id})`);
+        log(`Facebook: ✅ posted (${res.post_id || res.id})`);
       }
     } catch (err) {
       log(`Facebook: ❌ ${err.message}`);
@@ -139,17 +156,14 @@ async function main() {
     // Instagram: image post, skipped if recent media already has this caption.
     if (!ig) continue;
     try {
-      const imageUrl = `https://raw.githubusercontent.com/${REPO}/${SHA}/${post.instagram.image}`;
       const media = await graph(`${ig.id}/media`, { token: pageToken, params: { fields: 'caption', limit: '50' } });
       const marker = norm(post.instagram.caption).slice(0, 80);
       if (media.data.some((m) => norm(m.caption).startsWith(marker))) {
         log('Instagram: already posted, skipping');
         continue;
       }
-      const imageOk = await waitForUrl(imageUrl, { attempts: 3, delayMs: 5_000, contentType: 'image/jpeg' });
-      if (!imageOk) throw new Error(`image is not a reachable JPEG: ${imageUrl}`);
       if (DRY_RUN) {
-        log(`Instagram: would post image ${post.instagram.image} with a ${norm(post.instagram.caption).length}-character caption`);
+        log(`Instagram: would post image ${post.image} with a ${norm(post.instagram.caption).length}-character caption`);
         continue;
       }
       const container = await graph(`${ig.id}/media`, {
