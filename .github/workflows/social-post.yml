@@ -1,0 +1,42 @@
+name: Post new blog articles to Facebook and Instagram
+on:
+  workflow_run:
+    workflows: ['Deploy static website to GitHub Pages']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Check the token and show what would be posted, without posting
+        type: boolean
+        default: true
+      slug:
+        description: Only this article slug (optional)
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: social-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/social-post-meta.mjs
+        env:
+          META_SYSTEM_TOKEN: ${{ secrets.META_SYSTEM_TOKEN }}
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+          SLUG: ${{ inputs.slug }}
