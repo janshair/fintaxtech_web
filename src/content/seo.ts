@@ -6,6 +6,7 @@ import { promptBriefCopy } from './prompt-brief';
 import { promoCopy, promoStatus } from './promo';
 import { mobileAppBriefCopy } from './mobile-app-brief';
 import { websiteBriefCopy } from './website-brief';
+import { websiteDemoBriefCopy } from './website-demo-brief';
 import { logoBriefCopy } from './logo-brief';
 import { pages } from './pages';
 import { blogCopy } from './blog';
@@ -60,6 +61,12 @@ export const seoPages: Record<string, PageSEO> = {
   [websiteBriefCopy.route]: {
     title: websiteBriefCopy.title,
     description: websiteBriefCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
+  [websiteDemoBriefCopy.route]: {
+    title: websiteDemoBriefCopy.title,
+    description: websiteDemoBriefCopy.description,
     noindex: true,
     nofollow: true,
   },

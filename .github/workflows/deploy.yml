@@ -30,7 +30,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm verify
         env:
-          PUBLIC_SLACK_WEBHOOK: ${{ secrets.PUBLIC_SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.PUBLIC_SLACK_WEBHOOK }}
           PUBLIC_WEB3FORMS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:

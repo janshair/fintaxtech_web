@@ -11,6 +11,14 @@ async function files(dir) {
   ).flat();
 }
 const all = await files('dist');
+for (const file of all.filter((file) => /\.(?:html|js|mjs|json|map)$/.test(file))) {
+  const text = await readFile(file, 'utf8');
+  assert(!text.includes('hooks.slack.com/services/'), `${file}: contains a webhook URL`);
+  assert(
+    !text.includes('PUBLIC_SLACK_WEBHOOK'),
+    `${file}: contains the retired public secret variable`,
+  );
+}
 // Native video must remain a real, reasonably sized GitHub Pages asset, not an LFS pointer.
 for (const file of all.filter((path) => /\.(mp4|webm|mov)$/i.test(path))) {
   const size = (await stat(file)).size;

@@ -561,9 +561,8 @@ window.addEventListener('beforeunload', (event) => {
   }
 });
 function sendNotifications() {
-  const slackWebhook = import.meta.env.PUBLIC_SLACK_WEBHOOK as string | undefined;
   const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined;
-  if (!slackWebhook && !web3formsKey) return;
+  if (!web3formsKey) return;
 
   const serviceName = services.find((s) => s.id === journey.service)?.name ?? journey.service;
   const questions = visibleQuestions(journey);
@@ -576,19 +575,6 @@ function sendNotifications() {
   const contactLines = customerRows()
     .map((r) => `${r.label}: ${r.value}`)
     .join('\n');
-
-  if (slackWebhook) {
-    const slackText =
-      `*New enquiry — ${serviceName}*\n\n` +
-      `*Contact*\n${contactLines}\n\n` +
-      `*Answers*\n${answerLines}`;
-    // text/plain avoids CORS preflight — Slack accepts JSON body regardless of content-type
-    fetch(slackWebhook, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ text: slackText }),
-    }).catch(() => {});
-  }
 
   if (web3formsKey) {
     fetch('https://api.web3forms.com/submit', {

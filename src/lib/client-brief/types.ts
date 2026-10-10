@@ -1,4 +1,10 @@
-export type BriefKind = 'logo' | 'website' | 'mobile' | 'prompt';
+export type BriefKind = 'logo' | 'website' | 'websiteDemo' | 'mobile' | 'prompt';
+
+export interface BriefCondition {
+  id: string;
+  values?: string[];
+  matches?: string;
+}
 
 export interface BriefField {
   id: string;
@@ -13,6 +19,7 @@ export interface BriefField {
     | 'competitors'
     | 'images'
     | 'url'
+    | 'email'
     | 'pages'
     | 'urls'
     | 'rows';
@@ -28,15 +35,17 @@ export interface BriefField {
     fields: {
       key: string;
       label: string;
-      type: 'text' | 'single';
+      type: 'text' | 'long' | 'url' | 'single';
       options?: string[];
       optional?: boolean;
+      when?: BriefCondition;
     }[];
   };
   optional?: boolean;
   max?: number;
   help?: string;
-  when?: { id: string; values: string[] };
+  when?: BriefCondition | BriefCondition[];
+  requiredWhen?: BriefCondition;
   exclusive?: string[];
   followUp?: {
     values: string[];

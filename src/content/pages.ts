@@ -128,7 +128,7 @@ export const pages: Record<string, InfoPage> = {
     sections: [
       [
         'Local questionnaire processing',
-        'Answers and generated PDFs stay in memory on your device while this page is open. We do not receive them automatically, store them in a database, or place them in analytics or page addresses. Reloading or closing the page clears answers. Downloaded files remain under your control.',
+        'Draft answers and generated PDFs stay in memory on your device. On the website demo and production brief review screens, Download PDF, Open email and Open WhatsApp send the reviewed text to FinTaxTech through Slack, as explained before those actions. The PDF is downloaded locally and is not uploaded to Slack. The submission server temporarily tracks delivery in memory; no enquiry database or resumable browser storage is used. Slack retains received messages under our workspace settings. Reloading or closing clears local answers, not messages already delivered. Answers are excluded from analytics and page addresses.',
       ],
       [
         'Preferences and analytics',

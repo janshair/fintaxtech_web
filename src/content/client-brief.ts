@@ -21,6 +21,7 @@ export const briefCopy = {
   invalidChoice: 'Choose one of the available options.',
   invalidDate: 'Enter a valid date.',
   invalidURL: 'Enter a complete http:// or https:// website address.',
+  invalidEmail: 'Enter a valid email address, or leave it blank if optional.',
   invalidWebsite: 'Use a complete http:// or https:// website address, or leave it blank.',
   competitorName: 'Competitor name',
   competitorWebsite: 'Competitor website (optional)',
@@ -88,4 +89,34 @@ export type BriefCopy = typeof briefCopy & {
   reviewIntro: string;
   disclaimer: string;
   pdfFilename: string;
+};
+
+export const websiteDeliveryCopy = {
+  privacy:
+    'Answers stay in this page’s memory while you complete the brief. After review, Download PDF, Open email or Open WhatsApp sends the reviewed answers to FinTaxTech through Slack. The website does not save a resumable brief. Refreshing or closing clears your local answers; it does not delete information already delivered to Slack.',
+  notice:
+    'Continuing with Download PDF, Open email or Open WhatsApp sends these reviewed answers to FinTaxTech through Slack. PDF download works independently of Slack delivery. Do not include passwords, access tokens, sensitive records or unnecessary personal information.',
+  shareHelp:
+    'Download PDF also sends the reviewed text to FinTaxTech through Slack. The PDF remains a separate local download; Slack does not receive the file. Email and WhatsApp open a blank message, where you can attach the PDF manually. Changed answers are sent again only when you use a final action after review.',
+  pending: 'Sending reviewed answers to FinTaxTech through Slack…',
+  downloaded:
+    'Your PDF download has been requested. Slack delivery status is shown separately. The PDF itself has not been uploaded.',
+  delivered: (id: string) =>
+    `Reviewed answers delivered to FinTaxTech through Slack. Submission ID: ${id}.`,
+  partial: (sent: number, total: number) =>
+    `Slack received ${sent} of ${total} parts. Use an existing final action again to retry the remaining parts. Your PDF download and answers are still available.`,
+  failed:
+    'Slack delivery failed. Use Download PDF, Open email or Open WhatsApp again to retry. Your PDF download is independent and your answers remain here.',
+  rejected:
+    'The server could not accept these answers, so nothing was sent to Slack. Your PDF and answers remain available. Check any incomplete answers; if this continues, share your PDF with FinTaxTech so we can check the form and server versions.',
+  unavailable:
+    'Online brief delivery is unavailable. Download your PDF and share it with FinTaxTech by email or WhatsApp. Your answers remain here; an existing final action can retry when delivery is available.',
+  uncertain:
+    'Slack delivery could not be confirmed. To avoid duplicate messages, the uncertain part will not be resent automatically. Check with FinTaxTech using the submission ID, or share your PDF manually.',
+  expired:
+    'Delivery tracking has expired or the server restarted. Check with FinTaxTech or share your PDF manually; repeating this submission cannot be confirmed safely.',
+  sensitive:
+    'Slack delivery was stopped because the brief may contain credentials. Edit the relevant answer to remove credentials, then review again. Your PDF remains available.',
+  oversized:
+    'Slack delivery was stopped because the submission is too large. Review the length of your answers. Your PDF remains available.',
 };

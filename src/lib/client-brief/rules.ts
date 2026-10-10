@@ -1,5 +1,19 @@
 import { briefCopy as c } from '../../content/client-brief';
-import type { BriefAnswers, BriefField, BriefState, BriefSummary, BriefSection } from './types';
+import { validEmail } from '../validation';
+import {
+  omitPrioritySource,
+  priorityOfferingsText,
+  provisionalAssetPermission,
+  websiteOutputLabels,
+} from './website-presentation';
+import type {
+  BriefAnswers,
+  BriefCondition,
+  BriefField,
+  BriefState,
+  BriefSummary,
+  BriefSection,
+} from './types';
 
 export const limits = {
   short: 240,
@@ -19,8 +33,17 @@ export const emptyBrief = (): BriefState => ({
 });
 export const includesAnswer = (value: BriefAnswers[string], option: string) =>
   Array.isArray(value) ? value.includes(option) : value === option;
-export const isVisible = (field: BriefField, answers: BriefAnswers): boolean =>
-  !field.when || field.when.values.some((value) => includesAnswer(answers[field.when!.id], value));
+export const matchesCondition = (condition: BriefCondition, answers: BriefAnswers): boolean =>
+  condition.matches !== undefined
+    ? new RegExp(condition.matches, 'i').test(String(answers[condition.id] ?? ''))
+    : !!condition.values?.some((value) => includesAnswer(answers[condition.id], value));
+export const isVisible = (field: Pick<BriefField, 'when'>, answers: BriefAnswers): boolean =>
+  !field.when ||
+  (Array.isArray(field.when) ? field.when : [field.when]).some((condition) =>
+    matchesCondition(condition, answers),
+  );
+export const isRequired = (field: BriefField, answers: BriefAnswers): boolean =>
+  !field.optional || !!(field.requiredWhen && matchesCondition(field.requiredWhen, answers));
 export const hasOther = (field: BriefField, answers: BriefAnswers) =>
   isVisible(field, answers) && includesAnswer(answers[field.id], c.other);
 export const requiresOtherText = (field: BriefField, answers: BriefAnswers) =>
@@ -60,6 +83,9 @@ export function createBriefRules(sections: BriefSection[]) {
         if (field.type === 'rows') delete state.rows[field.id];
       }
       if (!requiresOtherText(field, state.answers)) delete state.answers[`${field.id}Other`];
+      for (const row of state.rows[field.id] ?? [])
+        for (const part of field.repeat?.fields ?? [])
+          if (!isVisible(part, row.values)) delete row.values[part.key];
       if (field.optionsFrom && Array.isArray(state.answers[field.id])) {
         const allowed = fieldOptions(field, state.answers);
         state.answers[field.id] = (state.answers[field.id] as string[]).filter((value) =>
@@ -74,7 +100,7 @@ export function createBriefRules(sections: BriefSection[]) {
     const answer = state.answers[field.id];
     if (field.type === 'rows' && field.repeat) {
       const rows = state.rows[field.id] ?? [];
-      if (!rows.length) return field.optional ? undefined : c.rowRequired;
+      if (!rows.length) return isRequired(field, state.answers) ? c.rowRequired : undefined;
       if (field.repeat.max && rows.length > field.repeat.max) return c.rowLimit(field.repeat.max);
       const source = sections
         .flatMap((section) => section.fields)
@@ -82,9 +108,19 @@ export function createBriefRules(sections: BriefSection[]) {
       const names = new Set((source?.options ?? []).map(normalizedPageName));
       for (const row of rows) {
         for (const part of field.repeat.fields) {
+          if (!isVisible(part, row.values)) continue;
           const value = row.values[part.key] ?? '';
           if (!value.trim() && !part.optional) return c.missing;
-          if (value.length > limits.short) return c.tooLong(limits.short);
+          const max = part.type === 'long' ? limits.long : limits.short;
+          if (value.length > max) return c.tooLong(max);
+          if (part.type === 'url' && value.trim()) {
+            try {
+              if (!['http:', 'https:'].includes(new URL(value.trim()).protocol))
+                return c.invalidURL;
+            } catch {
+              return c.invalidURL;
+            }
+          }
           if (part.type === 'single' && value && !part.options?.includes(value))
             return c.invalidChoice;
         }
@@ -150,7 +186,7 @@ export function createBriefRules(sections: BriefSection[]) {
       (Array.isArray(answer) && !answer.length) ||
       (typeof answer === 'string' && !answer.trim())
     )
-      return field.optional ? undefined : c.missing;
+      return isRequired(field, state.answers) ? c.missing : undefined;
     if (field.type === 'multi') {
       if (
         !Array.isArray(answer) ||
@@ -169,6 +205,7 @@ export function createBriefRules(sections: BriefSection[]) {
       const max = field.type === 'long' || field.type === 'urls' ? limits.long : limits.short;
       if (typeof answer !== 'string') return c.missing;
       if (answer.length > max) return c.tooLong(max);
+      if (field.type === 'email' && !validEmail(answer.trim())) return c.invalidEmail;
       if (field.type === 'url') {
         try {
           if (!['http:', 'https:'].includes(new URL(answer).protocol)) return c.invalidURL;
@@ -204,7 +241,9 @@ export function createBriefRules(sections: BriefSection[]) {
       section.fields.some((f) => validateField(f, state)),
     );
   }
-  function briefSummary(state: BriefState): BriefSummary[] {
+  function briefSummary(source: BriefState): BriefSummary[] {
+    const state = structuredClone(source);
+    pruneBrief(state);
     return visibleSections(state.answers).map((section) => ({
       title: section.title,
       references: section.fields.some(
@@ -213,11 +252,17 @@ export function createBriefRules(sections: BriefSection[]) {
       rows: section.fields
         .filter((field) => isVisible(field, state.answers) && field.type !== 'images')
         .flatMap((field) => {
+          if (omitPrioritySource(field.id, state)) return [];
+          if (field.id === 'priorityOfferings') {
+            const value = priorityOfferingsText(state.rows[field.id]);
+            return value ? [{ label: websiteOutputLabels[field.id], value }] : [];
+          }
           if (field.type === 'rows' && field.repeat) {
             const repeat = field.repeat;
             return (state.rows[field.id] ?? []).map((row, index) => ({
               label: repeat.title(index + 1),
               value: repeat.fields
+                .filter((part) => isVisible(part, row.values))
                 .map((part) => `${part.label}: ${row.values[part.key]?.trim() || c.notProvided}`)
                 .join('\n'),
             }));
@@ -247,7 +292,8 @@ export function createBriefRules(sections: BriefSection[]) {
               ? answer.map(format).join('; ')
               : format(String(answer).trim());
           }
-          const rows = [{ label: field.label, value }];
+          if (field.id === 'provisionalAssets') value = provisionalAssetPermission(answer);
+          const rows = [{ label: websiteOutputLabels[field.id] ?? field.label, value }];
           if (
             field.followUp?.pdfNote &&
             field.followUp.values.some((option) => includesAnswer(answer, option))

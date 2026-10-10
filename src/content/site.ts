@@ -137,7 +137,7 @@ export const home = {
 export const consentCopy = {
   title: 'Your privacy, your choice.',
   description:
-    'Questionnaire answers stay in this browser. Optional analytics helps us understand how the site is used, only with your consent.',
+    'Draft questionnaire answers stay in page memory until you choose to share or submit them. Optional analytics helps us understand how the site is used, only with your consent.',
   accept: 'Accept analytics',
   reject: 'Reject analytics',
   manage: 'Manage cookies',

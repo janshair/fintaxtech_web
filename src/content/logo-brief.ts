@@ -1,4 +1,5 @@
 import { briefCopy } from './client-brief';
+import { tradingNameField, approverNameField } from './client-brief-fields';
 import type { BriefSection } from '../lib/logo-brief/types';
 
 export const logoBriefCopy = {
@@ -91,12 +92,7 @@ export const logoBriefSections: BriefSection[] = [
   {
     title: 'Your business name',
     fields: [
-      {
-        id: 'trading',
-        label: 'Trading name',
-        type: 'text',
-        help: 'Use the exact spelling and capitalisation you want us to work with.',
-      },
+      tradingNameField,
       {
         id: 'legalDifferent',
         label: 'Is the legal name different?',
@@ -375,9 +371,7 @@ export const logoBriefSections: BriefSection[] = [
         options: ['Me', 'One named person', 'Group providing one consolidated decision'],
       },
       {
-        id: 'approverName',
-        label: 'Approver name',
-        type: 'text',
+        ...approverNameField,
         when: { id: 'approver', values: ['Me', 'One named person'] },
       },
       {

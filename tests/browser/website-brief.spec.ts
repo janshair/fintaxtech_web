@@ -1,12 +1,15 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { websiteBriefSections as sections } from '../../src/content/website-brief';
+import { detailedWebsiteBrief } from '../fixtures/website-brief';
+import { mockWebsiteDelivery } from './website-delivery-helper';
 
 const route = '/client/website-brief/';
 const secret = 'LOCAL-WEBSITE-DETAIL-5826';
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'accepted'));
   page.on('dialog', (dialog) => dialog.accept());
+  await mockWebsiteDelivery(page);
   await page.goto(route);
 });
 async function begin(page: Page) {
@@ -38,7 +41,7 @@ async function fillCurrent(page: Page) {
   }
 }
 async function advanceTo(page: Page, title: string) {
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i <= sections.length; i++) {
     if ((await page.locator('[data-brief-form] h2').innerText()) === title) return;
     await fillCurrent(page);
     await next(page);
@@ -66,7 +69,7 @@ test('static private page has correct metadata and stays out of public navigatio
   await expect(page.locator('input[type=password]')).toHaveCount(0);
 });
 
-test('keyboard, goal maximum, Other and conditional geography preserve only applicable answers', async ({
+test('keyboard, single primary goal, secondary maximum and Other preserve only applicable answers', async ({
   page,
 }) => {
   await begin(page);
@@ -75,20 +78,27 @@ test('keyboard, goal maximum, Other and conditional geography preserve only appl
   await page.getByLabel('New website', { exact: true }).focus();
   await page.keyboard.press('Space');
   await next(page);
-  await page.getByLabel('Enquiries', { exact: true }).click();
-  await page.getByLabel('Credibility', { exact: true }).click();
-  await page.getByLabel('Bookings', { exact: true }).click();
-  await expect(page.getByLabel('Bookings', { exact: true })).not.toBeChecked();
+  const primary = page.locator('#field-goals');
+  const secondary = page.locator('#field-secondaryGoals');
+  await primary.getByLabel('Enquiries', { exact: true }).click();
+  await primary.getByLabel('Credibility', { exact: true }).focus();
+  await page.keyboard.press('Space');
+  await expect(primary.getByLabel('Enquiries', { exact: true })).not.toBeChecked();
+  await expect(primary.locator('input:checked')).toHaveCount(1);
+  await secondary.getByLabel('Enquiries', { exact: true }).click();
+  await secondary.getByLabel('Credibility', { exact: true }).click();
+  await secondary.getByLabel('Bookings', { exact: true }).click();
+  await expect(secondary.getByLabel('Bookings', { exact: true })).not.toBeChecked();
   await expect(page.getByRole('status')).toContainText('2 of 2');
-  await page.getByLabel('Credibility', { exact: true }).click();
-  await page.getByLabel('Other', { exact: true }).click();
+  await secondary.getByLabel('Credibility', { exact: true }).click();
+  await primary.getByLabel('Other', { exact: true }).click();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page.getByLabel('Please specify').fill('Build a useful reference library');
   await next(page);
   await page.getByRole('button', { name: 'Back', exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveValue('Build a useful reference library');
-  await page.getByLabel('Other', { exact: true }).click();
+  await primary.getByLabel('Enquiries', { exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveCount(0);
   await advanceTo(page, 'Where your customers are');
   await page.getByLabel('Local', { exact: true }).click();
@@ -192,7 +202,7 @@ test('None is exclusive, branding opens separately, providers and deadlines are 
   await expect(page.locator('#deadlineDate')).toHaveCount(0);
 });
 
-test('redesign review, PDF and editing stay local and exclude stale redesign answers', async ({
+test('redesign review, Slack and PDF exclude stale answers and drafts clear on refresh', async ({
   page,
 }, info) => {
   const requests: string[] = [];
@@ -212,6 +222,8 @@ test('redesign review, PDF and editing stay local and exclude stale redesign ans
   await advanceTo(page, 'Anything else');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await expect(page.locator('.brief-review')).toContainText('Careers');
+  expect(requests.join('\n')).not.toContain(secret);
+  expect(requests.join('\n')).not.toContain('private-client.example');
   await expect(page.locator('.brief-review')).toContainText('Nothing—start again');
   await page.screenshot({ path: info.outputPath('review-desktop.png'), fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
@@ -223,7 +235,8 @@ test('redesign review, PDF and editing stay local and exclude stale redesign ans
   const pdf = await downloading;
   expect(pdf.suggestedFilename()).toBe('FinTaxTech-website-production-brief.pdf');
   await pdf.saveAs(info.outputPath('website-brief.pdf'));
-  await expect(page.getByRole('status')).toContainText('Nothing has been sent');
+  await expect(page.getByRole('status')).toContainText('delivered to FinTaxTech through Slack');
+  await expect(page.getByRole('status')).toContainText('PDF download has been requested');
   await expect(page.getByRole('link', { name: 'Open email' })).toHaveAttribute(
     'href',
     'mailto:ask@fintaxtech.co.uk',
@@ -242,13 +255,18 @@ test('redesign review, PDF and editing stay local and exclude stale redesign ans
   await expect(page.locator('.brief-review')).not.toContainText('private-client.example');
   await expect(page.locator('.brief-review')).not.toContainText('Retain from the existing website');
   await expect(page.locator('.brief-review')).toContainText('Careers');
-  expect(requests.join('\n')).not.toContain(secret);
-  expect(requests.join('\n')).not.toContain('private-client.example');
+  const submissions = requests.filter((request) =>
+    request.startsWith('POST http://localhost:4323/api/website-brief/ '),
+  );
+  expect(submissions).toHaveLength(1);
+  expect(submissions[0]).toContain(secret);
+  expect(submissions[0]).toContain('private-client.example');
   expect(
     requests.every(
       (r) =>
         r.startsWith('GET http://localhost:4323/') ||
-        r.startsWith('GET blob:http://localhost:4323/'),
+        r.startsWith('GET blob:http://localhost:4323/') ||
+        r.startsWith('POST http://localhost:4323/api/website-brief/'),
     ),
   ).toBe(true);
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual([
@@ -261,4 +279,112 @@ test('redesign review, PDF and editing stay local and exclude stale redesign ans
   await page.reload();
   await begin(page);
   await expect(page.locator('[data-brief-form] input:checked')).toHaveCount(0);
+});
+
+test('catalogue, checkout, booking and language follow-ups appear independently and clear when hidden', async ({
+  page,
+}) => {
+  await begin(page);
+  await advanceTo(page, 'Website capabilities');
+  await page.getByLabel('Product catalogue', { exact: true }).click();
+  await page.locator('#catalogueBehaviour').fill('Keep product descriptions');
+  await expect(
+    page.locator('#paymentProvider, #bookingProvider, #customBookingBehaviour'),
+  ).toHaveCount(0);
+  await page.getByLabel('Online payments', { exact: true }).click();
+  await page.locator('#paymentProvider').fill('HIDDEN PAYMENT PROVIDER');
+  await page.locator('#paymentBehaviour').fill('HIDDEN CHECKOUT');
+  await page.getByLabel('Online payments', { exact: true }).click();
+  await expect(page.locator('#paymentProvider, #paymentBehaviour')).toHaveCount(0);
+  await expect(page.locator('#catalogueBehaviour')).toHaveValue('Keep product descriptions');
+  await page.getByLabel('Booking integration', { exact: true }).click();
+  await page.locator('#bookingProvider').fill('HIDDEN BOOKING PROVIDER');
+  await page.locator('#bookingBehaviour').fill('HIDDEN INTEGRATION');
+  await page.getByLabel('Custom booking functionality', { exact: true }).click();
+  await page.locator('#customBookingBehaviour').fill('Custom staff scheduling');
+  await page.getByLabel('Booking integration', { exact: true }).click();
+  await expect(page.locator('#bookingProvider, #bookingBehaviour')).toHaveCount(0);
+  await expect(page.locator('#customBookingBehaviour')).toHaveValue('Custom staff scheduling');
+  await page.getByLabel('Multiple languages', { exact: true }).click();
+  await page.locator('#languageRequirements').fill('HIDDEN TRANSLATION REQUIREMENTS');
+  await page.getByLabel('Multiple languages', { exact: true }).click();
+  await expect(page.locator('#languageRequirements')).toHaveCount(0);
+  await advanceTo(page, 'Anything else');
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  await expect(page.locator('.brief-review')).not.toContainText('HIDDEN');
+  await expect(page.locator('.brief-review')).toContainText('Custom staff scheduling');
+  await expect(page.locator('.brief-review')).toContainText('Keep product descriptions');
+});
+
+test('new production details and reference explanations reach review and PDF on mobile', async ({
+  page,
+}, info) => {
+  const state = detailedWebsiteBrief();
+  await begin(page);
+  for (const section of sections) {
+    await expect(page.locator('[data-brief-form] h2')).toHaveText(section.title);
+    for (const field of section.fields) {
+      const wrap = page.locator(`#field-${field.id}`);
+      if (!(await wrap.count())) continue;
+      const answer = state.answers[field.id];
+      if (field.type === 'single' || field.type === 'multi') {
+        for (const value of Array.isArray(answer) ? answer : [String(answer)])
+          await wrap.getByLabel(value, { exact: true }).click();
+      } else if (field.type === 'rows') {
+        for (const row of state.rows[field.id] ?? []) {
+          await wrap.getByRole('button', { name: field.repeat!.add, exact: true }).click();
+          for (const part of field.repeat!.fields)
+            await wrap.getByLabel(part.label, { exact: true }).last().fill(row.values[part.key]);
+        }
+      } else if (field.type === 'pages') {
+        for (const item of state.additionalPages) {
+          await page.getByRole('button', { name: 'Add page', exact: true }).click();
+          await page.getByLabel('Page name', { exact: true }).last().fill(item.name);
+          await page.getByLabel('Purpose (optional)', { exact: true }).last().fill(item.purpose);
+        }
+      } else if (typeof answer === 'string') {
+        await page.locator(`#${field.id}`).fill(answer);
+      }
+    }
+    if (section !== sections.at(-1)) await next(page);
+  }
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  for (const value of Object.values(state.answers))
+    for (const part of Array.isArray(value) ? value : String(value).split('\n'))
+      await expect(page.locator('.brief-review')).toContainText(part);
+  for (const rows of Object.values(state.rows))
+    for (const row of rows)
+      for (const value of Object.values(row.values))
+        await expect(page.locator('.brief-review')).toContainText(value);
+  await page.setViewportSize({ width: 320, height: 780 });
+  await page.locator('#theme-toggle').click();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.screenshot({
+    path: info.outputPath('production-details-review-mobile.png'),
+    fullPage: true,
+  });
+  const downloading = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
+  const pdf = await downloading;
+  await pdf.saveAs(info.outputPath('production-details.pdf'));
+  await page
+    .getByRole('button', { name: 'Edit answers: Your domain and business email', exact: true })
+    .click();
+  await expect(page.locator('#emailProvider')).toHaveValue('Microsoft 365');
+  await expect(page.locator('#businessEmailAddress')).toHaveValue('hello@orchard.example');
+  await expect(page.locator('#domainName')).toHaveValue('orchard.example');
+  await page.locator('#field-email').getByLabel('Not needed', { exact: true }).click();
+  await expect(page.locator('#emailProvider, #businessEmailAddress')).toHaveCount(0);
+  await page.locator('#field-domain').getByLabel('Not needed', { exact: true }).click();
+  await expect(page.locator('#domainName, #hostingOwner, #hostingProvider, #dnsOwner')).toHaveCount(
+    0,
+  );
+  await advanceTo(page, 'Anything else');
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  await expect(page.locator('.brief-review')).not.toContainText('Microsoft 365');
+  await expect(page.locator('.brief-review')).not.toContainText('hello@orchard.example');
+  const editedDownloading = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
+  await (await editedDownloading).saveAs(info.outputPath('production-edited.pdf'));
 });

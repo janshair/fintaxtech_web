@@ -2,6 +2,7 @@ import { promptBriefCopy, promptBriefSections } from '../../content/prompt-brief
 import { mobileAppBriefCopy, mobileAppBriefSections } from '../../content/mobile-app-brief';
 import { logoBriefCopy, logoBriefSections } from '../../content/logo-brief';
 import { websiteBriefCopy, websiteBriefSections } from '../../content/website-brief';
+import { websiteDemoBriefCopy, websiteDemoBriefSections } from '../../content/website-demo-brief';
 import type { BriefCopy } from '../../content/client-brief';
 import type { BriefKind, BriefSection } from './types';
 
@@ -20,4 +21,9 @@ export const clientBriefDefinitions: Record<BriefKind, BriefDefinition> = {
   },
   logo: { copy: logoBriefCopy, sections: logoBriefSections, subtitleAnswer: 'trading' },
   website: { copy: websiteBriefCopy, sections: websiteBriefSections, includeWorkflowInPDF: true },
+  websiteDemo: {
+    copy: websiteDemoBriefCopy,
+    sections: websiteDemoBriefSections,
+    includeWorkflowInPDF: true,
+  },
 };

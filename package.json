@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "build:brief-server": "esbuild src/server/website-brief.ts --bundle --platform=node --format=esm --outfile=server-dist/website-brief.mjs",
+    "start:brief-server": "node server-dist/website-brief.mjs",
+    "preview": "node scripts/preview.mjs",
     "check": "astro check",
     "test": "vitest run",
     "test:browser": "playwright test",
@@ -31,6 +33,7 @@
     "@astrojs/check": "^0.9.4",
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.55.0",
+    "esbuild": "0.28.2",
     "lighthouse": "^13.4.1",
     "parse5": "^8.0.1",
     "prettier": "^3.9.6",

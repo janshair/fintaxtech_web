@@ -7,17 +7,23 @@ import {
   fieldOptions,
   includesAnswer,
   isVisible,
+  isRequired,
   limits,
   toggleChoice,
 } from '../lib/client-brief/rules';
 import { prepareReference } from '../lib/logo-brief/images';
 import { download } from '../lib/sharing';
 import type { BriefField } from '../lib/client-brief/types';
+import { createWebsiteDelivery } from '../lib/client-brief/website-delivery';
+import { isWebsiteBrief } from '../lib/client-brief/website-submission';
+import { websiteDeliveryCopy } from '../content/client-brief';
 
 const shell = document.querySelector<HTMLElement>('[data-client-brief]')!;
 const definition =
   clientBriefDefinitions[shell.dataset.clientBrief as keyof typeof clientBriefDefinitions];
 const { copy: c } = definition;
+const kind = shell.dataset.clientBrief!;
+const delivery = isWebsiteBrief(kind) ? createWebsiteDelivery(kind) : undefined;
 const { briefSummary, invalidSection, pruneBrief, validateField, visibleSections } =
   createBriefRules(definition.sections);
 let sections = visibleSections({});
@@ -66,14 +72,28 @@ function textField(
   const input = type === 'textarea' ? el('textarea') : el('input');
   if (input instanceof HTMLInputElement) input.type = type;
   input.id = id;
+  input.setAttribute('aria-label', label);
   input.value = value;
-  input.maxLength = max;
+  // Keep the entire paste. HTML maxlength can silently cut it off before validation.
+  const count = el('small', '', 'muted');
+  count.id = `limit-${id}`;
+  count.setAttribute('aria-hidden', 'true');
+  input.setAttribute('aria-describedby', count.id);
+  const updateCount = () => {
+    const tooLong = input.value.length > max;
+    count.textContent = `${input.value.length} / ${max} characters${tooLong ? ` — ${c.tooLong(max)}` : ''}`;
+    input.setCustomValidity(tooLong ? c.tooLong(max) : '');
+    if (tooLong) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+  };
+  updateCount();
   input.autocomplete = 'off';
   input.addEventListener('input', () => {
     dirty = true;
     onInput(input.value);
+    updateCount();
   });
-  wrap.append(input);
+  wrap.append(input, count);
   return wrap;
 }
 function renderRows(field: BriefField, wrap: HTMLElement) {
@@ -83,28 +103,51 @@ function renderRows(field: BriefField, wrap: HTMLElement) {
     const item = el('fieldset', undefined, 'brief-row');
     item.append(el('legend', repeat.title(index + 1)));
     for (const part of repeat.fields) {
+      if (!isVisible(part, row.values)) continue;
       const id = `${field.id}-${row.id}-${part.key}`;
-      if (part.type === 'text') {
-        const label = textField(id, part.label, row.values[part.key] ?? '', (value) => {
-          row.values[part.key] = value;
-        });
-        label.querySelector('input')!.required = !part.optional;
+      if (part.type !== 'single') {
+        const label = textField(
+          id,
+          part.label,
+          row.values[part.key] ?? '',
+          (value) => {
+            const before = repeat.fields.map((item) => isVisible(item, row.values)).join();
+            row.values[part.key] = value;
+            pruneBrief(state);
+            if (before !== repeat.fields.map((item) => isVisible(item, row.values)).join()) {
+              const control = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement;
+              const start = control.selectionStart;
+              const end = control.selectionEnd;
+              render(false, id);
+              const replacement = document.getElementById(id) as
+                HTMLInputElement | HTMLTextAreaElement;
+              if (start !== null && end !== null) replacement.setSelectionRange(start, end);
+            }
+          },
+          part.type === 'long' ? 'textarea' : part.type,
+          part.type === 'long' ? limits.long : limits.short,
+        );
+        label.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')!.required =
+          !part.optional;
         item.append(label);
       } else {
         const group = el('fieldset', undefined, 'field');
         group.append(el('legend', part.label));
         const choices = el('div', undefined, 'choices');
-        for (const option of part.options ?? []) {
+        for (const [optionIndex, option] of (part.options ?? []).entries()) {
           const label = el('label', undefined, 'choice');
           const input = el('input');
           input.type = 'radio';
           input.name = id;
+          input.id = `${id}-${optionIndex}`;
           input.value = option;
           input.required = !part.optional;
           input.checked = row.values[part.key] === option;
           input.addEventListener('change', () => {
             dirty = true;
             row.values[part.key] = option;
+            pruneBrief(state);
+            render(false, input.id);
           });
           label.append(input, el('span', option));
           choices.append(label);
@@ -139,7 +182,7 @@ function renderField(field: BriefField) {
   const wrap = el('fieldset', undefined, 'brief-field');
   wrap.id = `field-${field.id}`;
   const legend = el('legend', field.label);
-  legend.append(el('small', field.optional ? c.optional : c.required));
+  legend.append(el('small', isRequired(field, state.answers) ? c.required : c.optional));
   wrap.append(legend);
   if (field.help) {
     const help = el('p', field.help, 'muted');
@@ -211,6 +254,7 @@ function renderField(field: BriefField) {
     field.type === 'long' ||
     field.type === 'date' ||
     field.type === 'url' ||
+    field.type === 'email' ||
     field.type === 'urls'
   ) {
     const label = textField(
@@ -233,12 +277,14 @@ function renderField(field: BriefField) {
           ? 'date'
           : field.type === 'url'
             ? 'url'
-            : 'text',
+            : field.type === 'email'
+              ? 'email'
+              : 'text',
       field.type === 'long' || field.type === 'urls' ? limits.long : limits.short,
     );
     label.querySelector('span')!.classList.add('sr-only');
     const control = label.querySelector('input, textarea')!;
-    if (!field.optional) control.setAttribute('required', '');
+    if (isRequired(field, state.answers)) control.setAttribute('required', '');
     wrap.append(label);
   } else if (field.type === 'rows') {
     renderRows(field, wrap);
@@ -555,6 +601,20 @@ function review() {
   root.append(summary, el('p', c.disclaimer, 'notice'), el('p', c.shareHelp));
   const status = el('p', '', 'brief-status');
   status.setAttribute('role', 'status');
+  let pdfStatus = '';
+  let slackStatus = '';
+  const updateStatus = () => {
+    if (status.isConnected)
+      status.textContent = [pdfStatus, slackStatus].filter(Boolean).join('\n');
+  };
+  const completeReviewed = () => {
+    if (!delivery) return;
+    void delivery.complete(structuredClone(state), (text) => {
+      slackStatus = text;
+      updateStatus();
+    });
+  };
+  if (delivery) root.append(el('p', websiteDeliveryCopy.notice, 'notice'));
   const actions = el('div', undefined, 'actions');
   actions.append(
     button(c.back, () => {
@@ -567,8 +627,10 @@ function review() {
     async () => {
       if (busy) return;
       const operationLifetime = lifetime;
+      completeReviewed();
       busy = true;
-      status.textContent = c.downloading;
+      pdfStatus = c.downloading;
+      updateStatus();
       root
         .querySelectorAll<HTMLButtonElement>('button')
         .forEach((button) => (button.disabled = true));
@@ -578,9 +640,11 @@ function review() {
         if (operationLifetime !== lifetime) return;
         download(blob, c.pdfFilename);
         // Do not retain a Blob in journey state. Recreate it from current answers for each download.
-        status.textContent = c.downloaded;
+        pdfStatus = c.downloaded;
+        updateStatus();
       } catch {
-        status.textContent = c.pdfError;
+        pdfStatus = c.pdfError;
+        updateStatus();
       } finally {
         busy = false;
         root
@@ -601,6 +665,7 @@ function review() {
     link.href = href;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
+    if (delivery) link.addEventListener('click', completeReviewed);
     sharing.append(link);
   }
   root.append(sharing);
@@ -618,6 +683,7 @@ window.addEventListener('beforeunload', (event) => {
 window.addEventListener('pagehide', () => {
   lifetime++;
   state = emptyBrief();
+  delivery?.clear();
   dirty = false;
 });
 window.addEventListener('pageshow', (event) => {
