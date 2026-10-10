@@ -6,7 +6,7 @@ import {
 } from '../src/content/website-brief';
 import { createBriefRules, emptyBrief, limits, toggleChoice } from '../src/lib/client-brief/rules';
 import { clientBriefDefinitions } from '../src/lib/client-brief/definitions';
-import { completeWebsiteBrief } from './fixtures/website-brief';
+import { completeWebsiteBrief, detailedWebsiteBrief } from './fixtures/website-brief';
 const { validateField, pruneBrief, briefSummary, invalidSection, visibleSections } =
   createBriefRules(sections);
 const fields = sections.flatMap((s) => s.fields);
@@ -18,7 +18,9 @@ describe('website production brief', () => {
     for (const redesign of [false, true]) {
       const state = completeWebsiteBrief(redesign);
       expect(invalidSection(state)).toBe(-1);
-      expect(visibleSections(state.answers)).toHaveLength(redesign ? 14 : 13);
+      expect(visibleSections(state.answers)).toHaveLength(
+        redesign ? sections.length : sections.length - 1,
+      );
     }
     const state = completeWebsiteBrief(true);
     state.answers.project = 'New website';
@@ -67,15 +69,17 @@ describe('website production brief', () => {
       expect(validateField(field(id), state)).toBe(c.missing);
     }
   });
-  it('enforces the two-goal maximum and requires every selected Other detail', () => {
+  it('requires a single primary goal, limits secondary goals and requires every selected Other detail', () => {
     const state = completeWebsiteBrief();
     state.answers.goals = ['Enquiries', 'Credibility', 'Bookings'];
-    expect(validateField(field('goals'), state)).toBe(c.tooMany(2));
-    expect(toggleChoice(field('goals'), ['Enquiries', 'Credibility'], 'Bookings')).toEqual([
-      'Enquiries',
-      'Credibility',
-    ]);
+    expect(validateField(field('goals'), state)).toBe(c.invalidChoice);
+    state.answers.secondaryGoals = ['Enquiries', 'Credibility', 'Bookings'];
+    expect(validateField(field('secondaryGoals'), state)).toBe(c.tooMany(2));
+    expect(toggleChoice(field('secondaryGoals'), ['Enquiries', 'Credibility'], 'Bookings')).toEqual(
+      ['Enquiries', 'Credibility'],
+    );
     for (const f of fields.filter((f) => f.options?.includes('Other'))) {
+      if (f.when) state.answers[f.when.id] = f.when.values[0];
       state.answers[f.id] = f.type === 'single' ? 'Other' : ['Other'];
       delete state.answers[`${f.id}Other`];
       expect(validateField(f, state)).toBe(c.missing);
@@ -147,6 +151,100 @@ describe('website production brief', () => {
       expect(summary).toContain(value);
     expect(field('content').options).toHaveLength(2);
   });
+  it('keeps all new production fields optional and includes every applicable detail in review', () => {
+    const originalIDs = new Set([
+      'project',
+      'existingURL',
+      'goals',
+      'audience',
+      'location',
+      'localPlaces',
+      'country',
+      'internationalPlaces',
+      'pages',
+      'additionalPages',
+      'action',
+      'content',
+      'assets',
+      'capabilities',
+      'updates',
+      'domain',
+      'domainProvider',
+      'email',
+      'emailProvider',
+      'retain',
+      'deadline',
+      'deadlineDate',
+      'deadlineReason',
+      'anything',
+    ]);
+    for (const item of fields.filter((item) => !originalIDs.has(item.id)))
+      expect(item.optional, item.id).toBe(true);
+    const state = detailedWebsiteBrief();
+    expect(invalidSection(state)).toBe(-1);
+    const summary = JSON.stringify(briefSummary(state));
+    for (const value of Object.values(state.answers))
+      for (const part of Array.isArray(value) ? value : String(value).split('\n'))
+        expect(summary).toContain(part);
+    for (const rows of Object.values(state.rows))
+      for (const row of rows)
+        for (const value of Object.values(row.values)) expect(summary).toContain(value);
+    expect(summary).toContain('Pages essential for launch');
+    expect(summary).toContain('Features for later additions');
+    expect(summary).toContain('Confirm usage permission');
+  });
+  it('separates catalogue, payments, integration and custom booking and excludes hidden details', () => {
+    const state = detailedWebsiteBrief();
+    state.answers.capabilities = ['Product catalogue'];
+    state.answers.content = 'Customer provides all final copy';
+    state.answers.assets = ['None'];
+    state.answers.domain = 'Not needed';
+    state.answers.email = 'Not needed';
+    state.answers.updates = 'Not sure';
+    state.answers.project = 'New website';
+    const hiddenIDs = [
+      'paymentProvider',
+      'paymentBehaviour',
+      'bookingProvider',
+      'bookingBehaviour',
+      'customBookingBehaviour',
+      'languageRequirements',
+      'sourceMaterial',
+      'assetPermission',
+      'domainName',
+      'domainProvider',
+      'hostingOwner',
+      'hostingProvider',
+      'dnsOwner',
+      'businessEmailAddress',
+      'emailProvider',
+      'updateNeeds',
+      'existingURLs',
+      'redirectNotes',
+    ];
+    const summary = JSON.stringify(briefSummary(state));
+    for (const id of hiddenIDs) {
+      expect(summary).not.toContain(field(id).label);
+      state.answers[id] = 'INVALID HIDDEN ANSWER';
+      expect(validateField(field(id), state)).toBeUndefined();
+    }
+    expect(summary).toContain('Browse plants by category');
+    pruneBrief(state);
+    for (const id of hiddenIDs) expect(state.answers[id]).toBeUndefined();
+    state.answers.capabilities = ['Booking integration'];
+    expect(JSON.stringify(briefSummary(state))).toContain('Third-party booking provider');
+    expect(JSON.stringify(briefSummary(state))).not.toContain('Intended custom booking behaviour');
+  });
+  it('validates public email addresses separately from provider names and validates redirect URLs', () => {
+    const state = detailedWebsiteBrief();
+    expect(field('emailProvider').help).toContain('Google Workspace or Microsoft 365');
+    state.answers.businessEmailAddress = 'Microsoft 365';
+    expect(validateField(field('businessEmailAddress'), state)).toBe(c.invalidEmail);
+    state.answers.approvalEmail = 'Jamie';
+    expect(validateField(field('approvalEmail'), state)).toBe(c.invalidEmail);
+    state.answers.existingURLs = 'https://valid.example\ninvalid';
+    expect(validateField(field('existingURLs'), state)).toBe(c.invalidURLs);
+  });
 });
 
 it('creates locally generated website PDFs for both branches and long page lists', async () => {
@@ -177,4 +275,9 @@ it('creates locally generated website PDFs for both branches and long page lists
   await expect(createClientBriefPDF(clientBriefDefinitions.website, incomplete)).rejects.toThrow(
     'Incomplete client brief',
   );
+  const detailed = await createClientBriefPDF(
+    clientBriefDefinitions.website,
+    detailedWebsiteBrief(),
+  );
+  await writeFile('tmp/website-brief-qa/detailed.pdf', Buffer.from(await detailed.arrayBuffer()));
 });

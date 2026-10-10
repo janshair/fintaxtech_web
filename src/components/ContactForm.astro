@@ -1,5 +1,4 @@
 ---
-const slackWebhook = import.meta.env.PUBLIC_SLACK_WEBHOOK ?? '';
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 ---
 
@@ -25,7 +24,11 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
   </div>
   <div class="form-row">
     <label for="cf-message">Message</label>
-    <textarea id="cf-message" name="message" required placeholder="Tell us a little about your project or question…"></textarea>
+    <textarea
+      id="cf-message"
+      name="message"
+      required
+      placeholder="Tell us a little about your project or question…"></textarea>
   </div>
   <div id="cf-error" class="error" role="alert" aria-live="polite"></div>
   <button type="submit" class="button" id="cf-submit">Send message</button>
@@ -34,7 +37,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
   </div>
 </form>
 
-<script define:vars={{ slackWebhook, web3formsKey }}>
+<script define:vars={{ web3formsKey }}>
   const form = document.getElementById('contact-form');
   const submitBtn = document.getElementById('cf-submit');
   const errorBox = document.getElementById('cf-error');
@@ -49,21 +52,19 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
       errorBox.textContent = 'Please fill in all fields before sending.';
       return;
     }
+    if (!web3formsKey) {
+      errorBox.textContent =
+        'Please email us directly at ask@fintaxtech.co.uk. Online message delivery is unavailable.';
+      return;
+    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
 
-    const [slackResult, emailResult] = await Promise.allSettled([
-      slackWebhook ? sendSlack(data, slackWebhook) : Promise.resolve(),
-      web3formsKey ? sendWeb3Forms(data, web3formsKey) : Promise.resolve(),
-    ]);
+    const [emailResult] = await Promise.allSettled([sendWeb3Forms(data, web3formsKey)]);
 
     submitBtn.disabled = false;
     submitBtn.textContent = 'Send message';
-
-    if (slackResult.status === 'rejected') {
-      console.warn('Slack notification failed:', slackResult.reason);
-    }
 
     if (emailResult.status === 'rejected') {
       errorBox.textContent =
@@ -73,22 +74,6 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
       successBox.hidden = false;
     }
   });
-
-  async function sendSlack(data, webhook) {
-    const text =
-      `*New contact from fintaxtech.co.uk*\n` +
-      `*Name:* ${data.name}\n` +
-      `*Email:* ${data.email}\n` +
-      `*Service:* ${data.service}\n` +
-      `*Message:* ${data.message}`;
-    // text/plain avoids CORS preflight — Slack accepts JSON body regardless of content-type
-    const res = await fetch(webhook, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ text }),
-    });
-    if (!res.ok) throw new Error('Slack error');
-  }
 
   async function sendWeb3Forms(data, key) {
     const res = await fetch('https://api.web3forms.com/submit', {

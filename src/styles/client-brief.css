@@ -29,6 +29,7 @@
   margin-top: var(--space-4);
 }
 .client-brief input[type='date'],
+.client-brief input[type='email'],
 .client-brief input[type='url'] {
   width: 100%;
   min-width: 0;
@@ -87,6 +88,8 @@
 }
 .client-brief .brief-status {
   margin-block: var(--space-4);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 .client-brief [aria-invalid='true'] {
   border-color: var(--error);
