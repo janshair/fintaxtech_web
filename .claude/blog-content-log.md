@@ -23,10 +23,11 @@ stationery-and-marketing-assets-after-logo, choosing-brand-colours-and-fonts,
 designing-for-print-without-owning-a-press,
 rebrand-or-refresh-your-business-brand
 
-AI Automation (7): ai-business-documents-to-website-content, ai-content-services-six-examples,
+AI Automation (9): ai-business-documents-to-website-content, ai-content-services-six-examples,
 ai-confidential-business-documents, how-to-review-ai-assisted-content,
 brand-voice-with-ai-assisted-content, who-owns-ai-assisted-content,
-which-business-tasks-to-hand-to-ai-first
+which-business-tasks-to-hand-to-ai-first,
+ai-document-extraction-explained, planning-an-ai-assistant-for-your-business
 
 - 2026-10-03: what-slows-a-website-build-down — pushed to main, awaiting owner review
 - 2026-10-04: website-copy-that-answers-customer-questions — pushed to main, awaiting owner review
@@ -34,10 +35,10 @@ which-business-tasks-to-hand-to-ai-first
 - 2026-10-06: designing-for-print-without-owning-a-press — pushed to main, awaiting owner review
 - 2026-10-07: push-notifications-without-annoying-people — pushed to main, awaiting owner review
 - 2026-10-08: rebrand-or-refresh-your-business-brand — pushed to main, awaiting owner review
+- 2026-10-09: ai-document-extraction-explained — now live on main (earlier branch draft merged)
+- 2026-10-10: planning-an-ai-assistant-for-your-business — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
-
-- 2026-10-09: ai-document-extraction-explained — on branch blog/ai-document-extraction-explained, not published (push to main rejected as non-fast-forward although remote main matched local parent; likely branch protection)
 
 ## Queue
 
@@ -49,6 +50,8 @@ which-business-tasks-to-hand-to-ai-first
 6. ~~Push Notifications Without Annoying People: What to Plan Before You Build (Mobile App Development; mobile-apps)~~ published 2026-10-07
 7. ~~Rebrand or Refresh? How to Tell What Your Existing Brand Actually Needs (Branding and Graphic Design; branding)~~ added 2026-10-08 as queue was exhausted (Branding and AI had fewest articles); published 2026-10-08
 8. ~~AI Document Extraction Explained: Turning Forms, Letters and PDFs into Organised Information (AI Automation; ai-automation)~~ added 2026-10-09 as queue was exhausted (AI Automation had fewest articles, 7); drafted 2026-10-09
+
+9. ~~Planning an AI Assistant for Your Business: What to Decide Before Anything Is Built (AI Automation; ai-automation)~~ added 2026-10-10 as queue was exhausted (AI Automation and Branding had fewest; AI assistants not yet covered); published 2026-10-10
 
 ## Conventions reminder
 
