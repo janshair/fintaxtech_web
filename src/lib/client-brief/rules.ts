@@ -248,66 +248,70 @@ export function createBriefRules(sections: BriefSection[]) {
     const website = sections.some((section) =>
       section.fields.some((field) => field.id === 'priorityOfferings'),
     );
-    return visibleSections(state.answers).map((section) => ({
-      title: section.title,
-      references: section.fields.some(
-        (field) => field.type === 'images' && isVisible(field, state.answers),
-      ),
-      rows: section.fields
-        .filter((field) => isVisible(field, state.answers) && field.type !== 'images')
-        .flatMap((field) => {
-          if (omitPrioritySource(field.id, state)) return [];
-          if (field.id === 'priorityOfferings') {
-            const value = priorityOfferingsText(state.rows[field.id]);
-            return value ? [{ label: websiteOutputLabels[field.id], value }] : [];
-          }
-          if (field.type === 'rows' && field.repeat) {
-            const repeat = field.repeat;
-            return (state.rows[field.id] ?? []).map((row, index) => ({
-              label: repeat.title(index + 1),
-              value: repeat.fields
-                .filter((part) => isVisible(part, row.values))
-                .map((part) => `${part.label}: ${row.values[part.key]?.trim() || c.notProvided}`)
-                .join('\n'),
-            }));
-          }
-          if (field.type === 'pages' && state.additionalPages.length)
-            return state.additionalPages.map((page, index) => ({
-              label: c.additionalPage(index + 1),
-              value: `${page.name.trim()}${page.purpose.trim() ? `\n${c.pagePurpose}: ${page.purpose.trim()}` : ''}`,
-            }));
-          const answer = state.answers[field.id];
-          let value = c.notProvided;
-          if (field.type === 'competitors')
-            value =
-              state.competitors
-                .map(
-                  (item, i) =>
-                    `${c.competitor(i + 1)}: ${item.name.trim()}${item.website.trim() ? ` — ${item.website.trim()}` : ''}`,
-                )
-                .join('\n') || c.notProvided;
-          else if (field.type === 'confirm') value = answer === true ? c.confirmed : c.notProvided;
-          else if (answer) {
-            const format = (item: string) =>
-              item === c.other && !field.otherField
-                ? `${c.other}: ${String(state.answers[`${field.id}Other`] ?? '').trim()}`
-                : item;
-            value = Array.isArray(answer)
-              ? answer.map(format).join('; ')
-              : format(String(answer).trim());
-          }
-          if (website && !isRequired(field, state.answers) && (!value || value === c.notProvided))
-            return [];
-          if (field.id === 'provisionalAssets') value = provisionalAssetPermission(answer);
-          const rows = [{ label: websiteOutputLabels[field.id] ?? field.label, value }];
-          if (
-            field.followUp?.pdfNote &&
-            field.followUp.values.some((option) => includesAnswer(answer, option))
-          )
-            rows.push({ label: c.scopeReview, value: field.followUp.pdfNote });
-          return rows;
-        }),
-    }));
+    return visibleSections(state.answers)
+      .map((section, sectionIndex) => ({
+        sectionIndex,
+        title: section.title,
+        references: section.fields.some(
+          (field) => field.type === 'images' && isVisible(field, state.answers),
+        ),
+        rows: section.fields
+          .filter((field) => isVisible(field, state.answers) && field.type !== 'images')
+          .flatMap((field) => {
+            if (omitPrioritySource(field.id, state)) return [];
+            if (field.id === 'priorityOfferings') {
+              const value = priorityOfferingsText(state.rows[field.id]);
+              return value ? [{ label: websiteOutputLabels[field.id], value }] : [];
+            }
+            if (field.type === 'rows' && field.repeat) {
+              const repeat = field.repeat;
+              return (state.rows[field.id] ?? []).map((row, index) => ({
+                label: repeat.title(index + 1),
+                value: repeat.fields
+                  .filter((part) => isVisible(part, row.values))
+                  .map((part) => `${part.label}: ${row.values[part.key]?.trim() || c.notProvided}`)
+                  .join('\n'),
+              }));
+            }
+            if (field.type === 'pages' && state.additionalPages.length)
+              return state.additionalPages.map((page, index) => ({
+                label: c.additionalPage(index + 1),
+                value: `${page.name.trim()}${page.purpose.trim() ? `\n${c.pagePurpose}: ${page.purpose.trim()}` : ''}`,
+              }));
+            const answer = state.answers[field.id];
+            let value = c.notProvided;
+            if (field.type === 'competitors')
+              value =
+                state.competitors
+                  .map(
+                    (item, i) =>
+                      `${c.competitor(i + 1)}: ${item.name.trim()}${item.website.trim() ? ` — ${item.website.trim()}` : ''}`,
+                  )
+                  .join('\n') || c.notProvided;
+            else if (field.type === 'confirm')
+              value = answer === true ? c.confirmed : c.notProvided;
+            else if (answer) {
+              const format = (item: string) =>
+                item === c.other && !field.otherField
+                  ? `${c.other}: ${String(state.answers[`${field.id}Other`] ?? '').trim()}`
+                  : item;
+              value = Array.isArray(answer)
+                ? answer.map(format).join('; ')
+                : format(String(answer).trim());
+            }
+            if (website && !isRequired(field, state.answers) && (!value || value === c.notProvided))
+              return [];
+            if (field.id === 'provisionalAssets') value = provisionalAssetPermission(answer);
+            const rows = [{ label: websiteOutputLabels[field.id] ?? field.label, value }];
+            if (
+              field.followUp?.pdfNote &&
+              field.followUp.values.some((option) => includesAnswer(answer, option))
+            )
+              rows.push({ label: c.scopeReview, value: field.followUp.pdfNote });
+            return rows;
+          }),
+      }))
+      .filter((section) => !website || section.rows.length > 0);
   }
 
   return { visibleSections, pruneBrief, validateField, invalidSection, briefSummary };

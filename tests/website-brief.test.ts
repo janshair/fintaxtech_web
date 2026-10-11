@@ -182,7 +182,13 @@ describe('website production brief', () => {
     // Deliberately required: the stage-independent operating question, its channel breakdown,
     // the business idea (only after choosing "Help me define"), reference rows (only after
     // choosing "I have examples"), and the contact email.
-    const intentionallyRequired = new Set(['operation', 'operationDetails', 'businessIdea', 'referenceWebsites', 'approvalEmail']);
+    const intentionallyRequired = new Set([
+      'operation',
+      'operationDetails',
+      'businessIdea',
+      'referenceWebsites',
+      'approvalEmail',
+    ]);
     for (const item of fields.filter(
       (item) => !originalIDs.has(item.id) && !intentionallyRequired.has(item.id),
     ))
@@ -288,4 +294,38 @@ it('creates locally generated website PDFs for both branches and long page lists
     detailedWebsiteBrief(),
   );
   await writeFile('tmp/website-brief-qa/detailed.pdf', Buffer.from(await detailed.arrayBuffer()));
+});
+
+it('omits empty website sections from review and PDF while retaining original edit positions', async () => {
+  const state = completeWebsiteBrief();
+  const summary = briefSummary(state);
+  expect(summary.some((section) => section.title === 'Your design direction')).toBe(false);
+  expect(summary.every((section) => section.rows.length > 0)).toBe(true);
+  const applicable = visibleSections(state.answers);
+  for (const section of summary) expect(applicable[section.sectionIndex].title).toBe(section.title);
+  const assets = summary.find((section) => section.title === 'Your visual assets')!;
+  expect(assets.sectionIndex).toBeGreaterThan(summary.indexOf(assets));
+
+  // Non-website schemas still retain empty sections (including image-only sections).
+  const other = createBriefRules([
+    {
+      title: 'Image-only section',
+      fields: [{ id: 'images', label: 'Images', type: 'images', optional: true }],
+    },
+  ]);
+  expect(other.briefSummary(emptyBrief())).toEqual([
+    { sectionIndex: 0, title: 'Image-only section', rows: [], references: true },
+  ]);
+  vi.stubGlobal('fetch', async (path: string) => new Response(await readFile(`public${path}`)));
+  const font = await import('../src/lib/pdf-font');
+  const input = vi.spyOn(font, 'checkPDFGlyphs');
+  try {
+    const { createClientBriefPDF } = await import('../src/lib/client-brief/pdf');
+    await createClientBriefPDF(clientBriefDefinitions.website, state);
+    const text = input.mock.calls.map(([, text]) => text);
+    expect(text).not.toContain('Your design direction');
+    expect(text).toContain('Your visual assets');
+  } finally {
+    input.mockRestore();
+  }
 });

@@ -569,16 +569,13 @@ function review() {
   heading.tabIndex = -1;
   root.append(heading, el('p', c.reviewIntro));
   const summary = el('div', undefined, 'brief-review');
-  briefSummary(state).forEach((section, index) => {
+  briefSummary(state).forEach((section) => {
     const item = el('section');
     item.append(el('h3', section.title));
     const list = el('dl');
     section.rows.forEach((row) => list.append(el('dt', row.label), el('dd', row.value)));
     item.append(list);
-    if (
-      sections[index].fields.some((field) => field.type === 'images') &&
-      state.answers.references === 'Yes'
-    ) {
+    if (section.references && state.answers.references === 'Yes') {
       state.images.forEach((reference, i) => {
         const figure = el('figure', undefined, 'brief-reference');
         figure.append(
@@ -590,7 +587,7 @@ function review() {
       });
     }
     const edit = button(c.edit, () => {
-      position = index;
+      position = section.sectionIndex;
       errors = {};
       render();
     });

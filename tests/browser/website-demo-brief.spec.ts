@@ -28,7 +28,11 @@ async function fillSection(page: Page, position: number) {
       }
     } else if (field.type === 'single' || field.type === 'multi') {
       const answer = state.answers[field.id];
-      for (const value of Array.isArray(answer) ? answer : [String(answer)])
+      for (const value of Array.isArray(answer)
+        ? answer
+        : answer === undefined
+          ? []
+          : [String(answer)])
         await wrap.getByLabel(value, { exact: true }).click();
     } else if (typeof state.answers[field.id] === 'string') {
       await page.locator(`#${field.id}`).fill(String(state.answers[field.id]));
@@ -65,6 +69,7 @@ test('demo route, required references, row limits and keyboard controls work on 
   await expect(page.locator('#goalsOther')).toHaveCount(0);
   await next(page);
   await expect(page.locator('[data-brief-form] h2')).toBeFocused();
+  await page.getByLabel('I have examples', { exact: true }).click();
   await page.getByLabel('Request a quote', { exact: true }).click();
   await next(page);
   await expect(page.getByRole('alert')).toContainText('at least one');
@@ -132,6 +137,7 @@ test('demo route, required references, row limits and keyboard controls work on 
     .click();
   await next(page);
   await page.locator('#approverName').fill('Jamie');
+  await page.locator('#approvalEmail').fill('jamie@example.com');
   await page.locator('#success').fill('Clear visitor action');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await expect(page.locator('.brief-review')).not.toContainText('HIDDEN-DEMO-GOAL');
@@ -165,7 +171,9 @@ test('all demo answers reach review, Slack and local PDF, remain editable and cl
   }
   await expect(page.locator('.brief-review')).not.toContainText('I will list up to three');
   await expect(page.locator('.brief-review')).not.toContainText('Provisional styling only');
-  await expect(page.locator('.brief-review')).toContainText('Priority services / products');
+  await expect(page.locator('.brief-review')).toContainText(
+    'Priority offerings — services, products, treatments, classes or other offers',
+  );
   await expect(page.locator('.brief-review')).toContainText(
     '1. Garden planning and design consultations',
   );
@@ -293,15 +301,17 @@ test('website sourcing, booking, pricing and explicit permissions validate condi
   await page.locator('#field-goals').getByLabel('Bookings', { exact: true }).click();
   await page.locator('#field-action').getByLabel('Enquire', { exact: true }).click();
   await next(page);
-  await expect(page.getByRole('alert')).toHaveCount(2);
+  await expect(page.getByRole('alert')).toHaveCount(3);
+  await page.getByLabel('Appointment / treatment', { exact: true }).click();
   await page.locator('#primaryCustomersOther').fill('Property managers');
   await page.getByLabel('Link to an existing booking service', { exact: true }).click();
   await next(page);
   await expect(page.locator('#bookingURL')).toBeFocused();
   await page.locator('#bookingURL').fill('https://booking.example/HIDDEN-BOOKING');
-  await page.getByLabel('Appointment enquiry / request', { exact: true }).click();
+  await page.getByLabel('Booking enquiry / request', { exact: true }).click();
   await expect(page.locator('#bookingURL')).toHaveCount(0);
   await next(page);
+  await page.getByLabel('I have examples', { exact: true }).click();
   await page.getByRole('button', { name: 'Add reference website', exact: true }).click();
   await page.getByLabel('Reference website URL', { exact: true }).fill('https://reference.example');
   await page.getByLabel('What do you like about this website?', { exact: true }).fill('Pricing');
@@ -333,6 +343,7 @@ test('website sourcing, booking, pricing and explicit permissions validate condi
   });
   await next(page);
   await page.locator('#approverName').fill('Demo Approver');
+  await page.locator('#approvalEmail').fill('approver@example.com');
   await page.locator('#success').fill('Pricing'); // Short answers stay allowed; examples guide the client.
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await expect(page.locator('.brief-review')).not.toContainText('HIDDEN-');
@@ -346,10 +357,10 @@ test('website sourcing, booking, pricing and explicit permissions validate condi
   expect(message).not.toContain('HIDDEN-');
   expect(message).toContain('What appeals to you about the pricing?');
   expect(message).toContain('Visible prices');
-  expect(message).toContain('Customer need:');
-  expect(message).toContain('Primary customers:');
+  expect(message).toContain('What visitors are looking for or trying to do:');
+  expect(message).toContain('Who the website should reach:');
   const permitted = message.split('Provisional choices permitted:')[1];
-  expect(permitted).toContain('Service suggestions from the supplied website');
+  expect(permitted).toContain('Offering suggestions from the supplied website');
   expect(permitted).not.toContain('Provisional styling');
   expect(permitted).not.toContain('Placeholder imagery');
   expect(message).not.toContain('Confirm from the agreed proposal');
