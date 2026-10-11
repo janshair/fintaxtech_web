@@ -1,8 +1,9 @@
 // Posts newly published blog articles to the FinTaxTech Facebook Page and Instagram account.
 //
 // Reads social/posts/<slug>.json files (written by the daily blog routine), waits until the
-// article URL is live, then publishes the same portrait image to both networks. Facebook posts are
-// photo posts with no links in the text, because the Page has a monthly limit on link posts.
+// article URL is live, then publishes the same portrait images to both networks: one image, or a
+// swipeable carousel when the post file lists several in "images". Facebook posts are photo posts
+// with no links in the text, because the Page has a monthly limit on link posts.
 // Duplicate posts are avoided by checking the Page feed and Instagram media before publishing,
 // so re-running is safe.
 //
@@ -54,6 +55,16 @@ async function waitForUrl(url, { attempts, delayMs, contentType }) {
   return false;
 }
 
+async function waitForContainer(id, token) {
+  let status = '';
+  for (let i = 0; i < 12 && status !== 'FINISHED'; i++) {
+    await sleep(5_000);
+    status = (await graph(id, { token, params: { fields: 'status_code' } })).status_code;
+    if (status === 'ERROR' || status === 'EXPIRED') throw new Error(`media container status ${status}`);
+  }
+  if (status !== 'FINISHED') throw new Error(`media container not ready (status ${status || 'unknown'})`);
+}
+
 async function loadPosts() {
   let files = [];
   try {
@@ -71,6 +82,11 @@ async function loadPosts() {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(post.date || '')) problems.push('date must be YYYY-MM-DD');
     if (!norm(post.title)) problems.push('title is required');
     if (!/\.jpe?g$/i.test(post.image || '')) problems.push('image must be a .jpg path in the repo');
+    post.images = post.images?.length ? post.images : [post.image];
+    if (post.images[0] !== post.image) problems.push('images must start with the cover image');
+    if (post.images.length > 10 || post.images.some((f) => !/\.jpe?g$/i.test(f || ''))) {
+      problems.push('images must be 1–10 .jpg paths in the repo');
+    }
     const fbMessage = norm(post.facebook?.message);
     if (!fbMessage) problems.push('facebook.message is required');
     if (LINK_RE.test(fbMessage)) problems.push('facebook.message must not contain links or domain names');
@@ -125,12 +141,16 @@ async function main() {
       continue;
     }
 
-    const imageUrl = `https://raw.githubusercontent.com/${REPO}/${SHA}/${post.image}`;
-    if (!(await waitForUrl(imageUrl, { attempts: 3, delayMs: 5_000, contentType: 'image/jpeg' }))) {
-      log(`❌ Image is not a reachable JPEG: ${imageUrl}`);
+    const imageUrls = post.images.map((f) => `https://raw.githubusercontent.com/${REPO}/${SHA}/${f}`);
+    const reachable = await Promise.all(
+      imageUrls.map((u) => waitForUrl(u, { attempts: 3, delayMs: 5_000, contentType: 'image/jpeg' })),
+    );
+    if (reachable.includes(false)) {
+      log(`❌ Image is not a reachable JPEG: ${imageUrls[reachable.indexOf(false)]}`);
       failed = true;
       continue;
     }
+    const what = imageUrls.length > 1 ? `a ${imageUrls.length}-image carousel` : `image ${post.image}`;
 
     // Facebook: photo post with the message as its caption, skipped if a recent post starts the same way.
     try {
@@ -139,14 +159,31 @@ async function main() {
       if (feed.data.some((p) => norm(p.message).startsWith(fbMarker))) {
         log('Facebook: already posted, skipping');
       } else if (DRY_RUN) {
-        log(`Facebook: would post image ${post.image} with ${norm(post.facebook.message).length} characters of text`);
-      } else {
+        log(`Facebook: would post ${what} with ${norm(post.facebook.message).length} characters of text`);
+      } else if (imageUrls.length === 1) {
         const res = await graph(`${env.META_PAGE_ID}/photos`, {
           token: pageToken,
           method: 'POST',
-          params: { url: imageUrl, caption: post.facebook.message },
+          params: { url: imageUrls[0], caption: post.facebook.message },
         });
         log(`Facebook: ✅ posted (${res.post_id || res.id})`);
+      } else {
+        // Multi-photo post: upload each photo unpublished, then attach them all to one feed post.
+        const attached = {};
+        for (const [i, url] of imageUrls.entries()) {
+          const photo = await graph(`${env.META_PAGE_ID}/photos`, {
+            token: pageToken,
+            method: 'POST',
+            params: { url, published: 'false' },
+          });
+          attached[`attached_media[${i}]`] = JSON.stringify({ media_fbid: photo.id });
+        }
+        const res = await graph(`${env.META_PAGE_ID}/feed`, {
+          token: pageToken,
+          method: 'POST',
+          params: { message: post.facebook.message, ...attached },
+        });
+        log(`Facebook: ✅ posted ${what} (${res.id})`);
       }
     } catch (err) {
       log(`Facebook: ❌ ${err.message}`);
@@ -163,27 +200,41 @@ async function main() {
         continue;
       }
       if (DRY_RUN) {
-        log(`Instagram: would post image ${post.image} with a ${norm(post.instagram.caption).length}-character caption`);
+        log(`Instagram: would post ${what} with a ${norm(post.instagram.caption).length}-character caption`);
         continue;
       }
-      const container = await graph(`${ig.id}/media`, {
-        token: pageToken,
-        method: 'POST',
-        params: { image_url: imageUrl, caption: post.instagram.caption },
-      });
-      let status = '';
-      for (let i = 0; i < 12 && status !== 'FINISHED'; i++) {
-        await sleep(5_000);
-        status = (await graph(container.id, { token: pageToken, params: { fields: 'status_code' } })).status_code;
-        if (status === 'ERROR' || status === 'EXPIRED') throw new Error(`media container status ${status}`);
+      let container;
+      if (imageUrls.length === 1) {
+        container = await graph(`${ig.id}/media`, {
+          token: pageToken,
+          method: 'POST',
+          params: { image_url: imageUrls[0], caption: post.instagram.caption },
+        });
+      } else {
+        // Carousel: one child container per image, then a parent container that holds the caption.
+        const children = [];
+        for (const url of imageUrls) {
+          const child = await graph(`${ig.id}/media`, {
+            token: pageToken,
+            method: 'POST',
+            params: { image_url: url, is_carousel_item: 'true' },
+          });
+          await waitForContainer(child.id, pageToken);
+          children.push(child.id);
+        }
+        container = await graph(`${ig.id}/media`, {
+          token: pageToken,
+          method: 'POST',
+          params: { media_type: 'CAROUSEL', children: children.join(','), caption: post.instagram.caption },
+        });
       }
-      if (status !== 'FINISHED') throw new Error(`media container not ready (status ${status || 'unknown'})`);
+      await waitForContainer(container.id, pageToken);
       const published = await graph(`${ig.id}/media_publish`, {
         token: pageToken,
         method: 'POST',
         params: { creation_id: container.id },
       });
-      log(`Instagram: ✅ posted (${published.id})`);
+      log(`Instagram: ✅ posted ${what} (${published.id})`);
     } catch (err) {
       log(`Instagram: ❌ ${err.message}`);
       failed = true;
