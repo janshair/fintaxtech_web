@@ -23,19 +23,21 @@ async function fillCurrent(page: Page) {
   const section = sections.find((s) => s.title === title)!;
   for (const field of section.fields) {
     const wrap = page.locator(`#field-${field.id}`);
-    if (!(await wrap.count())) continue;
+    if (!(await wrap.count()) || (field.optional && field.id !== 'pages')) continue;
     if (field.type === 'single' || field.type === 'multi') {
       if (!(await wrap.locator('input:checked').count()))
         await wrap.locator('input').first().click();
-    } else if (['text', 'url', 'date'].includes(field.type) && !field.optional) {
+    } else if (['text', 'url', 'date', 'email', 'long'].includes(field.type) && !field.optional) {
       const input = page.locator(`#${field.id}`);
       if (!(await input.inputValue()))
         await input.fill(
-          field.type === 'url'
-            ? 'https://private-client.example'
-            : field.type === 'date'
-              ? '2026-12-31'
-              : secret,
+          field.type === 'email'
+            ? 'approver@example.com'
+            : field.type === 'url'
+              ? 'https://private-client.example'
+              : field.type === 'date'
+                ? '2026-12-31'
+                : secret,
         );
     }
   }
@@ -100,7 +102,8 @@ test('keyboard, single primary goal, secondary maximum and Other preserve only a
   await expect(page.getByLabel('Please specify')).toHaveValue('Build a useful reference library');
   await primary.getByLabel('Enquiries', { exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveCount(0);
-  await advanceTo(page, 'Where your customers are');
+  await advanceTo(page, 'How and where you operate');
+  await page.getByLabel('Visiting / delivering to customers', { exact: true }).click();
   await page.getByLabel('Local', { exact: true }).click();
   await page.locator('#localPlaces').fill('Dundee');
   await page.getByLabel('One country', { exact: true }).click();
@@ -205,6 +208,7 @@ test('None is exclusive, branding opens separately, providers and deadlines are 
 test('redesign review, Slack and PDF exclude stale answers and drafts clear on refresh', async ({
   page,
 }, info) => {
+  test.setTimeout(90000); // Includes a second edit journey after an omitted summary section.
   const requests: string[] = [];
   page.on('request', (r) => requests.push(`${r.method()} ${r.url()} ${r.postData() ?? ''}`));
   await begin(page);
@@ -225,6 +229,14 @@ test('redesign review, Slack and PDF exclude stale answers and drafts clear on r
   expect(requests.join('\n')).not.toContain(secret);
   expect(requests.join('\n')).not.toContain('private-client.example');
   await expect(page.locator('.brief-review')).toContainText('Nothing—start again');
+  await expect(page.locator('.brief-review h3')).not.toContainText(['Your design direction']);
+  await expect(
+    page.getByRole('button', { name: 'Edit answers: Your design direction', exact: true }),
+  ).toHaveCount(0);
+  await page.getByRole('button', { name: 'Edit answers: Your visual assets', exact: true }).click();
+  await expect(page.locator('[data-brief-form] h2')).toHaveText('Your visual assets');
+  await advanceTo(page, 'Anything else');
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await page.screenshot({ path: info.outputPath('review-desktop.png'), fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('#theme-toggle').click();
@@ -328,7 +340,11 @@ test('new production details and reference explanations reach review and PDF on 
       if (!(await wrap.count())) continue;
       const answer = state.answers[field.id];
       if (field.type === 'single' || field.type === 'multi') {
-        for (const value of Array.isArray(answer) ? answer : [String(answer)])
+        for (const value of Array.isArray(answer)
+          ? answer
+          : answer === undefined
+            ? []
+            : [String(answer)])
           await wrap.getByLabel(value, { exact: true }).click();
       } else if (field.type === 'rows') {
         for (const row of state.rows[field.id] ?? []) {

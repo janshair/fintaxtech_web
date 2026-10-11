@@ -18,7 +18,7 @@ async function reviewDemo(page: Page) {
         }
       } else if (field.type === 'single' || field.type === 'multi') {
         const answer = state.answers[field.id];
-        for (const value of Array.isArray(answer) ? answer : [String(answer)])
+        for (const value of Array.isArray(answer) ? answer : answer === undefined ? [] : [String(answer)])
           await wrap.getByLabel(value, { exact: true }).click();
       } else if (typeof state.answers[field.id] === 'string')
         await page.locator(`#${field.id}`).fill(String(state.answers[field.id]));
