@@ -138,10 +138,10 @@ describe('server validation and structured website messages', () => {
         for (const part of Array.isArray(displayed) ? displayed : String(displayed).split('\n'))
           expect(message).toContain(part);
       }
-      expect(message).not.toContain('Priority services selection:');
+      expect(message).not.toContain('How to choose priority offerings:');
       expect(message).not.toContain('I will list up to three');
       expect(message).not.toContain('Provisional styling only');
-      expect(message).toContain('Priority services / products:\n\n1. ');
+      expect(message).toContain('Priority offerings — services, products, treatments, classes or other offers:\n\n1. ');
       expect(message).not.toContain('Service or product and short description');
       for (const rows of Object.values(submission.rows))
         for (const row of rows)
@@ -158,8 +158,9 @@ describe('server validation and structured website messages', () => {
     expect(message).toContain('Available assets:\n  None');
     expect(message).toContain('Domain status:\n  Not needed');
     expect(message).not.toContain('Domain provider:');
-    expect(message).toContain('Business name:\n  Not provided');
-    expect(message).toContain('Missing information: Business name');
+    // Blank optional production details are omitted, not reported as missing.
+    expect(message).not.toContain('Business name:');
+    expect(message).not.toContain('Missing information');
     const demo = formatWebsiteBrief(
       reviewedWebsiteSubmission('websiteDemo', completeWebsiteDemoBrief()),
     );

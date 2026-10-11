@@ -244,6 +244,10 @@ export function createBriefRules(sections: BriefSection[]) {
   function briefSummary(source: BriefState): BriefSummary[] {
     const state = structuredClone(source);
     pruneBrief(state);
+    // Website output omits empty optional details; other briefs keep their existing summaries.
+    const website = sections.some((section) =>
+      section.fields.some((field) => field.id === 'priorityOfferings'),
+    );
     return visibleSections(state.answers).map((section) => ({
       title: section.title,
       references: section.fields.some(
@@ -292,6 +296,8 @@ export function createBriefRules(sections: BriefSection[]) {
               ? answer.map(format).join('; ')
               : format(String(answer).trim());
           }
+          if (website && !isRequired(field, state.answers) && (!value || value === c.notProvided))
+            return [];
           if (field.id === 'provisionalAssets') value = provisionalAssetPermission(answer);
           const rows = [{ label: websiteOutputLabels[field.id] ?? field.label, value }];
           if (

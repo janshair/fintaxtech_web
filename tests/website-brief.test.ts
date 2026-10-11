@@ -79,7 +79,8 @@ describe('website production brief', () => {
       ['Enquiries', 'Credibility'],
     );
     for (const f of fields.filter((f) => f.options?.includes('Other'))) {
-      if (f.when) state.answers[f.when.id] = f.when.values[0];
+      const when = Array.isArray(f.when) ? f.when[0] : f.when;
+      if (when) state.answers[when.id] = when.values![0];
       state.answers[f.id] = f.type === 'single' ? 'Other' : ['Other'];
       delete state.answers[`${f.id}Other`];
       expect(validateField(f, state)).toBe(c.missing);
@@ -178,7 +179,13 @@ describe('website production brief', () => {
       'deadlineReason',
       'anything',
     ]);
-    for (const item of fields.filter((item) => !originalIDs.has(item.id)))
+    // Deliberately required: the stage-independent operating question, its channel breakdown,
+    // the business idea (only after choosing "Help me define"), reference rows (only after
+    // choosing "I have examples"), and the contact email.
+    const intentionallyRequired = new Set(['operation', 'operationDetails', 'businessIdea', 'referenceWebsites', 'approvalEmail']);
+    for (const item of fields.filter(
+      (item) => !originalIDs.has(item.id) && !intentionallyRequired.has(item.id),
+    ))
       expect(item.optional, item.id).toBe(true);
     const state = detailedWebsiteBrief();
     expect(invalidSection(state)).toBe(-1);
@@ -232,6 +239,7 @@ describe('website production brief', () => {
     pruneBrief(state);
     for (const id of hiddenIDs) expect(state.answers[id]).toBeUndefined();
     state.answers.capabilities = ['Booking integration'];
+    state.answers.bookingProvider = 'Calendly'; // Blank optional details are omitted from review.
     expect(JSON.stringify(briefSummary(state))).toContain('Third-party booking provider');
     expect(JSON.stringify(briefSummary(state))).not.toContain('Intended custom booking behaviour');
   });

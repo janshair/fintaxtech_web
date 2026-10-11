@@ -61,14 +61,15 @@ describe('free website demo brief', () => {
   });
   it('does not infer permission from an unanswered choice or print empty clarification boilerplate', async () => {
     const state = completeWebsiteDemoBrief();
-    delete state.answers.approvalEmail; // Optional; its absence is not a missing decision.
     let message = formatWebsiteBrief(reviewedWebsiteSubmission('websiteDemo', state));
     expect(message).not.toContain('Needs clarification:');
     expect(message).not.toContain('No essential unresolved decisions identified.');
     delete state.answers.provisionalAssets;
     message = formatWebsiteBrief(reviewedWebsiteSubmission('websiteDemo', state));
     expect(message).toContain('Provisional choices permitted: None explicitly authorized.');
-    expect(message).toContain(`Needs clarification:\n- ${field('provisionalAssets').label}`);
+    expect(message).toContain(
+      'Needs clarification:\n- Provisional styling and placeholder imagery permissions',
+    );
     expect(message.match(/Needs clarification:/g)).toHaveLength(1);
     expect(briefSummary(state).flatMap((section) => section.rows)).toContainEqual({
       label: 'Provisional styling and placeholder imagery permissions',
@@ -85,7 +86,7 @@ describe('free website demo brief', () => {
     for (const choice of ['I will list up to three', 'Help me choose from my existing website']) {
       state.answers.prioritySource = choice;
       const message = formatWebsiteBrief(reviewedWebsiteSubmission('websiteDemo', state));
-      expect(message).toContain(`Priority services selection:\n  ${choice}`);
+      expect(message).toContain(`How to choose priority offerings:\n  ${choice}`);
       expect(briefSummary(state).flatMap((section) => section.rows)).toContainEqual({
         label: field('prioritySource').label,
         value: choice,
@@ -198,8 +199,8 @@ describe('free website demo brief', () => {
     state.answers.provisionalAssets = 'Please ask me first';
     let message = formatWebsiteBrief(reviewedWebsiteSubmission('websiteDemo', state));
     expect(message).toContain('Available assets:\n  None');
-    expect(message).toContain('Primary customers:\n  Homeowners; Businesses');
-    expect(message).toContain('Customer need:');
+    expect(message).toContain('Who the website should reach:\n  Consumers / general public; Businesses / organisations');
+    expect(message).toContain('What visitors are looking for or trying to do:');
     expect(message).toContain(
       'Contact / approver:\n  Name: Jamie Orchard\n  Email: jamie@orchard.example',
     );
@@ -207,9 +208,8 @@ describe('free website demo brief', () => {
     expect(message).not.toContain('Design preferences:');
     expect(message).not.toContain('Missing information:');
     expect(message).not.toContain('agreed proposal');
-    expect(message).toContain(
-      'Needs clarification:\n- Business facts / source material to be supplied and approved before use',
-    );
+    // Optional source material left blank is omitted, not reported as an unresolved decision.
+    expect(message).not.toContain('Business facts / source material');
     expect(message).toContain('Ask before using provisional styling');
     expect(message).toContain('Provisional choices permitted: None explicitly authorized.');
     state.answers.provisionalAssets = 'Placeholder imagery only';
@@ -286,7 +286,7 @@ describe('free website demo brief', () => {
     }
     expect(summary).not.toContain('I will list up to three');
     expect(summary).not.toContain('Provisional styling only');
-    expect(summary).toContain('Priority services / products');
+    expect(summary).toContain('Priority offerings — services, products, treatments, classes or other offers');
     expect(summary).toContain('1. Garden planning and design consultations');
     expect(summary).not.toContain('Service or product and short description');
     for (const rows of Object.values(state.rows))
