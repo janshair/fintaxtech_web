@@ -40,6 +40,7 @@ export async function prepareReference(file: File): Promise<ReferenceImage> {
     const data = canvas.toDataURL('image/jpeg', 0.84);
     return {
       id: crypto.randomUUID(),
+      filename: file.name,
       data,
       width: canvas.width,
       height: canvas.height,

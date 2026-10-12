@@ -1,3 +1,6 @@
+import { logoSubmissionPath } from '../lib/logo-brief/submission';
+import { validateLogoSubmission } from './logo-brief-validation';
+import { slackLogoParts } from './logo-brief-format';
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import {
   websitePayloadLimit,
@@ -9,6 +12,7 @@ import { slackWebsiteParts } from './website-brief-format';
 
 export const deliveryTTL = 60 * 60 * 1000;
 interface Ticket {
+  path: string;
   token: Buffer;
   owner: string;
   expires: number;
@@ -106,7 +110,7 @@ export function createWebsiteBriefAPI(options: Options) {
   async function deliver(
     ticket: Ticket,
     submissionId: string,
-    parts: ReturnType<typeof slackWebsiteParts>,
+    parts: { text: string }[],
     owner: string,
   ): Promise<DeliveryResult> {
     const result = (status: DeliveryResult['status'], retryable = false): DeliveryResult => ({
@@ -181,7 +185,10 @@ export function createWebsiteBriefAPI(options: Options) {
   return async function handle(request: Request, clientAddress: string): Promise<Response> {
     clean();
     const path = new URL(request.url).pathname;
-    if (![websiteSubmissionPath, `${websiteSubmissionPath}challenge/`].includes(path))
+    const submissionPath = path.startsWith(logoSubmissionPath)
+      ? logoSubmissionPath
+      : websiteSubmissionPath;
+    if (![submissionPath, `${submissionPath}challenge/`].includes(path))
       return json({ code: 'not-found' }, 404);
     if (request.method !== 'POST') return json({ code: 'method' }, 405);
     if (
@@ -225,6 +232,7 @@ export function createWebsiteBriefAPI(options: Options) {
         const submissionId = randomUUID();
         const token = randomBytes(32).toString('hex');
         tickets.set(submissionId, {
+          path: submissionPath,
           token: Buffer.from(digest(token), 'hex'),
           owner,
           expires: now() + deliveryTTL,
@@ -247,18 +255,25 @@ export function createWebsiteBriefAPI(options: Options) {
         return json({ status: 'expired', submissionId, delivered: 0, total: 0 }, 410);
       const token = request.headers.get('x-brief-token') ?? '';
       if (
+        ticket.path !== submissionPath ||
         ticket.owner !== owner ||
         token.length !== 64 ||
         !timingSafeEqual(ticket.token, Buffer.from(digest(token), 'hex'))
       )
         throw new SubmissionError('ticket', 403);
-      const payload = validateWebsiteSubmission(input);
+      const payload =
+        submissionPath === logoSubmissionPath
+          ? validateLogoSubmission(input)
+          : validateWebsiteSubmission(input);
       const fingerprint = digest(JSON.stringify(payload));
       if (ticket.fingerprint && ticket.fingerprint !== fingerprint)
         throw new SubmissionError('changed', 409);
       ticket.fingerprint = fingerprint;
       ticket.submittedAt ??= new Date(now()).toISOString();
-      const parts = slackWebsiteParts(payload, submissionId, ticket.submittedAt);
+      const parts =
+        payload.kind === 'logo'
+          ? slackLogoParts(payload, submissionId)
+          : slackWebsiteParts(payload, submissionId, ticket.submittedAt);
       ticket.total = parts.length;
       // Concurrent repeated clicks share the operation; acknowledged parts are never repeated.
       ticket.pending ??= deliver(ticket, submissionId, parts, owner).finally(() => {

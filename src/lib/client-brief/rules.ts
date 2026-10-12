@@ -66,6 +66,8 @@ export function toggleChoice(field: BriefField, selected: string[], option: stri
 }
 export const normalizedPageName = (name: string) =>
   name.normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-GB');
+export const imagesForField = (state: BriefState, field: Pick<BriefField, 'imagePurpose'>) =>
+  state.images.filter((image) => image.purpose === field.imagePurpose);
 export function createBriefRules(sections: BriefSection[]) {
   const visibleSections = (answers: BriefAnswers) =>
     sections.filter(
@@ -91,9 +93,19 @@ export function createBriefRules(sections: BriefSection[]) {
         state.answers[field.id] = (state.answers[field.id] as string[]).filter((value) =>
           allowed.includes(value),
         );
+      } else if (
+        field.optionsFrom &&
+        typeof state.answers[field.id] === 'string' &&
+        !fieldOptions(field, state.answers).includes(state.answers[field.id] as string)
+      ) {
+        delete state.answers[field.id];
       }
     }
-    if (state.answers.references !== 'Yes') state.images = [];
+    state.images = state.images.filter((image) =>
+      image.purpose === 'current-logo'
+        ? state.answers.project === 'Complete redesign'
+        : state.answers.references === 'Yes',
+    );
   }
   function validateField(field: BriefField, state: BriefState): string | undefined {
     if (!isVisible(field, state.answers)) return;
@@ -170,10 +182,17 @@ export function createBriefRules(sections: BriefSection[]) {
       return;
     }
     if (field.type === 'images') {
-      if (!state.images.length) return c.imagesRequired;
-      if (state.images.length > limits.images) return c.imageLimit;
-      for (const image of state.images) {
+      const images = imagesForField(state, field);
+      if (!images.length) return field.optional ? undefined : c.imagesRequired;
+      if (images.length > (field.imagePurpose ? 1 : limits.images)) return c.imageLimit;
+      for (const image of images) {
+        if (field.imagePurpose) continue;
         if (!image.explanation.trim()) return c.missing;
+        if (
+          field.imageExplanationMin &&
+          image.explanation.trim().length < field.imageExplanationMin
+        )
+          return `Please explain what you like in at least ${field.imageExplanationMin} characters.`;
         if (image.explanation.length > limits.short) return c.tooLong(limits.short);
       }
       return;
@@ -200,7 +219,8 @@ export function createBriefRules(sections: BriefSection[]) {
       )
         return c.invalidChoice;
     } else if (field.type === 'single') {
-      if (typeof answer !== 'string' || !field.options?.includes(answer)) return c.invalidChoice;
+      if (typeof answer !== 'string' || !fieldOptions(field, state.answers).includes(answer))
+        return c.invalidChoice;
     } else {
       const max = field.type === 'long' || field.type === 'urls' ? limits.long : limits.short;
       if (typeof answer !== 'string') return c.missing;
@@ -255,6 +275,9 @@ export function createBriefRules(sections: BriefSection[]) {
         references: section.fields.some(
           (field) => field.type === 'images' && isVisible(field, state.answers),
         ),
+        imagePurpose: section.fields.find(
+          (field) => field.type === 'images' && isVisible(field, state.answers),
+        )?.imagePurpose,
         rows: section.fields
           .filter((field) => isVisible(field, state.answers) && field.type !== 'images')
           .flatMap((field) => {
@@ -292,8 +315,8 @@ export function createBriefRules(sections: BriefSection[]) {
               value = answer === true ? c.confirmed : c.notProvided;
             else if (answer) {
               const format = (item: string) =>
-                item === c.other && !field.otherField
-                  ? `${c.other}: ${String(state.answers[`${field.id}Other`] ?? '').trim()}`
+                item === c.other && (!field.otherField || field.optionsFrom)
+                  ? `${c.other}: ${String(state.answers[field.otherField ?? `${field.id}Other`] ?? '').trim()}`
                   : item;
               value = Array.isArray(answer)
                 ? answer.map(format).join('; ')

@@ -11,7 +11,12 @@ export default function websiteBriefAPI(): AstroIntegration {
         if (command !== 'dev') return;
         // These modules are imported by the Astro config, outside Vite's page HMR.
         // Restart both the API and page together when their shared schema changes.
-        for (const directory of ['src/server/', 'src/lib/client-brief/', 'src/content/']) {
+        for (const directory of [
+          'src/server/',
+          'src/lib/client-brief/',
+          'src/lib/logo-brief/',
+          'src/content/',
+        ]) {
           const base = new URL(directory, config.root);
           for (const name of readdirSync(base))
             if (name.endsWith('.ts')) addWatchFile(new URL(name, base));

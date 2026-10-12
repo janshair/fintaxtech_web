@@ -3,7 +3,7 @@ import { company } from '../../content/site';
 import { quizCopy } from '../../content/questionnaire';
 import { pdfTokens as t } from '../../design/pdf-tokens';
 import { loadPDFFont, checkPDFGlyphs } from '../pdf-font';
-import { createBriefRules } from './rules';
+import { createBriefRules, imagesForField } from './rules';
 import type { BriefDefinition } from './definitions';
 import type { BriefState } from './types';
 
@@ -82,30 +82,34 @@ export async function createClientBriefPDF(
       text(row.value);
     }
     if (section.references) {
-      if (state.answers.references === 'Yes')
-        for (const [index, reference] of state.images.entries()) {
-          const scale = Math.min(width / reference.width, 115 / reference.height);
-          const imageWidth = reference.width * scale,
-            imageHeight = reference.height * scale;
-          const caption = `${c.explanation}\n${reference.explanation.trim()}`;
-          reserve(
-            height(c.reference(index + 1), t.type.body) +
-              imageHeight +
-              height(caption, t.type.body) +
-              10,
-          );
-          text(c.reference(index + 1));
-          doc.addImage(
-            reference.data,
-            'JPEG',
-            margin + (width - imageWidth) / 2,
-            y,
-            imageWidth,
-            imageHeight,
-          );
-          y += imageHeight + 7;
-          text(caption);
-        }
+      for (const [index, reference] of imagesForField(state, section).entries()) {
+        const scale = Math.min(width / reference.width, 115 / reference.height);
+        const imageWidth = reference.width * scale,
+          imageHeight = reference.height * scale;
+        const caption = [
+          reference.filename,
+          section.imagePurpose ? '' : `${c.explanation}\n${reference.explanation.trim()}`,
+        ]
+          .filter(Boolean)
+          .join('\n');
+        reserve(
+          height(c.reference(index + 1), t.type.body) +
+            imageHeight +
+            height(caption, t.type.body) +
+            10,
+        );
+        text(section.imagePurpose ? 'Current logo' : c.reference(index + 1));
+        doc.addImage(
+          reference.data,
+          'JPEG',
+          margin + (width - imageWidth) / 2,
+          y,
+          imageWidth,
+          imageHeight,
+        );
+        y += imageHeight + 7;
+        text(caption);
+      }
     }
   }
   reserve(20);

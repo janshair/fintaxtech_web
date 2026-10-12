@@ -1,3 +1,4 @@
+import { logoSubmissionPath } from '../lib/logo-brief/submission';
 import { existsSync } from 'node:fs';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { loadEnvFile } from 'node:process';
@@ -15,7 +16,8 @@ export function createLocalBriefMiddleware(webhook: string, port: () => number) 
   const listeners = new Map<string, ReturnType<typeof createWebsiteBriefListener>>();
   return (incoming: IncomingMessage, outgoing: ServerResponse, next: () => void) => {
     const pathname = (incoming.url ?? '').split('?')[0];
-    if (!pathname.startsWith(websiteSubmissionPath)) return next();
+    if (![websiteSubmissionPath, logoSubmissionPath].some((path) => pathname.startsWith(path)))
+      return next();
     let origin: string;
     try {
       const url = new URL(`http://${incoming.headers.host}`);

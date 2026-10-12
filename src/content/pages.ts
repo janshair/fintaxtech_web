@@ -127,8 +127,8 @@ export const pages: Record<string, InfoPage> = {
     legal: true,
     sections: [
       [
-        'Local questionnaire processing',
-        'Draft answers and generated PDFs stay in memory on your device. On the website demo and production brief review screens, Download PDF, Open email and Open WhatsApp send the reviewed text to FinTaxTech through Slack, as explained before those actions. The PDF is downloaded locally and is not uploaded to Slack. The submission server temporarily tracks delivery in memory; no enquiry database or resumable browser storage is used. Slack retains received messages under our workspace settings. Reloading or closing clears local answers, not messages already delivered. Answers are excluded from analytics and page addresses.',
+        'Questionnaire processing and submission',
+        'Draft answers and generated PDFs stay in memory on your device. On the logo brief, reviewing sends nothing; clicking Submit brief securely sends your reviewed answers, image filenames and explanations to FinTaxTech. Images remain in your browser and PDF until you share that PDF with us. On the website demo and production brief review screens, Download PDF, Open email and Open WhatsApp send the reviewed text to FinTaxTech through Slack, as explained before those actions. The PDF is downloaded locally and is not uploaded to Slack. The submission server temporarily tracks delivery in memory; no enquiry database or resumable browser storage is used. Slack retains received messages under our workspace settings. Reloading or closing clears local answers, not messages already delivered. Answers are excluded from analytics and page addresses.',
       ],
       [
         'Preferences and analytics',
@@ -136,7 +136,7 @@ export const pages: Record<string, InfoPage> = {
       ],
       [
         'When you contact us',
-        'Email and WhatsApp handoffs open third-party services. We receive information only when you send it through your chosen service. We use enquiry information to respond and prepare a proposal; agreed work is processed to fulfil the contract and relevant legal obligations.',
+        'Email and WhatsApp handoffs open third-party services. We receive information when you submit a brief or send it through your chosen contact service. We use enquiry information to respond and prepare a proposal; agreed work is processed to fulfil the contract and relevant legal obligations.',
       ],
       [
         'Retention',

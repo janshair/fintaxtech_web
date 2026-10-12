@@ -1,8 +1,11 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import sharp from 'sharp';
+import { createWebsiteBriefAPI } from '../../src/server/website-brief-api';
 import { logoBriefSections as sections } from '../../src/content/logo-brief';
 
+const sectionIndex = (id: string) =>
+  sections.findIndex((section) => section.fields.some((field) => field.id === id));
 const route = '/client/logo-brief/';
 const secret = 'LOCAL-ONLY-BRIEF-7492';
 const image = async () => ({
@@ -107,17 +110,42 @@ test('conditional fields, exact name, Other, maximum and style exclusivity work 
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page.getByRole('button', { name: 'Back', exact: true }).click();
   await expect(page.getByLabel('Please specify')).toHaveValue('Distinctive consultancy');
-  await advanceTo(page, 6);
+  await advanceTo(page, sectionIndex('personality'));
   for (const name of ['Professional', 'Trustworthy', 'Friendly', 'Modern', 'Established'])
     await page.getByLabel(name, { exact: true }).click();
   await page.getByLabel('Creative', { exact: true }).click();
   await expect(page.getByLabel('Creative', { exact: true })).not.toBeChecked();
   await expect(page.getByRole('alert')).toContainText('no more than 5');
   await expect(page.getByRole('status')).toContainText('5 of 5');
-  await advanceTo(page, 7);
+  await advanceTo(page, sectionIndex('format'));
   await expect(page.locator('.brief-examples img')).toHaveCount(4);
+  const ideas = page.locator('#welcomeIdeas');
+  const priority = page.locator('#field-welcomeIdeasPriority');
+  await expect(ideas).toHaveJSProperty('tagName', 'TEXTAREA');
+  await expect(priority).toHaveCount(0);
+  await ideas.fill('   ');
+  await expect(priority).toHaveCount(0);
+  await ideas.fill('');
+  await ideas.pressSequentially('Explore a circular symbol based on the initials.');
+  await expect(ideas).toBeFocused();
+  await expect(ideas).toHaveValue('Explore a circular symbol based on the initials.');
+  await expect(priority.locator('input')).toHaveCount(4);
+  await expect(priority.locator('input:checked')).toHaveCount(0);
+  await page.getByLabel('Designer to recommend', { exact: true }).click();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('alert')).toContainText('Complete');
+  await priority
+    .getByLabel('This is a core idea and should appear in most concepts', { exact: true })
+    .click();
+  await ideas.fill('   ');
+  await expect(priority).toHaveCount(0);
+  await expect(ideas).toBeFocused();
+  await ideas.fill('Explore a circular symbol based on the initials.');
+  await expect(priority.locator('input:checked')).toHaveCount(0);
+  await priority.getByLabel('Please explore it in at least one concept', { exact: true }).click();
+
   await page.screenshot({ path: info.outputPath('formats-desktop.png'), fullPage: true });
-  await advanceTo(page, 8);
+  await advanceTo(page, sectionIndex('avoid'));
   await expect(page.locator('.brief-examples img')).toHaveCount(9);
   await page.getByLabel('Gradients', { exact: true }).click();
   await page.getByLabel('Other', { exact: true }).click();
@@ -137,12 +165,12 @@ test('conditional fields, exact name, Other, maximum and style exclusivity work 
 
 test('image validation, captions, removal, replacement and competitor limits', async ({ page }) => {
   await begin(page);
-  await advanceTo(page, 9);
+  await advanceTo(page, sectionIndex('competitors'));
   for (let i = 0; i < 5; i++) await page.getByRole('button', { name: 'Add competitor' }).click();
   await expect(page.getByRole('button', { name: 'Add competitor' })).toBeDisabled();
   for (let i = 5; i > 0; i--)
     await page.getByRole('button', { name: `Remove competitor ${i}`, exact: true }).click();
-  await advanceTo(page, 10);
+  await advanceTo(page, sectionIndex('references'));
   await page.getByLabel('Yes', { exact: true }).click();
   const upload = page.locator('#reference-upload');
   await upload.setInputFiles({
@@ -171,10 +199,12 @@ test('image validation, captions, removal, replacement and competitor limits', a
   ).toEqual([1600, 800]);
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Complete');
-  await page.getByLabel('What quality do you like, and why?').fill('Strong silhouette');
+  await page
+    .getByLabel('What specifically do you like about this reference?')
+    .fill('Strong silhouette');
   await page.getByLabel('Replace reference image 1').setInputFiles(await image());
   await expect(page.getByRole('status')).toContainText('updated');
-  await expect(page.getByLabel('What quality do you like, and why?')).toHaveValue(
+  await expect(page.getByLabel('What specifically do you like about this reference?')).toHaveValue(
     'Strong silhouette',
   );
   await page.getByRole('button', { name: 'Remove reference image 1' }).click();
@@ -202,7 +232,7 @@ test('review and local PDF preserve privacy, render on mobile, and clear on refr
     requests.push(`${request.method()} ${request.url()} ${request.postData() ?? ''}`),
   );
   await begin(page);
-  await advanceTo(page, 15);
+  await advanceTo(page, sectionIndex('anything'));
   await page.locator('#anything').fill('A concise final note.');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Review your logo brief' })).toBeVisible();
@@ -224,7 +254,7 @@ test('review and local PDF preserve privacy, render on mobile, and clear on refr
   const file = await downloading;
   expect(file.suggestedFilename()).toBe('FinTaxTech-logo-design-brief.pdf');
   await file.saveAs(info.outputPath('logo-brief.pdf'));
-  await expect(page.getByRole('status')).toContainText('Nothing has been sent');
+  await expect(page.getByRole('status')).toContainText('Downloading does not submit');
   expect(requests.join('\n')).not.toContain(secret);
   expect(requests.join('\n')).not.toContain('private-reference-7492');
   expect(
@@ -241,4 +271,95 @@ test('review and local PDF preserve privacy, render on mobile, and clear on refr
   await page.reload();
   await begin(page);
   await expect(page.locator('input:checked')).toHaveCount(0);
+});
+
+test('redesign fields, dynamic primary use, server validation and explicit submission retry', async ({
+  page,
+}) => {
+  // Isolate ticket/rate state from other browser projects. Exercise the real server
+  // handler, with only its outbound Slack transport replaced by a deterministic mock.
+  let deliveries = 0;
+  const handle = createWebsiteBriefAPI({
+    origin: 'http://localhost:4323',
+    webhook: 'https://hooks.slack.com/services/TEST_ONLY',
+    fetcher: async () =>
+      new Response(++deliveries === 1 ? 'invalid_payload' : 'ok', {
+        status: deliveries === 1 ? 400 : 200,
+      }),
+  });
+  await page.route('**/api/logo-brief/**', async (route) => {
+    const request = route.request();
+    const response = await handle(
+      new Request(request.url(), {
+        method: request.method(),
+        headers: request.headers(),
+        body: request.postData(),
+      }),
+      'logo-browser-test',
+    );
+    await route.fulfill({
+      status: response.status,
+      headers: Object.fromEntries(response.headers),
+      body: await response.text(),
+    });
+  });
+  const submissions: string[] = [];
+  page.on('request', (request) => {
+    if (request.url().endsWith('/api/logo-brief/')) submissions.push(request.postData() ?? '');
+    expect(request.url()).not.toContain('hooks.slack.com');
+  });
+  await begin(page);
+  await page.getByLabel('Complete redesign', { exact: true }).click();
+  await expect(page.locator('#identityProblems')).toBeVisible();
+  await expect(page.locator('#identityImprovements')).toBeVisible();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByRole('alert')).toContainText('Complete');
+  await page.locator('#identityProblems').fill('Our existing logo is hard to read on vehicles.');
+  await page.getByLabel('Choose current logo').setInputFiles(await image());
+  await expect(page.getByRole('status')).toContainText('updated');
+  await page.getByLabel('New brand', { exact: true }).click();
+  await expect(page.locator('#identityProblems')).toHaveCount(0);
+  await expect(page.locator('#identityImprovements')).toHaveCount(0);
+  await page.getByLabel('Complete redesign', { exact: true }).click();
+  await expect(page.locator('#identityProblems')).toHaveValue('');
+  await expect(page.locator('#identityImprovements')).toHaveValue('');
+  await page.locator('#identityImprovements').fill('Make it simpler and more modern.');
+  await page.locator('#identityProblems').fill('Our existing logo is hard to read on vehicles.');
+  await page.getByLabel('Choose current logo').setInputFiles(await image());
+  await expect(page.getByRole('status')).toContainText('updated');
+  await advanceTo(page, sectionIndex('uses'));
+  await page.locator('#field-uses').getByLabel('Signage', { exact: true }).click();
+  await page.locator('#field-uses').getByLabel('Vehicles', { exact: true }).click();
+  await expect(page.locator('#field-primaryUse input')).toHaveCount(3);
+  await page.locator('#field-primaryUse').getByLabel('Vehicles', { exact: true }).click();
+  await page.locator('#field-uses').getByLabel('Vehicles', { exact: true }).click();
+  await expect(page.locator('#field-primaryUse input:checked')).toHaveCount(0);
+  await page.locator('#field-primaryUse').getByLabel('Signage', { exact: true }).click();
+  await advanceTo(page, sectionIndex('anything'));
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  expect(submissions).toHaveLength(0);
+  await expect(page.locator('[data-brief-form]')).toContainText('Nothing has been submitted yet');
+  await expect(page.locator('.brief-review img')).toHaveCount(2);
+  await page.getByRole('button', { name: 'Submit brief', exact: true }).dblclick();
+  await expect(page.getByRole('status')).toContainText('could not be submitted');
+  await expect(page.getByRole('button', { name: 'Download PDF', exact: true })).toBeEnabled();
+  expect(submissions).toHaveLength(1);
+  await page.getByRole('button', { name: 'Submit brief', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Brief submitted', exact: true })).toBeDisabled();
+  await expect(page.getByRole('status')).toContainText('securely submitted to FinTaxTech');
+  expect(submissions).toHaveLength(2);
+  expect(JSON.parse(submissions[0]).submissionId).toBe(JSON.parse(submissions[1]).submissionId);
+  expect(deliveries).toBe(2);
+  const payload = JSON.parse(submissions[0]);
+  expect(payload.txt).toContain('[REDESIGN]');
+  expect(payload.txt).toContain('Requested improvements:\n  Make it simpler and more modern.');
+  expect(payload.txt).not.toContain('Elements to retain:');
+  expect(payload.txt).toContain('Most important use:\n  Signage');
+  expect(payload.state.images.every((image: { data: string }) => image.data === '')).toBe(true);
+  expect(submissions[0]).not.toContain('SLACK_WEBHOOK');
+  const downloading = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
+  await downloading;
+  await expect(page.getByRole('button', { name: 'Brief submitted', exact: true })).toBeDisabled();
+  expect(submissions).toHaveLength(2);
 });

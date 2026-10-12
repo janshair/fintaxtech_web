@@ -23,6 +23,9 @@ export interface BriefField {
     | 'pages'
     | 'urls'
     | 'rows';
+  imagePurpose?: 'current-logo';
+  imageExplanationMin?: number;
+  imageExplanationHelp?: string;
   options?: string[];
   optionsFrom?: { id: string; exclude?: string[] };
   otherField?: string;
@@ -67,6 +70,8 @@ export interface Competitor {
   website: string;
 }
 export interface ReferenceImage {
+  filename?: string;
+  purpose?: 'current-logo';
   id: string;
   data: string;
   width: number;
@@ -94,4 +99,5 @@ export interface BriefSummary {
   title: string;
   rows: BriefRow[];
   references: boolean;
+  imagePurpose?: 'current-logo';
 }

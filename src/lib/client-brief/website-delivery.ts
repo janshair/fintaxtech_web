@@ -12,47 +12,40 @@ interface Entry {
   result?: DeliveryResult;
   pending?: Promise<void>;
 }
-export function createWebsiteDelivery(
-  kind: WebsiteBriefKind,
+export function createBriefDelivery<State, Payload>(
+  config: {
+    snapshot: (state: State) => Payload;
+    path: string;
+    pending: string;
+    resultText: (result: DeliveryResult) => string;
+  },
   fetcher: typeof fetch = fetch,
   pause = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)),
 ) {
   // This map lives only in page memory. Reverting to already submitted answers does not resend them.
   const entries = new Map<string, Entry>();
-  function resultText(result: DeliveryResult) {
-    const id = result.submissionId ? ` Submission ID: ${result.submissionId}.` : '';
-    if (result.status === 'delivered') return c.delivered(result.submissionId!);
-    if (result.status === 'uncertain') return c.uncertain + id;
-    if (result.status === 'expired') return c.expired + id;
-    if (result.code === 'sensitive') return c.sensitive;
-    if (result.code === 'oversized') return c.oversized;
-    if (result.code === 'unavailable') return c.unavailable + id;
-    if (result.code === 'invalid' || result.code === 'incomplete') return c.rejected + id;
-    if (result.status === 'partial') return c.partial(result.delivered, result.total) + id;
-    return c.failed + id;
-  }
   async function endpointUnavailable(response: Response) {
     if ([404, 405].includes(response.status)) return true;
     if (!response.headers.get('content-type')?.includes('application/json')) return true;
     if (response.status !== 503) return false;
     return (await response.clone().json()).code === 'unavailable';
   }
-  async function complete(state: BriefState, status: (text: string) => void) {
-    const payload = reviewedWebsiteSubmission(kind, state);
+  async function complete(state: State, status: (text: string) => void) {
+    const payload = config.snapshot(state);
     const key = JSON.stringify(payload);
     const entry = entries.get(key) ?? {};
     entries.set(key, entry);
     if (entry.result?.status === 'delivered') {
-      status(resultText(entry.result));
-      return;
+      status(config.resultText(entry.result));
+      return entry.result;
     }
-    status(c.pending);
+    status(config.pending);
     if (!entry.pending) {
       entry.pending = (async () => {
         for (let attempt = 0; attempt < 3; attempt++) {
           try {
             if (!entry.ticket) {
-              const ticketResponse = await fetcher(`${websiteSubmissionPath}challenge/`, {
+              const ticketResponse = await fetcher(`${config.path}challenge/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: '{}',
@@ -70,7 +63,7 @@ export function createWebsiteDelivery(
                 throw new Error('Invalid ticket');
               entry.ticket = ticket;
             }
-            const response = await fetcher(websiteSubmissionPath, {
+            const response = await fetcher(config.path, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json', 'X-Brief-Token': entry.ticket!.token },
               body: JSON.stringify({
@@ -114,7 +107,37 @@ export function createWebsiteDelivery(
       });
     }
     await entry.pending;
-    status(resultText(entry.result!));
+    status(config.resultText(entry.result!));
+    return entry.result!;
   }
   return { complete, clear: () => entries.clear() };
+}
+
+export function createWebsiteDelivery(
+  kind: WebsiteBriefKind,
+  fetcher: typeof fetch = fetch,
+  pause?: (ms: number) => Promise<void>,
+) {
+  function resultText(result: DeliveryResult) {
+    const id = result.submissionId ? ` Submission ID: ${result.submissionId}.` : '';
+    if (result.status === 'delivered') return c.delivered(result.submissionId!);
+    if (result.status === 'uncertain') return c.uncertain + id;
+    if (result.status === 'expired') return c.expired + id;
+    if (result.code === 'sensitive') return c.sensitive;
+    if (result.code === 'oversized') return c.oversized;
+    if (result.code === 'unavailable') return c.unavailable + id;
+    if (result.code === 'invalid' || result.code === 'incomplete') return c.rejected + id;
+    if (result.status === 'partial') return c.partial(result.delivered, result.total) + id;
+    return c.failed + id;
+  }
+  return createBriefDelivery(
+    {
+      snapshot: (state: BriefState) => reviewedWebsiteSubmission(kind, state),
+      path: websiteSubmissionPath,
+      pending: c.pending,
+      resultText,
+    },
+    fetcher,
+    pause,
+  );
 }

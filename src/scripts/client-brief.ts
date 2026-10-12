@@ -1,7 +1,14 @@
+import {
+  canonicalLogoSubmission,
+  createLogoOutputs,
+  type LogoSubmission,
+} from '../lib/logo-brief/submission';
+import { createLogoDelivery, logoDeliveryCopy } from '../lib/logo-brief/delivery';
 import { clientBriefDefinitions } from '../lib/client-brief/definitions';
 import { company } from '../content/site';
 import {
   createBriefRules,
+  imagesForField,
   emptyBrief,
   requiresOtherText,
   fieldOptions,
@@ -23,6 +30,10 @@ const definition =
   clientBriefDefinitions[shell.dataset.clientBrief as keyof typeof clientBriefDefinitions];
 const { copy: c } = definition;
 const kind = shell.dataset.clientBrief!;
+const logoDelivery = kind === 'logo' ? createLogoDelivery() : undefined;
+const logoSnapshots = new Map<string, LogoSubmission>();
+const submittedLogos = new Set<string>();
+const logoStatuses = new Map<string, string>();
 const delivery = isWebsiteBrief(kind) ? createWebsiteDelivery(kind) : undefined;
 const { briefSummary, invalidSection, pruneBrief, validateField, visibleSections } =
   createBriefRules(definition.sections);
@@ -57,6 +68,14 @@ function update(id: string, value: string | string[] | boolean) {
 }
 function focusHeading() {
   root.querySelector<HTMLElement>('h2')?.focus();
+}
+function renderKeepingSelection(id: string) {
+  const control = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement;
+  const start = control.selectionStart;
+  const end = control.selectionEnd;
+  render(false, id);
+  const replacement = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement;
+  if (start !== null && end !== null) replacement.setSelectionRange(start, end);
 }
 function textField(
   id: string,
@@ -114,15 +133,8 @@ function renderRows(field: BriefField, wrap: HTMLElement) {
             const before = repeat.fields.map((item) => isVisible(item, row.values)).join();
             row.values[part.key] = value;
             pruneBrief(state);
-            if (before !== repeat.fields.map((item) => isVisible(item, row.values)).join()) {
-              const control = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement;
-              const start = control.selectionStart;
-              const end = control.selectionEnd;
-              render(false, id);
-              const replacement = document.getElementById(id) as
-                HTMLInputElement | HTMLTextAreaElement;
-              if (start !== null && end !== null) replacement.setSelectionRange(start, end);
-            }
+            if (before !== repeat.fields.map((item) => isVisible(item, row.values)).join())
+              renderKeepingSelection(id);
           },
           part.type === 'long' ? 'textarea' : part.type,
           part.type === 'long' ? limits.long : limits.short,
@@ -262,6 +274,9 @@ function renderField(field: BriefField) {
       field.label,
       String(state.answers[field.id] ?? ''),
       (value) => {
+        const visibleFields = () =>
+          sections[position].fields.map((item) => isVisible(item, state.answers)).join();
+        const before = visibleFields();
         update(field.id, value);
         if (field.id === 'trading') {
           state.answers.nameConfirmed = false;
@@ -270,6 +285,7 @@ function renderField(field: BriefField) {
           const confirmation = root.querySelector('#name-confirmation');
           if (confirmation) confirmation.textContent = c.confirmation(value);
         }
+        if (before !== visibleFields()) renderKeepingSelection(field.id);
       },
       field.type === 'long' || field.type === 'urls'
         ? 'textarea'
@@ -381,30 +397,46 @@ function renderField(field: BriefField) {
     add.disabled = busy || state.additionalPages.length >= limits.additionalPages;
     wrap.append(add);
   } else if (field.type === 'images') {
-    state.images.forEach((reference, index) => {
+    imagesForField(state, field).forEach((reference, index) => {
       const item = el('div', undefined, 'brief-reference');
-      item.append(el('h3', c.reference(index + 1)), referencePreview(reference, index));
       item.append(
-        textField(
-          `explanation-${reference.id}`,
-          c.explanation,
-          reference.explanation,
-          (value) => (reference.explanation = value),
+        el('h3', field.imagePurpose ? 'Current logo' : c.reference(index + 1)),
+        referencePreview(reference, index),
+      );
+      if (reference.filename) item.append(el('p', reference.filename, 'muted'));
+      if (!field.imagePurpose) {
+        if (field.imageExplanationHelp) item.append(el('p', field.imageExplanationHelp, 'muted'));
+        item.append(
+          textField(
+            `explanation-${reference.id}`,
+            c.explanation,
+            reference.explanation,
+            (value) => (reference.explanation = value),
+          ),
+        );
+        item.querySelector<HTMLInputElement>('input')!.required = true;
+      }
+      item.append(
+        imagePicker(
+          field,
+          reference.id,
+          field.imagePurpose ? 'Replace current logo' : c.replaceImageLabel(index + 1),
         ),
       );
-      item.querySelector<HTMLInputElement>('input')!.required = true;
-      item.append(imagePicker(reference.id, c.replaceImageLabel(index + 1)));
       const remove = button(c.remove, () => {
         dirty = true;
-        state.images.splice(index, 1);
+        state.images.splice(state.images.indexOf(reference), 1);
         imageMessage = c.imageReady;
-        render(false, 'reference-upload');
+        render(false, field.imagePurpose ? 'current-logo-upload' : 'reference-upload');
       });
-      remove.setAttribute('aria-label', c.removeImage(index + 1));
+      remove.setAttribute(
+        'aria-label',
+        field.imagePurpose ? 'Remove current logo' : c.removeImage(index + 1),
+      );
       item.append(remove);
       wrap.append(item);
     });
-    wrap.append(imagePicker());
+    wrap.append(imagePicker(field));
     const status = el('p', imageMessage, 'brief-status');
     status.setAttribute('role', 'status');
     wrap.append(status);
@@ -442,19 +474,29 @@ function referencePreview(reference: (typeof state.images)[number], index: numbe
   image.height = reference.height;
   return image;
 }
-function imagePicker(replaceId?: string, label = c.addImages) {
+function imagePicker(
+  field: BriefField,
+  replaceId?: string,
+  label = field.imagePurpose ? 'Choose current logo' : c.addImages,
+) {
+  const images = imagesForField(state, field);
+  const maxImages = field.imagePurpose ? 1 : limits.images;
   const wrap = el('label', undefined, 'field');
   wrap.append(el('span', label));
   const input = el('input');
   input.type = 'file';
   input.accept = 'image/png,image/jpeg,image/webp';
-  input.multiple = !replaceId;
-  input.id = replaceId ? `replace-${replaceId}` : 'reference-upload';
-  input.disabled = busy || (!replaceId && state.images.length >= limits.images);
+  input.multiple = !replaceId && !field.imagePurpose;
+  input.id = replaceId
+    ? `replace-${replaceId}`
+    : field.imagePurpose
+      ? 'current-logo-upload'
+      : 'reference-upload';
+  input.disabled = busy || (!replaceId && images.length >= maxImages);
   input.addEventListener('change', async () => {
     const files = Array.from(input.files ?? []);
     if (!files.length || busy) return;
-    if (!replaceId && state.images.length + files.length > limits.images) {
+    if (!replaceId && images.length + files.length > maxImages) {
       imageMessage = c.imageLimit;
       render(false, input.id);
       return;
@@ -466,7 +508,8 @@ function imagePicker(replaceId?: string, label = c.addImages) {
     try {
       // Process sequentially to bound peak image memory; apply the batch only on success.
       const prepared = [];
-      for (const file of files) prepared.push(await prepareReference(file));
+      for (const file of files)
+        prepared.push({ ...(await prepareReference(file)), purpose: field.imagePurpose });
       if (operationLifetime !== lifetime) return;
       if (replaceId) {
         const index = state.images.findIndex((image) => image.id === replaceId);
@@ -488,9 +531,11 @@ function imagePicker(replaceId?: string, label = c.addImages) {
         false,
         replaceId
           ? `replace-${replaceId}`
-          : state.images.length
-            ? `explanation-${state.images.at(-1)!.id}`
-            : 'reference-upload',
+          : field.imagePurpose
+            ? 'current-logo-upload'
+            : state.images.length
+              ? `explanation-${state.images.at(-1)!.id}`
+              : 'reference-upload',
       );
     }
   });
@@ -564,10 +609,16 @@ function review() {
     render();
     return;
   }
+  const reviewed = logoDelivery ? canonicalLogoSubmission(state) : undefined;
+  const logoKey = reviewed ? JSON.stringify(reviewed.state) : '';
+  if (reviewed && !logoSnapshots.has(logoKey)) logoSnapshots.set(logoKey, reviewed);
+  const logoSubmission = logoSnapshots.get(logoKey);
+  let submitted = submittedLogos.has(logoKey);
   root.replaceChildren();
   const heading = el('h2', c.reviewTitle);
   heading.tabIndex = -1;
-  root.append(heading, el('p', c.reviewIntro));
+  const reviewNotice = el('p', logoStatuses.get(logoKey) ?? c.reviewIntro);
+  root.append(heading, reviewNotice);
   const summary = el('div', undefined, 'brief-review');
   briefSummary(state).forEach((section) => {
     const item = el('section');
@@ -575,11 +626,12 @@ function review() {
     const list = el('dl');
     section.rows.forEach((row) => list.append(el('dt', row.label), el('dd', row.value)));
     item.append(list);
-    if (section.references && state.answers.references === 'Yes') {
-      state.images.forEach((reference, i) => {
+    if (section.references) {
+      imagesForField(state, section).forEach((reference, i) => {
         const figure = el('figure', undefined, 'brief-reference');
         figure.append(
-          el('p', c.reference(i + 1)),
+          el('p', section.imagePurpose ? 'Current logo' : c.reference(i + 1)),
+          el('p', reference.filename ?? '', 'muted'),
           referencePreview(reference, i),
           el('figcaption', reference.explanation),
         );
@@ -633,11 +685,16 @@ function review() {
         .forEach((button) => (button.disabled = true));
       try {
         const { createClientBriefPDF } = await import('../lib/client-brief/pdf');
-        const blob = await createClientBriefPDF(definition, state);
+        const blob = logoSubmission
+          ? (await createLogoOutputs(logoSubmission)).pdf
+          : await createClientBriefPDF(definition, state);
         if (operationLifetime !== lifetime) return;
         download(blob, c.pdfFilename);
         // Do not retain a Blob in journey state. Recreate it from current answers for each download.
-        pdfStatus = c.downloaded;
+        pdfStatus =
+          logoDelivery && submitted
+            ? 'Your PDF download has been requested. Your brief has been submitted to FinTaxTech.'
+            : c.downloaded;
         updateStatus();
       } catch {
         pdfStatus = c.pdfError;
@@ -646,12 +703,61 @@ function review() {
         busy = false;
         root
           .querySelectorAll<HTMLButtonElement>('button')
-          .forEach((button) => (button.disabled = false));
+          .forEach((button) => (button.disabled = button.textContent === 'Brief submitted'));
       }
     },
-    true,
+    !logoDelivery,
   );
   actions.append(save);
+  if (logoDelivery && logoSubmission) {
+    const submit = button(
+      submitted ? 'Brief submitted' : 'Submit brief',
+      async () => {
+        if (busy || submitted) return;
+        const operationLifetime = lifetime;
+        busy = true;
+        root
+          .querySelectorAll<HTMLButtonElement>('button')
+          .forEach((control) => (control.disabled = true));
+        slackStatus = logoDeliveryCopy.pending;
+        updateStatus();
+        try {
+          // Generate both outputs before dispatch, from one canonical reviewed snapshot.
+          await createLogoOutputs(logoSubmission);
+          if (operationLifetime !== lifetime) return;
+          const result = await logoDelivery.complete(logoSubmission, (text) => {
+            slackStatus = text;
+            logoStatuses.set(logoKey, text);
+            reviewNotice.textContent = text;
+            updateStatus();
+          });
+          if (operationLifetime !== lifetime) return;
+          if (result.status === 'delivered') {
+            submitted = true;
+            submittedLogos.add(logoKey);
+            reviewNotice.textContent = logoDeliveryCopy.delivered;
+            submit.textContent = 'Brief submitted';
+            pdfStatus = '';
+            updateStatus();
+          }
+        } catch {
+          slackStatus = c.pdfError;
+          updateStatus();
+        } finally {
+          busy = false;
+          if (operationLifetime === lifetime) {
+            root
+              .querySelectorAll<HTMLButtonElement>('button')
+              .forEach((control) => (control.disabled = false));
+            submit.disabled = submitted;
+          }
+        }
+      },
+      true,
+    );
+    submit.disabled = submitted;
+    actions.append(submit);
+  }
   root.append(actions, status);
   const sharing = el('div', undefined, 'actions');
   for (const [label, href] of [
@@ -681,6 +787,10 @@ window.addEventListener('pagehide', () => {
   lifetime++;
   state = emptyBrief();
   delivery?.clear();
+  logoDelivery?.clear();
+  logoSnapshots.clear();
+  submittedLogos.clear();
+  logoStatuses.clear();
   dirty = false;
 });
 window.addEventListener('pageshow', (event) => {
