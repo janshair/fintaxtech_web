@@ -233,8 +233,8 @@ it('refreshes the local API schema when a questionnaire changes during developme
     await writeFile(
       file,
       (await readFile(file, 'utf8')).replace(
-        "{ ...tradingNameField, label: 'Business name' },",
-        "{ ...tradingNameField, label: 'Business name' }, { id: 'reloadProbe', label: 'New question', type: 'text', optional: true },",
+        "{ id: 'sector', label: 'Business sector', type: 'text' },",
+        "{ id: 'sector', label: 'Business sector', type: 'text' }, { id: 'reloadProbe', label: 'New question', type: 'text', optional: true },",
       ),
     );
     // Wait for the previous ticket to expire: an Astro restart rebuilt the API.

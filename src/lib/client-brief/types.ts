@@ -90,6 +90,7 @@ export interface BriefRow {
   value: string;
 }
 export interface BriefSummary {
+  sectionIndex: number;
   title: string;
   rows: BriefRow[];
   references: boolean;

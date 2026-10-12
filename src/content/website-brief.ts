@@ -3,7 +3,23 @@ import { logoBriefCopy } from './logo-brief';
 import {
   tradingNameField,
   approverNameField,
-  approvalEmailField,
+  websiteContactEmailField,
+  businessStageField,
+  websiteAudienceField,
+  audienceDetailField,
+  prioritySourceField,
+  businessIdeaField,
+  operationField,
+  operationDetailsField,
+  deliveryCoverageCondition,
+  publicPremisesFields,
+  referenceChoiceField,
+  bookingCondition,
+  bookingSubjectField,
+  visitorActionDetailField,
+  contentPrioritiesField,
+  pricingDirectionField,
+  approvedPricesField,
   websiteGoalOptions,
   visitorActionOptions,
   priorityOfferingsField,
@@ -48,6 +64,7 @@ export const websiteBriefSections: BriefSection[] = [
         help: 'Confirm the customer-facing name if needed. You can leave proposal details blank when they are already correct.',
       },
       { id: 'sector', label: 'Business sector', type: 'text', optional: true },
+      { ...businessStageField, optional: true },
       {
         id: 'project',
         label: 'Project',
@@ -55,11 +72,16 @@ export const websiteBriefSections: BriefSection[] = [
         options: ['New website', 'Complete redesign'],
         help: 'We create new websites and complete redesigns. Partial repairs and legacy-code fixes are outside this brief.',
       },
+      { ...prioritySourceField, optional: true },
+      businessIdeaField,
       {
         id: 'existingURL',
         label: 'Existing website URL',
         type: 'url',
-        when: redesign,
+        when: [
+          redesign,
+          { id: 'prioritySource', values: ['Help me choose from my existing website'] },
+        ],
         help: 'Use the full address, including https://. This form does not check the website.',
       },
     ],
@@ -88,28 +110,22 @@ export const websiteBriefSections: BriefSection[] = [
   {
     title: 'Your audience',
     fields: [
-      {
-        id: 'audience',
-        label: 'Audience',
-        type: 'multi',
-        options: [
-          'Consumers',
-          'Businesses',
-          'Professionals',
-          'Public sector',
-          'Charities',
-          'Existing customers',
-          'Other',
-        ],
-      },
+      { ...websiteAudienceField, id: 'audience' },
+      audienceDetailField,
       {
         id: 'customerProblem',
-        label: 'Primary customer and the problem you solve',
+        label: 'What are these visitors looking for, or trying to do?',
         type: 'long',
         optional: true,
         help: 'Add any detail needed beyond the agreed proposal.',
       },
-      priorityOfferingsField,
+      {
+        ...priorityOfferingsField,
+        when: [
+          { id: 'prioritySource', values: ['I will list up to three'] },
+          { id: 'prioritySource', matches: '^$' },
+        ],
+      },
       {
         id: 'differentiators',
         label: 'What makes the business different?',
@@ -119,12 +135,16 @@ export const websiteBriefSections: BriefSection[] = [
     ],
   },
   {
-    title: 'Where your customers are',
+    title: 'How and where you operate',
     fields: [
+      operationField,
+      operationDetailsField,
+      ...publicPremisesFields,
       {
         id: 'location',
-        label: 'Customer location',
+        label: 'Service / delivery coverage',
         type: 'multi',
+        when: deliveryCoverageCondition,
         options: ['Local', 'One country', 'International'],
       },
       {
@@ -151,6 +171,7 @@ export const websiteBriefSections: BriefSection[] = [
   {
     title: 'Your website pages',
     fields: [
+      contentPrioritiesField,
       {
         id: 'pages',
         label: 'Pages essential for launch',
@@ -195,6 +216,15 @@ export const websiteBriefSections: BriefSection[] = [
         type: 'single',
         options: visitorActionOptions,
       },
+      visitorActionDetailField,
+      {
+        ...bookingSubjectField,
+        optional: true,
+        when: [
+          ...bookingCondition,
+          { id: 'capabilities', values: ['Booking integration', 'Custom booking functionality'] },
+        ],
+      },
     ],
   },
   {
@@ -225,7 +255,17 @@ export const websiteBriefSections: BriefSection[] = [
   },
   {
     title: 'Your design direction',
-    fields: [referenceWebsitesField, ...designPreferenceFields],
+    fields: [
+      { ...referenceChoiceField, optional: true },
+      {
+        ...referenceWebsitesField,
+        optional: false,
+        when: { id: 'referenceChoice', values: ['I have examples'] },
+      },
+      ...designPreferenceFields,
+      { ...pricingDirectionField, optional: true },
+      approvedPricesField,
+    ],
   },
   {
     title: 'Your visual assets',
@@ -522,7 +562,7 @@ export const websiteBriefSections: BriefSection[] = [
         optional: true,
         help: 'Confirm who signs off the completed website if needed. A group should nominate one contact for a consolidated decision.',
       },
-      { ...approvalEmailField, label: 'Final approval contact email' },
+      { ...websiteContactEmailField, label: 'Final approval contact email' },
     ],
   },
   {

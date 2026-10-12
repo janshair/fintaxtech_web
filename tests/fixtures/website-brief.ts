@@ -7,7 +7,8 @@ export function completeWebsiteBrief(redesign = false) {
     ...(redesign ? { existingURL: 'https://example.org', retain: ['Domain'] } : {}),
     goals: 'Enquiries',
     secondaryGoals: ['Credibility'],
-    audience: ['Businesses'],
+    audience: ['Businesses / organisations'],
+    operation: 'Visiting / delivering to customers',
     location: ['Local', 'One country'],
     localPlaces: 'Dundee',
     country: 'United Kingdom',
@@ -25,6 +26,7 @@ export function completeWebsiteBrief(redesign = false) {
     deadlineDate: '2026-12-31',
     deadlineReason: 'Business launch',
     anything: 'Please prioritise clear navigation and readable content.',
+    approvalEmail: 'alex@example.com',
   };
   state.additionalPages = [
     { id: 'careers', name: 'Careers', purpose: 'Show open roles and how to apply.' },
@@ -77,6 +79,7 @@ export function detailedWebsiteBrief() {
     launchRequirements: 'Launch after client sign-off and DNS authorization.',
     approverName: 'Jamie Orchard',
     approvalEmail: 'jamie@orchard.example',
+    referenceChoice: 'I have examples',
   };
   delete state.answers.capabilitiesOther;
   state.rows.priorityOfferings = [

@@ -21,7 +21,7 @@ export const briefCopy = {
   invalidChoice: 'Choose one of the available options.',
   invalidDate: 'Enter a valid date.',
   invalidURL: 'Enter a complete http:// or https:// website address.',
-  invalidEmail: 'Enter a valid email address, or leave it blank if optional.',
+  invalidEmail: 'Enter a valid email address.',
   invalidWebsite: 'Use a complete http:// or https:// website address, or leave it blank.',
   competitorName: 'Competitor name',
   competitorWebsite: 'Competitor website (optional)',

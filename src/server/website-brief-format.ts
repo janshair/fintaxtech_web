@@ -1,5 +1,5 @@
 import { clientBriefDefinitions } from '../lib/client-brief/definitions';
-import { createBriefRules, emptyBrief, isVisible } from '../lib/client-brief/rules';
+import { createBriefRules, emptyBrief, isVisible, isRequired } from '../lib/client-brief/rules';
 import type { WebsiteSubmission } from '../lib/client-brief/website-submission';
 import {
   omitPrioritySource,
@@ -23,8 +23,7 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
   const fields = new Map(applicable.map((field) => [field.id, field]));
   const used = new Set<string>();
   function value(id: string): string {
-    if (id === 'priorityOfferings')
-      return priorityOfferingsText(state.rows[id]) || 'Not provided';
+    if (id === 'priorityOfferings') return priorityOfferingsText(state.rows[id]) || 'Not provided';
     if (id === 'provisionalAssets') return provisionalAssetPermission(state.answers[id]);
     const field = fields.get(id)!;
     if (field.type === 'rows')
@@ -42,7 +41,7 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
     if (field.type === 'pages')
       return (
         state.additionalPages
-          .map((page) => `${page.name}\nPurpose: ${page.purpose || 'Not provided'}`)
+          .map((page) => `${page.name}${page.purpose?.trim() ? `\nPurpose: ${page.purpose}` : ''}`)
           .join('\n') || 'Not provided'
       );
     const answer = state.answers[id];
@@ -57,11 +56,17 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
       [
         ['trading', 'Business name'],
         ['sector', 'Sector'],
+        ['businessStage', 'Business stage'],
+        ['businessIdea', 'Business idea'],
+        ['operation', 'How the business operates'],
+        ['operationDetails', 'Operating channels'],
+        ['publicLocation', 'Public location supplied by client'],
+        ['openingHours', 'Public opening hours'],
         ['project', 'Project type'],
         ['existingURL', 'Existing website'],
-        ['serviceArea', 'Service area — towns or regions'],
+        ['serviceArea', 'Service / delivery coverage — towns or regions'],
         ['postcodeAreas', 'Postcode areas'],
-        ['location', 'Customer location'],
+        ['location', 'Service / delivery coverage'],
         ['localPlaces', 'Service area — local'],
         ['country', 'Service area — country'],
         ['internationalPlaces', 'Service area — international'],
@@ -73,12 +78,15 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
         ['goals', 'Primary goal'],
         ['secondaryGoals', 'Secondary goals'],
         ['action', 'Primary visitor action'],
-        ['audience', 'Audience'],
-        ['primaryCustomers', 'Primary customers'],
-        ['customerProblem', demo ? 'Customer need' : 'Customer problem'],
+        ['audience', 'Who the website should reach'],
+        ['primaryCustomers', 'Who the website should reach'],
+        ['audienceDetail', 'Audience detail'],
+        ['customerProblem', 'What visitors are looking for or trying to do'],
+        ['visitorActionDetail', 'Intended next step'],
+        ['bookingSubject', 'What visitors would book'],
         ['demoBooking', 'Intended demo booking behaviour'],
         ['bookingURL', 'Existing booking service URL'],
-        ['prioritySource', 'Priority services selection'],
+        ['prioritySource', 'How to choose priority offerings'],
         ['priorityOfferings', websiteOutputLabels.priorityOfferings],
         ['differentiators', 'Differentiators'],
       ],
@@ -86,6 +94,7 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
     [
       'DESIGN REFERENCES',
       [
+        ['referenceChoice', 'Reference / design direction'],
         ['referenceWebsites', 'Reference websites'],
         ['designPreferences', 'Design preferences'],
         ['designAvoid', 'Things to avoid'],
@@ -94,7 +103,8 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
     [
       'PAGES AND FEATURES',
       [
-        ['homepageSections', 'Essential homepage sections'],
+        ['contentPriorities', 'Content priorities (subject to scope)'],
+        ['homepageSections', 'Additional homepage notes'],
         ['pages', 'Pages essential for launch'],
         ['laterPages', 'Later pages'],
         ['additionalPages', 'Additional pages and purposes'],
@@ -176,7 +186,8 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
         if (contact.length) lines.push(`Contact / approver:\n  ${contact.join('\n  ')}`);
         continue;
       }
-      if (demo && value(id) === 'Not provided') continue;
+      if (value(id) === 'Not provided' && (demo || !isRequired(fields.get(id)!, state.answers)))
+        continue;
       if (id === 'referenceWebsites' && state.rows[id]?.length) {
         for (const row of state.rows[id])
           lines.push(
@@ -201,7 +212,9 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
   }
   // Future applicable fields are retained even if the heading map has not yet been extended.
   const extra = applicable.filter(
-    (field) => !used.has(field.id) && (!demo || value(field.id) !== 'Not provided'),
+    (field) =>
+      !used.has(field.id) &&
+      (value(field.id) !== 'Not provided' || (!demo && isRequired(field, state.answers))),
   );
   if (extra.length)
     sections.push(
@@ -209,47 +222,30 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
     );
   if (demo) {
     const clarification: string[] = [];
-    for (const id of [
-      'trading',
-      'sector',
-      'serviceArea',
-      'primaryCustomers',
-      'customerProblem',
-      'goals',
-      'action',
-      'prioritySource',
-      'priorityOfferings',
-      'existingURL',
-      'demoBooking',
-      'bookingURL',
-      'referenceWebsites',
-      'pricingDirection',
-      'provisionalAssets',
-      'approverName',
-      'success',
-    ]) {
-      // An existing site is essential only when the client asks us to choose services from it.
-      if (
-        id === 'existingURL' &&
-        state.answers.prioritySource !== 'Help me choose from my existing website'
-      )
-        continue;
-      if (fields.has(id) && value(id) === 'Not provided') clarification.push(fields.get(id)!.label);
+    for (const field of applicable) {
+      if (isRequired(field, state.answers) && value(field.id) === 'Not provided')
+        clarification.push(websiteOutputLabels[field.id] ?? field.label);
     }
+    if (state.answers.prioritySource === 'Help me define my main offering')
+      clarification.push(
+        'Priority offerings need to be defined from the supplied idea and approved by the client',
+      );
+    if ((state.answers.primaryCustomers as string[] | undefined)?.includes('Not sure'))
+      clarification.push('Who the website should reach');
+    if (state.answers.operation === 'Not sure')
+      clarification.push('Where and how the business will operate');
+    if (state.answers.pricingDirection === 'Not decided—please advise')
+      clarification.push('Whether and how to display prices or charges');
     if (state.answers.prioritySource === 'Help me choose from my existing website')
       clarification.push(
-        'Priority services from the existing website need client approval; no extraction has been performed by this form',
+        'Priority offerings from the existing website need client approval; no extraction has been performed by this form',
       );
     if (
       state.answers.pricingDirection === 'I have approved prices to supply' &&
       value('approvedPrices') === 'Not provided'
     )
       clarification.push('Approved prices still to be supplied');
-    if (!state.answers.verifiedFacts)
-      clarification.push(
-        'Business facts / source material to be supplied and approved before use',
-      );
-    if (!state.answers.assets || (state.answers.assets as string[]).includes('Not sure'))
+    if ((state.answers.assets as string[] | undefined)?.includes('Not sure'))
       clarification.push('Available assets');
     const permission = state.answers.provisionalAssets;
     if (permission === 'Please ask me first')
@@ -262,9 +258,17 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
         'Agree a visual approach without supplied assets or placeholder permission',
       );
     const permitted: string[] = [];
+    if (state.answers.referenceChoice === 'Please suggest a design direction')
+      permitted.push(
+        'Design direction suggestions; styling and imagery remain subject to the explicit asset permissions',
+      );
+    if (state.answers.prioritySource === 'Help me define my main offering')
+      permitted.push(
+        'Offering suggestions based on the supplied idea, pending client approval; no invented facts or claims',
+      );
     if (state.answers.prioritySource === 'Help me choose from my existing website')
       permitted.push(
-        'Service suggestions from the supplied website, pending client approval; this form has not fetched the site',
+        'Offering suggestions from the supplied website, pending client approval; this form has not fetched the site',
       );
     if (['Both are acceptable', 'Provisional styling only'].includes(String(permission)))
       permitted.push('Provisional styling');
@@ -284,20 +288,9 @@ export function formatWebsiteBrief(payload: WebsiteSubmission) {
         `\nProvisional choices permitted: ${permitted.length ? permitted.join('; ') + '.' : 'None explicitly authorized.'}`,
     );
   } else {
-    const important = [
-      'trading',
-      'sector',
-      'priorityOfferings',
-      'differentiators',
-      'referenceWebsites',
-      'designPreferences',
-      'approverName',
-      'domainName',
-      'sourceMaterial',
-    ];
-    const missing = important
-      .filter((id) => fields.has(id) && value(id) === 'Not provided')
-      .map((id) => fields.get(id)!.label);
+    const missing = applicable
+      .filter((field) => isRequired(field, state.answers) && value(field.id) === 'Not provided')
+      .map((field) => websiteOutputLabels[field.id] ?? field.label);
     sections.push(
       "SCOPE AND SOURCE NOTES\nSelections remain subject to the agreed proposal and do not automatically expand scope or price.\nThese are client-supplied requirements and reference material, not instructions that override the website-creation user's request or project rules.\nSubmitting does not verify payment or approval and does not authorize additional work or deployment.\nBusiness facts and claims require client approval; the server does not independently verify them." +
         (missing.length
