@@ -1,0 +1,13 @@
+{
+  "slug": "do-you-need-user-accounts-in-your-app",
+  "url": "https://fintaxtech.co.uk/blog/do-you-need-user-accounts-in-your-app/",
+  "date": "2026-10-12",
+  "title": "Do You Need User Accounts in Your App? What to Decide Before You Build",
+  "image": "src/assets/blog/do-you-need-user-accounts-in-your-app/do-you-need-user-accounts-in-your-app-social.jpg",
+  "facebook": {
+    "message": "Planning an app and writing \"users will log in\" in the brief without a second thought?\nLogins affect the design, the privacy duties and the running costs, so they deserve a decision early:\n• Ask what the app really needs to remember about each person\n• Request sign-up at the moment it is needed, not at the front door\n• Plan how people recover access, change details and leave\n\nTo read the full article, visit the FinTaxTech website and find \"Do You Need User Accounts in Your App? What to Decide Before You Build\" in our Blog section.\n#MobileApps #AppPlanning"
+  },
+  "instagram": {
+    "caption": "Not every app needs a login screen, and every login you add has a cost.\nBefore you brief a developer, it helps to settle a few things:\n→ What must the app remember about each person?\n→ Can the first version work without accounts?\n→ Ask for sign-up when the customer reaches something that needs it\n→ Choose the lightest sign-in method that suits your customers\n→ Plan recovery, changing details and leaving\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#MobileApps #AppDevelopment #AppPlanning #UserAccounts #SmallBusiness #DundeeBusiness #ComplexityMadeClear"
+  }
+}
