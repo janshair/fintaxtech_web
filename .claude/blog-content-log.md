@@ -12,7 +12,7 @@ mobile-app-maintenance-after-launch, app-store-and-google-play-submission-checkl
 mobile-app-ux-basics, push-notifications-without-annoying-people,
 do-you-need-user-accounts-in-your-app
 
-Website Design and Development (9): website-vs-web-application, does-your-website-need-a-cms,
+Website Design and Development (10): website-accessibility-basics-for-business-owners, website-vs-web-application, does-your-website-need-a-cms,
 new-business-website-launch-checklist, who-owns-your-business-website,
 small-business-website-quotes-vary, redesign-or-rebuild-business-website,
 what-slows-a-website-build-down, website-copy-that-answers-customer-questions,
@@ -41,6 +41,7 @@ ai-document-extraction-explained, planning-an-ai-assistant-for-your-business
 - 2026-10-10: planning-an-ai-assistant-for-your-business — pushed to main, awaiting owner review
 - 2026-10-11: giving-useful-design-feedback — pushed to main, awaiting owner review
 - 2026-10-12: do-you-need-user-accounts-in-your-app — pushed to main, awaiting owner review
+- 2026-10-13: website-accessibility-basics-for-business-owners — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -58,6 +59,7 @@ ai-document-extraction-explained, planning-an-ai-assistant-for-your-business
 9. ~~Planning an AI Assistant for Your Business: What to Decide Before Anything Is Built (AI Automation; ai-automation)~~ added 2026-10-10 as queue was exhausted (AI Automation and Branding had fewest; AI assistants not yet covered); published 2026-10-10
 10. ~~Giving Design Feedback That Gets You to the Final Version Sooner (Branding and Graphic Design; branding)~~ added 2026-10-11 as queue was exhausted (Branding had fewest, 8; feedback not yet covered); published 2026-10-11
 11. ~~Do You Need User Accounts in Your App? What to Decide Before You Build (Mobile App Development; mobile-apps)~~ added 2026-10-12 as queue was exhausted (all categories at 9; mobile was longest since last post; accounts not yet covered); published 2026-10-12
+12. ~~Website Accessibility Basics: What to Ask For Before Your Site Is Built (Website Design and Development; websites)~~ added 2026-10-13 as queue was exhausted (websites had fewest published, 9, and longest since last post; accessibility not yet covered); published 2026-10-13
 
 ## Conventions reminder
 

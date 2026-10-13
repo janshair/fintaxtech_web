@@ -1,0 +1,45 @@
+{
+  "slug": "website-accessibility-basics-for-business-owners",
+  "url": "https://fintaxtech.co.uk/blog/website-accessibility-basics-for-business-owners/",
+  "date": "2026-10-13",
+  "title": "Website Accessibility Basics: What to Ask For Before Your Site Is Built",
+  "category": "Website Design and Development",
+  "cards": [
+    {
+      "heading": "Ask for a clear accessibility aim",
+      "text": "Put in writing the level you want the site to work towards, rather than just asking for it to be accessible."
+    },
+    {
+      "heading": "Check colour contrast early",
+      "text": "Pale text can look elegant in a mock-up and be hard to read on a phone."
+    },
+    {
+      "heading": "Label every form field",
+      "text": "Clear labels and helpful error messages help avoid lost enquiries."
+    },
+    {
+      "heading": "Try it by keyboard",
+      "text": "Tab through your site and zoom in to 200%. Can you still use everything?"
+    },
+    {
+      "heading": "Name someone to keep it up",
+      "text": "New images, videos and pages can undo good work after launch."
+    }
+  ],
+  "facebook": {
+    "message": "Could a customer with low vision or limited hand movement use your website to get in touch?\nAccessibility is a set of choices made throughout a website project, and many of them start with the business owner. Our latest guide covers what to ask for before a site is built, simple checks you can try yourself, and who should look after it after launch. Swipe through for the key points.\n\nTo read the full article, visit the FinTaxTech website and find \"Website Accessibility Basics: What to Ask For Before Your Site Is Built\" in our Blog section.\n#WebAccessibility #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "Accessibility isn't a finishing touch for your website. It's a set of decisions made from the start, and many of them are yours.\nSwipe through for the essentials:\n→ Ask for a clear accessibility aim in writing\n→ Check colour contrast early\n→ Give every form field a clear label\n→ Test by keyboard and at 200% zoom\n→ Name someone to keep standards up after launch\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#WebAccessibility #WebsiteDesign #SmallBusiness #WebDevelopment #InclusiveDesign #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social.jpg",
+  "images": [
+    "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social.jpg",
+    "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social-2.jpg",
+    "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social-3.jpg",
+    "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social-4.jpg",
+    "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social-5.jpg",
+    "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social-6.jpg",
+    "src/assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-social-7.jpg"
+  ]
+}
