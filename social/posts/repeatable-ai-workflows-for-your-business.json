@@ -1,0 +1,45 @@
+{
+  "slug": "repeatable-ai-workflows-for-your-business",
+  "url": "https://fintaxtech.co.uk/blog/repeatable-ai-workflows-for-your-business/",
+  "date": "2026-10-14",
+  "title": "Repeatable AI Workflows: How to Describe a Task So It Is Done the Same Way Every Time",
+  "category": "AI Automation",
+  "cards": [
+    {
+      "heading": "Aim for the same kind of result",
+      "text": "AI-assisted work varies a little each run. Aim for consistent structure, tone and quality, then check it."
+    },
+    {
+      "heading": "Describe five parts of the task",
+      "text": "Write down the input, the steps, the format, the rules and who checks the result."
+    },
+    {
+      "heading": "Collect good and awkward examples",
+      "text": "Three to five past examples show what good looks like before anything is run."
+    },
+    {
+      "heading": "Flag gaps instead of guessing",
+      "text": "Decide in advance what happens when information is missing, unclear or contradictory."
+    },
+    {
+      "heading": "Keep a note of every change",
+      "text": "Record what changed and when, and let one person approve edits to the task description."
+    }
+  ],
+  "facebook": {
+    "message": "Do you have a job that gets done differently every time someone does it?\nOur new guide explains how to describe a recurring task so AI-assisted work comes out consistent:\n• Write down the input, steps, format, rules and checks\n• Collect good examples, and a few awkward ones\n• Decide what should happen when information is missing\nSwipe through for the key points.\n\nTo read the full article, visit the FinTaxTech website and find \"Repeatable AI Workflows: How to Describe a Task So It Is Done the Same Way Every Time\" in our Blog section.\n#AIAutomation #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "A repeatable workflow is a recipe card, not a machine.\nWrite the task down clearly enough and AI-assisted work comes out the same kind every time, with a person checking the result. Swipe through for the key points.\n→ Describe the input, steps, format, rules and check\n→ Gather three to five good examples\n→ Flag missing information rather than guessing\n→ Name one person to approve changes\n→ Agree ownership of finished content in writing\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#AIAutomation #Workflows #SmallBusiness #BusinessProcess #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social.jpg",
+  "images": [
+    "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social.jpg",
+    "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social-2.jpg",
+    "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social-3.jpg",
+    "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social-4.jpg",
+    "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social-5.jpg",
+    "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social-6.jpg",
+    "src/assets/blog/repeatable-ai-workflows-for-your-business/repeatable-ai-workflows-for-your-business-social-7.jpg"
+  ]
+}
