@@ -1,0 +1,45 @@
+{
+  "slug": "organising-your-brand-files-and-assets",
+  "url": "https://fintaxtech.co.uk/blog/organising-your-brand-files-and-assets/",
+  "date": "2026-10-15",
+  "title": "Organising Your Brand Files: A Simple Folder System Your Team, Printer and Developer Can Use",
+  "category": "Branding and Graphic Design",
+  "cards": [
+    {
+      "heading": "Keep only approved files",
+      "text": "If it is final and a supplier might need it again, it belongs in the brand folder."
+    },
+    {
+      "heading": "Use six clear folders",
+      "text": "Guidelines, logos, colours and fonts, templates, images and an archive for old versions."
+    },
+    {
+      "heading": "Name files so they explain themselves",
+      "text": "Say what the file is. Avoid words like \"final\" and \"latest\", and skip spaces."
+    },
+    {
+      "heading": "Send suppliers only what they need",
+      "text": "A printer, a developer and a new team member each need different files."
+    },
+    {
+      "heading": "Record font licences",
+      "text": "Note where fonts came from and what the licence allows. If unsure, check the terms."
+    }
+  ],
+  "facebook": {
+    "message": "Can you put your hand on the right logo file in under a minute?\nIf your brand files are scattered across inboxes and laptops, small inconsistencies creep in. Our latest guide shows a simple folder system that a printer, web developer or new team member can use without asking you for help.\nSwipe through for the key points, including what to keep, how to name files and who needs what.\n\nTo read the full article, visit the FinTaxTech website and find \"Organising Your Brand Files: A Simple Folder System Your Team, Printer and Developer Can Use\" in our Blog section.\n#Branding #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "Four files called \"logo-final\" and nobody sure which one is right? A tidy brand folder fixes that, and it takes less effort than you might think.\nSwipe through for a simple system.\n→ Keep only approved, reusable files in the brand folder\n→ Use six clear folders, with an archive for old versions\n→ Name files so they explain themselves\n→ Send each supplier only the files they need\n→ Record font licences, and check the terms if unsure\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#Branding #BrandIdentity #BrandAssets #SmallBusiness #GraphicDesign #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social.jpg",
+  "images": [
+    "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social.jpg",
+    "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social-2.jpg",
+    "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social-3.jpg",
+    "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social-4.jpg",
+    "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social-5.jpg",
+    "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social-6.jpg",
+    "src/assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-social-7.jpg"
+  ]
+}

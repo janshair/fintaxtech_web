@@ -18,12 +18,12 @@ small-business-website-quotes-vary, redesign-or-rebuild-business-website,
 what-slows-a-website-build-down, website-copy-that-answers-customer-questions,
 do-you-need-a-booking-system-or-a-contact-form
 
-Branding and Graphic Design (9): logo-vs-brand-identity, how-to-write-a-logo-design-brief,
+Branding and Graphic Design (10): logo-vs-brand-identity, how-to-write-a-logo-design-brief,
 logo-file-formats-explained, what-to-include-in-brand-guidelines,
 stationery-and-marketing-assets-after-logo, choosing-brand-colours-and-fonts,
 designing-for-print-without-owning-a-press,
 rebrand-or-refresh-your-business-brand,
-giving-useful-design-feedback
+giving-useful-design-feedback, organising-your-brand-files-and-assets
 
 AI Automation (10): ai-business-documents-to-website-content, ai-content-services-six-examples,
 ai-confidential-business-documents, how-to-review-ai-assisted-content,
@@ -44,6 +44,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-12: do-you-need-user-accounts-in-your-app — pushed to main, awaiting owner review
 - 2026-10-13: website-accessibility-basics-for-business-owners — pushed to main, awaiting owner review
 - 2026-10-14: repeatable-ai-workflows-for-your-business — pushed to main, awaiting owner review
+- 2026-10-15: organising-your-brand-files-and-assets — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -63,6 +64,7 @@ repeatable-ai-workflows-for-your-business
 11. ~~Do You Need User Accounts in Your App? What to Decide Before You Build (Mobile App Development; mobile-apps)~~ added 2026-10-12 as queue was exhausted (all categories at 9; mobile was longest since last post; accounts not yet covered); published 2026-10-12
 12. ~~Website Accessibility Basics: What to Ask For Before Your Site Is Built (Website Design and Development; websites)~~ added 2026-10-13 as queue was exhausted (websites had fewest published, 9, and longest since last post; accessibility not yet covered); published 2026-10-13
 13. ~~Repeatable AI Workflows: How to Describe a Task So It Is Done the Same Way Every Time (AI Automation; ai-automation)~~ added 2026-10-14 as queue was exhausted (AI and Branding had fewest, 9; workflows/consistency not yet covered); published 2026-10-14
+14. ~~Organising Your Brand Files: A Simple Folder System Your Team, Printer and Developer Can Use (Branding and Graphic Design; branding)~~ added 2026-10-15 as queue was exhausted (Branding had fewest, 9; brand file organisation not yet covered); published 2026-10-15
 
 ## Conventions reminder
 
