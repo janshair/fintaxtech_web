@@ -102,6 +102,9 @@ for (const width of [1024, 1280, 1440, 320, 390]) {
         }
         if (testInfo.project.name === 'chromium') {
           await mkdir('docs/visual-checks/service-selector', { recursive: true });
+          // Geometry above is checked in each real page. Capture the selector alone
+          // at the same document origin so page offsets cannot change rasterisation.
+          await selector.evaluate((section) => document.body.replaceChildren(section));
           captures.push(
             await selector.locator('.container').screenshot({
               path: `docs/visual-checks/service-selector/${name}-${width}-${theme}.png`,

@@ -6,7 +6,9 @@ test.beforeEach(async ({ page }, testInfo) => {
   if (testInfo.title.startsWith('consent')) return;
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
   await page.route('https://hooks.slack.com/**', (r) => r.fulfill({ status: 200, body: 'ok' }));
-  await page.route('https://api.web3forms.com/**', (r) => r.fulfill({ status: 200, body: '{"success":true}' }));
+  await page.route('https://api.web3forms.com/**', (r) =>
+    r.fulfill({ status: 200, body: '{"success":true}' }),
+  );
 });
 async function begin(page, service = 'websites', extra = '') {
   await page.goto(`/start/?service=${service}${extra}`);
@@ -168,7 +170,7 @@ test('marketing navigation works without JavaScript', async ({ browser }) => {
   const page = await context.newPage();
   await page.goto('http://localhost:4323/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
-    'What does your business need next?',
+    'Branding, websites, mobile apps and AI automation—made clear.',
   );
   await page.goto('http://localhost:4323/start/');
   await expect(page.locator('.service-card')).toHaveCount(4);

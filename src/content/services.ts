@@ -5,7 +5,8 @@ export const services = [
     id: 'branding',
     name: 'Branding and Graphic Design',
     short: 'Brand or graphic design',
-    description: 'A recognisable identity you can use across everything you publish.',
+    description:
+      'A professional identity—including your logo, colours and business materials—that makes your business recognisable.',
     title: 'Give your business a clear identity.',
     capabilities: [
       'Logo systems',
@@ -26,7 +27,8 @@ export const services = [
     id: 'websites',
     name: 'Website Design and Development',
     short: 'Website',
-    description: 'A new site, built to explain what you do and bring in enquiries.',
+    description:
+      'A clear, mobile-friendly website that explains your business and helps customers enquire, book or buy.',
     title: 'Website design and development for your business.',
     intro:
       'From a new business website to a complete website redesign, we plan, design and build around what your visitors need to understand and do.',
@@ -50,7 +52,8 @@ export const services = [
     id: 'mobile-apps',
     name: 'Mobile App Development',
     short: 'Mobile app',
-    description: 'An app your customers or your team can use every day.',
+    description:
+      'An iPhone and Android app that helps your customers or team complete useful tasks.',
     title: 'Mobile app development for iOS and Android.',
     intro:
       'We create new mobile apps and complete rebuilds for customers and internal teams. Your users, device features and long-term support needs guide the choice of technology.',
@@ -76,7 +79,8 @@ export const services = [
     id: 'ai-automation',
     name: automationCopy.name,
     short: automationCopy.name,
-    description: automationCopy.description,
+    description:
+      'A reviewed workflow that reduces repetitive work such as processing documents, preparing content or moving information.',
     title: automationCopy.headline,
     capabilities: [
       'AI-assisted content and document processing',
@@ -125,3 +129,12 @@ export const serviceCopy = {
 };
 
 export type Service = (typeof services)[number];
+
+export const serviceVisuals: Record<ServiceId, string> = {
+  branding: 'Brand identity illustration: a logo, colour palette, business card and brand guide.',
+  websites: 'Responsive website illustration: one website displayed on desktop, tablet and phone.',
+  'mobile-apps':
+    'Mobile app illustration: connected phone screens for a task list, details and completion.',
+  'ai-automation':
+    'AI workflow illustration: source documents move through structured steps to a result checked by a person.',
+};

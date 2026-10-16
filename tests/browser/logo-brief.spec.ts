@@ -313,7 +313,8 @@ test('redesign fields, dynamic primary use, server validation and explicit submi
   await expect(page.locator('#identityProblems')).toBeVisible();
   await expect(page.locator('#identityImprovements')).toBeVisible();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
-  await expect(page.getByRole('alert')).toContainText('Complete');
+  await expect(page.locator('#error-identityProblems')).toContainText('Complete');
+  await expect(page.locator('#error-identityImprovements')).toContainText('Complete');
   await page.locator('#identityProblems').fill('Our existing logo is hard to read on vehicles.');
   await page.getByLabel('Choose current logo').setInputFiles(await image());
   await expect(page.getByRole('status')).toContainText('updated');

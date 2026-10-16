@@ -1,0 +1,196 @@
+---
+import type { ServiceId } from '../lib/types';
+import { serviceVisuals } from '../content/services';
+interface Props {
+  service: ServiceId;
+}
+const { service } = Astro.props;
+---
+
+<svg
+  class="service-visual"
+  viewBox="0 0 240 160"
+  width="240"
+  height="160"
+  role="img"
+  aria-label={serviceVisuals[service]}
+  focusable="false"
+>
+  <rect class="backdrop" width="240" height="160" rx="8"></rect>
+  {
+    service === 'branding' && (
+      <>
+        <rect class="paper outline" x="100" y="16" width="112" height="128" rx="3" />
+        <path class="line" d="M112 16v128M126 108h64M126 119h42" />
+        <path class="ink" d="M132 35h30v30h-30zM166 69h30v30h-30z" />
+        <circle class="blue" cx="181" cy="50" r="15" />
+        <rect class="paper outline" x="24" y="26" width="62" height="44" rx="3" />
+        <>
+          <circle class="blue" cx="42" cy="45" r="8" />
+          <path class="ink" d="M53 38h18v18H53z" />
+        </>
+        <rect class="ink" x="20" y="82" width="88" height="54" rx="3" />
+        <>
+          <path class="on-ink" d="M32 95h15v15H32z" />
+          <path class="reverse-line" d="M57 98h37M57 106h26M32 122h62" />
+        </>
+        <>
+          <circle class="blue" cx="139" cy="133" r="5" />
+          <circle class="ink" cx="156" cy="133" r="5" />
+          <circle class="muted-fill" cx="173" cy="133" r="5" />
+        </>
+      </>
+    )
+  }
+  {
+    service === 'websites' && (
+      <>
+        <rect class="paper outline" x="20" y="20" width="160" height="102" rx="4" />
+        <path class="line" d="M20 33h160M100 122v14M76 139h48" />
+        <>
+          <circle class="blue" cx="29" cy="27" r="2" />
+          <circle class="muted-fill" cx="36" cy="27" r="2" />
+        </>
+        <>
+          <path class="ink" d="M32 45h60v6H32zM32 57h43v4H32z" />
+          <rect class="blue" x="32" y="69" width="28" height="9" rx="4" />
+        </>
+        <path
+          class="soft-fill"
+          d="M105 43h61v36h-61zM32 89h38v19H32zM77 89h38v19H77zM122 89h38v19h-38z"
+        />
+        <rect class="paper outline" x="127" y="60" width="74" height="81" rx="5" />
+        <>
+          <path class="ink" d="M136 71h50v5h-50z" />
+          <path class="soft-fill" d="M136 84h50v27h-50z" />
+        </>
+        <rect class="blue" x="136" y="118" width="25" height="8" rx="4" />
+        <rect class="paper outline" x="186" y="88" width="35" height="60" rx="5" />
+        <>
+          <path class="line" d="M199 94h9" />
+          <path class="soft-fill" d="M191 101h25v24h-25z" />
+          <rect class="blue" x="193" y="132" width="20" height="6" rx="3" />
+        </>
+      </>
+    )
+  }
+  {
+    service === 'mobile-apps' && (
+      <>
+        <path class="blue-line" d="M76 80h90M83 75l5 5-5 5M151 75l5 5-5 5" />
+        <rect class="paper outline" x="14" y="34" width="61" height="113" rx="8" />
+        <rect class="paper outline" x="90" y="13" width="61" height="113" rx="8" />
+        <rect class="paper outline" x="166" y="34" width="61" height="113" rx="8" />
+        <path class="line" d="M35 41h19M111 20h19M187 41h19" />
+        <path class="ink" d="M23 54h37v5H23zM99 33h30v5H99zM175 54h36v5h-36z" />
+        <>
+          <rect class="soft-fill" x="23" y="69" width="43" height="16" rx="3" />
+          <rect class="soft-fill" x="23" y="91" width="43" height="16" rx="3" />
+        </>
+        <path class="blue-line" d="m28 76 3 3 6-6m-9 25 3 3 6-6" />
+        <>
+          <rect class="soft-fill" x="99" y="48" width="43" height="36" rx="3" />
+          <path class="line" d="M99 92h38M99 100h24" />
+        </>
+        <>
+          <circle class="blue" cx="196" cy="90" r="17" />
+          <path class="check" d="m188 90 6 6 10-12" />
+        </>
+        <>
+          <rect class="blue" x="25" y="124" width="39" height="9" rx="4" />
+          <rect class="blue" x="101" y="109" width="39" height="8" rx="4" />
+          <path class="line" d="M181 120h30M187 128h18" />
+        </>
+      </>
+    )
+  }
+  {
+    service === 'ai-automation' && (
+      <>
+        <>
+          <rect class="paper outline" x="17" y="28" width="40" height="48" rx="3" />
+          <rect class="paper outline" x="25" y="38" width="40" height="48" rx="3" />
+        </>
+        <path class="line" d="M34 51h20M34 60h20M34 69h13" />
+        <path
+          class="blue-line"
+          d="M65 62h23m-6-5 6 5-6 5M115 84v20h35m-6-5 6 5-6 5M141 62h35m-6-5 6 5-6 5"
+        />
+        <rect class="paper outline" x="91" y="39" width="49" height="45" rx="5" />
+        <>
+          <path class="blue-line" d="M102 52h27M102 62h27M102 72h27" />
+          <circle class="blue" cx="110" cy="52" r="3" />
+          <circle class="blue" cx="121" cy="62" r="3" />
+          <circle class="blue" cx="114" cy="72" r="3" />
+        </>
+        <>
+          <rect class="paper outline" x="178" y="30" width="44" height="56" rx="3" />
+          <path class="line" d="M187 43h26M187 52h26M187 61h16" />
+        </>
+        <>
+          <circle class="blue" cx="200" cy="79" r="12" />
+          <path class="check" d="m194 79 4 4 8-9" />
+        </>
+        <>
+          <circle class="paper outline" cx="172" cy="117" r="23" />
+          <circle class="ink" cx="172" cy="110" r="7" />
+          <path class="ink" d="M159 132v-4a13 13 0 0 1 26 0v4z" />
+        </>
+        <path class="blue-line" d="M192 106h8V94" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .service-visual {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    flex: none;
+  }
+  .backdrop,
+  .soft-fill {
+    fill: var(--soft);
+  }
+  .paper {
+    fill: var(--surface);
+  }
+  .ink {
+    fill: var(--text);
+  }
+  .on-ink {
+    fill: var(--bg);
+  }
+  .blue {
+    fill: var(--accent);
+  }
+  .muted-fill {
+    fill: var(--muted);
+  }
+  .outline {
+    stroke: var(--muted);
+    stroke-width: 1.5;
+  }
+  .line,
+  .blue-line,
+  .reverse-line,
+  .check {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .blue-line {
+    stroke: var(--accent);
+  }
+  .reverse-line {
+    stroke: var(--bg);
+  }
+  .check {
+    stroke: var(--on-accent);
+    stroke-width: 3;
+  }
+</style>

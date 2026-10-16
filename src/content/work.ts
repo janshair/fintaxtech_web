@@ -37,3 +37,9 @@ export const featuredWork = {
     disclosure: '',
   },
 } as const;
+
+export const homeWorkCopy = {
+  title: 'See what we have created.',
+  websiteLink: 'Explore Ask Appliance Repairs',
+  allWorkLink: 'View selected work',
+};

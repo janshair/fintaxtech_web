@@ -70,9 +70,10 @@ export const navigation = [
   ['/contact/', 'Contact'],
 ];
 export const home = {
-  title: 'What does your business need next?',
+  title: 'Branding, websites, mobile apps and AI automation—made clear.',
   intro:
-    'FinTaxTech is a branding, website and mobile app agency based in Dundee, Scotland. We help businesses worldwide through a clear, structured process.',
+    'Tell us what you want to achieve. Our guided questions help you explain your project—even if you do not know the technical terms.',
+  serviceArea: 'Based in Dundee, Scotland. Working with businesses across the UK and worldwide.',
   why: 'Why FinTaxTech',
   whyTitle: 'A capable partner asking clear questions.',
   reasons: [
@@ -95,14 +96,9 @@ export const home = {
   ],
   four: 'Four services. One clear process.',
   processTitle: 'From an idea to an agreed plan.',
-  steps: [
-    'Choose a service',
-    'Describe the requirement',
-    'Generate your enquiry PDF',
-    'Discuss scope and receive a quote',
-    'Approve and begin',
-  ],
-  pdfNotice: 'Creating a PDF does not send an enquiry, create a contract, or reserve capacity.',
+  steps: ['Choose what you need', 'Answer straightforward questions', 'Receive a clear proposal'],
+  pdfNotice:
+    'You can also save your answers as a PDF to share with us when you are ready. It is an optional way to explain your project, not a commitment to proceed.',
   priceTitle: 'Pricing follows the scope',
   priceText:
     'We review your requirements and prepare a written proposal. You know the deliverables, exclusions, timing, and cost before work starts.',

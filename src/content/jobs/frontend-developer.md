@@ -2,7 +2,7 @@
 title: Front-End Developer
 summary: Help build and maintain accessible, fast static websites with Astro, TypeScript and reusable components, including FinTaxTech’s own website.
 location: Remote or Dundee, Scotland
-active: true
+active: false
 publishedDate: 2026-10-07
 jobLocation:
   locality: Dundee

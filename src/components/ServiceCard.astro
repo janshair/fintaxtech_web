@@ -1,4 +1,5 @@
 ---
+import ServiceVisual from './ServiceVisual.astro';
 import type { Service } from '../content/services';
 import { selectorCopy } from '../content/site';
 interface Props {
@@ -16,6 +17,7 @@ const href =
   href={href}
   data-start-service={mode === 'questionnaire' ? service.id : undefined}
 >
+  <ServiceVisual service={service.id} />
   <span class="number">{service.number}</span>
   <Heading class="service-card-heading">{service.short}</Heading>
   <p>{service.description}</p>

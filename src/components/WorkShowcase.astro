@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import GooglePlayBadge from './GooglePlayBadge.astro';
+import ClientFeedback from './ClientFeedback.astro';
 import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
 import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
 import { featuredWork as work, publishedApps, workCopy } from '../content/work';
@@ -22,14 +23,7 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
         {work.visitLabel} ↗
       </a>
     </div>
-    <figure class="work-feedback">
-      <p class="work-feedback-label">{work.feedback.label}</p>
-      <blockquote>{work.feedback.quote}</blockquote>
-      <figcaption>
-        <span class="work-feedback-attribution">{work.feedback.attribution}</span>
-        <span>{work.feedback.disclosure}</span>
-      </figcaption>
-    </figure>
+    <ClientFeedback />
   </div>
   <div class="work-previews">
     <figure>

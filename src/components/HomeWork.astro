@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import ClientFeedback from './ClientFeedback.astro';
+import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
+import { featuredWork, homeWorkCopy } from '../content/work';
+import { metoni } from '../content/metoni';
+import { metoniMedia } from '../content/metoni-media';
+import { ui } from '../content/site';
+
+const projects = [
+  {
+    name: featuredWork.name,
+    summary: featuredWork.summary,
+    href: '/selected-work/',
+    label: homeWorkCopy.websiteLink,
+    images: [{ image: desktop, alt: featuredWork.desktopAlt }],
+  },
+  {
+    name: metoni.name,
+    summary: metoni.summary,
+    href: metoni.route,
+    label: metoni.exploreLabel,
+    images: [metoniMedia.screenshots[0], metoniMedia.screenshots[2]],
+  },
+];
+---
+
+<section class="section home-work" aria-labelledby="home-work-title">
+  <div class="container">
+    <p class="eyebrow">{ui.work}</p>
+    <h2 id="home-work-title">{homeWorkCopy.title}</h2>
+    <div class="project-grid">
+      {
+        projects.map((project) => (
+          <article class="project-preview">
+            <div class="project-images">
+              {project.images.map(({ image, alt }) => (
+                <Image
+                  src={image}
+                  alt={alt}
+                  widths={[240, 480, 720, 1120]}
+                  sizes={
+                    project.images.length > 1
+                      ? '(min-width: 760px) 170px, 30vw'
+                      : '(min-width: 1184px) 540px, (min-width: 760px) 46vw, 90vw'
+                  }
+                  format="webp"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ))}
+            </div>
+            <h3>{project.name}</h3>
+            <p class="muted">{project.summary}</p>
+            <a class="text-link" href={project.href}>
+              {project.label} <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+    <ClientFeedback />
+    <a class="text-link all-work" href="/selected-work/"
+      >{homeWorkCopy.allWorkLink} <span aria-hidden="true">→</span></a
+    >
+  </div>
+</section>
+
+<style>
+  .project-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin-block: var(--space-7);
+  }
+  .project-preview {
+    min-width: 0;
+  }
+  .project-images {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    aspect-ratio: 16 / 10;
+    padding: var(--space-5);
+    margin-bottom: var(--space-5);
+    background: var(--soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .project-images img {
+    min-width: 0;
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  .all-work {
+    display: inline-block;
+    margin-top: var(--space-6);
+  }
+  @media (--tablet) {
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

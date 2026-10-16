@@ -1,0 +1,13 @@
+---
+import { featuredWork } from '../content/work';
+const { feedback } = featuredWork;
+---
+
+<figure class="work-feedback">
+  <p class="work-feedback-label">{feedback.label}</p>
+  <blockquote>{feedback.quote}</blockquote>
+  <figcaption>
+    <span class="work-feedback-attribution">{feedback.attribution}</span>
+    {feedback.disclosure && <span>{feedback.disclosure}</span>}
+  </figcaption>
+</figure>

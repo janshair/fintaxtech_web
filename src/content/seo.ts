@@ -11,7 +11,7 @@ import { logoBriefCopy } from './logo-brief';
 import { pages } from './pages';
 import { blogCopy } from './blog';
 import { services } from './services';
-import { contactRedirect, home, ui } from './site';
+import { contactRedirect, ui } from './site';
 export const seoCopy = {
   imageAlt: 'FinTaxTech — Complexity made clear.',
   breadcrumbs: 'Breadcrumb',
@@ -92,7 +92,11 @@ export const seoPages: Record<string, PageSEO> = {
       },
     ]),
   ),
-  '/': { title: 'Brand, Website & Mobile App Development | Dundee', description: home.intro },
+  '/': {
+    title: 'Branding, Websites, Mobile Apps & AI Automation',
+    description:
+      'FinTaxTech creates branding, websites, mobile apps and AI automations. Based in Dundee, working worldwide, with guided questions and a clear written proposal.',
+  },
   '/services/': {
     title: 'Branding, Websites, Mobile Apps & AI Automation | Dundee',
     description:
