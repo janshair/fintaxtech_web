@@ -1,0 +1,45 @@
+{
+  "slug": "does-your-app-need-to-work-offline",
+  "url": "https://fintaxtech.co.uk/blog/does-your-app-need-to-work-offline/",
+  "date": "2026-10-16",
+  "title": "Does Your App Need to Work Offline? What to Decide Before You Build",
+  "category": "Mobile App Development",
+  "cards": [
+    {
+      "heading": "Start with where people use it",
+      "text": "Trains, car parks and basements are where signal drops. Plan around your customers, not your office Wi-Fi."
+    },
+    {
+      "heading": "List the tasks that must work",
+      "text": "Name the critical subset, such as viewing today's jobs. Asking for the whole app offline is rarely sensible."
+    },
+    {
+      "heading": "Choose one of three levels",
+      "text": "Polite failure, read-only, or read and change. Each step is more useful and more work to build."
+    },
+    {
+      "heading": "Decide what happens in a clash",
+      "text": "If two edits conflict, which one wins? That is a business rule you set before the build."
+    },
+    {
+      "heading": "Think about stored personal data",
+      "text": "Offline data sits on the phone. Decide what is saved and check data protection rules with an adviser."
+    }
+  ],
+  "facebook": {
+    "message": "What happens when your customers open your app and the signal drops?\nMost apps are planned on fast office Wi-Fi, but used on trains, in car parks and in rural areas. Our latest guide explains what \"offline\" can mean, three levels of support from a polite error message to full syncing, and the decisions that only you can make, such as what must work without a signal and what happens when two changes clash.\nSwipe through for the key points.\n\nTo read the full article, visit the FinTaxTech website and find \"Does Your App Need to Work Offline? What to Decide Before You Build\" in our Blog section.\n#MobileApps #AppDevelopment"
+  },
+  "instagram": {
+    "caption": "Your app works perfectly in the office. But what happens on a train, in a car park or a rural lane when the signal drops?\nOffline support is a decision about your customers, not just a technical detail. Swipe through for the essentials.\n→ Start with where and when people actually use the app\n→ List the few tasks that must work without a signal\n→ Pick a level: polite failure, read-only, or read and change\n→ Set a rule for what happens when two edits clash\n→ Check what personal data is stored on the phone\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#MobileApps #AppDevelopment #AppDesign #OfflineFirst #SmallBusiness #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social.jpg",
+  "images": [
+    "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social.jpg",
+    "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social-2.jpg",
+    "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social-3.jpg",
+    "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social-4.jpg",
+    "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social-5.jpg",
+    "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social-6.jpg",
+    "src/assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-social-7.jpg"
+  ]
+}

@@ -3,14 +3,14 @@
 The live index at https://fintaxtech.co.uk/blog/ is the source of truth. This file is a
 working record for the daily article task.
 
-## Published (as at 2026-10-09)
+## Published (as at 2026-10-16)
 
-Mobile App Development (10): mobile-app-requirements-checklist,
+Mobile App Development (11): mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
 mobile-app-or-mobile-friendly-website, why-mobile-app-quotes-vary,
 mobile-app-maintenance-after-launch, app-store-and-google-play-submission-checklist,
 mobile-app-ux-basics, push-notifications-without-annoying-people,
-do-you-need-user-accounts-in-your-app
+do-you-need-user-accounts-in-your-app, does-your-app-need-to-work-offline
 
 Website Design and Development (10): website-accessibility-basics-for-business-owners, website-vs-web-application, does-your-website-need-a-cms,
 new-business-website-launch-checklist, who-owns-your-business-website,
@@ -45,6 +45,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-13: website-accessibility-basics-for-business-owners — pushed to main, awaiting owner review
 - 2026-10-14: repeatable-ai-workflows-for-your-business — pushed to main, awaiting owner review
 - 2026-10-15: organising-your-brand-files-and-assets — pushed to main, awaiting owner review
+- 2026-10-16: does-your-app-need-to-work-offline — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -65,6 +66,7 @@ repeatable-ai-workflows-for-your-business
 12. ~~Website Accessibility Basics: What to Ask For Before Your Site Is Built (Website Design and Development; websites)~~ added 2026-10-13 as queue was exhausted (websites had fewest published, 9, and longest since last post; accessibility not yet covered); published 2026-10-13
 13. ~~Repeatable AI Workflows: How to Describe a Task So It Is Done the Same Way Every Time (AI Automation; ai-automation)~~ added 2026-10-14 as queue was exhausted (AI and Branding had fewest, 9; workflows/consistency not yet covered); published 2026-10-14
 14. ~~Organising Your Brand Files: A Simple Folder System Your Team, Printer and Developer Can Use (Branding and Graphic Design; branding)~~ added 2026-10-15 as queue was exhausted (Branding had fewest, 9; brand file organisation not yet covered); published 2026-10-15
+15. ~~Does Your App Need to Work Offline? What to Decide Before You Build (Mobile App Development; mobile-apps)~~ added 2026-10-16 as queue was exhausted (all categories at 10; mobile longest since last post; offline not yet covered); published 2026-10-16
 
 ## Conventions reminder
 
