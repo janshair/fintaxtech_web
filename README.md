@@ -63,6 +63,12 @@ On Linux CI use `pnpm exec playwright install --with-deps chromium firefox webki
 
 `dist/` is generated output. Do not edit it to change website content; the next build overwrites it.
 
+## Motion website templates
+
+The first barber demonstration is at `/website/motion/templates/barber-01/`. Its standalone Astro page lives in `src/pages/website/motion/templates/barber-01/index.astro`, with CSS and JavaScript in `public/website/motion/templates/barber-01/`. It keeps its own visual design and uses the shared SEO registry and company structured data. The demo is deliberately `noindex,nofollow` and excluded from the sitemap.
+
+Run `pnpm dev` to review it, or `pnpm build` followed by `pnpm preview` to inspect production output. Business-name personalisation stays in page memory; the example booking flow does not create appointments or send data. The template gallery and promotional reels are later deliverables. Local requirements, handover notes and screenshots are in the ignored `docs/motion-templates/` folder.
+
 ## Change words or add a page
 
 Edit the corresponding TypeScript content file, keeping the quotes and commas. Components render those values; do not add business copy directly to a component. Questions use stable IDs so business rules and tests can refer to them. Change a question's wording freely, but review its rules and tests before changing its ID or option values.

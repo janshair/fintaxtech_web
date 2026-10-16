@@ -26,6 +26,13 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  '/website/motion/templates/barber-01/': {
+    title: 'The Brass Standard — Barber website demo by FinTaxTech',
+    description:
+      'Explore a personalised barber website demonstration by FinTaxTech, with responsive design and scroll-driven motion.',
+    noindex: true,
+    nofollow: true,
+  },
   [careersCopy.route]: { title: careersCopy.title, description: careersCopy.description },
   [metoni.route]: { title: metoni.seoTitle, description: metoni.description },
   [metoni.supportRoute]: { title: metoniSupport.title, description: metoniSupport.description },
