@@ -1,0 +1,49 @@
+---
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import TemplateCard from '../../../../components/templates/TemplateCard.astro';
+import { motionGallery as c, motionTemplates } from '../../../../content/templates';
+---
+
+<SiteLayout title={c.title} description={c.description}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{c.title}</h1>
+      <p class="lead">{c.intro}</p>
+    </header>
+    <ul class="template-grid" role="list">
+      {
+        motionTemplates.map((template) => (
+          <li>
+            <TemplateCard template={template} />
+          </li>
+        ))
+      }
+    </ul>
+    <div class="gallery-note">
+      <p class="muted">{c.note}</p>
+      <a class="button primary" href="/contact/">{c.contactLabel}</a>
+    </div>
+  </div>
+</SiteLayout>
+
+<style>
+  .template-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-6);
+  }
+  li {
+    min-width: 0;
+    margin: 0;
+  }
+  .gallery-note {
+    padding-block: var(--space-7) var(--space-9);
+  }
+  @media (--tablet) {
+    .template-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

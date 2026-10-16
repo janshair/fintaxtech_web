@@ -1,3 +1,4 @@
+import { motionGallery, motionTemplates, barberRedirect } from './templates';
 import { legacyRedirects } from './legacy-redirects';
 import { careersCopy } from './careers';
 import { metoni, metoniSupport } from './metoni';
@@ -26,10 +27,22 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
-  '/website/motion/templates/barber-01/': {
-    title: 'The Brass Standard — Barber website demo by FinTaxTech',
-    description:
-      'Explore a personalised barber website demonstration by FinTaxTech, with responsive design and scroll-driven motion.',
+  [motionGallery.route]: { title: motionGallery.title, description: motionGallery.description },
+  ...Object.fromEntries(
+    motionTemplates.map((template) => [
+      template.route,
+      {
+        title: template.seoTitle,
+        description: template.seoDescription,
+        noindex: true,
+        nofollow: true,
+      },
+    ]),
+  ),
+  [barberRedirect.route]: {
+    title: barberRedirect.title,
+    description: barberRedirect.message,
+    canonical: barberRedirect.destination,
     noindex: true,
     nofollow: true,
   },

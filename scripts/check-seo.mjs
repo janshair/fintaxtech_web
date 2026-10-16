@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { join } from 'node:path';
 const origin = 'https://fintaxtech.co.uk';
 const redirectDestinations = {
+  '/website/motion/templates/barber-01/': '/templates/website/motion/barber-01/',
   '/privacy.html': '/privacy/',
   '/portfolio.html': '/selected-work/',
   '/services.html': '/services/',

@@ -1,0 +1,59 @@
+---
+import { motionGallery, type MotionTemplate } from '../../content/templates';
+interface Props {
+  template: MotionTemplate;
+}
+const { template } = Astro.props;
+---
+
+<article class="template-card">
+  <img
+    src={template.preview.src}
+    alt={template.preview.alt}
+    width={template.preview.width}
+    height={template.preview.height}
+    decoding="async"
+  />
+  <div class="template-details">
+    <p class="eyebrow">{template.industry}</p>
+    <h2 id={`template-${template.id}`}>{template.name}</h2>
+    <p class="muted">{template.description}</p>
+    <a
+      class="button"
+      href={template.route}
+      aria-labelledby={`preview-${template.id} template-${template.id}`}
+    >
+      <span id={`preview-${template.id}`}>{motionGallery.previewLabel}</span><span
+        aria-hidden="true">↗</span
+      >
+    </a>
+  </div>
+</article>
+
+<style>
+  .template-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+    height: 100%;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .template-details {
+    padding: var(--space-6);
+  }
+  h2 {
+    font-size: var(--h2);
+  }
+  .eyebrow {
+    margin-bottom: var(--space-3);
+  }
+  .button {
+    gap: var(--space-4);
+  }
+</style>

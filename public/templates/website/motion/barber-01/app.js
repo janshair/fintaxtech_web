@@ -11,6 +11,12 @@
   let businessName = defaultName;
   let lastTrigger;
 
+  // Browsers may restore form fields on reload even without application storage.
+  // A fresh document starts a fresh preview; a back/forward memory snapshot may resume.
+  window.addEventListener('pageshow', event => {
+    if (!event.persisted) nameInput.value = '';
+  });
+
   function applyName(name) {
     businessName = name;
     document.querySelectorAll('[data-business]').forEach(el => { el.textContent = name; });

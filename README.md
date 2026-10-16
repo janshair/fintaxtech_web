@@ -65,9 +65,11 @@ On Linux CI use `pnpm exec playwright install --with-deps chromium firefox webki
 
 ## Motion website templates
 
-The first barber demonstration is at `/website/motion/templates/barber-01/`. Its standalone Astro page lives in `src/pages/website/motion/templates/barber-01/index.astro`, with CSS and JavaScript in `public/website/motion/templates/barber-01/`. It keeps its own visual design and uses the shared SEO registry and company structured data. The demo is deliberately `noindex,nofollow` and excluded from the sitemap.
+The gallery is at `/templates/website/motion/` and uses the shared FinTaxTech layout, themes and footer. Add an implemented template to the typed registry in `src/content/templates.ts`; its card is generated automatically. Each entry needs a unique ID, name, industry, description, route, preview image with alt text and dimensions, and demo SEO title/description. The gallery is indexable and in the sitemap; registered demos remain `noindex,nofollow` and outside the sitemap.
 
-Run `pnpm dev` to review it, or `pnpm build` followed by `pnpm preview` to inspect production output. Business-name personalisation stays in page memory; the example booking flow does not create appointments or send data. The template gallery and promotional reels are later deliverables. Local requirements, handover notes and screenshots are in the ignored `docs/motion-templates/` folder.
+The Brass Standard is at `/templates/website/motion/barber-01/`. Its standalone Astro page lives in `src/pages/templates/website/motion/barber-01/index.astro`, with CSS, JavaScript and the optimised gallery screenshot in `public/templates/website/motion/barber-01/`. Keep required media in tracked `src/assets/` or `public/` folders, never ignored `docs/`. The old `/website/motion/templates/barber-01/` address is a static compatibility redirect that preserves query strings and fragments.
+
+Run `pnpm dev` to review both pages, or `pnpm build` followed by `pnpm preview` to inspect production output. Business-name personalisation stays in page memory and clears on reload; the example booking flow does not create appointments or send data. The demo keeps its own visual design and reduced-motion support. When updating the gallery screenshot, capture the default sample with its name dialog closed, optimise it to WebP and update the registry dimensions. Do not capture a customer's personalised name. Promotional reels remain a later deliverable.
 
 ## Change words or add a page
 
