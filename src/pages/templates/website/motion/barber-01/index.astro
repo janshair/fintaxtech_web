@@ -1,7 +1,14 @@
 ---
 import { seoPages, seoCopy } from '../../../../../content/seo';
 import { structuredData, absoluteURL } from '../../../../../lib/seo';
+import { barberDemo as c } from '../../../../../content/barber-demo';
+import BarberCutIllustration from '../../../../../components/templates/BarberCutIllustration.astro';
 import { motionGallery } from '../../../../../content/templates';
+import { referenceCodes, visitEndpoint } from '../../../../../lib/barber-visits';
+const visitConfig = {
+  endpoint: visitEndpoint(import.meta.env.PUBLIC_BARBER_VISIT_ENDPOINT || ''),
+  codes: referenceCodes(import.meta.env.PUBLIC_BARBER_REF_CODES || '').join(','),
+};
 const path = '/templates/website/motion/barber-01/';
 const { title, description } = seoPages[path];
 const canonical = absoluteURL(path);
@@ -13,6 +20,7 @@ const image = absoluteURL('/social.png');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
     <meta name="robots" content="noindex,nofollow" />
     <meta name="theme-color" content="#171916" />
     <meta name="description" content={description} />
@@ -54,7 +62,7 @@ const image = absoluteURL('/social.png');
     </aside>
     <header class="site-header">
       <a class="brand" href="#home" aria-label="Back to the top">
-        <span class="brand-mark" aria-hidden="true">B<span> / </span>S</span>
+        <span class="brand-mark" data-monogram aria-hidden="true">B / S</span>
         <span data-business>The Brass Standard</span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation"
@@ -74,6 +82,9 @@ const image = absoluteURL('/social.png');
         <div class="hero-copy">
           <p class="eyebrow">
             <span class="small-line"></span> THE MODERN BARBER. THE TIMELESS RITUAL.
+          </p>
+          <p class="hero-business">
+            <span data-business>{c.defaultName}</span><span data-hero-area hidden></span>
           </p>
           <h1 id="hero-title">A cut<br />above the<br /><em>ordinary.</em></h1>
           <p class="hero-description">
@@ -233,6 +244,18 @@ const image = absoluteURL('/social.png');
               aria-hidden="true">01 — 03</span
             >
           </div>
+          <ol class="ritual-steps">
+            {
+              c.ritual.map(([title, description]) => (
+                <li>
+                  <>
+                    <strong>{title}</strong>
+                    <p>{description}</p>
+                  </>
+                </li>
+              ))
+            }
+          </ol>
         </div>
       </section>
       <section class="story section-pad" aria-labelledby="story-title">
@@ -254,37 +277,92 @@ const image = absoluteURL('/social.png');
           >
         </div>
       </section>
+      <section class="cuts-section section-pad" id="gallery" aria-labelledby="gallery-title">
+        <p class="eyebrow">{c.galleryEyebrow}</p><h2 id="gallery-title">{c.galleryTitle}</h2>
+        <p class="section-note">{c.galleryNote}</p>
+        <!-- Original SVG placeholder illustrations made for this demo; no stock images or third-party licensing dependencies. -->
+        <div class="cuts-grid">
+          {
+            c.cuts.map((cut, index) => (
+              <figure>
+                <BarberCutIllustration index={index} label={`${c.illustrationLabel}: ${cut}`} />
+                <figcaption>{cut}</figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </section>
+      <section class="reviews-section section-pad" aria-labelledby="reviews-title">
+        <h2 id="reviews-title">{c.reviewTitle}</h2>
+        <p class="section-note">{c.reviewNote}</p>
+        <div class="reviews-grid">
+          {
+            Array.from({ length: 3 }, () => (
+              <div class="review-placeholder">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                  <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z" />
+                </svg>
+                <p>{c.reviewPlaceholder}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
       <section class="visit section-pad" id="visit" aria-labelledby="visit-title">
         <div class="visit-copy reveal">
           <p class="eyebrow">04 / YOUR NEXT GOOD HAIR DAY</p><h2 id="visit-title">
             Your chair<br /><em>is waiting.</em>
           </h2><button type="button" class="button" data-book
             >Explore booking <span aria-hidden="true">↗</span></button
-          ><p class="sample-note">Demo only. No real appointments are created.</p>
+          ><p class="sample-note">Demo only. No real appointments are created.</p><p
+            class="booking-integration"
+          >
+            {c.integration}
+          </p>
         </div><div class="visit-info reveal">
           <div>
             <p class="eyebrow">THE HOURS</p><p>
               Monday – Friday <span>09:00 – 19:00</span><br />Saturday <span>09:00 – 18:00</span><br
-              />Sunday <span>A slower kind of day</span>
+              />Sunday <span>{c.sunday}</span>
             </p>
           </div><div>
-            <p class="eyebrow">THE LOCATION</p><p>Your neighbourhood. Your new regular.</p><p
+            <p class="eyebrow">THE LOCATION</p><p data-area>{c.addressPlaceholder}</p><p
               class="sample-note"
             >
-              Your business address and map go here.<br />Hours and business copy are examples.
+              {c.locationNote}
             </p>
           </div>
+        </div>
+      </section>
+      <section
+        class="contact-section section-pad"
+        id="contact-details"
+        aria-labelledby="contact-title"
+      >
+        <div>
+          <h2 id="contact-title">{c.contactLabel}</h2>
+          <p class="section-note" data-phone-text>{c.phonePlaceholder}</p>
+          <div class="contact-actions">
+            <a class="button" href="#contact-details" data-call>{c.call}</a>
+            <a class="button" href="#contact-details" data-whatsapp>{c.whatsapp}</a>
+            <a class="text-link" href="#map-preview" data-directions>{c.directions}</a>
+          </div>
+        </div>
+        <div class="map-preview" id="map-preview">
+          <span aria-hidden="true" class="map-pin">⌖</span>
+          <p data-area>{c.addressPlaceholder}</p><p class="section-note">{c.mapNote}</p>
         </div>
       </section>
     </main>
     <footer class="site-footer section-pad">
       <a class="brand footer-brand" href="#home"
-        ><span class="brand-mark" aria-hidden="true">B<span> / </span>S</span><span data-business
+        ><span class="brand-mark" data-monogram aria-hidden="true">B / S</span><span data-business
           >The Brass Standard</span
         ></a
       ><p>A demonstration website by <a href="/">FinTaxTech ↗</a></p><span
         ><a href={motionGallery.route}>{motionGallery.backLabel}</a></span
       >
+      {visitConfig.endpoint && visitConfig.codes && <p class="visit-notice">{c.visitNotice}</p>}
     </footer>
     <aside class="enquiry-strip">
       <div>
@@ -295,16 +373,19 @@ const image = absoluteURL('/social.png');
         >Enquire about this template <span aria-hidden="true">↗</span></a
       >
     </aside>
+    <aside class="mobile-actions" aria-label={c.mobileLabel}>
+      <a href="#contact-details" data-call>{c.call}</a><button type="button" data-book
+        >{c.book}</button
+      >
+    </aside>
     <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
-      <button
-        class="dialog-close"
-        type="button"
-        data-close
-        aria-label="Close personalisation dialog">×</button
-      ><p class="eyebrow">FINTAXTECH / BARBER NO. 01</p><span
-        class="dialog-symbol"
-        aria-hidden="true">✳</span
-      ><h2 id="name-title">Your name.<br /><em>Your next website.</em></h2><p id="name-description">
+      <button class="dialog-close" type="button" data-close aria-label={c.closeLabel}>×</button><p
+        class="eyebrow"
+      >
+        FINTAXTECH / BARBER NO. 01
+      </p><span class="dialog-symbol" aria-hidden="true">✳</span><h2 id="name-title">
+        Your name.<br /><em>Your next website.</em>
+      </h2><p id="name-description">
         See this barber website with your business name. A small preview of what we could build for
         you.
       </p><form id="name-form" autocomplete="off">
@@ -316,9 +397,8 @@ const image = absoluteURL('/social.png');
           maxlength="100"
           autocomplete="off"
           required
-        /><p class="input-hint">Up to 100 characters. Previewed on this page only.</p><button
-          class="button"
-          type="submit">Preview my website <span aria-hidden="true">↗</span></button
+        /><p class="input-hint">{c.nameHint}</p><button class="button" type="submit"
+          >Preview my website <span aria-hidden="true">↗</span></button
         >
       </form><button type="button" class="browse-default" id="browse-default"
         >Explore the sample first</button
@@ -329,9 +409,11 @@ const image = absoluteURL('/social.png');
       aria-labelledby="booking-title"
       aria-describedby="booking-description"
     >
-      <button class="dialog-close" type="button" data-close aria-label="Close booking demonstration"
-        >×</button
-      ><p class="eyebrow">EXAMPLE BOOKING EXPERIENCE</p><h2 id="booking-title">
+      <button class="dialog-close" type="button" data-close aria-label={c.closeLabel}>×</button><p
+        class="eyebrow"
+      >
+        EXAMPLE BOOKING EXPERIENCE
+      </p><h2 id="booking-title">
         Take a<br /><em>moment.</em>
       </h2><p id="booking-description">
         Imagine booking with <span data-business>The Brass Standard</span>. Try selecting a service
@@ -344,10 +426,46 @@ const image = absoluteURL('/social.png');
         ><button class="button" type="submit"
           >See the next step <span aria-hidden="true">↗</span></button
         >
-      </form><p class="booking-result" id="booking-result" role="status"></p><p class="input-hint">
+      </form><form id="booking-slots" hidden>
+        <h3 tabindex="-1">{c.slotsTitle}</h3>
+        <p class="slot-note">{c.slotNote}</p>
+        <label for="booking-day">{c.day}</label><select id="booking-day"
+          >{c.sampleDays.map((day) => <option>{day}</option>)}</select
+        >
+        <label for="booking-time">{c.time}</label><select id="booking-time"
+          >{c.sampleTimes.map((time) => <option>{time}</option>)}</select
+        >
+        <button class="button" type="submit">{c.continueBooking}</button>
+        <button class="browse-default" type="button" data-booking-back>{c.back}</button>
+      </form>
+      <div id="booking-confirmation" hidden>
+        <h3 tabindex="-1">{c.confirmationTitle}</h3>
+        <p id="booking-summary"></p><p class="booking-result" id="booking-result">
+          {c.confirmation}
+        </p>
+        <a class="button booking-offer" href={c.contactRoute}
+          >{c.bookingOfferBefore}<span data-business>{c.defaultName}</span>{c.bookingOfferAfter}</a
+        >
+        <button class="browse-default" type="button" data-booking-restart>{c.restart}</button>
+      </div><p class="input-hint">
         Demonstration only. This does not create an appointment or send information to a barbershop.
       </p>
     </dialog>
+    <script
+      id="barber-copy"
+      type="application/json"
+      is:inline
+      set:html={JSON.stringify(c).replace(/</g, '\\u003c')}
+    />
+    <script
+      id="barber-visit-config"
+      type="application/json"
+      is:inline
+      set:html={JSON.stringify(visitConfig).replace(/</g, '\\u003c')}
+    />
+    <script>
+      import '../../../../../scripts/barber-visits';
+    </script>
     <div id="announcement" class="sr-only" aria-live="polite"></div>
     <noscript
       ><p class="noscript-note">

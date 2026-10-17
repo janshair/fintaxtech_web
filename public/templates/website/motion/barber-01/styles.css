@@ -6,3 +6,56 @@
 @media(max-width:1000px){nav{gap:18px}.hero{padding-top:55px}.hero h1{font-size:9vw}.hero-art{min-height:470px}.barber-pole{width:110px;height:300px}.pole-cap{width:126px}.pole-finial{left:30px}.pole-foot{left:25px}.round-stamp{width:77px;height:77px;padding:17px 8px;font-size:6px}.round-stamp span{font-size:23px}.art-note{font-size:8px}.services{gap:6%;grid-template-columns:.9fr 1.3fr}.service-detail strong{font-size:21px}.service-price>span{margin-left:10px}.story{gap:10%}.ritual h2{font-size:7vw}}
 @media(max-width:760px){html{scroll-padding-top:24px}.section-pad{padding-left:6vw;padding-right:6vw}.demo-bar{min-height:45px;padding:10px 5vw;gap:12px}.demo-label{display:none}.site-header{padding:18px 6vw;align-items:center}.brand{max-width:78%;font-size:12px}.brand-mark{font-size:15px;padding:9px 7px}.menu-toggle{display:flex;gap:14px;align-items:center;border:0;background:transparent;padding:12px 0 12px 12px;font-size:11px}.menu-toggle span{color:var(--brass);font-size:20px}nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--ink);padding:22px 6vw;border-bottom:1px solid var(--line);align-items:stretch;flex-direction:column;gap:0;box-shadow:0 20px 20px #0003}nav.is-open{display:flex}nav a{padding:14px 0;font-size:13px}nav .button{margin-top:10px;align-self:flex-start}.hero{min-height:auto;max-height:none;grid-template-columns:1fr;padding-top:45px;padding-bottom:65px;gap:0}.hero .eyebrow{font-size:8px}.hero h1{font-size:clamp(4.7rem,17vw,8rem);margin-top:25px}.hero-description{font-size:12px;max-width:245px;margin:24px 0}.hero-footnote{margin-top:24px}.hero-art{min-height:390px;margin-top:30px;width:100%;max-width:500px;justify-self:center}.barber-pole{height:280px;width:105px;top:50%}.pole-cap{width:121px}.pole-finial{left:28px}.pole-foot{left:23px}.coord-top{top:0}.coord-bottom{bottom:0;font-size:7px}.art-orbit{width:70%;left:15%}.orbit-two{width:89%;left:5.5%}.note-left{left:2%}.note-right{right:2%}.round-stamp{right:4%;top:6%}.scroll-cue{bottom:21px;font-size:7px}.ticker{padding:17px 0}.ticker div{font-size:10px;gap:28px}.services{grid-template-columns:1fr;padding-top:65px;padding-bottom:65px;gap:25px}.section-heading h2{font-size:3.4rem;margin:20px 0}.section-heading>p:last-child{font-size:12px}.service-list{padding-top:10px}.service-row{gap:14px;padding:24px 0}.service-detail strong{font-size:23px}.service-detail>span{font-size:9px}.service-price{font-size:13px}.ritual{height:180svh}.ritual-sticky{min-height:570px;height:100svh;padding-top:30px;padding-bottom:30px}.ritual-header{gap:20px}.ritual-instruction{font-size:7px;max-width:128px;text-align:right;line-height:1.8}.ritual-instruction span{margin-left:5px}.ritual h2{font-size:clamp(2.9rem,9.7vw,4.5rem);margin-top:42px}.razor-stage{width:135%;margin-left:-17.5%;min-height:160px}.razor-guide{width:40%;left:30%}.tool-label{font-size:6px;letter-spacing:.1em}.label-one{left:18%;bottom:15%}.label-two{right:17%;top:22%}.ritual-bottom{grid-template-columns:1fr auto;gap:20px;padding-top:22px}.ritual-bottom p:last-child{font-size:11px;min-height:38px;line-height:1.7}.ritual-progress{grid-column:1/3;grid-row:2;margin:0}.ritual-count{align-self:start;margin-top:5px}.story{grid-template-columns:1fr;padding-top:75px;padding-bottom:70px;gap:65px}.story-emblem{max-width:245px}.emblem-top,.emblem-bottom{font-size:7px;letter-spacing:.18em}.emblem-scissors{font-size:90px}.story-copy h2{font-size:3.6rem}.story-copy>p:not(.eyebrow){max-width:100%}.visit{grid-template-columns:1fr;padding-top:55px;padding-bottom:60px;gap:0}.visit h2{font-size:3.6rem}.visit-info{padding-top:35px;gap:25px}.site-footer{padding-top:30px;padding-bottom:30px;flex-wrap:wrap;gap:22px}.footer-brand{max-width:100%;width:100%}.site-footer>span{font-size:7px}.site-footer p{font-size:8px}.enquiry-strip{padding:22px 6vw;align-items:flex-start;flex-direction:column;gap:10px}.enquiry-strip p span{display:inline;margin-left:5px}.enquiry-strip .text-link{font-size:11px;width:100%;padding-top:4px}dialog{padding:35px 25px}dialog h2{font-size:2.8rem}.dialog-symbol{font-size:30px;margin-top:15px}dialog>p:not(.eyebrow,.input-hint,.booking-result){font-size:12px}.edit-name{min-height:30px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.hero-art{transform:none}.barber-pole{transform:translate(-50%,-50%) rotate(12deg)}.pole-stripes{transform:none}.razor{transform:none}.razor-blade{transform:none}.ritual{height:auto}.ritual-sticky{position:relative;min-height:680px;height:auto}.razor-stage{min-height:260px}.ritual-instruction{display:none}.ritual-progress span{transform:scaleX(1)}.has-js .reveal{opacity:1;transform:none}}
+
+/* Sales-demo additions: use the existing charcoal, paper and brass palette. */
+[hidden]{display:none!important}
+[data-business],[data-area],#booking-summary{overflow-wrap:anywhere;min-width:0}
+.site-header .brand{flex:1}.brand-mark{letter-spacing:0;max-width:5em}.brand [data-business]{min-width:0}
+.ritual-steps{display:none;list-style:none;padding:0;margin:18px 0 0;gap:16px}
+.ritual-steps strong{font-size:11px;letter-spacing:.12em;color:var(--brass)}
+.ritual-steps p{font-size:12px;line-height:1.7;margin-top:6px;color:#c1c7b8}
+.cuts-section,.reviews-section,.contact-section{padding-top:80px;padding-bottom:80px;border-top:1px solid var(--line)}
+.cuts-section h2,.reviews-section h2{max-width:14ch;margin-top:20px}
+.section-note,.booking-integration{font-size:13px;line-height:1.8;color:var(--muted);margin-top:20px;max-width:65ch}
+.cuts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:36px}
+.cuts-grid figure{margin:0;min-width:0}.cuts-grid svg{display:block;width:100%;height:auto;background:#24291f;border:1px solid var(--line)}
+.cuts-grid figcaption{font-size:12px;padding:14px 0;color:var(--brass)}
+
+.reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:36px}
+.review-placeholder{padding:28px;border:1px solid var(--line);font-family:Georgia,serif;font-size:22px;line-height:1.5}.review-placeholder svg{display:block;fill:none;stroke:var(--brass);stroke-width:1;margin-bottom:20px}
+.visit .booking-integration{color:#585c4e}.contact-section{display:grid;grid-template-columns:1fr 1fr;gap:48px}.contact-section h2{font-size:clamp(2.5rem,4vw,4rem)}
+.contact-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:24px}
+.map-preview{border:1px solid var(--line);padding:32px;min-width:0;background:repeating-linear-gradient(35deg,transparent 0 52px,#c4a46d08 53px 54px),#24291f}
+.map-pin{display:block;font-size:60px;color:var(--brass)}.map-preview>[data-area]{font:28px/1.3 Georgia,serif;margin-top:20px}
+.mobile-actions{display:none}dialog h3{font:26px/1.2 Georgia,serif;margin:24px 0 12px}dialog .slot-note,#booking-summary{font-size:13px;line-height:1.7;color:#515746}
+#booking-confirmation:focus-visible,dialog h3:focus-visible{outline:2px solid #8c6a36;outline-offset:4px}
+@media(max-width:767px){
+ body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+ .mobile-actions{position:fixed;z-index:10;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr;background:var(--paper);color:var(--ink);padding:8px 6vw calc(8px + env(safe-area-inset-bottom));gap:12px;border-top:1px solid var(--brass)}
+ .mobile-actions a,.mobile-actions button{display:grid;place-items:center;min-height:48px;border:1px solid var(--brass);font-size:14px;font-weight:bold;background:transparent;color:var(--ink)}.mobile-actions button{background:var(--brass)}
+ .dialog-open .mobile-actions{visibility:hidden}
+ .ritual{height:auto}.ritual-sticky{position:relative;min-height:0;height:auto;max-height:none;padding-top:30px;padding-bottom:30px}
+ .ritual h2{font-size:clamp(2.8rem,9vw,4rem);margin-top:24px}.ritual-header{display:block}.ritual-instruction{display:none}
+ .razor-stage{width:100%;margin:10px 0;min-height:140px;height:140px;flex:none}.razor{max-height:180px}.ritual-bottom{display:none}.ritual-steps{display:grid;gap:12px}.ritual-steps li{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline}.ritual-steps p{margin:0}
+ .cuts-section,.reviews-section,.contact-section{padding-top:55px;padding-bottom:55px}.cuts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.reviews-grid,.contact-section{grid-template-columns:1fr;gap:20px}
+ .review-placeholder{font-size:20px}.visit-info p span{float:none;display:inline-block}.contact-actions .button{padding:14px 20px}
+}
+@media(prefers-reduced-motion:reduce){.ritual-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.ritual-bottom{display:none}.ritual-sticky{height:auto;max-height:none}.ritual-steps li{display:block}}
+@media(prefers-reduced-motion:reduce) and (max-width:767px){.ritual-steps{grid-template-columns:1fr;gap:12px}.ritual-sticky{min-height:0}.razor-stage{min-height:140px}}
+
+.site-footer:has(.visit-notice){flex-wrap:wrap}.site-footer .visit-notice{flex-basis:100%;max-width:70ch;font-size:.75rem;line-height:1.6}
+
+/* Personalised prospect preview: preserve space for names and contain the mobile tool. */
+.footer-brand{flex:0 1 40%;min-width:0}.footer-brand [data-business]{flex:1;overflow-wrap:anywhere;word-break:normal}
+.hero-business{font:22px/1.35 Georgia,serif;color:var(--brass);margin-top:18px;overflow-wrap:anywhere}
+.hero-business [data-hero-area]{color:var(--paper)}
+.booking-offer{display:block;text-align:center;line-height:1.6;overflow-wrap:anywhere}
+dialog .booking-offer [data-business]{font:inherit;line-height:inherit}
+@media(max-width:767px){
+ .site-footer .footer-brand{flex:0 0 100%;width:100%;max-width:100%}
+ .hero{padding-top:28px}.hero-business{font-size:20px;margin-top:14px}.hero h1{margin-top:18px}
+}
+@media(max-width:767px) and (prefers-reduced-motion:no-preference){
+ .razor-stage{height:clamp(230px,72vw,360px);min-height:0;overflow:hidden;isolation:isolate}
+ .razor{width:90%;max-width:380px;max-height:none;height:auto}
+}
