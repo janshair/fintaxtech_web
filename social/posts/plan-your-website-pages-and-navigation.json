@@ -1,0 +1,45 @@
+{
+  "slug": "plan-your-website-pages-and-navigation",
+  "url": "https://fintaxtech.co.uk/blog/plan-your-website-pages-and-navigation/",
+  "date": "2026-10-17",
+  "title": "Planning Your Website Pages and Menu: How to Decide What Goes Where",
+  "category": "Website Design and Development",
+  "cards": [
+    {
+      "heading": "Start with visitor questions",
+      "text": "List what customers ask before they buy. Pages should answer those questions, not mirror your internal departments."
+    },
+    {
+      "heading": "Give each page one job",
+      "text": "If a page needs two purposes, split it. If two pages answer the same question, merge them."
+    },
+    {
+      "heading": "Keep the main menu short",
+      "text": "A handful of clear labels is easier to scan, especially on a phone. Policies can live in the footer."
+    },
+    {
+      "heading": "Name pages in plain words",
+      "text": "Use labels a stranger would understand. Ask someone outside your business what they expect behind each one."
+    },
+    {
+      "heading": "Leave room to grow",
+      "text": "Say early if a blog or shop may follow, so adding it later does not mean reorganising everything."
+    }
+  ],
+  "facebook": {
+    "message": "Can a first-time visitor find what they need on your website in a few seconds?\nBefore any design begins, someone has to decide which pages exist and how the menu leads to them. Our latest guide explains how to start from customer questions, give each page one clear job and keep the main menu short and plain.\nSwipe through for the key points.\n\nTo read the full article, visit the FinTaxTech website and find \"Planning Your Website Pages and Menu: How to Decide What Goes Where\" in our Blog section.\n#WebsiteDesign #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "Your website's pages and menu are a map. If the map is confusing, visitors get lost, however good the design looks.\nHere is how to plan one before any design starts. Swipe through for the essentials.\n→ Start with the questions customers ask, not your org chart\n→ Give every page one clear job\n→ Keep the main menu to a handful of plain labels\n→ Make the next step visible on every page\n→ Leave room for sections you may add later\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#WebsiteDesign #WebDesign #SiteStructure #UserExperience #SmallBusiness #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social.jpg",
+  "images": [
+    "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social.jpg",
+    "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social-2.jpg",
+    "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social-3.jpg",
+    "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social-4.jpg",
+    "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social-5.jpg",
+    "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social-6.jpg",
+    "src/assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-social-7.jpg"
+  ]
+}

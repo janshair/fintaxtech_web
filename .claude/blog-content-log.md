@@ -3,7 +3,7 @@
 The live index at https://fintaxtech.co.uk/blog/ is the source of truth. This file is a
 working record for the daily article task.
 
-## Published (as at 2026-10-16)
+## Published (as at 2026-10-17)
 
 Mobile App Development (11): mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
@@ -12,7 +12,7 @@ mobile-app-maintenance-after-launch, app-store-and-google-play-submission-checkl
 mobile-app-ux-basics, push-notifications-without-annoying-people,
 do-you-need-user-accounts-in-your-app, does-your-app-need-to-work-offline
 
-Website Design and Development (10): website-accessibility-basics-for-business-owners, website-vs-web-application, does-your-website-need-a-cms,
+Website Design and Development (11): plan-your-website-pages-and-navigation, website-accessibility-basics-for-business-owners, website-vs-web-application, does-your-website-need-a-cms,
 new-business-website-launch-checklist, who-owns-your-business-website,
 small-business-website-quotes-vary, redesign-or-rebuild-business-website,
 what-slows-a-website-build-down, website-copy-that-answers-customer-questions,
@@ -46,6 +46,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-14: repeatable-ai-workflows-for-your-business — pushed to main, awaiting owner review
 - 2026-10-15: organising-your-brand-files-and-assets — pushed to main, awaiting owner review
 - 2026-10-16: does-your-app-need-to-work-offline — pushed to main, awaiting owner review
+- 2026-10-17: plan-your-website-pages-and-navigation — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -67,6 +68,7 @@ repeatable-ai-workflows-for-your-business
 13. ~~Repeatable AI Workflows: How to Describe a Task So It Is Done the Same Way Every Time (AI Automation; ai-automation)~~ added 2026-10-14 as queue was exhausted (AI and Branding had fewest, 9; workflows/consistency not yet covered); published 2026-10-14
 14. ~~Organising Your Brand Files: A Simple Folder System Your Team, Printer and Developer Can Use (Branding and Graphic Design; branding)~~ added 2026-10-15 as queue was exhausted (Branding had fewest, 9; brand file organisation not yet covered); published 2026-10-15
 15. ~~Does Your App Need to Work Offline? What to Decide Before You Build (Mobile App Development; mobile-apps)~~ added 2026-10-16 as queue was exhausted (all categories at 10; mobile longest since last post; offline not yet covered); published 2026-10-16
+16. ~~Planning Your Website Pages and Menu: How to Decide What Goes Where (Website Design and Development; websites)~~ added 2026-10-17 as queue was exhausted (websites longest since last post, 10 vs mobile 11; site structure not yet covered); published 2026-10-17
 
 ## Conventions reminder
 
