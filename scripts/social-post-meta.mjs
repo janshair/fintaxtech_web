@@ -41,9 +41,26 @@ async function graph(path, { token, method = 'GET', params = {} } = {}) {
   const json = await res.json().catch(() => ({}));
   if (!res.ok || json.error) {
     const e = json.error || {};
-    throw new Error(`${method} /${path.split('?')[0]} failed: ${e.message || res.status} (code ${e.code ?? '-'})`);
+    const error = new Error(`${method} /${path.split('?')[0]} failed: ${e.message || res.status} (code ${e.code ?? '-'})`);
+    // 9004 means Meta could not fetch the image as a photo; 1 and 2 are Meta's "try again later" errors.
+    error.transient = res.status >= 500 || [1, 2, 9004].includes(e.code);
+    throw error;
   }
   return json;
+}
+
+// Media uploads make Meta fetch each image from GitHub, which now and then fails or is throttled.
+// Those failures are temporary, so retry them with a growing pause before giving up.
+async function upload(label, path, { token, params }) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await graph(path, { token, method: 'POST', params });
+    } catch (err) {
+      if (!err.transient || attempt === 4) throw err;
+      log(`${label}: temporary error, retrying in ${attempt * 20}s (${err.message})`);
+      await sleep(attempt * 20_000);
+    }
+  }
 }
 
 async function waitForUrl(url, { attempts, delayMs, contentType }) {
@@ -161,9 +178,8 @@ async function main() {
       } else if (DRY_RUN) {
         log(`Facebook: would post ${what} with ${norm(post.facebook.message).length} characters of text`);
       } else if (imageUrls.length === 1) {
-        const res = await graph(`${env.META_PAGE_ID}/photos`, {
+        const res = await upload('Facebook', `${env.META_PAGE_ID}/photos`, {
           token: pageToken,
-          method: 'POST',
           params: { url: imageUrls[0], caption: post.facebook.message },
         });
         log(`Facebook: ✅ posted (${res.post_id || res.id})`);
@@ -171,9 +187,8 @@ async function main() {
         // Multi-photo post: upload each photo unpublished, then attach them all to one feed post.
         const attached = {};
         for (const [i, url] of imageUrls.entries()) {
-          const photo = await graph(`${env.META_PAGE_ID}/photos`, {
+          const photo = await upload('Facebook', `${env.META_PAGE_ID}/photos`, {
             token: pageToken,
-            method: 'POST',
             params: { url, published: 'false' },
           });
           attached[`attached_media[${i}]`] = JSON.stringify({ media_fbid: photo.id });
@@ -205,26 +220,23 @@ async function main() {
       }
       let container;
       if (imageUrls.length === 1) {
-        container = await graph(`${ig.id}/media`, {
+        container = await upload('Instagram', `${ig.id}/media`, {
           token: pageToken,
-          method: 'POST',
           params: { image_url: imageUrls[0], caption: post.instagram.caption },
         });
       } else {
         // Carousel: one child container per image, then a parent container that holds the caption.
         const children = [];
         for (const url of imageUrls) {
-          const child = await graph(`${ig.id}/media`, {
+          const child = await upload('Instagram', `${ig.id}/media`, {
             token: pageToken,
-            method: 'POST',
             params: { image_url: url, is_carousel_item: 'true' },
           });
           await waitForContainer(child.id, pageToken);
           children.push(child.id);
         }
-        container = await graph(`${ig.id}/media`, {
+        container = await upload('Instagram', `${ig.id}/media`, {
           token: pageToken,
-          method: 'POST',
           params: { media_type: 'CAROUSEL', children: children.join(','), caption: post.instagram.caption },
         });
       }
