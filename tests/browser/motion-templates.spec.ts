@@ -67,6 +67,7 @@ for (const width of [320, 390, 768, 1440]) {
     await link.focus();
     await link.press('Enter');
     await expect(page).toHaveURL(demo.route);
+    await page.locator('[data-personalise]').click();
     await expect(page.locator('#name-dialog')).toBeVisible();
   });
 }
@@ -81,6 +82,7 @@ for (const width of [390, 1440]) {
       if (new URL(request.url()).origin !== 'http://localhost:4323') outgoing.push(request.url());
     });
     await page.goto(demo.route);
+    await page.locator('[data-personalise]').click();
     await expect(page.locator('#name-dialog')).toBeVisible();
     await expect(page.getByLabel('Business name', { exact: true })).toBeFocused();
     await page.getByLabel('Business name', { exact: true }).fill('North & South <Barbers>');
@@ -92,14 +94,16 @@ for (const width of [390, 1440]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );
-    await expect(page).toHaveURL(demo.route);
-    await page.locator('[data-book]').last().click();
+    expect(new URL(page.url()).searchParams.get('name')).toBe('North & South <Barbers>');
+    await page.locator('#visit [data-book]').click();
     await expect(page.locator('#booking-dialog')).toBeVisible();
     await page.locator('#booking-form button[type=submit]').click();
-    await expect(page.locator('#booking-result')).toContainText('No appointment has been made');
+    await expect(page.locator('#booking-slots')).toBeVisible();
+    await page.locator('#booking-slots button[type=submit]').click();
+    await expect(page.locator('#booking-result')).toContainText('Demo only, nothing is sent');
     await page.keyboard.press('Escape');
     await expect(page.locator('#booking-dialog')).not.toBeVisible();
-    await expect(page.locator('[data-book]').last()).toBeFocused();
+    await expect(page.locator('#visit [data-book]')).toBeFocused();
     await page.locator('#ritual').scrollIntoViewIfNeeded();
     await expect
       .poll(() => page.evaluate(() => document.documentElement.style.getPropertyValue('--scroll')))
@@ -115,7 +119,11 @@ for (const width of [390, 1440]) {
     ).toEqual({ local: [], session: [] });
     expect(outgoing).toEqual([]);
     await page.reload();
-    await expect(page.getByLabel('Business name', { exact: true })).toHaveValue('');
+    await expect(page.locator('#name-dialog')).not.toBeVisible();
+    await page.locator('[data-personalise]').click();
+    await expect(page.getByLabel('Business name', { exact: true })).toHaveValue(
+      'North & South <Barbers>',
+    );
     await page.getByRole('button', { name: 'Explore the sample first' }).click();
     await expect(page.locator('[data-business]').first()).toHaveText(demo.name);
     if (testInfo.project.name === 'chromium')

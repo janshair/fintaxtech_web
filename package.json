@@ -17,7 +17,9 @@
     "format": "prettier --write src tests scripts docs README.md",
     "check:output": "node scripts/check-output.mjs",
     "check:seo": "node scripts/check-seo.mjs",
-    "audit:lighthouse": "node scripts/audit-lighthouse.mjs"
+    "audit:lighthouse": "node scripts/audit-lighthouse.mjs",
+    "build:visit-server": "esbuild src/server/barber-visits/index.ts --bundle --platform=node --format=esm --outfile=server-dist/barber-visits.mjs",
+    "start:visit-server": "node server-dist/barber-visits.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.0",

@@ -1,0 +1,127 @@
+---
+interface Props {
+  index: number;
+  label: string;
+}
+const { index, label } = Astro.props;
+const id = `barber-cut-${index}`;
+const back = index === 0 || index === 4;
+const beard = index === 3 || index === 5;
+const hair = [
+  'M104 140C97 88 119 57 158 57C201 57 222 89 216 141L202 165Q160 184 118 165Z',
+  'M91 149L86 113L98 81L111 85L123 65L138 74L155 57L167 68L188 65L204 83L224 92L226 112L205 120L192 113L179 123L166 115L146 125L139 161L119 174Z',
+  'M91 158C75 107 94 62 143 58C180 53 211 69 225 96L228 111L203 104L183 112L161 125L143 160L119 175Z',
+  'M91 155C80 109 99 74 143 71C180 68 209 81 221 108L193 112L166 125L143 162L119 176Z',
+  'M104 132C100 87 123 62 158 62C195 62 219 87 216 132L205 150Q160 161 115 150Z',
+  'M91 154C74 102 97 58 147 53C181 48 210 65 222 89L227 110L207 111L190 100L167 118L144 162L119 176Z',
+][index];
+---
+
+<!-- Original vector artwork created for this FinTaxTech demo; no photographs, real businesses or third-party assets. -->
+<svg viewBox="0 0 320 360" width="320" height="360" role="img" aria-label={label}>
+  <defs>
+    <linearGradient id={`${id}-paper`} x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#d6bd90"></stop><stop offset="1" stop-color="#88714e"></stop>
+    </linearGradient>
+    <linearGradient id={`${id}-fade`} x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#171916"></stop><stop offset=".5" stop-color="#454637"></stop><stop
+        offset="1"
+        stop-color="#baa079"></stop>
+    </linearGradient>
+    <pattern id={`${id}-grain`} width="5" height="7" patternUnits="userSpaceOnUse">
+      <path d="M1 1v2m3 2v1" stroke="#d4bc91" stroke-width=".6" opacity=".45"></path>
+    </pattern>
+    <clipPath id={`${id}-hair`}><path d={hair}></path></clipPath>
+  </defs>
+  <path
+    d="M24 48V24h24m224 0h24v24M24 312v24h24m224 0h24v-24"
+    fill="none"
+    stroke="#c4a46d"
+    stroke-opacity=".3"></path>
+  <ellipse cx="160" cy="167" rx="109" ry="128" fill="none" stroke="#c4a46d" stroke-opacity=".14"
+  ></ellipse>
+  <path d="M39 360v-40q6-28 70-43h100q68 18 72 43v40Z" fill="#30372c"></path>
+  {
+    back ? (
+      <>
+        <path d="M126 210v57l-19 16q52 33 105 0l-19-16v-57" fill={`url(#${id}-paper)`} />
+        <path
+          d="M105 140q-17-7-13 19l13 25q4 8 9-1c7 45 27 64 46 64s42-23 47-64q5 9 10-1l11-26q5-25-13-16V113q0-49-55-49t-55 49Z"
+          fill={`url(#${id}-paper)`}
+        />
+        <path d={hair} fill={`url(#${id}-fade)`} />
+        <path
+          d="M117 172q42 23 86 0M121 184q40 22 78 0M125 196q34 18 70 0"
+          fill="none"
+          stroke="#746647"
+          stroke-opacity=".4"
+        />
+        <path
+          d="M143 222v28m34-28v28M113 281q46 28 94 0"
+          fill="none"
+          stroke="#6d593b"
+          stroke-width="1.5"
+        />
+        <path d={hair} fill={`url(#${id}-grain)`} />
+      </>
+    ) : (
+      <>
+        <path d="M110 190v71l-19 20q45 39 105 4l-26-22v-45Z" fill={`url(#${id}-paper)`} />
+        <path
+          d="M92 144q-5-56 45-67 64-12 83 32l-2 34 17 26q5 8-10 11l-5 15-3 17q-4 22-36 24l-39-15-32-29Z"
+          fill={`url(#${id}-paper)`}
+        />
+        <path d={hair} fill={`url(#${id}-fade)`} />
+        <path d={hair} fill={`url(#${id}-grain)`} />
+        <g
+          clip-path={`url(#${id}-hair)`}
+          fill="none"
+          stroke="#c4a46d"
+          stroke-width="1.2"
+          opacity=".45"
+        >
+          {index === 1
+            ? Array.from({ length: 12 }, (_, n) => (
+                <path d={`M${92 + n * 10} 120l12-38m-5 54l9-23`} />
+              ))
+            : Array.from({ length: 9 }, (_, n) => (
+                <path
+                  d={`M${101 + n * 5} 160Q${90 + n * 8} ${75 + n * 2} ${175 + n * 7} ${69 + n * 5}`}
+                />
+              ))}
+        </g>
+        <path
+          d="M132 146q-22-15-22 10-2 25 16 25l9-14q-13 9-14-4t10-6"
+          fill={`url(#${id}-paper)`}
+          stroke="#766141"
+          stroke-width="1.5"
+        />
+        <path d="m206 144 9 1m-3 55h10" stroke="#6c5638" stroke-width="1.5" fill="none" />
+        {beard && (
+          <>
+            <path
+              d="M138 173l12 18 28 13 18-11 25-5-2 24q-3 25-39 35l-35-20-12-30Z"
+              fill="#292d23"
+            />
+            <path
+              d="m144 196 9 21m3-15 9 25m3-20 8 26m5-25 3 24m7-26v20m8-23-2 17"
+              stroke="#c4a46d"
+              stroke-opacity=".5"
+              fill="none"
+            />
+          </>
+        )}
+        {index === 2 && (
+          <path d="M144 135Q144 86 211 92" stroke="#d8c29c" stroke-width="2.5" fill="none" />
+        )}
+        <path
+          d="M106 277q39 27 82 4M111 287q39 27 81 4"
+          stroke="#c4a46d"
+          stroke-opacity=".3"
+          fill="none"
+        />
+      </>
+    )
+  }
+  <path d="M113 330h94" stroke="#c4a46d" stroke-opacity=".4"></path>
+</svg>
