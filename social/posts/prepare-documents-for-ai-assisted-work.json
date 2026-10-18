@@ -1,0 +1,45 @@
+{
+  "slug": "prepare-documents-for-ai-assisted-work",
+  "url": "https://fintaxtech.co.uk/blog/prepare-documents-for-ai-assisted-work/",
+  "date": "2026-10-18",
+  "title": "Preparing Your Documents for AI-Assisted Work: A Practical Tidy-Up Checklist",
+  "category": "AI Automation",
+  "cards": [
+    {
+      "heading": "Check every file is readable",
+      "text": "Scans should be straight, sharp and complete. If you struggle to read a page, flag it."
+    },
+    {
+      "heading": "Name files so people can tell them apart",
+      "text": "A date, a document type and a short description is enough."
+    },
+    {
+      "heading": "Keep only the current version",
+      "text": "Remove duplicates and label anything superseded, so nobody works from an old draft."
+    },
+    {
+      "heading": "Check for sensitive content first",
+      "text": "Decide what should be shared at all, and raise confidential material with your supplier early."
+    },
+    {
+      "heading": "Add a short covering note",
+      "text": "Say what the batch contains, what you want done and anything you know is odd."
+    }
+  ],
+  "facebook": {
+    "message": "Are your documents in a fit state to hand over for AI-assisted work?\nBlurred scans, missing pages and three versions of the same policy all make the result worse, however clear the task. Our new guide covers a short tidy-up:\n• Make sure every page is readable and present\n• Name files and keep only the current version\n• Check for sensitive material before anything is shared\nSwipe through for the key points.\n\nTo read the full article, visit the FinTaxTech website and find \"Preparing Your Documents for AI-Assisted Work: A Practical Tidy-Up Checklist\" in our Blog section.\n#AIAutomation #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "Tidy documents give AI-assisted work a better start.\nA blurred scan or a folder of \"final_v2_NEW\" files makes the result worse, however clear the task. A short tidy-up beforehand fixes most of it. Swipe through for the key points.\n→ Check every page is readable and present\n→ Name files with a date and short description\n→ Keep only the current version\n→ Check for sensitive content before sharing\n→ Add a short covering note\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#AIAutomation #DocumentManagement #SmallBusiness #BusinessAdmin #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social.jpg",
+  "images": [
+    "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social.jpg",
+    "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social-2.jpg",
+    "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social-3.jpg",
+    "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social-4.jpg",
+    "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social-5.jpg",
+    "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social-6.jpg",
+    "src/assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-social-7.jpg"
+  ]
+}

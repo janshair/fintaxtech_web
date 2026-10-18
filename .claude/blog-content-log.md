@@ -3,7 +3,7 @@
 The live index at https://fintaxtech.co.uk/blog/ is the source of truth. This file is a
 working record for the daily article task.
 
-## Published (as at 2026-10-17)
+## Published (as at 2026-10-18)
 
 Mobile App Development (11): mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
@@ -25,7 +25,7 @@ designing-for-print-without-owning-a-press,
 rebrand-or-refresh-your-business-brand,
 giving-useful-design-feedback, organising-your-brand-files-and-assets
 
-AI Automation (10): ai-business-documents-to-website-content, ai-content-services-six-examples,
+AI Automation (11): prepare-documents-for-ai-assisted-work, ai-business-documents-to-website-content, ai-content-services-six-examples,
 ai-confidential-business-documents, how-to-review-ai-assisted-content,
 brand-voice-with-ai-assisted-content, who-owns-ai-assisted-content,
 which-business-tasks-to-hand-to-ai-first,
@@ -47,6 +47,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-15: organising-your-brand-files-and-assets — pushed to main, awaiting owner review
 - 2026-10-16: does-your-app-need-to-work-offline — pushed to main, awaiting owner review
 - 2026-10-17: plan-your-website-pages-and-navigation — pushed to main, awaiting owner review
+- 2026-10-18: prepare-documents-for-ai-assisted-work — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -69,6 +70,7 @@ repeatable-ai-workflows-for-your-business
 14. ~~Organising Your Brand Files: A Simple Folder System Your Team, Printer and Developer Can Use (Branding and Graphic Design; branding)~~ added 2026-10-15 as queue was exhausted (Branding had fewest, 9; brand file organisation not yet covered); published 2026-10-15
 15. ~~Does Your App Need to Work Offline? What to Decide Before You Build (Mobile App Development; mobile-apps)~~ added 2026-10-16 as queue was exhausted (all categories at 10; mobile longest since last post; offline not yet covered); published 2026-10-16
 16. ~~Planning Your Website Pages and Menu: How to Decide What Goes Where (Website Design and Development; websites)~~ added 2026-10-17 as queue was exhausted (websites longest since last post, 10 vs mobile 11; site structure not yet covered); published 2026-10-17
+17. ~~Preparing Your Documents for AI-Assisted Work: A Practical Tidy-Up Checklist (AI Automation; ai-automation)~~ added 2026-10-18 as queue was exhausted (AI and Branding had fewest, 10; AI longest since last post; document preparation not yet covered); published 2026-10-18
 
 ## Conventions reminder
 
