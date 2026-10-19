@@ -69,7 +69,7 @@ The gallery is at `/templates/website/motion/` and uses the shared FinTaxTech la
 
 The Brass Standard is at `/templates/website/motion/barber-01/`. Its standalone Astro page lives in `src/pages/templates/website/motion/barber-01/index.astro`, with CSS, JavaScript and the optimised gallery screenshot in `public/templates/website/motion/barber-01/`. Keep required media in tracked `src/assets/` or `public/` folders, never ignored `docs/`. The old `/website/motion/templates/barber-01/` address is a static compatibility redirect that preserves query strings and fragments.
 
-Run `pnpm dev` to review both pages, or `pnpm build` followed by `pnpm preview` to inspect production output. Business-name personalisation stays in page memory and clears on reload; the example booking flow does not create appointments or send data. The demo keeps its own visual design and reduced-motion support. When updating the gallery screenshot, capture the default sample with its name dialog closed, optimise it to WebP and update the registry dimensions. Do not capture a customer's personalised name. Promotional reels remain a later deliverable.
+Run `pnpm dev` to review both pages, or `pnpm build` followed by `pnpm preview` to inspect production output. Business-name personalisation is stored in the preview URL and page memory; reloading reapplies the URL parameters; the example booking flow does not create appointments or send data. The demo keeps its own visual design and reduced-motion support. When updating the gallery screenshot, capture the default sample with its name dialog closed, optimise it to WebP and update the registry dimensions. Do not capture a customer's personalised name. Promotional reels remain a later deliverable.
 
 ## Change words or add a page
 
@@ -362,3 +362,43 @@ GitHub Pages cannot run the counter. No hosting, DNS or production settings are 
 6. Remove the public endpoint setting and rebuild to disable the browser counter. Stop the separate service to disable collection immediately. Daily totals older than 90 UTC calendar days are pruned on the next accepted visit; remove the private file/backups manually if collection has stopped and you want retained totals erased. Keep that data outside the repository and public web root.
 
 There is no automatic deployment or change to the existing GitHub workflows. Endpoint failures never prevent personalisation or the sample booking. Run `pnpm verify`, `pnpm build:visit-server` and `pnpm exec playwright test tests/browser/barber-visits.spec.ts tests/browser/barber-sales.spec.ts tests/browser/motion-templates.spec.ts`. Tests use temporary files and mocked browser requests, not a live collection service.
+
+### The Fold Atelier — premium tailoring demonstration
+
+`tailoring-02` is the tailoring and alterations demo at `/templates/website/motion/tailoring-02/`. It is registered in `src/content/templates.ts`, so the existing gallery and SEO rules pick it up automatically. It remains `noindex,nofollow`, with a clean production canonical and no sitemap entry. The gallery remains indexable. The barber demo and compatibility redirect are unchanged.
+
+Edit wording in `src/content/tailoring-demo.ts`, the Astro page under `src/pages/templates/website/motion/tailoring-02/`, and its standalone CSS/JavaScript in `public/templates/website/motion/tailoring-02/`. `TailoringArtwork.astro` holds original garment artwork. The seam's needle and drawn thread follow scroll position; reduced motion displays the finished seam and every step without scroll effects. No new dependency or external font/image is required.
+
+Build a personalised link with URL-encoded values, for example:
+
+`/templates/website/motion/tailoring-02/?name=Tayside%20Alterations&area=Broughty%20Ferry&phone=01382%20000000&ref=LETTER02`
+
+`name` and `area` are capped at 100 characters and rendered as text. Phone input is limited to 20 characters, digits, spaces, a leading plus and brackets; valid UK national numbers are converted for `tel:` and WhatsApp links. Invalid values use the sample placeholders. Editing a name replaces the URL without adding a history entry; restoring the sample removes only `name`. Back/forward navigation restores the URL's values. Names are hidden briefly until the blocking initialisation script applies the URL, avoiding a flash of the sample name.
+
+An optional opaque `ref` of 3–32 letters/digits/underscores/hyphens is retained in the preview URL and carried only by deliberate FinTaxTech contact-link navigation. It is never displayed, counted or sent automatically. The contact form does not currently read it or a template context, so there is no automatic prospect attribution or form prefill. No template-ID query is added. Use campaign codes, not names or personal information. No analytics, storage, uploads or submission requests run in this demo; the only external contact/map requests happen when visitors choose those links. Normal page navigation necessarily includes its own query string.
+
+Capture `preview.webp` from the actual page with the default name, dialog closed and no development toolbar, at 1200 × 900. Keep it under 200,000 bytes. Use `pnpm verify` and the motion/tailoring browser tests when editing it. The fitting journey is a demonstration, not a real appointment system; prices, hours, services and illustrations are explicitly examples. Changes remain local until an authorised release.
+
+#### Tailoring: One Thread motion
+
+The tailoring demo's `motion.js` progressively enhances the static SVG artwork. It controls the once-only entrance and name stitching, lazy viewport reveals, scroll-measured fitting phases and before/after garment examples. `app.js` still owns personalisation, URLs and fitting steps; it emits local DOM events for the visual layer. No animation library, network call or storage is added. All motion is confined to this template.
+
+Geometry is cached on resize/content changes and scroll updates share one requestAnimationFrame callback. Ambient CSS loops pause offscreen and in hidden tabs. On phones, name/headline entrances finish within 500ms and the overlapping assembly finishes within 1.5s. Reveal targets are never fully clipped before observation; an independent one-second viewport watchdog reveals any missed target. Content remains visible if the motion script fails to load. Reduced motion, including a live preference change, shows completed artwork with no loops or scroll effects. The mobile contact bar enters after the hero; its first entrance bounces once, and hidden controls are inert. With JavaScript disabled, all content and finished artwork remain visible.
+
+Run `pnpm verify` and `pnpm exec playwright test tests/browser/tailoring-template.spec.ts tests/browser/tailoring-motion.spec.ts tests/browser/motion-templates.spec.ts`. Motion tests cover 320–1440px widths, default/personalised URLs, reduced motion, all fitting phases, literal name edits, hidden-tab/offscreen pauses and keyboard access. Local Lighthouse reports, screenshots and recordings belong under ignored `audit/tailoring-motion/`, not in shipped assets.
+
+### Vector Motorworks — premium garage demonstration
+
+`automotive-03` is the car repair and servicing demo at `/templates/website/motion/automotive-03/`. Its gallery card and noindex/nofollow SEO entry come from the existing template registry. It is excluded from the public sitemap; the gallery remains indexable. The standalone navy, ivory and amber design uses original SVG illustrations and system fonts, with no external images or new dependencies.
+
+Edit its copy in `src/content/automotive-demo.ts`, artwork in `AutomotiveArtwork.astro`, and the page/assets in their respective `automotive-03/` folders. `app.js` handles personalisation and the quote demo; `motion.js` handles the car-outline entrance, road line, wheel/service sequence, before/after parts and micro-interactions. Scroll updates share one animation frame and cached geometry. Ambient motion stops offscreen or in hidden tabs. Reduced motion (including live changes) and disabled JavaScript show complete static content. The mobile workshop is unpinned, with its graphic above all three steps.
+
+Example personalised link:
+
+`/templates/website/motion/automotive-03/?name=Tayside%20Motorworks&area=Broughty%20Ferry&phone=01382%20000000&ref=LETTER03`
+
+Use URL-encoded `name` and `area` values (up to 100 characters). Phone input is validated and limited to 20 characters; a valid UK number enables Call and WhatsApp. An optional opaque `ref` is carried only when the visitor chooses the FinTaxTech contact link, never automatically tracked. There is no contact-form prefill. Names are rendered as text, initials follow the name, edits replace the URL, and the canonical stays clean. No cookies, browser storage or analytics run in this template.
+
+The quote demonstration is service → made-up registration and preferred day → an explicit “Demo only, nothing is sent” confirmation. Use `DEMO 01`, not actual vehicle information. It performs no registration lookup or network submission and clears sample details when closed. Hours and service illustrations are examples; there are no MOT, certification, real-review or guaranteed-repair claims. Call, WhatsApp and Directions navigate externally only when selected.
+
+Capture the actual default-name page at 1200 × 900 with the name dialog closed for `preview.webp` (under 200,000 bytes). Run `pnpm verify` and `pnpm exec playwright test tests/browser/automotive-template.spec.ts tests/browser/tailoring-template.spec.ts tests/browser/motion-templates.spec.ts`. Browser coverage includes 320–1440px, safe personalisation, quote validation, privacy, keyboard access, reduced motion and gallery/metadata integration. Keep local screenshots and audit reports under ignored `audit/automotive-03/`.

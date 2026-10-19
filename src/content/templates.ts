@@ -42,6 +42,40 @@ export const motionTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Explore a personalised barber website demonstration by FinTaxTech, with responsive design and scroll-driven motion.',
   },
+  {
+    id: 'tailoring-02',
+    name: 'The Fold Atelier',
+    industry: 'Tailoring & alterations',
+    description:
+      'An editorial tailoring studio in warm ivory and ink, with garment illustrations, a scroll-stitched seam and a sample fitting journey.',
+    route: '/templates/website/motion/tailoring-02/',
+    preview: {
+      src: '/templates/website/motion/tailoring-02/preview.webp',
+      alt: 'The Fold Atelier tailoring demo: an ivory editorial hero reading “A better fit. A longer story.” beside an illustrated jacket and measuring tape.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'The Fold Atelier — Tailoring website demo by FinTaxTech',
+    seoDescription:
+      'Preview a personalised tailoring and alterations website demonstration by FinTaxTech, with scroll-driven stitching and an illustrative fitting journey.',
+  },
+  {
+    id: 'automotive-03',
+    name: 'Vector Motorworks',
+    industry: 'Car repair garages & mechanics',
+    description:
+      'A premium garage website in midnight blue and amber, with an animated car, a road-line service journey and a sample quote request.',
+    route: '/templates/website/motion/automotive-03/',
+    preview: {
+      src: '/templates/website/motion/automotive-03/preview.webp',
+      alt: 'Vector Motorworks garage demo: a midnight-blue hero reading “For the road ahead” alongside an original silver car illustration and an amber quote button.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Vector Motorworks — Garage website demo by FinTaxTech',
+    seoDescription:
+      'Preview a personalised garage and mechanic website by FinTaxTech, with servicing, repairs, scroll-driven motion and a sample quote journey.',
+  },
 ];
 
 export const barberRedirect = {

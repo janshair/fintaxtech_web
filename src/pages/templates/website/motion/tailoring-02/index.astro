@@ -1,0 +1,443 @@
+---
+import { tailoringDemo as c } from '../../../../../content/tailoring-demo';
+import { motionTemplates, motionGallery } from '../../../../../content/templates';
+import { seoPages } from '../../../../../content/seo';
+import { absoluteURL, structuredData } from '../../../../../lib/seo';
+import TailoringArtwork from '../../../../../components/templates/TailoringArtwork.astro';
+const template = motionTemplates.find((item) => item.id === c.id)!;
+const { title, description } = seoPages[c.route];
+const canonical = absoluteURL(c.route);
+const image = absoluteURL(template.preview.src);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#f4f0e7" />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/mark.svg" />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta
+      property="og:image:alt"
+      content={template.preview.alt}
+    />
+    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+      property="og:image:height"
+      content={String(template.preview.height)}
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta name="twitter:description" content={description} /><meta
+      name="twitter:image"
+      content={image}
+    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(structuredData(c.route, title, description)).replace(
+        /</g,
+        '\\u003c',
+      )}
+    />
+    <link rel="stylesheet" href="/templates/website/motion/tailoring-02/styles.css" />
+  </head>
+  <body>
+    <svg class="story-thread" aria-hidden="true" focusable="false"
+      ><path pathLength="1" fill="none"></path></svg
+    >
+    <a class="skip" href="#main">{c.skip}</a>
+    <aside class="demo-strip">
+      <a href="/" class="agency">{c.agency}<span aria-hidden="true">↗</span></a>
+      <span class="demo-id">{c.demoLabel}</span>
+      <a href={motionGallery.route}>{c.gallery}</a>
+      <a class="strip-contact agency-contact" href={c.contact}>{c.enquire}</a>
+      <button type="button" data-edit>{c.edit}</button>
+    </aside>
+    <header class="site-header wrap">
+      <a class="brand" href="#home"
+        ><span class="monogram" data-monogram aria-hidden="true">FA</span><span data-business
+          >{c.name}</span
+        ></a
+      >
+      <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" type="button"
+        >{c.menu}<span aria-hidden="true">＋</span></button
+      >
+      <nav id="navigation" aria-label={c.navLabel}>
+        {c.nav.map(([href, label]) => <a href={href}>{label}</a>)}
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">{c.hero.eyebrow}</p>
+          <p class="hero-identity">
+            <svg class="name-needle" viewBox="0 0 36 30" width="36" height="30" aria-hidden="true"
+              ><path d="M2 27 30 3q5-3 3 2L2 27" fill="none" stroke="currentColor"></path><path
+                d="m26 8 4-3"
+                stroke="currentColor"></path></svg
+            >
+            <span data-business>{c.name}</span><span data-hero-area hidden></span>
+          </p>
+          <h1>
+            <span class="headline-mask"><span>{c.hero.first}</span></span><span
+              class="headline-mask"><em>{c.hero.second}</em></span
+            >
+          </h1>
+          <p class="lead">{c.hero.description}</p>
+          <a href="#fitting" class="button" data-book>{c.book}<span aria-hidden="true">↗</span></a>
+          <a href="#services" class="text-link"
+            >{c.hero.secondary}<span aria-hidden="true">↓</span></a
+          >
+          <p class="small-note">{c.hero.note}</p>
+        </div>
+        <div class="hero-art">
+          <p class="art-label">{c.hero.artCaption}</p>
+          <TailoringArtwork kind="hero" label={c.hero.artLabel} id="hero-jacket" />
+          <p class="art-caption">{c.hero.artDetail}</p>
+        </div>
+      </section>
+      <section class="services wrap section" id="services" aria-labelledby="services-title">
+        <div class="section-heading">
+          <p class="eyebrow">{c.services.eyebrow}</p><h2 id="services-title">
+            {c.services.title}
+          </h2><p>{c.services.intro}</p>
+        </div>
+        <div class="service-list">
+          {
+            c.services.items.map((service, i) => (
+              <a class="service-row" href="#fitting" data-service={service.code}>
+                <>
+                  <span class="service-number" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <>
+                      <h3>{service.name}</h3>
+                      <svg
+                        class={`service-stitch stitch-${service.code}`}
+                        viewBox="0 0 38 28"
+                        width="28"
+                        height="22"
+                        aria-hidden="true"
+                      >
+                        <path
+                          pathLength="1"
+                          d={
+                            service.code === 'hems'
+                              ? 'M4 3v20h30V3M4 17h30M7 20h24'
+                              : service.code === 'shape'
+                                ? 'M5 3q20 11 0 22M33 3q-20 11 0 22M9 14h20'
+                                : service.code === 'occasion'
+                                  ? 'M19 2v24M7 14h24M11 6l16 16M27 6 11 22'
+                                  : 'M19 3a11 11 0 1 0 0 22 11 11 0 0 0 0-22M14 9l10 10M24 9 14 19'
+                          }
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                        />
+                      </svg>
+                      <p>{service.description}</p>
+                    </>
+                  </div>
+                  <span class="service-price">
+                    {service.price}
+                    <span aria-hidden="true">↗</span>
+                  </span>
+                </>
+              </a>
+            ))
+          }
+          <p class="small-note">{c.services.priceNote}</p>
+        </div>
+      </section>
+      <section class="process" id="process" aria-labelledby="process-title">
+        <div class="process-sticky wrap">
+          <header>
+            <p class="eyebrow">{c.process.eyebrow}</p><h2 id="process-title">
+              {c.process.title}
+            </h2><p>{c.process.intro}</p>
+          </header>
+          <div class="stitch-stage">
+            <svg
+              class="seam-art"
+              viewBox="0 0 660 290"
+              width="660"
+              height="290"
+              role="img"
+              aria-label={c.process.label}
+            >
+              <defs
+                ><pattern id="fabric" width="5" height="5" patternUnits="userSpaceOnUse"
+                  ><path d="M0 1h5M1 0v5" stroke="#52605c" stroke-opacity=".16" stroke-width=".7"
+                  ></path></pattern
+                ></defs
+              >
+              <path d="M25 50q300-50 610 0v210q-310-35-610 0Z" fill="#d9d3c5"></path><path
+                class="fabric-press"
+                d="M25 155q300-30 610 0v105q-310-35-610 0Z"
+                fill="#b9b6a7"></path>
+              <path d="M25 50q300-50 610 0v210q-310-35-610 0Z" fill="url(#fabric)"></path>
+              <path d="M25 155q300-30 610 0" fill="none" stroke="#687267" stroke-width="2"></path>
+              <g class="measuring-tape"
+                ><rect x="36" y="90" width="588" height="27" rx="2" fill="#ccb58a"></rect><path
+                  d="M55 90v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17m28-17v10m28-10v17"
+                  stroke="#574b34"></path></g
+              >
+              <g class="fitting-pins"
+                >{
+                  [170, 330, 490].map((x, i) => (
+                    <g class="fitting-pin" style={`--pin-index:${i}`}>
+                      <>
+                        <path d={`M${x} 140l18 48`} stroke="#f4f0e7" stroke-width="2" />
+                        <circle cx={x} cy="140" r="5" fill="#d5b88d" />
+                      </>
+                    </g>
+                  ))
+                }</g
+              >
+              <g class="press-steam" fill="none" stroke="#f4f0e7" stroke-width="2"
+                ><path
+                  d="M275 150q-18-20 0-40t0-35M330 150q-18-20 0-40t0-35M385 150q-18-20 0-40t0-35"
+                ></path></g
+              >
+              <path
+                class="thread-guide"
+                d="M65 190C190 166 230 208 330 185S475 173 595 190"
+                fill="none"
+                stroke="#5a645c"
+                stroke-width="2"
+                stroke-dasharray="3 7"></path>
+              <path
+                id="seam-path"
+                pathLength="1"
+                d="M65 190C190 166 230 208 330 185S475 173 595 190"
+                fill="none"
+                stroke="#9a442e"
+                stroke-width="3"></path>
+              <g class="needle" transform="translate(595 190)"
+                ><path
+                  d="M-8 6 35-50q6-8 11-4t-1 12L-8 6Z"
+                  fill="#f7f3e9"
+                  stroke="#283b36"
+                  stroke-width="1.5"></path><path d="m34-43 4-6" stroke="#283b36" stroke-width="2"
+                ></path><path d="M40-50q-36-47-85-35" fill="none" stroke="#a7553d" stroke-width="2"
+                ></path></g
+              >
+            </svg>
+            <p class="art-label">{c.process.caption}</p>
+          </div>
+          <ol class="steps">
+            {
+              c.process.steps.map(([title, body], i) => (
+                <li>
+                  <>
+                    <span class="step-number" aria-hidden="true">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <h3>{title}</h3>
+                    <p>{body}</p>
+                  </>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+      <section class="work wrap section" id="work" aria-labelledby="work-title">
+        <header>
+          <p class="eyebrow">{c.work.eyebrow}</p><h2 id="work-title">{c.work.title}</h2><p>
+            {c.work.note}
+          </p>
+        </header>
+        <div class="work-grid">
+          {
+            c.work.items.map((item, i) => (
+              <figure>
+                <>
+                  <TailoringArtwork kind={item.kind} label={item.alt} id={`work-${i}`} />
+                  <figcaption>
+                    <span class="work-state" data-work-state>
+                      {c.work.after}
+                    </span>
+                    <>
+                      <h3>{item.title}</h3>
+                      <p>{item.caption}</p>
+                    </>
+                  </figcaption>
+                </>
+              </figure>
+            ))
+          }
+        </div>
+      </section>
+      <section class="reviews wrap section" aria-labelledby="reviews-title">
+        <h2 id="reviews-title">{c.reviewTitle}</h2><p>{c.reviewNote}</p><div class="review-grid">
+          {Array.from({ length: 3 }, () => <p>{c.reviewPlaceholder}</p>)}
+        </div>
+      </section>
+      <section class="visit wrap section" id="visit" aria-labelledby="visit-title">
+        <div>
+          <p class="eyebrow">{c.visit.eyebrow}</p><h2 id="visit-title">{c.visit.title}</h2><p>
+            {c.visit.description}
+          </p><div id="fitting">
+            <a class="button" href="#fitting-details" data-book
+              >{c.book}<span aria-hidden="true">↗</span></a
+            ><p class="small-note">{c.visit.tools}</p>
+          </div>
+        </div>
+        <div id="fitting-details">
+          <h3>{c.practical.title}</h3>{
+            c.practical.items.map(([title, answer]) => (
+              <details>
+                <>
+                  <summary>{title}</summary>
+                  <p>{answer}</p>
+                </>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+      <section class="contact wrap section" id="contact-details" aria-labelledby="contact-title">
+        <div>
+          <h2 id="contact-title">{c.visit.contactLabel}</h2><p data-phone-text>
+            {c.visit.phone}
+          </p><div class="contact-actions">
+            <a href="#contact-details" data-call>{c.visit.call} ↗</a><a
+              href="#contact-details"
+              data-whatsapp>{c.visit.whatsapp} ↗</a
+            ><a href="#map" data-directions>{c.visit.directions} ↗</a>
+          </div><h3>{c.visit.hoursLabel}</h3><dl>
+            {
+              c.visit.hours.map(([day, hours]) => (
+                <div>
+                  <>
+                    <dt>{day}</dt>
+                    <dd>{hours}</dd>
+                  </>
+                </div>
+              ))
+            }
+          </dl><p class="small-note">{c.visit.sampleNote}</p>
+        </div>
+        <div class="map" id="map">
+          <span class="map-symbol" aria-hidden="true">⌖</span><h3>{c.visit.locationLabel}</h3><p
+            class="map-area"
+            data-area
+          >
+            {c.visit.location}
+          </p><p>{c.visit.mapNote}</p>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap">
+      <a class="brand" href="#home"
+        ><span class="monogram" data-monogram aria-hidden="true">FA</span><span data-business
+          >{c.name}</span
+        ></a
+      ><p>{c.footer}</p><a href={motionGallery.route}>{c.gallery} ↗</a>
+    </footer>
+    <aside class="agency-offer wrap">
+      <svg class="offer-thread" aria-hidden="true" focusable="false"
+        ><rect x="8" y="8" width="100%" height="100%" pathLength="1" fill="none"></rect></svg
+      >
+      <p>{c.offer}<em>{c.offerDetail}</em></p><a href={c.contact} class="button agency-contact"
+        >{c.offerAction} ↗</a
+      >
+    </aside>
+    <aside class="mobile-actions" aria-label={c.visit.contactLabel}>
+      <a href="#contact-details" data-call>{c.visit.call}</a><a href="#fitting" data-book
+        >{c.book}</a
+      >
+    </aside>
+    <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
+      <button class="close" type="button" data-close aria-label={c.close}>×</button><p
+        class="eyebrow"
+      >
+        {c.demoLabel}
+      </p><h2 id="name-title">{c.nameDialog.title}</h2><p id="name-description">
+        {c.nameDialog.description}
+      </p><form id="name-form" autocomplete="off">
+        <label for="business-name">{c.nameDialog.label}</label><input
+          id="business-name"
+          type="text"
+          maxlength="100"
+          required
+          placeholder={c.nameDialog.placeholder}
+          autocomplete="off"
+        /><p class="small-note">{c.nameDialog.hint}</p><button type="submit" class="button"
+          >{c.nameDialog.submit} ↗</button
+        >
+      </form><button type="button" class="plain" id="restore-name">{c.nameDialog.reset}</button>
+    </dialog>
+    <dialog id="booking-dialog" aria-labelledby="booking-title">
+      <button type="button" class="close" data-close aria-label={c.close}>×</button><p
+        class="eyebrow"
+      >
+        {c.booking.label}
+      </p><h2 id="booking-title">{c.booking.title}</h2><p>
+        {c.booking.description}<span data-business>{c.name}</span>.
+      </p><form id="service-form">
+        <h3>{c.booking.serviceTitle}</h3><label for="booking-service"
+          >{c.booking.serviceLabel}</label
+        ><select id="booking-service"
+          >{c.services.items.map((item) => <option value={item.code}>{item.name}</option>)}</select
+        ><button class="button" type="submit">{c.booking.next} ↗</button>
+      </form><form id="slot-form" hidden>
+        <h3 tabindex="-1">{c.booking.slotTitle}</h3><p>{c.booking.note}</p><label for="booking-day"
+          >{c.booking.dayLabel}</label
+        ><select id="booking-day">{c.booking.days.map((day) => <option>{day}</option>)}</select
+        ><label for="booking-time">{c.booking.timeLabel}</label><select id="booking-time"
+          >{c.booking.times.map((time) => <option>{time}</option>)}</select
+        ><button class="button" type="submit">{c.booking.confirm} ↗</button><button
+          type="button"
+          class="plain"
+          data-restart>{c.booking.back}</button
+        >
+      </form><div id="booking-final" hidden>
+        <svg
+          class="confirmation-thread"
+          viewBox="0 0 48 40"
+          width="48"
+          height="40"
+          aria-hidden="true"
+          ><path
+            pathLength="1"
+            d="m5 21 12 12L42 6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"></path></svg
+        ><h3 tabindex="-1">{c.booking.finalTitle}</h3><p id="booking-summary"></p><p
+          class="demo-result"
+        >
+          {c.booking.final}
+        </p><a class="button final-offer agency-contact" href={c.contact}
+          >{c.offerBefore}<span data-business>{c.name}</span>{c.offerAfter}</a
+        ><button class="plain" type="button" data-restart>{c.booking.restart}</button>
+      </div>
+    </dialog>
+    <p class="sr-only" id="announcement" aria-live="polite"></p>
+    <noscript
+      ><p class="wrap no-script">{c.noScript} <a href={c.contact}>{c.offerAction}</a></p></noscript
+    >
+    <script
+      id="template-copy"
+      type="application/json"
+      is:inline
+      set:html={JSON.stringify(c).replace(/</g, '\\u003c')}
+    />
+    <script is:inline src="/templates/website/motion/tailoring-02/app.js"></script>
+    <script is:inline src="/templates/website/motion/tailoring-02/motion.js"></script>
+  </body>
+</html>

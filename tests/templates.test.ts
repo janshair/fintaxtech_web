@@ -15,6 +15,8 @@ describe('motion template registry and discovery', () => {
       expect(template.preview.alt.length).toBeGreaterThan(20);
       expect(template.preview.width).toBeGreaterThan(0);
       expect(template.preview.height).toBeGreaterThan(0);
+      for (const file of ['app.js', 'styles.css'])
+        expect(existsSync(`public${template.route}${file}`)).toBe(true);
       expect(template.route).toMatch(/^\/templates\/website\/motion\/[^/]+\/$/);
     }
   });
