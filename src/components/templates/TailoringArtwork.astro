@@ -1,0 +1,162 @@
+---
+interface Props {
+  kind: string;
+  label: string;
+  id: string;
+}
+const { kind, label, id } = Astro.props;
+---
+
+<!-- Original FinTaxTech vector illustrations; no photographs, identifiable businesses or third-party image licences. -->
+<svg
+  viewBox="0 0 600 650"
+  width="600"
+  height="650"
+  role="img"
+  aria-label={label}
+  class={`garment-art art-${kind}`}
+>
+  <defs>
+    <pattern id={`${id}-weave`} width="7" height="7" patternUnits="userSpaceOnUse"
+      ><path d="M0 1h7M1 0v7" stroke="#fff" stroke-opacity=".07" stroke-width=".5"></path></pattern
+    >
+    <linearGradient id={`${id}-cloth`} x1="0" y1="0" x2="1" y2="1"
+      ><stop stop-color="#42514d"></stop><stop offset="1" stop-color="#202e2d"
+      ></stop></linearGradient
+    >
+  </defs>
+  {
+    kind === 'hero' ? (
+      <>
+        <path class="art-guide" d="M42 80h516M42 550h516M86 40v570M510 40v570" />
+        <circle cx="302" cy="306" r="226" fill="none" stroke="currentColor" stroke-opacity=".13" />
+        <g class="jacket">
+          <g class="jacket-panels">
+            <path
+              d="m242 90-94 41-70 67-41 263 72 20 59-199-9 278q70 22 137-7 74 30 142 7l-9-278 58 199 73-20-41-263-70-67-95-41Z"
+              fill={`url(#${id}-cloth)`}
+              stroke="#1e2d2b"
+              stroke-width="2"
+            />
+            <path d="m242 90 57 21 55-21-13 166-41 121-43-121Z" fill="#e3d9c5" />
+            <path
+              d="m242 90-34 66 43 13-30 37 79 170-26-171Z"
+              fill="#53605a"
+              stroke="#8b958a"
+              stroke-width="1"
+            />
+            <path
+              d="m354 90 35 66-44 13 29 37-74 170 23-171Z"
+              fill="#37463f"
+              stroke="#8b958a"
+              stroke-width="1"
+            />
+            <path
+              d="M300 376v175m-132-269-18-102m279 102 18-102m-259 53 44-9"
+              fill="none"
+              stroke="#829086"
+              stroke-width="1.5"
+            />
+            <path
+              d="m185 402 67 9-3 18-66-10zm161 9 66-9 2 17-66 10Z"
+              fill="#172722"
+              stroke="#8b958a"
+            />
+            <>
+              <circle class="jacket-button" cx="312" cy="394" r="6" fill="#b7a482" />
+              <circle class="jacket-button second" cx="312" cy="453" r="6" fill="#b7a482" />
+            </>
+            <path
+              d="M159 560q70 22 137-7 74 30 142 7l-9-278 58 199 73-20-41-263-70-67-95-41-55 21-57-21-94 41-70 67-41 263 72 20 59-199Z"
+              fill={`url(#${id}-weave)`}
+            />
+            <path
+              class="chalk jacket-stitches"
+              d="M174 356q123 26 250 0M169 530q126 29 265 0m-248-380-35 336m265-336 34 336"
+            />
+            <path
+              d="m165 349 20 15m-20 0 20-15m227 0 20 15m-20 0 20-15"
+              stroke="#d5b88d"
+              stroke-width="2"
+            />
+          </g>
+          <path
+            class="jacket-outline"
+            pathLength="1"
+            d="m242 90-94 41-70 67-41 263 72 20 59-199-9 278q70 22 137-7 74 30 142 7l-9-278 58 199 73-20-41-263-70-67-95-41Z"
+            fill="none"
+            stroke="#97472f"
+            stroke-width="2"
+          />
+          <path
+            class="chalk-motion"
+            pathLength="1"
+            d="M190 335q110 25 220 0"
+            fill="none"
+            stroke="#f3ecd3"
+            stroke-width="2"
+          />
+        </g>
+        <g class="ruler-arrival">
+          <g transform="translate(460 44) rotate(9)">
+            <>
+              <path d="M0 0h32v430H0z" fill="#ccb58a" />
+              <path
+                class="ruler-ticks"
+                d="M0 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10m-10 20h17m-17 20h10"
+                fill="none"
+                stroke="#574b34"
+              />
+            </>
+          </g>
+        </g>
+      </>
+    ) : kind === 'hem' ? (
+      <>
+        <path
+          class="hem-length"
+          d="m130 65 163 8-28 473-151-8Zm180 8 161-8 17 473-151 8Z"
+          fill={`url(#${id}-cloth)`}
+        />
+        <g class="hem-turnup">
+          <path d="m126 480 141 6-2 60-151-8Zm209 6 150-6 3 58-151 8Z" fill="#53605a" />
+          <path class="accent-stitch work-stitch" d="m123 506 141 6m73 0 150-6" />
+        </g>
+        <path class="chalk" d="m214 86-30 391m204-391 19 391" />
+      </>
+    ) : kind === 'waist' ? (
+      <>
+        <g class="waist-shaping">
+          <path
+            d="m214 70-55 66 61 145-93 292q169 45 342 0l-93-292 61-145-55-66-53 50h-63Z"
+            fill="#9e644e"
+          />
+          <path
+            d="M159 136q141 84 278 0M220 281q80 33 156 0"
+            fill="none"
+            stroke="#e6b599"
+            stroke-width="3"
+          />
+          <path
+            class="chalk work-stitch"
+            d="M234 158q33 57 8 125l-61 270m185-395q-34 57-8 125l61 270"
+          />
+          <path d="m229 269 23 10m-29 13 22 10m-28 13 22 10" stroke="#f6e9ca" stroke-width="3" />
+        </g>
+      </>
+    ) : (
+      <>
+        <path d="M111 75h324l45 453-344 44Z" fill={`url(#${id}-cloth)`} />
+        <path d="m132 458 343-43 5 113-344 44Z" fill="#53605a" />
+        <path class="accent-stitch work-stitch" d="m143 543 321-39" />
+        {[0, 1, 2].map((i) => (
+          <g transform={`translate(${370 - i * 63} ${467 + i * 8})`}>
+            <circle class="cuff-button" style={`--button-index: ${i}`} r="20" fill="#d8c6a5" />
+            <circle r="13" fill="none" stroke="#746349" />
+            <path class="work-stitch" d="m-4-4 8 8m0-8-8 8" stroke="#746349" stroke-width="2" />
+          </g>
+        ))}
+      </>
+    )
+  }
+</svg>

@@ -1,0 +1,249 @@
+---
+interface Props {
+  kind: 'car' | 'brakes' | 'tyres' | 'filter';
+  label: string;
+  id: string;
+}
+const { kind, label, id } = Astro.props;
+---
+
+<!-- Original FinTaxTech vector artwork. No stock photographs, manufacturer branding or third-party licences. -->
+<svg
+  class={`automotive-art art-${kind}`}
+  viewBox={kind === 'car' ? '0 0 880 430' : '0 0 500 400'}
+  width={kind === 'car' ? 880 : 500}
+  height={kind === 'car' ? 430 : 400}
+  role="img"
+  aria-label={label}
+>
+  <defs>
+    <linearGradient id={`${id}-metal`} x1="0" y1="0" x2=".3" y2="1"
+      ><stop stop-color="#d6dfdf"></stop><stop offset=".45" stop-color="#8c9b9f"></stop><stop
+        offset="1"
+        stop-color="#485d67"></stop></linearGradient
+    >
+    <linearGradient id={`${id}-glass`} x1="0" y1="0" x2="1" y2="1"
+      ><stop stop-color="#54707b"></stop><stop offset="1" stop-color="#152329"
+      ></stop></linearGradient
+    >
+    <pattern id={`${id}-grid`} width="28" height="28" patternUnits="userSpaceOnUse"
+      ><path d="M28 0H0v28" fill="none" stroke="#a1bac2" stroke-opacity=".1"></path></pattern
+    >
+    <path
+      id={`${id}-body`}
+      pathLength="1"
+      d="M90 273 106 228Q112 208 153 200L277 177 339 116Q358 99 392 99H507Q539 101 566 122L650 188 741 210Q779 223 787 250L800 285 789 304H732Q730 239 663 238 596 238 592 304H294Q292 239 225 238 159 238 157 304H94L79 289Z"
+    ></path>
+  </defs>
+  {
+    kind === 'car' ? (
+      <>
+        <path
+          class="technical-grid"
+          d="M30 350H850M110 76V377M790 76V377M30 95H850"
+          fill="none"
+          stroke="#8ca4ac"
+          stroke-opacity=".22"
+          stroke-dasharray="3 8"
+        />
+        <ellipse cx="441" cy="350" rx="374" ry="13" fill="#030a0d" opacity=".5" />
+        <g class="car-lift">
+          <g class="car-idle">
+            <g class="car-fill">
+              <use href={`#${id}-body`} fill={`url(#${id}-metal)`} />
+              <path
+                d="m296 177 59-54q8-8 34-8h113q28 0 48 17l65 51Z"
+                fill={`url(#${id}-glass)`}
+                stroke="#d3dedc"
+                stroke-width="2"
+              />
+              <path d="m440 116 7 65m67-62 8 63" stroke="#a0b1b3" stroke-width="6" />
+              <path
+                d="M108 229q314-46 655 11M308 208l-8 75h278l-10-77m-108-19 6 96"
+                fill="none"
+                stroke="#e7edeb"
+                stroke-opacity=".4"
+                stroke-width="2"
+              />
+              <path
+                d="M319 221h29m137 0h29"
+                stroke="#1b303b"
+                stroke-width="5"
+                stroke-linecap="round"
+              />
+              <path d="m711 222 58 17 9 17-61-7Z" class="headlight" fill="#efc36c" />
+              <path d="m109 226 31-6-7 18-30 7Z" fill="#ad5543" />
+              <path
+                d="M116 282h36m588 0h41M315 291h264"
+                stroke="#182b34"
+                stroke-width="8"
+                stroke-linecap="round"
+              />
+              <path d="m632 192 15-8 18 12-4 9-24-2Z" fill="#607880" />
+            </g>
+            <use
+              class="car-outline"
+              href={`#${id}-body`}
+              pathLength="1"
+              fill="none"
+              stroke="#efc36c"
+              stroke-width="2"
+            />
+            {[225, 663].map((x) => (
+              <g transform={`translate(${x} 303)`}>
+                <g class="wheel">
+                  <circle r="62" fill="#101b21" stroke="#384b54" stroke-width="5" />
+                  <circle r="44" fill="#344b56" stroke="#a7b9bc" stroke-width="3" />
+                  <circle class="disc" r="31" fill="#667d84" />
+                  {[0, 60, 120, 180, 240, 300].map((angle) => (
+                    <path
+                      d="M-5-10-8-40 8-40 5-10Z"
+                      fill="#b9c8c9"
+                      transform={`rotate(${angle})`}
+                    />
+                  ))}
+                  <circle r="12" fill="#1b303b" stroke="#d4dfdf" stroke-width="3" />
+                  <path
+                    class="tyre-highlight"
+                    d="M-46-30a55 55 0 0 1 93 0"
+                    stroke="#8ba0a4"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                </g>
+              </g>
+            ))}
+          </g>
+          <g class="diagnostic-sweep">
+            <>
+              <path d="M70 80v255" stroke="#efc36c" stroke-width="2" />
+              <path d="M65 80h10m-10 255h10" stroke="#efc36c" />
+            </>
+          </g>
+          <g class="service-tool" transform="translate(663 303)">
+            <g class="tool-turn">
+              <path
+                d="m-5 8-44 61q-9 8-15 0t2-14L-11-3q-7-20 9-29l1 16 13 3 8-13q9 18-8 28Z"
+                fill="#efc36c"
+                stroke="#172830"
+                stroke-width="2"
+              />
+            </g>
+          </g>
+          <g class="service-tick" transform="translate(770 142)">
+            <>
+              <circle r="25" fill="#233c43" stroke="#b9c8c9" />
+              <path
+                pathLength="1"
+                d="m-12 0 8 8 17-18"
+                fill="none"
+                stroke="#efc36c"
+                stroke-width="3"
+              />
+            </>
+          </g>
+        </g>
+        <g class="lift-platform">
+          <path
+            d="M130 365h625M250 366l85 42m0-42-85 42m315-42 85 42m0-42-85 42"
+            stroke="#7a929a"
+            stroke-width="5"
+            fill="none"
+          />
+        </g>
+      </>
+    ) : kind === 'brakes' ? (
+      <>
+        <rect width="500" height="400" fill={`url(#${id}-grid)`} />
+        <circle
+          cx="250"
+          cy="200"
+          r="144"
+          fill={`url(#${id}-metal)`}
+          stroke="#bbcacb"
+          stroke-width="2"
+        />
+        {[78, 92, 105, 118, 133].map((r) => (
+          <circle cx="250" cy="200" r={r} fill="none" stroke="#263d47" stroke-opacity=".35" />
+        ))}
+        <g class="used-part" fill="none" stroke="#a2684e" stroke-width="5">
+          {[83, 101, 125, 136].map((r) => (
+            <circle cx="250" cy="200" r={r} stroke-dasharray="23 15 8 30" />
+          ))}
+        </g>
+        <circle cx="250" cy="200" r="55" fill="#213640" stroke="#a2b6bb" stroke-width="4" />
+        {[0, 72, 144, 216, 288].map((angle) => (
+          <circle cx="250" cy="161" r="7" fill="#0d1920" transform={`rotate(${angle} 250 200)`} />
+        ))}
+        <circle cx="250" cy="200" r="19" fill="#101b21" />
+        <path
+          class="renewed-line"
+          pathLength="1"
+          d="M110 200a140 140 0 0 1 280 0"
+          fill="none"
+          stroke="#efc36c"
+          stroke-width="4"
+        />
+      </>
+    ) : kind === 'tyres' ? (
+      <>
+        <rect width="500" height="400" fill={`url(#${id}-grid)`} />
+        <rect
+          x="143"
+          y="38"
+          width="214"
+          height="324"
+          rx="62"
+          fill="#14232b"
+          stroke="#758e97"
+          stroke-width="3"
+        />
+        <path d="M177 55v290m146-290v290" fill="none" stroke="#3b525b" stroke-width="3" />
+        <g class="old-tread" stroke="#6e7e83" opacity=".5">
+          {[90, 145, 200, 255, 310].map((y) => (
+            <path d={`m184 ${y} 42 10m48-10 42 10`} />
+          ))}
+        </g>
+        <g class="new-tread" fill="none" stroke="#b7c5c5" stroke-width="5">
+          {[65, 105, 145, 185, 225, 265, 305, 345].map((y) => (
+            <path d={`m155 ${y} 56 19 25-12m28 0 25 12 56-19`} />
+          ))}
+          <path d="M244 55v290m14-290v290" stroke="#efc36c" stroke-width="2" />
+        </g>
+      </>
+    ) : (
+      <>
+        <rect width="500" height="400" fill={`url(#${id}-grid)`} />
+        <rect
+          x="101"
+          y="70"
+          width="298"
+          height="260"
+          rx="15"
+          fill="#314751"
+          stroke="#c5d1ce"
+          stroke-width="5"
+        />
+        <rect x="120" y="89" width="260" height="222" rx="5" fill="#8c9692" />
+        <g fill="none" stroke="#d9c89c" stroke-width="8">
+          {Array.from({ length: 15 }, (_, i) => (
+            <path d={`M${129 + i * 17} 96v208`} />
+          ))}
+        </g>
+        <g class="filter-dust used-part" fill="#42545a">
+          {Array.from({ length: 24 }, (_, i) => (
+            <circle cx={135 + (i % 6) * 43} cy={117 + Math.floor(i / 6) * 52} r={9 + (i % 3) * 3} />
+          ))}
+        </g>
+        <path
+          class="renewed-line"
+          pathLength="1"
+          d="M116 83h268v234H116Z"
+          fill="none"
+          stroke="#efc36c"
+          stroke-width="3"
+        />
+      </>
+    )
+  }
+</svg>
