@@ -3,7 +3,7 @@
 The live index at https://fintaxtech.co.uk/blog/ is the source of truth. This file is a
 working record for the daily article task.
 
-## Published (as at 2026-10-18)
+## Published (as at 2026-10-19)
 
 Mobile App Development (11): mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
@@ -18,7 +18,7 @@ small-business-website-quotes-vary, redesign-or-rebuild-business-website,
 what-slows-a-website-build-down, website-copy-that-answers-customer-questions,
 do-you-need-a-booking-system-or-a-contact-form
 
-Branding and Graphic Design (10): logo-vs-brand-identity, how-to-write-a-logo-design-brief,
+Branding and Graphic Design (11): choosing-photography-and-imagery-for-your-brand, logo-vs-brand-identity, how-to-write-a-logo-design-brief,
 logo-file-formats-explained, what-to-include-in-brand-guidelines,
 stationery-and-marketing-assets-after-logo, choosing-brand-colours-and-fonts,
 designing-for-print-without-owning-a-press,
@@ -48,6 +48,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-16: does-your-app-need-to-work-offline — pushed to main, awaiting owner review
 - 2026-10-17: plan-your-website-pages-and-navigation — pushed to main, awaiting owner review
 - 2026-10-18: prepare-documents-for-ai-assisted-work — pushed to main, awaiting owner review
+- 2026-10-19: choosing-photography-and-imagery-for-your-brand — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -71,6 +72,7 @@ repeatable-ai-workflows-for-your-business
 15. ~~Does Your App Need to Work Offline? What to Decide Before You Build (Mobile App Development; mobile-apps)~~ added 2026-10-16 as queue was exhausted (all categories at 10; mobile longest since last post; offline not yet covered); published 2026-10-16
 16. ~~Planning Your Website Pages and Menu: How to Decide What Goes Where (Website Design and Development; websites)~~ added 2026-10-17 as queue was exhausted (websites longest since last post, 10 vs mobile 11; site structure not yet covered); published 2026-10-17
 17. ~~Preparing Your Documents for AI-Assisted Work: A Practical Tidy-Up Checklist (AI Automation; ai-automation)~~ added 2026-10-18 as queue was exhausted (AI and Branding had fewest, 10; AI longest since last post; document preparation not yet covered); published 2026-10-18
+18. ~~Choosing Photography and Imagery for Your Brand: How to Keep Pictures Consistent and Safe to Use (Branding and Graphic Design; branding)~~ added 2026-10-19 as queue was exhausted (Branding had fewest, 10; brand imagery not yet covered); published 2026-10-19
 
 ## Conventions reminder
 
