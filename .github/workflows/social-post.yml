@@ -30,6 +30,7 @@ jobs:
   post:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -41,11 +42,26 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      # Reels need the fonts and Playwright from the project, Chromium to draw frames and ffmpeg to encode.
+      # Reels need the fonts and Playwright from the project, a Chromium browser to draw frames and
+      # ffmpeg to encode. Both are taken from the runner image when it has them, so nothing comes from
+      # the Ubuntu package mirror, which can stall for many minutes.
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+      - name: Find a browser for rendering Reels
+        timeout-minutes: 5
+        run: |
+          for b in google-chrome google-chrome-stable chromium chromium-browser; do
+            if p=$(command -v "$b"); then echo "PW_CHROMIUM_PATH=$p" >> "$GITHUB_ENV"; echo "Using $p"; exit 0; fi
+          done
+          pnpm exec playwright install chromium
+      - name: Find ffmpeg
+        timeout-minutes: 5
+        run: |
+          if command -v ffmpeg; then exit 0; fi
+          # Static Linux build linked from ffmpeg.org's download page.
+          curl -fsSL --retry 3 https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz | tar -xJ -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/ffmpeg-master-latest-linux64-gpl/bin" >> "$GITHUB_PATH"
       - run: node scripts/social-post-meta.mjs
+        timeout-minutes: 20
         env:
           META_SYSTEM_TOKEN: ${{ secrets.META_SYSTEM_TOKEN }}
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
