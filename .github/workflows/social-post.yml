@@ -14,6 +14,10 @@ on:
         description: Only this article slug (optional)
         type: string
         required: false
+      test_music:
+        description: Dry run only - render a Reel with this track id even if the post has no music (optional)
+        type: string
+        required: false
 
 permissions:
   contents: read
@@ -30,13 +34,23 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
+      # Reels need the fonts and Playwright from the project, Chromium to draw frames and ffmpeg to encode.
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node scripts/social-post-meta.mjs
         env:
           META_SYSTEM_TOKEN: ${{ secrets.META_SYSTEM_TOKEN }}
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          MUSIC_KEY: ${{ secrets.MUSIC_KEY }}
+          TEST_MUSIC: ${{ inputs.test_music }}
           SOURCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
           SLUG: ${{ inputs.slug }}

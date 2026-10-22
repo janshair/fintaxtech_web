@@ -1,25 +1,36 @@
 // Posts newly published blog articles to the FinTaxTech Facebook Page and Instagram account.
 //
 // Reads social/posts/<slug>.json files (written by the daily blog routine), waits until the
-// article URL is live, then publishes the same portrait images to both networks: one image, or a
-// swipeable carousel when the post file lists several in "images". Facebook posts are photo posts
-// with no links in the text, because the Page has a monthly limit on link posts.
+// article URL is live, then publishes to both networks. When the post file names a "music" track it
+// renders and posts a vertical Reel (scripts/social-reel.mjs); otherwise it posts the portrait
+// images, as one image or as a swipeable carousel when "images" lists several. Facebook text never
+// contains links, because the Page has a monthly limit on link posts.
 // Duplicate posts are avoided by checking the Page feed and Instagram media before publishing,
 // so re-running is safe.
 //
-// Env: META_SYSTEM_TOKEN, META_PAGE_ID (GitHub secrets), DRY_RUN, SLUG, SOURCE_SHA,
-//      MAX_AGE_DAYS (default 2), GRAPH_VERSION (default v23.0).
-import { readdir, readFile, appendFile } from 'node:fs/promises';
-import { execSync } from 'node:child_process';
+// Env: META_SYSTEM_TOKEN, META_PAGE_ID, MUSIC_KEY (GitHub secrets), DRY_RUN, SLUG, SOURCE_SHA,
+//      MAX_AGE_DAYS (default 2), GRAPH_VERSION (default v23.0), and TEST_MUSIC, which renders a
+//      Reel with that track during a dry run even if the post file names no music.
+import { readdir, readFile, appendFile, stat, mkdtemp } from 'node:fs/promises';
+import { execSync, execFileSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 const env = process.env;
-const GRAPH = `https://graph.facebook.com/${env.GRAPH_VERSION || 'v23.0'}`;
+const VERSION = env.GRAPH_VERSION || 'v23.0';
+const GRAPH = `https://graph.facebook.com/${VERSION}`;
 const DRY_RUN = env.DRY_RUN === 'true';
 const ONLY_SLUG = (env.SLUG || '').trim();
 const MAX_AGE_DAYS = Number(env.MAX_AGE_DAYS || 2);
 const REPO = env.GITHUB_REPOSITORY || 'janshair/fintaxtech_web';
 const SHA = env.SOURCE_SHA || execSync('git rev-parse HEAD').toString().trim();
 const POSTS_DIR = 'social/posts';
+const TEST_MUSIC = DRY_RUN ? (env.TEST_MUSIC || '').trim() : '';
+const TRACKS = await readFile('social/music/tracks.json', 'utf8')
+  .then((t) => JSON.parse(t).tracks)
+  .catch(() => []);
+// The Reel shows the article title and illustration from about 3 to 6 seconds in.
+const REEL_THUMB_MS = 4500;
 
 const summary = [];
 const log = (line) => {
@@ -72,14 +83,111 @@ async function waitForUrl(url, { attempts, delayMs, contentType }) {
   return false;
 }
 
-async function waitForContainer(id, token) {
+async function waitForContainer(id, token, tries = 12) {
   let status = '';
-  for (let i = 0; i < 12 && status !== 'FINISHED'; i++) {
+  for (let i = 0; i < tries && status !== 'FINISHED'; i++) {
     await sleep(5_000);
     status = (await graph(id, { token, params: { fields: 'status_code' } })).status_code;
     if (status === 'ERROR' || status === 'EXPIRED') throw new Error(`media container status ${status}`);
   }
   if (status !== 'FINISHED') throw new Error(`media container not ready (status ${status || 'unknown'})`);
+}
+
+// Sends a local video file to Meta's upload host, retrying temporary failures.
+async function rupload(url, token, file) {
+  const bytes = await readFile(file);
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { Authorization: `OAuth ${token}`, offset: '0', file_size: String(bytes.length) },
+      body: bytes,
+    }).catch((err) => ({ ok: false, status: 0, text: async () => String(err) }));
+    if (res.ok) return;
+    const detail = (await res.text()).slice(0, 200);
+    if ((res.status > 0 && res.status < 500) || attempt === 4) {
+      throw new Error(`upload to ${new URL(url).host} failed: ${res.status} ${detail}`);
+    }
+    log(`Upload: temporary error ${res.status}, retrying in ${attempt * 20}s`);
+    await sleep(attempt * 20_000);
+  }
+}
+
+async function postReel(post, musicId, { pageToken, ig }) {
+  const track = TRACKS.find((t) => t.id === musicId);
+  let video;
+  try {
+    video = join(await mkdtemp(join(tmpdir(), 'reel-')), `${post.slug}.mp4`);
+    execFileSync('node', ['scripts/social-reel.mjs', post.slug, video], {
+      env: { ...env, REEL_MUSIC: musicId },
+      stdio: ['ignore', 'inherit', 'inherit'],
+    });
+    log(`Reel: rendered ${((await stat(video)).size / 1e6).toFixed(1)} MB with "${track.title}" by ${track.artist}`);
+  } catch (err) {
+    log(`Reel: ❌ could not render the video (${err.message.split('\n')[0]})`);
+    failed = true;
+    return;
+  }
+
+  // Facebook Reel, skipped if a recent Reel or post starts with the same text.
+  try {
+    const marker = norm(post.facebook.message).slice(0, 80);
+    const reels = await graph(`${env.META_PAGE_ID}/video_reels`, {
+      token: pageToken,
+      params: { fields: 'description', limit: '25' },
+    }).catch(() => ({ data: [] }));
+    const feed = await graph(`${env.META_PAGE_ID}/posts`, { token: pageToken, params: { fields: 'message', limit: '50' } });
+    const existing = [...reels.data.map((r) => r.description), ...feed.data.map((p) => p.message)];
+    if (existing.some((m) => norm(m).startsWith(marker))) {
+      log('Facebook: already posted, skipping');
+    } else if (DRY_RUN) {
+      log(`Facebook: would post the Reel with ${norm(post.facebook.message).length} characters of text`);
+    } else {
+      const session = await upload('Facebook', `${env.META_PAGE_ID}/video_reels`, {
+        token: pageToken,
+        params: { upload_phase: 'start' },
+      });
+      await rupload(session.upload_url || `https://rupload.facebook.com/video-upload/${VERSION}/${session.video_id}`, pageToken, video);
+      await graph(`${env.META_PAGE_ID}/video_reels`, {
+        token: pageToken,
+        method: 'POST',
+        params: { upload_phase: 'finish', video_id: session.video_id, video_state: 'PUBLISHED', description: post.facebook.message },
+      });
+      log(`Facebook: ✅ posted the Reel (${session.video_id})`);
+    }
+  } catch (err) {
+    log(`Facebook: ❌ ${err.message}`);
+    failed = true;
+  }
+
+  // Instagram Reel, skipped if recent media already has this caption.
+  if (!ig) return;
+  try {
+    const media = await graph(`${ig.id}/media`, { token: pageToken, params: { fields: 'caption', limit: '50' } });
+    const marker = norm(post.instagram.caption).slice(0, 80);
+    if (media.data.some((m) => norm(m.caption).startsWith(marker))) {
+      log('Instagram: already posted, skipping');
+      return;
+    }
+    if (DRY_RUN) {
+      log(`Instagram: would post the Reel with a ${norm(post.instagram.caption).length}-character caption`);
+      return;
+    }
+    const container = await upload('Instagram', `${ig.id}/media`, {
+      token: pageToken,
+      params: { media_type: 'REELS', upload_type: 'resumable', caption: post.instagram.caption, thumb_offset: String(REEL_THUMB_MS) },
+    });
+    await rupload(container.uri || `https://rupload.facebook.com/ig-api-upload/${VERSION}/${container.id}`, pageToken, video);
+    await waitForContainer(container.id, pageToken, 60);
+    const published = await graph(`${ig.id}/media_publish`, {
+      token: pageToken,
+      method: 'POST',
+      params: { creation_id: container.id },
+    });
+    log(`Instagram: ✅ posted the Reel (${published.id})`);
+  } catch (err) {
+    log(`Instagram: ❌ ${err.message}`);
+    failed = true;
+  }
 }
 
 async function loadPosts() {
@@ -109,6 +217,7 @@ async function loadPosts() {
     if (LINK_RE.test(fbMessage)) problems.push('facebook.message must not contain links or domain names');
     if (post.title && !fbMessage.includes(norm(post.title))) problems.push('facebook.message must name the article title');
     if (!norm(post.instagram?.caption)) problems.push('instagram.caption is required');
+    if (post.music && !TRACKS.some((t) => t.id === post.music)) problems.push(`music "${post.music}" is not in social/music/tracks.json`);
     if (problems.length) {
       log(`- ❌ \`${file}\`: ${problems.join('; ')}`);
       failed = true;
@@ -155,6 +264,17 @@ async function main() {
     log(`Article URL ${live ? 'is live' : '❌ is not reachable'}: ${post.url}`);
     if (!live && !DRY_RUN) {
       failed = true;
+      continue;
+    }
+
+    const musicId = post.music || TEST_MUSIC;
+    if (musicId) {
+      if (!TRACKS.some((t) => t.id === musicId)) {
+        log(`❌ Music "${musicId}" is not in social/music/tracks.json`);
+        failed = true;
+      } else {
+        await postReel(post, musicId, { pageToken, ig });
+      }
       continue;
     }
 

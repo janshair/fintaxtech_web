@@ -1,0 +1,8 @@
+{
+  "source": "Meta Sound Collection (facebook.com/sound/collection). Licensed for use in content posted on Facebook and Instagram only. The audio files are stored encrypted because this repository is public; never commit them unencrypted.",
+  "tracks": [
+    { "id": "glow", "title": "Glow", "artist": "Kiri T", "file": "social/music/glow.mp4.enc" },
+    { "id": "knockout", "title": "Knockout", "artist": "Adam Griffith", "file": "social/music/knockout.mp4.enc" },
+    { "id": "beautifully-stranded", "title": "Beautifully Stranded", "artist": "Kensun", "file": "social/music/beautifully-stranded.mp4.enc" }
+  ]
+}
