@@ -76,6 +76,23 @@ export const motionTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Preview a personalised garage and mechanic website by FinTaxTech, with servicing, repairs, scroll-driven motion and a sample quote journey.',
   },
+  {
+    id: 'cleaning-04',
+    name: 'Fresh Start',
+    industry: 'Cleaning companies',
+    description:
+      'A friendly local cleaning website in mint and coral, with original room illustrations, a scroll-driven cleaning pass and a complete sample quote journey.',
+    route: '/templates/website/motion/cleaning-04/',
+    preview: {
+      src: '/templates/website/motion/cleaning-04/preview.webp',
+      alt: 'Fresh Start cleaning demo: Little Sunday Cleaning, a cream and mint hero reading “A clean home. A little more Sunday.” beside an illustrated living room.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Fresh Start — Cleaning website demo by FinTaxTech',
+    seoDescription:
+      'Explore a personalised cleaning company website demonstration by FinTaxTech, with example services, scroll-driven cleaning and a sample quote journey.',
+  },
 ];
 
 export const barberRedirect = {

@@ -1,0 +1,146 @@
+---
+interface Props {
+  kind?: string;
+  motion?: boolean;
+}
+const { kind = 'room', motion = false } = Astro.props;
+// Original SVG illustrations created for this demo; no external images or licensed artwork.
+---
+
+<svg
+  viewBox="0 0 640 470"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+  class:list={['room-art', { 'cleaning-art': motion }]}
+>
+  <path d="M42 350 320 437 602 350 320 269Z" fill="#c4d9c5"></path>
+  <path d="M42 64 320 18 602 64V350L320 416 42 350Z" fill="#e6eddb"></path>
+  <path d="m320 18 282 46v286l-282 66Z" fill="#d6e5cf"></path>
+  <path d="M42 350 320 416 602 350" stroke="#8faa95" stroke-width="3"></path>
+  <path d="M320 18v398" stroke="#b3cbb1" stroke-width="2"></path>
+  {
+    kind === 'room' ? (
+      <>
+        <path d="m366 82 150 22v153l-150 9Z" fill="#719d8d" />
+        <path d="m376 94 130 19v133l-130 7Z" fill="#f9f8df" />
+        <path d="m443 104 1 145m-67-83 128 6" stroke="#719d8d" stroke-width="6" />
+        <path d="m380 250 126-5-96 125-71-12Z" fill="#fffce7" opacity=".5" />
+        <path d="m108 293 2 43m173-7v40" stroke="#3b6655" stroke-width="9" />
+        <path d="M89 208q0-17 19-14l173 31q20 4 20 25v75l-204-41Z" fill="#d66b4e" />
+        <path d="m97 253 188 37v54L97 305Z" fill="#e88c68" />
+        <path
+          d="M80 246q0-14 13-12l21 4v66l-34-7Zm191 37q0-14 13-12l28 5v66l-41-8Z"
+          fill="#ef9e77"
+        />
+        <path d="m129 219 43 8-4 42-43-9Z" fill="#f6e8bb" />
+        <path d="m192 231 45 9-3 40-45-8Z" fill="#adbf89" />
+        <ellipse cx="393" cy="354" rx="73" ry="24" fill="#f6f2dd" />
+        <path d="m345 355-9 44m99-44 9 35" stroke="#577b5a" stroke-width="6" />
+        <ellipse
+          cx="393"
+          cy="347"
+          rx="73"
+          ry="24"
+          fill="#fffcec"
+          stroke="#a2bda1"
+          stroke-width="2"
+        />
+        <>
+          <path d="m379 336 29 4-5 15-29-4Z" fill="#eaa36e" />
+          <path d="m382 332 29 4-3 4-29-4Z" fill="#315f50" />
+        </>
+        <path d="m526 294 31-3-6 46-20 3Z" fill="#e8aa73" />
+        <path
+          d="m541 299-2-95m1 67q-39-12-33-35 31-5 33 35Zm0-31q37-10 31-34-29 0-31 34Zm-1-19q-28-16-21-36 28 2 21 36Z"
+          fill="#467658"
+          stroke="#467658"
+          stroke-width="4"
+        />
+        <>
+          <path d="m83 169 84 17v-66l-84-12Z" fill="#f7f4dc" stroke="#5b7e60" stroke-width="5" />
+          <circle cx="125" cy="148" r="16" fill="#efa06e" />
+        </>
+      </>
+    ) : kind === 'kitchen' ? (
+      <>
+        <path d="m88 224 213 36 253-38v101l-251 57-215-48Z" fill="#82aa8c" />
+        <path d="m88 224 213 36 253-38-206-30Z" fill="#fff8e7" />
+        <path
+          d="m301 260 2 120m-145-143v112m279-112v113m-84-99v117"
+          stroke="#507b60"
+          stroke-width="3"
+        />
+        <path d="m93 104 160 25v84L93 185Z" fill="#faf5df" stroke="#85a589" stroke-width="3" />
+        <path d="m173 118v80m-21-47v24m40-17v24" stroke="#85a589" stroke-width="4" />
+        <path d="m381 84 126 17v101l-126 8Z" fill="#f8f1d5" stroke="#6e957c" stroke-width="6" />
+        <path d="m445 93v112m-61-60 119 4" stroke="#6e957c" stroke-width="4" />
+        <>
+          <ellipse cx="443" cy="228" rx="42" ry="10" fill="#79a694" />
+          <path d="M442 224v-29q0-17 17-12 10 4 10 13" stroke="#406b5c" stroke-width="6" />
+        </>
+        <>
+          <path d="m140 219 71 13-8 12-72-13Z" fill="#416b5b" />
+          <path d="m150 220 9 11m30-4 9 11" stroke="#fcf6df" stroke-width="3" />
+        </>
+        <>
+          <path d="m231 229 22 4 2-36-18-3Z" fill="#e18c62" />
+          <path d="m242 193 3-28m0 19-12-11m12 4 14-13" stroke="#487b59" stroke-width="4" />
+        </>
+      </>
+    ) : (
+      <>
+        <path d="m97 236 204 38 228-36v43L301 321 97 279Z" fill="#fff9e8" />
+        <path d="m129 283 2 63 165 40 187-44v-54l-187 33Z" fill="#8bac8d" />
+        <>
+          <ellipse cx="291" cy="269" rx="72" ry="14" fill="#a5c8b9" />
+          <path d="M289 259v-41q0-19 20-15 15 4 15 19" stroke="#497463" stroke-width="8" />
+        </>
+        <>
+          <path d="m215 84 167 10v102l-167 2Z" fill="#bcded1" stroke="#638a70" stroke-width="8" />
+          <path d="m233 101 63 5-60 70m45-4 73-65" stroke="#e5f4e7" stroke-width="6" />
+        </>
+        <>
+          <path d="m423 246 27-4v-42l-27 1Z" fill="#e89a72" />
+          <path d="m425 195 15-2v8m-3-9v-7h15" stroke="#4c775e" stroke-width="4" />
+        </>
+        <>
+          <path d="m122 230 57 12v-30l-57-11Z" fill="#f5db9f" />
+          <path d="m124 214 53 11m-53-3 53 10" stroke="#e5bc78" stroke-width="3" />
+        </>
+      </>
+    )
+  }
+  {
+    motion && (
+      <>
+        <g class="dust-layer" fill="#9c805c" opacity=".65">
+          {Array.from({ length: 38 }, (_, i) => (
+            <circle cx={80 + ((i * 71) % 480)} cy={100 + ((i * 37) % 265)} r={3 + (i % 4)} />
+          ))}
+          <path
+            d="m98 267 160 33m102 18 127-28M141 192l90 18"
+            stroke="#9c805c"
+            stroke-width="8"
+            stroke-linecap="round"
+          />
+        </g>
+        <g class="cleaning-wand">
+          <>
+            <path d="M0 120v260" stroke="#325f51" stroke-width="10" />
+            <rect x="-55" y="99" width="110" height="29" rx="9" fill="#eb8a62" />
+            <path d="M-50 128H50" stroke="#faf7de" stroke-width="7" />
+          </>
+        </g>
+        <g class="clean-sparkles" stroke="#315f50" stroke-width="3">
+          <path d="m140 145 0 32m-16-16h32m251 119v28m-14-14h28m62-139v34m-17-17h34" />
+        </g>
+      </>
+    )
+  }
+  <g stroke="#315f50" stroke-width="3">
+    <path d="M70 66v25M58 79h25"></path>
+    <path d="m564 361v25m-12-12h25"></path>
+  </g>
+</svg>

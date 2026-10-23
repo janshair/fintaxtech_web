@@ -1,0 +1,30 @@
+---
+// Original four-point stars, positioned around the artwork rather than moving its contents.
+const stars = [
+  { x: 75, y: 82, delay: '0s', warm: false },
+  { x: 554, y: 126, delay: '-1s', warm: true },
+  { x: 74, y: 340, delay: '-2s', warm: true },
+  { x: 550, y: 392, delay: '-.5s', warm: false },
+  { x: 603, y: 270, delay: '-1.5s', warm: false },
+];
+---
+
+<svg
+  class="picture-sparkles"
+  viewBox="0 0 640 470"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    stars.map((star) => (
+      <g transform={`translate(${star.x} ${star.y})`}>
+        <path
+          class:list={['picture-sparkle', { warm: star.warm }]}
+          style={`--sparkle-delay:${star.delay}`}
+          d="M0-27C4-7 7-4 27 0C7 4 4 7 0 27C-4 7-7 4-27 0C-7-4-4-7 0-27Z"
+        />
+      </g>
+    ))
+  }
+</svg>

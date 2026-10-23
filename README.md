@@ -402,3 +402,19 @@ Use URL-encoded `name` and `area` values (up to 100 characters). Phone input is 
 The quote demonstration is service → made-up registration and preferred day → an explicit “Demo only, nothing is sent” confirmation. Use `DEMO 01`, not actual vehicle information. It performs no registration lookup or network submission and clears sample details when closed. Hours and service illustrations are examples; there are no MOT, certification, real-review or guaranteed-repair claims. Call, WhatsApp and Directions navigate externally only when selected.
 
 Capture the actual default-name page at 1200 × 900 with the name dialog closed for `preview.webp` (under 200,000 bytes). Run `pnpm verify` and `pnpm exec playwright test tests/browser/automotive-template.spec.ts tests/browser/tailoring-template.spec.ts tests/browser/motion-templates.spec.ts`. Browser coverage includes 320–1440px, safe personalisation, quote validation, privacy, keyboard access, reduced motion and gallery/metadata integration. Keep local screenshots and audit reports under ignored `audit/automotive-03/`.
+
+### Fresh Start cleaning demo
+
+`cleaning-04` (Fresh Start, `friendly-local`) lives at `/templates/website/motion/cleaning-04/`. Edit its copy in `src/content/cleaning-demo.ts`, original SVG rooms in `src/components/templates/CleaningArtwork.astro`, page under `src/pages/templates/website/motion/cleaning-04/` and browser assets under the matching `public/` folder. The existing registry supplies its gallery card and noindex/nofollow SEO; the demo stays outside the sitemap.
+
+Build a personalised link with URL-encoded `?name=`, `&area=`, `&phone=` and optional opaque `&ref=`:
+
+`/templates/website/motion/cleaning-04/?name=Tayside%20Home%20Cleaning&area=Broughty%20Ferry&phone=01382%20000000&ref=LETTER04`
+
+Name and area are trimmed and limited to 100 Unicode characters. Phone values allow digits, spaces, plus signs and brackets, with a 20-character limit. An opaque ref accepts 1–32 letters, digits, underscores or hyphens. The blocking identity script applies link values before paint. Edits use `history.replaceState`, keeping other parameters; restoring the sample removes `name`. No parameters enter storage, analytics or background requests. Only deliberate FinTaxTech enquiry navigation carries `ref`; the existing contact page does not prefill it, and no template-context parameter is added.
+
+Call, WhatsApp and Directions open clearly labelled previews with the supplied number/area, without placing calls, opening chats or loading a map. The three-step quote demo collects only a service, room count and frequency; it sends nothing. All prices, hours and work illustrations are examples. Scroll wipes away the kitchen's dust in less than one mobile screen; reduced motion shows the completed clean, including when preferences change live. Without JavaScript the artwork and all content remain readable.
+
+Capture the default sample, dialog closed, at 1200 × 900 for the actual `preview.webp` (under 200,000 bytes). Run `pnpm verify` and `pnpm exec playwright test tests/browser/cleaning-template.spec.ts tests/browser/motion-templates.spec.ts`. Keep other QA captures in ignored `audit/cleaning-04/`. Leave source changes uncommitted until reviewed.
+
+The cleaning demo’s pictures are framed by large four-point sparkles that grow and shrink continuously in a staggered three-second loop. `PictureSparkles.astro` supplies the original SVG overlay for the hero, three work illustrations and map placeholder. The rooms, plants, sunlight, taps, mirror, stamp and map pin stay still; the previous ambient loops and “Pause motion” control have been removed. CSS handles the sparkle loops without extra JavaScript; reduced motion shows static sparkles. The original cleaning pass remains driven by scroll.

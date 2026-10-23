@@ -10,24 +10,28 @@ const demo = motionTemplates[0];
 test('gallery and demo have correct static metadata, assets and sitemap rules', async ({
   request,
 }) => {
-  for (const path of [gallery.route, demo.route, demo.route.slice(0, -1)]) {
-    const response = await request.get(path);
-    expect(response.status()).toBe(200);
-    const html = await response.text();
-    expect(html).toContain(
-      `rel="canonical" href="https://fintaxtech.co.uk${path.startsWith(demo.route.slice(0, -1)) ? demo.route : gallery.route}"`,
-    );
-    if (path === gallery.route) {
-      expect(html).not.toContain('noindex');
-      expect(html).toContain(demo.name);
-    } else expect(html).toContain('noindex,nofollow');
-  }
+  const galleryResponse = await request.get(gallery.route);
+  expect(galleryResponse.status()).toBe(200);
+  const galleryHTML = await galleryResponse.text();
+  expect(galleryHTML).not.toContain('noindex');
+  expect(galleryHTML).toContain(`rel="canonical" href="https://fintaxtech.co.uk${gallery.route}"`);
   const sitemap = await (await request.get('/sitemap.xml')).text();
   expect(sitemap.split(`<loc>https://fintaxtech.co.uk${gallery.route}</loc>`)).toHaveLength(2);
-  expect(sitemap).not.toContain(demo.route);
   expect(sitemap).not.toContain(barberRedirect.route);
-  for (const file of ['styles.css', 'app.js', 'preview.webp']) {
-    expect((await request.get(`${demo.route}${file}`)).status()).toBe(200);
+  for (const template of motionTemplates) {
+    expect(galleryHTML).toContain(template.name);
+    expect(galleryHTML).toContain(template.preview.src);
+    expect(sitemap).not.toContain(template.route);
+    for (const path of [template.route, template.route.slice(0, -1)]) {
+      const response = await request.get(path);
+      expect(response.status()).toBe(200);
+      const html = await response.text();
+      expect(html).toContain(`rel="canonical" href="https://fintaxtech.co.uk${template.route}"`);
+      expect(html).toContain('noindex,nofollow');
+    }
+    for (const file of ['styles.css', 'app.js', 'preview.webp']) {
+      expect((await request.get(`${template.route}${file}`)).status()).toBe(200);
+    }
   }
 });
 
@@ -40,6 +44,15 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('.template-card')).toHaveCount(motionTemplates.length);
     await expect(page.locator('header.site-header')).toHaveCount(1);
     await expect(page.locator('footer.site-footer')).toHaveCount(1);
+    for (const template of motionTemplates) {
+      await expect(
+        page.getByRole('link', { name: `${gallery.previewLabel} ${template.name}` }),
+      ).toHaveAttribute('href', template.route);
+      const img = page.locator(`.template-card img[src="${template.preview.src}"]`);
+      await expect
+        .poll(() => img.evaluate((node) => (node as HTMLImageElement).naturalWidth))
+        .toBe(template.preview.width);
+    }
     await expect(
       page.getByRole('link', { name: `${gallery.previewLabel} ${demo.name}` }),
     ).toHaveAttribute('href', demo.route);
@@ -138,4 +151,12 @@ test('old demo links preserve queries and fragments through the shared redirect'
 }) => {
   await page.goto(`${barberRedirect.route}?utm_source=sample#services`);
   await expect(page).toHaveURL(`${demo.route}?utm_source=sample#services`);
+});
+
+test('the cleaning gallery card opens the implemented Fresh Start demo', async ({ page }) => {
+  const cleaning = motionTemplates.find((template) => template.id === 'cleaning-04')!;
+  await page.goto(gallery.route);
+  await page.getByRole('link', { name: `${gallery.previewLabel} ${cleaning.name}` }).click();
+  await expect(page).toHaveURL(cleaning.route);
+  await expect(page.locator('h1')).toContainText('A clean home.');
 });

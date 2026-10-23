@@ -1,0 +1,458 @@
+---
+import { cleaningDemo as c } from '../../../../../content/cleaning-demo';
+import { motionTemplates, motionGallery } from '../../../../../content/templates';
+import { seoPages } from '../../../../../content/seo';
+import { absoluteURL, structuredData } from '../../../../../lib/seo';
+import CleaningArtwork from '../../../../../components/templates/CleaningArtwork.astro';
+import PictureSparkles from '../../../../../components/templates/PictureSparkles.astro';
+const template = motionTemplates.find((item) => item.id === c.id)!;
+const { title, description } = seoPages[c.route];
+const canonical = absoluteURL(c.route);
+const image = absoluteURL(template.preview.src);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#f7f7ed" />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta
+      property="og:image:alt"
+      content={template.preview.alt}
+    />
+    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+      property="og:image:height"
+      content={String(template.preview.height)}
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta name="twitter:description" content={description} /><meta
+      name="twitter:image"
+      content={image}
+    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        structuredData(c.route, title, description, undefined, image),
+      ).replace(/</g, '\\u003c')}
+    />
+    <link rel="stylesheet" href="/templates/website/motion/cleaning-04/styles.css" />
+    <!-- The blocking script observes streamed identity nodes before their first paint.
+         Values are assigned only as text. No query data enters requests or storage. -->
+    <script is:inline src="/templates/website/motion/cleaning-04/identity.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <aside class="demo-strip" aria-label="Demonstration controls">
+      <a href="/" class="agency">FinTaxTech <span aria-hidden="true">↗</span></a>
+      <span class="demo-id">{c.label}</span>
+      <a href={motionGallery.route}>All templates</a>
+      <a class="agency-contact" href="/contact/">Discuss this website</a>
+      <button type="button" data-edit>Change name <span aria-hidden="true">↗</span></button>
+    </aside>
+    <header class="business-header wrap">
+      <a class="brand" href="#home" aria-label="Back to the top"
+        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
+          data-business>{c.name}</span
+        ></a
+      >
+      <nav aria-label="Cleaning company navigation">
+        <a href="#services">Our cleans</a><a href="#approach">How it works</a><a href="#visit"
+          >The details</a
+        >
+      </nav>
+      <a class="header-action" href="#quote" data-quote
+        >Get a quote <span aria-hidden="true">↗</span></a
+      >
+    </header>
+    <main id="main">
+      <section class="hero wrap" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true">✳</span> {c.hero.eyebrow}</p>
+          <p class="hero-location">
+            A fresh start for <span data-hero-area>Dundee & Tayside</span>
+          </p>
+          <h1>A clean home.<br />A little more <em>Sunday.</em></h1>
+          <p class="lead">{c.hero.description}</p>
+          <a class="button coral" href="#quote" data-quote
+            >{c.hero.action}<span aria-hidden="true">↗</span></a
+          >
+          <p class="small-note">{c.hero.note}</p>
+        </div>
+        <div class="hero-art" data-sparkle-picture>
+          <PictureSparkles />
+          <span class="art-label">LESS TO DO. MORE ROOM FOR YOU.</span>
+          <CleaningArtwork />
+          <div class="art-stamp">
+            <span aria-hidden="true">✳</span><span>A little<br />fresh air.</span>
+          </div>
+          <p class="art-caption">A little Sunday, any day of the week.</p>
+        </div>
+      </section>
+      <div class="promise-band" aria-label="Example services">
+        <span>Homes & small offices</span><span aria-hidden="true">✳</span><span
+          >Regular or one-off</span
+        ><span aria-hidden="true">✳</span><span>Your space. Your checklist.</span>
+      </div>
+      <section class="section services wrap" id="services" aria-labelledby="services-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">01 / A CLEAN FOR YOUR KIND OF DAY</p><h2 id="services-title">
+              A little help.<br /><em>A lovely difference.</em>
+            </h2>
+          </div><p>
+            Life gets busy. Choose the kind of reset your space needs. These are sample services and
+            prices, ready to become your own.
+          </p>
+        </header>
+        <div class="service-grid">
+          {
+            c.services.map((s, i) => (
+              <a class="service-card" href="#quote" data-service={s.id}>
+                <>
+                  <div class="card-top">
+                    <>
+                      <span class="service-icon" aria-hidden="true">
+                        {s.icon}
+                      </span>
+                      <span class="count">0{i + 1}</span>
+                    </>
+                  </div>
+                  <p class="eyebrow">{s.type}</p>
+                  <h3>{s.name}</h3>
+                  <p>{s.description}</p>
+                  <div class="price">
+                    <>
+                      <strong>{s.price}</strong>
+                      <span class="arrow" aria-hidden="true">
+                        ↗
+                      </span>
+                    </>
+                  </div>
+                  <span class="small-note">{s.detail}</span>
+                </>
+              </a>
+            ))
+          }
+        </div>
+        <p class="small-note service-note">
+          Illustrative prices only. A real quote would confirm the property, checklist, access and
+          any extras.
+        </p>
+      </section>
+      <section class="approach section" id="approach" aria-labelledby="approach-title">
+        <div class="wrap">
+          <header class="section-heading">
+            <div>
+              <p class="eyebrow">02 / FROM TO-DO TO TA-DA</p><h2 id="approach-title">
+                A fresh start,<br /><em>one detail at a time.</em>
+              </h2>
+            </div><p>
+              Scroll for a little transformation.<br />Then imagine getting your time back.
+            </p>
+          </header>
+          <div class="process-layout">
+            <div class="motion-stage">
+              <div class="motion-label">
+                <span>THE LITTLE RESET</span><span aria-hidden="true">↓</span>
+              </div><CleaningArtwork kind="kitchen" motion /><div
+                class="motion-progress"
+                aria-hidden="true"
+              >
+                <span></span>
+              </div><p class="small-note">
+                An original illustration. No cleaning result is claimed.
+              </p>
+            </div><ol class="process-steps">
+              {
+                c.process.map(([heading, text], i) => (
+                  <li>
+                    <>
+                      <span class="step-number">0{i + 1}</span>
+                      <div>
+                        <>
+                          <h3>{heading}</h3>
+                          <p>{text}</p>
+                        </>
+                      </div>
+                    </>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap" id="work" aria-labelledby="work-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">03 / THE EVERYDAY, REFRESHED</p><h2 id="work-title">
+              Spaces to feel<br /><em>at home in.</em>
+            </h2>
+          </div><p>
+            Your own photos go here. These original illustrations show how a gallery of your
+            cleaning work could look.
+          </p>
+        </header>
+        <div class="work-grid">
+          {
+            c.work.map(([kind, heading, text]) => (
+              <figure>
+                <>
+                  <div class="work-art" data-sparkle-picture>
+                    <PictureSparkles />
+                    <CleaningArtwork kind={kind} />
+                  </div>
+                  <figcaption>
+                    <>
+                      <span class="eyebrow">ILLUSTRATED EXAMPLE</span>
+                      <h3>{heading}</h3>
+                      <p>{text}</p>
+                    </>
+                  </figcaption>
+                </>
+              </figure>
+            ))
+          }
+        </div>
+        <div class="reviews">
+          <span class="review-symbol" aria-hidden="true">“</span><div>
+            <p class="eyebrow">ROOM FOR YOUR REPUTATION</p><h3>
+              Your Google reviews appear here
+            </h3><p>
+              A place for genuine customer feedback, once you have it. No sample ratings or invented
+              reviews.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="visit section" id="visit" aria-labelledby="visit-title">
+        <div class="wrap">
+          <header class="section-heading">
+            <div>
+              <p class="eyebrow">04 / HELLO, NEIGHBOUR</p><h2 id="visit-title">
+                Local help.<br /><em>Lovely and simple.</em>
+              </h2>
+            </div><p>
+              <span data-business>{c.name}</span> · <span data-area>Dundee & Tayside</span><br />An
+              example service area. Your actual coverage would be confirmed before booking.
+            </p>
+          </header>
+          <div class="details-grid">
+            <div class="contact-card" id="quote">
+              <p class="eyebrow">LET’S TALK ABOUT YOUR SPACE</p><h3>
+                Shall we take a little<br />off your list?
+              </h3><p>Try a quote journey. No visit is booked and nothing is sent.</p><a
+                class="button coral"
+                data-quote
+                href="#quote">Try a cleaning quote <span aria-hidden="true">↗</span></a
+              ><div class="contact-actions">
+                <button type="button" data-contact="call"
+                  >Call <span data-phone>Your number here</span></button
+                ><button type="button" data-contact="message"
+                  >WhatsApp <span data-phone>Your number here</span></button
+                >
+              </div><p class="small-note">
+                Contact buttons preview your finished website’s actions.
+              </p>
+            </div>
+            <div class="hours">
+              <h3>When we’re around</h3><p class="small-note">Example opening hours</p><dl>
+                {
+                  c.hours.map(([day, hours]) => (
+                    <div>
+                      <>
+                        <dt>{day}</dt>
+                        <dd>{hours}</dd>
+                      </>
+                    </div>
+                  ))
+                }
+              </dl><p>
+                Already use an online booking or quoting tool? We can discuss linking it to your
+                website.
+              </p>
+            </div>
+            <div class="map-card">
+              <div class="map-drawing" data-sparkle-picture aria-hidden="true">
+                <PictureSparkles />
+                <span class="map-road road-one"></span><span class="map-road road-two"></span><span
+                  class="map-road road-three"></span><span class="map-pin">⌂</span>
+              </div><div class="map-copy">
+                <p class="eyebrow">YOUR PATCH OF THE MAP</p><h3 data-area>Dundee & Tayside</h3><p
+                  class="small-note"
+                >
+                  Your address here · map placeholder
+                </p><button class="text-button" type="button" data-contact="directions"
+                  >Directions <span aria-hidden="true">↗</span></button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap questions" aria-labelledby="questions-title">
+        <div>
+          <p class="eyebrow">THE LITTLE DETAILS</p><h2 id="questions-title">Good to know.</h2>
+        </div><div>
+          {
+            c.questions.map(([question, answer]) => (
+              <details>
+                <>
+                  <summary>
+                    {question}
+                    <span aria-hidden="true">＋</span>
+                  </summary>
+                  <p>{answer}</p>
+                </>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+      <section class="agency-offer" aria-labelledby="offer-title">
+        <div class="wrap offer-inner">
+          <span class="offer-flower" aria-hidden="true">✳</span><div>
+            <p class="eyebrow">FRESH START / CLEANING-04 · BY FINTAXTECH</p><h2 id="offer-title">
+              Picture your business here?<br /><em>We’ll make it yours.</em>
+            </h2><p>A website for <span data-business>{c.name}</span>, shaped around your work.</p>
+          </div><a class="button" href="/contact/" data-agency-link
+            >Talk to FinTaxTech <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <noscript
+        ><p class="wrap">
+          This is a demonstration website. Enable JavaScript to personalise the name or try the
+          quote flow. <a href="/contact/">Contact FinTaxTech about your website.</a>
+        </p></noscript
+      >
+    </main>
+    <footer class="wrap site-footer">
+      <a class="brand" href="#home"
+        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
+          data-business>{c.name}</span
+        ></a
+      ><p>
+        A fictional business demonstration by FinTaxTech.<br />No quotes, calls, messages or
+        bookings are submitted.
+      </p><a href={motionGallery.route}>Browse motion templates <span aria-hidden="true">↗</span></a
+      >
+    </footer>
+    <div class="mobile-contact" aria-label="Example contact actions">
+      <button type="button" data-contact="call">Call <span aria-hidden="true">↗</span></button><a
+        href="#quote"
+        data-quote>Get a quote <span aria-hidden="true">↗</span></a
+      >
+    </div>
+    <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
+      <button class="close" data-close type="button" aria-label="Close business name dialog"
+        >×</button
+      ><p class="eyebrow">YOUR BUSINESS, ALREADY AT HOME</p><h2 id="name-title">
+        {c.nameDialog.title}
+      </h2><p id="name-description">{c.nameDialog.description}</p><form id="name-form">
+        <label for="business-name">Business name</label><input
+          id="business-name"
+          name="business"
+          maxlength="100"
+          placeholder="Tayside Home Cleaning"
+          autocomplete="off"
+          aria-describedby="name-hint"
+        /><p id="name-hint" class="small-note">
+          Up to 100 characters. Kept only in this page and its URL.
+        </p><button class="button coral" type="submit"
+          >Preview my website <span aria-hidden="true">↗</span></button
+        >
+      </form><button id="restore-name" class="text-button" type="button"
+        >Explore the sample / restore default</button
+      >
+    </dialog>
+    <dialog id="quote-dialog" aria-labelledby="quote-title" aria-describedby="quote-intro">
+      <button class="close" data-close type="button" aria-label="Close quote demo">×</button><p
+        class="eyebrow"
+      >
+        EXAMPLE QUOTE · NOTHING IS SENT
+      </p><h2 id="quote-title">A little less on your list.</h2><p id="quote-intro">
+        Try a cleaning quote for <span data-business>{c.name}</span>.
+      </p><ol class="quote-progress" aria-label="Quote steps">
+        <li data-step-indicator>1. Your clean</li><li data-step-indicator>2. Your space</li><li
+          data-step-indicator
+        >
+          3. Preview
+        </li>
+      </ol>
+      <form id="service-form">
+        <h3 tabindex="-1">01 / Choose your clean</h3><label for="quote-service"
+          >Cleaning service</label
+        ><select id="quote-service"
+          >{c.services.map((s) => <option value={s.id}>{s.name}</option>)}</select
+        ><button class="button coral" type="submit"
+          >Next: your space <span aria-hidden="true">→</span></button
+        >
+      </form>
+      <form id="space-form" hidden>
+        <h3 tabindex="-1">02 / A little about the space</h3><p>
+          Example choices only. No address or contact details needed.
+        </p><label for="quote-size">Space size</label><select id="quote-size"
+          ><option>1–2 rooms</option><option>3–4 rooms</option><option>5+ rooms</option><option
+            >Small office</option
+          ></select
+        ><label for="quote-frequency">How often?</label><select id="quote-frequency"
+          ><option>One-off</option><option>Weekly</option><option>Fortnightly</option></select
+        ><button class="button coral" type="submit"
+          >See quote preview <span aria-hidden="true">→</span></button
+        ><button class="text-button" type="button" data-restart>Back to services</button>
+      </form>
+      <div id="quote-final" hidden>
+        <h3 tabindex="-1">03 / A fresh start, pictured.</h3><p
+          id="quote-summary"
+          class="quote-summary"
+        >
+        </p><p>
+          This is where customers would request a quote on your finished website. <strong
+            >Demo only, nothing is sent.</strong
+          >
+        </p><p>
+          No quote, cleaning visit, payment or message is submitted. A real business would confirm
+          price and availability.
+        </p><button class="text-button" type="button" data-restart>Try another clean</button><a
+          class="button"
+          href="/contact/"
+          data-agency-link>Discuss your website with FinTaxTech <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </dialog>
+    <dialog id="contact-dialog" aria-labelledby="contact-title">
+      <button class="close" data-close type="button" aria-label="Close contact preview">×</button><p
+        class="eyebrow"
+      >
+        EXAMPLE CONTACT ACTION
+      </p><h2 id="contact-title">Contact preview</h2><p data-business>{c.name}</p><p
+        id="contact-explanation"
+      >
+      </p><p class="contact-preview-value"></p><a class="button" href="/contact/" data-agency-link
+        >Discuss your website with FinTaxTech <span aria-hidden="true">↗</span></a
+      >
+    </dialog>
+    <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+    <script
+      is:inline
+      type="application/json"
+      id="template-copy"
+      set:html={JSON.stringify(c).replace(/</g, '\\u003c')}
+    />
+    <script is:inline src="/templates/website/motion/cleaning-04/app.js"></script>
+    <script is:inline src="/templates/website/motion/cleaning-04/motion.js" defer></script>
+  </body>
+</html>
