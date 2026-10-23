@@ -8,7 +8,9 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
   page.on('dialog', (d) => d.accept());
   await page.route('https://hooks.slack.com/**', (r) => r.fulfill({ status: 200, body: 'ok' }));
-  await page.route('https://api.web3forms.com/**', (r) => r.fulfill({ status: 200, body: '{"success":true}' }));
+  await page.route('https://api.web3forms.com/**', (r) =>
+    r.fulfill({ status: 200, body: '{"success":true}' }),
+  );
 });
 test('canonical service, shared labels, schema and sitemap exclude the old indexable route', async ({
   page,
@@ -101,7 +103,7 @@ async function completePublic(page: Page) {
   }
   await page.getByRole('button', { name: 'Review answers', exact: true }).click();
 }
-for (const stage of ['1', '2'])
+for (const stage of ['2'])
   test(`public stage ${stage} switches from content to workflow and produces a local automation PDF`, async ({
     page,
   }, info) => {
@@ -112,9 +114,7 @@ for (const stage of ['1', '2'])
     await page.getByRole('button', { name: 'Begin', exact: true }).click();
     await page.getByLabel(contentAutomation, { exact: true }).click();
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
-    await expect(page.locator('#questionnaire h1')).toHaveText(
-      stage === '1' ? 'What type of content is involved?' : 'What is the primary output?',
-    );
+    await expect(page.locator('#questionnaire h1')).toHaveText('What is the primary output?');
     await page.locator('#questionnaire input[type=radio]').first().click();
     await page.getByRole('button', { name: 'Back', exact: true }).click();
     await page.getByLabel('AI assistant or knowledge helper', { exact: true }).focus();
@@ -123,9 +123,7 @@ for (const stage of ['1', '2'])
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
     await expect(page.getByRole('alert')).not.toBeEmpty();
     await completePublic(page);
-    await expect(page.locator('#questionnaire')).not.toContainText(
-      stage === '1' ? 'What type of content is involved?' : 'What is the primary output?',
-    );
+    await expect(page.locator('#questionnaire')).not.toContainText('What is the primary output?');
     await expect(page.locator('#questionnaire')).toContainText(c.knowledgeLabel);
     await page.getByRole('button', { name: 'Create PDF', exact: true }).click();
     const downloading = page.waitForEvent('download');

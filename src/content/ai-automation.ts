@@ -38,7 +38,7 @@ export const automationCopy = {
 };
 export const contentAutomation = automationCopy.projectOptions[0];
 export const workflowAutomations = automationCopy.projectOptions.slice(1);
-// Shared question wording and choices for the public enquiry and post-payment brief.
+// Shared detailed question wording and choices for Stage 2 and the post-payment brief.
 type WorkflowField = Omit<BriefField, 'type'> & { type: 'single' | 'multi' | 'text' | 'long' };
 export const automationWorkflowFields: WorkflowField[] = [
   {
@@ -138,7 +138,7 @@ export const automationWorkflowFields: WorkflowField[] = [
 ];
 export function automationEnquiryQuestions(stage: '1' | '2', content: Question[]): Question[] {
   const kind = `ai-automation-${stage}-kind`;
-  return [
+  const projectQuestions: Question[] = [
     {
       id: kind,
       label: automationCopy.projectLabel,
@@ -155,6 +155,10 @@ export function automationEnquiryQuestions(stage: '1' | '2', content: Question[]
       stage: Number(stage),
       when: { id: kind, includes: 'Other' },
     },
+  ];
+  if (stage === '1') return [...projectQuestions, ...content];
+  return [
+    ...projectQuestions,
     ...content.slice(0, -1).map((q) => ({ ...q, when: { id: kind, includes: contentAutomation } })),
     ...automationWorkflowFields.map((f): Question => ({
       id: `ai-automation-${stage}-${f.id}`,

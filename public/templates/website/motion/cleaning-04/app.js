@@ -97,6 +97,24 @@
     document.querySelector('#quote-final'),
   ];
   const service = document.querySelector('#quote-service');
+  const frequency = document.querySelector('#quote-frequency');
+  const defaultFrequency = {
+    regular: 'Weekly',
+    deep: 'One-off',
+    moving: 'One-off',
+    office: 'Weekly',
+  };
+  function syncFrequency(reset = false) {
+    const regular = service.value === 'regular';
+    // A regular reset is recurring: never offer or summarise it as a one-off.
+    [...frequency.options].find((option) => option.value === 'One-off').disabled = regular;
+    if (reset || (regular && frequency.value === 'One-off')) {
+      frequency.value = defaultFrequency[service.value] || 'One-off';
+    }
+  }
+  service.addEventListener('change', () => syncFrequency(true));
+  frequency.addEventListener('change', () => syncFrequency());
+  syncFrequency(true);
   function step(index) {
     forms.forEach((form, i) => {
       form.hidden = i !== index;
@@ -113,20 +131,23 @@
       forms[1].reset();
       document.querySelector('#quote-summary').textContent = '';
       service.value = link.dataset.service || c.services[0].id;
+      syncFrequency(true);
       open(quoteDialog, link);
       step(0);
     }),
   );
   forms[0].addEventListener('submit', (event) => {
     event.preventDefault();
+    syncFrequency();
     step(1);
   });
   forms[1].addEventListener('submit', (event) => {
     event.preventDefault();
+    syncFrequency();
     document.querySelector('#quote-summary').textContent = [
       service.selectedOptions[0].textContent,
       document.querySelector('#quote-size').value,
-      document.querySelector('#quote-frequency').value,
+      frequency.value,
     ].join(' · ');
     step(2);
   });

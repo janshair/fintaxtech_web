@@ -1413,3 +1413,40 @@ dialog #restore-name {
     transform: scaleX(1);
   }
 }
+
+/* A clearer before/after, confined to the scroll-driven kitchen illustration. */
+.cleaning-scene {
+  position: relative;
+}
+.cleaning-scene .room-art {
+  filter: saturate(calc(0.35 + var(--clean) * 0.65)) brightness(calc(0.85 + var(--clean) * 0.15));
+}
+.before-clutter {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  clip-path: inset(0 0 0 calc(var(--clean) * 100%));
+}
+.motion-stage .dust-layer {
+  opacity: 0.9;
+}
+.process-steps li.is-current .step-number {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.process-steps li.is-current h3 {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .before-clutter {
+    display: none;
+  }
+  .cleaning-scene .room-art {
+    filter: none;
+  }
+}

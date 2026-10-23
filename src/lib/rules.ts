@@ -39,8 +39,8 @@ export function includes(answers: Answers, id: string, value: string): boolean {
 export function needsBranding(journey: Journey): boolean {
   return (
     journey.service === 'websites' &&
-    (includes(journey.answers, 'websites-1-5', 'No assets') ||
-      includes(journey.answers, 'websites-2-4', 'No assets'))
+    journey.stage === '2' &&
+    includes(journey.answers, 'websites-2-4', 'No assets')
   );
 }
 export function customerSuppliesContent(journey: Journey): boolean {

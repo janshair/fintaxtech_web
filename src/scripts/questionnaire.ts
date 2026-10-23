@@ -257,7 +257,7 @@ function question() {
   }
   form.append(fieldset);
   root.append(form);
-  if (q.id === 'websites-1-5' || q.id === 'websites-2-4') paragraph(c.assetsText, 'muted');
+  if (q.id === 'websites-2-4') paragraph(c.assetsText, 'muted');
   if (
     journey.service === 'ai-automation' &&
     (q.id === 'ai-automation-1-8' || q.id === 'ai-automation-2-11')
@@ -299,11 +299,7 @@ function question() {
     }
     track('question_step_completed');
     journey.answers = pruneHiddenAnswers(journey);
-    if (
-      needsBranding(journey) &&
-      !assetDecision &&
-      (q.id === 'websites-1-5' || q.id === 'websites-2-4')
-    ) {
+    if (needsBranding(journey) && !assetDecision && q.id === 'websites-2-4') {
       assetBranch();
       return;
     }

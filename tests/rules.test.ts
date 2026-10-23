@@ -21,9 +21,9 @@ describe('approved questionnaire coverage', () => {
   it('keeps every approved stage question', () => {
     expect(Object.values(questionSets).map((s) => [s['1'].length, s['2'].length])).toEqual([
       [8, 11],
-      [9, 11],
-      [11, 10],
-      [26, 28],
+      [5, 11],
+      [8, 10],
+      [6, 28],
     ]);
   });
   it('uses unique ids and no budget or price questions', () => {
@@ -75,8 +75,8 @@ describe('conditional answers', () => {
     const j = website({ 'websites-2-2': ['Home', 'Custom page'] });
     expect(visibleQuestions(j).some((q) => q.id === 'websites-custom-page')).toBe(true);
   });
-  it('offers separate branding for missing assets in either website stage', () => {
-    expect(needsBranding({ ...website({ 'websites-1-5': 'No assets' }), stage: '1' })).toBe(true);
+  it('offers separate branding for missing assets only in website Stage 2', () => {
+    expect(needsBranding({ ...website({ 'websites-1-5': 'No assets' }), stage: '1' })).toBe(false);
     expect(needsBranding(website({ 'websites-2-4': 'No assets' }))).toBe(true);
     expect(needsBranding(website({ 'websites-2-4': 'Logo only' }))).toBe(false);
   });

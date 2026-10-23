@@ -44,7 +44,7 @@ describe('AI Automation branches and compatibility', () => {
     expect(normalizeService('AI Automation')).toBeUndefined();
     expect(normalizeService(null)).toBeUndefined();
   });
-  for (const stage of ['1', '2'] as const) {
+  for (const stage of ['2'] as const) {
     it(`preserves content questions and prunes them when changing stage ${stage} to a workflow`, () => {
       const j = journey(stage, contentAutomation);
       expect(visibleQuestions(j)[0].label).toBe(c.projectLabel);

@@ -59,7 +59,7 @@ test('required validation and no-assets separate tab preserve website answers', 
   page,
   context,
 }) => {
-  await begin(page);
+  await begin(page, 'websites', '&stage=2');
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Choose an answer');
   for (let i = 0; i < 4; i++) {
