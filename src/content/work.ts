@@ -7,6 +7,8 @@ export const publishedApps = [
     pageURL: metoni.route,
     pageLabel: metoni.exploreLabel,
     playStoreUrl: metoni.playStoreURL,
+    appStoreUrl: metoni.appStoreURL,
+    appStoreLabel: metoni.appStoreLabel,
     visitLabel: 'View Metoni on Google Play',
   },
   {

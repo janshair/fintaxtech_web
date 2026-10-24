@@ -49,17 +49,20 @@ describe('Metoni publishing', () => {
     });
     expect(breadcrumbs(metoni.supportRoute)[1].url).toBe('https://fintaxtech.co.uk/metoni/');
   });
-  it('describes the published Android app without fabricated ratings, price or iOS availability', () => {
+  it('describes the published Android and iOS app without fabricated ratings or price', () => {
     const graph = structuredData(metoni.route, metoni.seoTitle, metoni.description)['@graph'];
     const app = graph.find((node) => node['@type'] === 'MobileApplication');
     expect(app).toMatchObject({
-      operatingSystem: 'Android',
+      operatingSystem: ['Android', 'iOS'],
+      downloadUrl: [metoni.playStoreURL, metoni.appStoreURL],
       installUrl: metoni.playStoreURL,
       publisher: { '@id': 'https://fintaxtech.co.uk/#organization' },
     });
     expect(app).not.toHaveProperty('aggregateRating');
     expect(app).not.toHaveProperty('offers');
-    expect(metoni.appStoreURL).toBeUndefined();
+    expect(metoni.appStoreURL).toBe(
+      'https://apps.apple.com/gb/app/metoni-workout-tracker/id6819672803',
+    );
     expect(
       structuredData(metoni.supportRoute, 'Support', 'Help')['@graph'].some(
         (node) => node['@type'] === 'MobileApplication',

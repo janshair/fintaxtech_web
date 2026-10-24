@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import GooglePlayBadge from './GooglePlayBadge.astro';
+import AppStoreBadge from './AppStoreBadge.astro';
 import ClientFeedback from './ClientFeedback.astro';
 import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
 import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
@@ -58,6 +59,9 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
             </a>
           )}
           <GooglePlayBadge href={app.playStoreUrl} label={app.visitLabel} />
+          {'appStoreUrl' in app && (
+            <AppStoreBadge href={app.appStoreUrl} label={app.appStoreLabel} />
+          )}
         </li>
       ))
     }

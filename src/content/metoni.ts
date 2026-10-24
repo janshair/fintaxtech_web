@@ -1,4 +1,3 @@
-// Confirm the public App Store URL before enabling the iOS download action.
 export const metoni = {
   name: 'Metoni: Workout Tracker',
   route: '/metoni/',
@@ -6,10 +5,10 @@ export const metoni = {
   privacyRoute: '/metoni/privacy.html',
   termsRoute: '/metoni/terms.html',
   playStoreURL: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni',
-  appStoreURL: undefined as string | undefined,
+  appStoreURL: 'https://apps.apple.com/gb/app/metoni-workout-tracker/id6819672803',
   seoTitle: 'Metoni: Workout Tracker',
   description:
-    'Log strength-training sets, use exercise rest timers, follow workout plans and review session history with Metoni. Available on Android, with no account required.',
+    'Log strength-training sets, use exercise rest timers, follow workout plans and review session history with Metoni. Available on Android and iOS, with no account required.',
   eyebrow: 'Built and published by FinTaxTech',
   headline: 'Plan your workout. Log it. Get back to training.',
   intro:
@@ -66,7 +65,7 @@ export const metoni = {
   videoFallback: 'If the player does not load, you can watch the video directly on YouTube.',
   videoLink: 'Watch Metoni on YouTube',
   ctaTitle: 'Your next workout, ready to log',
-  ctaText: 'Explore Metoni on Google Play, or contact us if you need help.',
+  ctaText: 'Explore Metoni on Google Play or the App Store, or contact us if you need help.',
 };
 
 export const metoniSupport = {
@@ -86,7 +85,7 @@ export const metoniSupport = {
     : 'Metoni is available on Android through Google Play. The iPhone and iPad App Store release is pending and is not yet available. Check Google Play for compatibility with your device.',
   troubleshootingTitle: 'Try these steps first',
   troubleshooting: [
-    'Check Google Play for an available Metoni update.',
+    'Check Google Play or the App Store for an available Metoni update.',
     'Close and reopen Metoni. If the issue continues, restart your device.',
     'Note what you were doing and whether the problem happens again when you repeat those steps.',
     'Do not clear app storage or uninstall Metoni as a troubleshooting step: this can permanently remove locally stored workout records. Contact us first if you are unsure.',

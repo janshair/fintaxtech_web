@@ -1,7 +1,8 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import MetoniLinks from '../../components/metoni/MetoniLinks.astro';
-import { metoni, metoniSupport as copy } from '../../content/metoni';
+import MetoniDownloads from '../../components/metoni/MetoniDownloads.astro';
+import { metoniSupport as copy } from '../../content/metoni';
 import { metoniSocial } from '../../content/metoni-media';
 import { company } from '../../content/site';
 const emailURL = `mailto:${company.email}?subject=${encodeURIComponent(copy.emailSubject)}`;
@@ -29,11 +30,8 @@ const emailURL = `mailto:${company.email}?subject=${encodeURIComponent(copy.emai
         <p>Phone: {company.phone} (contact link above)</p>
       </section>
       <section>
-        <h2>{copy.platformsTitle}</h2><p>{copy.platforms}</p><a
-          href={metoni.playStoreURL}
-          target="_blank"
-          rel="noopener noreferrer">{metoni.playLabel}</a
-        >
+        <h2>{copy.platformsTitle}</h2><p>{copy.platforms}</p>
+        <MetoniDownloads />
       </section>
       <section>
         <h2>{copy.troubleshootingTitle}</h2><ol>

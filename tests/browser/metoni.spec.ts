@@ -72,14 +72,17 @@ test('Metoni routes, store destinations and static metadata', async ({
   }
   await staticPage.goto(metoni.route);
   await expect(staticPage.getByRole('heading', { name: metoni.featuresTitle })).toBeVisible();
-  await expect(staticPage.getByRole('link', { name: metoni.appStoreLabel })).toHaveCount(0);
+  await expect(staticPage.getByRole('link', { name: metoni.appStoreLabel })).toHaveCount(2);
+  for (const badge of await staticPage.getByRole('link', { name: metoni.appStoreLabel }).all()) {
+    await expect(badge).toHaveAttribute('href', metoni.appStoreURL);
+  }
   const schema = JSON.parse(
     await staticPage.locator('script[type="application/ld+json"]').innerText(),
   );
   expect(
     schema['@graph'].find((n: Record<string, unknown>) => n['@type'] === 'MobileApplication')
       .operatingSystem,
-  ).toBe('Android');
+  ).toEqual(['Android', 'iOS']);
   const sitemap = await (await request.get('/sitemap.xml')).text();
   for (const route of [metoni.route, metoni.supportRoute])
     expect(sitemap.split(`<loc>https://fintaxtech.co.uk${route}</loc>`)).toHaveLength(2);

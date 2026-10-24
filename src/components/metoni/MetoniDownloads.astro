@@ -1,6 +1,7 @@
 ---
 import { metoni } from '../../content/metoni';
 import GooglePlayBadge from '../GooglePlayBadge.astro';
+import AppStoreBadge from '../AppStoreBadge.astro';
 interface Props {
   appStoreURL?: string;
 }
@@ -9,13 +10,7 @@ const { appStoreURL = metoni.appStoreURL } = Astro.props;
 
 <div class="actions">
   <GooglePlayBadge href={metoni.playStoreURL} label={metoni.playLabel} />
-  {
-    appStoreURL && (
-      <a class="button" href={appStoreURL} target="_blank" rel="noopener noreferrer">
-        {metoni.appStoreLabel}
-      </a>
-    )
-  }
+  {appStoreURL && <AppStoreBadge href={appStoreURL} label={metoni.appStoreLabel} />}
 </div>
 <p class="muted platform-status">
   {metoni.androidStatus}<br />{appStoreURL ? metoni.iosAvailableStatus : metoni.iosStatus}
