@@ -71,6 +71,18 @@ export function structuredData(
         logo: absoluteURL('/mark.svg'),
         email: company.email,
         telephone: company.phone,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '79 Yarrow Terrace',
+          addressLocality: 'Dundee',
+          postalCode: 'DD2 4DX',
+          addressCountry: 'GB',
+        },
+        areaServed: [
+          { '@type': 'Country', name: 'United Kingdom' },
+          { '@type': 'AdministrativeArea', name: 'Scotland' },
+          'Worldwide',
+        ],
         sameAs: [...publicProfiles.map((s) => s.url), company.registryURL],
       },
       {

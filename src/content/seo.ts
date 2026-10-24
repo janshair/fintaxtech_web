@@ -113,9 +113,9 @@ export const seoPages: Record<string, PageSEO> = {
     ]),
   ),
   '/': {
-    title: 'Branding, Websites, Mobile Apps & AI Automation',
+    title: 'Branding, Websites, Mobile Apps & AI Automation | Dundee, Scotland',
     description:
-      'FinTaxTech creates branding, websites, mobile apps and AI automations. Based in Dundee, working worldwide, with guided questions and a clear written proposal.',
+      'FinTaxTech is a Dundee, Scotland agency creating branding, websites, mobile apps and AI automations for businesses across Scotland, the UK and worldwide, with a clear written proposal.',
   },
   '/services/': {
     title: 'Branding, Websites, Mobile Apps & AI Automation | Dundee',
@@ -126,15 +126,20 @@ export const seoPages: Record<string, PageSEO> = {
     title: `${automationCopy.name} | Scotland`,
     description: automationCopy.description,
   },
+  '/services/branding/': {
+    title: 'Branding, Logo & Brand Guidelines Design | Scotland',
+    description:
+      'Branding and graphic design from Dundee, Scotland: logo and identity design, brand guidelines, colour, typography and marketing assets for businesses across the UK and worldwide.',
+  },
   '/services/websites/': {
     title: 'Website Design & Development Dundee, Scotland',
     description:
       'Website design and development based in Dundee, Scotland, for UK and worldwide clients. New business websites, redesigns and performance rebuilds.',
   },
   '/services/mobile-apps/': {
-    title: 'Mobile App Development Dundee, Scotland',
+    title: 'App Development Scotland | iOS & Android | Dundee',
     description:
-      'Mobile app development from Dundee, Scotland. New iOS and Android apps and complete rebuilds using native tools, Flutter or Kotlin Multiplatform.',
+      'Mobile app development company in Dundee, Scotland, serving businesses across Scotland and the UK, including Glasgow and Edinburgh. New iOS and Android apps and rebuilds using native tools, Flutter or Kotlin Multiplatform.',
   },
   '/about/': {
     title: 'About FinTaxTech | Web & App Agency, Dundee',
