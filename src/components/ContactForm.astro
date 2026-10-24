@@ -12,6 +12,10 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     <input id="cf-email" name="email" type="email" autocomplete="email" required />
   </div>
   <div class="form-row">
+    <label for="cf-phone">Phone number</label>
+    <input id="cf-phone" name="phone" type="tel" autocomplete="tel" />
+  </div>
+  <div class="form-row">
     <label for="cf-service">Service you are interested in</label>
     <select id="cf-service" name="service" required>
       <option value="" disabled selected>Choose a service…</option>
@@ -32,10 +36,10 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
   </div>
   <div id="cf-error" class="error" role="alert" aria-live="polite"></div>
   <button type="submit" class="button" id="cf-submit">Send message</button>
-  <div id="cf-success" class="cf-success" hidden>
-    <p><strong>Message sent.</strong> We will reply within one business day.</p>
-  </div>
 </form>
+<div id="cf-success" class="cf-success" role="status" tabindex="-1" hidden>
+  <p><strong>Your message has been delivered.</strong> One of our team members will get in touch within 24 business hours.</p>
+</div>
 
 <script define:vars={{ web3formsKey }}>
   const form = document.getElementById('contact-form');
@@ -49,7 +53,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 
     const data = Object.fromEntries(new FormData(form));
     if (!data.name || !data.email || !data.service || !data.message) {
-      errorBox.textContent = 'Please fill in all fields before sending.';
+      errorBox.textContent = 'Please fill in all required fields before sending.';
       return;
     }
     if (!web3formsKey) {
@@ -72,6 +76,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     } else {
       form.hidden = true;
       successBox.hidden = false;
+      successBox.focus();
     }
   });
 
@@ -86,7 +91,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
         ...data,
       }),
     });
-    if (!res.ok) throw new Error('Web3Forms error');
+    const result = await res.json();
+    if (!res.ok || !result.success) throw new Error('Web3Forms error');
   }
 </script>
 
@@ -97,6 +103,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     gap: var(--space-5);
     max-width: var(--reading);
     margin-top: var(--space-6);
+    padding-bottom: var(--space-8);
   }
   .form-row {
     display: flex;
@@ -118,6 +125,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     cursor: pointer;
   }
   .cf-success {
+    max-width: var(--reading);
+    margin-block: var(--space-6) var(--space-8);
     padding: var(--space-5);
     border: 1px solid var(--success);
     border-radius: var(--radius);
