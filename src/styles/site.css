@@ -612,6 +612,57 @@ legend {
   outline: var(--focus);
   outline-offset: var(--focus-offset-small);
 }
+.choices-illustrated {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: var(--space-5) var(--space-3);
+}
+.choices-followup {
+  margin-top: var(--space-5);
+}
+.quiz form:has(.choices-illustrated) + .notice {
+  margin-top: var(--space-5);
+}
+.choice-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.choice-illustrated {
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0 0 var(--space-4);
+  gap: var(--space-3);
+}
+.choice-illustrated img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 5;
+  object-fit: contain;
+  background: #fff;
+  border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+}
+.choice-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-inline: var(--space-4);
+  font-weight: var(--weight-strong);
+}
+.choice-description {
+  padding-inline: var(--space-4);
+  font-size: var(--small);
+  font-weight: 400;
+}
+.choice-credit {
+  font-size: var(--small);
+  padding: var(--space-2);
+}
+.quiz-contact:not(:empty) {
+  margin-top: var(--space-5);
+}
 .field {
   display: grid;
   gap: var(--space-2);

@@ -195,6 +195,12 @@ If the last item is a website and you're being quoted for an application, ask wh
 
 ---
 
+## Related reading
+
+- [What Delays a Website Launch? Client Decisions](/blog/what-slows-a-website-build-down/)
+- [Who Owns Your Business Website After Launch? UK Guide](/blog/who-owns-your-business-website/)
+- [Booking System or Contact Form for Your Website?](/blog/do-you-need-a-booking-system-or-a-contact-form/)
+
 ## Tell us what your users need to do
 
 FinTaxTech creates [new websites and web applications](/services/websites/), as well as complete redesigns, for clients worldwide. We do not take on isolated repairs to poor-quality legacy code.

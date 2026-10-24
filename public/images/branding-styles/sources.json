@@ -1,0 +1,56 @@
+{
+  "note": "Existing reference artwork, resized to 640px wide and WebP encoded without cropping or redrawing. No generated images. Card source pages and credits are defined in src/content/branding-design.ts. Artwork remains copyright of its respective owners.",
+  "originalImages": {
+    "skeuomorphism": "https://hype4-academy-storyblok-copy.s3.amazonaws.com/storyblok-assets/1748953351358-skeuomorphism-in-ios13.jpg",
+    "neomorphism": "https://hype4-academy-storyblok-copy.s3.amazonaws.com/storyblok-assets/1748953367169-samsungneumorphism.jpg",
+    "glassmorphism": "https://www.apple.com/newsroom/images/product/os/macos/standard/apple_macos-bigsur_controlcenter_06222020_carousel.jpg.large.jpg",
+    "claymorphism": "https://hype4-academy-storyblok-copy.s3.amazonaws.com/storyblok-assets/1748952738378-claymorphism.jpg",
+    "maximalism": "https://noddydog.com/wp-content/uploads/2018/01/nick-responsive.jpg",
+    "brutalism": "https://cdn.prod.website-files.com/687e8d1b96312cc631cafec7/68c48d931e83816074873c9b_64029733b02d525684a28393_2YR9gMcEwZ0KFkg6Pv5AD_WTrUw64NVpOgvLhw2OBBDbv1wARsywiSrhexH_nqjhf_rrBn9kQhyAhH-S61fzHEsJvFwEoeSU7polbu-n21aY0w1G2cMwM2-DKIVhGUKm7BrzDnUPMJQkv19cHfzKgu0.jpeg",
+    "liquid-glass": "https://www.apple.com/newsroom/images/2025/06/apple-introduces-a-delightful-and-elegant-new-software-design/article/Apple-WWDC25-Liquid-Glass-hero-250609_big.jpg.large.jpg",
+    "spatial-ui": "https://www.apple.com/newsroom/images/media/introducing-apple-vision-pro/Apple-WWDC23-Vision-Pro-VisionOS-230605_big.jpg.large.jpg",
+    "flat-design": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F16%2F04%2F44%2F17%2F42d11b1e-ca42-47ac-bb74-522dc6f5e861%2FFlat-6.png?auto=format&ch=Width%2CDPR&crop=false&fm=png",
+    "geometric": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F06%2F04%2F05%2F21%2F542a6232-6a25-452f-a5c9-9c0206c2d1dd%2FGeometric-2.png?auto=format&ch=Width%2CDPR&crop=false&fm=png",
+    "retro-vintage": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F30%2F00%2F35%2F57%2F78691155-edc7-4291-b6df-0ae70aa235a3%2FVintage-9.jpeg?auto=format&ch=Width%2CDPR&crop=false&fm=pjpg",
+    "hand-drawn-organic": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F06%2F04%2F01%2F48%2Fb5799942-eb96-4ff0-869d-cc0148083ed5%2FOrganic-2.png?auto=format&ch=Width%2CDPR&crop=false&fm=png",
+    "typographic": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F06%2F04%2F16%2F46%2F0bae2c80-a9db-4807-aac6-0a9a7e683bc6%2FTypographic-1.png?auto=format&ch=Width%2CDPR&crop=false&fm=png",
+    "illustrative-mascot": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F02%2F00%2F03%2F02%2F9a87d3aa-c084-4bb9-a8c1-099517a2b33f%2FIllustration-1.png?auto=format&ch=Width%2CDPR&crop=false&fm=png",
+    "luxury-elegant": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F06%2F04%2F22%2F45%2Fb870a2cb-cc6d-4656-b9e0-f3735d965bbb%2FLuxurious-1.png?auto=format&ch=Width%2CDPR&crop=false&fm=png",
+    "abstract": "https://99designs-start-attachments.imgix.net/alchemy-pictures/2017%2F03%2F06%2F04%2F13%2F54%2F3a06c1aa-f570-4691-a3d6-0afe23bd403f%2FAbstract-1.png?auto=format&ch=Width%2CDPR&crop=false&fm=png"
+  },
+  "minimalism": "Existing /ftt_logo.png repository asset",
+  "additionalCredits": {
+    "abstract": {
+      "artist": "Kelly Norman",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    },
+    "flat-design": {
+      "artist": "thisisremedy",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    },
+    "geometric": {
+      "artist": "shaka88",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    },
+    "illustrative-mascot": {
+      "artist": "BATHI",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    },
+    "luxury-elegant": {
+      "artist": "Yokaona",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    },
+    "hand-drawn-organic": {
+      "artist": "Martis Lupus",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    },
+    "typographic": {
+      "artist": "gingko",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    },
+    "retro-vintage": {
+      "artist": "ultrastjarna",
+      "source": "https://99designs.co.uk/designer-resource-center/visual-design-styles"
+    }
+  }
+}

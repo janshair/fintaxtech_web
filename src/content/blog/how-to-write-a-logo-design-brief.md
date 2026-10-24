@@ -185,6 +185,11 @@ The distinction to hold onto: constraints from reality are useful, and constrain
 
 You won't have perfect answers to all of these, and you don't need them. A brief with honest gaps is far more useful than one padded with guesses — a designer can ask about a gap, but they'll design around a wrong answer.
 
+## Related reading
+
+- [Logo File Formats Explained: SVG, PNG, PDF, EPS and More](/blog/logo-file-formats-explained/)
+- [How to Organise Your Brand Files and Assets](/blog/organising-your-brand-files-and-assets/)
+
 ## Send us your brief
 
 If you're preparing to commission a logo or a full identity, tell us what your business does, where the mark needs to work, and who it needs to convince. We'll tell you what we'd need to get started — and whether a logo alone is enough for where you are.

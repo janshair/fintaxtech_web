@@ -1,3 +1,4 @@
+import { contactField } from './enquiry-contact';
 import type { Answers, Journey, Question, SummaryRow } from './types';
 import { questionSets } from '../content/questions';
 import { promoQuestions, redesignGate, customPage, avoidDetail } from '../content/questionnaire';
@@ -46,16 +47,30 @@ export function needsBranding(journey: Journey): boolean {
 export function customerSuppliesContent(journey: Journey): boolean {
   return includes(journey.answers, 'websites-2-3', 'Customer provides all approved content');
 }
+export function questionSummary(question: Question, answers: Answers): SummaryRow[] {
+  const answer = answers[question.id];
+  if (!answer?.length) return [];
+  const rows = [
+    { label: question.label, value: Array.isArray(answer) ? answer.join(', ') : answer },
+  ];
+  const field = contactField(question, answers);
+  const detail = field ? answers[field.id] : undefined;
+  if (field && typeof detail === 'string' && detail.trim())
+    rows.push({ label: field.label, value: detail.trim() });
+  return rows;
+}
 export function visibleSummary(journey: Journey): SummaryRow[] {
-  return visibleQuestions(journey).flatMap((q) => {
-    const answer = journey.answers[q.id];
-    return answer && answer.length
-      ? [{ label: q.label, value: Array.isArray(answer) ? answer.join(', ') : answer }]
-      : [];
-  });
+  return visibleQuestions(journey).flatMap((question) =>
+    questionSummary(question, journey.answers),
+  );
 }
 export function pruneHiddenAnswers(journey: Journey): Answers {
-  const ids = new Set(visibleQuestions(journey).map((q) => q.id));
+  const ids = new Set(
+    visibleQuestions(journey).flatMap((question) => {
+      const field = contactField(question, journey.answers);
+      return field ? [question.id, field.id] : [question.id];
+    }),
+  );
   return Object.fromEntries(Object.entries(journey.answers).filter(([id]) => ids.has(id)));
 }
 export function routeService(index: number) {

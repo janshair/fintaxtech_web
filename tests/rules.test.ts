@@ -20,7 +20,7 @@ const website = (answers = {}): Journey => ({
 describe('approved questionnaire coverage', () => {
   it('keeps every approved stage question', () => {
     expect(Object.values(questionSets).map((s) => [s['1'].length, s['2'].length])).toEqual([
-      [8, 11],
+      [5, 11],
       [5, 11],
       [8, 10],
       [6, 28],

@@ -69,6 +69,7 @@ test('website Stage 1 has five questions, two goals and preserved answers when m
   await progress(page, 4, 5);
   await expect(root(page).getByRole('heading')).toHaveText('How should we contact you?');
   await page.getByLabel('Email', { exact: true }).check();
+  await page.getByLabel('Email address', { exact: true }).fill('client@example.com');
   await next(page);
   await progress(page, 5, 5);
   await next(page); // Additional information stays optional.
@@ -113,6 +114,7 @@ test('mobile Stage 1 only asks for Other feature details when selected and prese
   await next(page);
   await progress(page, 7, 8);
   await page.getByLabel('WhatsApp', { exact: true }).check();
+  await page.getByLabel('WhatsApp number', { exact: true }).fill('+44 7700 900123');
   await next(page);
   await progress(page, 8, 8);
   await next(page);
@@ -157,6 +159,7 @@ test('mobile Not sure hides and removes custom-feature answers from review and P
   await progress(page, 5, 6);
   await expect(root(page).getByRole('heading')).toHaveText('How should we contact you?');
   await page.getByLabel('Email', { exact: true }).check();
+  await page.getByLabel('Email address', { exact: true }).fill('client@example.com');
   await next(page);
   await next(page);
   await review(page);
@@ -205,6 +208,7 @@ test('AI Stage 1 keeps five topics and two outcomes across kinds, with the exist
   await page.getByLabel('Not sure', { exact: true }).check();
   await next(page);
   await page.getByLabel('Email', { exact: true }).check();
+  await page.getByLabel('Email address', { exact: true }).fill('client@example.com');
   await next(page);
   await page.getByRole('textbox').fill('Make handovers easier');
   await next(page);

@@ -151,6 +151,12 @@ Only then do we recommend an approach, in writing, with the trade-offs stated pl
 
 ---
 
+## Related reading
+
+- [Push Notifications Without Annoying Customers](/blog/push-notifications-without-annoying-people/)
+- [Why Do Mobile App Quotes Vary So Much? UK Pricing Explained](/blog/why-mobile-app-quotes-vary/)
+- [App Store and Google Play Submission Checklist for UK Businesses](/blog/app-store-and-google-play-submission-checklist/)
+
 ## Plan your mobile app with FinTaxTech
 
 The right technology should follow the product requirements rather than personal preference. If you are planning [a new Android or iOS app, or a complete rebuild](/services/mobile-apps/), FinTaxTech can help you define those requirements before recommending an approach.

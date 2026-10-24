@@ -244,6 +244,11 @@ Copy this and fill it in before you brief anyone.
 
 ---
 
+## Related reading
+
+- [Mobile App UX Basics for UK Business Owners](/blog/mobile-app-ux-basics/)
+- [MVP vs Full Mobile App: What Should UK Businesses Build First?](/blog/mvp-vs-full-mobile-app/)
+
 ## Send us your answers
 
 FinTaxTech designs and develops [new mobile products and complete app redesigns](/services/mobile-apps/) for clients worldwide. We do not take on isolated repairs to poor-quality legacy code.

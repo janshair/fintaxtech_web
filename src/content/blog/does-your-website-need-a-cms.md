@@ -214,6 +214,11 @@ If the answers point to controlled, occasional changes handled through an agreed
 
 ---
 
+## Related reading
+
+- [New Business Website Checklist | Web Designer Scotland](/blog/new-business-website-launch-checklist/)
+- [How to Plan Website Pages and Navigation](/blog/plan-your-website-pages-and-navigation/)
+
 ## Tell us who updates your content
 
 FinTaxTech creates new websites and complete redesigns for clients worldwide. We do not take on isolated repairs to poor-quality legacy code.

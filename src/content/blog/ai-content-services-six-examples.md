@@ -130,6 +130,11 @@ A note on suitability: not every document is appropriate. You need permission to
 
 If most of those have answers, there's probably something useful to be made from what you already have.
 
+## Related reading
+
+- [AI Document Extraction Explained for Businesses](/blog/ai-document-extraction-explained/)
+- [Keeping Brand Voice Consistent in AI Content](/blog/brand-voice-with-ai-assisted-content/)
+
 ## Tell us what you've got
 
 Describe your source material and what you'd like at the end of it. We'll tell you honestly whether there's enough there to work from, and what we'd need from you along the way.

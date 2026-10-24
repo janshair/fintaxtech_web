@@ -8,7 +8,8 @@ import {
   pruneHiddenAnswers,
   needsBranding,
 } from '../src/lib/rules';
-import { validateAnswer } from '../src/lib/validation';
+import { contactField } from '../src/lib/enquiry-contact';
+import { validateAnswer, validateQuestion } from '../src/lib/validation';
 import type { Journey, ServiceId } from '../src/lib/types';
 
 const pdfTrace = vi.hoisted(() => ({ text: undefined as ReturnType<typeof vi.spyOn> | undefined }));
@@ -188,7 +189,7 @@ it('drops removed Stage 1 IDs from summaries and state without triggering the re
   }
 });
 
-it.each(['websites', 'mobile-apps', 'ai-automation'] as const)(
+it.each(['branding', 'websites', 'mobile-apps', 'ai-automation'] as const)(
   'generates a real %s PDF with every visible answer, including custom features, using the shared summary',
   async (service) => {
     const state = journey(
@@ -205,7 +206,12 @@ it.each(['websites', 'mobile-apps', 'ai-automation'] as const)(
               'ai-automation-1-kind-other': 'Document sorting',
               'ai-automation-1-3': ['Save staff time', 'Other'],
             }
-          : {},
+          : service === 'branding'
+            ? {
+                'branding-1-design': 'Other — share a reference later',
+                'branding-1-1': 'STALE PROJECT TYPE',
+              }
+            : {},
     );
     for (const question of visibleQuestions(state)) {
       state.answers[question.id] ??=
@@ -214,7 +220,13 @@ it.each(['websites', 'mobile-apps', 'ai-automation'] as const)(
           : question.type === 'multi'
             ? [question.options![0]]
             : question.options![0];
-      expect(validateAnswer(question, state.answers[question.id])).toBeNull();
+      if (question.type === 'contact' && service === 'branding')
+        state.answers[question.id] = 'WhatsApp';
+      const contact = contactField(question, state.answers);
+      if (contact)
+        state.answers[contact.id] =
+          contact.type === 'email' ? 'client@example.com' : '+44 7700 900123';
+      expect(validateQuestion(question, state.answers)).toBeNull();
     }
     vi.stubGlobal('fetch', async (path: string) => new Response(await readFile(`public${path}`)));
     const { createPDF } = await import('../src/lib/pdf');
@@ -230,6 +242,11 @@ it.each(['websites', 'mobile-apps', 'ai-automation'] as const)(
     for (const row of visibleSummary(state)) {
       expect(printed).toContain(row.label);
       expect(printed).toContain(row.value);
+    }
+    if (service === 'branding') {
+      expect(printed).toContain('Choose desired design\nOther — share a reference later');
+      expect(printed).not.toContain('STALE PROJECT TYPE');
+      expect(printed).not.toContain('What do you need?');
     }
     if (service === 'mobile-apps') {
       expect(printed).toContain('Feature name\nVisit planner');

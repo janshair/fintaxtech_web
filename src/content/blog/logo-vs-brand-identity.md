@@ -129,6 +129,11 @@ Before agreeing to a quote, check exactly which editable files and rights you wi
 
 ---
 
+## Related reading
+
+- [How to Organise Your Brand Files and Assets](/blog/organising-your-brand-files-and-assets/)
+- [Rebrand or Refresh? What Your Brand Needs](/blog/rebrand-or-refresh-your-business-brand/)
+
 ## Tell us about your project
 
 If you're starting a new business or rebranding an existing one, the useful conversation isn't about what the logo should look like. It's about where it has to work, who it has to convince, and how much of an identity you actually need right now.

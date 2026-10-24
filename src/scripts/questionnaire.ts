@@ -1,3 +1,4 @@
+import { contactField } from '../lib/enquiry-contact';
 import { normalizeService } from '../lib/journey-url';
 import { automationCopy } from '../content/ai-automation';
 import { quizCopy as c } from '../content/questionnaire';
@@ -6,13 +7,14 @@ import { promoStatus } from '../content/promo';
 import { consumePromoIntent } from '../lib/storage';
 import {
   visibleQuestions,
+  questionSummary,
   pruneHiddenAnswers,
   needsBranding,
   customerSuppliesContent,
   promoAllowed,
   routeService,
 } from '../lib/rules';
-import { validateAnswer, validEmail, validCompanyNumber, exclusive } from '../lib/validation';
+import { validateQuestion, validEmail, validCompanyNumber, exclusive } from '../lib/validation';
 import { emailHref, whatsappHref, download, canShare, share } from '../lib/sharing';
 import { track } from '../lib/analytics';
 import type { Journey, ServiceId, SummaryRow } from '../lib/types';
@@ -204,6 +206,34 @@ function question() {
   helper.id = 'question-help';
   fieldset.append(helper);
   fieldset.setAttribute('aria-describedby', 'question-help question-error');
+  const contact = el('div', undefined, 'quiz-contact');
+  const renderContact = () => {
+    contact.replaceChildren();
+    const field = contactField(q, journey.answers);
+    if (!field) return;
+    const wrap = el('div', undefined, 'field');
+    const label = el('label', field.label);
+    label.htmlFor = field.id;
+    const input = el('input');
+    input.type = field.type;
+    input.id = field.id;
+    input.name = field.id;
+    input.required = true;
+    input.maxLength = field.max;
+    input.autocomplete = field.type === 'email' ? 'email' : 'tel';
+    input.inputMode = field.type === 'email' ? 'email' : 'tel';
+    input.value = String(journey.answers[field.id] ?? '');
+    const help = el('small', field.help, 'muted');
+    help.id = `${field.id}-help`;
+    input.setAttribute('aria-describedby', `${help.id} question-error`);
+    input.addEventListener('input', () => {
+      journey.answers[field.id] = input.value;
+      input.removeAttribute('aria-invalid');
+      root.querySelector<HTMLElement>('#question-error')!.textContent = '';
+    });
+    wrap.append(label, input, help);
+    contact.append(wrap);
+  };
   if (q.type === 'text') {
     const input = el('textarea');
     input.value = String(journey.answers[q.id] ?? '');
@@ -215,9 +245,11 @@ function question() {
     });
     fieldset.append(input);
   } else {
-    const choices = el('div', undefined, 'choices');
+    const choices = el('div', undefined, q.examples ? 'choices choices-illustrated' : 'choices');
+    const otherChoices = q.examples ? el('div', undefined, 'choices choices-followup') : choices;
     for (const [index, option] of (q.options ?? []).entries()) {
-      const label = el('label', undefined, 'choice');
+      const example = q.examples?.[option];
+      const label = el('label', undefined, example ? 'choice choice-illustrated' : 'choice');
       const input = el('input');
       input.type = q.type === 'multi' ? 'checkbox' : 'radio';
       input.name = q.id;
@@ -228,7 +260,7 @@ function question() {
       input.addEventListener('change', () => {
         const error = root.querySelector<HTMLElement>('#question-error')!;
         error.textContent = '';
-        if (q.type === 'single') journey.answers[q.id] = option;
+        if (q.type === 'single' || q.type === 'contact') journey.answers[q.id] = option;
         else {
           let chosen = Array.isArray(journey.answers[q.id])
             ? [...(journey.answers[q.id] as string[])]
@@ -249,11 +281,44 @@ function question() {
             .forEach((i) => (i.checked = chosen.includes(i.value)));
         }
         journey.answers = pruneHiddenAnswers(journey);
+        if (q.type === 'contact') renderContact();
       });
-      label.append(input, el('span', option));
-      choices.append(label);
+      if (example) {
+        const image = el('img');
+        image.src = example.image;
+        image.alt = example.alt;
+        image.width = 640;
+        image.height = 400;
+        image.decoding = 'async';
+        input.setAttribute('aria-label', option);
+        const title = el('span', undefined, 'choice-title');
+        title.append(input, el('span', option));
+        const description = el('span', example.description, 'choice-description');
+        description.id = `answer-${index}-description`;
+        input.setAttribute('aria-describedby', description.id);
+        label.append(image, title, description);
+        const card = el('div', undefined, 'choice-card');
+        const credit = el('a', example.credit, 'choice-credit');
+        credit.href = example.source;
+        credit.target = '_blank';
+        credit.rel = 'noopener noreferrer';
+        credit.setAttribute(
+          'aria-label',
+          `${option} reference: ${example.credit} (opens in a new tab)`,
+        );
+        card.append(label, credit);
+        choices.append(card);
+      } else {
+        label.append(input, el('span', option));
+        otherChoices.append(label);
+      }
     }
     fieldset.append(choices);
+    if (otherChoices !== choices && otherChoices.childElementCount) fieldset.append(otherChoices);
+  }
+  if (q.type === 'contact') {
+    fieldset.append(contact);
+    renderContact();
   }
   form.append(fieldset);
   root.append(form);
@@ -292,8 +357,10 @@ function question() {
   );
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const message = validateAnswer(q, journey.answers[q.id]);
+    const message = validateQuestion(q, journey.answers);
     if (message) {
+      const field = contactField(q, journey.answers);
+      if (field) document.getElementById(field.id)?.setAttribute('aria-invalid', 'true');
       showError(error, message);
       return;
     }
@@ -343,7 +410,11 @@ function assetBranch() {
 function details() {
   clear('details');
   title(c.customerTitle);
-  paragraph(journey.promo ? c.promoFieldIntro : c.customerIntro, 'lead');
+  const hasContact = visibleQuestions(journey).some((question) => question.type === 'contact');
+  paragraph(
+    journey.promo ? c.promoFieldIntro : hasContact ? c.contactDetailsIntro : c.customerIntro,
+    'lead',
+  );
   const form = el('form');
   form.noValidate = true;
   const labels: Record<string, string> = {
@@ -355,6 +426,7 @@ function details() {
   };
   for (const [key, labelText] of Object.entries(labels)) {
     if (key === 'companyNumber' && !journey.promo) continue;
+    if (hasContact && (key === 'email' || key === 'phone')) continue;
     const label = el('label', undefined, 'field');
     label.append(el('span', labelText));
     const input = el('input');
@@ -383,7 +455,7 @@ function details() {
   const error = errorNode();
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    if (!validEmail(customer.email)) {
+    if (!hasContact && !validEmail(customer.email)) {
       showError(error, c.emailError);
       return;
     }
@@ -404,6 +476,7 @@ function details() {
   );
 }
 function customerRows(): SummaryRow[] {
+  const hasContact = visibleQuestions(journey).some((question) => question.type === 'contact');
   const labels: Record<string, string> = {
     name: c.name,
     company: c.company,
@@ -412,7 +485,12 @@ function customerRows(): SummaryRow[] {
     companyNumber: c.companyNumber,
   };
   return Object.entries(customer)
-    .filter(([key, value]) => value.trim() && (key !== 'companyNumber' || journey.promo))
+    .filter(
+      ([key, value]) =>
+        value.trim() &&
+        (key !== 'companyNumber' || journey.promo) &&
+        !(hasContact && (key === 'email' || key === 'phone')),
+    )
     .map(([key, value]) => ({ label: labels[key], value }));
 }
 function review(unfinished = false) {
@@ -427,10 +505,9 @@ function review(unfinished = false) {
     if (unfinished && (!answer || !answer.length)) continue;
     const row = el('div', undefined, 'review-row');
     const content = el('div');
-    content.append(
-      el('strong', q.label),
-      el('p', Array.isArray(answer) ? answer.join(', ') : answer || c.notProvided),
-    );
+    const rows = questionSummary(q, journey.answers);
+    if (!rows.length) rows.push({ label: q.label, value: c.notProvided });
+    for (const row of rows) content.append(el('strong', row.label), el('p', row.value));
     const edit = button(c.edit, () => {
       position = visibleQuestions(journey).findIndex((x) => x.id === q.id);
       editing = true;
@@ -471,7 +548,7 @@ async function generate(error: HTMLElement) {
   if (busy) return;
   journey.promo = promoAllowed(promoStatus, journey.promo);
   if (!partial) {
-    const invalid = visibleQuestions(journey).find((q) => validateAnswer(q, journey.answers[q.id]));
+    const invalid = visibleQuestions(journey).find((q) => validateQuestion(q, journey.answers));
     if (invalid) {
       position = visibleQuestions(journey).indexOf(invalid);
       editing = true;
@@ -563,11 +640,20 @@ function sendNotifications() {
   const serviceName = services.find((s) => s.id === journey.service)?.name ?? journey.service;
   const questions = visibleQuestions(journey);
   const answerLines = questions
-    .map((q) => {
-      const ans = journey.answers[q.id];
-      return `${q.label}: ${Array.isArray(ans) ? ans.join(', ') : (ans ?? 'Not provided')}`;
+    .flatMap((q) => {
+      const rows = questionSummary(q, journey.answers);
+      return rows.length ? rows : [{ label: q.label, value: c.notProvided }];
     })
+    .map((row) => `${row.label}: ${row.value}`)
     .join('\n');
+  const selectedContact = questions
+    .map((q) => contactField(q, journey.answers))
+    .find((field) => field);
+  const replyEmail = selectedContact
+    ? selectedContact.type === 'email'
+      ? String(journey.answers[selectedContact.id] ?? '').trim()
+      : ''
+    : customer.email;
   const contactLines = customerRows()
     .map((r) => `${r.label}: ${r.value}`)
     .join('\n');
@@ -580,7 +666,7 @@ function sendNotifications() {
         access_key: web3formsKey,
         subject: `New enquiry from ${customer.name} — ${serviceName}`,
         from_name: customer.name,
-        email: customer.email,
+        email: replyEmail,
         message: `${contactLines}\n\n${answerLines}`,
       }),
     }).catch(() => {});

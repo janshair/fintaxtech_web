@@ -22,6 +22,8 @@ async function complete(page) {
       '#questionnaire input[type=radio],#questionnaire input[type=checkbox]',
     );
     if (await options.count()) await options.first().click();
+    const contact = page.locator('#active-question input[type=email]');
+    if (await contact.count()) await contact.fill('client@example.com');
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
   }
   await page.getByRole('button', { name: 'Review answers', exact: true }).click();

@@ -1,22 +1,9 @@
 import { automationEnquiryQuestions } from './ai-automation';
+import { brandingDesignQuestion } from './branding-design';
 import type { Question, ServiceId } from '../lib/types';
 const baseQuestionSets = {
   branding: {
     '1': [
-      {
-        id: 'branding-1-1',
-        label: 'What do you need?',
-        type: 'single',
-        optional: false,
-        stage: 1,
-        options: [
-          'New brand',
-          'Brand refresh',
-          'Logo only',
-          'Stationery or marketing assets',
-          'Not sure',
-        ],
-      },
       {
         id: 'branding-1-2',
         label: 'Which items are required?',
@@ -30,17 +17,10 @@ const baseQuestionSets = {
           'Email signature',
           'Social templates',
           'Brand guide',
-          'Other standard listed items',
+          'Other',
         ],
       },
-      {
-        id: 'branding-1-3',
-        label: 'Do you have an existing identity?',
-        type: 'single',
-        optional: false,
-        stage: 1,
-        options: ['Complete identity', 'Logo only', 'Some assets', 'No identity'],
-      },
+      brandingDesignQuestion,
       {
         id: 'branding-1-4',
         label: 'What best describes the business?',
@@ -56,34 +36,12 @@ const baseQuestionSets = {
         ],
       },
       {
-        id: 'branding-1-5',
-        label: 'When would you like to begin?',
-        type: 'single',
-        optional: false,
-        stage: 1,
-        options: [
-          'As soon as available',
-          'Within one month',
-          'Within one to three months',
-          'Later',
-          'Not sure',
-        ],
-      },
-      {
-        id: 'branding-1-6',
-        label: 'Do you also need another FinTaxTech service?',
-        type: 'single',
-        optional: false,
-        stage: 1,
-        options: ['Website', 'Mobile app', 'AI Automation', 'None', 'Not sure'],
-      },
-      {
         id: 'branding-1-7',
-        label: 'How should we continue?',
-        type: 'single',
+        label: 'How should we contact you?',
+        type: 'contact',
         optional: false,
         stage: 1,
-        options: ['Email', 'WhatsApp', 'Zoom call'],
+        options: ['Email', 'WhatsApp'],
       },
       {
         id: 'branding-1-8',
@@ -106,7 +64,7 @@ const baseQuestionSets = {
           'Letterhead',
           'Email signature',
           'Social templates',
-          'Brand guide',
+          'Brand guidelines',
           'Marketing assets',
         ],
       },
@@ -314,10 +272,10 @@ const baseQuestionSets = {
       {
         id: 'websites-1-8',
         label: 'How should we contact you?',
-        type: 'single',
+        type: 'contact',
         optional: false,
         stage: 1,
-        options: ['Email', 'WhatsApp', 'Zoom call'],
+        options: ['Email', 'WhatsApp'],
       },
       {
         id: 'websites-1-9',
@@ -572,10 +530,10 @@ const baseQuestionSets = {
       {
         id: 'mobile-apps-1-10',
         label: 'How should we contact you?',
-        type: 'single',
+        type: 'contact',
         optional: false,
         stage: 1,
-        options: ['Email', 'WhatsApp', 'Zoom call'],
+        options: ['Email', 'WhatsApp'],
       },
       {
         id: 'mobile-apps-1-11',
@@ -782,10 +740,10 @@ const baseQuestionSets = {
       {
         id: 'ai-automation-1-9',
         label: 'How should we contact you?',
-        type: 'single',
+        type: 'contact',
         optional: false,
         stage: 1,
-        options: ['Email', 'WhatsApp', 'Zoom call'],
+        options: ['Email', 'WhatsApp'],
       },
       {
         id: 'ai-automation-1-10',

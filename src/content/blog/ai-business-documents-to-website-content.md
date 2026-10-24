@@ -156,6 +156,11 @@ One thing stated plainly, because it's occasionally asked: **what you're buying 
 
 ---
 
+## Related reading
+
+- [Using AI with Confidential Documents](/blog/ai-confidential-business-documents/)
+- [What Can AI-Assisted Content Services Actually Deliver?](/blog/ai-content-services-six-examples/)
+
 ## Tell us what you need
 
 If you have material sitting in brochures, PDFs and old proposals and a website that needs writing, describe what you've got and what you're trying to end up with. We'll tell you honestly whether there's enough there to work from.

@@ -4,10 +4,20 @@ export type Answers = Record<string, Answer>;
 export interface Question {
   id: string;
   label: string;
-  type: 'single' | 'multi' | 'text';
+  type: 'single' | 'multi' | 'text' | 'contact';
   optional: boolean;
   stage: number;
   options?: string[];
+  examples?: Record<
+    string,
+    {
+      image: string;
+      alt: string;
+      description: string;
+      credit: string;
+      source: string;
+    }
+  >;
   max?: number;
   help?: string;
   when?: { id: string; includes: string | string[] };

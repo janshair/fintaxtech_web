@@ -73,6 +73,15 @@ export const quizCopy = {
   companyNumber: 'UK company number',
   contactContinue: 'Review answers',
   emailError: 'Enter a valid email address or leave it blank.',
+  contactEmailHelp: 'Enter the email address where we should reply.',
+  contactWhatsAppHelp:
+    'Use a UK number (e.g. 07700 900123) or include a country code (e.g. +44 7700 900123).',
+  whatsappNumberLabel: 'WhatsApp number',
+  contactEmailError: 'Enter a valid email address, such as name@example.com.',
+  contactWhatsAppError:
+    'Enter a valid UK or international WhatsApp number, such as 07700 900123 or +44 7700 900123.',
+  contactDetailsIntro:
+    'Your preferred contact details are already provided. Add your name and company if you wish; these will appear in your enquiry PDF.',
   companyError: 'Enter the UK company name and an eight-character company number.',
   routingTitle: 'What would help your business most?',
   routingIntro:
