@@ -1,7 +1,7 @@
 import { automationCopy } from '../content/ai-automation';
 import { pdfTokens as t } from '../design/pdf-tokens';
 import { jsPDF } from 'jspdf';
-import { loadPDFFont, checkPDFGlyphs } from './pdf-font';
+import { loadPDFFont, preparePDFText, pdfEmojiNotice } from './pdf-font';
 import { company } from '../content/site';
 import { quizCopy as c } from '../content/questionnaire';
 import { promoCopy, promoStatus } from '../content/promo';
@@ -18,6 +18,7 @@ export const supportsSecurePasswordProtection = false;
 export async function createPDF({ journey, customer, partial = false }: PDFInput): Promise<Blob> {
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
   await loadPDFFont(doc);
+  const summary = visibleSummary(journey);
   doc.setProperties({
     title: journey.service === 'ai-automation' ? automationCopy.pdfTitle : c.pdfTitle,
     author: company.legal,
@@ -34,10 +35,9 @@ export async function createPDF({ journey, customer, partial = false }: PDFInput
     size: number = t.type.body,
     color: readonly [number, number, number] = t.color.text,
   ) {
-    checkPDFGlyphs(doc, value);
     doc.setFontSize(size);
     doc.setTextColor(...color);
-    const lines = doc.splitTextToSize(value, width) as string[];
+    const lines = doc.splitTextToSize(preparePDFText(doc, value), width) as string[];
     for (const line of lines) {
       if (y + size * 0.4 > bottom) page();
       doc.text(line, margin, y);
@@ -71,12 +71,14 @@ export async function createPDF({ journey, customer, partial = false }: PDFInput
   );
   const service = services.find((s) => s.id === journey.service)!;
   text(`${c.pdfService}: ${service.name}`);
+  if ([...customer, ...summary].some((row) => preparePDFText(doc, row.value) !== row.value))
+    text(pdfEmojiNotice, t.type.small, t.color.muted);
   if (partial) text(c.pdfPartial);
   heading(c.pdfCustomer);
   if (customer.length) customer.forEach((row) => text(`${row.label}: ${row.value}`));
   else text(c.notProvided);
   heading(c.pdfAnswers);
-  for (const row of visibleSummary(journey)) {
+  for (const row of summary) {
     if (y > 242) page();
     text(row.label, t.type.body, t.color.muted);
     text(row.value);

@@ -318,7 +318,7 @@ it('omits empty website sections from review and PDF while retaining original ed
   ]);
   vi.stubGlobal('fetch', async (path: string) => new Response(await readFile(`public${path}`)));
   const font = await import('../src/lib/pdf-font');
-  const input = vi.spyOn(font, 'checkPDFGlyphs');
+  const input = vi.spyOn(font, 'preparePDFText');
   try {
     const { createClientBriefPDF } = await import('../src/lib/client-brief/pdf');
     await createClientBriefPDF(clientBriefDefinitions.website, state);

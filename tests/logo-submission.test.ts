@@ -1,3 +1,4 @@
+import { brandingDesignQuestion } from '../src/content/branding-design';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { completeLogoBrief } from './fixtures/logo-brief';
 import { logoBriefSections } from '../src/content/logo-brief';
@@ -26,22 +27,21 @@ const payload = () => ({
 });
 afterEach(() => vi.unstubAllGlobals());
 
-it('adds positioning, feelings and voice without requiring optional designer suggestions', () => {
+it('keeps seven focused sections and shares all nineteen design choices with the public enquiry', () => {
   const state = completeLogoBrief();
+  expect(logoBriefSections).toHaveLength(7);
   expect(rules.invalidSection(state)).toBe(-1);
-  for (const id of ['difference', 'remember', 'feeling', 'voice']) {
-    const copy = structuredClone(state);
-    delete copy.answers[id];
-    expect(rules.validateField(field(id), copy)).toBeTruthy();
+  expect(fieldOptions(field('designStyle'), state.answers)).toEqual(brandingDesignQuestion.options);
+  expect(field('designStyle').examples).toBe(brandingDesignQuestion.examples);
+  for (const option of brandingDesignQuestion.options!) {
+    state.answers.designStyle = option;
+    expect(rules.validateField(field('designStyle'), state)).toBeUndefined();
+    expect(formatLogoBrief(canonicalLogoSubmission(state))).toContain(
+      `Desired design style:\n  ${option}`,
+    );
   }
-  for (const id of ['feeling', 'voice']) {
-    state.answers[id] = field(id).options!.slice(0, 5);
-    expect(rules.validateField(field(id), state)).toContain('no more than 4');
-    state.answers[id] = ['Other'];
-    expect(rules.validateField(field(id), state)).toBeTruthy();
-    state.answers[`${id}Other`] = 'Understood';
-    expect(rules.validateField(field(id), state)).toBeUndefined();
-  }
+  delete state.answers.designStyle;
+  expect(rules.validateField(field('designStyle'), state)).toBeTruthy();
 });
 
 it('requires redesign problems only for redesign and removes obsolete identity fields and images', () => {
@@ -73,24 +73,56 @@ it('requires redesign problems only for redesign and removes obsolete identity f
   expect(formatLogoBrief(canonicalLogoSubmission(state, date))).not.toContain('[REDESIGN]');
 });
 
-it('dynamically validates and clears single primary uses, including the existing Other explanation', () => {
+it('accepts deferred design and reference choices without requiring an upload or an Other field', () => {
   const state = completeLogoBrief();
+  state.answers.designStyle = 'Other — share a reference later';
+  state.answers.references = 'Share a reference later';
+  expect(rules.invalidSection(state)).toBe(-1);
+  const submission = canonicalLogoSubmission(state, date);
+  const txt = formatLogoBrief(submission);
+  expect(submission.state.images).toEqual([]);
+  expect(submission.state.answers.designStyleOther).toBeUndefined();
+  expect(txt).toContain('Desired design style:\n  Other — share a reference later');
+  expect(txt).toContain('Reference images supplied:\n  Share a reference later');
+  expect(validateLogoSubmission({ ...logoSubmissionMetadata(submission), txt, trap: '' })).toEqual(
+    logoSubmissionMetadata(submission),
+  );
+});
+
+it('removes retired questions from state, review and submissions while retaining logo uses', () => {
+  const state = completeLogoBrief();
+  const retired = [
+    'legalDifferent',
+    'legal',
+    'provides',
+    'service2',
+    'service3',
+    'future',
+    'futureDetail',
+    'difference',
+    'remember',
+    'geography',
+    'boundaries',
+    'feeling',
+    'voice',
+    'avoidVoice',
+    'avoid',
+    'primaryUse',
+    'deadlineReason',
+  ];
+  for (const id of retired) state.answers[id] = 'RETIRED ANSWER';
   state.answers.uses = ['Signage', 'Vehicles', 'Other'];
   state.answers.usesOther = 'Exhibition stand';
-  expect(fieldOptions(field('primaryUse'), state.answers)).toEqual([
-    'Signage',
-    'Vehicles',
-    'Other',
-    'No single use is more important',
-  ]);
-  state.answers.primaryUse = 'Website';
-  expect(rules.validateField(field('primaryUse'), state)).toBeTruthy();
   rules.pruneBrief(state);
-  expect(state.answers.primaryUse).toBeUndefined();
-  state.answers.primaryUse = 'Other';
-  expect(rules.validateField(field('primaryUse'), state)).toBeUndefined();
-  expect(formatLogoBrief(canonicalLogoSubmission(state, date))).toContain(
-    'Most important use:\n  Other: Exhibition stand',
+  for (const id of retired) expect(state.answers[id]).toBeUndefined();
+  expect(JSON.stringify(rules.briefSummary(state))).not.toContain('RETIRED ANSWER');
+  const submission = canonicalLogoSubmission(state, date);
+  const txt = formatLogoBrief(submission);
+  expect(txt).toContain('Logo uses:\n  Signage; Vehicles; Other: Exhibition stand');
+  expect(txt).not.toContain('Most important use:');
+  expect(txt).not.toContain('RETIRED ANSWER');
+  expect(validateLogoSubmission({ ...logoSubmissionMetadata(submission), txt, trap: '' })).toEqual(
+    logoSubmissionMetadata(submission),
   );
 });
 
@@ -130,19 +162,18 @@ it('creates deterministic UTF-8 text, preserves explicit choices and omits inapp
     future: 'Not sure',
     futureDetail: 'We may add repairs.',
     format: 'Designer to recommend',
-    avoid: ['No preference'],
+    designStyle: 'Not sure — help me choose',
     anything: 'Café & care\nKeep this exact sentence.',
     brandStory: '',
   });
   const submission = canonicalLogoSubmission(state, date);
   const txt = formatLogoBrief(submission);
   expect(txt).toBe(formatLogoBrief(submission));
-  expect(txt).toContain('[POSITIONING]');
+  expect(txt).not.toContain('[POSITIONING]');
   for (const text of [
     'No tagline',
-    'Not sure',
+    'Not sure — help me choose',
     'Designer to recommend',
-    'No preference',
     'Café & care\n  Keep this exact sentence.',
     'Brand/name story:\n  Not provided',
   ])
@@ -176,13 +207,20 @@ it('generates PDF and TXT using the very same detached canonical data and comple
 it('rejects missing fields, mismatched text, arbitrary types, binary images and excess selections server-side', () => {
   for (const mutate of [
     (input: ReturnType<typeof payload>) => {
-      delete input.state.answers.difference;
+      delete input.state.answers.designStyle;
     },
     (input: ReturnType<typeof payload>) => {
       input.txt += 'invented';
     },
     (input: ReturnType<typeof payload>) => {
-      input.state.answers.voice = ['Clear', 'Friendly', 'Professional', 'Expert', 'Warm'];
+      input.state.answers.personality = [
+        'Professional',
+        'Trustworthy',
+        'Friendly',
+        'Modern',
+        'Established',
+        'Creative',
+      ];
     },
     (input: ReturnType<typeof payload>) => {
       input.state.answers.nameConfirmed = false;

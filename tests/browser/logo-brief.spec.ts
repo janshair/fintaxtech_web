@@ -81,44 +81,72 @@ test('private route is static, unlinked, noindex/nofollow and absent from feeds'
   await expect(page.locator('input[type=password]')).toHaveCount(0);
 });
 
-test('conditional fields, exact name, Other, maximum and style exclusivity work with keyboard', async ({
+test('shortened sections, exact name, Other, maximum and shared design cards preserve answers', async ({
   page,
 }, info) => {
+  test.setTimeout(120000);
   await begin(page);
+  await expect(page.getByRole('progressbar')).toHaveAttribute('max', '7');
   await page.getByRole('button', { name: 'Next', exact: true }).click();
-  await expect(page.getByRole('alert')).toContainText('Complete');
+  await expect(page.locator('#error-project')).toContainText('Complete');
   await page.getByLabel('New brand', { exact: true }).focus();
   await page.keyboard.press('Space');
-  await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page.getByLabel('Trading name', { exact: true }).fill('Studio MiXeD');
-  await page.getByLabel('Yes', { exact: true }).click();
-  await page.getByLabel('Legal name', { exact: true }).fill('Private Legal Ltd');
   await page.getByLabel('I confirm the exact spelling and capitalisation: Studio MiXeD').click();
   await page.getByLabel('Trading name', { exact: true }).fill('Studio MIXED');
   await expect(page.locator('#nameConfirmed')).not.toBeChecked();
-  await page.getByLabel('No', { exact: true }).click();
-  await expect(page.locator('#legal')).toHaveCount(0);
-  await page.getByLabel('Yes', { exact: true }).click();
-  await expect(page.locator('#legal')).toHaveValue('');
-  await page.getByLabel('No', { exact: true }).click();
-  await advanceTo(page, 3);
-  await page.getByLabel('Other', { exact: true }).click();
-  await page.locator('#service1').fill('Useful customer service');
+  await expect(page.locator('#field-legalDifferent, #field-legal')).toHaveCount(0);
+  await page.getByLabel('Must appear with logo', { exact: true }).check();
+  await page.locator('#taglineText').fill('A temporary tagline');
+  await page.getByLabel('No tagline', { exact: true }).check();
+  await expect(page.locator('#taglineText')).toHaveCount(0);
+  await page.getByLabel('Must appear with logo', { exact: true }).check();
+  await expect(page.locator('#taglineText')).toHaveValue('');
+  await page.getByLabel('No tagline', { exact: true }).check();
+  await advanceTo(page, sectionIndex('service1'));
+  await page.locator('#service1').fill('Useful customer services and original online content.');
+  await page.locator('#field-customers').getByLabel('Other', { exact: true }).check();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Complete');
-  await page.getByLabel('Please specify').fill('Distinctive consultancy');
+  await page.getByLabel('Please specify').fill('Online viewers');
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page.getByRole('button', { name: 'Back', exact: true }).click();
-  await expect(page.getByLabel('Please specify')).toHaveValue('Distinctive consultancy');
+  await expect(page.getByLabel('Please specify')).toHaveValue('Online viewers');
+  await expect(page.locator('#service1')).toHaveValue(
+    'Useful customer services and original online content.',
+  );
   await advanceTo(page, sectionIndex('personality'));
   for (const name of ['Professional', 'Trustworthy', 'Friendly', 'Modern', 'Established'])
-    await page.getByLabel(name, { exact: true }).click();
+    await page.getByLabel(name, { exact: true }).check();
   await page.getByLabel('Creative', { exact: true }).click();
   await expect(page.getByLabel('Creative', { exact: true })).not.toBeChecked();
   await expect(page.getByRole('alert')).toContainText('no more than 5');
   await expect(page.getByRole('status')).toContainText('5 of 5');
-  await advanceTo(page, sectionIndex('format'));
-  await expect(page.locator('.brief-examples img')).toHaveCount(4);
+  await advanceTo(page, sectionIndex('designStyle'));
+  const designs = page.locator('#field-designStyle');
+  await expect(designs.locator('.choice-illustrated img')).toHaveCount(17);
+  await expect(designs.locator('input[type=radio]')).toHaveCount(19);
+  await expect(designs.locator('.choice-credit')).toHaveCount(17);
+  await expect
+    .poll(() =>
+      designs
+        .locator('img')
+        .evaluateAll((images) =>
+          images.every((image) => (image as HTMLImageElement).naturalWidth > 0),
+        ),
+    )
+    .toBe(true);
+  await designs.getByLabel('Not sure — help me choose', { exact: true }).check();
+  await designs.getByLabel('Other — share a reference later', { exact: true }).check();
+  await expect(designs.locator('input:not([type=radio]), textarea')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Back', exact: true }).click();
+  await expect(page.locator('#field-personality input:checked')).toHaveCount(5);
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(
+    designs.getByLabel('Other — share a reference later', { exact: true }),
+  ).toBeChecked();
+  await designs.getByLabel('Retro / Vintage', { exact: true }).check();
+  await expect(page.locator('#field-format .brief-examples img')).toHaveCount(4);
   const ideas = page.locator('#welcomeIdeas');
   const priority = page.locator('#field-welcomeIdeasPriority');
   await expect(ideas).toHaveJSProperty('tagName', 'TEXTAREA');
@@ -131,36 +159,41 @@ test('conditional fields, exact name, Other, maximum and style exclusivity work 
   await expect(ideas).toHaveValue('Explore a circular symbol based on the initials.');
   await expect(priority.locator('input')).toHaveCount(4);
   await expect(priority.locator('input:checked')).toHaveCount(0);
-  await page.getByLabel('Designer to recommend', { exact: true }).click();
+  await page.getByLabel('Designer to recommend', { exact: true }).check();
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Complete');
   await priority
     .getByLabel('This is a core idea and should appear in most concepts', { exact: true })
-    .click();
+    .check();
   await ideas.fill('   ');
   await expect(priority).toHaveCount(0);
   await expect(ideas).toBeFocused();
   await ideas.fill('Explore a circular symbol based on the initials.');
   await expect(priority.locator('input:checked')).toHaveCount(0);
-  await priority.getByLabel('Please explore it in at least one concept', { exact: true }).click();
-
-  await page.screenshot({ path: info.outputPath('formats-desktop.png'), fullPage: true });
-  await advanceTo(page, sectionIndex('avoid'));
-  await expect(page.locator('.brief-examples img')).toHaveCount(9);
-  await page.getByLabel('Gradients', { exact: true }).click();
-  await page.getByLabel('Other', { exact: true }).click();
-  await page.getByLabel('Please specify').fill('No sharp angles');
-  await page.getByLabel('No preference', { exact: true }).click();
-  await expect(page.getByLabel('Gradients', { exact: true })).not.toBeChecked();
-  await expect(page.getByLabel('Please specify')).toHaveCount(0);
-  await page.getByLabel('Gradients', { exact: true }).click();
-  await expect(page.getByLabel('No preference', { exact: true })).not.toBeChecked();
-  await page.setViewportSize({ width: 320, height: 780 });
-  await page.locator('#theme-toggle').click();
-  await page.screenshot({ path: info.outputPath('styles-mobile-dark.png'), fullPage: true });
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  const axe = await new AxeBuilder({ page }).analyze();
-  expect(axe.violations).toEqual([]);
+  await priority.getByLabel('Please explore it in at least one concept', { exact: true }).check();
+  await page.locator('#avoidSymbols').fill('No sharp angles or bright gradients.');
+  await expect(page.locator('#field-avoid')).toHaveCount(0);
+  for (const width of [1280, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const theme of ['light', 'dark']) {
+      await page.evaluate((theme) => (document.documentElement.dataset.theme = theme), theme);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true,
+      );
+      expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+      await page.screenshot({
+        path: info.outputPath(`designs-${width}-${theme}.png`),
+        fullPage: true,
+      });
+    }
+  }
+  await advanceTo(page, sectionIndex('anything'));
+  await fillSection(page, sectionIndex('anything'));
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  await expect(page.locator('.brief-review')).toContainText('Retro / Vintage');
+  await expect(page.locator('.brief-review')).toContainText('No sharp angles or bright gradients.');
+  await expect(page.locator('.brief-review')).not.toContainText('Brand voice');
+  await expect(page.locator('.brief-review')).not.toContainText('Future services?');
 });
 
 test('image validation, captions, removal, replacement and competitor limits', async ({ page }) => {
@@ -233,6 +266,7 @@ test('review and local PDF preserve privacy, render on mobile, and clear on refr
   );
   await begin(page);
   await advanceTo(page, sectionIndex('anything'));
+  await fillSection(page, sectionIndex('anything'));
   await page.locator('#anything').fill('A concise final note.');
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Review your logo brief' })).toBeVisible();
@@ -273,7 +307,7 @@ test('review and local PDF preserve privacy, render on mobile, and clear on refr
   await expect(page.locator('input:checked')).toHaveCount(0);
 });
 
-test('redesign fields, dynamic primary use, server validation and explicit submission retry', async ({
+test('redesign fields, logo uses, server validation and explicit submission retry', async ({
   page,
 }) => {
   // Isolate ticket/rate state from other browser projects. Exercise the real server
@@ -331,12 +365,11 @@ test('redesign fields, dynamic primary use, server validation and explicit submi
   await advanceTo(page, sectionIndex('uses'));
   await page.locator('#field-uses').getByLabel('Signage', { exact: true }).click();
   await page.locator('#field-uses').getByLabel('Vehicles', { exact: true }).click();
-  await expect(page.locator('#field-primaryUse input')).toHaveCount(3);
-  await page.locator('#field-primaryUse').getByLabel('Vehicles', { exact: true }).click();
-  await page.locator('#field-uses').getByLabel('Vehicles', { exact: true }).click();
-  await expect(page.locator('#field-primaryUse input:checked')).toHaveCount(0);
-  await page.locator('#field-primaryUse').getByLabel('Signage', { exact: true }).click();
+  await expect(page.locator('#field-primaryUse')).toHaveCount(0);
+  await page.locator('#field-uses').getByLabel('Vehicles', { exact: true }).uncheck();
+  await expect(page.locator('#field-uses').getByLabel('Signage', { exact: true })).toBeChecked();
   await advanceTo(page, sectionIndex('anything'));
+  await fillSection(page, sectionIndex('anything'));
   await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   expect(submissions).toHaveLength(0);
   await expect(page.locator('[data-brief-form]')).toContainText('Nothing has been submitted yet');
@@ -355,7 +388,9 @@ test('redesign fields, dynamic primary use, server validation and explicit submi
   expect(payload.txt).toContain('[REDESIGN]');
   expect(payload.txt).toContain('Requested improvements:\n  Make it simpler and more modern.');
   expect(payload.txt).not.toContain('Elements to retain:');
-  expect(payload.txt).toContain('Most important use:\n  Signage');
+  expect(payload.txt).toContain('Logo uses:\n  Signage');
+  expect(payload.txt).toContain('Desired design style:\n  Skeuomorphism');
+  expect(payload.txt).not.toContain('Most important use:');
   expect(payload.state.images.every((image: { data: string }) => image.data === '')).toBe(true);
   expect(submissions[0]).not.toContain('SLACK_WEBHOOK');
   const downloading = page.waitForEvent('download');
@@ -363,4 +398,40 @@ test('redesign fields, dynamic primary use, server validation and explicit submi
   await downloading;
   await expect(page.getByRole('button', { name: 'Brief submitted', exact: true })).toBeDisabled();
   expect(submissions).toHaveLength(2);
+});
+
+test('emoji answers download locally unchanged and repeated PDF failures show one message', async ({
+  page,
+}, info) => {
+  test.setTimeout(120000);
+  let submissions = 0;
+  await page.route('**/api/logo-brief/**', (route) => {
+    submissions++;
+    return route.fulfill({ status: 503, body: '{}' });
+  });
+  const story = 'A fictional film studio.\n🌍 Discover places\n🎥 Film scenes\n🚶‍♂️ Explore on foot';
+  await begin(page);
+  await page.locator('#brandStory').fill(story);
+  await advanceTo(page, sectionIndex('anything'));
+  await fillSection(page, sectionIndex('anything'));
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  await expect(page.locator('.brief-review')).toContainText(story);
+  const downloading = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
+  const file = await downloading;
+  expect(await file.failure()).toBeNull();
+  await file.saveAs(info.outputPath('emoji-logo-brief.pdf'));
+  await expect(page.getByRole('status')).toContainText('Downloading does not submit');
+  await expect(page.locator('.brief-review')).toContainText(story);
+  expect(submissions).toBe(0);
+
+  await page.route('**/fonts/DejaVuSans.ttf', (route) => route.fulfill({ status: 503, body: '' }));
+  await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
+  const error =
+    'The PDF could not be created. Your answers are still here. Please try again. If it keeps failing, contact FinTaxTech so we can recover your brief.';
+  await expect(page.getByRole('status')).toHaveText(error);
+  await page.getByRole('button', { name: 'Submit brief', exact: true }).click();
+  await expect(page.getByRole('status')).toHaveText(error);
+  await expect(page.locator('.brief-review')).toContainText(story);
+  expect(submissions).toBe(0);
 });

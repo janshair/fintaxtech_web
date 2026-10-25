@@ -119,7 +119,7 @@ it.each([undefined, '', ' \n '])(
   },
 );
 
-it('generates PDF, validated TXT and Slack text with v2 direction while preserving asset handling', async () => {
+it('generates PDF, validated TXT and Slack text with v3 direction while preserving asset handling', async () => {
   const state = completeLogoBrief();
   Object.assign(state.answers, {
     project: 'Complete redesign',

@@ -9,7 +9,7 @@ import {
 } from '../client-brief/rules';
 import type { BriefState } from '../client-brief/types';
 
-export const LOGO_BRIEF_SCHEMA_VERSION = 'fintaxtech-logo-brief-v2';
+export const LOGO_BRIEF_SCHEMA_VERSION = 'fintaxtech-logo-brief-v3';
 
 export const logoSubmissionPath = '/api/logo-brief/';
 export interface LogoSubmission {
@@ -74,52 +74,23 @@ const groups: [string, [string, string][]][] = [
     'BUSINESS',
     [
       ['trading', 'Trading name'],
-      ['legalDifferent', 'Is the legal name different'],
-      ['legal', 'Legal name'],
       ['nameConfirmed', 'Trading name confirmation'],
       ['tagline', 'Tagline'],
       ['taglineText', 'Exact tagline text'],
-      ['provides', 'Business provides'],
-      ['service1', 'Main product/service'],
-      ['service2', 'Additional product/service 2'],
-      ['service3', 'Additional product/service 3'],
-      ['future', 'Future services'],
-      ['futureDetail', 'Future services detail'],
+      ['service1', 'Business description'],
       ['brandStory', 'Brand/name story'],
     ],
   ],
-  [
-    'POSITIONING',
-    [
-      ['difference', 'Why customers should choose this business'],
-      ['remember', 'Most important thing customers should remember'],
-    ],
-  ],
-  [
-    'AUDIENCE',
-    [
-      ['customers', 'Main customers'],
-      ['geography', 'Customer geography'],
-    ],
-  ],
-  [
-    'BRAND',
-    [
-      ['personality', 'Personality'],
-      ['boundaries', 'Brand boundaries'],
-      ['feeling', 'Desired customer feeling'],
-      ['voice', 'Brand voice'],
-      ['avoidVoice', 'Communication styles/words to avoid'],
-    ],
-  ],
+  ['AUDIENCE', [['customers', 'Main customers']]],
+  ['BRAND', [['personality', 'Personality']]],
   [
     'LOGO DIRECTION',
     [
       ['format', 'Preferred logo type'],
+      ['designStyle', 'Desired design style'],
       ['welcomeIdeas', 'Ideas/symbols/themes to consider'],
       ['welcomeIdeasPriority', 'Creative idea priority'],
-      ['avoid', 'Styles to avoid'],
-      ['avoidSymbols', 'Symbols to avoid'],
+      ['avoidSymbols', 'Design details/styles to avoid'],
     ],
   ],
   [
@@ -141,13 +112,7 @@ const groups: [string, [string, string][]][] = [
       ['avoidedColours', 'Colours to avoid'],
     ],
   ],
-  [
-    'APPLICATIONS',
-    [
-      ['uses', 'Logo uses'],
-      ['primaryUse', 'Most important use'],
-    ],
-  ],
+  ['APPLICATIONS', [['uses', 'Logo uses']]],
   [
     'APPROVAL',
     [
@@ -161,7 +126,6 @@ const groups: [string, [string, string][]][] = [
     [
       ['deadline', 'Deadline'],
       ['deadlineDate', 'Deadline date'],
-      ['deadlineReason', 'Deadline reason'],
     ],
   ],
   ['ADDITIONAL NOTES', [['anything', 'Anything else supplied by the client']]],
@@ -246,7 +210,7 @@ export function formatLogoBrief(submission: LogoSubmission): string {
       const current = state.images.find((image) => image.purpose === 'current-logo');
       if (current) lines.push(line('Current logo filename', current.filename || 'Not provided'));
     }
-    return [`[${heading}]\n${lines.join('\n')}`];
+    return lines.length ? [`[${heading}]\n${lines.join('\n')}`] : [];
   });
   return `FINTAXTECH BRAND DESIGN BRIEF\n\n${sections.join('\n\n')}\n`;
 }

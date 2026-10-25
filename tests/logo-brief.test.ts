@@ -40,14 +40,7 @@ describe('post-payment brief rules', () => {
     state.images = [
       { id: 'old', data: 'secret', width: 1, height: 1, explanation: 'Hidden image' },
     ];
-    for (const id of [
-      'legal',
-      'taglineText',
-      'futureDetail',
-      'preferredColours',
-      'deadlineDate',
-      'deadlineReason',
-    ])
+    for (const id of ['taglineText', 'preferredColours', 'deadlineDate'])
       expect(validateField(field(id), state)).toBeUndefined();
     pruneBrief(state);
     expect(JSON.stringify(state)).not.toContain('Hidden');
@@ -69,18 +62,13 @@ describe('post-payment brief rules', () => {
       expect(state.answers[`${f.id}Other`]).toBeUndefined();
     }
   });
-  it('enforces personality maximum and mutually exclusive no preference', () => {
+  it('enforces the personality maximum', () => {
     const f = field('personality');
     const five = f.options!.slice(0, 5);
     expect(toggleChoice(f, five, 'Creative')).toEqual(five);
     const state = emptyBrief();
     state.answers.personality = [...five, 'Creative'];
     expect(validateField(f, state)).toBe(c.tooMany(5));
-    const avoid = field('avoid');
-    expect(toggleChoice(avoid, ['Gradients', 'Other'], c.noPreference)).toEqual([c.noPreference]);
-    expect(toggleChoice(avoid, [c.noPreference], 'Gradients')).toEqual(['Gradients']);
-    state.answers.avoid = [c.noPreference, 'Gradients'];
-    expect(validateField(avoid, state)).toBe(c.invalidChoice);
   });
   it('validates whitespace, long answers, exact-name confirmation, dates and competitors', () => {
     const state = emptyBrief();
@@ -163,7 +151,7 @@ it('creates a complete local multi-page PDF with long text and five embedded ref
   expect(bytes.toString('latin1')).not.toContain('/Encrypt');
   await mkdir('test-results/logo-brief', { recursive: true });
   await writeFile('test-results/logo-brief/long-with-images.pdf', bytes);
-  state.answers.trading = 'Unsupported 🪿';
+  state.answers.trading = 'Unsupported 𓀀';
   await expect(createLogoBriefPDF(state)).rejects.toThrow('Unsupported PDF glyph');
   state.answers.trading = '';
   await expect(createLogoBriefPDF(state)).rejects.toThrow('Incomplete client brief');

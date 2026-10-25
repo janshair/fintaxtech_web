@@ -76,6 +76,12 @@ export function createBriefRules(sections: BriefSection[]) {
         section.when.values.some((value) => includesAnswer(answers[section.when!.id], value)),
     );
   function pruneBrief(state: BriefState) {
+    const known = new Set(
+      sections.flatMap((section) =>
+        section.fields.flatMap((field) => [field.id, `${field.id}Other`]),
+      ),
+    );
+    for (const id of Object.keys(state.answers)) if (!known.has(id)) delete state.answers[id];
     const applicable = new Set(
       visibleSections(state.answers).flatMap((section) => section.fields.map((field) => field.id)),
     );

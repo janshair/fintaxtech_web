@@ -47,7 +47,7 @@ describe('free website demo brief', () => {
     // replacing either the shared summary or the permission formatter.
     vi.stubGlobal('fetch', async (path: string) => new Response(await readFile(`public${path}`)));
     const font = await import('../src/lib/pdf-font');
-    const input = vi.spyOn(font, 'checkPDFGlyphs');
+    const input = vi.spyOn(font, 'preparePDFText');
     try {
       const { createClientBriefPDF } = await import('../src/lib/client-brief/pdf');
       await createClientBriefPDF(clientBriefDefinitions.websiteDemo, state);
@@ -199,7 +199,9 @@ describe('free website demo brief', () => {
     state.answers.provisionalAssets = 'Please ask me first';
     let message = formatWebsiteBrief(reviewedWebsiteSubmission('websiteDemo', state));
     expect(message).toContain('Available assets:\n  None');
-    expect(message).toContain('Who the website should reach:\n  Consumers / general public; Businesses / organisations');
+    expect(message).toContain(
+      'Who the website should reach:\n  Consumers / general public; Businesses / organisations',
+    );
     expect(message).toContain('What visitors are looking for or trying to do:');
     expect(message).toContain(
       'Contact / approver:\n  Name: Jamie Orchard\n  Email: jamie@orchard.example',
@@ -286,7 +288,9 @@ describe('free website demo brief', () => {
     }
     expect(summary).not.toContain('I will list up to three');
     expect(summary).not.toContain('Provisional styling only');
-    expect(summary).toContain('Priority offerings — services, products, treatments, classes or other offers');
+    expect(summary).toContain(
+      'Priority offerings — services, products, treatments, classes or other offers',
+    );
     expect(summary).toContain('1. Garden planning and design consultations');
     expect(summary).not.toContain('Service or product and short description');
     for (const rows of Object.values(state.rows))

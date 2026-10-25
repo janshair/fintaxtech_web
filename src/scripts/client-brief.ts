@@ -212,10 +212,24 @@ function renderField(field: BriefField) {
       count.setAttribute('role', 'status');
       wrap.append(count);
     }
-    const choices = el('div', undefined, field.examples ? 'choices brief-examples' : 'choices');
+    const illustrated = Object.values(field.examples ?? {}).some((example) => example.image);
+    const choices = el(
+      'div',
+      undefined,
+      illustrated
+        ? 'choices choices-illustrated'
+        : field.examples
+          ? 'choices brief-examples'
+          : 'choices',
+    );
+    const otherChoices = illustrated ? el('div', undefined, 'choices choices-followup') : choices;
     fieldOptions(field, state.answers).forEach((option, index) => {
       const example = field.examples?.[option];
-      const label = el('label', undefined, example ? 'choice brief-example' : 'choice');
+      const label = el(
+        'label',
+        undefined,
+        example?.image ? 'choice choice-illustrated' : example ? 'choice brief-example' : 'choice',
+      );
       const input = el('input');
       input.type = field.type === 'multi' ? 'checkbox' : 'radio';
       input.name = field.id;
@@ -238,18 +252,47 @@ function renderField(field: BriefField) {
         }
         render(false, input.id);
       });
-      label.append(input, el('span', option));
+      const title = el('span', undefined, example?.image ? 'choice-title' : undefined);
+      title.append(input, el('span', option));
       if (example) {
         const image = el('img');
-        image.src = `/images/logo-brief/${example.file}`;
+        image.src = example.image ?? `/images/logo-brief/${example.file}`;
         image.alt = example.alt;
         image.width = 640;
         image.height = 400;
-        label.append(image);
+        image.decoding = 'async';
+        if (example.image) {
+          input.setAttribute('aria-label', option);
+          label.append(image, title);
+          if (example.description) {
+            const description = el('span', example.description, 'choice-description');
+            description.id = `${input.id}-description`;
+            input.setAttribute('aria-describedby', description.id);
+            label.append(description);
+          }
+        } else label.append(title, image);
+      } else label.append(title);
+      if (example?.image) {
+        const card = el('div', undefined, 'choice-card');
+        card.append(label);
+        if (example.source && example.credit) {
+          const credit = el('a', example.credit, 'choice-credit');
+          credit.href = example.source;
+          credit.target = '_blank';
+          credit.rel = 'noopener noreferrer';
+          credit.setAttribute(
+            'aria-label',
+            `${option} reference: ${example.credit} (opens in a new tab)`,
+          );
+          card.append(credit);
+        }
+        choices.append(card);
+      } else {
+        (illustrated ? otherChoices : choices).append(label);
       }
-      choices.append(label);
     });
     wrap.append(choices);
+    if (otherChoices !== choices && otherChoices.childElementCount) wrap.append(otherChoices);
     if (requiresOtherText(field, state.answers)) {
       const other = textField(
         `${field.id}Other`,
@@ -654,7 +697,7 @@ function review() {
   let slackStatus = '';
   const updateStatus = () => {
     if (status.isConnected)
-      status.textContent = [pdfStatus, slackStatus].filter(Boolean).join('\n');
+      status.textContent = [...new Set([pdfStatus, slackStatus].filter(Boolean))].join('\n');
   };
   const completeReviewed = () => {
     if (!delivery) return;

@@ -56,7 +56,17 @@ export interface BriefField {
     link?: { label: string; href: string };
     pdfNote?: string;
   };
-  examples?: Record<string, { file: string; alt: string }>;
+  examples?: Record<
+    string,
+    {
+      file?: string;
+      image?: string;
+      alt: string;
+      description?: string;
+      credit?: string;
+      source?: string;
+    }
+  >;
 }
 export interface BriefSection {
   when?: { id: string; values: string[] };

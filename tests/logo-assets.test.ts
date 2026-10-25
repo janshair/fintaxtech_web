@@ -48,7 +48,7 @@ function submission(redesign: boolean, current: boolean, references: number) {
 }
 
 it('adds the exported brief schema version and clean asset status for a new brand without images', () => {
-  expect(LOGO_BRIEF_SCHEMA_VERSION).toBe('fintaxtech-logo-brief-v2');
+  expect(LOGO_BRIEF_SCHEMA_VERSION).toBe('fintaxtech-logo-brief-v3');
   const txt = formatLogoBrief(submission(false, false, 0));
   expect(txt).toContain(
     `[PROJECT]\nBrief schema version:\n  ${LOGO_BRIEF_SCHEMA_VERSION}\nProject type:\n  New brand`,

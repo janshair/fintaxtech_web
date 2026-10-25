@@ -52,7 +52,7 @@ it('closed status removes campaign content from a stale journey', async () => {
   expect(closed.length).toBeLessThan(active.length);
 });
 it('unsupported customer glyphs fail instead of corrupting the PDF', async () => {
-  await expect(create('closed', { 'websites-1-9': 'Unsupported: 🪿' })).rejects.toThrow(
+  await expect(create('closed', { 'websites-1-9': 'Unsupported: 𓀀' })).rejects.toThrow(
     'Unsupported PDF glyph',
   );
 });

@@ -1,3 +1,4 @@
+import { brandingDesignQuestion } from './branding-design';
 import { briefCopy } from './client-brief';
 import { tradingNameField, approverNameField } from './client-brief-fields';
 import type { BriefSection } from '../lib/logo-brief/types';
@@ -48,45 +49,9 @@ const formatExamples = {
     alt: 'Emblem format: lettering enclosed within a badge.',
   },
 };
-const styleExamples = {
-  'Script fonts': {
-    file: 'avoid-script.svg',
-    alt: 'Script lettering example with flowing, handwritten-style text.',
-  },
-  Gradients: {
-    file: 'avoid-gradient.svg',
-    alt: 'Gradient example with a smooth transition between colours.',
-  },
-  'Detailed illustrations': {
-    file: 'avoid-detailed-illustration.svg',
-    alt: 'Illustration example showing a framed mountain scene with a sun.',
-  },
-  'Generic stock-style icons': {
-    file: 'avoid-generic-icon.svg',
-    alt: 'Generic icon example using a simple house outline.',
-  },
-  '3D effects': {
-    file: 'avoid-3d-effects.svg',
-    alt: 'Three-dimensional effect example with depth and shading.',
-  },
-  Mascots: { file: 'avoid-mascot.svg', alt: 'Mascot example using an illustrated character.' },
-  'Industry clichés': {
-    file: 'avoid-industry-cliche.svg',
-    alt: 'Industry cliché example using a familiar trade-related symbol.',
-  },
-  'Very bright colours': {
-    file: 'avoid-bright-colours.svg',
-    alt: 'Very bright colour example with overlapping, strongly saturated circles.',
-  },
-  'Very dark designs': {
-    file: 'avoid-dark-design.svg',
-    alt: 'Very dark design example with a dark background and a low-contrast ring.',
-  },
-};
-
 export const logoBriefSections: BriefSection[] = [
   {
-    title: 'Your project',
+    title: 'Your project and name',
     fields: [
       {
         id: 'project',
@@ -98,14 +63,20 @@ export const logoBriefSections: BriefSection[] = [
         id: 'identityProblems',
         label: "What isn't working with your current identity?",
         type: 'long',
-        when: { id: 'project', values: ['Complete redesign'] },
+        when: {
+          id: 'project',
+          values: ['Complete redesign'],
+        },
       },
       {
         id: 'identityImprovements',
         label: 'What would you like improved about your current identity?',
         type: 'long',
         help: 'For example: make it feel more modern, simpler, more professional, easier to read, more distinctive or better suited to digital use.',
-        when: { id: 'project', values: ['Complete redesign'] },
+        when: {
+          id: 'project',
+          values: ['Complete redesign'],
+        },
       },
       {
         id: 'identityRetain',
@@ -113,7 +84,10 @@ export const logoBriefSections: BriefSection[] = [
         type: 'long',
         optional: true,
         help: 'For example: an established colour, symbol, initials, typography style or another recognisable feature. Leave this blank if nothing needs to be retained.',
-        when: { id: 'project', values: ['Complete redesign'] },
+        when: {
+          id: 'project',
+          values: ['Complete redesign'],
+        },
       },
       {
         id: 'currentLogo',
@@ -121,40 +95,25 @@ export const logoBriefSections: BriefSection[] = [
         type: 'images',
         imagePurpose: 'current-logo',
         optional: true,
-        when: { id: 'project', values: ['Complete redesign'] },
+        when: {
+          id: 'project',
+          values: ['Complete redesign'],
+        },
         help: 'Optionally choose one PNG, JPEG or WebP image, maximum 5 MB. It will appear in your PDF. Its filename is submitted; share the PDF with FinTaxTech to provide the image.',
       },
-    ],
-  },
-  {
-    title: 'Your business name',
-    fields: [
       tradingNameField,
       {
-        id: 'legalDifferent',
-        label: 'Is the legal name different?',
-        type: 'single',
-        options: ['Yes', 'No'],
-      },
-      {
-        id: 'legal',
-        label: 'Legal name',
-        type: 'text',
-        when: { id: 'legalDifferent', values: ['Yes'] },
+        id: 'nameConfirmed',
+        label: 'Confirm your trading name',
+        type: 'confirm',
       },
       {
         id: 'brandStory',
         label: 'Does your business name or brand have a story or meaning we should know about?',
         type: 'long',
         optional: true,
-        help: 'For example, the meaning behind the name, how the business started, a local connection or an idea that is important to the company.',
+        help: 'Optional: explain the meaning behind the name or anything in the business story that could inspire the design.',
       },
-      { id: 'nameConfirmed', label: 'Confirm your trading name', type: 'confirm' },
-    ],
-  },
-  {
-    title: 'Your tagline',
-    fields: [
       {
         id: 'tagline',
         label: 'Tagline',
@@ -165,79 +124,22 @@ export const logoBriefSections: BriefSection[] = [
         id: 'taglineText',
         label: 'Exact tagline text',
         type: 'text',
-        when: { id: 'tagline', values: ['Must appear with logo', 'Exists but separate from logo'] },
+        when: {
+          id: 'tagline',
+          values: ['Must appear with logo', 'Exists but separate from logo'],
+        },
       },
     ],
   },
   {
-    title: 'What your business provides',
+    title: 'Your business and customers',
     fields: [
-      {
-        id: 'provides',
-        label: 'What does the business provide?',
-        type: 'multi',
-        options: [
-          'Products',
-          'Professional services',
-          'Local/trade services',
-          'Technology',
-          'Hospitality',
-          'Retail/e-commerce',
-          'Health/wellbeing',
-          'Education',
-          'Finance',
-          'Property',
-          'Other',
-        ],
-      },
       {
         id: 'service1',
-        label: 'Main product or service',
-        type: 'text',
-        help: 'A short customer-facing description. You can add up to three.',
-      },
-      { id: 'service2', label: 'Second product or service', type: 'text', optional: true },
-      { id: 'service3', label: 'Third product or service', type: 'text', optional: true },
-    ],
-  },
-  {
-    title: 'Looking ahead',
-    fields: [
-      {
-        id: 'future',
-        label: 'Future services?',
-        type: 'single',
-        options: ['No', 'Yes', 'Not sure'],
-      },
-      {
-        id: 'futureDetail',
-        label: 'Possible additions',
-        type: 'text',
-        help: 'Describe what might change, or tell us what is still undecided.',
-        when: { id: 'future', values: ['Yes', 'Not sure'] },
-      },
-    ],
-  },
-  {
-    title: 'What makes your business different',
-    fields: [
-      {
-        id: 'difference',
-        label: 'Why should a customer choose your business instead of an alternative?',
+        label: 'What does your business do?',
         type: 'long',
-        help: 'Tell us what makes you different. This could be your service, experience, speed, expertise, pricing approach, customer care, process or something else.',
+        help: 'Briefly describe your main products, services or content, and what makes them different. One short answer is enough.',
       },
-      {
-        id: 'remember',
-        label: 'What is the one thing you most want customers to remember about your business?',
-        type: 'text',
-        help: 'Think about the impression you want someone to take away after seeing your brand.',
-      },
-    ],
-  },
-  {
-    title: 'Your customers',
-    fields: [
       {
         id: 'customers',
         label: 'Main customers',
@@ -254,12 +156,6 @@ export const logoBriefSections: BriefSection[] = [
           'Older adults',
           'Other',
         ],
-      },
-      {
-        id: 'geography',
-        label: 'Customer geography',
-        type: 'single',
-        options: ['Local', 'UK-wide', 'International', 'Combination'],
       },
     ],
   },
@@ -291,86 +187,19 @@ export const logoBriefSections: BriefSection[] = [
           'Other',
         ],
       },
-      {
-        id: 'boundaries',
-        label: 'Brand boundaries',
-        type: 'multi',
-        options: [
-          'Professional—not corporate',
-          'Friendly—not childish',
-          'Modern—not trend-led',
-          'Premium—not exclusive',
-          'Bold—not aggressive',
-          'Simple—not generic',
-          'Technical—not complicated',
-          'Traditional—not old-fashioned',
-          'Other',
-        ],
-      },
     ],
   },
   {
-    title: 'How customers should feel',
+    title: 'Your design direction',
     fields: [
       {
-        id: 'feeling',
-        label: 'How should people feel when they encounter your brand?',
-        type: 'multi',
-        max: 4,
-        help: 'Choose up to four feelings.',
-        options: [
-          'Confident',
-          'Reassured',
-          'Welcome',
-          'Excited',
-          'Curious',
-          'Safe',
-          'Inspired',
-          'Relaxed',
-          'Energised',
-          'Respected',
-          'Comfortable',
-          'Other',
-        ],
+        id: 'designStyle',
+        label: 'Choose desired design',
+        type: 'single',
+        options: brandingDesignQuestion.options,
+        examples: brandingDesignQuestion.examples,
+        help: 'Choose the look closest to your taste. These existing designs are visual references to discuss with your designer. You can also ask us to help you choose or share a reference later.',
       },
-    ],
-  },
-  {
-    title: 'Your brand voice',
-    fields: [
-      {
-        id: 'voice',
-        label: 'How should the business sound when communicating with customers?',
-        type: 'multi',
-        max: 4,
-        help: 'Choose up to four qualities.',
-        options: [
-          'Clear',
-          'Friendly',
-          'Professional',
-          'Expert',
-          'Conversational',
-          'Reassuring',
-          'Direct',
-          'Warm',
-          'Confident',
-          'Formal',
-          'Energetic',
-          'Simple',
-          'Other',
-        ],
-      },
-      {
-        id: 'avoidVoice',
-        label: 'Are there any words, phrases or communication styles the brand should avoid?',
-        type: 'long',
-        optional: true,
-      },
-    ],
-  },
-  {
-    title: 'Your preferred logo format',
-    fields: [
       {
         id: 'format',
         label: 'Preferred logo type',
@@ -404,59 +233,22 @@ export const logoBriefSections: BriefSection[] = [
           'This is mandatory and must appear in every concept',
         ],
         help: "This helps us understand whether your idea is simply inspiration or something you definitely want explored. Choosing 'mandatory' may reduce the variety of concepts.",
-        when: { id: 'welcomeIdeas', matches: '\\S' },
+        when: {
+          id: 'welcomeIdeas',
+          matches: '\\S',
+        },
       },
-    ],
-  },
-  {
-    title: 'What to avoid',
-    fields: [
       {
-        id: 'avoid',
-        label: 'Styles to avoid',
-        type: 'multi',
-        options: [...Object.keys(styleExamples), 'No preference', 'Other'],
-        examples: styleExamples,
-        help: 'Choose styles you do not want. “No preference” cannot be combined with other selections. Illustrations are examples, not proposed designs.',
-      },
-      { id: 'avoidSymbols', label: 'Specific symbols to avoid', type: 'text', optional: true },
-    ],
-  },
-  {
-    title: 'Your competitors',
-    fields: [
-      {
-        id: 'competitors',
-        label: 'Competitors',
-        type: 'competitors',
+        id: 'avoidSymbols',
+        label: 'Is there anything the design should avoid?',
+        type: 'long',
         optional: true,
-        help: 'Optionally list up to five competitors. These details are for our later review; this form does not check their websites.',
+        help: 'Optional: mention any unwanted styles, symbols or visual details here.',
       },
     ],
   },
   {
-    title: 'Your reference images',
-    fields: [
-      {
-        id: 'references',
-        label: 'Do you have reference logos or images?',
-        type: 'single',
-        options: ['Yes', 'No'],
-      },
-      {
-        id: 'images',
-        label: 'Reference logos/images',
-        type: 'images',
-        when: { id: 'references', values: ['Yes'] },
-        help: logoBriefCopy.imageHelp,
-        imageExplanationMin: 10,
-        imageExplanationHelp:
-          'For example: simplicity, typography, symbol shape, spacing, layout, colours, badge style or overall feel. We use references to understand your taste, not to copy another brand.',
-      },
-    ],
-  },
-  {
-    title: 'Your colour direction',
+    title: 'Colours and logo use',
     fields: [
       {
         id: 'colour',
@@ -468,20 +260,18 @@ export const logoBriefSections: BriefSection[] = [
         id: 'preferredColours',
         label: 'Preferred colours',
         type: 'text',
-        when: { id: 'colour', values: ['Use existing colours', 'I have preferences'] },
+        when: {
+          id: 'colour',
+          values: ['Use existing colours', 'I have preferences'],
+        },
       },
       {
         id: 'avoidedColours',
         label: 'Colours to avoid',
         type: 'text',
-        help: 'You can write “No colours to avoid”.',
-        when: { id: 'colour', values: ['Use existing colours', 'I have preferences'] },
+        help: 'Optional. Leave this blank if you have no colours to avoid.',
+        optional: true,
       },
-    ],
-  },
-  {
-    title: 'Where your logo will appear',
-    fields: [
       {
         id: 'uses',
         label: 'Where will the logo be used?',
@@ -502,19 +292,41 @@ export const logoBriefSections: BriefSection[] = [
           'Other',
         ],
       },
+    ],
+  },
+  {
+    title: 'References and inspiration',
+    fields: [
       {
-        id: 'primaryUse',
-        label: 'Where does the identity need to work especially well?',
+        id: 'references',
+        label: 'Do you have reference logos or images?',
         type: 'single',
-        optionsFrom: { id: 'uses' },
-        options: ['No single use is more important'],
-        otherField: 'usesOther',
-        when: { id: 'uses', matches: '.+' },
+        options: ['Yes', 'No', 'Share a reference later'],
+      },
+      {
+        id: 'images',
+        label: 'Reference logos/images',
+        type: 'images',
+        when: {
+          id: 'references',
+          values: ['Yes'],
+        },
+        help: 'Choose up to five PNG, JPEG or WebP images, maximum 5 MB each. Images are resized in your browser for your PDF. Filenames and explanations are submitted; share the PDF with FinTaxTech to provide the images.',
+        imageExplanationMin: 10,
+        imageExplanationHelp:
+          'For example: simplicity, typography, symbol shape, spacing, layout, colours, badge style or overall feel. We use references to understand your taste, not to copy another brand.',
+      },
+      {
+        id: 'competitors',
+        label: 'Competitors',
+        type: 'competitors',
+        optional: true,
+        help: 'Optionally list up to five competitors. These details are for our later review; this form does not check their websites.',
       },
     ],
   },
   {
-    title: 'Who gives final approval',
+    title: 'Approval and timing',
     fields: [
       {
         id: 'approver',
@@ -522,21 +334,16 @@ export const logoBriefSections: BriefSection[] = [
         type: 'single',
         options: ['Me', 'One named person', 'Group providing one consolidated decision'],
       },
-      {
-        ...approverNameField,
-        when: { id: 'approver', values: ['Me', 'One named person'] },
-      },
+      { ...approverNameField, when: { id: 'approver', values: ['Me', 'One named person'] } },
       {
         id: 'groupContact',
         label: 'Group contact name',
         type: 'text',
-        when: { id: 'approver', values: ['Group providing one consolidated decision'] },
+        when: {
+          id: 'approver',
+          values: ['Group providing one consolidated decision'],
+        },
       },
-    ],
-  },
-  {
-    title: 'Your deadline',
-    fields: [
       {
         id: 'deadline',
         label: 'Is there a deadline?',
@@ -547,27 +354,11 @@ export const logoBriefSections: BriefSection[] = [
         id: 'deadlineDate',
         label: 'Deadline date',
         type: 'date',
-        when: { id: 'deadline', values: ['Yes'] },
+        when: {
+          id: 'deadline',
+          values: ['Yes'],
+        },
       },
-      {
-        id: 'deadlineReason',
-        label: 'Deadline reason',
-        type: 'single',
-        options: [
-          'Business launch',
-          'Event',
-          'Printing',
-          'Website release',
-          'Registration',
-          'Other',
-        ],
-        when: { id: 'deadline', values: ['Yes'] },
-      },
-    ],
-  },
-  {
-    title: 'Anything else',
-    fields: [
       {
         id: 'anything',
         label: 'Anything else we should know?',

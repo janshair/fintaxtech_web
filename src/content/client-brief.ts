@@ -53,7 +53,7 @@ export const briefCopy = {
   downloaded:
     'Your PDF download has been requested. Nothing has been sent to FinTaxTech. Attach the downloaded file manually in your email or WhatsApp app.',
   pdfError:
-    'The PDF could not be created. Your answers are still here. Check for unsupported characters such as emoji, then try again.',
+    'The PDF could not be created. Your answers are still here. Please try again. If it keeps failing, contact FinTaxTech so we can recover your brief.',
   pdfDate: 'Completed',
   shareHelp:
     'Download the PDF, then share it yourself. The email and WhatsApp links open a blank message; you must attach the file. If you change your answers, download a new PDF.',

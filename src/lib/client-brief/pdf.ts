@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 import { company } from '../../content/site';
 import { quizCopy } from '../../content/questionnaire';
 import { pdfTokens as t } from '../../design/pdf-tokens';
-import { loadPDFFont, checkPDFGlyphs } from '../pdf-font';
+import { loadPDFFont, preparePDFText, pdfEmojiNotice } from '../pdf-font';
 import { createBriefRules, imagesForField } from './rules';
 import type { BriefDefinition } from './definitions';
 import type { BriefState } from './types';
@@ -17,6 +17,18 @@ export async function createClientBriefPDF(
   if (invalidSection(state) !== -1) throw new Error('Incomplete client brief');
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
   await loadPDFFont(doc);
+  const summary = briefSummary(state);
+  const hasEmoji = summary.some((section) =>
+    [
+      ...section.rows.map((row) => row.value),
+      ...(section.references
+        ? imagesForField(state, section).flatMap((image) => [
+            image.filename ?? '',
+            image.explanation,
+          ])
+        : []),
+    ].some((value) => preparePDFText(doc, value) !== value),
+  );
   doc.setProperties({ title: c.title, author: company.legal, creator: company.name });
   const { margin, width, start, bottom } = t.layout;
   let y: number = start;
@@ -25,9 +37,8 @@ export async function createClientBriefPDF(
     y = start;
   };
   const lines = (text: string, size: number): string[] => {
-    checkPDFGlyphs(doc, text);
     doc.setFontSize(size);
-    return doc.splitTextToSize(text, width);
+    return doc.splitTextToSize(preparePDFText(doc, text), width);
   };
   const height = (value: string, size: number) =>
     lines(value, size).length * size * t.type.lineHeight + t.space.paragraph;
@@ -67,13 +78,14 @@ export async function createClientBriefPDF(
     t.color.muted,
   );
   text(c.disclaimer, t.type.small);
+  if (hasEmoji) text(pdfEmojiNotice, t.type.small, t.color.muted);
   if (definition.includeWorkflowInPDF) text(c.workflow, t.type.small);
   const rowSpace = (label: string, value: string) => {
     const labelHeight = height(label, t.type.small);
     const total = labelHeight + height(value, t.type.body);
     return total <= bottom - start - 30 ? total : labelHeight + 3 * t.type.body * t.type.lineHeight;
   };
-  for (const section of briefSummary(state)) {
+  for (const section of summary) {
     const first = section.rows[0];
     heading(section.title, first ? rowSpace(first.label, first.value) : 0);
     for (const row of section.rows) {
@@ -112,9 +124,6 @@ export async function createClientBriefPDF(
       }
     }
   }
-  reserve(20);
-  text(c.disclaimer, t.type.small, t.color.muted);
-  text(`${company.email} | ${company.phone}`, t.type.small);
   const count = doc.getNumberOfPages();
   for (let i = 1; i <= count; i++) {
     doc.setPage(i);
@@ -123,6 +132,7 @@ export async function createClientBriefPDF(
     doc.setFontSize(t.type.footer);
     doc.setTextColor(...t.color.muted);
     doc.text(quizCopy.pdfFooter, margin, t.layout.footerText);
+    doc.text(`${company.email} | ${company.phone}`, margin, t.layout.footerAddress);
     doc.text(`${i} / ${count}`, margin + width, t.layout.footerText, { align: 'right' });
   }
   return doc.output('blob');
