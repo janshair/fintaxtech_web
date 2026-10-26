@@ -70,6 +70,9 @@ async function selectorMetrics(page: Page) {
 for (const width of [1024, 1280, 1440, 320, 390]) {
   for (const theme of ['light', 'dark']) {
     test(`shared selector matches at ${width}px in ${theme} mode`, async ({ page }, testInfo) => {
+      // Compare final artwork: only the homepage opts into the entrance animation.
+      // Playback, pause/resume and no-JS behaviour are covered by home-motion.spec.ts.
+      await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.setViewportSize({ width, height: 1000 });
       await page.addInitScript((theme) => {
         localStorage.setItem('ftt:theme', theme);

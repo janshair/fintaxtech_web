@@ -1,0 +1,326 @@
+---
+import type { ServiceId } from '../lib/types';
+import { serviceMotion, serviceMotionSamples } from '../content/service-motion';
+interface Props {
+  service: ServiceId;
+}
+const { service } = Astro.props;
+---
+
+<svg
+  class="service-hero-visual home-motion"
+  data-home-motion
+  data-service-hero={service}
+  viewBox="0 0 400 360"
+  width="400"
+  height="360"
+  role="img"
+  aria-label={serviceMotion[service].heroLabel}
+  focusable="false"
+>
+  <rect class="canvas" x="8" y="8" width="384" height="344" rx="24"></rect>
+  <g class="ornament" aria-hidden="true"
+    ><path class="guide" d="M28 100h344M28 260h344M100 28v304M300 28v304"></path><circle
+      class="guide"
+      cx="200"
+      cy="180"
+      r="144"></circle></g
+  >
+  {
+    service === 'branding' && (
+      <>
+        <g class="motion-part" style="--motion-order:0;--motion-x:-18px">
+          <rect class="paper outline" x="140" y="30" width="120" height="104" rx="8" />
+          <>
+            <path class="ink" d="M168 58h28v48h-28zM200 82h28v24h-28z" />
+            <circle class="blue" cx="214" cy="65" r="14" />
+          </>
+        </g>
+        <path
+          class="blue-line motion-stroke"
+          pathLength="1"
+          style="--motion-order:2"
+          d="M200 134v18H96v24M200 152h104v24M200 152v118"
+          aria-hidden="true"
+        />
+        <g class="motion-part" style="--motion-order:4;--motion-x:-18px">
+          <rect class="paper outline" x="28" y="176" width="136" height="66" rx="8" />
+          <>
+            <circle class="ink" cx="58" cy="209" r="16" />
+            <circle class="blue" cx="96" cy="209" r="16" />
+            <circle class="soft outline" cx="134" cy="209" r="16" />
+          </>
+        </g>
+        <g class="motion-part" style="--motion-order:6;--motion-x:18px;--motion-opacity:1">
+          <rect class="paper outline" x="236" y="176" width="136" height="66" rx="8" />
+          <>
+            <text class="type-sample" x="251" y="219">
+              {serviceMotionSamples.typography}
+            </text>
+            <path class="line" d="M316 198h36m-36 12h25m-25 12h30" />
+          </>
+        </g>
+        <g class="motion-part" style="--motion-order:8;--motion-y:16px" data-motion-end>
+          <rect class="paper outline" x="122" y="267" width="160" height="66" rx="6" />
+          <rect class="ink" x="112" y="277" width="160" height="66" rx="6" />
+          <>
+            <path class="reverse" d="M164 298h77m-77 12h55m-55 12h66" />
+            <path class="blue" d="M126 291h21v34h-21z" />
+            <circle class="paper" cx="152" cy="296" r="5" />
+          </>
+        </g>
+      </>
+    )
+  }
+  {
+    service === 'websites' && (
+      <>
+        <g class="motion-part" style="--motion-order:0;--motion-y:14px">
+          <rect class="paper outline" x="34" y="38" width="286" height="200" rx="8" />
+          <>
+            <path class="line" d="M34 65h286M151 239v28m-38 1h105" />
+            <circle class="blue" cx="49" cy="51" r="3" />
+            <circle class="muted" cx="61" cy="51" r="3" />
+          </>
+          <path class="guide" d="M54 84h245v134H54zM54 166h245M178 84v82" />
+        </g>
+        <g class="motion-part" style="--motion-order:3">
+          <>
+            <rect class="soft" x="54" y="84" width="245" height="76" rx="4" />
+            <path class="ink" d="M68 101h91v8H68zm0 16h66v5H68z" />
+            <rect class="blue" x="68" y="133" width="54" height="14" rx="4" />
+          </>
+          <>
+            <path class="blue" d="m192 145 31-39 22 23 15-15 26 31z" />
+            <path
+              class="line detail"
+              d="M56 184h65m-65 12h49m30-12h65m-65 12h49m30-12h65m-65 12h49"
+            />
+          </>
+        </g>
+        <path
+          class="blue-line motion-stroke"
+          pathLength="1"
+          style="--motion-order:5"
+          d="M177 275v24h64m-16-6 16 6-16 6"
+          aria-hidden="true"
+        />
+        <g class="motion-part" style="--motion-order:6;--motion-x:20px">
+          <>
+            <rect class="paper outline" x="244" y="155" width="124" height="174" rx="9" />
+            <rect class="soft" x="254" y="172" width="104" height="76" rx="3" />
+            <path class="blue" d="m264 235 25-35 19 20 16-12 24 27z" />
+            <path class="line" d="M259 265h88m-88 13h66" />
+            <rect class="blue" x="259" y="292" width="55" height="16" rx="4" />
+          </>
+        </g>
+        <g class="motion-part" style="--motion-order:9;--motion-x:14px" data-motion-end>
+          <>
+            <rect class="paper outline" x="204" y="222" width="76" height="124" rx="10" />
+            <path class="line" d="M228 231h28" />
+            <rect class="soft" x="213" y="244" width="58" height="42" rx="2" />
+            <path class="blue" d="m217 280 14-22 14 14 9-8 14 16z" />
+            <path class="line" d="M216 297h50m-50 10h36" />
+            <rect class="blue" x="216" y="319" width="36" height="12" rx="3" />
+          </>
+        </g>
+      </>
+    )
+  }
+  {
+    service === 'mobile-apps' && (
+      <>
+        <g class="motion-part" style="--motion-order:0">
+          <>
+            <rect class="paper outline" x="142" y="26" width="116" height="64" rx="12" />
+            <path
+              class="blue-line"
+              d="M192 60c-13-11 5-27 15-15 5 7 1 12-5 17v9h-10zm0 17h10M200 31v-5m-21 17-5-4m47 4 5-4"
+            />
+          </>
+        </g>
+        <path
+          class="blue-line motion-stroke"
+          pathLength="1"
+          style="--motion-order:2"
+          d="M200 90v20H72v24m128-24v46m0-46h128v24"
+          aria-hidden="true"
+        />
+        {[28, 156, 284].map((x, i) => (
+          <g class="motion-part" style={`--motion-order:${3 + i * 2};--motion-x:${(i - 1) * 16}px`}>
+            <rect
+              class="paper outline"
+              x={x}
+              y={i === 1 ? 156 : 134}
+              width="88"
+              height="170"
+              rx="13"
+            />
+            <path class="line" d={`M${x + 30} ${i === 1 ? 166 : 144}h28`} />
+            <rect class="soft" x={x + 10} y={i === 1 ? 180 : 158} width="68" height="56" rx="4" />
+            {i === 0 ? (
+              <>
+                <circle class="blue" cx={x + 44} cy="182" r="12" />
+                <path class="line" d={`M${x + 16} 228h56m-56 12h42m-42 12h52`} />
+              </>
+            ) : i === 1 ? (
+              <>
+                <path class="blue-line" d="m177 204 9 9 19-23" />
+                <path class="line" d="M174 250h50m-50 12h38" />
+              </>
+            ) : (
+              <>
+                <circle class="outline paper" cx="328" cy="186" r="19" />
+                <path class="line" d="M300 228h54m-54 12h38" />
+              </>
+            )}
+            <rect class="blue" x={x + 16} y={i === 1 ? 280 : 260} width="56" height="20" rx="5" />
+          </g>
+        ))}
+        <path
+          class="blue-line motion-stroke"
+          pathLength="1"
+          style="--motion-order:8"
+          d="M103 280h28v22h37m-6-6 6 6-6 6m66-6h27V186h48m-6-6 6 6-6 6"
+          aria-hidden="true"
+        />
+        <g class="motion-part" style="--motion-order:11" data-motion-end>
+          <>
+            <circle class="blue" cx="328" cy="186" r="19" />
+            <path class="check" d="m318 186 7 7 13-15" />
+          </>
+        </g>
+      </>
+    )
+  }
+  {
+    service === 'ai-automation' && (
+      <>
+        <g class="motion-part" style="--motion-order:0;--motion-x:-16px">
+          <>
+            <rect class="soft outline" x="27" y="37" width="81" height="93" rx="6" />
+            <rect class="paper outline" x="39" y="47" width="81" height="93" rx="6" />
+            <path class="line" d="M53 67h52M53 80h43M53 93h52M53 106h34" />
+          </>
+        </g>
+        <path
+          class="blue-line motion-stroke"
+          pathLength="1"
+          style="--motion-order:2"
+          d="M120 94h34m-7-6 7 6-7 6"
+          aria-hidden="true"
+        />
+        <g class="motion-part" style="--motion-order:4">
+          <>
+            <rect class="paper outline" x="164" y="52" width="148" height="89" rx="8" />
+            <rect class="soft" x="180" y="69" width="33" height="24" rx="4" />
+            <rect class="soft" x="224" y="69" width="71" height="24" rx="4" />
+            <path class="blue-line" d="M187 80h17m26 0h56M196 93v26h65V93" />
+            <circle class="blue" cx="238" cy="119" r="7" />
+          </>
+        </g>
+        <path
+          class="blue-line motion-stroke"
+          pathLength="1"
+          style="--motion-order:6"
+          d="M238 141v34h-89v24m-6-7 6 7 6-7"
+          aria-hidden="true"
+        />
+        <g class="motion-part" style="--motion-order:8">
+          <>
+            <rect class="paper outline" x="72" y="209" width="150" height="118" rx="10" />
+            <circle class="ink" cx="112" cy="242" r="13" />
+            <path class="ink" d="M89 284v-9c0-25 46-25 46 0v9z" />
+            <rect class="soft" x="149" y="229" width="55" height="75" rx="4" />
+            <path class="line" d="M160 245h32m-32 12h24m-24 12h28" />
+          </>
+        </g>
+        <path
+          class="blue-line motion-stroke"
+          pathLength="1"
+          style="--motion-order:10"
+          d="M222 268h28m-7-6 7 6-7 6"
+          aria-hidden="true"
+        />
+        <g class="motion-part" style="--motion-order:12" data-motion-end>
+          <>
+            <rect class="paper outline" x="260" y="213" width="106" height="118" rx="8" />
+            <path class="line" d="M277 234h70m-70 13h54" />
+            <circle class="blue" cx="313" cy="286" r="22" />
+            <path class="check" d="m302 286 8 8 15-17" />
+          </>
+        </g>
+      </>
+    )
+  }
+</svg>
+<style>
+  .service-hero-visual {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 10/9;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+  .canvas,
+  .soft {
+    fill: var(--soft);
+  }
+  .paper {
+    fill: var(--surface);
+  }
+  .ink {
+    fill: var(--text);
+  }
+  .blue {
+    fill: var(--accent);
+  }
+  .muted {
+    fill: var(--muted);
+  }
+  .outline {
+    stroke: var(--muted);
+    stroke-width: 1.5;
+  }
+  .guide {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+  .line,
+  .blue-line,
+  .reverse,
+  .check {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .blue-line {
+    stroke: var(--accent);
+  }
+  .reverse {
+    stroke: var(--bg);
+  }
+  .check {
+    stroke: var(--on-accent);
+    stroke-width: 3;
+  }
+  .type-sample {
+    fill: var(--text);
+    font: var(--weight-strong) 34px var(--font-heading);
+  }
+  @media (max-width: 47.999rem) {
+    .ornament,
+    .detail {
+      display: none;
+    }
+    .outline,
+    .line,
+    .blue-line {
+      stroke-width: 2;
+    }
+  }
+</style>

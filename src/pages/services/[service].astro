@@ -1,4 +1,7 @@
 ---
+import ServiceHeroVisual from '../../components/ServiceHeroVisual.astro';
+import ServiceOutcomeFlow from '../../components/ServiceOutcomeFlow.astro';
+import '../../styles/home-motion.css';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { services, serviceCopy as c } from '../../content/services';
 import { ui, home } from '../../content/site';
@@ -10,23 +13,27 @@ const { service: s } = Astro.props;
 
 <SiteLayout title={s.name} description={s.description}
   ><div class="container">
-    <header class="page-head">
-      <p class="eyebrow">{s.number} / {s.name}</p><h1>{s.title}</h1><p class="lead">
-        {s.intro ?? s.description}
-      </p>
-      {s.serviceArea && <p>{s.serviceArea}</p>}
-      <div class="actions">
-        <a class="button primary" href={`/enquiry/?service=${s.id}`}>{c.lead}</a>
-      </div>
+    <header class="page-head service-page-hero">
+      <div class="service-heading-copy">
+        <p class="eyebrow">{s.number} / {s.name}</p><h1>{s.title}</h1><p class="lead">
+          {s.intro ?? s.description}
+        </p>
+        {s.serviceArea && <p>{s.serviceArea}</p>}
+        <div class="actions">
+          <a class="button primary" href={`/enquiry/?service=${s.id}`}>{c.lead}</a>
+        </div>
+      </div><ServiceHeroVisual service={s.id} />
     </header><div class="split section">
       <h2>{c.capabilities}</h2><ul>{s.capabilities.map((x) => <li>{x}</li>)}</ul>
     </div><div class="split section"><h2>{c.suits}</h2><p>{s.suits}</p></div><div
       class="split section"
     >
       <h2>{c.boundary}</h2><p>{s.boundary}</p>
-    </div><div class="split section"><h2>{c.process}</h2><p>{c.processText}</p></div><div
-      class="split section"
-    >
+    </div><section class="section">
+      <div class="split"><h2>{c.process}</h2><p>{c.processText}</p></div><ServiceOutcomeFlow
+        service={s.id}
+      />
+    </section><div class="split section">
       <h2>{c.ownership}</h2><p>{s.ownership}</p>
     </div><section class="section">
       <h2>{c.faq}</h2>{
@@ -50,3 +57,26 @@ const { service: s } = Astro.props;
     <p><a href="/start/">{ui.choose}</a></p>
   </div></SiteLayout
 >
+
+<script>
+  // The same once-per-page controller used by Phase 1; no additional observer.
+  import '../../scripts/home-motion';
+</script>
+<style>
+  .service-page-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7);
+    max-width: none;
+    align-items: center;
+  }
+  .service-heading-copy {
+    min-width: 0;
+  }
+  @media (--selector-desktop) {
+    .service-page-hero {
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-8);
+    }
+  }
+</style>

@@ -1,6 +1,8 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import Mark from '../components/Mark.astro';
+import HeroProcessVisual from '../components/HeroProcessVisual.astro';
+import HomeProcessSteps from '../components/HomeProcessSteps.astro';
+import '../styles/home-motion.css';
 import ServiceSelector from '../components/ServiceSelector.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import LatestArticles from '../components/blog/LatestArticles.astro';
@@ -23,10 +25,10 @@ import { pages } from '../content/pages';
         >
       </div>
     </div><div class="hero-art">
-      <div class="hero-mark" role="img" aria-label={ui.markAlt}><Mark /></div>
+      <HeroProcessVisual />
     </div>
   </section>
-  <ServiceSelector id="choose" />
+  <ServiceSelector id="choose" animated />
   <section class="section">
     <div class="container split">
       <div><p class="eyebrow">{c.why}</p><h2>{c.whyTitle}</h2></div><div>
@@ -45,9 +47,11 @@ import { pages } from '../content/pages';
   </section>
   <section class="section">
     <div class="container">
-      <p class="eyebrow">{ui.process}</p><h2>{c.processTitle}</h2><ol class="steps">
-        {c.steps.map((s) => <li>{s}</li>)}
-      </ol><p class="muted">{c.pdfNotice}</p>
+      <p class="eyebrow">{ui.process}</p><h2>{c.processTitle}</h2><HomeProcessSteps /><p
+        class="muted"
+      >
+        {c.pdfNotice}
+      </p>
     </div>
   </section>
   <section class="section">
@@ -76,17 +80,24 @@ import { pages } from '../content/pages';
   </section><LatestArticles /><FinalCTA />
 </SiteLayout>
 
+<script>
+  import '../scripts/home-motion';
+</script>
+
 <style>
   .hero-location {
     font-size: var(--small);
     max-width: 56ch;
   }
-  @media (--tablet) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-art {
+    min-width: 0;
+  }
+  @media (--selector-desktop) {
     .hero {
-      grid-template-columns: 1.8fr 1fr;
-    }
-    .steps {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     }
   }
 </style>

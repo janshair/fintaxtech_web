@@ -3,11 +3,17 @@ import ServiceVisual from './ServiceVisual.astro';
 import type { Service } from '../content/services';
 import { selectorCopy } from '../content/site';
 interface Props {
+  animated?: boolean;
   headingLevel?: 'h2' | 'h3';
   service: Service;
   mode?: 'information' | 'questionnaire';
 }
-const { service, mode = 'information', headingLevel: Heading = 'h3' } = Astro.props;
+const {
+  service,
+  mode = 'information',
+  headingLevel: Heading = 'h3',
+  animated = false,
+} = Astro.props;
 const href =
   mode === 'questionnaire' ? `/enquiry/?service=${service.id}` : `/services/${service.id}/`;
 ---
@@ -17,7 +23,7 @@ const href =
   href={href}
   data-start-service={mode === 'questionnaire' ? service.id : undefined}
 >
-  <ServiceVisual service={service.id} />
+  <ServiceVisual service={service.id} animated={animated} />
   <span class="number">{service.number}</span>
   <Heading class="service-card-heading">{service.short}</Heading>
   <p>{service.description}</p>

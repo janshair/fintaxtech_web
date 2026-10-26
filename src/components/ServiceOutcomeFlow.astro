@@ -1,0 +1,162 @@
+---
+import type { ServiceId } from '../lib/types';
+import { serviceMotion } from '../content/service-motion';
+interface Props {
+  service: ServiceId;
+}
+const { service } = Astro.props;
+const c = serviceMotion[service];
+const icons: Record<ServiceId, string[]> = {
+  branding: [
+    'M6 7h9v18H6Zm13 9h8v9h-8ZM19 7h8v6h-8Z',
+    'M5 8h22v18H5ZM5 14h22M12 14v12M20 14v12',
+    'M6 5h20v23H6ZM11 10h10m-10 6h10m-10 6h6',
+  ],
+  websites: [
+    'M12 10a4 4 0 1 0 8 0 4 4 0 1 0-8 0ZM7 27v-4c0-10 18-10 18 0v4',
+    'M4 6h24v21H4ZM4 12h24M9 17h14m-14 5h8',
+    'm7 16 6 6 12-13',
+  ],
+  'mobile-apps': [
+    'M9 3h14v26H9Zm4 4h6m-5 18h4',
+    'M6 5h20v23H6Zm4 9 3 3 8-8m-11 14h12',
+    'm7 16 6 6 12-13',
+  ],
+  'ai-automation': [
+    'M9 7h17v22H9ZM5 24V3h17M13 13h9m-9 5h9m-9 5h6',
+    'M4 5h9v9H4Zm15 13h9v9h-9ZM13 9h11v9M8 14v9h11',
+    'M12 10a4 4 0 1 0 8 0 4 4 0 1 0-8 0ZM7 27v-4c0-10 18-10 18 0v4',
+    'm7 16 6 6 12-13',
+  ],
+};
+---
+
+<figure
+  class="service-outcome home-motion"
+  data-home-motion
+  data-service-outcome={service}
+  role="img"
+  aria-label={c.outcomeLabel}
+>
+  <ol style={`--outcome-count:${c.steps.length}`}>
+    {
+      c.steps.map((step, i) => (
+        <li>
+          <div class="outcome-step">
+            <span class="outcome-node">
+              <svg
+                class="motion-part"
+                style={`--motion-order:${i * 5}`}
+                viewBox="0 0 32 32"
+                width="32"
+                height="32"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d={icons[service][i]} />
+              </svg>
+            </span>
+            <span
+              class="motion-part"
+              style={`--motion-order:${i * 5};--motion-opacity:1`}
+              data-motion-end={i === c.steps.length - 1 ? '' : undefined}
+            >
+              {step}
+            </span>
+          </div>
+          {i < c.steps.length - 1 && (
+            <span
+              class="outcome-link motion-link"
+              style={`--motion-order:${i * 5 + 1}`}
+              aria-hidden="true"
+            />
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</figure>
+<style>
+  .service-outcome {
+    margin: var(--space-6) 0 0;
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+  }
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  li {
+    position: relative;
+    padding: 0 0 var(--space-6);
+    margin: 0;
+    min-width: 0;
+  }
+  li:last-child {
+    padding-bottom: 0;
+  }
+  .outcome-step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    position: relative;
+    z-index: 1;
+    --motion-y: 0px;
+  }
+  .outcome-node {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    flex: none;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--text);
+  }
+  svg {
+    width: 2rem;
+    height: 2rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .outcome-link {
+    position: absolute;
+    left: 1.75rem;
+    top: 1.75rem;
+    width: 2px;
+    height: 100%;
+    background: var(--accent);
+    transform-origin: top center;
+    --motion-link-start: scaleY(0);
+  }
+  @media (--tablet) {
+    ol {
+      grid-template-columns: repeat(var(--outcome-count), minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+    li {
+      padding: 0;
+    }
+    .outcome-step {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-right: var(--space-3);
+    }
+    .outcome-link {
+      width: calc(100% + var(--space-5));
+      height: 2px;
+      transform-origin: left center;
+      --motion-link-start: scaleX(0);
+    }
+  }
+</style>

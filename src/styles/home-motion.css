@@ -1,0 +1,67 @@
+/* Phase 1/2 shared motion tokens and choreography. Without JS, artwork is complete. */
+.home-motion {
+  --motion-duration: 600ms;
+  --motion-stagger: 160ms;
+  --motion-easing: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+/* Text stays readable even when its entrance is paused offscreen. */
+.home-motion :is(.input-card, .review-mark, .step-content) {
+  --motion-opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-motion:is([data-motion-state='running'], [data-motion-state='paused']) .motion-part {
+    animation: home-assemble var(--motion-duration) var(--motion-easing) both;
+    animation-delay: calc(var(--motion-order, 0) * var(--motion-stagger));
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .home-motion:is([data-motion-state='running'], [data-motion-state='paused']) .motion-stroke {
+    stroke-dasharray: 1;
+    animation: home-connect var(--motion-duration) ease both;
+    animation-delay: calc(var(--motion-order, 0) * var(--motion-stagger));
+  }
+  .home-motion[data-motion-state='paused'] :is(.motion-part, .motion-stroke) {
+    animation-play-state: paused;
+  }
+  .home-motion:is([data-motion-state='running'], [data-motion-state='paused']) .motion-link {
+    animation: motion-link var(--motion-duration) ease-in-out both;
+    animation-delay: calc(var(--motion-order, 0) * var(--motion-stagger));
+  }
+  .home-motion[data-motion-state='paused'] .motion-link {
+    animation-play-state: paused;
+  }
+}
+@keyframes motion-link {
+  from {
+    transform: var(--motion-link-start, scaleX(0));
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes home-assemble {
+  from {
+    opacity: var(--motion-opacity, 0.15);
+    transform: translate(var(--motion-x, 0px), var(--motion-y, 10px)) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes home-connect {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-motion :is(.motion-part, .motion-stroke, .motion-link) {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+}
