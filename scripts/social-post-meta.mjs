@@ -10,8 +10,10 @@
 //
 // Env: META_SYSTEM_TOKEN, META_PAGE_ID, MUSIC_KEY (GitHub secrets), DRY_RUN, SLUG, SOURCE_SHA,
 //      MAX_AGE_DAYS (default 2), GRAPH_VERSION (default v23.0), and TEST_MUSIC, which renders a
-//      Reel with that track during a dry run even if the post file names no music.
-import { readdir, readFile, appendFile, stat, mkdtemp } from 'node:fs/promises';
+//      Reel with that track during a dry run even if the post file names no music. When
+//      REEL_EXPORT_DIR is set, a copy of each Reel without its music is saved there, for posting
+//      by hand on platforms the Meta-licensed music does not cover (TikTok, YouTube).
+import { readdir, readFile, appendFile, stat, mkdtemp, mkdir } from 'node:fs/promises';
 import { execSync, execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -122,6 +124,12 @@ async function postReel(post, musicId, { pageToken, ig }) {
       stdio: ['ignore', 'inherit', 'inherit'],
     });
     log(`Reel: rendered ${((await stat(video)).size / 1e6).toFixed(1)} MB with "${track.title}" by ${track.artist}`);
+    if (env.REEL_EXPORT_DIR) {
+      await mkdir(env.REEL_EXPORT_DIR, { recursive: true });
+      const silent = join(env.REEL_EXPORT_DIR, `${post.slug}-reel-no-music.mp4`);
+      execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', video, '-map', '0:v', '-c', 'copy', '-movflags', '+faststart', silent]);
+      log(`Reel: saved a copy without music as \`${post.slug}-reel-no-music.mp4\` (download it from this run's Artifacts)`);
+    }
   } catch (err) {
     log(`Reel: ❌ could not render the video (${err.message.split('\n')[0]})`);
     failed = true;

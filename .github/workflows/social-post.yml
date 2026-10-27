@@ -67,6 +67,15 @@ jobs:
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
           MUSIC_KEY: ${{ secrets.MUSIC_KEY }}
           TEST_MUSIC: ${{ inputs.test_music }}
+          REEL_EXPORT_DIR: ${{ runner.temp }}/reel-export
           SOURCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
           SLUG: ${{ inputs.slug }}
+      # Music-free copy of each Reel, to post by hand on TikTok and YouTube with their own licensed audio.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reel-without-music
+          path: ${{ runner.temp }}/reel-export/*.mp4
+          if-no-files-found: ignore
+          retention-days: 30
