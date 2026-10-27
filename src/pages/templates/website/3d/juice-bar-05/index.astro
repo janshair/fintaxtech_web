@@ -1,0 +1,633 @@
+---
+import { juiceBarDemo as c } from '../../../../../content/juice-bar-demo';
+import { threeDTemplates, threeDGallery } from '../../../../../content/templates';
+import { seoPages } from '../../../../../content/seo';
+import { absoluteURL, structuredData } from '../../../../../lib/seo';
+const template = threeDTemplates.find((item) => item.id === c.id)!;
+const { title, description } = seoPages[c.route];
+const canonical = absoluteURL(c.route);
+const image = absoluteURL(template.preview.src);
+const assets = c.route;
+const coffeeStages = [
+  ['Start with the beans.', 'A little shower of coffee beans tumbles into an empty cup.'],
+  ['Pour a little warmth.', 'Dark espresso fills the cup, turning a softer latte brown.'],
+  ['Finish with a flourish.', 'A swirl of milk, a little leaf and your name on the cup.'],
+];
+const exampleReviews = [
+  {
+    initials: 'AR',
+    name: 'Amy R.',
+    date: '2 weeks ago',
+    text: 'Such a friendly welcome on a rainy morning. My flat white was lovely and the little seating corner made it tempting to stay for another.',
+  },
+  {
+    initials: 'JM',
+    name: 'Jamie M.',
+    date: '1 month ago',
+    text: 'Popped in for an orange and ginger juice before work. Bright, fresh flavour and everything was ready quickly. Really cheerful service, too.',
+  },
+  {
+    initials: 'SK',
+    name: 'Sam K.',
+    date: '3 weeks ago',
+    text: 'Tried the strawberry and banana smoothie and came back for coffee the next day. A relaxed spot, with staff who take time to help you choose.',
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#faf5e9" />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta
+      property="og:image:alt"
+      content={template.preview.alt}
+    />
+    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+      property="og:image:height"
+      content={String(template.preview.height)}
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta name="twitter:description" content={description} /><meta
+      name="twitter:image"
+      content={image}
+    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        structuredData(c.route, title, description, undefined, image),
+      ).replace(/</g, '\\u003c')}
+    />
+    <link rel="stylesheet" href="/templates/website/3d/juice-bar-05/styles.css" />
+    <!-- The blocking script observes streamed identity nodes before their first paint.
+         Values are assigned only as text. No query data enters requests or storage. -->
+    <script is:inline src="/templates/website/3d/juice-bar-05/identity.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <aside class="demo-strip" aria-label="Demonstration controls">
+      <a href="/">FinTaxTech ↗</a><span>3D WEBSITE DEMO · 05</span>
+      <a href={threeDGallery.route}>All 3D templates</a>
+      <a href="/contact/" data-agency-link>Discuss this website ↗</a>
+      <button type="button" data-edit>Change business name</button>
+    </aside>
+    <header class="business-header wrap">
+      <a class="brand" href="#home"
+        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
+          data-business>{c.name}</span
+        ></a
+      >
+      <nav aria-label="Café navigation">
+        <a href="#menu">The menu</a><a href="#story">Our mix</a><a href="#contact">Find us</a>
+      </nav>
+      <a class="button small" href="#build" data-order>Order ahead ↗</a>
+    </header>
+    <main id="main">
+      <section class="hero wrap" id="home" data-capture="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="sun" aria-hidden="true">✳</span> JUICE. COFFEE. GOOD MORNINGS.
+          </p>
+          <p class="location">
+            Your neighbourhood stop · <span data-area-prefix>near</span>{' '}<span data-area
+              >Dundee & Tayside</span
+            >
+          </p>
+          <h1>Your morning.<br />Made <em>brighter.</em></h1>
+          <p class="lead">
+            Fresh fruit in your cup. Coffee just how you like it. A little place to pause, before
+            the gym or whatever’s next.
+          </p>
+          <a class="button orange" href="#build" data-order
+            >Build your drink <span aria-hidden="true">↗</span></a
+          >
+          <p class="note">Try our order-ahead demo. Nothing is ordered or paid.</p>
+        </div>
+        <div class="hero-visual">
+          <span class="orbit-label">A LITTLE SUNSHINE, TO GO.</span>
+          <div class="scene-frame hero-scene" data-scene="hero">
+            <img
+              src={assets + 'hero.webp'}
+              width="900"
+              height="900"
+              alt="An original 3D orange smoothie cup with a green straw, orange slices and a café sleeve."
+              fetchpriority="high"
+            />
+          </div>
+          <div class="round-stamp">
+            <span>BLENDED<br />YOUR WAY</span><span aria-hidden="true">↗</span>
+          </div>
+          <p class="scene-caption">
+            <span class="dot"></span><span data-render-status
+              >Original 3D illustration · a taste of your website</span
+            >
+          </p>
+        </div>
+      </section>
+      <div class="ticker" aria-label="Café highlights">
+        <span>Early starts</span><span aria-hidden="true">✳</span><span>Fruit-first favourites</span
+        ><span aria-hidden="true">✳</span><span>Good coffee, too</span><span aria-hidden="true"
+          >✳</span
+        ><span>Your kind of morning</span>
+      </div>
+      <section class="section wrap" id="menu" data-capture="menu" aria-labelledby="menu-title">
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">01 / FIND YOUR USUAL</p><h2 id="menu-title">
+              Small menu.<br /><em>Bright ideas.</em>
+            </h2>
+          </div><p>
+            A sip, a snack, a familiar face.<br />Example menu & prices — ready for your own
+            favourites.
+          </p>
+        </header>
+        <div class="menu-grid">
+          {
+            c.menu.map((item) => (
+              <article class={'menu-card ' + item.tone}>
+                <>
+                  <div class="menu-mark" aria-hidden="true">
+                    {item.mark}
+                    <span>↗</span>
+                  </div>
+                  <p class="eyebrow">{item.category}</p>
+                  <h3>{item.name}</h3>
+                  <p>{item.ingredients}</p>
+                  <div class="menu-bottom">
+                    <>
+                      <strong data-sample-price>{item.price}</strong>
+                      <span>Example price</span>
+                    </>
+                  </div>
+                </>
+              </article>
+            ))
+          }
+        </div>
+        <p class="allergens">
+          Ask us about allergens — full allergen information is available in store. This
+          demonstration menu must be checked and replaced before use.
+        </p>
+      </section>
+      <section class="story section" id="story" aria-labelledby="story-title">
+        <div class="wrap">
+          <header class="section-heading">
+            <div>
+              <p class="eyebrow">02 / FROM FRUIT TO FRESH</p><h2 id="story-title">
+                A good mix.<br /><em>Just like you.</em>
+              </h2>
+            </div><p>
+              A little fruit. A little imagination.<br />Scroll to see your morning take shape.
+            </p>
+          </header>
+          <div class="story-track" data-story-track>
+            <div class="story-pin">
+              <div class="scene-frame story-scene" data-scene="story" data-capture="story">
+                <img
+                  src={assets + 'stage-1.webp'}
+                  width="900"
+                  height="700"
+                  alt="Stage one: orange and berry pieces falling towards an empty smoothie cup."
+                />
+                <span class="stage-badge" data-stage-badge>01 / PICK</span>
+              </div>
+              <ol class="story-steps">
+                {
+                  c.stages.map(([heading, text], i) => (
+                    <li data-story-step>
+                      <>
+                        <span>0{i + 1}</span>
+                        <div>
+                          <>
+                            <h3>{heading}</h3>
+                            <p>{text}</p>
+                          </>
+                        </div>
+                      </>
+                    </li>
+                  ))
+                }
+              </ol>
+              <div class="story-progress" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+          <div class="poster-sequence" aria-label="The three drink-making stages">
+            {
+              c.stages.map(([heading, text], i) => (
+                <figure>
+                  <>
+                    <img
+                      src={assets + `stage-${i + 1}.webp`}
+                      width="900"
+                      height="700"
+                      alt={`Original 3D illustration: ${heading}`}
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      <>
+                        <h3>{heading}</h3>
+                        <p>{text}</p>
+                      </>
+                    </figcaption>
+                  </>
+                </figure>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+      <section class="build section wrap" id="build" aria-labelledby="build-title">
+        <div>
+          <p class="eyebrow">03 / A CUP WITH YOUR NAME ON IT</p><h2 id="build-title">
+            You pick.<br /><em>We’ll mix.</em>
+          </h2><p>
+            Choose your base, fruit and a little extra. Pick an example collection time, then see
+            how ordering ahead could work on your website.
+          </p><a class="button orange" href="#contact" data-order data-capture="build"
+            >Try the drink builder ↗</a
+          ><p class="note">Three simple steps. No details, no payment, no real order.</p>
+        </div>
+        <aside class="loyalty">
+          <p class="eyebrow">A LITTLE THANK YOU · EXAMPLE OFFER</p><h3>
+            Same time<br />tomorrow?
+          </h3><div class="stamps" aria-hidden="true">
+            {
+              Array.from({ length: 10 }, (_, i) => (
+                <span style={`--stamp-delay:${i * 90}ms`}>{i === 9 ? '♡' : '✳'}</span>
+              ))
+            }
+          </div><p>Your 10th drink is on us.</p><small
+            >An example loyalty card. Your own terms and offer go here.</small
+          >
+        </aside>
+      </section>
+      <section class="coffee-section section" id="coffee" aria-labelledby="coffee-title">
+        <div class="wrap">
+          <header class="section-heading">
+            <div>
+              <p class="eyebrow">AND FOR THE COFFEE PEOPLE</p><h2 id="coffee-title">
+                Bean to cup.<br /><em>A little ritual.</em>
+              </h2>
+            </div><p>
+              From the first bean to the last little swirl. Scroll to see your coffee take shape,
+              one detail at a time.
+            </p>
+          </header>
+          <div class="story-track coffee-track" data-coffee-track>
+            <div class="story-pin">
+              <div
+                class="scene-frame story-scene coffee-scene"
+                data-scene="coffee"
+                data-capture="coffee-story"
+              >
+                <img
+                  src={assets + 'coffee-stage-1.webp'}
+                  width="900"
+                  height="700"
+                  alt="Coffee beans falling into an empty cream cup: an original 3D illustration."
+                  loading="lazy"
+                />
+                <span class="stage-badge" data-stage-badge>01 / BEANS</span>
+              </div>
+              <ol class="story-steps">
+                {
+                  coffeeStages.map(([heading, text], i) => (
+                    <li data-story-step>
+                      <>
+                        <span>0{i + 1}</span>
+                        <div>
+                          <>
+                            <h3>{heading}</h3>
+                            <p>{text}</p>
+                          </>
+                        </div>
+                      </>
+                    </li>
+                  ))
+                }
+              </ol>
+              <div class="story-progress" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+          <div class="coffee-posters" aria-label="The three bean-to-cup stages">
+            {
+              coffeeStages.map(([heading, text], i) => (
+                <figure>
+                  <>
+                    <img
+                      src={assets + `coffee-stage-${i + 1}.webp`}
+                      width="900"
+                      height="700"
+                      alt={`Original coffee illustration: ${heading}`}
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      <>
+                        <h3>{heading}</h3>
+                        <p>{text}</p>
+                      </>
+                    </figcaption>
+                  </>
+                </figure>
+              ))
+            }
+          </div>
+          <p class="note">
+            A playful illustration of your coffee ritual. Your real menu and preparation details go
+            here.
+          </p>
+        </div>
+      </section>
+      <section
+        class="section wrap"
+        id="gallery"
+        data-capture="gallery"
+        aria-labelledby="gallery-title"
+      >
+        <header class="section-heading">
+          <div>
+            <p class="eyebrow">04 / LITTLE MOMENTS, LATELY</p><h2 id="gallery-title">
+              Around<br /><em>our table.</em>
+            </h2>
+          </div><p>
+            Your own photos and Instagram posts go here.<br />These are original illustration
+            placeholders.
+          </p>
+        </header><div class="photo-grid">
+          <figure>
+            <img
+              src={assets + 'stage-3.webp'}
+              width="900"
+              height="700"
+              alt="Illustration placeholder: a bright orange smoothie."
+              loading="lazy"
+            /><figcaption>The morning mix · example</figcaption>
+          </figure><figure>
+            <img
+              src={assets + 'coffee.webp'}
+              width="800"
+              height="650"
+              alt="Illustration placeholder: your daily coffee."
+              loading="lazy"
+            /><figcaption>A moment for coffee · example</figcaption>
+          </figure><figure>
+            <img
+              src={assets + 'stage-1.webp'}
+              width="900"
+              height="700"
+              alt="Illustration placeholder: colourful fruit and a cup."
+              loading="lazy"
+            /><figcaption>Colour on the counter · example</figcaption>
+          </figure>
+        </div><section class="reviews" data-capture="reviews" aria-labelledby="reviews-title">
+          <header>
+            <h3 id="reviews-title">A little neighbourhood love</h3><p>
+              Example reviews — your real Google reviews appear here.
+            </p>
+          </header><div class="review-grid">
+            {
+              exampleReviews.map((review) => (
+                <article class="review-card" data-sample-review>
+                  <>
+                    <div class="review-top">
+                      <>
+                        <span class="review-avatar" aria-hidden="true">
+                          {review.initials}
+                        </span>
+                        <div>
+                          <>
+                            <h4>{review.name}</h4>
+                            <p>{review.date}</p>
+                          </>
+                        </div>
+                        <span class="example-review-tag">Example review</span>
+                      </>
+                    </div>
+                    <p class="review-stars" aria-label="5 out of 5 stars">
+                      ★★★★★
+                    </p>
+                    <p>{review.text}</p>
+                  </>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+      </section>
+      <section
+        class="contact section"
+        id="contact"
+        data-capture="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="wrap">
+          <header class="section-heading">
+            <div>
+              <p class="eyebrow">05 / SEE YOU BRIGHT & EARLY</p><h2 id="contact-title">
+                Just around<br /><em>the corner.</em>
+              </h2>
+            </div><p>
+              <span data-business>{c.name}</span><br /><span data-area-prefix>Near</span>{' '}<span
+                data-area>Dundee & Tayside</span
+              > · example location near a gym.
+            </p>
+          </header><div class="contact-grid">
+            <div>
+              <h3>Make a little pit stop.</h3><p>
+                Order ahead, collect at the counter. This is a demonstration of click-and-collect;
+                the shop would confirm real availability.
+              </p><a class="button orange" href="#build" data-order>Order ahead · demo ↗</a><div
+                class="contact-actions"
+              >
+                <a href="#contact" data-call>Call <span data-phone>Your number here</span></a><a
+                  href="#contact"
+                  data-whatsapp>WhatsApp <span data-phone>Your number here</span></a
+                >
+              </div>
+            </div><div>
+              <h3>Up before the rush.</h3><p class="note">Example opening hours</p><dl>
+                {
+                  c.hours.map(([day, hours]) => (
+                    <div>
+                      <>
+                        <dt>{day}</dt>
+                        <dd>{hours}</dd>
+                      </>
+                    </div>
+                  ))
+                }
+              </dl><p class="note">
+                Already on Deliveroo, Uber Eats or Just Eat? We’ll link your menu.
+              </p>
+            </div><div class="map-card" id="map">
+              <div class="map-art" aria-hidden="true"><span>✳</span></div><div>
+                <p class="eyebrow">YOUR PATCH OF THE MAP</p><h3 data-map-area>
+                  Your address here
+                </h3><p class="note">Map placeholder · no live location</p><a
+                  href="#map"
+                  class="text-link"
+                  data-directions>Directions preview ↗</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="agency-offer">
+        <div class="wrap">
+          <p class="eyebrow">DAYBREAK BLEND / JUICE-BAR-05 · BY FINTAXTECH</p><h2>
+            Picture your business here?<br /><em>We’ll make it yours.</em>
+          </h2><p>Your name. Your menu. A website worth sharing.</p><a
+            class="button orange"
+            href="/contact/"
+            data-agency-link>Talk to FinTaxTech ↗</a
+          >
+        </div>
+      </section>
+      <noscript
+        ><p class="wrap">
+          This demonstration is complete with static illustrations. Enable JavaScript to apply your
+          link’s business name and try the order demo. <a href="/contact/"
+            >Discuss your website with FinTaxTech.</a
+          >
+        </p></noscript
+      >
+    </main>
+    <footer class="wrap site-footer">
+      <a class="brand" href="#home"
+        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
+          data-business>{c.name}</span
+        ></a
+      ><p>
+        A fictional business demonstration by FinTaxTech.<br />Example menu, hours and offer. No
+        real orders or payments.
+      </p><a href={threeDGallery.route}>Browse 3D templates ↗</a>
+    </footer>
+    <nav class="mobile-contact" aria-label="Café actions">
+      <a href="#build" data-order>Order ahead · demo ↗</a><a href="#map" data-directions
+        >Directions ↗</a
+      >
+    </nav>
+    <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
+      <button class="close" data-close type="button" aria-label="Close business name dialog"
+        >×</button
+      ><p class="eyebrow">YOUR NAME. YOUR MORNING.</p><h2 id="name-title">
+        Picture your<br /><em>business here.</em>
+      </h2><p id="name-description">
+        See your name across this café demonstration. It stays only in this page and its shareable
+        URL.
+      </p><form id="name-form" novalidate>
+        <label for="business-name">Business name</label><input
+          id="business-name"
+          maxlength="100"
+          placeholder="e.g. Tayside Juice Co"
+          autocomplete="off"
+          aria-describedby="name-error"
+        /><p id="name-error" class="error" role="status"></p><button
+          class="button orange"
+          type="submit">Preview my website ↗</button
+        >
+      </form><button id="restore-name" class="text-link" type="button"
+        >Explore the sample / restore default</button
+      >
+    </dialog>
+    <dialog id="order-dialog" aria-labelledby="order-title" aria-describedby="order-description">
+      <button class="close" data-close type="button" aria-label="Close order demo">×</button><p
+        class="eyebrow"
+      >
+        BUILD YOUR DRINK · DEMO ONLY
+      </p><h2 id="order-title">Your cup.<br /><em>Your call.</em></h2><p id="order-description">
+        A sample order for <span data-business>{c.name}</span>. Nothing is sent.
+      </p><ol class="order-progress" aria-label="Order steps">
+        <li data-order-indicator>1. Drink</li><li data-order-indicator>2. Mix</li><li
+          data-order-indicator
+        >
+          3. Preview
+        </li>
+      </ol><div class="order-preview">
+        <div class="scene-frame builder-scene" data-scene="builder">
+          <img
+            src={assets + 'hero.webp'}
+            width="900"
+            height="900"
+            alt="Sample cup illustration for the drink builder."
+          /><span class="colour-swatch" aria-hidden="true"></span>
+        </div><p class="note" data-drink-description role="status">
+          Orange smoothie · orange & banana
+        </p>
+      </div><form id="type-form">
+        <h3 tabindex="-1">01 / Choose your drink</h3><label for="drink-type">Drink type</label
+        ><select id="drink-type"
+          ><option value="smoothie">Smoothie</option><option value="juice">Juice</option><option
+            value="shake">Protein shake</option
+          ><option value="coffee">Iced coffee</option></select
+        ><button class="button orange" type="submit">Next: your mix →</button>
+      </form><form id="mix-form" hidden novalidate>
+        <h3 tabindex="-1">02 / Make your mix</h3><label for="drink-base">Base</label><select
+          id="drink-base"
+          ><option>Oat drink</option><option>Apple juice</option><option>Milk</option><option
+            >Water</option
+          ></select
+        ><label for="drink-fruit">Fruit / veg</label><select id="drink-fruit"
+          ><option value="orange">Orange & banana</option><option value="berry"
+            >Strawberry & banana</option
+          ><option value="green">Apple & spinach</option></select
+        ><label for="drink-addon">A little extra</label><select id="drink-addon"
+          ><option>Ginger</option><option>Oats</option><option>Whey protein</option><option
+            >No add-on</option
+          ></select
+        ><label for="collection-time">Example collection time</label><select id="collection-time"
+          ><option>Today, 08:15 (example)</option><option>Today, 09:00 (example)</option><option
+            >Today, 12:30 (example)</option
+          ></select
+        ><p class="note">
+          Ingredient combinations are illustrative. Ask about allergens before a real order.
+        </p><p id="order-error" class="error" role="status"></p><button
+          class="button orange"
+          type="submit">See order preview →</button
+        ><button class="text-link" type="button" data-restart>Back to drinks</button>
+      </form><div id="order-final" hidden>
+        <h3 tabindex="-1">03 / A brighter morning, pictured.</h3><p id="order-summary"></p><p>
+          This is where your customers would order ahead on your finished website. <strong
+            >Demo only — nothing is ordered or paid.</strong
+          >
+        </p><a class="button orange" href="/contact/" data-agency-link
+          >Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech</a
+        ><button class="text-link" type="button" data-restart>Try another drink</button>
+      </div>
+    </dialog>
+    <dialog id="directions-dialog" aria-labelledby="directions-title">
+      <button class="close" data-close type="button" aria-label="Close directions preview">×</button
+      ><p class="eyebrow">MAP PLACEHOLDER</p><h2 id="directions-title">
+        Find your<br /><em>front door.</em>
+      </h2><p>
+        Directions to <span data-business>{c.name}</span>, <span data-area-prefix>near</span>{
+          ' '
+        }<span data-area>Dundee & Tayside</span>, would open your real address on the finished
+        website.
+      </p><p>No real café address is supplied in this demonstration.</p><a
+        class="button orange"
+        href="/contact/"
+        data-agency-link>Discuss your website ↗</a
+      >
+    </dialog>
+    <p class="sr-only" id="announcement" role="status"></p>
+    <script is:inline src="/templates/website/3d/juice-bar-05/app.js"></script>
+    <script>
+      import './_runtime/controller';
+    </script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../../../../layouts/SiteLayout.astro';
 import TemplateCard from '../../../../components/templates/TemplateCard.astro';
-import { motionGallery as c, motionTemplates } from '../../../../content/templates';
+import { motionGallery as c, motionTemplates, threeDGallery } from '../../../../content/templates';
 ---
 
 <SiteLayout title={c.title} description={c.description}>
@@ -21,6 +21,7 @@ import { motionGallery as c, motionTemplates } from '../../../../content/templat
     </ul>
     <div class="gallery-note">
       <p class="muted">{c.note}</p>
+      <p><a href={threeDGallery.route}>Explore 3D website templates ↗</a></p>
       <a class="button primary" href="/contact/">{c.contactLabel}</a>
     </div>
   </div>

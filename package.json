@@ -29,12 +29,14 @@
     "@fontsource/ibm-plex-sans": "^5.2.6",
     "astro": "^7.3.1",
     "jspdf": "^4.2.0",
-    "satteri": "^0.10.5"
+    "satteri": "^0.10.5",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.55.0",
+    "@types/three": "^0.186.0",
     "esbuild": "0.28.2",
     "lighthouse": "^13.4.1",
     "parse5": "^8.0.1",

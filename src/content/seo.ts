@@ -1,4 +1,4 @@
-import { motionGallery, motionTemplates, barberRedirect } from './templates';
+import { motionGallery, threeDGallery, allTemplates, barberRedirect } from './templates';
 import { legacyRedirects } from './legacy-redirects';
 import { careersCopy } from './careers';
 import { metoni, metoniSupport } from './metoni';
@@ -27,9 +27,10 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [threeDGallery.route]: { title: threeDGallery.title, description: threeDGallery.description },
   [motionGallery.route]: { title: motionGallery.title, description: motionGallery.description },
   ...Object.fromEntries(
-    motionTemplates.map((template) => [
+    allTemplates.map((template) => [
       template.route,
       {
         title: template.seoTitle,
