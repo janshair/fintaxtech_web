@@ -5,7 +5,7 @@ working record for the daily article task.
 
 ## Published (as at 2026-10-19)
 
-Mobile App Development (11): mobile-app-requirements-checklist,
+Mobile App Development (12): does-your-app-need-an-admin-panel, mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
 mobile-app-or-mobile-friendly-website, why-mobile-app-quotes-vary,
 mobile-app-maintenance-after-launch, app-store-and-google-play-submission-checklist,
@@ -49,6 +49,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-17: plan-your-website-pages-and-navigation — pushed to main, awaiting owner review
 - 2026-10-18: prepare-documents-for-ai-assisted-work — pushed to main, awaiting owner review
 - 2026-10-19: choosing-photography-and-imagery-for-your-brand — pushed to main, awaiting owner review
+- 2026-10-27: does-your-app-need-an-admin-panel — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -73,6 +74,7 @@ repeatable-ai-workflows-for-your-business
 16. ~~Planning Your Website Pages and Menu: How to Decide What Goes Where (Website Design and Development; websites)~~ added 2026-10-17 as queue was exhausted (websites longest since last post, 10 vs mobile 11; site structure not yet covered); published 2026-10-17
 17. ~~Preparing Your Documents for AI-Assisted Work: A Practical Tidy-Up Checklist (AI Automation; ai-automation)~~ added 2026-10-18 as queue was exhausted (AI and Branding had fewest, 10; AI longest since last post; document preparation not yet covered); published 2026-10-18
 18. ~~Choosing Photography and Imagery for Your Brand: How to Keep Pictures Consistent and Safe to Use (Branding and Graphic Design; branding)~~ added 2026-10-19 as queue was exhausted (Branding had fewest, 10; brand imagery not yet covered); published 2026-10-19
+19. ~~Does Your App Need an Admin Panel? How to Manage Content and Users Without a Developer (Mobile App Development; mobile-apps)~~ added 2026-10-27 as queue was exhausted (all categories at 11; mobile longest since last post; admin tooling not yet covered); published 2026-10-27
 
 ## Conventions reminder
 

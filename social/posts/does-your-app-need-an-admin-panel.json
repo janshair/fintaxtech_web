@@ -1,0 +1,46 @@
+{
+  "slug": "does-your-app-need-an-admin-panel",
+  "url": "https://fintaxtech.co.uk/blog/does-your-app-need-an-admin-panel/",
+  "date": "2026-10-27",
+  "title": "Does Your App Need an Admin Panel? How to Manage Content and Users Without a Developer",
+  "category": "Mobile App Development",
+  "music": "glow",
+  "cards": [
+    {
+      "heading": "List what changes after launch",
+      "text": "Prices, photos, offers and opening times. If it changes often, you need a way to edit it."
+    },
+    {
+      "heading": "Choose one of three levels",
+      "text": "Developer changes, simple content editing, or a full admin panel. Each is more useful and more work."
+    },
+    {
+      "heading": "Name who makes the changes",
+      "text": "A named person and a back-up, not \"the team\". A tool only helps if someone uses it."
+    },
+    {
+      "heading": "Give each person only what they need",
+      "text": "Limit who can see customer details, and remove access promptly when someone leaves."
+    },
+    {
+      "heading": "Keep the accounts in your name",
+      "text": "Hosting and databases should be yours, with your developer given access. Confirm it in writing."
+    }
+  ],
+  "facebook": {
+    "message": "Who changes a price or a photo in your app once it is live?\nMost app planning focuses on what customers see, not who manages it afterwards. Our new guide explains what an admin panel does, three levels from developer-only changes to a full back office, and the questions to settle before you build, such as who makes changes and who can see customer details. Watch for the key points in the short video.\n\nTo read the full article, visit the FinTaxTech website and find \"Does Your App Need an Admin Panel? How to Manage Content and Users Without a Developer\" in our Blog section.\n#MobileApps #AppDevelopment"
+  },
+  "instagram": {
+    "caption": "Your app is live. Now who updates a price, swaps a photo or removes a user? That back-office question is easier to settle before the build than after.\nWatch for the essentials in the short video.\n→ List what will change after launch\n→ Pick a level: developer, simple editing or full panel\n→ Name who makes changes, plus a back-up\n→ Limit who can see customer details\n→ Keep hosting and database accounts in your name\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#MobileApps #AppDevelopment #AppPlanning #AdminPanel #SmallBusiness #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social.jpg",
+  "images": [
+    "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social.jpg",
+    "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social-2.jpg",
+    "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social-3.jpg",
+    "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social-4.jpg",
+    "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social-5.jpg",
+    "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social-6.jpg",
+    "src/assets/blog/does-your-app-need-an-admin-panel/does-your-app-need-an-admin-panel-social-7.jpg"
+  ]
+}
