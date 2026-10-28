@@ -1,5 +1,7 @@
 ---
-import { juiceBarDemo as c } from '../../../../../content/juice-bar-demo';
+import JuicePoster from '../../../../../components/templates/JuicePoster.astro';
+import { templateTheme } from '../../../../../lib/template-theme';
+import { THEME, juiceBarDemo as c } from '../../../../../content/juice-bar-demo';
 import { threeDTemplates, threeDGallery } from '../../../../../content/templates';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
@@ -33,14 +35,15 @@ const exampleReviews = [
     text: 'Tried the strawberry and banana smoothie and came back for coffee the next day. A relaxed spot, with staff who take time to help you choose.',
   },
 ];
+const theme = templateTheme('juice-bar-05', THEME);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
-    <meta name="theme-color" content="#faf5e9" />
+    <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
     <meta property="og:title" content={title} /><meta
@@ -119,7 +122,7 @@ const exampleReviews = [
         <div class="hero-visual">
           <span class="orbit-label">A LITTLE SUNSHINE, TO GO.</span>
           <div class="scene-frame hero-scene" data-scene="hero">
-            <img
+            <JuicePoster
               src={assets + 'hero.webp'}
               width="900"
               height="900"
@@ -196,7 +199,7 @@ const exampleReviews = [
           <div class="story-track" data-story-track>
             <div class="story-pin">
               <div class="scene-frame story-scene" data-scene="story" data-capture="story">
-                <img
+                <JuicePoster
                   src={assets + 'stage-1.webp'}
                   width="900"
                   height="700"
@@ -229,7 +232,7 @@ const exampleReviews = [
               c.stages.map(([heading, text], i) => (
                 <figure>
                   <>
-                    <img
+                    <JuicePoster
                       src={assets + `stage-${i + 1}.webp`}
                       width="900"
                       height="700"
@@ -293,7 +296,7 @@ const exampleReviews = [
                 data-scene="coffee"
                 data-capture="coffee-story"
               >
-                <img
+                <JuicePoster
                   src={assets + 'coffee-stage-1.webp'}
                   width="900"
                   height="700"
@@ -327,7 +330,7 @@ const exampleReviews = [
               coffeeStages.map(([heading, text], i) => (
                 <figure>
                   <>
-                    <img
+                    <JuicePoster
                       src={assets + `coffee-stage-${i + 1}.webp`}
                       width="900"
                       height="700"
@@ -368,7 +371,7 @@ const exampleReviews = [
           </p>
         </header><div class="photo-grid">
           <figure>
-            <img
+            <JuicePoster
               src={assets + 'stage-3.webp'}
               width="900"
               height="700"
@@ -376,7 +379,7 @@ const exampleReviews = [
               loading="lazy"
             /><figcaption>The morning mix · example</figcaption>
           </figure><figure>
-            <img
+            <JuicePoster
               src={assets + 'coffee.webp'}
               width="800"
               height="650"
@@ -384,7 +387,7 @@ const exampleReviews = [
               loading="lazy"
             /><figcaption>A moment for coffee · example</figcaption>
           </figure><figure>
-            <img
+            <JuicePoster
               src={assets + 'stage-1.webp'}
               width="900"
               height="700"
@@ -559,7 +562,7 @@ const exampleReviews = [
         </li>
       </ol><div class="order-preview">
         <div class="scene-frame builder-scene" data-scene="builder">
-          <img
+          <JuicePoster
             src={assets + 'hero.webp'}
             width="900"
             height="900"

@@ -3,7 +3,7 @@ import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const origin = process.env.PREVIEW_ORIGIN || 'http://localhost:4324';
-const out = 'docs/juice-bar-05-enhancement';
+const out = process.env.JUICE_REPORT_DIR || 'docs/juice-bar-05-enhancement';
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ args: ['--remote-debugging-port=9225'] });
 try {

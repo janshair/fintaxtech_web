@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 const origin = process.env.PREVIEW_ORIGIN || 'http://localhost:4324';
 const route = '/templates/website/3d/juice-bar-05/';
 const url = origin + route + '?name=SeJuice&area=Dundee&ref=L-TEST';
-const out = 'docs/juice-bar-05-enhancement';
+const out = process.env.JUICE_REPORT_DIR || 'docs/juice-bar-05-enhancement';
 await mkdir(out, { recursive: true });
 const report = { url, browsers: {}, assets: [] };
 const save = async (file, value) => writeFile(out + '/' + file, JSON.stringify(value, null, 2));

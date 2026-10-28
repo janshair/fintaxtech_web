@@ -82,3 +82,6 @@ src/.DS_Store
 .DS_Store
 src/.DS_Store
 .DS_Store
+
+# Template image provenance must travel with its assets.
+!public/templates/website/3d/juice-bar-05/images/SOURCES.md

@@ -1,5 +1,6 @@
 // Original procedural meshes and CanvasTexture artwork, authored for this project.
 // No third-party models, photographs, HDRs, fonts or texture downloads. Three.js: MIT.
+import { layoutSleeveName, SLEEVE_ARC, SLEEVE_WIDTH } from './sleeve-layout';
 import {
   Scene,
   InstancedMesh,
@@ -24,6 +25,8 @@ import {
   PlaneGeometry,
   CanvasTexture,
   SRGBColorSpace,
+  LinearMipmapLinearFilter,
+  LinearFilter,
   AmbientLight,
   DirectionalLight,
   ACESFilmicToneMapping,
@@ -48,8 +51,13 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.toneMapping = ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
+  const styles = getComputedStyle(document.documentElement);
+  const themed = (value: string) =>
+    styles.getPropertyValue('--tone-' + value.slice(1)).trim() || value;
+  const sleeveColour = styles.getPropertyValue('--sleeve').trim() || '#174c38';
+  const labelColour = styles.getPropertyValue('--on-sleeve').trim() || '#fff8df';
   const scene = new Scene();
-  scene.background = new Color('#e8e8c9');
+  scene.background = new Color(themed('#e8e8c9'));
   const camera = new PerspectiveCamera(32, 1, 0.1, 40);
   camera.position.set(0, 1.5, 8.3);
   camera.lookAt(0, 0.4, 0);
@@ -69,6 +77,7 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
     new MeshStandardMaterial({ color: colour, roughness, metalness: 0.03 });
   const cream = mat('#fffae8'),
     green = mat('#174c38'),
+    sleeveGreen = mat(sleeveColour, 0.8),
     glass = mat('#f5eed9', 0.22),
     juice = mat('#ee9239', 0.32);
   glass.transparent = true;
@@ -85,47 +94,65 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
         new Vector2(0.61, 1.02),
         new Vector2(0.47, -0.94),
       ],
-      48,
+      96,
     ),
     glass,
   );
   cup.add(shell);
-  const liquid = new Mesh(new CylinderGeometry(0.605, 0.455, 1.78, 48), juice);
+  const liquid = new Mesh(new CylinderGeometry(1, 1, 1, 96), juice);
   liquid.position.y = -0.02;
   cup.add(liquid);
-  const rim = new Mesh(new TorusGeometry(0.635, 0.035, 8, 48), cream);
+  const rim = new Mesh(new TorusGeometry(0.635, 0.035, 12, 96), cream);
   rim.rotation.x = Math.PI / 2;
   rim.position.y = 1.04;
   cup.add(rim);
-  const lid = new Mesh(new CylinderGeometry(0.67, 0.67, 0.08, 48), cream);
+  const lid = new Mesh(new CylinderGeometry(0.67, 0.67, 0.08, 96), cream);
   lid.position.y = 1.06;
   cup.add(lid);
-  const straw = new Mesh(new CylinderGeometry(0.035, 0.035, 1.3, 12), green);
+  const straw = new Mesh(new CylinderGeometry(0.035, 0.035, 1.3, 12), sleeveGreen);
   straw.position.set(0.28, 1.65, 0.02);
   straw.rotation.z = -0.16;
   cup.add(straw);
   const labelCanvas = document.createElement('canvas');
-  labelCanvas.width = 512;
-  labelCanvas.height = 256;
+  labelCanvas.width = 2048;
+  labelCanvas.height = 512;
   const context = labelCanvas.getContext('2d')!;
-  context.scale(0.5, 0.5);
+  // Logical 1024×512 artwork, with two physical pixels horizontally.
+  context.setTransform(2, 0, 0, 1, 0, 0);
   const texture = new CanvasTexture(labelCanvas);
   texture.colorSpace = SRGBColorSpace;
-  const labelMat = new MeshStandardMaterial({ map: texture, roughness: 0.8, side: DoubleSide });
+  texture.generateMipmaps = true;
+  texture.minFilter = LinearMipmapLinearFilter;
+  texture.magFilter = LinearFilter;
+  texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  const labelMat = new MeshStandardMaterial({
+    map: texture,
+    roughness: 0.8,
+    side: DoubleSide,
+    depthWrite: true,
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
+    polygonOffsetUnits: -1,
+  });
   const sleeve = new Mesh(
-    new CylinderGeometry(0.595, 0.55, 0.62, 48, 1, true, -0.95, 1.9),
+    new CylinderGeometry(0.593, 0.546, 0.62, 96, 1, true, -SLEEVE_ARC / 2, SLEEVE_ARC),
     labelMat,
   );
-  // Cylinder UVs keep the literal text on the front of the cup.
+  // UV u=.5 lies on local +Z: the camera-facing side at the final pose.
+  // Both label panels use the same centred 120° arc with safe text insets.
   sleeve.rotation.y = 0;
   sleeve.position.y = -0.05;
   cup.add(sleeve);
   const backSleeve = new Mesh(
-    new CylinderGeometry(0.593, 0.548, 0.62, 48, 1, true, 0.95, Math.PI * 2 - 1.9),
-    green,
+    new CylinderGeometry(0.593, 0.546, 0.62, 96, 1, true, SLEEVE_ARC / 2, Math.PI * 2 - SLEEVE_ARC),
+    sleeveGreen,
   );
   backSleeve.position.y = -0.05;
   cup.add(backSleeve);
+  // Opaque sleeves write depth before the transparent shell. The shell tests
+  // that depth and cannot tint the name; the liquid remains inside the wall.
+  sleeve.renderOrder = backSleeve.renderOrder = 3;
+  shell.renderOrder = 1;
   const ice: Mesh[] = [];
   for (let i = 0; i < 5; i++) {
     const cube = new Mesh(new BoxGeometry(0.19, 0.15, 0.18), cream);
@@ -141,6 +168,8 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
       a = i * 2.399,
       y = ((i % 7) / 7) * 1.75 - 0.8,
       r = 0.5 + (y + 1) * 0.065;
+    // Keep condensation off the paper sleeve and its lettering.
+    if (y > -0.39 && y < 0.29) continue;
     bead.position.set(Math.sin(a) * r, y, Math.cos(a) * r);
     cup.add(bead);
   }
@@ -186,17 +215,15 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
     fruit.add(piece);
     pieces.push(piece);
   }
-  const leaf = new Mesh(new SphereGeometry(0.3, 16, 8), green);
-  leaf.scale.set(0.5, 0.1, 1.5);
-  leaf.position.set(1, -0.6, 0.3);
-  root.add(leaf);
   // Baked soft contact shadow, generated locally at 128px; no real-time shadow maps.
   const shadowCanvas = document.createElement('canvas');
   shadowCanvas.width = shadowCanvas.height = 128;
   const sc = shadowCanvas.getContext('2d')!;
   const gradient = sc.createRadialGradient(64, 64, 3, 64, 64, 62);
-  gradient.addColorStop(0, 'rgba(22,63,51,.24)');
-  gradient.addColorStop(1, 'rgba(22,63,51,0)');
+  const shadowHex = styles.getPropertyValue('--brand').trim() || '#163f33';
+  const shadowRGB = [1, 3, 5].map((i) => parseInt(shadowHex.slice(i, i + 2), 16)).join(',');
+  gradient.addColorStop(0, `rgba(${shadowRGB},.24)`);
+  gradient.addColorStop(1, `rgba(${shadowRGB},0)`);
   sc.fillStyle = gradient;
   sc.fillRect(0, 0, 128, 128);
   const shadowTexture = new CanvasTexture(shadowCanvas);
@@ -221,13 +248,13 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
         new Vector2(0.47, -0.57),
         new Vector2(0, -0.57),
       ],
-      48,
+      96,
     ),
     cream,
   );
   coffee.add(mug);
   const espressoMaterial = mat('#32180d', 0.3);
-  const coffeeLiquid = new Mesh(new CylinderGeometry(0.65, 0.46, 0.98, 48), espressoMaterial);
+  const coffeeLiquid = new Mesh(new CylinderGeometry(1, 1, 1, 96), espressoMaterial);
   coffee.add(coffeeLiquid);
   const streamMaterial = mat('#542710', 0.25);
   streamMaterial.transparent = true;
@@ -236,28 +263,77 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
   const cremaMaterial = mat('#d6a15b');
   cremaMaterial.transparent = true;
   cremaMaterial.opacity = 0.3;
-  const crema = new Mesh(new CylinderGeometry(0.65, 0.65, 0.014, 48), cremaMaterial);
+  const crema = new Mesh(new CylinderGeometry(1, 1, 0.014, 96), cremaMaterial);
   coffee.add(crema);
   const handle = new Mesh(new TorusGeometry(0.32, 0.09, 12, 24, Math.PI), cream);
   handle.rotation.z = -Math.PI / 2;
   handle.position.set(0.66, -0.02, 0);
   coffee.add(handle);
-  const saucer = new Mesh(new CylinderGeometry(1.06, 1, 0.08, 48), cream);
+  const saucer = new Mesh(new CylinderGeometry(1.06, 1, 0.08, 96), cream);
   saucer.position.y = -0.72;
   coffee.add(saucer);
   // Share the exact text-only CanvasTexture with the juice cup.
   const coffeeSleeve = new Mesh(
-    new CylinderGeometry(0.68, 0.61, 0.38, 48, 1, true, -0.95, 1.9),
+    new CylinderGeometry(0.664, 0.591, 0.38, 96, 1, true, -SLEEVE_ARC / 2, SLEEVE_ARC),
     labelMat,
   );
   coffeeSleeve.position.y = -0.03;
   coffee.add(coffeeSleeve);
   const coffeeSleeveBack = new Mesh(
-    new CylinderGeometry(0.678, 0.608, 0.38, 48, 1, true, 0.95, Math.PI * 2 - 1.9),
-    green,
+    new CylinderGeometry(0.664, 0.591, 0.38, 96, 1, true, SLEEVE_ARC / 2, Math.PI * 2 - SLEEVE_ARC),
+    sleeveGreen,
   );
   coffeeSleeveBack.position.y = -0.03;
   coffee.add(coffeeSleeveBack);
+  coffeeSleeve.renderOrder = coffeeSleeveBack.renderOrder = 3;
+
+  // Rebuild the two radii at the actual surface height. Scaling a tapered
+  // cylinder vertically alone makes its top intersect the narrower lower cup.
+  function taperedFill(
+    mesh: Mesh<CylinderGeometry>,
+    bottom: number,
+    height: number,
+    radiusAt: (y: number) => number,
+    diagnostic: string,
+  ) {
+    const unit = mesh.geometry.attributes.position.array.slice();
+    let previous = -1;
+    return (fill: number) => {
+      if (fill === previous) return;
+      previous = fill;
+      const positions = mesh.geometry.attributes.position;
+      for (let i = 0; i < positions.count; i++) {
+        const y = bottom + (unit[i * 3 + 1] + 0.5) * height * fill;
+        const radius = radiusAt(y) - 0.018;
+        positions.setXYZ(i, unit[i * 3] * radius, y, unit[i * 3 + 2] * radius);
+      }
+      let clearance = Infinity;
+      for (let i = 0; i < positions.count; i++)
+        clearance = Math.min(
+          clearance,
+          radiusAt(positions.getY(i)) - Math.hypot(positions.getX(i), positions.getZ(i)),
+        );
+      canvas.dataset[diagnostic] = clearance.toFixed(5);
+      positions.needsUpdate = true;
+      mesh.geometry.computeVertexNormals();
+      mesh.geometry.computeBoundingSphere();
+      mesh.position.y = 0;
+    };
+  }
+  const juiceFill = taperedFill(
+    liquid,
+    -0.91,
+    1.78,
+    (y) => 0.47 + (y + 0.94) / 14,
+    'juiceClearance',
+  );
+  const espressoFill = taperedFill(
+    coffeeLiquid,
+    -0.54,
+    0.98,
+    (y) => 0.47 + (y + 0.57) / 5.6,
+    'coffeeClearance',
+  );
 
   // 64 beans, one draw call. The flattened ellipsoid has an actual indented
   // crease along its front, cut into the vertices; no model/normal-map request.
@@ -394,23 +470,37 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
   function name(value: string) {
     if (lastName === value) return;
     lastName = value;
-    context.fillStyle = '#174c38';
+    context.fillStyle = sleeveColour;
     context.fillRect(0, 0, 1024, 512);
-    context.fillStyle = '#fff8df';
+    context.fillStyle = labelColour;
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    // Text only, never HTML or an SVG string. Wrap/fit even a 100-character token.
-    const chars = Array.from(value);
-    const lines = [];
-    for (let i = 0; i < chars.length; i += 24) lines.push(chars.slice(i, i + 24).join(''));
-    const size = Math.min(76, 260 / Math.max(1, lines.length));
-    context.font = `bold ${size}px Arial`;
-    lines.forEach((line, i) =>
-      context.fillText(line, 512, 240 + (i - (lines.length - 1) / 2) * (size + 8), 940),
+    // Measure real font widths; wrap only at spaces, never squash or split words.
+    const layout = layoutSleeveName(value, (text, size) => {
+      context.font = `900 ${size}px Arial`;
+      return context.measureText(text).width;
+    });
+    context.font = `900 ${layout.fontSize}px Arial`;
+    layout.lines.forEach((line, i) =>
+      context.fillText(
+        line,
+        512,
+        223 + (i - (layout.lines.length - 1) / 2) * (layout.fontSize + 14),
+      ),
     );
-    context.font = '23px Arial';
-    context.fillText('A LITTLE SUNSHINE, TO GO', 512, 435);
+    canvas.dataset.labelLines = JSON.stringify(layout.lines);
+    canvas.dataset.labelFont = String(layout.fontSize);
+    canvas.dataset.labelTruncated = String(layout.truncated);
+    canvas.dataset.labelWidths = JSON.stringify(
+      layout.lines.map((line) => context.measureText(line).width),
+    );
+    canvas.dataset.labelMaxWidth = String(SLEEVE_WIDTH);
+    canvas.dataset.labelArc = '120';
+    context.font = 'bold 38px Arial';
+    context.fillText('A LITTLE SUNSHINE, TO GO', 512, 448);
     texture.needsUpdate = true;
+    canvas.dataset.labelTexture = '2048x512';
+    canvas.dataset.anisotropy = String(texture.anisotropy);
     canvas.dataset.label = value;
   }
   let colour = '#ee9239',
@@ -426,6 +516,8 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
   function render(mode: string, progress: number, lean = 0, time = 0, entry = 1) {
     const isCoffee = mode === 'coffee';
     const storyMode = mode === 'story';
+    const finish = storyMode ? Math.max(0, Math.min(1, (progress - 2 / 3) * 3)) : 1;
+    const settle = storyMode ? ease(finish) : 0;
     // Look into the cup before pouring starts, then ease back to the sleeve
     // view through the finishing stage. At p=.5, the half-height surface is
     // visible above the near rim from the visitor's viewpoint.
@@ -441,20 +533,18 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
     coffee.visible = isCoffee;
     root.visible = !isCoffee;
     (scene.background as Color).set(
-      isCoffee ? '#d8e2b9' : mode === 'story' ? '#e7edda' : '#e8e8c9',
+      themed(isCoffee ? '#d8e2b9' : mode === 'story' ? '#e7edda' : '#e8e8c9'),
     );
     cup.rotation.set(
-      0.02,
+      0.02 * (1 - settle),
       mode === 'story' ? (1 - progress) * 0.55 : lean * 0.15,
-      -0.08 + lean * 0.035,
+      -0.08 * (1 - settle) + lean * 0.035,
     );
     cup.position.y = mode === 'hero' ? 0.02 : 0;
     root.scale.set(storyMode ? 1.8 : 1, storyMode ? 0.95 : 1, storyMode ? 1.3 : 1);
     coffee.scale.setScalar(1.35);
     const fill = mode === 'story' ? Math.max(0.03, Math.min(1, (progress - 1 / 3) * 3)) : 1;
-    liquid.scale.y = fill;
-    liquid.position.y = -0.91 + 0.89 * fill;
-    const finish = mode === 'story' ? Math.max(0, Math.min(1, (progress - 2 / 3) * 3)) : 1;
+    juiceFill(fill);
     lid.position.y = 1.06 + (1 - finish) * 1.4;
     straw.position.y = 1.65 + (1 - finish) * 2.3;
     lid.visible = mode !== 'story' || progress >= 2 / 3;
@@ -464,7 +554,7 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
         const local = clamp(progress * 3);
         const drop = ease((local - seed(i) * 0.35) / 0.65);
         const angle = i * 2.399,
-          radius = 0.22 + seed(i + 9) * 0.17;
+          radius = 0.055 + seed(i + 9) * 0.07;
         piece.position.set(
           Math.cos(angle) * ((1 - drop) * 0.65 + radius),
           2.5 + seed(i) * 0.7 - drop * (2.15 + seed(i) * 0.7),
@@ -497,13 +587,12 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
       }
     });
     ice.forEach((cube) => (cube.visible = mode !== 'story' || fill > 0.9));
-    leaf.visible = mode !== 'story' || progress > 0.45;
+    canvas.dataset.looseObjects = '0';
     if (isCoffee) {
       const pour = ease((progress - 1 / 3) * 3),
         coffeeFinish = ease((progress - 2 / 3) * 3);
       const coffeeFill = mode === 'coffee' ? pour : 1;
-      coffeeLiquid.scale.y = Math.max(0.001, coffeeFill);
-      coffeeLiquid.position.y = -0.54 + 0.49 * coffeeFill;
+      espressoFill(Math.max(0.001, coffeeFill));
       espressoMaterial.color
         .set('#32180d')
         .lerp(new Color('#b67949'), clamp(pour * 0.7 + coffeeFinish * 0.3));
@@ -516,7 +605,8 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
       espressoStream.position.set(-0.12, (streamTop + surface) / 2, 0.025);
       crema.position.y = surface + 0.008;
       crema.visible = coffeeFill > 0.015;
-      crema.scale.setScalar(0.98);
+      const surfaceRadius = 0.47 + (surface + 0.57) / 5.6 - 0.02;
+      crema.scale.set(surfaceRadius, 1, surfaceRadius);
       latteArt.position.y = surface + 0.025;
       milkSwirl.position.y = surface + 0.018;
       latteArt.scale.setScalar(0.55 + 0.45 * coffeeFinish);
@@ -558,6 +648,18 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
       const right = new Vector3(0.67, 0, 0).applyMatrix4(root.matrixWorld).project(camera);
       canvas.dataset.cupWidth = String(((right.x - left.x) * canvas.clientWidth) / 2);
     }
+    if (storyMode || isCoffee) {
+      const panel = isCoffee ? coffeeSleeve : sleeve;
+      panel.updateWorldMatrix(true, false);
+      camera.updateMatrixWorld(true);
+      const centre = new Vector3(0, 0, isCoffee ? 0.6275 : 0.5695)
+        .applyMatrix4(panel.matrixWorld)
+        .project(camera);
+      canvas.dataset.labelCentreX = (((centre.x + 1) * canvas.clientWidth) / 2).toFixed(2);
+      canvas.dataset.labelScene = mode;
+      canvas.dataset.finalYaw = String(isCoffee ? coffee.rotation.y : cup.rotation.y);
+      canvas.dataset.lidOn = String(storyMode && finish === 1 && lid.position.y === 1.06);
+    }
     const beforeDraw = performance.now();
     renderer.render(scene, camera);
     if (!canvas.dataset.firstDrawMs)
@@ -581,6 +683,59 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
     renderer.setViewport(0, 0, canvas.width / ratio, canvas.height / ratio);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+  }
+  // Capture-only sleeve masks let build-time themes recolour fallback posters
+  // without tinting fruit, beans or ceramics. No extra pass runs for visitors.
+  function posterMask(kind: 'sleeve' | 'text') {
+    const maskCanvas = document.createElement('canvas');
+    maskCanvas.width = labelCanvas.width;
+    maskCanvas.height = labelCanvas.height;
+    const ctx = maskCanvas.getContext('2d')!;
+    const pixels = context.getImageData(0, 0, 2048, 512);
+    const rgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+    const bg = rgb(sleeveColour),
+      fg = rgb(labelColour);
+    const channel = bg
+      .map((v, i) => Math.abs(v - fg[i]))
+      .indexOf(Math.max(...bg.map((v, i) => Math.abs(v - fg[i]))));
+    for (let i = 0; i < pixels.data.length; i += 4) {
+      const text = clamp((pixels.data[i + channel] - bg[channel]) / (fg[channel] - bg[channel]));
+      const value = (kind === 'text' ? text : 1 - text) * 255;
+      pixels.data[i] = pixels.data[i + 1] = pixels.data[i + 2] = value;
+    }
+    ctx.putImageData(pixels, 0, 0);
+    const maskTexture = new CanvasTexture(maskCanvas);
+    maskTexture.colorSpace = SRGBColorSpace;
+    const black = new MeshBasicMaterial({ color: '#000000' });
+    const white = new MeshBasicMaterial({
+      color: kind === 'text' ? '#000000' : '#ffffff',
+      side: DoubleSide,
+    });
+    const mapped = new MeshBasicMaterial({ map: maskTexture, side: DoubleSide });
+    const saved: [Mesh, Material | Material[]][] = [];
+    scene.traverse((node) => {
+      if (node instanceof Mesh) {
+        saved.push([node, node.material]);
+        node.material =
+          node === sleeve || node === coffeeSleeve
+            ? mapped
+            : node === backSleeve || node === coffeeSleeveBack || node === straw
+              ? white
+              : black;
+      }
+    });
+    const background = scene.background;
+    const toneMapping = renderer.toneMapping;
+    scene.background = new Color('#000000');
+    renderer.toneMapping = 0;
+    renderer.render(scene, camera);
+    scene.background = background;
+    renderer.toneMapping = toneMapping;
+    for (const [node, material] of saved) node.material = material;
+    maskTexture.dispose();
+    black.dispose();
+    white.dispose();
+    mapped.dispose();
   }
   function dispose() {
     const geometries = new Set<BufferGeometry>(),
@@ -620,5 +775,5 @@ export async function createDrinkScene(canvas: HTMLCanvasElement) {
     canvas.dataset.prepareMs = (performance.now() - before).toFixed(1);
   };
   const prepareCoffee = () => compilePart(coffee);
-  return { name, mix, render, resize, dispose, canvas, prepare, prepareCoffee };
+  return { name, mix, render, resize, dispose, canvas, prepare, prepareCoffee, posterMask };
 }

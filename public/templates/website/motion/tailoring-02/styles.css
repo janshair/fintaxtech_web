@@ -1,14 +1,14 @@
 :root {
-  --paper: #f4f0e7;
-  --ink: #24372f;
-  --rust: #97472f;
-  --soft: #e8e2d6;
-  --line: #24372f30;
-  --muted: #586258;
+  --paper: var(--tone-f4f0e7);
+  --ink: var(--brand);
+  --rust: var(--accent);
+  --soft: var(--tone-e8e2d6);
+  --line: var(--tone-24372f30);
+  --muted: var(--tone-586258);
   --stitch: 1;
   color-scheme: light;
   font-family: Arial, Helvetica, sans-serif;
-  color: var(--ink);
+  color: var(--brand-text);
   background: var(--paper);
   font-synthesis: none;
 }
@@ -92,14 +92,14 @@ h3 {
 }
 em {
   font-weight: 400;
-  color: var(--rust);
+  color: var(--accent-text);
 }
 p {
   line-height: 1.75;
 }
 ::selection {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f4f0e7);
 }
 .wrap {
   padding-inline: 6vw;
@@ -120,7 +120,7 @@ p {
   letter-spacing: 0.12em;
 }
 .eyebrow {
-  color: var(--rust);
+  color: var(--accent-text);
   margin-bottom: 24px;
 }
 .small-note {
@@ -134,7 +134,7 @@ p {
   align-items: center;
   gap: 30px;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f4f0e7);
   border: 1px solid var(--ink);
   padding: 19px 24px;
   min-height: 54px;
@@ -143,6 +143,7 @@ p {
   transition: background 0.2s;
 }
 .button:hover {
+  color: var(--on-accent-paper);
   background: var(--rust);
   border-color: var(--rust);
 }
@@ -159,7 +160,7 @@ p {
   padding: 13px 0;
 }
 .text-link:hover {
-  color: var(--rust);
+  color: var(--accent-text);
 }
 [data-business],
 [data-area],
@@ -173,7 +174,7 @@ p {
   top: -100px;
   z-index: 30;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f4f0e7);
   padding: 16px;
 }
 .skip:focus {
@@ -186,7 +187,7 @@ p {
   min-height: 42px;
   padding: 9px 3vw;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f4f0e7);
   font-size: 10px;
 }
 .demo-strip .agency {
@@ -196,7 +197,7 @@ p {
 }
 .agency span {
   margin-left: 5px;
-  color: #d7b9a8;
+  color: var(--tone-d7b9a8);
 }
 .demo-id {
   font:
@@ -207,7 +208,7 @@ p {
 .demo-strip button {
   font-size: 10px;
   border: 0;
-  border-bottom: 1px solid #f4f0e788;
+  border-bottom: 1px solid var(--tone-f4f0e788);
   padding: 6px 0;
   background: transparent;
 }
@@ -250,7 +251,7 @@ nav a {
   padding: 12px 0;
 }
 nav a:hover {
-  color: var(--rust);
+  color: var(--accent-text);
 }
 .menu-toggle {
   display: none;
@@ -275,10 +276,10 @@ nav a:hover {
     20px/1.4 Georgia,
     serif;
   margin-bottom: 25px;
-  color: var(--rust);
+  color: var(--accent-text);
 }
 .hero-identity [data-hero-area] {
-  color: var(--ink);
+  color: var(--brand-text);
 }
 .hero h1 {
   margin-bottom: 27px;
@@ -303,7 +304,7 @@ nav a:hover {
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  background: #e7e0d1;
+  background: var(--tone-e7e0d1);
   overflow: hidden;
   padding: 20px 14px;
 }
@@ -311,7 +312,7 @@ nav a:hover {
   display: block;
   width: 100%;
   height: auto;
-  color: var(--ink);
+  color: var(--brand-text);
 }
 .hero-art .garment-art {
   max-height: 590px;
@@ -333,14 +334,14 @@ nav a:hover {
 }
 .chalk {
   fill: none;
-  stroke: #f3ecd3;
+  stroke: var(--tone-f3ecd3);
   stroke-width: 2;
   stroke-dasharray: 5 6;
   opacity: 0.75;
 }
 .accent-stitch {
   fill: none;
-  stroke: #e4bd8c;
+  stroke: var(--tone-e4bd8c);
   stroke-width: 3;
   stroke-dasharray: 4 5;
 }
@@ -369,11 +370,11 @@ nav a:hover {
   transition: color 0.2s;
 }
 .service-row:hover {
-  color: var(--rust);
+  color: var(--accent-text);
 }
 .service-number {
   padding-top: 7px;
-  color: var(--rust);
+  color: var(--accent-text);
 }
 .service-row p {
   max-width: 36ch;
@@ -390,7 +391,7 @@ nav a:hover {
 }
 .service-price > span {
   font-size: 20px;
-  color: var(--rust);
+  color: var(--accent-text);
 }
 .service-list > .small-note {
   border-top: 1px solid var(--line);
@@ -398,7 +399,7 @@ nav a:hover {
 }
 .process {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f4f0e7);
   height: 170svh;
   position: relative;
 }
@@ -416,11 +417,11 @@ nav a:hover {
   max-height: 1100px;
 }
 .process .eyebrow {
-  color: #e5ba9a;
+  color: var(--tone-e5ba9a);
 }
 .process header > p:last-child {
   font-size: 14px;
-  color: #d0d3c7;
+  color: var(--tone-d0d3c7);
   max-width: 36ch;
   margin-top: 24px;
 }
@@ -434,7 +435,7 @@ nav a:hover {
   overflow: visible;
 }
 .process .art-label {
-  color: #c1ccbc;
+  color: var(--tone-c1ccbc);
   margin-top: 25px;
 }
 .steps {
@@ -445,11 +446,11 @@ nav a:hover {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 38px;
   grid-column: 1/-1;
-  border-top: 1px solid #f4f0e740;
+  border-top: 1px solid var(--tone-f4f0e740);
 }
 .step-number {
   display: block;
-  color: #e5ba9a;
+  color: var(--tone-e5ba9a);
   margin-bottom: 14px;
 }
 .steps h3 {
@@ -457,7 +458,7 @@ nav a:hover {
   margin-bottom: 12px;
 }
 .steps p {
-  color: #d0d3c7;
+  color: var(--tone-d0d3c7);
   font-size: 13px;
   line-height: 1.8;
 }
@@ -485,10 +486,10 @@ nav a:hover {
   min-width: 0;
 }
 .work figure .garment-art {
-  background: #e6dfd0;
+  background: var(--tone-e6dfd0);
 }
 .work figure:nth-child(2) .garment-art {
-  background: #e9e1d7;
+  background: var(--tone-e9e1d7);
 }
 .work figcaption {
   padding-top: 24px;
@@ -511,7 +512,7 @@ nav a:hover {
   margin-top: 32px;
 }
 .review-grid p {
-  border: 1px dashed #24372f66;
+  border: 1px dashed var(--tone-24372f66);
   padding: 30px;
   font:
     20px/1.5 Georgia,
@@ -604,12 +605,12 @@ dd {
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  background: repeating-linear-gradient(25deg, transparent 0 50px, #24372f0c 50px 52px), #e6dfd0;
+  background: repeating-linear-gradient(25deg, transparent 0 50px, var(--tone-24372f0c) 50px 52px), var(--tone-e6dfd0);
 }
 .map-symbol {
   font-size: 80px;
   font-weight: normal;
-  color: var(--rust);
+  color: var(--accent-text);
   margin-bottom: 24px;
 }
 .map .map-area {
@@ -646,7 +647,7 @@ footer > a:last-child {
 }
 .agency-offer {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f4f0e7);
   padding-block: 30px;
   display: flex;
   align-items: center;
@@ -660,10 +661,10 @@ footer > a:last-child {
 }
 .agency-offer em {
   display: block;
-  color: #d9b79c;
+  color: var(--tone-d9b79c);
 }
 .agency-offer .button {
-  border-color: #f4f0e766;
+  border-color: var(--tone-f4f0e766);
 }
 .mobile-actions {
   display: none;
@@ -685,7 +686,7 @@ footer > a:last-child {
 dialog {
   border: 1px solid var(--line);
   background: var(--paper);
-  color: var(--ink);
+  color: var(--brand-text);
   width: min(530px, calc(100% - 28px));
   max-height: calc(100svh - 28px);
   padding: 40px;
@@ -693,7 +694,7 @@ dialog {
   overscroll-behavior: contain;
 }
 dialog::backdrop {
-  background: #182b25ba;
+  background: var(--tone-182b25ba);
   backdrop-filter: blur(7px);
 }
 .dialog-open {
@@ -710,7 +711,7 @@ dialog::backdrop {
   min-height: 44px;
 }
 .close:hover {
-  color: var(--rust);
+  color: var(--accent-text);
 }
 dialog .eyebrow {
   padding-right: 25px;
@@ -741,9 +742,9 @@ dialog select {
   width: 100%;
   min-height: 48px;
   padding: 12px;
-  background: #fffdf7;
-  border: 1px solid #7d887c;
-  color: var(--ink);
+  background: var(--tone-fffdf7);
+  border: 1px solid var(--tone-7d887c);
+  color: var(--brand-text);
 }
 dialog .small-note {
   margin-top: 10px;
@@ -764,7 +765,7 @@ dialog .button {
 }
 .demo-result {
   padding: 18px;
-  border: 1px solid #7d887c;
+  border: 1px solid var(--tone-7d887c);
   font-size: 13px;
   line-height: 1.8;
   margin-top: 20px;
@@ -868,7 +869,7 @@ dialog .button {
   }
   .menu-toggle span {
     font-size: 20px;
-    color: var(--rust);
+    color: var(--accent-text);
   }
   nav {
     display: none;
@@ -1111,7 +1112,7 @@ dialog .button {
   }
   .mobile-actions a:last-child {
     background: var(--ink);
-    color: var(--paper);
+    color: var(--on-brand-f4f0e7);
   }
   .dialog-open .mobile-actions {
     visibility: hidden;
@@ -1273,7 +1274,7 @@ body {
   position: absolute;
   left: 0;
   bottom: -10px;
-  color: var(--rust);
+  color: var(--accent-text);
   opacity: 0;
   pointer-events: none;
 }
@@ -1434,7 +1435,7 @@ body {
   position: absolute;
   left: -35px;
   top: 31px;
-  color: var(--rust);
+  color: var(--accent-text);
   overflow: visible;
 }
 .service-stitch path {
@@ -1563,7 +1564,7 @@ body {
   display: inline-block;
   min-width: 55px;
   border-bottom: 1px dashed var(--rust);
-  color: var(--rust);
+  color: var(--accent-text);
   margin-bottom: 12px;
   font:
     10px/1.8 'Courier New',
@@ -1590,7 +1591,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  color: #d9b79c;
+  color: var(--tone-d9b79c);
 }
 .offer-thread rect {
   stroke: currentColor;
@@ -1629,7 +1630,7 @@ body {
 }
 .confirmation-thread {
   display: block;
-  color: var(--rust);
+  color: var(--accent-text);
   margin-top: 20px;
 }
 .confirmation-thread path {

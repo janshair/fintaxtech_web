@@ -9,6 +9,8 @@ try {
   const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
   await page.goto(origin + '/templates/website/3d/juice-bar-05/?name=Daybreak%20Juice%20Club');
   await page.waitForSelector('[data-live=true] canvas');
+  // Finish the hero entry before slow, capture-only mask readbacks.
+  await page.waitForTimeout(2800);
   for (const [file, mode, progress, width, height] of [
     ['hero', 'hero', 1, 900, 900],
     ['stage-1', 'story', 0.18, 900, 700],
@@ -30,6 +32,27 @@ try {
     if (buffer.length > 120_000) throw Error(file + ' poster exceeds 120 KB');
     await writeFile(assets + file + '.webp', buffer);
     console.log(file, buffer.length);
+    for (const kind of ['sleeve', 'text']) {
+      const pngMask = await page.evaluate(
+        (detail) => {
+          dispatchEvent(new CustomEvent('juice-capture', { detail: { ...detail, poster: true } }));
+          return document.querySelector('canvas').toDataURL().split(',')[1];
+        },
+        { mode, progress, width, height, mask: kind },
+      );
+      const { data, info } = await sharp(Buffer.from(pngMask, 'base64'))
+        .removeAlpha()
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+      const alpha = Buffer.alloc(info.width * info.height * 4);
+      for (let i = 0; i < info.width * info.height; i++) {
+        alpha[i * 4] = alpha[i * 4 + 1] = alpha[i * 4 + 2] = 255;
+        alpha[i * 4 + 3] = data[i * info.channels];
+      }
+      await sharp(alpha, { raw: { width: info.width, height: info.height, channels: 4 } })
+        .webp({ lossless: true })
+        .toFile(assets + file + '-' + kind + '-mask.webp');
+    }
   }
   await page.reload();
   await page.waitForSelector('[data-live=true] canvas');

@@ -1,3 +1,9 @@
+// Change these hex codes, save, and the whole template recolours.
+export const THEME = {
+  brand: '#24372f', // main colour: header, buttons, headings, icons (and 3D sleeve/label)
+  accent: '#97472f', // highlight colour: main call-to-action, stars, small details
+};
+
 export const tailoringDemo = {
   id: 'tailoring-02',
   name: 'The Fold Atelier',

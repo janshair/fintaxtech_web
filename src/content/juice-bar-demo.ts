@@ -1,3 +1,9 @@
+// Change these hex codes, save, and the whole template recolours.
+export const THEME = {
+  brand: '#163f33', // main colour: header, buttons, headings, icons (and 3D sleeve/label)
+  accent: '#fa733d', // highlight colour: main call-to-action, stars, small details
+};
+
 export const juiceBarDemo = {
   id: 'juice-bar-05',
   route: '/templates/website/3d/juice-bar-05/',

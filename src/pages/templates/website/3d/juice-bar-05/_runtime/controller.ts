@@ -307,6 +307,7 @@ addEventListener('juice-capture', (event) => {
   // different business's name before WebGL loads, or in any poster fallback.
   if (d.poster) scene.name('✳');
   scene.render(d.mode, d.progress || 0, 0, 0);
+  if (d.mask) scene.posterMask(d.mask);
   if (d.poster) scene.name(window.juiceIdentity.read().name || window.juiceIdentity.sample);
 });
 // Preserve the first 300ms for content and input. Shader compilation can block
