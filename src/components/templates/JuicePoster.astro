@@ -1,0 +1,18 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width: string;
+  height: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+const { src, ...image } = Astro.props;
+const stem = src.replace(/\.webp$/, '');
+---
+
+<span
+  class="themed-poster"
+  style={`--sleeve-mask:url('${stem}-sleeve-mask.webp');--text-mask:url('${stem}-text-mask.webp')`}
+  ><img src={src} {...image} /></span
+>

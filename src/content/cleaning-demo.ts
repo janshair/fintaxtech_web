@@ -1,3 +1,9 @@
+// Change these hex codes, save, and the whole template recolours.
+export const THEME = {
+  brand: '#224f42', // main colour: header, buttons, headings, icons (and 3D sleeve/label)
+  accent: '#f09473', // highlight colour: main call-to-action, stars, small details
+};
+
 export const cleaningDemo = {
   id: 'cleaning-04',
   route: '/templates/website/motion/cleaning-04/',

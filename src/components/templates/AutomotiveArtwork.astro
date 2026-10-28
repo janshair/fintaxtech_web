@@ -71,7 +71,7 @@ const { kind, label, id } = Astro.props;
                 stroke-width="5"
                 stroke-linecap="round"
               />
-              <path d="m711 222 58 17 9 17-61-7Z" class="headlight" fill="#efc36c" />
+              <path d="m711 222 58 17 9 17-61-7Z" class="headlight" fill="var(--tone-efc36c)" />
               <path d="m109 226 31-6-7 18-30 7Z" fill="#ad5543" />
               <path
                 d="M116 282h36m588 0h41M315 291h264"
@@ -86,7 +86,7 @@ const { kind, label, id } = Astro.props;
               href={`#${id}-body`}
               pathLength="1"
               fill="none"
-              stroke="#efc36c"
+              stroke="var(--tone-efc36c)"
               stroke-width="2"
             />
             {[225, 663].map((x) => (
@@ -116,15 +116,15 @@ const { kind, label, id } = Astro.props;
           </g>
           <g class="diagnostic-sweep">
             <>
-              <path d="M70 80v255" stroke="#efc36c" stroke-width="2" />
-              <path d="M65 80h10m-10 255h10" stroke="#efc36c" />
+              <path d="M70 80v255" stroke="var(--tone-efc36c)" stroke-width="2" />
+              <path d="M65 80h10m-10 255h10" stroke="var(--tone-efc36c)" />
             </>
           </g>
           <g class="service-tool" transform="translate(663 303)">
             <g class="tool-turn">
               <path
                 d="m-5 8-44 61q-9 8-15 0t2-14L-11-3q-7-20 9-29l1 16 13 3 8-13q9 18-8 28Z"
-                fill="#efc36c"
+                fill="var(--tone-efc36c)"
                 stroke="#172830"
                 stroke-width="2"
               />
@@ -137,7 +137,7 @@ const { kind, label, id } = Astro.props;
                 pathLength="1"
                 d="m-12 0 8 8 17-18"
                 fill="none"
-                stroke="#efc36c"
+                stroke="var(--tone-efc36c)"
                 stroke-width="3"
               />
             </>
@@ -181,7 +181,7 @@ const { kind, label, id } = Astro.props;
           pathLength="1"
           d="M110 200a140 140 0 0 1 280 0"
           fill="none"
-          stroke="#efc36c"
+          stroke="var(--tone-efc36c)"
           stroke-width="4"
         />
       </>
@@ -208,7 +208,7 @@ const { kind, label, id } = Astro.props;
           {[65, 105, 145, 185, 225, 265, 305, 345].map((y) => (
             <path d={`m155 ${y} 56 19 25-12m28 0 25 12 56-19`} />
           ))}
-          <path d="M244 55v290m14-290v290" stroke="#efc36c" stroke-width="2" />
+          <path d="M244 55v290m14-290v290" stroke="var(--tone-efc36c)" stroke-width="2" />
         </g>
       </>
     ) : (
@@ -240,7 +240,7 @@ const { kind, label, id } = Astro.props;
           pathLength="1"
           d="M116 83h268v234H116Z"
           fill="none"
-          stroke="#efc36c"
+          stroke="var(--tone-efc36c)"
           stroke-width="3"
         />
       </>

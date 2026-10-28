@@ -1,5 +1,6 @@
 ---
-import { automotiveDemo as c } from '../../../../../content/automotive-demo';
+import { templateTheme } from '../../../../../lib/template-theme';
+import { THEME, automotiveDemo as c } from '../../../../../content/automotive-demo';
 import { motionTemplates, motionGallery } from '../../../../../content/templates';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
@@ -8,16 +9,17 @@ const template = motionTemplates.find((item) => item.id === c.id)!;
 const { title, description } = seoPages[c.route];
 const canonical = absoluteURL(c.route);
 const image = absoluteURL(template.preview.src);
+const theme = templateTheme('automotive-03', THEME);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="no-referrer" />
     <meta name="robots" content="noindex,nofollow" />
-    <meta name="theme-color" content="#111e26" />
+    <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
     <meta property="og:title" content={title} /><meta

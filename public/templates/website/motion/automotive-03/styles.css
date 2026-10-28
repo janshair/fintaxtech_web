@@ -1,16 +1,16 @@
 /* Vector Motorworks — original template artwork and styling by FinTaxTech. */
 :root {
   color-scheme: dark;
-  --ink: #111e26;
-  --navy: #182b34;
-  --line: #3e535b;
-  --paper: #f2ede3;
-  --amber: #efc36c;
-  --muted: #adc0c6;
+  --ink: var(--brand);
+  --navy: var(--tone-182b34);
+  --line: var(--tone-3e535b);
+  --paper: var(--tone-f2ede3);
+  --amber: var(--accent);
+  --muted: var(--tone-adc0c6);
   --road-progress: 1;
   font-family: Arial, Helvetica, sans-serif;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f2ede3);
   font-synthesis: none;
 }
 * {
@@ -97,11 +97,11 @@ select:focus-visible {
   outline-offset: 5px;
 }
 .paper :focus-visible {
-  outline-color: #80560d;
+  outline-color: var(--tone-80560d);
 }
 ::selection {
   background: var(--amber);
-  color: var(--ink);
+  color: var(--on-accent-111e26);
 }
 [hidden] {
   display: none !important;
@@ -128,7 +128,7 @@ select:focus-visible {
   letter-spacing: 0.1em;
 }
 .eyebrow {
-  color: var(--amber);
+  color: var(--accent-text);
   margin-bottom: 22px;
 }
 .small-note {
@@ -151,7 +151,7 @@ select:focus-visible {
   top: -100px;
   z-index: 100;
   background: var(--amber);
-  color: var(--ink);
+  color: var(--on-accent-111e26);
   padding: 15px;
 }
 .skip:focus {
@@ -181,7 +181,7 @@ select:focus-visible {
 }
 .demo-strip button {
   background: transparent;
-  border: 1px solid #b2b4ad;
+  border: 1px solid var(--tone-b2b4ad);
   padding: 8px 11px;
   font-size: 10px;
 }
@@ -189,7 +189,7 @@ select:focus-visible {
   text-decoration: underline;
 }
 .demo-strip :focus-visible {
-  outline-color: #80560d;
+  outline-color: var(--tone-80560d);
 }
 .garage-header {
   display: flex;
@@ -220,7 +220,7 @@ select:focus-visible {
   width: 42px;
   height: 42px;
   flex: 0 0 42px;
-  color: var(--amber);
+  color: var(--accent-text);
   border: 1px solid var(--amber);
   font:
     700 15px 'Courier New',
@@ -238,7 +238,7 @@ nav a {
   padding: 12px 0;
 }
 nav a:hover {
-  color: var(--amber);
+  color: var(--accent-text);
 }
 .menu-toggle {
   display: none;
@@ -281,7 +281,7 @@ nav a:hover {
   display: block;
 }
 .hero h1 .headline-mask:last-child {
-  color: var(--amber);
+  color: var(--accent-text);
 }
 .lead {
   color: var(--muted);
@@ -302,7 +302,7 @@ nav a:hover {
   gap: 26px;
   border: 1px solid var(--amber);
   background: var(--amber);
-  color: var(--ink);
+  color: var(--on-accent-111e26);
   padding: 17px 22px;
   min-height: 54px;
   font-size: 13px;
@@ -350,7 +350,7 @@ nav a:hover {
   padding: 22px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: radial-gradient(ellipse at 50% 60%, #2b424c77, transparent 67%);
+  background: radial-gradient(ellipse at 50% 60%, var(--tone-2b424c77), transparent 67%);
 }
 .art-topline {
   display: flex;
@@ -363,7 +363,7 @@ nav a:hover {
 }
 .art-cross {
   font-size: 24px;
-  color: var(--amber);
+  color: var(--accent-text);
 }
 .automotive-art {
   display: block;
@@ -428,11 +428,11 @@ nav a:hover {
 .paper {
   background: var(--paper);
   color: var(--ink);
-  --muted: #4d5e64;
-  --line: #b5bcb8;
+  --muted: var(--tone-4d5e64);
+  --line: var(--tone-b5bcb8);
 }
 .paper .eyebrow {
-  color: #77520e;
+  color: var(--tone-77520e);
 }
 .section-heading {
   display: grid;
@@ -466,14 +466,14 @@ nav a:hover {
   transition: background 0.3s;
 }
 .service-row:hover {
-  background: #e7e0d1;
+  background: var(--tone-e7e0d1);
 }
 .service-number {
-  color: #657377;
+  color: var(--tone-657377);
 }
 .service-tag {
   font-size: 9px;
-  color: #77520e;
+  color: var(--tone-77520e);
 }
 .service-row h3 {
   grid-column: 1/-1;
@@ -503,7 +503,7 @@ nav a:hover {
 }
 .workshop {
   padding: 85px 0;
-  background: radial-gradient(ellipse at 70% 40%, #21394555, transparent 60%);
+  background: radial-gradient(ellipse at 70% 40%, var(--tone-21394555), transparent 60%);
   --service-progress: 1;
   --scan: 0;
   --scan-progress: 1;
@@ -587,7 +587,7 @@ nav a:hover {
   transform: scaleX(1);
 }
 .step-number {
-  color: var(--amber);
+  color: var(--accent-text);
   font-size: 12px;
 }
 .steps h3 {
@@ -618,7 +618,7 @@ nav a:hover {
   position: absolute;
   top: 15px;
   right: 15px;
-  color: var(--amber);
+  color: var(--accent-text);
 }
 .used-part,
 .old-tread {
@@ -635,7 +635,7 @@ nav a:hover {
   padding-top: 24px;
 }
 .work-state {
-  color: var(--amber);
+  color: var(--accent-text);
   display: inline-block;
   border: 1px solid var(--line);
   padding: 3px 8px;
@@ -678,7 +678,7 @@ nav a:hover {
   font:
     40px Georgia,
     serif;
-  color: var(--amber);
+  color: var(--accent-text);
   line-height: 1;
 }
 .visit-grid {
@@ -702,7 +702,7 @@ nav a:hover {
 .visit .button {
   background: var(--ink);
   border-color: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f2ede3);
 }
 #quote-details > h3 {
   margin-bottom: 25px;
@@ -786,13 +786,13 @@ dd {
   height: 100%;
   pointer-events: none;
   fill: none;
-  stroke: #78929b;
+  stroke: var(--tone-78929b);
   stroke-width: 12;
   opacity: 0.18;
 }
 .map-pin {
   position: relative;
-  color: var(--amber);
+  color: var(--accent-text);
   font-size: 50px;
   line-height: 1;
   margin: auto auto 45px;
@@ -808,7 +808,7 @@ dd {
 }
 .map > p:last-child {
   font-size: 12px;
-  color: #adc0c6;
+  color: var(--tone-adc0c6);
 }
 .map h3 {
   font-size: 13px;
@@ -883,7 +883,7 @@ dialog {
   margin: auto;
 }
 dialog::backdrop {
-  background: #061018cc;
+  background: var(--tone-061018cc);
   backdrop-filter: blur(5px);
 }
 dialog h2 {
@@ -891,14 +891,14 @@ dialog h2 {
   margin-bottom: 20px;
 }
 dialog .eyebrow {
-  color: #77520e;
+  color: var(--tone-77520e);
   margin-right: 30px;
 }
 dialog > p {
   font-size: 14px;
 }
 dialog .small-note {
-  color: #4d5e64;
+  color: var(--tone-4d5e64);
   font-size: 12px;
   margin-top: 12px;
 }
@@ -920,7 +920,7 @@ dialog [data-business] {
   display: block;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #a6b0ae;
+  border-bottom: 1px solid var(--tone-a6b0ae);
   padding: 10px 0;
   font-size: 13px;
   margin-top: 20px;
@@ -936,16 +936,16 @@ input,
 select {
   display: block;
   width: 100%;
-  background: #fffdf7;
+  background: var(--tone-fffdf7);
   color: var(--ink);
-  border: 1px solid #7e9297;
+  border: 1px solid var(--tone-7e9297);
   border-radius: 0;
   min-height: 50px;
   padding: 12px;
   font-size: 16px;
 }
 dialog :focus-visible {
-  outline-color: #80560d;
+  outline-color: var(--tone-80560d);
 }
 form > .button {
   margin-top: 25px;
@@ -961,18 +961,18 @@ form > h3,
 }
 .quote-progress {
   height: 2px;
-  background: #bcc7c3;
+  background: var(--tone-bcc7c3);
   margin-top: 25px;
 }
 .quote-progress span {
   display: block;
   width: calc(var(--quote-step, 1) * 100% / 3);
   height: 100%;
-  background: #80560d;
+  background: var(--tone-80560d);
   transition: width 0.4s;
 }
 .confirmation-mark {
-  color: #80560d;
+  color: var(--tone-80560d);
   margin-top: 25px;
 }
 .confirmation-mark path {
@@ -986,7 +986,7 @@ form > h3,
 }
 #quote-summary {
   font-size: 14px;
-  color: #4d5e64;
+  color: var(--tone-4d5e64);
 }
 .final-offer {
   display: block;
@@ -1075,7 +1075,7 @@ form > h3,
   right: 0;
   bottom: -1px;
   height: 2px;
-  background: #a87920;
+  background: var(--tone-a87920);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.45s;
@@ -1292,7 +1292,7 @@ form > h3,
     padding: 0;
   }
   .menu-toggle span {
-    color: var(--amber);
+    color: var(--accent-text);
     font-size: 20px;
   }
   nav {
@@ -1597,7 +1597,7 @@ form > h3,
   .mobile-actions a:last-child {
     flex: 2;
     background: var(--amber);
-    color: var(--ink);
+    color: var(--on-accent-111e26);
     border-color: var(--amber);
   }
   .motion-ready .mobile-actions {
@@ -1773,10 +1773,10 @@ form > h3,
 }
 
 .form-error {
-  color: #8b301e;
+  color: var(--tone-8b301e);
   font-size: 13px;
   margin-top: 10px;
 }
 input[aria-invalid='true'] {
-  border: 2px solid #8b301e;
+  border: 2px solid var(--tone-8b301e);
 }

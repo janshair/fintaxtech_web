@@ -1,0 +1,67 @@
+// Change these hex codes, save, and the whole template recolours.
+export const THEME = {
+  brand: '#163f33', // main colour: header, buttons, headings, icons (and 3D sleeve/label)
+  accent: '#fa733d', // highlight colour: main call-to-action, stars, small details
+};
+
+export const juiceBarDemo = {
+  id: 'juice-bar-05',
+  route: '/templates/website/3d/juice-bar-05/',
+  name: 'Daybreak Juice Club',
+  monogram: 'DJ',
+  menu: [
+    {
+      category: 'Cold-pressed juices',
+      name: 'The orange one',
+      ingredients: 'Orange, carrot, apple & a little ginger.',
+      price: '£4.50',
+      mark: '01',
+      tone: 'orange',
+    },
+    {
+      category: 'Smoothies',
+      name: 'Berry good morning',
+      ingredients: 'Strawberry, banana & oat drink, blended to order.',
+      price: '£5.20',
+      mark: '02',
+      tone: 'berry',
+    },
+    {
+      category: 'Protein shakes',
+      name: 'Cocoa & banana',
+      ingredients: 'Banana, cocoa, milk & a whey protein add-on.',
+      price: '£5.80',
+      mark: '03',
+      tone: 'cocoa',
+    },
+    {
+      category: 'Coffee',
+      name: 'Your usual, please',
+      ingredients: 'A flat white with milk. Oat drink available.',
+      price: '£3.20',
+      mark: '04',
+      tone: 'coffee',
+    },
+    {
+      category: 'Light bites',
+      name: 'Something on toast',
+      ingredients: 'Sourdough, smashed avocado, lemon & chilli.',
+      price: '£6.50',
+      mark: '05',
+      tone: 'green',
+    },
+  ],
+  stages: [
+    [
+      'Pick your favourites.',
+      'Orange, strawberry, a little leaf. Ingredients tumble into the cup.',
+    ],
+    ['Find your colour.', 'Watch the cup fill. Choose your own mix in the drink builder.'],
+    ['Make it your morning.', 'Lid on, straw in. Your finished drink turns to say hello.'],
+  ],
+  hours: [
+    ['Monday–Friday', '06:30–17:00'],
+    ['Saturday', '07:00–16:00'],
+    ['Sunday', '08:00–15:00'],
+  ],
+};

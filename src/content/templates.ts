@@ -3,7 +3,7 @@ export interface MotionTemplate {
   name: string;
   industry: string;
   description: string;
-  route: `/templates/website/motion/${string}/`;
+  route: `/templates/website/${'motion' | '3d'}/${string}/`;
   preview: { src: string; alt: string; width: number; height: number };
   seoTitle: string;
   seoDescription: string;
@@ -103,3 +103,36 @@ export const barberRedirect = {
     'Continue to The Brass Standard at its new address. Use the link below if you are not redirected automatically.',
   label: 'Preview The Brass Standard',
 };
+
+// Parallel categories share one card contract; allTemplates is the SEO/uniqueness source.
+export const threeDGallery = {
+  ...motionGallery,
+  route: '/templates/website/3d/',
+  title: '3D Website Templates',
+  intro:
+    'Interactive 3D website designs, ready to carry your business name. Explore a local business demo and picture what your own website could become.',
+  description:
+    'Explore personalised, interactive 3D website templates by FinTaxTech, with practical menus, responsive layouts and thoughtful poster fallbacks.',
+  backLabel: 'Browse 3D templates',
+  note: 'These are demonstration websites. Example orders do not order, book or pay for anything.',
+};
+export const threeDTemplates: readonly MotionTemplate[] = [
+  {
+    id: 'juice-bar-05',
+    name: 'Daybreak Blend',
+    industry: 'Juice bars & coffee shops',
+    description:
+      'Cream, citrus and forest green. A turning 3D smoothie cup, a fruit-to-finished scroll story and a playful order-ahead demonstration.',
+    route: '/templates/website/3d/juice-bar-05/',
+    preview: {
+      src: '/templates/website/3d/juice-bar-05/preview.webp',
+      alt: 'Daybreak Blend café demo: Daybreak Juice Club, an orange smoothie cup beside “Your morning. Made brighter.” on a warm cream page.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Daybreak Blend — Juice bar & coffee shop demo by FinTaxTech',
+    seoDescription:
+      'Explore a personalised juice bar and coffee shop demonstration with a real 3D smoothie cup, an example menu and a build-your-drink demo. Nothing is ordered.',
+  },
+];
+export const allTemplates = [...motionTemplates, ...threeDTemplates];

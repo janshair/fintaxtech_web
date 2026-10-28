@@ -418,3 +418,48 @@ Call, WhatsApp and Directions open clearly labelled previews with the supplied n
 Capture the default sample, dialog closed, at 1200 × 900 for the actual `preview.webp` (under 200,000 bytes). Run `pnpm verify` and `pnpm exec playwright test tests/browser/cleaning-template.spec.ts tests/browser/motion-templates.spec.ts`. Keep other QA captures in ignored `audit/cleaning-04/`. Leave source changes uncommitted until reviewed.
 
 The cleaning demo’s pictures are framed by large four-point sparkles that grow and shrink continuously in a staggered three-second loop. `PictureSparkles.astro` supplies the original SVG overlay for the hero, three work illustrations and map placeholder. The rooms, plants, sunlight, taps, mirror, stamp and map pin stay still; the previous ambient loops and “Pause motion” control have been removed. CSS handles the sparkle loops without extra JavaScript; reduced motion shows static sparkles. The original cleaning pass remains driven by scroll.
+
+## Template colours
+
+Each demo's content file starts with `THEME.brand` and `THEME.accent`: `barber-demo.ts`, `tailoring-demo.ts`, `automotive-demo.ts`, `cleaning-demo.ts` and `juice-bar-demo.ts` under `src/content/`. Change the two `#RRGGBB` values and rebuild. Astro writes `--brand`, `--accent`, derived tints/shades and readable foregrounds into the page before first paint. There is no visitor colour control or URL parameter. Invalid values warn at build time and fall back independently to the original colours.
+
+`src/lib/template-theme.ts` derives the palette from the authored references in `src/content/template-palettes.ts`; the current themes preserve the original colours exactly. Physical illustration colours stay separate. On the 3D demo, both live labels and masked poster sleeves follow the theme. Original geometry, texture details, validation and QA results are documented in `src/pages/templates/website/3d/juice-bar-05/_checks/README.md`. Image provenance and the optional cut-out generation brief are in `public/templates/website/3d/juice-bar-05/images/SOURCES.md`.
+
+Run `node scripts/check-template-themes.mjs` against the local dev server (default port 4322; override `THEME_ORIGIN`). It edits the actual content files, checks rendered styles/contrast and captures all five demos at 390px with default and blue/red test colours, then restores the exact original source bytes in `finally`. Do not run a production build concurrently with this deliberately mutating check. Reports go to ignored `docs/template-themes/`.
+
+## 3D website templates
+
+The official-theme gallery is `/templates/website/3d/`; its first demo is **Daybreak Blend**, ID **`juice-bar-05`**, at `/templates/website/3d/juice-bar-05/`. It uses a friendly-local cream/citrus/forest palette, a procedural smoothie cup and three equal scroll stages: ingredients fall, liquid fills, then lid/straw arrive and the finished drink turns forward. Coffee has a separate cup and subtle steam in the same renderer. The café, menu, prices, hours, loyalty card and ordering are explicitly fictional examples.
+
+`threeDTemplates` shares the existing card interface with `motionTemplates`; `allTemplates` combines them for SEO and global uniqueness tests. This keeps existing motion entries intact. IDs use one sequence across categories: inspect all entries and route folders before choosing the next numeric suffix. Both galleries are indexable; all registered demos are `noindex,nofollow`, outside the sitemap, with production-origin canonicals and social metadata.
+
+Personalised link example:
+
+```text
+https://fintaxtech.co.uk/templates/website/3d/juice-bar-05/?name=Jay%27s%20Juice%20%26%20Co&area=Kirkcaldy&phone=07526%20699217&ref=L-TEST
+```
+
+`name` and `area` are trimmed and capped at 100 Unicode characters; `phone` accepts the documented characters up to 20, then validates/normalises UK numbers for display, `tel:` and WhatsApp. Invalid values use the sample. `ref` follows the existing safe 32-character letter/digit/underscore/hyphen convention and appears only in enquiry URLs. Name updates use text nodes and CanvasTexture text, never HTML. A blocking local identity script applies link values before paint; there is no name prompt when a valid name is supplied. Without a name, the dialog opens once after five seconds or the first scroll. Editing/restoring replaces the URL, retaining other parameters. No storage, analytics, remote models, map embeds or requests carrying personalisation are used. The initial page navigation necessarily includes its query; clicking enquiry/phone/WhatsApp deliberately opens that chosen destination. With JavaScript disabled, complete sample content and all scene posters remain; URL personalisation and the order demo require JavaScript on this static site.
+
+The three-step drink builder requests no customer or payment details and submits nothing. Its cup colour/fruit responds to choices; a labelled colour swatch remains in poster mode. Every price is marked `data-sample-price`; capture hooks cover `hero`, `menu`, `build`, `story`, `gallery` and `contact`.
+
+All meshes, fruit, label and contact-shadow texture are original procedural work in `src/pages/templates/website/3d/juice-bar-05/_runtime/scene.ts`. The posters are WebP captures of that actual renderer, rather than stock assets. There are no downloaded models, textures, HDRs or model licences to obtain. Three.js is MIT; its licence is distributed beside the demo as `three-LICENSE.txt`. `@types/three` is development-only. No other runtime dependency was added.
+
+Performance budgets: scene and loader together ≤250 KB gzipped; transferred 3D assets ≤1.5 MB total / ≤600 KB hero; each poster ≤120 KB; gallery preview <200,000 bytes. Mobile target 60 fps, with fallback after sustained <30 fps for two seconds. Lighthouse mobile targets Performance ≥85, Accessibility ≥95, CLS <0.05 and LCP <2.5 s. A single antialiased WebGL renderer moves between fixed-size frames; DPR is capped at 1.5 below 768px and 2 otherwise. No post-processing or real-time shadows. Rendering stops off-screen, when the tab hides and when the short entry/interaction animation settles. Passive scroll/rAF reads live geometry over a 620px sequence, above the sticky action bar. Reduced motion (including live preference changes), Save-Data, ≤2GB reported memory, WebGL failure and low frame rates show posters. Context loss shows posters and allows one restoration; GPU resources are disposed on teardown.
+
+Reproduce checks/captures after building:
+
+```sh
+pnpm verify
+pnpm exec playwright test tests/browser/three-d-templates.spec.ts tests/browser/motion-templates.spec.ts
+pnpm preview --host 127.0.0.1 --port 4324
+# In another terminal; all requests stay local:
+PREVIEW_ORIGIN=http://localhost:4324 node src/pages/templates/website/3d/juice-bar-05/_checks/capture.mjs
+pnpm build
+PREVIEW_ORIGIN=http://localhost:4324 node src/pages/templates/website/3d/juice-bar-05/_checks/labels.mjs
+PREVIEW_ORIGIN=http://localhost:4324 node src/pages/templates/website/3d/juice-bar-05/_checks/verify.mjs
+```
+
+The template-local capture script regenerates tracked scene posters, selective theme masks and the gallery preview. The local checks create reports and screenshots in ignored `docs/juice-bar-05-labels/` and `docs/juice-bar-05-enhancement/`; recapture/build again if public assets change. Browser tests retain 300ms letter screenshots, no-JavaScript captures, network evidence, scroll logs and any screenshot-driver diagnostic in `test-results/`. Chromium can report “GPU stall due to ReadPixels” during screenshots; tests record that exact capture diagnostic while failing on other warnings. Physical mid-range Android/iPhone hardware, real Safari and production hosting still require a final check. CPU throttling is an emulation, and the visibility audit explicitly simulates `document.hidden` to exercise the pause handler.
+
+Before any letter, QR code or social post uses this template, deploy it and open https://fintaxtech.co.uk/templates/website/3d/juice-bar-05/ on a phone. It must load the template, not 'This page could not be found'. Letters take 2–3 working days to arrive, so deploy before posting them.

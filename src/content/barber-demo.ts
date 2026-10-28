@@ -1,3 +1,9 @@
+// Change these hex codes, save, and the whole template recolours.
+export const THEME = {
+  brand: '#171916', // main colour: header, buttons, headings, icons (and 3D sleeve/label)
+  accent: '#c4a46d', // highlight colour: main call-to-action, stars, small details
+};
+
 // Copy for this standalone template only; no shared-site questionnaire or pricing rules.
 export const barberDemo = {
   visitNotice:

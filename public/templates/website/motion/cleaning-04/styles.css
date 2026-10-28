@@ -1,14 +1,14 @@
 :root {
-  --paper: #f7f7ed;
-  --ink: #224f42;
-  --muted: #536b5c;
-  --mint: #e0ebd9;
-  --line: #bdccba;
-  --coral: #f09473;
+  --paper: var(--tone-f7f7ed);
+  --ink: var(--brand);
+  --muted: var(--tone-536b5c);
+  --mint: var(--tone-e0ebd9);
+  --line: var(--tone-bdccba);
+  --coral: var(--accent);
   --clean: 0;
   color-scheme: light;
   font-family: Arial, Helvetica, sans-serif;
-  color: var(--ink);
+  color: var(--brand-text);
   background: var(--paper);
 }
 * {
@@ -57,7 +57,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 summary:focus-visible {
-  outline: 3px solid #a44328;
+  outline: 3px solid var(--tone-a44328);
   outline-offset: 5px;
 }
 p {
@@ -102,7 +102,7 @@ svg {
 .demo-strip {
   min-height: 43px;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f7f7ed);
   display: flex;
   align-items: center;
   gap: 24px;
@@ -118,12 +118,12 @@ svg {
   font-size: 14px;
 }
 .agency span {
-  color: var(--coral);
+  color: var(--accent-text);
   margin-left: 4px;
 }
 .demo-id {
   margin-right: auto;
-  color: #d7e3cf;
+  color: var(--tone-d7e3cf);
 }
 .demo-strip button {
   padding: 4px 0;
@@ -156,7 +156,7 @@ svg {
 .monogram {
   flex-shrink: 0;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f7f7ed);
   border-radius: 50% 50% 12% 50%;
   width: 42px;
   height: 42px;
@@ -173,7 +173,7 @@ svg {
   font-size: 13px;
 }
 .business-header nav a:hover {
-  color: #9b4027;
+  color: var(--tone-9b4027);
 }
 .header-action {
   border: 1px solid var(--ink);
@@ -222,7 +222,7 @@ svg {
 }
 .button {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f7f7ed);
   padding: 18px 23px;
   min-height: 52px;
   display: inline-flex;
@@ -239,11 +239,11 @@ svg {
 }
 .button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 0 #224f421c;
+  box-shadow: 0 5px 0 var(--tone-224f421c);
 }
 .button.coral {
   background: var(--coral);
-  color: #263e2e;
+  color: var(--on-accent-263e2e);
 }
 .button span {
   font-size: 20px;
@@ -294,7 +294,7 @@ svg {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #f4d6a2;
+  background: var(--tone-f4d6a2);
   transform: rotate(12deg);
   font-size: 11px;
   line-height: 1.1;
@@ -340,8 +340,8 @@ svg {
 .service-card {
   display: flex;
   flex-direction: column;
-  background: #eef0e2;
-  border: 1px solid #d0d7c5;
+  background: var(--tone-eef0e2);
+  border: 1px solid var(--tone-d0d7c5);
   border-radius: 10px;
   padding: 26px 23px;
   transition:
@@ -349,10 +349,10 @@ svg {
     transform 0.2s;
 }
 .service-card:nth-child(even) {
-  background: #e5eddc;
+  background: var(--tone-e5eddc);
 }
 .service-card:hover {
-  background: #d8e6ce;
+  background: var(--tone-d8e6ce);
   transform: translateY(-4px);
 }
 .card-top {
@@ -420,7 +420,7 @@ svg {
 }
 .motion-stage {
   position: relative;
-  background: #f2f4e7;
+  background: var(--tone-f2f4e7);
   border-radius: 16px;
   padding: 20px 28px;
   overflow: hidden;
@@ -438,7 +438,7 @@ svg {
 }
 .motion-progress {
   height: 3px;
-  background: #cbd8c0;
+  background: var(--tone-cbd8c0);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -472,7 +472,7 @@ svg {
   gap: 20px;
 }
 .step-number {
-  border: 1px solid #8fa78d;
+  border: 1px solid var(--tone-8fa78d);
   border-radius: 50%;
   height: 36px;
   width: 36px;
@@ -497,15 +497,15 @@ svg {
   margin: 0;
 }
 .work-art {
-  background: #e8edde;
+  background: var(--tone-e8edde);
   border-radius: 10px;
   overflow: hidden;
 }
 .work-grid figure:nth-child(2) .work-art {
-  background: #f0e6d6;
+  background: var(--tone-f0e6d6);
 }
 .work-grid figure:nth-child(3) .work-art {
-  background: #e1e9df;
+  background: var(--tone-e1e9df);
 }
 .work-art svg {
   margin: 7% auto;
@@ -537,7 +537,7 @@ svg {
   font-family: Georgia, serif;
   font-size: 100px;
   line-height: 1;
-  color: #54765b;
+  color: var(--tone-54765b);
   padding-top: 25px;
 }
 .reviews .eyebrow {
@@ -548,7 +548,7 @@ svg {
   font-size: 13px;
 }
 .visit {
-  background: #e9eddf;
+  background: var(--tone-e9eddf);
 }
 .details-grid {
   display: grid;
@@ -557,7 +557,7 @@ svg {
 }
 .contact-card {
   padding: 28px;
-  border: 1px solid #b3c4ac;
+  border: 1px solid var(--tone-b3c4ac);
   border-radius: 10px;
 }
 .contact-card > p:not(.eyebrow) {
@@ -581,7 +581,7 @@ svg {
 .contact-actions button {
   background: none;
   text-align: left;
-  border-bottom: 1px solid #a7bba1;
+  border-bottom: 1px solid var(--tone-a7bba1);
   padding: 0 0 13px;
   font-size: 13px;
   font-weight: 700;
@@ -625,7 +625,7 @@ svg {
   font-size: 12px;
 }
 .map-card {
-  border: 1px solid #b3c4ac;
+  border: 1px solid var(--tone-b3c4ac);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
@@ -637,16 +637,16 @@ svg {
   min-height: 180px;
   overflow: hidden;
   background:
-    repeating-linear-gradient(0deg, transparent 0 29px, #b7cbb033 30px 31px),
-    repeating-linear-gradient(90deg, #dae5ce 0 29px, #c4d4b2 30px 31px);
+    repeating-linear-gradient(0deg, transparent 0 29px, var(--tone-b7cbb033) 30px 31px),
+    repeating-linear-gradient(90deg, var(--tone-dae5ce) 0 29px, var(--tone-c4d4b2) 30px 31px);
   flex: 1;
 }
 .map-road {
   position: absolute;
   height: 13px;
   width: 140%;
-  background: #f8f7e9;
-  border-block: 1px solid #b0c3a3;
+  background: var(--tone-f8f7e9);
+  border-block: 1px solid var(--tone-b0c3a3);
   left: -20%;
   top: 50%;
 }
@@ -669,11 +669,11 @@ svg {
   height: 40px;
   border-radius: 50% 50% 50% 0;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f7f7ed);
   display: grid;
   place-items: center;
   font-size: 25px;
-  box-shadow: 0 5px 20px #224f4222;
+  box-shadow: 0 5px 20px var(--tone-224f4222);
 }
 .map-copy {
   padding: 22px;
@@ -736,7 +736,7 @@ svg {
 }
 .agency-offer {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f7f7ed);
   padding-block: 75px;
 }
 .offer-inner {
@@ -746,11 +746,11 @@ svg {
 }
 .offer-flower {
   font-size: 90px;
-  color: #d3dfa7;
+  color: var(--tone-d3dfa7);
 }
 .offer-inner .eyebrow {
   font-size: 9px;
-  color: #d8e3cd;
+  color: var(--tone-d8e3cd);
 }
 .offer-inner h2 {
   font-size: 38px;
@@ -764,7 +764,7 @@ svg {
 .offer-inner .button {
   flex-shrink: 0;
   margin-left: auto;
-  border: 1px solid #b5cbb4;
+  border: 1px solid var(--tone-b5cbb4);
 }
 .site-footer {
   padding-block: 44px;
@@ -791,7 +791,7 @@ svg {
 dialog {
   border: 1px solid var(--line);
   background: var(--paper);
-  color: var(--ink);
+  color: var(--brand-text);
   border-radius: 16px;
   padding: 45px;
   max-width: 540px;
@@ -801,7 +801,7 @@ dialog {
   overscroll-behavior: contain;
 }
 dialog::backdrop {
-  background: #16392ecc;
+  background: var(--tone-16392ecc);
   backdrop-filter: blur(5px);
 }
 dialog h2 {
@@ -842,11 +842,11 @@ label {
 input,
 select {
   width: 100%;
-  border: 1px solid #8fa58c;
+  border: 1px solid var(--tone-8fa58c);
   border-radius: 5px;
   padding: 14px 12px;
-  background: #fffdf4;
-  color: var(--ink);
+  background: var(--tone-fffdf4);
+  color: var(--brand-text);
   font-size: 15px;
   min-width: 0;
 }
@@ -1307,11 +1307,11 @@ dialog #restore-name {
     left: 0;
     right: 0;
     z-index: 5;
-    border-top: 1px solid #b5c8ac;
+    border-top: 1px solid var(--tone-b5c8ac);
     background: var(--paper);
     padding: 9px 14px max(9px, env(safe-area-inset-bottom));
     gap: 9px;
-    box-shadow: 0 -4px 24px #224f4210;
+    box-shadow: 0 -4px 24px var(--tone-224f4210);
   }
   .mobile-contact button,
   .mobile-contact a {
@@ -1325,11 +1325,11 @@ dialog #restore-name {
   }
   .mobile-contact button {
     background: var(--ink);
-    color: var(--paper);
+    color: var(--on-brand-f7f7ed);
   }
   .mobile-contact a {
     background: var(--coral);
-    color: #263e2e;
+    color: var(--on-accent-263e2e);
   }
   dialog {
     padding: 40px 24px 26px;
@@ -1377,7 +1377,7 @@ dialog #restore-name {
   animation-delay: var(--sparkle-delay, 0s);
 }
 .picture-sparkle.warm {
-  fill: #d36b48;
+  fill: var(--tone-d36b48);
 }
 @keyframes picture-sparkle-zoom {
   0%,
@@ -1434,7 +1434,7 @@ dialog #restore-name {
 }
 .process-steps li.is-current .step-number {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-brand-f7f7ed);
   border-color: var(--ink);
 }
 .process-steps li.is-current h3 {

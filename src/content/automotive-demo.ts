@@ -1,3 +1,9 @@
+// Change these hex codes, save, and the whole template recolours.
+export const THEME = {
+  brand: '#111e26', // main colour: header, buttons, headings, icons (and 3D sleeve/label)
+  accent: '#efc36c', // highlight colour: main call-to-action, stars, small details
+};
+
 export const automotiveDemo = {
   id: 'automotive-03',
   name: 'Vector Motorworks',
