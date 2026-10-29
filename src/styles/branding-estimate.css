@@ -1,0 +1,48 @@
+.branding-estimate > h1 {
+  margin-bottom: var(--space-5);
+}
+.branding-estimate .estimate-other {
+  margin-block: var(--space-5);
+}
+.branding-estimate .estimate-custom-row {
+  padding: var(--space-4);
+  margin-block: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.branding-estimate .estimate-review-row {
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.branding-estimate :is(li, dd, p, h3) {
+  overflow-wrap: anywhere;
+}
+.branding-estimate .estimate-summary {
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  margin-block: var(--space-5);
+}
+.branding-estimate .estimate-summary dd {
+  margin: var(--space-1) 0 var(--space-4);
+  font-weight: var(--weight-strong);
+}
+.branding-estimate [aria-invalid='true'] {
+  border-color: var(--error);
+}
+.branding-estimate legend h2 {
+  margin-bottom: 0;
+}
+.branding-estimate .estimate-contact {
+  margin-top: var(--space-7);
+}
+.branding-estimate .estimate-consent {
+  margin-block: var(--space-5);
+}
+.branding-estimate .estimate-items {
+  padding-left: var(--space-5);
+}
+.branding-estimate .button {
+  white-space: normal;
+}

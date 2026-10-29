@@ -1,3 +1,4 @@
+import { brandingEstimateCopy } from './branding-estimate';
 import { motionGallery, threeDGallery, allTemplates, barberRedirect } from './templates';
 import { legacyRedirects } from './legacy-redirects';
 import { careersCopy } from './careers';
@@ -27,6 +28,12 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [brandingEstimateCopy.route]: {
+    title: brandingEstimateCopy.title,
+    description: brandingEstimateCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
   [threeDGallery.route]: { title: threeDGallery.title, description: threeDGallery.description },
   [motionGallery.route]: { title: motionGallery.title, description: motionGallery.description },
   ...Object.fromEntries(

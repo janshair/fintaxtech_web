@@ -1,0 +1,648 @@
+[
+  {
+    "id": "branding-deliverables",
+    "serviceId": "branding",
+    "sectionId": "branding-requirements",
+    "order": 1,
+    "label": "Which branding services do you need?",
+    "helpText": "Select all that apply.",
+    "answerType": "multi_select",
+    "required": true,
+    "selectionRules": {
+      "minimum": 1,
+      "maximum": null
+    },
+    "visibility": {
+      "logic": "all",
+      "rules": [
+        {
+          "questionId": "selected-services",
+          "operator": "contains",
+          "value": "branding"
+        }
+      ]
+    },
+    "options": [
+      {
+        "id": "logo-design",
+        "label": "Logo Design",
+        "pricingItemId": "branding.logo",
+        "pricingRole": "charge_once"
+      },
+      {
+        "id": "brand-guidelines",
+        "label": "Brand Guidelines",
+        "pricingItemId": "branding.guidelines",
+        "pricingRole": "resolve_selection"
+      },
+      {
+        "id": "business-stationery",
+        "label": "Business Stationery",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "resolve_category_quantity"
+      },
+      {
+        "id": "social-media-branding-kit",
+        "label": "Social Media Branding Kit",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "resolve_category_quantity"
+      },
+      {
+        "id": "marketing-materials",
+        "label": "Marketing Materials Design",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "resolve_category_quantity"
+      }
+    ],
+    "otherOption": {
+      "enabled": true,
+      "label": "Other",
+      "fieldLabel": "What else do you need?",
+      "placeholder": "Enter one design requirement",
+      "requiredWhenSelected": true,
+      "includeInCalculation": false,
+      "requiresManualQuote": true,
+      "pricingItemId": "branding.other",
+      "repeatable": true,
+      "minimumEntries": 1,
+      "maximumEntries": null,
+      "addButtonLabel": "+ Add another item",
+      "allowRemove": true,
+      "clearOnDeselect": true,
+      "includeEntriesInQuote": true,
+      "countEachEntryAsQuantity": false,
+      "countOtherSelectorAsQuantity": false,
+      "pricingRole": "unpriced_request",
+      "requiresScopeReview": true
+    },
+    "quote": {
+      "includeQuestion": true,
+      "sectionTitle": "Branding requirements"
+    }
+  },
+  {
+    "id": "branding-stationery-items",
+    "serviceId": "branding",
+    "sectionId": "branding-requirements",
+    "order": 2,
+    "label": "Which business stationery items do you need designed?",
+    "helpText": "Select all that apply. Design only; printing and production are excluded.",
+    "answerType": "multi_select",
+    "required": true,
+    "selectionRules": {
+      "minimum": 1,
+      "maximum": null
+    },
+    "visibility": {
+      "logic": "all",
+      "rules": [
+        {
+          "questionId": "selected-services",
+          "operator": "contains",
+          "value": "branding"
+        },
+        {
+          "questionId": "branding-deliverables",
+          "operator": "contains",
+          "value": "business-stationery"
+        }
+      ]
+    },
+    "options": [
+      {
+        "id": "business-cards",
+        "label": "Business Cards",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "letterheads",
+        "label": "Letterheads",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "branded-envelopes",
+        "label": "Branded Envelopes",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "compliment-slips",
+        "label": "Compliment Slips",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "notepads",
+        "label": "Notepads",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "presentation-folders",
+        "label": "Presentation Folders",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "invoice-quotation-templates",
+        "label": "Invoice & Quotation Templates",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "email-signatures",
+        "label": "Email Signatures",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "branded-pens",
+        "label": "Branded Pens",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "branded-pencils",
+        "label": "Branded Pencils",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "company-stamps",
+        "label": "Company Stamps",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "employee-id-cards-lanyards",
+        "label": "Employee ID Cards & Lanyards",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "name-badges",
+        "label": "Name Badges",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "desk-calendars",
+        "label": "Desk Calendars",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "branded-diaries-planners",
+        "label": "Branded Diaries & Planners",
+        "pricingItemId": "branding.stationery",
+        "pricingRole": "count_only"
+      }
+    ],
+    "otherOption": {
+      "enabled": true,
+      "label": "Other stationery items",
+      "fieldLabel": "What else do you need?",
+      "placeholder": "Enter one design requirement",
+      "requiredWhenSelected": true,
+      "includeInCalculation": true,
+      "requiresManualQuote": false,
+      "pricingItemId": "branding.stationery",
+      "repeatable": true,
+      "minimumEntries": 1,
+      "maximumEntries": null,
+      "addButtonLabel": "+ Add another item",
+      "allowRemove": true,
+      "clearOnDeselect": true,
+      "includeEntriesInQuote": true,
+      "countEachEntryAsQuantity": true,
+      "countOtherSelectorAsQuantity": false,
+      "pricingRole": "count_only",
+      "requiresScopeReview": true
+    },
+    "quote": {
+      "includeQuestion": true,
+      "sectionTitle": "Branding requirements"
+    }
+  },
+  {
+    "id": "branding-marketing-items",
+    "serviceId": "branding",
+    "sectionId": "branding-requirements",
+    "order": 3,
+    "label": "Which marketing materials do you need designed?",
+    "helpText": "Select all that apply. Static artwork and templates only; animation and coding are excluded.",
+    "answerType": "multi_select",
+    "required": true,
+    "selectionRules": {
+      "minimum": 1,
+      "maximum": null
+    },
+    "visibility": {
+      "logic": "all",
+      "rules": [
+        {
+          "questionId": "selected-services",
+          "operator": "contains",
+          "value": "branding"
+        },
+        {
+          "questionId": "branding-deliverables",
+          "operator": "contains",
+          "value": "marketing-materials"
+        }
+      ]
+    },
+    "options": [
+      {
+        "id": "flyers",
+        "label": "Flyers",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "leaflets",
+        "label": "Leaflets",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "brochures",
+        "label": "Brochures",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "posters",
+        "label": "Posters",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "banners",
+        "label": "Banners",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "roll-up-exhibition-banners",
+        "label": "Roll-up Exhibition Banners",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "product-catalogues",
+        "label": "Product Catalogues",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "menus",
+        "label": "Menus",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "promotional-postcards",
+        "label": "Promotional Postcards",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "vouchers-gift-certificates",
+        "label": "Vouchers & Gift Certificates",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "t-shirts",
+        "label": "T-shirts",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "hoodies-uniforms",
+        "label": "Hoodies & Uniforms",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "mugs",
+        "label": "Mugs",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "tote-bags",
+        "label": "Tote Bags",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "stickers-labels",
+        "label": "Stickers & Labels",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "product-packaging",
+        "label": "Product Packaging",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "promotional-gifts",
+        "label": "Promotional Gifts",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "social-media-advertisement-graphics",
+        "label": "Social Media Advertisement Graphics",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "google-display-advertisement-graphics",
+        "label": "Google Display Advertisement Graphics",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "email-campaign-graphics",
+        "label": "Email Campaign Graphics",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "digital-brochures",
+        "label": "Digital Brochures (PDF)",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "presentation-slide-designs",
+        "label": "Presentation Slide Designs",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "website-banner-graphics",
+        "label": "Website Banner Graphics (Image Only)",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "digital-promotional-posters",
+        "label": "Digital Promotional Posters",
+        "pricingItemId": "branding.marketing",
+        "pricingRole": "count_only"
+      }
+    ],
+    "otherOption": {
+      "enabled": true,
+      "label": "Other marketing materials",
+      "fieldLabel": "What else do you need?",
+      "placeholder": "Enter one design requirement",
+      "requiredWhenSelected": true,
+      "includeInCalculation": true,
+      "requiresManualQuote": false,
+      "pricingItemId": "branding.marketing",
+      "repeatable": true,
+      "minimumEntries": 1,
+      "maximumEntries": null,
+      "addButtonLabel": "+ Add another item",
+      "allowRemove": true,
+      "clearOnDeselect": true,
+      "includeEntriesInQuote": true,
+      "countEachEntryAsQuantity": true,
+      "countOtherSelectorAsQuantity": false,
+      "pricingRole": "count_only",
+      "requiresScopeReview": true
+    },
+    "quote": {
+      "includeQuestion": true,
+      "sectionTitle": "Branding requirements"
+    }
+  },
+  {
+    "id": "branding-social-media-items",
+    "serviceId": "branding",
+    "sectionId": "branding-requirements",
+    "order": 4,
+    "label": "Which social media branding materials do you need?",
+    "helpText": "Select all that apply. Static artwork and templates only; animation and coding are excluded.",
+    "answerType": "multi_select",
+    "required": true,
+    "selectionRules": {
+      "minimum": 1,
+      "maximum": null
+    },
+    "visibility": {
+      "logic": "all",
+      "rules": [
+        {
+          "questionId": "selected-services",
+          "operator": "contains",
+          "value": "branding"
+        },
+        {
+          "questionId": "branding-deliverables",
+          "operator": "contains",
+          "value": "social-media-branding-kit"
+        }
+      ]
+    },
+    "options": [
+      {
+        "id": "profile-picture-avatar",
+        "label": "Profile Picture / Avatar",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "facebook-cover",
+        "label": "Facebook Cover Image",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "linkedin-company-banner",
+        "label": "LinkedIn Company Banner",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "youtube-channel-banner",
+        "label": "YouTube Channel Banner",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "x-header",
+        "label": "X (Twitter) Header",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "whatsapp-business-profile",
+        "label": "WhatsApp Business Profile Graphic",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "instagram-facebook-post-template",
+        "label": "Instagram / Facebook Post Template",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "instagram-facebook-story-template",
+        "label": "Instagram / Facebook Story Template",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "linkedin-post-template",
+        "label": "LinkedIn Post Template",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "youtube-thumbnail-template",
+        "label": "YouTube Thumbnail Template",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "reel-shorts-cover-template",
+        "label": "Reel / Shorts Cover Template",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "carousel-post-template",
+        "label": "Carousel Post Template",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "story-highlight-covers",
+        "label": "Story Highlight Covers (Set of 5)",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "announcement-graphic",
+        "label": "Social Media Announcement Graphic",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      },
+      {
+        "id": "promotional-graphic",
+        "label": "Social Media Promotional Graphic",
+        "pricingItemId": "branding.social-media",
+        "pricingRole": "count_only"
+      }
+    ],
+    "otherOption": {
+      "enabled": true,
+      "label": "Other social media branding materials",
+      "fieldLabel": "What else do you need?",
+      "placeholder": "Enter one design requirement",
+      "requiredWhenSelected": true,
+      "includeInCalculation": true,
+      "requiresManualQuote": false,
+      "pricingItemId": "branding.social-media",
+      "repeatable": true,
+      "minimumEntries": 1,
+      "maximumEntries": null,
+      "addButtonLabel": "+ Add another item",
+      "allowRemove": true,
+      "clearOnDeselect": true,
+      "includeEntriesInQuote": true,
+      "countEachEntryAsQuantity": true,
+      "countOtherSelectorAsQuantity": false,
+      "pricingRole": "count_only",
+      "requiresScopeReview": true
+    },
+    "quote": {
+      "includeQuestion": true,
+      "sectionTitle": "Branding requirements"
+    }
+  },
+  {
+    "id": "branding-guidelines-level",
+    "serviceId": "branding",
+    "sectionId": "branding-requirements",
+    "order": 5,
+    "label": "What level of brand guidelines do you need?",
+    "helpText": "Use your existing guidelines, choose a setup package, or ask us to review your branding.",
+    "answerType": "single_select",
+    "required": true,
+    "selectionRules": {
+      "minimum": 1,
+      "maximum": 1
+    },
+    "visibility": {
+      "logic": "all",
+      "rules": [
+        {
+          "questionId": "selected-services",
+          "operator": "contains",
+          "value": "branding"
+        },
+        {
+          "questionId": "branding-deliverables",
+          "operator": "contains_any",
+          "value": [
+            "brand-guidelines",
+            "business-stationery",
+            "marketing-materials",
+            "social-media-branding-kit"
+          ]
+        }
+      ]
+    },
+    "options": [
+      {
+        "id": "existing-guidelines",
+        "label": "I already have brand guidelines",
+        "pricingItemId": "branding.guidelines.existing",
+        "pricingRole": "charge_once"
+      },
+      {
+        "id": "basic-brand-style",
+        "label": "Basic Brand Style Setup",
+        "pricingItemId": "branding.guidelines.basic",
+        "pricingRole": "charge_once"
+      },
+      {
+        "id": "full-brand-guidelines",
+        "label": "Full Brand Guidelines",
+        "pricingItemId": "branding.guidelines.full",
+        "pricingRole": "charge_once"
+      },
+      {
+        "id": "not-sure",
+        "label": "I'm not sure — please advise me",
+        "pricingItemId": "branding.guidelines.review",
+        "pricingRole": "manual_review"
+      }
+    ],
+    "otherOption": {
+      "enabled": false,
+      "label": "Other",
+      "fieldLabel": null,
+      "placeholder": null,
+      "requiredWhenSelected": false,
+      "includeInCalculation": false,
+      "requiresManualQuote": false
+    },
+    "quote": {
+      "includeQuestion": true,
+      "sectionTitle": "Branding requirements"
+    }
+  }
+]

@@ -1,0 +1,692 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "2026-10",
+  "effectiveFrom": "2026-10-28",
+  "currency": "GBP",
+  "tax": {
+    "mode": "exclusive",
+    "ratePercent": 20,
+    "quoteLabel": "Prices exclude VAT. VAT is added at 20%."
+  },
+  "items": {
+    "branding.logo": {
+      "id": "branding.logo",
+      "serviceId": "branding",
+      "name": "Logo design",
+      "quoteName": "Logo Design (3 options)",
+      "status": "confirmed",
+      "pricing": {
+        "type": "fixed",
+        "amountMinor": 36900,
+        "requiresReview": false
+      },
+      "includes": [
+        {
+          "id": "concept-directions",
+          "label": "Initial logo concept directions",
+          "quantity": 3
+        },
+        {
+          "id": "revision-rounds",
+          "label": "Consolidated revision rounds on the selected concept",
+          "quantity": 3
+        },
+        {
+          "id": "final-files",
+          "label": "Approved final logo files in SVG, PNG, PDF and JPG",
+          "quantity": 1
+        },
+        {
+          "id": "logo-versions",
+          "label": "Colour, black-and-white and transparent-background versions",
+          "quantity": 1
+        }
+      ],
+      "extras": [
+        {
+          "id": "additional-concept-direction",
+          "name": "Additional logo concept direction",
+          "unit": "each",
+          "amountMinor": 9000,
+          "customerSelectable": false,
+          "maximumQuantity": 5,
+          "requiresPriorAgreement": true,
+          "includeInInitialEstimate": false
+        },
+        {
+          "id": "additional-revision-round",
+          "name": "Additional consolidated revision round",
+          "unit": "each",
+          "amountMinor": 5000,
+          "customerSelectable": false,
+          "maximumQuantity": 10,
+          "requiresPriorAgreement": true,
+          "includeInInitialEstimate": false
+        }
+      ],
+      "assumptions": [
+        "The customer supplies the approved business name and required wording.",
+        "Feedback for each revision round is supplied as one consolidated list.",
+        "Three initial concepts lead to one selected final logo, not three finished logos."
+      ],
+      "exclusions": [
+        "Business-name creation",
+        "Trademark searches or legal clearance",
+        "Additional concept directions",
+        "Additional revision rounds",
+        "Printing and third-party production costs",
+        "Brand guidelines, business stationery, social media branding kits and marketing materials"
+      ],
+      "dependencies": [],
+      "estimatedDelivery": {
+        "minimumBusinessDays": 10,
+        "maximumBusinessDays": 15,
+        "startsAfter": "Advance payment and approved brief"
+      },
+      "manualReviewReasons": [
+        "Trademark or naming work requested",
+        "More than five additional concept directions",
+        "More than ten additional revision rounds",
+        "Unusually complex illustration requirements"
+      ],
+      "quote": {
+        "includeInEstimate": true,
+        "detailsPlacement": "after_estimate_in_pdf",
+        "includeInclusions": true,
+        "includeExclusions": true,
+        "includeExtraPricing": true,
+        "additionalWorkNotice": "The quoted price includes three initial logo concepts and three consolidated revision rounds on the selected concept. Any additional logo concept requested beyond the three included is an extra charged at £90 per concept. Additional revision rounds cost £50 each. Extra charges will be communicated and agreed before work begins."
+      }
+    },
+    "branding.guidelines": {
+      "id": "branding.guidelines",
+      "serviceId": "branding",
+      "name": "Brand Guidelines",
+      "quoteName": "Brand Guidelines",
+      "status": "confirmed",
+      "pricing": {
+        "type": "selection",
+        "amountMinor": null,
+        "requiresReview": false,
+        "selectionQuestionId": "branding-guidelines-level",
+        "optionPricingItemIds": {
+          "existing-guidelines": "branding.guidelines.existing",
+          "basic-brand-style": "branding.guidelines.basic",
+          "full-brand-guidelines": "branding.guidelines.full",
+          "not-sure": "branding.guidelines.review"
+        },
+        "chargeSelectedItemOnly": true,
+        "chargeOnce": true
+      },
+      "includes": [],
+      "extras": [],
+      "assumptions": [],
+      "exclusions": [],
+      "dependencies": [],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": [],
+      "quote": {
+        "includeInEstimate": false,
+        "includeSelectedItemInEstimate": true
+      }
+    },
+    "branding.guidelines.basic": {
+      "id": "branding.guidelines.basic",
+      "serviceId": "branding",
+      "name": "Basic Brand Style Setup",
+      "quoteName": "Basic Brand Style Setup",
+      "status": "confirmed",
+      "pricing": {
+        "type": "fixed",
+        "amountMinor": 9900,
+        "requiresReview": false,
+        "chargeOnce": true,
+        "mutuallyExclusiveGroup": "branding.guidelines.level"
+      },
+      "includes": [
+        {
+          "id": "existing-logo-usage",
+          "label": "Existing logo usage",
+          "quantity": 1
+        },
+        {
+          "id": "colour-palette",
+          "label": "Primary and secondary colours",
+          "quantity": 1
+        },
+        {
+          "id": "typography",
+          "label": "Typography selection",
+          "quantity": 1
+        },
+        {
+          "id": "logo-spacing",
+          "label": "Basic logo spacing and minimum size rules",
+          "quantity": 1
+        },
+        {
+          "id": "logo-placement",
+          "label": "Basic logo variations and placement rules",
+          "quantity": 1
+        },
+        {
+          "id": "application-examples",
+          "label": "Brand application examples",
+          "quantity": 2
+        },
+        {
+          "id": "pdf-guide",
+          "label": "PDF brand style guide",
+          "quantity": 1,
+          "minimumPages": 4,
+          "maximumPages": 6
+        }
+      ],
+      "extras": [],
+      "assumptions": ["Uses an existing or separately purchased logo."],
+      "exclusions": ["New logo creation"],
+      "dependencies": [],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": []
+    },
+    "branding.guidelines.full": {
+      "id": "branding.guidelines.full",
+      "serviceId": "branding",
+      "name": "Full Brand Guidelines",
+      "quoteName": "Full Brand Guidelines",
+      "status": "confirmed",
+      "pricing": {
+        "type": "fixed",
+        "amountMinor": 24900,
+        "requiresReview": false,
+        "chargeOnce": true,
+        "mutuallyExclusiveGroup": "branding.guidelines.level"
+      },
+      "includes": [
+        {
+          "id": "existing-logo-usage",
+          "label": "Existing logo usage",
+          "quantity": 1
+        },
+        {
+          "id": "colour-system",
+          "label": "Primary and secondary colour system",
+          "quantity": 1
+        },
+        {
+          "id": "typography",
+          "label": "Typography selection",
+          "quantity": 1
+        },
+        {
+          "id": "logo-spacing",
+          "label": "Detailed logo spacing and minimum size rules",
+          "quantity": 1
+        },
+        {
+          "id": "logo-placement",
+          "label": "Detailed logo variations and placement rules",
+          "quantity": 1
+        },
+        {
+          "id": "visual-elements",
+          "label": "Supporting visual elements",
+          "quantity": 1
+        },
+        {
+          "id": "imagery-style",
+          "label": "Photography and imagery style guidance",
+          "quantity": 1
+        },
+        {
+          "id": "application-examples",
+          "label": "Brand application examples",
+          "quantity": 5
+        },
+        {
+          "id": "pdf-guide",
+          "label": "PDF brand guidelines document",
+          "quantity": 1,
+          "minimumPages": 10,
+          "maximumPages": 15
+        }
+      ],
+      "extras": [],
+      "assumptions": [
+        "Develops and documents visual identity around an existing or separately purchased logo."
+      ],
+      "exclusions": ["New logo creation"],
+      "dependencies": [],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": []
+    },
+    "branding.guidelines.existing": {
+      "id": "branding.guidelines.existing",
+      "serviceId": "branding",
+      "name": "Use Existing Brand Guidelines",
+      "quoteName": "Use Existing Brand Guidelines",
+      "status": "confirmed",
+      "pricing": {
+        "type": "fixed",
+        "amountMinor": 0,
+        "requiresReview": false,
+        "chargeOnce": true,
+        "mutuallyExclusiveGroup": "branding.guidelines.level"
+      },
+      "includes": [],
+      "extras": [],
+      "assumptions": ["The customer supplies usable existing brand guidelines."],
+      "exclusions": [],
+      "dependencies": [],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": [
+        "Existing guidelines are incomplete or unsuitable for the requested work"
+      ]
+    },
+    "branding.guidelines.review": {
+      "id": "branding.guidelines.review",
+      "serviceId": "branding",
+      "name": "Brand Guidelines Review Required",
+      "quoteName": "Brand Guidelines Review Required",
+      "status": "requires_review",
+      "pricing": {
+        "type": "manual_quote",
+        "amountMinor": null,
+        "requiresReview": true,
+        "chargeOnce": true,
+        "mutuallyExclusiveGroup": "branding.guidelines.level"
+      },
+      "includes": [],
+      "extras": [],
+      "assumptions": [],
+      "exclusions": [],
+      "dependencies": [],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": [
+        "Customer is unsure whether their existing brand guidelines are sufficient"
+      ]
+    },
+    "branding.stationery": {
+      "id": "branding.stationery",
+      "serviceId": "branding",
+      "name": "Business Stationery Design",
+      "quoteName": "Business Stationery Design",
+      "status": "confirmed",
+      "pricing": {
+        "type": "category_minimum_with_included_quantity",
+        "minimumAmountMinor": 18000,
+        "includedQuantity": 3,
+        "additionalItemAmountMinor": 5000,
+        "countCustomItems": true,
+        "requiresReview": false,
+        "quantitySourceQuestionId": "branding-stationery-items",
+        "activationQuestionId": "branding-deliverables",
+        "activationOptionId": "business-stationery",
+        "countEachSelectedOptionAsQuantity": 1,
+        "countEachNonEmptyCustomEntryAsQuantity": 1,
+        "countOtherSelectorAsQuantity": 0,
+        "amountWhenInactiveMinor": 0,
+        "amountWhenZeroQuantityMinor": 0,
+        "minimumQuantityWhenSelected": 1,
+        "chargeOncePerCategory": true,
+        "formula": "n == 0 ? 0 : minimumAmountMinor + additionalItemAmountMinor * max(0, n - includedQuantity)"
+      },
+      "includes": [
+        {
+          "id": "included-designs",
+          "label": "Up to three selected designs, including custom Other entries",
+          "quantity": 3
+        }
+      ],
+      "extras": [
+        {
+          "id": "additional-design",
+          "name": "Additional design beyond the three included",
+          "unit": "each",
+          "amountMinor": 5000,
+          "customerSelectable": true,
+          "maximumQuantity": null,
+          "calculatedFromCategoryQuantity": true,
+          "doNotChargeSeparatelyFromCategoryFormula": true
+        }
+      ],
+      "assumptions": [
+        "Each category has its own £180 minimum for one, two or three designs.",
+        "Each selected option and each non-empty custom Other entry counts as one design.",
+        "Custom Other entries use the same allowance and £50 incremental rate as listed designs.",
+        "A design is one agreed deliverable in one format or size; separately adapted sizes count separately.",
+        "The minimum covers any stationery design, including presentation folders and invoice templates."
+      ],
+      "exclusions": [
+        "Printing",
+        "Manufacturing",
+        "Physical delivery",
+        "Animation",
+        "Coding and interactive development"
+      ],
+      "dependencies": [
+        {
+          "type": "brand_guidelines",
+          "questionId": "branding-guidelines-level",
+          "existingOptionId": "existing-guidelines",
+          "purchaseOptionIds": ["basic-brand-style", "full-brand-guidelines"],
+          "manualReviewOptionId": "not-sure",
+          "chargeOnceAcrossCategories": true,
+          "automaticallySelectPaidPackage": false
+        }
+      ],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": ["Custom requests outside the agreed design scope"],
+      "quote": {
+        "includeInEstimate": true,
+        "detailsPlacement": "after_estimate_in_pdf",
+        "includeSelectedItems": true,
+        "includeCustomEntries": true,
+        "includeInclusions": true,
+        "includeExclusions": true,
+        "includeExtraPricing": true,
+        "additionalWorkNotice": "The category minimum is £180 for up to three selected designs. Each additional design, including each custom Other entry beyond the included three, costs £50. Additional requests after acceptance are extras; any extra charges will be communicated and agreed before work begins."
+      }
+    },
+    "branding.marketing": {
+      "id": "branding.marketing",
+      "serviceId": "branding",
+      "name": "Marketing Materials Design",
+      "quoteName": "Marketing Materials Design",
+      "status": "confirmed",
+      "pricing": {
+        "type": "category_minimum_with_included_quantity",
+        "minimumAmountMinor": 18000,
+        "includedQuantity": 3,
+        "additionalItemAmountMinor": 5000,
+        "countCustomItems": true,
+        "requiresReview": false,
+        "quantitySourceQuestionId": "branding-marketing-items",
+        "activationQuestionId": "branding-deliverables",
+        "activationOptionId": "marketing-materials",
+        "countEachSelectedOptionAsQuantity": 1,
+        "countEachNonEmptyCustomEntryAsQuantity": 1,
+        "countOtherSelectorAsQuantity": 0,
+        "amountWhenInactiveMinor": 0,
+        "amountWhenZeroQuantityMinor": 0,
+        "minimumQuantityWhenSelected": 1,
+        "chargeOncePerCategory": true,
+        "formula": "n == 0 ? 0 : minimumAmountMinor + additionalItemAmountMinor * max(0, n - includedQuantity)"
+      },
+      "includes": [
+        {
+          "id": "included-designs",
+          "label": "Up to three selected designs, including custom Other entries",
+          "quantity": 3
+        }
+      ],
+      "extras": [
+        {
+          "id": "additional-design",
+          "name": "Additional design beyond the three included",
+          "unit": "each",
+          "amountMinor": 5000,
+          "customerSelectable": true,
+          "maximumQuantity": null,
+          "calculatedFromCategoryQuantity": true,
+          "doNotChargeSeparatelyFromCategoryFormula": true
+        }
+      ],
+      "assumptions": [
+        "Each category has its own £180 minimum for one, two or three designs.",
+        "Each selected option and each non-empty custom Other entry counts as one design.",
+        "Custom Other entries use the same allowance and £50 incremental rate as listed designs.",
+        "A design is one agreed deliverable in one format or size; separately adapted sizes count separately.",
+        "Digital marketing deliverables are static graphics only."
+      ],
+      "exclusions": [
+        "Printing",
+        "Manufacturing",
+        "Physical delivery",
+        "Animation",
+        "Coding and interactive development"
+      ],
+      "dependencies": [
+        {
+          "type": "brand_guidelines",
+          "questionId": "branding-guidelines-level",
+          "existingOptionId": "existing-guidelines",
+          "purchaseOptionIds": ["basic-brand-style", "full-brand-guidelines"],
+          "manualReviewOptionId": "not-sure",
+          "chargeOnceAcrossCategories": true,
+          "automaticallySelectPaidPackage": false
+        }
+      ],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": [
+        "Custom requests outside the agreed design scope",
+        "Complex multi-page brochures",
+        "Large presentation decks"
+      ],
+      "quote": {
+        "includeInEstimate": true,
+        "detailsPlacement": "after_estimate_in_pdf",
+        "includeSelectedItems": true,
+        "includeCustomEntries": true,
+        "includeInclusions": true,
+        "includeExclusions": true,
+        "includeExtraPricing": true,
+        "additionalWorkNotice": "The category minimum is £180 for up to three selected designs. Each additional design, including each custom Other entry beyond the included three, costs £50. Additional requests after acceptance are extras; any extra charges will be communicated and agreed before work begins."
+      }
+    },
+    "branding.social-media": {
+      "id": "branding.social-media",
+      "serviceId": "branding",
+      "name": "Social Media Branding Kit",
+      "quoteName": "Social Media Branding Kit",
+      "status": "confirmed",
+      "pricing": {
+        "type": "category_minimum_with_included_quantity",
+        "minimumAmountMinor": 18000,
+        "includedQuantity": 3,
+        "additionalItemAmountMinor": 5000,
+        "countCustomItems": true,
+        "requiresReview": false,
+        "quantitySourceQuestionId": "branding-social-media-items",
+        "activationQuestionId": "branding-deliverables",
+        "activationOptionId": "social-media-branding-kit",
+        "countEachSelectedOptionAsQuantity": 1,
+        "countEachNonEmptyCustomEntryAsQuantity": 1,
+        "countOtherSelectorAsQuantity": 0,
+        "amountWhenInactiveMinor": 0,
+        "amountWhenZeroQuantityMinor": 0,
+        "minimumQuantityWhenSelected": 1,
+        "chargeOncePerCategory": true,
+        "formula": "n == 0 ? 0 : minimumAmountMinor + additionalItemAmountMinor * max(0, n - includedQuantity)"
+      },
+      "includes": [
+        {
+          "id": "included-designs",
+          "label": "Up to three selected designs, including custom Other entries",
+          "quantity": 3
+        },
+        {
+          "id": "editable-templates",
+          "label": "Editable Canva or Figma templates where applicable",
+          "quantity": 1
+        }
+      ],
+      "extras": [
+        {
+          "id": "additional-design",
+          "name": "Additional design beyond the three included",
+          "unit": "each",
+          "amountMinor": 5000,
+          "customerSelectable": true,
+          "maximumQuantity": null,
+          "calculatedFromCategoryQuantity": true,
+          "doNotChargeSeparatelyFromCategoryFormula": true
+        }
+      ],
+      "assumptions": [
+        "Each category has its own £180 minimum for one, two or three designs.",
+        "Each selected option and each non-empty custom Other entry counts as one design.",
+        "Custom Other entries use the same allowance and £50 incremental rate as listed designs.",
+        "A design is one agreed deliverable in one format or size; separately adapted sizes count separately.",
+        "One template design uses one agreed size and layout.",
+        "The listed set of five story highlight covers counts as one selected option."
+      ],
+      "exclusions": [
+        "Printing",
+        "Manufacturing",
+        "Physical delivery",
+        "Animation",
+        "Coding and interactive development",
+        "Publishing",
+        "Posting",
+        "Social media account management"
+      ],
+      "dependencies": [
+        {
+          "type": "brand_guidelines",
+          "questionId": "branding-guidelines-level",
+          "existingOptionId": "existing-guidelines",
+          "purchaseOptionIds": ["basic-brand-style", "full-brand-guidelines"],
+          "manualReviewOptionId": "not-sure",
+          "chargeOnceAcrossCategories": true,
+          "automaticallySelectPaidPackage": false
+        }
+      ],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": ["Custom requests outside the agreed design scope"],
+      "quote": {
+        "includeInEstimate": true,
+        "detailsPlacement": "after_estimate_in_pdf",
+        "includeSelectedItems": true,
+        "includeCustomEntries": true,
+        "includeInclusions": true,
+        "includeExclusions": true,
+        "includeExtraPricing": true,
+        "additionalWorkNotice": "The category minimum is £180 for up to three selected designs. Each additional design, including each custom Other entry beyond the included three, costs £50. Additional requests after acceptance are extras; any extra charges will be communicated and agreed before work begins."
+      }
+    },
+    "branding.other": {
+      "id": "branding.other",
+      "serviceId": "branding",
+      "name": "Other Branding Requirement",
+      "quoteName": "Other Branding Requirement",
+      "status": "pending_confirmation",
+      "pricing": {
+        "type": "manual_quote",
+        "amountMinor": null,
+        "requiresReview": true
+      },
+      "includes": [],
+      "extras": [],
+      "assumptions": [
+        "No default price was confirmed for unclassified top-level Other requirements.",
+        "Classified stationery, marketing and social media requests use their category pricing instead."
+      ],
+      "exclusions": [],
+      "dependencies": [],
+      "estimatedDelivery": {
+        "minimumBusinessDays": null,
+        "maximumBusinessDays": null,
+        "startsAfter": null
+      },
+      "manualReviewReasons": ["An unclassified branding requirement needs a price and scope review"]
+    }
+  },
+  "calculationRules": {
+    "currencyUnit": "minor",
+    "ignoreHiddenQuestionAnswers": true,
+    "externalQuestionIds": ["selected-services"],
+    "requireVisibleRequiredAnswersBeforeEstimate": true,
+    "deduplicatePricingItemCharges": true,
+    "categoryChildOptionsAreCountsOnly": true,
+    "doNotPoolIncludedQuantitiesAcrossCategories": true,
+    "otherEntriesCountOnlyWhenOtherSelected": true,
+    "ignoreEmptyCustomEntriesForPricing": true,
+    "requireNonEmptyCustomEntriesWhenOtherSelected": true,
+    "guidelinesChargedOnceAcrossAllDependentCategories": true,
+    "logoDoesNotAutomaticallyAddGuidelines": true,
+    "guidelinesResolverActiveForAnyDependentCategory": true,
+    "doNotTreatNullPricesAsZero": true,
+    "manualReviewDoesNotRemoveKnownCategoryEstimate": true,
+    "unpricedRequestsMarkEstimateIncomplete": true
+  },
+  "quote": {
+    "estimateDisplay": "description_and_price",
+    "detailsPlacement": "after_estimate_in_pdf",
+    "includeInclusions": true,
+    "includeExclusions": true,
+    "includeExtraPricing": true,
+    "showCustomEntries": true,
+    "showTaxQuoteLabel": true,
+    "showManualReviewReasons": true,
+    "extraChargesRequirePriorAgreement": true
+  },
+  "scopeRouting": [
+    {
+      "request": "Static graphic artwork",
+      "serviceId": "branding"
+    },
+    {
+      "request": "HTML email templates, coding or interactive advertisements",
+      "serviceId": "website"
+    },
+    {
+      "request": "Animated website sections",
+      "serviceId": "website",
+      "category": "motion"
+    },
+    {
+      "request": "Interactive 3D website graphics",
+      "serviceId": "website",
+      "category": "3d"
+    },
+    {
+      "request": "Standalone animation or motion graphics",
+      "serviceId": null,
+      "requiresManualQuote": true
+    }
+  ],
+  "integrationNotes": [
+    "services.json is an array of question objects using the original question fields.",
+    "Original catalogue and item fields are preserved; additional fields encode the confirmed calculation and quotation behaviour.",
+    "Support contains_any visibility rules and the selection and category_minimum_with_included_quantity pricing types.",
+    "pricingRole count_only adds quantity to its category; it does not create a separate fixed charge.",
+    "Resolve branding.guidelines once whenever branding-guidelines-level is visible, even if Brand Guidelines was not separately selected.",
+    "For visibility, contains_any matches when at least one listed option is selected. All visibility rules must match.",
+    "No prices are supplied for excluded development, animation, production or unclassified work.",
+    "Null delivery values mean delivery timing was not confirmed for that item.",
+    "VAT exclusive at 20%, confirmed by FinTaxTech on 29 October 2026."
+  ]
+}
