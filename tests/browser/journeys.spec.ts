@@ -1,3 +1,4 @@
+import { enquirySettled } from './enquiry-settled';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { mkdir } from 'node:fs/promises';
@@ -13,6 +14,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 async function begin(page, service = 'websites', extra = '') {
   await page.goto(`/start/?service=${service}${extra}`);
   await page.getByRole('button', { name: 'Begin', exact: true }).click();
+  await enquirySettled(page);
 }
 async function complete(page) {
   for (let i = 0; i < 40; i++) {
@@ -25,6 +27,7 @@ async function complete(page) {
     const contact = page.locator('#active-question input[type=email]');
     if (await contact.count()) await contact.fill('client@example.com');
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
+    await enquirySettled(page);
   }
   await page.getByRole('button', { name: 'Review answers', exact: true }).click();
 }

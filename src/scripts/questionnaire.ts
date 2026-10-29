@@ -1,3 +1,5 @@
+import '../styles/enquiry-motion.css';
+import { createEnquiryMotion } from './enquiry-motion';
 import { contactField } from '../lib/enquiry-contact';
 import { normalizeService } from '../lib/journey-url';
 import { automationCopy } from '../content/ai-automation';
@@ -32,6 +34,7 @@ let journey: Journey = {
   promo: promoAllowed(promoStatus, requestedPromo),
   short: params.get('brief') === 'short',
 };
+const motion = createEnquiryMotion(root, journey.stage === '1');
 let position = 0;
 let editing = false;
 let pdf: Blob | undefined;
@@ -60,7 +63,10 @@ function el<K extends keyof HTMLElementTagNameMap>(
 function button(text: string, action: () => void, className = 'button') {
   const b = el('button', text, className);
   b.type = 'button';
-  b.addEventListener('click', action);
+  b.addEventListener('click', () => {
+    if (motion.enabled && (motion.active || !b.isConnected)) return;
+    action();
+  });
   return b;
 }
 function link(text: string, href: string, className = 'button') {
@@ -72,13 +78,14 @@ function title(text: string) {
   const heading = el('h1', text);
   heading.tabIndex = -1;
   root.append(heading);
-  queueMicrotask(() => heading.focus());
+  queueMicrotask(() => motion.focus(heading));
 }
 function paragraph(text: string, className?: string) {
   root.append(el('p', text, className));
 }
 function clear(next: string) {
   screen = next;
+  motion.screen(next);
   selectionView.hidden = next !== 'selection';
   root.hidden = next === 'selection';
   root.replaceChildren();
@@ -117,10 +124,10 @@ selectionView.addEventListener('click', (event) => {
   const service = target.dataset.startService ?? null;
   if (isService(service)) {
     event.preventDefault();
-    start(service);
+    motion.go(() => start(service), 'rise');
   } else if (target.hasAttribute('data-start-routing')) {
     event.preventDefault();
-    routing();
+    motion.go(routing, 'rise');
   }
 });
 function routing() {
@@ -129,10 +136,13 @@ function routing() {
   paragraph(c.routingIntro, 'lead');
   const choices = el('div', undefined, 'choices');
   c.routingOptions.forEach((text, index) =>
-    choices.append(button(text, () => start(routeService(index)), 'choice')),
+    choices.append(button(text, () => motion.go(() => start(routeService(index))), 'choice')),
   );
   root.append(choices);
-  actions().append(button(c.back, selection), link(c.routingContact, '/contact/'));
+  actions().append(
+    button(c.back, () => motion.go(selection, 'back')),
+    link(c.routingContact, '/contact/'),
+  );
 }
 function start(service: ServiceId) {
   journey = {
@@ -153,12 +163,12 @@ function intro() {
   paragraph(c.intro, 'lead');
   paragraph(c.memory, 'notice');
   actions().append(
-    button(c.back, selection),
+    button(c.back, () => motion.go(selection, 'back')),
     button(
       c.begin,
       () => {
         track('questionnaire_started');
-        question();
+        motion.go(question, 'rise');
       },
       'button primary',
     ),
@@ -181,7 +191,15 @@ function question() {
   progress.value = position + 1;
   progress.setAttribute('aria-label', c.progress(position + 1, questions.length));
   root.append(progress);
-  paragraph(c.progress(position + 1, questions.length), 'eyebrow');
+  const progressText = el('p', c.progress(position + 1, questions.length), 'eyebrow');
+  root.append(progressText);
+  const updateProgress = () => {
+    if (!motion.enabled) return;
+    const total = visibleQuestions(journey).length;
+    motion.progress(progress, position + 1, total, q.label);
+    progressText.textContent = c.progress(position + 1, total);
+  };
+  updateProgress();
   const form = el('form');
   form.noValidate = true;
   const fieldset = el('fieldset');
@@ -207,33 +225,37 @@ function question() {
   fieldset.append(helper);
   fieldset.setAttribute('aria-describedby', 'question-help question-error');
   const contact = el('div', undefined, 'quiz-contact');
-  const renderContact = () => {
-    contact.replaceChildren();
-    const field = contactField(q, journey.answers);
-    if (!field) return;
-    const wrap = el('div', undefined, 'field');
-    const label = el('label', field.label);
-    label.htmlFor = field.id;
-    const input = el('input');
-    input.type = field.type;
-    input.id = field.id;
-    input.name = field.id;
-    input.required = true;
-    input.maxLength = field.max;
-    input.autocomplete = field.type === 'email' ? 'email' : 'tel';
-    input.inputMode = field.type === 'email' ? 'email' : 'tel';
-    input.value = String(journey.answers[field.id] ?? '');
-    const help = el('small', field.help, 'muted');
-    help.id = `${field.id}-help`;
-    input.setAttribute('aria-describedby', `${help.id} question-error`);
-    input.addEventListener('input', () => {
-      journey.answers[field.id] = input.value;
-      input.removeAttribute('aria-invalid');
-      root.querySelector<HTMLElement>('#question-error')!.textContent = '';
-    });
-    wrap.append(label, input, help);
-    contact.append(wrap);
-  };
+  const renderContact = (animate = false) =>
+    motion.conditional(
+      contact,
+      () => {
+        const field = contactField(q, journey.answers);
+        if (!field) return;
+        const wrap = el('div', undefined, 'field');
+        const label = el('label', field.label);
+        label.htmlFor = field.id;
+        const input = el('input');
+        input.type = field.type;
+        input.id = field.id;
+        input.name = field.id;
+        input.required = true;
+        input.maxLength = field.max;
+        input.autocomplete = field.type === 'email' ? 'email' : 'tel';
+        input.inputMode = field.type === 'email' ? 'email' : 'tel';
+        input.value = String(journey.answers[field.id] ?? '');
+        const help = el('small', field.help, 'muted');
+        help.id = `${field.id}-help`;
+        input.setAttribute('aria-describedby', `${help.id} question-error`);
+        input.addEventListener('input', () => {
+          journey.answers[field.id] = input.value;
+          input.removeAttribute('aria-invalid');
+          root.querySelector<HTMLElement>('#question-error')!.textContent = '';
+        });
+        wrap.append(label, input, help);
+        return wrap;
+      },
+      animate,
+    );
   if (q.type === 'text') {
     const input = el('textarea');
     input.value = String(journey.answers[q.id] ?? '');
@@ -258,6 +280,7 @@ function question() {
       const answer = journey.answers[q.id];
       input.checked = Array.isArray(answer) ? answer.includes(option) : answer === option;
       input.addEventListener('change', () => {
+        if (motion.active) return;
         const error = root.querySelector<HTMLElement>('#question-error')!;
         error.textContent = '';
         if (q.type === 'single' || q.type === 'contact') journey.answers[q.id] = option;
@@ -281,7 +304,8 @@ function question() {
             .forEach((i) => (i.checked = chosen.includes(i.value)));
         }
         journey.answers = pruneHiddenAnswers(journey);
-        if (q.type === 'contact') renderContact();
+        updateProgress();
+        if (q.type === 'contact') renderContact(true);
       });
       if (example) {
         const image = el('img');
@@ -333,15 +357,17 @@ function question() {
   const error = errorNode();
   const controls = actions();
   controls.append(
-    button(c.back, () => {
-      if (editing) {
-        editing = false;
-        review();
-      } else if (position > 0) {
-        position--;
-        question();
-      } else intro();
-    }),
+    button(c.back, () =>
+      motion.go(() => {
+        if (editing) {
+          editing = false;
+          review();
+        } else if (position > 0) {
+          position--;
+          question();
+        } else intro();
+      }, 'back'),
+    ),
   );
   const next = el(
     'button',
@@ -353,10 +379,11 @@ function question() {
   next.setAttribute('form', 'active-question');
   controls.append(
     next,
-    button(c.later, () => review(true)),
+    button(c.later, () => motion.go(() => review(true))),
   );
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (motion.enabled && (motion.active || !form.isConnected)) return;
     const message = validateQuestion(q, journey.answers);
     if (message) {
       const field = contactField(q, journey.answers);
@@ -370,9 +397,9 @@ function question() {
       assetBranch();
       return;
     }
-    advance();
+    motion.go(advance);
   });
-  queueMicrotask(() => heading.focus());
+  queueMicrotask(() => motion.focus(heading));
 }
 function advance() {
   if (editing) {
@@ -455,6 +482,7 @@ function details() {
   const error = errorNode();
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (motion.enabled && (motion.active || !form.isConnected)) return;
     if (!hasContact && !validEmail(customer.email)) {
       showError(error, c.emailError);
       return;
@@ -466,13 +494,15 @@ function details() {
       showError(error, c.companyError);
       return;
     }
-    review();
+    motion.go(review);
   });
   actions().append(
-    button(c.back, () => {
-      position = visibleQuestions(journey).length - 1;
-      question();
-    }),
+    button(c.back, () =>
+      motion.go(() => {
+        position = visibleQuestions(journey).length - 1;
+        question();
+      }, 'back'),
+    ),
   );
 }
 function customerRows(): SummaryRow[] {
@@ -500,19 +530,22 @@ function review(unfinished = false) {
   paragraph(unfinished ? c.partialText : c.reviewIntro, 'lead');
   if (customerSuppliesContent(journey)) paragraph(c.contentNotice, 'notice');
   const questions = visibleQuestions(journey);
-  for (const q of questions) {
+  for (const [order, q] of questions.entries()) {
     const answer = journey.answers[q.id];
     if (unfinished && (!answer || !answer.length)) continue;
     const row = el('div', undefined, 'review-row');
+    if (motion.enabled) row.style.setProperty('--enquiry-order', String(Math.min(order, 3)));
     const content = el('div');
     const rows = questionSummary(q, journey.answers);
     if (!rows.length) rows.push({ label: q.label, value: c.notProvided });
     for (const row of rows) content.append(el('strong', row.label), el('p', row.value));
-    const edit = button(c.edit, () => {
-      position = visibleQuestions(journey).findIndex((x) => x.id === q.id);
-      editing = true;
-      question();
-    });
+    const edit = button(c.edit, () =>
+      motion.go(() => {
+        position = visibleQuestions(journey).findIndex((x) => x.id === q.id);
+        editing = true;
+        question();
+      }, 'back'),
+    );
     edit.setAttribute('aria-label', `${c.edit}: ${q.label}`);
     row.append(content, edit);
     root.append(row);
@@ -521,7 +554,11 @@ function review(unfinished = false) {
   const text = el('div');
   text.append(el('h2', c.customerTitle));
   customerRows().forEach((row) => text.append(el('p', `${row.label}: ${row.value}`)));
-  contact.append(text, button(c.edit, details));
+  if (motion.enabled) contact.style.setProperty('--enquiry-order', '3');
+  contact.append(
+    text,
+    button(c.edit, () => motion.go(details, 'back')),
+  );
   root.append(contact);
   const protection = el('label', undefined, 'choice');
   const check = el('input');
@@ -536,10 +573,12 @@ function review(unfinished = false) {
   root.append(note);
   const error = errorNode();
   actions().append(
-    button(c.resume, () => {
-      editing = false;
-      question();
-    }),
+    button(c.resume, () =>
+      motion.go(() => {
+        editing = false;
+        question();
+      }, 'back'),
+    ),
     button(c.create, () => generate(error), 'button primary'),
   );
   if (!unfinished) track('questionnaire_completed');
@@ -550,9 +589,11 @@ async function generate(error: HTMLElement) {
   if (!partial) {
     const invalid = visibleQuestions(journey).find((q) => validateQuestion(q, journey.answers));
     if (invalid) {
-      position = visibleQuestions(journey).indexOf(invalid);
-      editing = true;
-      question();
+      motion.go(() => {
+        position = visibleQuestions(journey).indexOf(invalid);
+        editing = true;
+        question();
+      }, 'back');
       return;
     }
   }
@@ -584,6 +625,14 @@ async function generate(error: HTMLElement) {
 function ready() {
   clear('ready');
   title(c.ready);
+  if (motion.enabled) {
+    const heading = root.querySelector<HTMLHeadingElement>('h1')!;
+    const confirmation = el('div', undefined, 'enquiry-ready-title');
+    const tick = el('span', '✓', 'enquiry-confirm');
+    tick.setAttribute('aria-hidden', 'true');
+    heading.before(confirmation);
+    confirmation.append(tick, heading);
+  }
   paragraph(c.readyText, 'lead');
   paragraph(c.memory, 'notice');
   const error = errorNode();
@@ -611,7 +660,7 @@ function ready() {
       }),
     );
   controls.append(
-    button(c.reviewTitle, () => review(partial)),
+    button(c.reviewTitle, () => motion.go(() => review(partial))),
     button(c.newProject, exit),
   );
 }
@@ -675,6 +724,6 @@ function sendNotifications() {
 // URLs accept only non-personal routing values; no answers, campaign marker or customer fields.
 const requestedService = normalizeService(params.get('service')) ?? null;
 if (journey.promo) start('websites');
-else if (isService(requestedService)) start(requestedService);
-else if (params.get('route') === 'help') routing();
+else if (isService(requestedService)) motion.go(() => start(requestedService), 'rise');
+else if (params.get('route') === 'help') motion.go(routing, 'rise');
 else selection();

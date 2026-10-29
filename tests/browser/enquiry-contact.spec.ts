@@ -1,3 +1,4 @@
+import { enquirySettled } from './enquiry-settled';
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
@@ -12,6 +13,7 @@ async function continueToContact(page: Page) {
       .first()
       .check();
     await page.getByRole('button', { name: 'Continue', exact: true }).click();
+    await enquirySettled(page);
   }
   throw new Error('The short enquiry did not reach its contact question');
 }
@@ -32,8 +34,14 @@ for (const service of ['branding', 'websites', 'mobile-apps', 'ai-automation'])
     await expect(page.getByRole('progressbar')).toHaveAttribute('max', String(total));
     await continueToContact(page);
     const root = page.locator('#questionnaire');
-    const next = () => page.getByRole('button', { name: 'Continue', exact: true }).click();
-    const back = () => page.getByRole('button', { name: 'Back', exact: true }).click();
+    const next = async () => {
+      await page.getByRole('button', { name: 'Continue', exact: true }).click();
+      await enquirySettled(page);
+    };
+    const back = async () => {
+      await page.getByRole('button', { name: 'Back', exact: true }).click();
+      await enquirySettled(page);
+    };
     const heading = root.locator('h1');
     await expect(root.locator('input[type=radio]')).toHaveCount(2);
     await expect(page.getByLabel('Zoom call', { exact: true })).toHaveCount(0);
@@ -67,6 +75,7 @@ for (const service of ['branding', 'websites', 'mobile-apps', 'ai-automation'])
     );
     await whatsappInput.fill(phone);
     if (service === 'branding') {
+      await expect(root.locator('.enquiry-conditional')).toHaveAttribute('data-settled', 'true');
       const choices = await root.locator('.choices').boundingBox();
       const field = await root.locator('.quiz-contact .field').boundingBox();
       expect(field!.y).toBeGreaterThan(choices!.y + choices!.height);

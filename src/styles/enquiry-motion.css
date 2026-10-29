@@ -1,0 +1,195 @@
+@import './home-motion.css';
+
+/* Only the Stage 1 renderer opts into this scope. Phase 1/2 timings are scaled for forms. */
+.enquiry-motion-viewport {
+  overflow-x: clip;
+}
+.enquiry-motion {
+  --enquiry-duration: calc(var(--motion-duration) * 0.4);
+  --enquiry-stagger: calc(var(--motion-stagger) * 0.125);
+  --enquiry-direction: 1;
+  overflow-x: clip;
+}
+.enquiry-motion[data-enquiry-direction='back'] {
+  --enquiry-direction: -1;
+}
+.enquiry-motion .choice {
+  position: relative;
+  isolation: isolate;
+}
+.enquiry-motion .choice:has(input:checked) {
+  background: var(--surface);
+}
+.enquiry-motion .choice::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--soft);
+  opacity: 0;
+  pointer-events: none;
+}
+.enquiry-motion .choice:has(input:checked)::before {
+  opacity: 1;
+}
+.enquiry-motion .enquiry-progress-track {
+  position: relative;
+  height: 4px;
+  background: var(--border);
+  margin-bottom: var(--space-8);
+}
+.enquiry-motion .enquiry-progress-track .quiz-progress {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+.enquiry-motion .enquiry-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+}
+.enquiry-motion .quiz-contact.enquiry-conditional {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+}
+.enquiry-motion .quiz-contact.enquiry-conditional[data-open='true'] {
+  grid-template-rows: 1fr;
+  margin-top: var(--space-5);
+}
+.enquiry-motion .enquiry-conditional-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.enquiry-motion
+  .enquiry-conditional[data-settled='true'][data-open='true']
+  .enquiry-conditional-inner {
+  overflow: visible;
+}
+.enquiry-motion .enquiry-ready-title {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.enquiry-motion .enquiry-confirm {
+  display: inline-block;
+  color: var(--success);
+  font-size: var(--question-heading);
+  line-height: var(--line-heading);
+}
+.enquiry-motion[aria-busy='true'] #question-error::before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  margin-right: var(--space-3);
+  vertical-align: middle;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .enquiry-motion[data-enquiry-phase] {
+    transition:
+      opacity calc(var(--enquiry-duration) / 2) var(--motion-easing),
+      transform calc(var(--enquiry-duration) / 2) var(--motion-easing);
+  }
+  .enquiry-motion[data-enquiry-phase='out'] {
+    opacity: 0;
+    transform: translateX(calc(-20px * var(--enquiry-direction)));
+  }
+  .enquiry-motion[data-enquiry-phase='start'] {
+    transition: none;
+    opacity: 0;
+    transform: translateX(calc(20px * var(--enquiry-direction)));
+  }
+  .enquiry-motion[data-enquiry-entrance='rise'][data-enquiry-phase='start'] {
+    transform: translateY(8px);
+  }
+  .enquiry-motion[data-enquiry-phase='in'] {
+    opacity: 1;
+    transform: none;
+  }
+  .enquiry-motion[data-enquiry-direction='rise'][data-enquiry-phase='in'] {
+    transition-duration: var(--enquiry-duration);
+  }
+  .enquiry-motion .enquiry-progress-fill {
+    transition: transform calc(var(--enquiry-duration) / 2) var(--motion-easing);
+  }
+  .enquiry-motion .choice {
+    transition:
+      border-color var(--transition),
+      box-shadow var(--transition);
+  }
+  .enquiry-motion .choice::before {
+    transition: opacity var(--transition);
+  }
+  .enquiry-motion .choice input {
+    transition: accent-color var(--transition);
+  }
+  .enquiry-motion .enquiry-conditional {
+    transition:
+      grid-template-rows var(--enquiry-field-duration, var(--enquiry-duration)) var(--motion-easing),
+      margin-top var(--enquiry-field-duration, var(--enquiry-duration)) var(--motion-easing);
+  }
+  .enquiry-motion .enquiry-conditional-inner {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity var(--enquiry-field-duration, var(--enquiry-duration)) var(--motion-easing),
+      transform var(--enquiry-field-duration, var(--enquiry-duration)) var(--motion-easing);
+  }
+  .enquiry-motion .enquiry-conditional[data-open='true'] .enquiry-conditional-inner {
+    opacity: 1;
+    transform: none;
+  }
+  .enquiry-motion[data-enquiry-screen='review'] .review-row {
+    animation: enquiry-review calc(var(--enquiry-duration) / 2) var(--motion-easing) both;
+    animation-delay: calc(var(--enquiry-order, 0) * var(--enquiry-stagger));
+  }
+  .enquiry-motion[aria-busy='true'] #question-error::before {
+    animation: enquiry-loading var(--motion-duration) linear infinite;
+  }
+  .enquiry-motion .enquiry-confirm {
+    animation: enquiry-confirm var(--enquiry-duration) var(--motion-easing) both;
+  }
+}
+@keyframes enquiry-review {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes enquiry-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes enquiry-confirm {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .enquiry-motion,
+  .enquiry-motion * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .enquiry-motion[data-enquiry-phase] {
+    opacity: 1;
+    transform: none;
+  }
+}

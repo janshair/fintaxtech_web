@@ -1,8 +1,15 @@
+import { enquirySettled } from './enquiry-settled';
 import { test, expect, type Page } from '@playwright/test';
 
 const root = (page: Page) => page.locator('#questionnaire');
-const next = (page: Page) => page.getByRole('button', { name: 'Continue', exact: true }).click();
-const back = (page: Page) => page.getByRole('button', { name: 'Back', exact: true }).click();
+const next = async (page: Page) => {
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await enquirySettled(page);
+};
+const back = async (page: Page) => {
+  await page.getByRole('button', { name: 'Back', exact: true }).click();
+  await enquirySettled(page);
+};
 async function progress(page: Page, position: number, total: number) {
   await expect(root(page).getByRole('progressbar')).toHaveAttribute(
     'aria-label',
@@ -12,6 +19,7 @@ async function progress(page: Page, position: number, total: number) {
 async function begin(page: Page, service: string) {
   await page.goto(`/enquiry/?service=${service}`);
   await page.getByRole('button', { name: 'Begin', exact: true }).click();
+  await enquirySettled(page);
 }
 async function review(page: Page) {
   await expect(
@@ -92,7 +100,7 @@ test('mobile Stage 1 only asks for Other feature details when selected and prese
   }
   await expect(root(page).getByRole('heading')).toHaveText('What should users be able to do?');
   await page.getByLabel('Other', { exact: true }).check();
-  await progress(page, 4, 6); // Total is recalculated as the next question is shown.
+  await progress(page, 4, 8); // Applicable totals update as soon as Other is selected.
   await next(page);
   await progress(page, 5, 8);
   await expect(root(page).getByRole('heading')).toHaveText('Feature name');
