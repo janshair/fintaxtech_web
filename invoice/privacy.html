@@ -127,10 +127,10 @@
             <div class="container">
                 <div class="legal-content">
                     <h2 id="privacy-title">About this policy</h2>
-                    <p><strong>Last updated:</strong> 5 September 2026</p>
+                    <p><strong>Last updated:</strong> 29 October 2026</p>
                     <p>
                         This policy covers the <strong>Safos</strong> mobile app published by
-                        Fintaxtech Ltd. It is separate from the
+                        Fintaxtech Ltd, on iPhone and iPad (iOS) and on Android. It is separate from the
                         <a href="/privacy.html">privacy policy for the Fintaxtech website and services</a>,
                         which governs our website and client work.
                     </p>
@@ -138,11 +138,16 @@
                         Safos is built to work without an account. There is no sign-up, no login,
                         and no server of ours holding your documents.
                     </p>
+                    <p>
+                        Where the two versions differ, this policy says so. In short, <strong>Safos on iPhone
+                        and iPad is free and has no purchases</strong>, so everything below about purchases,
+                        subscriptions, RevenueCat and Google Play Billing applies to Android only.
+                    </p>
 
                     <div class="key-claim">
                         <p>
                             <strong>Your invoices, receipts and client details never leave your device.</strong>
-                            They are stored only in the app's private storage on your phone. We cannot see
+                            They are stored only in the app's private storage on your phone or tablet. We cannot see
                             them, and we have no way to retrieve them.
                         </p>
                     </div>
@@ -162,7 +167,7 @@
 
                     <h2>What stays on your device</h2>
                     <p>
-                        The following is created and stored entirely on your phone. It is never uploaded to
+                        The following is created and stored entirely on your device. It is never uploaded to
                         us or to anyone else:
                     </p>
                     <ul>
@@ -177,13 +182,15 @@
                     <p>
                         If you uninstall the app, this data is deleted with it. Because we never receive a
                         copy, we cannot restore it for you — please keep your own backup using
-                        <strong>Settings → Export all data</strong>.
+                        <strong>Settings → Data &amp; Privacy → Export my data</strong> on iPhone and iPad
+                        (<strong>Settings → Export all data</strong> on Android).
                     </p>
 
                     <h2>What does leave your device</h2>
                     <p>
-                        Three services process a small amount of data so that purchases work and — only if
-                        you allow it — so that we can fix crashes and understand which features get used.
+                        Only if you allow it, one service processes a small amount of data so that we can fix
+                        crashes and understand which features get used (all versions). On Android, two further
+                        services handle purchases.
                     </p>
 
                     <div class="table-scroll">
@@ -200,24 +207,25 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">RevenueCat, Inc.</th>
-                                    <td>An anonymous app-generated identifier, and your subscription or purchase status.
-                                        No name, email or document content.</td>
+                                    <td><strong>Android only.</strong> An anonymous app-generated identifier, and your
+                                        subscription or purchase status. No name, email or document content.</td>
                                     <td>To know whether you have Safos Pro, and to restore purchases on a new device.
                                     </td>
-                                    <td>Always active. The app cannot sell or restore a subscription without it.</td>
+                                    <td>Always active on Android. The app cannot sell or restore a subscription without it.
+                                        The iPhone and iPad app does not use RevenueCat.</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Google Play Billing</th>
-                                    <td>Your payment details, handled entirely by Google. They never pass through the
-                                        app.</td>
+                                    <td><strong>Android only.</strong> Your payment details, handled entirely by Google.
+                                        They never pass through the app.</td>
                                     <td>To take payment for a subscription or lifetime purchase.</td>
-                                    <td>Only used when you choose to buy.</td>
+                                    <td>Only used when you choose to buy. The iPhone and iPad app has no purchases.</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Google Firebase<br>(Analytics &amp; Crashlytics)</th>
                                     <td>Anonymous usage events — for example that an invoice was created, without any of
                                         its content — plus crash reports containing the technical fault, your device
-                                        model, OS version and app version.</td>
+                                        model, OS version and app version. This applies on iPhone, iPad and Android.</td>
                                     <td>To fix crashes and see which features are used.</td>
                                     <td><strong>Off unless you turn it on.</strong> Nothing is sent until you opt in,
                                         and you can withdraw at any time.</td>
@@ -235,8 +243,9 @@
                     </p>
                     <p>
                         You can change your mind whenever you like in
-                        <strong>Settings → Share anonymous usage data</strong>. Turning it off stops
-                        collection immediately.
+                        <strong>Settings → Data &amp; Privacy → Share anonymous usage data</strong> on iPhone
+                        and iPad (<strong>Settings → Share anonymous usage data</strong> on Android).
+                        Turning it off stops collection immediately.
                     </p>
                     <p>
                         These events are designed so that they cannot carry your content. An event records
@@ -245,7 +254,9 @@
                     </p>
                     <p>
                         Safos does <strong>not</strong> collect an advertising identifier, does not
-                        show adverts, and does not track you across other apps or websites.
+                        show adverts, and does not track you across other apps or websites. On iPhone and
+                        iPad it does not request App Tracking Transparency permission because it does not
+                        track you.
                     </p>
 
                     <h2>Permissions the app asks for</h2>
@@ -264,19 +275,22 @@
                                     <th scope="row">Contacts</th>
                                     <td>Only when you tap “Import from contacts”.</td>
                                     <td>The details of the one contact you pick are copied into a client record on your
-                                        device. Nothing is uploaded, and your address book is not read otherwise. You
-                                        can decline and still add clients by hand.</td>
+                                        device. Nothing is uploaded, and your address book is not read otherwise. On
+                                        iPhone and iPad this uses Apple's contact picker, which runs outside the app, so
+                                        Safos never asks for access to your contacts. You can still add clients by
+                                        hand.</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Photos</th>
                                     <td>Only when you choose a business logo.</td>
-                                    <td>Handled by the Android system photo picker, so the app never gains access to
-                                        your photo library. The one image you select is copied into the app's private
-                                        storage.</td>
+                                    <td>Handled by the system photo picker (Android and iPhone/iPad), so the app never
+                                        gains access to your photo library. The one image you select is copied into the
+                                        app's private storage.</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Internet</th>
-                                    <td>On launch and when purchasing.</td>
+                                    <td>Android: on launch and when purchasing. iPhone and iPad: only to send analytics and
+                                        crash reports, and only if you have opted in.</td>
                                     <td>Used for the services in the table above. Creating, editing and exporting
                                         documents all work fully offline.</td>
                                 </tr>
@@ -287,8 +301,8 @@
                     <h2>Legal basis for processing</h2>
                     <p>Under the UK GDPR we rely on:</p>
                     <ul>
-                        <li><strong>Performance of a contract</strong> — for purchase and subscription data. Without it
-                            we could not provide or restore Safos Pro.</li>
+                        <li><strong>Performance of a contract</strong> — for purchase and subscription data (Android
+                            only). Without it we could not provide or restore Safos Pro.</li>
                         <li><strong>Consent</strong> — for analytics and crash reporting. You give it freely, and you
                             may withdraw it at any time in Settings without losing any app functionality.</li>
                     </ul>
@@ -297,7 +311,7 @@
                     <ul>
                         <li><strong>On your device:</strong> until you delete it. Nothing expires or is removed
                             automatically.</li>
-                        <li><strong>Purchase records:</strong> retained by RevenueCat and Google for as long as needed
+                        <li><strong>Purchase records (Android only):</strong> retained by RevenueCat and Google for as long as needed
                             to support your subscription and to meet their own legal and accounting obligations, in line
                             with their retention schedules.</li>
                         <li><strong>Analytics and crash data:</strong> retained by Google Firebase according to the
@@ -311,22 +325,25 @@
                         that matter most are built directly into the app and need no request to us:
                     </p>
                     <ul>
-                        <li><strong>Portability</strong> — <em>Settings → Export all data</em> produces a readable JSON
+                        <li><strong>Portability</strong> — <em>Settings → Data &amp; Privacy → Export my data</em> (iPhone and
+                            iPad) or <em>Settings → Export all data</em> (Android) produces a readable JSON
                             file containing everything the app holds, which you can save or send wherever you like.</li>
-                        <li><strong>Erasure</strong> — <em>Settings → Delete all data</em> permanently removes every
+                        <li><strong>Erasure</strong> — <em>Settings → Data &amp; Privacy → Delete all my data</em> (iPhone and
+                            iPad) or <em>Settings → Delete all data</em> (Android) permanently removes every
                             invoice, receipt, client and setting from the device. This cannot be undone, and it does not
-                            cancel a subscription — see below.</li>
+                            cancel an Android subscription — see below.</li>
                     </ul>
                     <p>
                         For anything that involves data held by us or our processors — including a request
-                        relating to your purchase record — contact
+                        relating to an Android purchase record — contact
                         <a href="mailto:ask@fintaxtech.co.uk">ask@fintaxtech.co.uk</a>. We will
                         respond within one month.
                     </p>
 
                     <h2>Managing or cancelling a subscription</h2>
                     <p>
-                        Subscriptions are managed by Google Play, not by us. Deleting the app or its data
+                        Safos on iPhone and iPad has no subscriptions or purchases. On Android,
+                        subscriptions are managed by Google Play, not by us. Deleting the app or its data
                         does not cancel a subscription. Use <strong>Settings → Manage subscription</strong>
                         in the app, or your Google Play account, to cancel.
                     </p>
@@ -345,8 +362,8 @@
 
                     <h2>International transfers</h2>
                     <p>
-                        RevenueCat and Google are based in the United States and may process data outside
-                        the UK. Both provide safeguards for international transfers under UK data
+                        Google (Firebase, and Google Play Billing on Android) and RevenueCat (Android only) are
+                        based in the United States and may process data outside the UK. They provide safeguards for international transfers under UK data
                         protection law, including standard contractual clauses.
                     </p>
 
