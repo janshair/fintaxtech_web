@@ -12,7 +12,11 @@
   const edit = $('[data-edit]');
   const dialogs = [nameDialog, visitDialog, contactDialog];
   const triggers = new WeakMap();
-  let offered = Boolean(read().name);
+  // The name offer appears at most once. The flag also rides on history.state (not storage),
+  // so a page the browser reloads on its own, such as iOS Safari restoring a discarded tab
+  // or a back/forward return, does not offer again; only an explicit reload does.
+  const reloaded = performance.getEntriesByType('navigation')[0]?.type === 'reload';
+  let offered = Boolean(read().name) || (!reloaded && Boolean(history.state?.gymNameOffered));
   let timer;
   let current;
   function update() {
@@ -45,6 +49,8 @@
     offered = true;
     clearTimeout(timer);
     removeEventListener('scroll', offer);
+    if (!history.state?.gymNameOffered)
+      history.replaceState({ ...history.state, gymNameOffered: true }, '', location.href);
   }
   function open(dialog, trigger) {
     cancelOffer();

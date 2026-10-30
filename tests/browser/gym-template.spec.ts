@@ -160,6 +160,62 @@ test('blank and invalid values fall back; delayed offer occurs once, edits and r
   await expect(page.locator('[data-business]').first()).toHaveText('History Gym');
 });
 
+test('the name offer appears once per visit, even after scrolling and returning', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const scrollThrough = async () => {
+    const height = await page.evaluate(() => document.documentElement.scrollHeight);
+    for (let y = 0; y <= height; y += 300) {
+      await page.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), y);
+      await page.waitForTimeout(30);
+    }
+    await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+  };
+  await page.goto(`${route}?area=Dundee`);
+  await page.evaluate(() => scrollTo(0, 200));
+  await expect(page.locator('#name-dialog')).toBeVisible();
+  await page.locator('#name-dialog [data-close]').click();
+  await scrollThrough();
+  await page.waitForTimeout(5500);
+  await scrollThrough();
+  await expect(page.locator('#name-dialog')).not.toBeVisible();
+  // A back/forward return re-runs the page without a deliberate reload: no second offer.
+  await page.goto('/');
+  await page.goBack();
+  await scrollThrough();
+  await page.waitForTimeout(5500);
+  await expect(page.locator('#name-dialog')).not.toBeVisible();
+  expect(
+    await page.evaluate(() => [Object.keys(localStorage), Object.keys(sessionStorage)]),
+  ).toEqual([[], []]);
+  await page.reload();
+  await page.evaluate(() => scrollTo(0, 200));
+  await expect(page.locator('#name-dialog')).toBeVisible();
+});
+
+test('dialog eyebrows clear the close button at 390px', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(personalised);
+  await page.locator('[data-book]:visible').first().click();
+  const eyebrow = page.locator('#visit-dialog > .eyebrow');
+  await expect(eyebrow).toHaveText('EXAMPLE BOOKING · NOTHING IS SENT');
+  const text = await eyebrow.evaluate((node) => {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    return [...range.getClientRects()].map((r) => ({
+      right: r.right,
+      top: r.top,
+      bottom: r.bottom,
+    }));
+  });
+  const close = (await page.locator('#visit-dialog [data-close]').boundingBox())!;
+  for (const line of text)
+    expect(
+      line.right <= close.x || line.top >= close.y + close.height || line.bottom <= close.y,
+    ).toBe(true);
+});
+
 for (const width of [320, 390, 768, 1440]) {
   test(`complete visit flow, timetable, layout, scroll and reduced motion at ${width}px`, async ({
     page,

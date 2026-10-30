@@ -190,9 +190,16 @@ for (const width of [320, 390, 768, 1440]) {
     const before = await page
       .locator('.cleaning-wand')
       .evaluate((node) => getComputedStyle(node).transform);
+    // The pass finishes when the illustration's centre reaches 35% of the viewport height.
+    const illustration = await stage
+      .locator('[data-cleaning-illustration]')
+      .evaluate((node) => {
+        const rect = node.getBoundingClientRect();
+        return rect.top + scrollY + rect.height / 2;
+      });
     await page.evaluate(
-      (y) => scrollTo({ top: y - innerHeight * 0.3, behavior: 'instant' }),
-      stageTop,
+      (y) => scrollTo({ top: y - innerHeight * 0.35, behavior: 'instant' }),
+      illustration,
     );
     await expect
       .poll(() =>
