@@ -1,0 +1,863 @@
+{
+  "schema_version": "1.0.0",
+  "configuration_id": "fintaxtech.mobile_app.services",
+  "version": "1.0.0",
+  "compatible_pricing_version": "1.0.0",
+  "service_id": "mobile_app_development",
+  "brand": "FinTaxTech",
+  "locale": "en-GB",
+  "purpose": "Price-free customer questionnaire for mobile app development only.",
+  "distribution": {
+    "classification": "customer_questionnaire",
+    "contains_prices": false,
+    "internal_pricing_file": "pricing.json",
+    "client_access_to_pricing_file": false,
+    "note": "This relative filename is a server-side integration reference, never a URL to fetch from the browser."
+  },
+  "presentation": {
+    "step_count": 5,
+    "show_prices_during_questionnaire": false,
+    "responsive": true,
+    "accessible_controls": true,
+    "show_progress": true,
+    "navigation": ["back", "continue"],
+    "retain_visible_answers": true,
+    "no_customer_timeline_question": true,
+    "no_customer_backend_tier_question": true,
+    "admin_is_not_a_feature": true,
+    "screen_development_customer_label": "Screen Development",
+    "required_question_semantics": "required applies only while the question is visible. Hidden questions must contain their hidden_value, never a stale answer."
+  },
+  "condition_language": {
+    "name": "fintaxtech_predicates_v1",
+    "definition_location": "pricing.json#predicate_language",
+    "allowed_field_roots": ["answers"],
+    "operators_used": ["eq", "ne", "all"],
+    "missing_answer_policy": "Do not evaluate conditional required questions until their controlling answer has been selected.",
+    "operators": {
+      "eq": "Lookup field equals value strictly.",
+      "ne": "Lookup field does not equal value strictly.",
+      "all": "All conditions must be true."
+    }
+  },
+  "steps": [
+    {
+      "id": "about_app",
+      "number": 1,
+      "title": "About Your App",
+      "questions": [
+        {
+          "id": "platform",
+          "label": "Which platforms do you need?",
+          "type": "single_select",
+          "required": true,
+          "options": [
+            {
+              "id": "ios",
+              "label": "iOS"
+            },
+            {
+              "id": "android",
+              "label": "Android"
+            },
+            {
+              "id": "both",
+              "label": "Both iOS and Android"
+            },
+            {
+              "id": "undecided",
+              "label": "I'm not sure"
+            }
+          ]
+        },
+        {
+          "id": "app_type",
+          "label": "What type of app are you building?",
+          "type": "single_select",
+          "required": true,
+          "options": [
+            {
+              "id": "booking",
+              "label": "Booking & Appointments"
+            },
+            {
+              "id": "business",
+              "label": "Business / Company"
+            },
+            {
+              "id": "ecommerce",
+              "label": "Shopping / E-commerce"
+            },
+            {
+              "id": "marketplace",
+              "label": "Marketplace"
+            },
+            {
+              "id": "social",
+              "label": "Social / Community"
+            },
+            {
+              "id": "productivity",
+              "label": "Productivity / Utility"
+            },
+            {
+              "id": "custom",
+              "label": "Other / Custom"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "features",
+      "number": 2,
+      "title": "App Features",
+      "questions": [
+        {
+          "id": "features",
+          "label": "Which features does your app need?",
+          "type": "multi_select",
+          "required": true,
+          "min_selections": 0,
+          "unique_items": true,
+          "help_text": "Select the features you need. You can leave this empty if you are unsure and describe your idea below.",
+          "options": [
+            {
+              "id": "registration",
+              "label": "Customer Registration & Login"
+            },
+            {
+              "id": "social_sign_in",
+              "label": "Google / Apple Sign-in"
+            },
+            {
+              "id": "profiles",
+              "label": "Customer Profiles"
+            },
+            {
+              "id": "roles",
+              "label": "Different User Roles"
+            },
+            {
+              "id": "booking",
+              "label": "Appointment Booking & Scheduling"
+            },
+            {
+              "id": "payments",
+              "label": "Online Payments"
+            },
+            {
+              "id": "push",
+              "label": "Push Notifications"
+            },
+            {
+              "id": "messaging",
+              "label": "In-App Messaging"
+            },
+            {
+              "id": "search",
+              "label": "Search & Filtering"
+            },
+            {
+              "id": "maps",
+              "label": "Maps & Location"
+            },
+            {
+              "id": "camera",
+              "label": "Camera & Image Upload"
+            },
+            {
+              "id": "offline",
+              "label": "Structured Offline Data Storage"
+            },
+            {
+              "id": "api",
+              "label": "Third-party API Integration"
+            },
+            {
+              "id": "analytics",
+              "label": "Analytics & Reporting"
+            },
+            {
+              "id": "subscriptions",
+              "label": "Subscriptions / In-App Purchases"
+            },
+            {
+              "id": "ai",
+              "label": "AI-Powered Features"
+            }
+          ]
+        },
+        {
+          "id": "other_requirements",
+          "label": "Anything else you would like your app to do?",
+          "type": "textarea",
+          "required": false,
+          "max_length": 5000,
+          "default": ""
+        }
+      ],
+      "suggestions": {
+        "behaviour": "Reorder or highlight suggestions only. Never select, remove or price features automatically from app type.",
+        "by_app_type": {
+          "booking": ["booking", "registration", "profiles", "payments", "push"],
+          "business": ["profiles", "push"],
+          "ecommerce": ["registration", "profiles", "payments", "search", "push"],
+          "marketplace": ["registration", "profiles", "roles", "payments", "messaging", "search"],
+          "social": ["registration", "profiles", "messaging", "push"],
+          "productivity": ["offline", "push"],
+          "custom": []
+        }
+      }
+    },
+    {
+      "id": "design_size",
+      "number": 3,
+      "title": "Design & App Size",
+      "questions": [
+        {
+          "id": "design",
+          "label": "What design style would you like?",
+          "type": "single_select",
+          "required": true,
+          "options": [
+            {
+              "id": "standard",
+              "label": "Standard iOS & Android Design"
+            },
+            {
+              "id": "custom",
+              "label": "Custom App Design"
+            },
+            {
+              "id": "advanced",
+              "label": "Advanced Design & Animations"
+            },
+            {
+              "id": "supplied",
+              "label": "I Already Have Complete Designs"
+            },
+            {
+              "id": "undecided",
+              "label": "I'm Not Sure"
+            }
+          ]
+        },
+        {
+          "id": "screens",
+          "label": "How many screens will your app need?",
+          "type": "single_select",
+          "required": true,
+          "help_text": "A screen is a distinct view, such as Login, Profile, Booking Calendar or Payment. FinTaxTech will confirm the scope during review.",
+          "options": [
+            {
+              "id": "1_5",
+              "label": "1–5"
+            },
+            {
+              "id": "6_10",
+              "label": "6–10"
+            },
+            {
+              "id": "11_20",
+              "label": "11–20"
+            },
+            {
+              "id": "over_20",
+              "label": "More than 20"
+            },
+            {
+              "id": "undecided",
+              "label": "I'm Not Sure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "business_requirements",
+      "number": 4,
+      "title": "Business Requirements",
+      "questions": [
+        {
+          "id": "admin_dashboard",
+          "label": "Would you like a web-based management dashboard?",
+          "type": "single_select",
+          "required": true,
+          "options": [
+            {
+              "id": "none",
+              "label": "No, I don't need one"
+            },
+            {
+              "id": "basic",
+              "label": "Yes, a simple dashboard"
+            },
+            {
+              "id": "advanced",
+              "label": "Yes, with staff management and detailed reports"
+            },
+            {
+              "id": "undecided",
+              "label": "I'm not sure"
+            }
+          ]
+        },
+        {
+          "id": "existing_system",
+          "label": "Do you already use a website or booking system that this app should connect to?",
+          "type": "single_select",
+          "required": true,
+          "visible_when": {
+            "op": "ne",
+            "field": "answers.admin_dashboard",
+            "value": "none"
+          },
+          "required_when_visible": true,
+          "hidden_value": "not_assessed",
+          "options": [
+            {
+              "id": "new_system",
+              "label": "No, this will be a new system"
+            },
+            {
+              "id": "existing",
+              "label": "Yes, I have an existing system"
+            },
+            {
+              "id": "undecided",
+              "label": "I'm not sure"
+            }
+          ]
+        },
+        {
+          "id": "migration_required",
+          "label": "Do you need to transfer existing customer or booking data?",
+          "type": "single_select",
+          "required": true,
+          "visible_when": {
+            "op": "ne",
+            "field": "answers.admin_dashboard",
+            "value": "none"
+          },
+          "required_when_visible": true,
+          "hidden_value": "not_assessed",
+          "options": [
+            {
+              "id": "no",
+              "label": "No, we're starting fresh"
+            },
+            {
+              "id": "yes",
+              "label": "Yes, I have data to transfer"
+            },
+            {
+              "id": "undecided",
+              "label": "I'm not sure"
+            }
+          ]
+        },
+        {
+          "id": "migration_source",
+          "label": "Where is the data currently stored?",
+          "type": "single_select",
+          "required": true,
+          "visible_when": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "ne",
+                "field": "answers.admin_dashboard",
+                "value": "none"
+              },
+              {
+                "op": "eq",
+                "field": "answers.migration_required",
+                "value": "yes"
+              }
+            ]
+          },
+          "required_when_visible": true,
+          "hidden_value": "not_assessed",
+          "options": [
+            {
+              "id": "csv",
+              "label": "Excel / CSV"
+            },
+            {
+              "id": "database",
+              "label": "Existing website or database"
+            },
+            {
+              "id": "app",
+              "label": "Existing mobile app"
+            },
+            {
+              "id": "unknown",
+              "label": "I'm not sure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "launch_support",
+      "number": 5,
+      "title": "Launch & Support",
+      "questions": [
+        {
+          "id": "publishing",
+          "label": "Who should publish your app?",
+          "type": "single_select",
+          "required": true,
+          "notice": "FinTaxTech publishing fees are payable in full in advance. Allow approximately three days for preparation and submission. App store approval times vary and may take up to 21 days or longer.",
+          "options": [
+            {
+              "id": "both",
+              "label": "FinTaxTech — Both App Stores"
+            },
+            {
+              "id": "apple",
+              "label": "FinTaxTech — Apple App Store only"
+            },
+            {
+              "id": "google",
+              "label": "FinTaxTech — Google Play Store only"
+            },
+            {
+              "id": "self",
+              "label": "I'll publish the app myself"
+            },
+            {
+              "id": "undecided",
+              "label": "I'm not sure yet"
+            }
+          ]
+        },
+        {
+          "id": "maintenance",
+          "label": "Would you like ongoing maintenance?",
+          "type": "single_select",
+          "required": true,
+          "options": [
+            {
+              "id": "none",
+              "label": "No Maintenance",
+              "description": "No ongoing maintenance package."
+            },
+            {
+              "id": "basic",
+              "label": "Basic Maintenance",
+              "description": "Two hours monthly, routine maintenance and initial email response within three business days."
+            },
+            {
+              "id": "premium",
+              "label": "Premium Maintenance",
+              "description": "Six hours monthly, proactive monitoring and priority initial response within one business day. Includes upcoming major OS testing and in-scope compatibility update submissions within 14 calendar days after stable release, subject to contract exclusions and app store review."
+            },
+            {
+              "id": "undecided",
+              "label": "I'm Not Sure"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "normalization": {
+    "order": [
+      "On every answer change, recalculate visibility.",
+      "Immediately overwrite newly hidden existing_system, migration_required and migration_source with not_assessed.",
+      "If migration_required is not yes, overwrite migration_source with not_assessed.",
+      "When a hidden question becomes visible, require a fresh answer; not_assessed is not a visible option.",
+      "Apply automatic standard QA.",
+      "Validate completed responses against response_schema before calculating."
+    ],
+    "rules": [
+      {
+        "when": {
+          "op": "eq",
+          "field": "answers.admin_dashboard",
+          "value": "none"
+        },
+        "set": {
+          "existing_system": "not_assessed",
+          "migration_required": "not_assessed",
+          "migration_source": "not_assessed"
+        }
+      },
+      {
+        "when": {
+          "op": "ne",
+          "field": "answers.migration_required",
+          "value": "yes"
+        },
+        "set": {
+          "migration_source": "not_assessed"
+        }
+      }
+    ],
+    "never_coerce_unknown_to": false,
+    "empty_features_is_explicit_empty_selection": true
+  },
+  "automatic_inclusions": [
+    {
+      "id": "standard_qa",
+      "answer_field": "qa",
+      "value": "standard",
+      "customer_label": "Standard QA included",
+      "customer_selectable": false
+    }
+  ],
+  "final_review": {
+    "after_step": 5,
+    "is_extra_questionnaire_step": false,
+    "read_only_summary": true,
+    "include_hidden_statuses": true,
+    "hidden_status_label": "Not assessed — FinTaxTech review required",
+    "edit_any_step": true,
+    "actions": [
+      {
+        "id": "edit",
+        "label": "Edit My Requirements"
+      },
+      {
+        "id": "confirm",
+        "label": "Confirm & View Estimate"
+      }
+    ],
+    "estimate_only_after_confirmation": true,
+    "reconfirm_after_edits": true,
+    "contact_submission": "Follow the existing website contact and submission patterns; do not require a new customer account."
+  },
+  "delivery": {
+    "customer_question": false,
+    "determined_by": "FinTaxTech after technical assessment",
+    "customer_status_label": "Delivery schedule pending assessment"
+  },
+  "privacy": {
+    "default_draft_storage": "local_to_customer_device",
+    "external_submission": "Only through the existing explicitly confirmed submission flow.",
+    "do_not_collect_credentials_or_payment_card_data": true
+  },
+  "response_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "FinTaxTech completed mobile questionnaire response",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "platform",
+      "app_type",
+      "features",
+      "other_requirements",
+      "design",
+      "screens",
+      "admin_dashboard",
+      "existing_system",
+      "migration_required",
+      "migration_source",
+      "publishing",
+      "maintenance",
+      "qa"
+    ],
+    "properties": {
+      "platform": {
+        "type": "string",
+        "enum": ["ios", "android", "both", "undecided"]
+      },
+      "app_type": {
+        "type": "string",
+        "enum": [
+          "booking",
+          "business",
+          "ecommerce",
+          "marketplace",
+          "social",
+          "productivity",
+          "custom"
+        ]
+      },
+      "features": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": [
+            "registration",
+            "social_sign_in",
+            "profiles",
+            "roles",
+            "booking",
+            "payments",
+            "push",
+            "messaging",
+            "search",
+            "maps",
+            "camera",
+            "offline",
+            "api",
+            "analytics",
+            "subscriptions",
+            "ai"
+          ]
+        }
+      },
+      "other_requirements": {
+        "type": "string",
+        "maxLength": 5000
+      },
+      "design": {
+        "type": "string",
+        "enum": ["standard", "custom", "advanced", "supplied", "undecided"]
+      },
+      "screens": {
+        "type": "string",
+        "enum": ["1_5", "6_10", "11_20", "over_20", "undecided"]
+      },
+      "admin_dashboard": {
+        "type": "string",
+        "enum": ["none", "basic", "advanced", "undecided"]
+      },
+      "existing_system": {
+        "type": "string",
+        "enum": ["new_system", "existing", "undecided", "not_assessed"]
+      },
+      "migration_required": {
+        "type": "string",
+        "enum": ["no", "yes", "undecided", "not_assessed"]
+      },
+      "migration_source": {
+        "type": "string",
+        "enum": ["csv", "database", "app", "unknown", "not_assessed"]
+      },
+      "publishing": {
+        "type": "string",
+        "enum": ["both", "apple", "google", "self", "undecided"]
+      },
+      "maintenance": {
+        "type": "string",
+        "enum": ["none", "basic", "premium", "undecided"]
+      },
+      "qa": {
+        "const": "standard"
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "admin_dashboard": {
+              "const": "none"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "existing_system": {
+              "const": "not_assessed"
+            },
+            "migration_required": {
+              "const": "not_assessed"
+            },
+            "migration_source": {
+              "const": "not_assessed"
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "existing_system": {
+              "enum": ["new_system", "existing", "undecided"]
+            },
+            "migration_required": {
+              "enum": ["no", "yes", "undecided"]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "admin_dashboard": {
+              "enum": ["basic", "advanced", "undecided"]
+            },
+            "migration_required": {
+              "const": "yes"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "migration_source": {
+              "enum": ["csv", "database", "app", "unknown"]
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "migration_source": {
+              "const": "not_assessed"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "configuration_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "FinTaxTech mobile services configuration",
+    "description": "Extract configuration_schema and validate this entire document against it. Other embedded schemas validate completed answers or generated findings separately.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "configuration_id",
+      "version",
+      "compatible_pricing_version",
+      "service_id",
+      "brand",
+      "locale",
+      "purpose",
+      "distribution",
+      "presentation",
+      "condition_language",
+      "steps",
+      "normalization",
+      "automatic_inclusions",
+      "final_review",
+      "delivery",
+      "privacy",
+      "response_schema",
+      "configuration_schema"
+    ],
+    "properties": {
+      "schema_version": {
+        "const": "1.0.0"
+      },
+      "configuration_id": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "compatible_pricing_version": {
+        "type": "string"
+      },
+      "service_id": {
+        "const": "mobile_app_development"
+      },
+      "brand": {
+        "type": "string"
+      },
+      "locale": {
+        "type": "string"
+      },
+      "purpose": {
+        "type": "string"
+      },
+      "distribution": {
+        "type": "object"
+      },
+      "presentation": {
+        "type": "object"
+      },
+      "condition_language": {
+        "type": "object"
+      },
+      "steps": {
+        "type": "array",
+        "minItems": 5,
+        "maxItems": 5,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "number", "title", "questions"],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "number": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "title": {
+              "type": "string"
+            },
+            "questions": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["id", "label", "type", "required"],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": ["single_select", "multi_select", "textarea"]
+                  },
+                  "required": {
+                    "type": "boolean"
+                  },
+                  "options": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["id", "label"],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "visible_when": {
+                    "type": "object"
+                  },
+                  "hidden_value": {
+                    "const": "not_assessed"
+                  }
+                }
+              }
+            },
+            "suggestions": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "normalization": {
+        "type": "object"
+      },
+      "automatic_inclusions": {
+        "type": "array"
+      },
+      "final_review": {
+        "type": "object"
+      },
+      "delivery": {
+        "type": "object"
+      },
+      "privacy": {
+        "type": "object"
+      },
+      "response_schema": {
+        "type": "object"
+      },
+      "configuration_schema": {
+        "type": "object"
+      }
+    }
+  }
+}
