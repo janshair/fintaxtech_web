@@ -1,0 +1,2517 @@
+{
+  "schema_version": "1.0.0",
+  "configuration_id": "fintaxtech.mobile_app.pricing",
+  "version": "1.0.0",
+  "compatible_services_version": "1.0.0",
+  "service_id": "mobile_app_development",
+  "currency": "GBP",
+  "money_unit": "integer_pence",
+  "prices_exclude_vat": true,
+  "distribution": {
+    "classification": "confidential_internal",
+    "server_only": true,
+    "public_access_allowed": false,
+    "client_bundle_allowed": false,
+    "static_assets_allowed": false,
+    "browser_fetch_allowed": false,
+    "customer_response_policy": "Return only the confirmed customer estimate, its approved display fields, pending scope, assumptions and exclusions. Never return this file, full catalogue, internal validation details, reviewer data or audit records.",
+    "required_integration_controls": [
+      "Store outside public, static and asset directories.",
+      "Load and calculate on the server only; do not import this file into client components or client bundles.",
+      "Protect internal catalogue, validation, adjustment and approval endpoints with staff authentication and authorisation.",
+      "Do not expose internal data through source maps, debugging endpoints, logs in customer responses or unauthenticated downloads.",
+      "Verify production routes and bundles do not expose this file before release."
+    ],
+    "enforcement_note": "This standalone configuration does not implement access control. These requirements must be enforced by the eventual application. No repository integration or deployment is included."
+  },
+  "predicate_language": {
+    "name": "fintaxtech_predicates_v1",
+    "input_roots": ["answers", "derived", "review_context", "calculation"],
+    "path_format": "Dot-separated own-property lookup; missing path yields null.",
+    "equality": "Strict JSON type-and-value equality; no coercion. A boolean true is not the number 1.",
+    "operators": {
+      "always": "Always true.",
+      "eq": "Lookup field equals value strictly.",
+      "ne": "Lookup field does not equal value strictly.",
+      "in": "Lookup field is strictly equal to any entry in values.",
+      "contains": "Lookup field must be an array containing value strictly.",
+      "nonempty": "Lookup field is a nonempty array or a nonblank trimmed string.",
+      "duplicates": "Lookup field is an array with repeated strictly equal entries.",
+      "all": "All conditions must be true.",
+      "any": "At least one condition must be true.",
+      "not": "Negate the single condition."
+    },
+    "unknown_operator_or_invalid_path": "Reject configuration, never execute code from a predicate.",
+    "evaluation": "Pure deterministic data evaluation; no eval or executable string expressions."
+  },
+  "catalogue": {
+    "architecture.ios": {
+      "id": "architecture.ios",
+      "label": "iOS Architecture",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 274900,
+      "inclusions": ["Architecture", "Navigation foundations", "Up to five standard screens"]
+    },
+    "architecture.android": {
+      "id": "architecture.android",
+      "label": "Android Architecture",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 274900,
+      "inclusions": ["Architecture", "Navigation foundations", "Up to five standard screens"]
+    },
+    "architecture.both": {
+      "id": "architecture.both",
+      "label": "iOS + Android Architecture",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 399900,
+      "assumption": "An appropriate shared-codebase implementation.",
+      "inclusions": ["Architecture", "Navigation foundations", "Up to five standard screens"]
+    },
+    "architecture.undecided": {
+      "id": "architecture.undecided",
+      "label": "Platform decision pending",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "screens.1_5": {
+      "id": "screens.1_5",
+      "label": "Screen Development",
+      "charge_type": "one_time",
+      "price_mode": "included",
+      "amount_pence": 0,
+      "screen_band": "1_5"
+    },
+    "screens.6_10": {
+      "id": "screens.6_10",
+      "label": "Screen Development",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 125000,
+      "screen_band": "6_10"
+    },
+    "screens.11_20": {
+      "id": "screens.11_20",
+      "label": "Screen Development",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 375000,
+      "screen_band": "11_20"
+    },
+    "screens.over_20": {
+      "id": "screens.over_20",
+      "label": "Screen Development",
+      "charge_type": "one_time",
+      "price_mode": "manual_quote",
+      "amount_pence": null
+    },
+    "screens.undecided": {
+      "id": "screens.undecided",
+      "label": "Screen Development",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "design.standard.1_5": {
+      "id": "design.standard.1_5",
+      "label": "Standard UI/UX Design",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 49900,
+      "scope": "Once per project, across selected platforms."
+    },
+    "design.standard.6_10": {
+      "id": "design.standard.6_10",
+      "label": "Standard UI/UX Design",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 99900,
+      "scope": "Once per project, across selected platforms."
+    },
+    "design.standard.11_20": {
+      "id": "design.standard.11_20",
+      "label": "Standard UI/UX Design",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 199900,
+      "scope": "Once per project, across selected platforms."
+    },
+    "design.standard.over_20": {
+      "id": "design.standard.over_20",
+      "label": "Standard UI/UX Design",
+      "charge_type": "one_time",
+      "price_mode": "manual_quote",
+      "amount_pence": null
+    },
+    "design.standard.undecided": {
+      "id": "design.standard.undecided",
+      "label": "Standard UI/UX Design",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "design.custom.up_to_10": {
+      "id": "design.custom.up_to_10",
+      "label": "Custom App Design",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 149900,
+      "replaces": "Standard UI/UX Design",
+      "scope": "Up to 10 screens; once per project."
+    },
+    "design.custom.review": {
+      "id": "design.custom.review",
+      "label": "Custom App Design",
+      "charge_type": "one_time",
+      "price_mode": "manual_quote",
+      "amount_pence": null
+    },
+    "design.advanced": {
+      "id": "design.advanced",
+      "label": "Advanced Design & Animations",
+      "charge_type": "one_time",
+      "price_mode": "manual_quote",
+      "amount_pence": null
+    },
+    "design.supplied": {
+      "id": "design.supplied",
+      "label": "Customer-supplied development-ready designs",
+      "charge_type": "one_time",
+      "price_mode": "provisional",
+      "amount_pence": 0,
+      "requires_review": true,
+      "assumption": "Design completeness and development readiness must be verified."
+    },
+    "design.undecided": {
+      "id": "design.undecided",
+      "label": "Design decision pending",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "feature.registration": {
+      "id": "feature.registration",
+      "label": "Customer Registration & Login",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 95000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.social_sign_in": {
+      "id": "feature.social_sign_in",
+      "label": "Google / Apple Sign-in",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 45000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.profiles": {
+      "id": "feature.profiles",
+      "label": "Customer Profiles",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 65000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.roles": {
+      "id": "feature.roles",
+      "label": "Different User Roles",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 125000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.booking": {
+      "id": "feature.booking",
+      "label": "Appointment Booking & Scheduling",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 299900,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.payments": {
+      "id": "feature.payments",
+      "label": "Online Payments",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 175000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.push": {
+      "id": "feature.push",
+      "label": "Push Notifications",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 75000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.messaging": {
+      "id": "feature.messaging",
+      "label": "In-App Messaging",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 350000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.search": {
+      "id": "feature.search",
+      "label": "Search & Filtering",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 85000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.maps": {
+      "id": "feature.maps",
+      "label": "Maps & Location",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 125000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.camera": {
+      "id": "feature.camera",
+      "label": "Camera & Image Upload",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 75000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.offline": {
+      "id": "feature.offline",
+      "label": "Structured Offline Data Storage",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 95000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.api": {
+      "id": "feature.api",
+      "label": "Third-party API Integration",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 150000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.analytics": {
+      "id": "feature.analytics",
+      "label": "Analytics & Reporting",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 125000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.subscriptions": {
+      "id": "feature.subscriptions",
+      "label": "Subscriptions / In-App Purchases",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 175000,
+      "requires_review": false,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "feature.ai": {
+      "id": "feature.ai",
+      "label": "AI-Powered Features",
+      "charge_type": "one_time",
+      "price_mode": "from",
+      "amount_pence": 350000,
+      "requires_review": true,
+      "quantity_policy": "At most once per project; not per platform, provider, endpoint or screen."
+    },
+    "backend.none": {
+      "id": "backend.none",
+      "label": "No Backend",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 0,
+      "requires_review": true
+    },
+    "backend.existing": {
+      "id": "backend.existing",
+      "label": "Existing Backend",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 0,
+      "requires_review": true,
+      "exclusions": ["Integration implementation and migration are assessed separately."]
+    },
+    "backend.basic": {
+      "id": "backend.basic",
+      "label": "Basic Backend",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 149900,
+      "requires_review": true
+    },
+    "backend.standard": {
+      "id": "backend.standard",
+      "label": "Standard Backend",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 299900,
+      "requires_review": true
+    },
+    "backend.advanced": {
+      "id": "backend.advanced",
+      "label": "Advanced Backend",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 599900,
+      "requires_review": true
+    },
+    "backend.unknown": {
+      "id": "backend.unknown",
+      "label": "Backend assessment pending",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "admin.none": {
+      "id": "admin.none",
+      "label": "No Admin Panel",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 0,
+      "requires_review": false
+    },
+    "admin.basic": {
+      "id": "admin.basic",
+      "label": "Basic Admin Panel",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 149900,
+      "inclusions": [
+        "Up to three straightforward management sections with standard create, read, update and delete operations."
+      ],
+      "requires_review": false
+    },
+    "admin.advanced": {
+      "id": "admin.advanced",
+      "label": "Advanced Admin Panel",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 499900,
+      "requires_review": true
+    },
+    "admin.undecided": {
+      "id": "admin.undecided",
+      "label": "Admin Panel decision pending",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "publishing.self": {
+      "id": "publishing.self",
+      "label": "Customer self-publishes",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 0
+    },
+    "publishing.apple": {
+      "id": "publishing.apple",
+      "label": "Apple App Store Publishing",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 24900
+    },
+    "publishing.google": {
+      "id": "publishing.google",
+      "label": "Google Play Store Publishing",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 24900
+    },
+    "publishing.both": {
+      "id": "publishing.both",
+      "label": "Both App Stores Publishing",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 39900
+    },
+    "publishing.undecided": {
+      "id": "publishing.undecided",
+      "label": "Publishing decision pending",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "maintenance.none": {
+      "id": "maintenance.none",
+      "label": "Maintenance — None",
+      "charge_type": "monthly",
+      "price_mode": "fixed",
+      "amount_pence": 0
+    },
+    "maintenance.basic": {
+      "id": "maintenance.basic",
+      "label": "Maintenance — Basic",
+      "charge_type": "monthly",
+      "price_mode": "fixed",
+      "amount_pence": 14900
+    },
+    "maintenance.premium_one": {
+      "id": "maintenance.premium_one",
+      "label": "Maintenance — Premium One",
+      "charge_type": "monthly",
+      "price_mode": "fixed",
+      "amount_pence": 69900
+    },
+    "maintenance.premium_both": {
+      "id": "maintenance.premium_both",
+      "label": "Maintenance — Premium Both",
+      "charge_type": "monthly",
+      "price_mode": "fixed",
+      "amount_pence": 99900
+    },
+    "maintenance.undecided": {
+      "id": "maintenance.undecided",
+      "label": "Maintenance decision pending",
+      "charge_type": "monthly",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "maintenance.premium_platform_pending": {
+      "id": "maintenance.premium_platform_pending",
+      "label": "Maintenance decision pending",
+      "charge_type": "monthly",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "migration.none": {
+      "id": "migration.none",
+      "label": "Data Migration — None",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 0
+    },
+    "migration.csv": {
+      "id": "migration.csv",
+      "label": "Data Migration — Csv",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 49900
+    },
+    "migration.database": {
+      "id": "migration.database",
+      "label": "Data Migration — Database",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 149900
+    },
+    "migration.app": {
+      "id": "migration.app",
+      "label": "Data Migration — App",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 249900
+    },
+    "migration.unknown": {
+      "id": "migration.unknown",
+      "label": "Data Migration — Unknown",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "migration.not_assessed": {
+      "id": "migration.not_assessed",
+      "label": "Data Migration — Not Assessed",
+      "charge_type": "one_time",
+      "price_mode": "pending",
+      "amount_pence": null
+    },
+    "qa.standard": {
+      "id": "qa.standard",
+      "label": "Standard QA",
+      "charge_type": "one_time",
+      "price_mode": "included",
+      "amount_pence": 0
+    },
+    "qa.extended": {
+      "id": "qa.extended",
+      "label": "Extended QA",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 79900
+    },
+    "qa.advanced": {
+      "id": "qa.advanced",
+      "label": "Advanced QA",
+      "charge_type": "one_time",
+      "price_mode": "fixed",
+      "amount_pence": 199900
+    }
+  },
+  "calculation": {
+    "version": "1.0.0",
+    "input_schema": "services.json#response_schema",
+    "request_trust": "Validate and recalculate on the server. Do not trust client totals, prices, derived tiers, internal review context or approval flags.",
+    "sequence": [
+      "Validate completed questionnaire and reject stale hidden answers, unknown option IDs, duplicate features or extra properties.",
+      "Apply server-authenticated review context only; ignore any customer-supplied review context.",
+      "Derive a provisional backend tier using the first matching backend rule.",
+      "Set derived.qa_package to standard unless an authenticated audited reviewer has selected extended or advanced QA. Never charge multiple QA packages.",
+      "Resolve exactly one item per first_match component; features resolve once per selected unique ID. An unmatched component is a blocking configuration error.",
+      "Separate fixed, included, provisional, from, pending and manual_quote items.",
+      "Sum integer pence independently for one_time and monthly.",
+      "Calculate VAT only after verified configuration and applicability checks.",
+      "Reconcile itemised sums, generate validation findings and determine quotation state."
+    ],
+    "components": [
+      {
+        "id": "architecture",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.platform",
+              "value": "ios"
+            },
+            "item_id": "architecture.ios"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.platform",
+              "value": "android"
+            },
+            "item_id": "architecture.android"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.platform",
+              "value": "both"
+            },
+            "item_id": "architecture.both"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.platform",
+              "value": "undecided"
+            },
+            "item_id": "architecture.undecided"
+          }
+        ]
+      },
+      {
+        "id": "screens",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.screens",
+              "value": "1_5"
+            },
+            "item_id": "screens.1_5"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.screens",
+              "value": "6_10"
+            },
+            "item_id": "screens.6_10"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.screens",
+              "value": "11_20"
+            },
+            "item_id": "screens.11_20"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.screens",
+              "value": "over_20"
+            },
+            "item_id": "screens.over_20"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.screens",
+              "value": "undecided"
+            },
+            "item_id": "screens.undecided"
+          }
+        ]
+      },
+      {
+        "id": "design",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.design",
+                  "value": "standard"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.screens",
+                  "value": "1_5"
+                }
+              ]
+            },
+            "item_id": "design.standard.1_5"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.design",
+                  "value": "standard"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.screens",
+                  "value": "6_10"
+                }
+              ]
+            },
+            "item_id": "design.standard.6_10"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.design",
+                  "value": "standard"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.screens",
+                  "value": "11_20"
+                }
+              ]
+            },
+            "item_id": "design.standard.11_20"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.design",
+                  "value": "standard"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.screens",
+                  "value": "over_20"
+                }
+              ]
+            },
+            "item_id": "design.standard.over_20"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.design",
+                  "value": "standard"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.screens",
+                  "value": "undecided"
+                }
+              ]
+            },
+            "item_id": "design.standard.undecided"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.design",
+                  "value": "custom"
+                },
+                {
+                  "op": "in",
+                  "field": "answers.screens",
+                  "values": ["1_5", "6_10"]
+                }
+              ]
+            },
+            "item_id": "design.custom.up_to_10"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.design",
+              "value": "custom"
+            },
+            "item_id": "design.custom.review"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.design",
+              "value": "advanced"
+            },
+            "item_id": "design.advanced"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.design",
+              "value": "supplied"
+            },
+            "item_id": "design.supplied"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.design",
+              "value": "undecided"
+            },
+            "item_id": "design.undecided"
+          }
+        ]
+      },
+      {
+        "id": "features",
+        "selection": "for_each_unique",
+        "source_field": "answers.features",
+        "item_id_prefix": "feature."
+      },
+      {
+        "id": "backend",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.backend_tier",
+              "value": "none"
+            },
+            "item_id": "backend.none"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.backend_tier",
+              "value": "existing"
+            },
+            "item_id": "backend.existing"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.backend_tier",
+              "value": "basic"
+            },
+            "item_id": "backend.basic"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.backend_tier",
+              "value": "standard"
+            },
+            "item_id": "backend.standard"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.backend_tier",
+              "value": "advanced"
+            },
+            "item_id": "backend.advanced"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.backend_tier",
+              "value": "unknown"
+            },
+            "item_id": "backend.unknown"
+          }
+        ]
+      },
+      {
+        "id": "admin",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "none"
+            },
+            "item_id": "admin.none"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "basic"
+            },
+            "item_id": "admin.basic"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "advanced"
+            },
+            "item_id": "admin.advanced"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "undecided"
+            },
+            "item_id": "admin.undecided"
+          }
+        ]
+      },
+      {
+        "id": "migration",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.migration_required",
+              "value": "no"
+            },
+            "item_id": "migration.none"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.migration_required",
+              "value": "not_assessed"
+            },
+            "item_id": "migration.not_assessed"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.migration_required",
+              "value": "undecided"
+            },
+            "item_id": "migration.unknown"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.migration_required",
+                  "value": "yes"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.migration_source",
+                  "value": "csv"
+                }
+              ]
+            },
+            "item_id": "migration.csv"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.migration_required",
+                  "value": "yes"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.migration_source",
+                  "value": "database"
+                }
+              ]
+            },
+            "item_id": "migration.database"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.migration_required",
+                  "value": "yes"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.migration_source",
+                  "value": "app"
+                }
+              ]
+            },
+            "item_id": "migration.app"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.migration_required",
+                  "value": "yes"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.migration_source",
+                  "value": "unknown"
+                }
+              ]
+            },
+            "item_id": "migration.unknown"
+          }
+        ]
+      },
+      {
+        "id": "publishing",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.publishing",
+              "value": "self"
+            },
+            "item_id": "publishing.self"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.publishing",
+              "value": "apple"
+            },
+            "item_id": "publishing.apple"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.publishing",
+              "value": "google"
+            },
+            "item_id": "publishing.google"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.publishing",
+              "value": "both"
+            },
+            "item_id": "publishing.both"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.publishing",
+              "value": "undecided"
+            },
+            "item_id": "publishing.undecided"
+          }
+        ]
+      },
+      {
+        "id": "maintenance",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.maintenance",
+              "value": "none"
+            },
+            "item_id": "maintenance.none"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.maintenance",
+              "value": "basic"
+            },
+            "item_id": "maintenance.basic"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "answers.maintenance",
+              "value": "undecided"
+            },
+            "item_id": "maintenance.undecided"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.maintenance",
+                  "value": "premium"
+                },
+                {
+                  "op": "in",
+                  "field": "answers.platform",
+                  "values": ["ios", "android"]
+                }
+              ]
+            },
+            "item_id": "maintenance.premium_one"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.maintenance",
+                  "value": "premium"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.platform",
+                  "value": "both"
+                }
+              ]
+            },
+            "item_id": "maintenance.premium_both"
+          },
+          {
+            "when": {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.maintenance",
+                  "value": "premium"
+                },
+                {
+                  "op": "eq",
+                  "field": "answers.platform",
+                  "value": "undecided"
+                }
+              ]
+            },
+            "item_id": "maintenance.premium_platform_pending"
+          }
+        ]
+      },
+      {
+        "id": "qa",
+        "selection": "first_match",
+        "choices": [
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.qa_package",
+              "value": "standard"
+            },
+            "item_id": "qa.standard"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.qa_package",
+              "value": "extended"
+            },
+            "item_id": "qa.extended"
+          },
+          {
+            "when": {
+              "op": "eq",
+              "field": "derived.qa_package",
+              "value": "advanced"
+            },
+            "item_id": "qa.advanced"
+          }
+        ]
+      }
+    ],
+    "price_modes": {
+      "fixed": "Add amount_pence to its charge_type subtotal.",
+      "included": "Add explicit zero; show included.",
+      "provisional": "Add amount_pence, mark assumption and require review.",
+      "from": "Add amount_pence as a minimum allowance, flag lower-bound subtotal and require manual review; never represent as fixed.",
+      "pending": "amount_pence must be null. Exclude from subtotal and include in pending items. Never present as confirmed free.",
+      "manual_quote": "amount_pence must be null. Exclude from subtotal and require a manually scoped quotation."
+    },
+    "subtotal_semantics": "Known charges only; pending scope is excluded. If any from item is present the subtotal is a lower bound. It is not a complete fixed-price quotation while any scope is unresolved.",
+    "money_rules": {
+      "use_integer_pence": true,
+      "rounding": "Round tax once per charge_type subtotal to nearest penny, half up.",
+      "one_time_total": "Sum included numeric one_time line items exactly once.",
+      "monthly_total": "Sum included numeric monthly line items exactly once.",
+      "recurring_never_in_one_time": true,
+      "feature_quantities": 1,
+      "screen_bands": "Choose one total project band, not cumulative bands.",
+      "design": "One design item per project, not per platform. Custom replaces standard.",
+      "architecture": "Choose one platform package; both is not the sum of two single-platform packages.",
+      "qa": "Choose one QA package; extended and advanced prices are alternative totals, not cumulative.",
+      "no_automatic_discounts": true,
+      "no_automatic_hosting_or_storage_fees": true,
+      "first_year_illustration": "Optional only; explicitly state number of maintenance months and keep the underlying one-time and monthly subtotals separate."
+    },
+    "unknowns": "Preserve not_assessed, unknown and undecided states. Only explicitly confirmed none/no/self may create the relevant zero-priced item.",
+    "qa_review_override": {
+      "default": "standard",
+      "permitted": ["standard", "extended", "advanced"],
+      "requires_authenticated_reviewer": true,
+      "requires_persistent_audit_record": true
+    }
+  },
+  "backend_recommendation": {
+    "selection": "first_match",
+    "provisional": true,
+    "customer_selectable": false,
+    "rules": [
+      {
+        "id": "verified_backend_override",
+        "when": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "eq",
+              "field": "review_context.backend_override_authorized",
+              "value": true
+            },
+            {
+              "op": "in",
+              "field": "review_context.backend_tier",
+              "values": ["none", "existing", "basic", "standard", "advanced"]
+            }
+          ]
+        },
+        "tier_from": "review_context.backend_tier",
+        "requires": "Authenticated reviewer and persistent adjustment audit record. Existing requires verified compatibility; none requires verified absence of server requirements."
+      },
+      {
+        "id": "existing_compatibility_pending",
+        "when": {
+          "op": "eq",
+          "field": "answers.existing_system",
+          "value": "existing"
+        },
+        "tier": "unknown",
+        "reason": "An existing website or system is not proof of a reusable backend. Review compatibility, APIs, credentials, ownership and integration scope before selecting an existing or new backend."
+      },
+      {
+        "id": "complex_application",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "in",
+              "field": "answers.app_type",
+              "values": ["marketplace", "social"]
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "messaging"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "ai"
+            },
+            {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "advanced"
+            }
+          ]
+        },
+        "tier": "advanced",
+        "reason": "Complex app, messaging, AI or advanced administration needs advanced architecture review. The tier is provisional, not a feasibility guarantee."
+      },
+      {
+        "id": "workflow_application",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "booking"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "payments"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "subscriptions"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "roles"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "api"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "analytics"
+            }
+          ]
+        },
+        "tier": "standard",
+        "reason": "Booking, transactional, integration or structured multi-user workflows."
+      },
+      {
+        "id": "shared_data_application",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "registration"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "social_sign_in"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "profiles"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "push"
+            },
+            {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "basic"
+            }
+          ]
+        },
+        "tier": "basic",
+        "reason": "Simple shared accounts, data or management sections."
+      },
+      {
+        "id": "other_scope_unknown",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "eq",
+              "field": "answers.app_type",
+              "value": "custom"
+            },
+            {
+              "op": "nonempty",
+              "field": "answers.other_requirements"
+            },
+            {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "undecided"
+            },
+            {
+              "op": "eq",
+              "field": "answers.existing_system",
+              "value": "undecided"
+            }
+          ]
+        },
+        "tier": "unknown",
+        "reason": "Insufficient scope to infer a server requirement."
+      },
+      {
+        "id": "local_only_candidate",
+        "when": {
+          "op": "always"
+        },
+        "tier": "none",
+        "reason": "No server-dependent feature selected. Local-only feasibility remains subject to review; skipped questions remain not_assessed."
+      }
+    ],
+    "existing_backend_requirements": [
+      "Authenticated reviewer verification of compatibility, ownership/access, API availability and required capacity.",
+      "Document integration scope; existing backend base price does not include integration implementation."
+    ],
+    "no_dashboard_does_not_imply_no_backend": true,
+    "unassessed_migration_or_integration_remain_pending_regardless_of_backend_tier": true,
+    "complex_scope_policy": "Advanced is a provisional base only. Complex offline synchronisation, AI, bespoke workflows and ambiguous requirements may need manual scope and price adjustments."
+  },
+  "maintenance_terms": {
+    "billing_interval": "monthly",
+    "start_date": "To be agreed in the maintenance contract.",
+    "basic": {
+      "hours_per_month": 2,
+      "includes": ["Routine maintenance"],
+      "initial_email_response_business_days": 3
+    },
+    "premium": {
+      "hours_per_month": 6,
+      "includes": [
+        "Proactive monitoring",
+        "Proactive testing of upcoming major OS versions",
+        "Submission of in-scope compatibility updates within 14 calendar days after stable OS release"
+      ],
+      "priority_initial_response_business_days": 1,
+      "compatibility_submission_calendar_days_after_stable_os_release": 14,
+      "subject_to": ["Contractual exclusions", "App store review"]
+    },
+    "response_is_not_resolution_guarantee": true,
+    "unused_hours_or_out_of_scope_work": "Define in the maintenance contract; no rollover, unlimited work or additional fee is assumed here."
+  },
+  "publishing_terms": {
+    "customer_notice": "FinTaxTech publishing fees are payable in full in advance. Allow approximately three days for preparation and submission. App store approval times vary and may take up to 21 days or longer.",
+    "advance_payment": {
+      "required_for": ["publishing.apple", "publishing.google", "publishing.both"],
+      "percentage": 100,
+      "applies_to": "FinTaxTech publishing service fee",
+      "due": "Before publishing preparation and submission begin.",
+      "does_not_imply_full_development_advance_payment": true
+    },
+    "preparation_and_submission_approximate_days": 3,
+    "store_review": "Approval times vary and may take up to 21 days or longer; approval is not guaranteed.",
+    "developer_account_fees_included": false,
+    "undecided": "Pending, excluded from current total."
+  },
+  "vat": {
+    "registration_status": "unverified",
+    "registration_verified": false,
+    "registration_number": null,
+    "registration_verified_at": null,
+    "registration_verification_reference": null,
+    "transaction_treatment": "unverified",
+    "rate_basis_points": null,
+    "rate_verified_at": null,
+    "default_auto_add": false,
+    "apply_only_when": {
+      "all_required": [
+        "Registration is verified as registered.",
+        "Transaction is verified as taxable at the configured rate.",
+        "Applicable effective rate is explicitly configured and verified."
+      ]
+    },
+    "verified_nonregistered_or_nontaxable": "Add no VAT and explain the verified treatment. Do not label an unregistered company as charging VAT at 0%.",
+    "unverified_output": {
+      "status": "not_calculated_unverified",
+      "one_time_vat_pence": null,
+      "monthly_vat_pence": null,
+      "one_time_including_vat_pence": null,
+      "monthly_including_vat_pence": null,
+      "customer_message": "VAT has not been added. Registration and applicable VAT treatment require verification."
+    },
+    "tax_formula": "For each charge_type: round_half_up(subtotal_pence * rate_basis_points / 10000).",
+    "pending_scope": "No VAT calculation on unpriced pending scope.",
+    "keep_one_time_and_monthly_tax_separate": true,
+    "rate_note": "No VAT rate or registration is assumed. Configure verified treatment at implementation."
+  },
+  "internal_validation": {
+    "evaluation": "Evaluate every rule and emit one finding per true predicate, independently of price calculation.",
+    "rules": [
+      {
+        "id": "duplicate_feature_charges",
+        "severity": "blocking",
+        "when": {
+          "op": "duplicates",
+          "field": "calculation.feature_ids"
+        },
+        "explanation": "A feature has been charged more than once.",
+        "affected_components": ["features"],
+        "recommended_review_action": "Reject inconsistent output and rebuild from a validated unique feature selection.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "screen_feature_overlap",
+        "severity": "warning",
+        "when": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "in",
+              "field": "answers.screens",
+              "values": ["6_10", "11_20"]
+            },
+            {
+              "op": "nonempty",
+              "field": "answers.features"
+            }
+          ]
+        },
+        "explanation": "Screen work and feature packages may include overlapping implementation work.",
+        "affected_components": ["screens", "features"],
+        "recommended_review_action": "Review deliverables; preserve all charges until an authorised adjustment records actual duplication.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "backend_feature_overlap",
+        "severity": "warning",
+        "when": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "in",
+              "field": "derived.backend_tier",
+              "values": ["basic", "standard", "advanced"]
+            },
+            {
+              "op": "nonempty",
+              "field": "answers.features"
+            }
+          ]
+        },
+        "explanation": "Backend infrastructure and feature-specific implementation need scope reconciliation.",
+        "affected_components": ["backend", "features"],
+        "recommended_review_action": "Separate infrastructure from feature workflows and document any authorised adjustment.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "authentication_overlap",
+        "severity": "warning",
+        "when": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "registration"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "social_sign_in"
+            }
+          ]
+        },
+        "explanation": "Account foundations and social sign-in may share authentication work.",
+        "affected_components": ["features", "backend"],
+        "recommended_review_action": "Confirm distinct authentication deliverables; do not invent a discount.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "social_auth_dependency",
+        "severity": "warning",
+        "when": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "social_sign_in"
+            },
+            {
+              "op": "not",
+              "condition": {
+                "op": "contains",
+                "field": "answers.features",
+                "value": "registration"
+              }
+            }
+          ]
+        },
+        "explanation": "Social sign-in is selected without registration/login scope.",
+        "affected_components": ["features", "backend"],
+        "recommended_review_action": "Confirm the account foundation. Do not silently add registration or remove social sign-in.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "admin_backend_overlap",
+        "severity": "warning",
+        "when": {
+          "op": "in",
+          "field": "answers.admin_dashboard",
+          "values": ["basic", "advanced"]
+        },
+        "explanation": "Admin workflows and backend infrastructure may overlap.",
+        "affected_components": ["admin", "backend"],
+        "recommended_review_action": "Confirm panel sections, access roles, reporting and backend boundaries.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "booking_without_dashboard",
+        "severity": "warning",
+        "when": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "booking"
+            },
+            {
+              "op": "eq",
+              "field": "answers.admin_dashboard",
+              "value": "none"
+            }
+          ]
+        },
+        "explanation": "Booking management workflow is unresolved without a dashboard.",
+        "affected_components": ["features", "admin"],
+        "recommended_review_action": "Confirm how staff manage bookings and changes, including any existing system or app workflow.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "integration_not_assessed",
+        "severity": "warning",
+        "when": {
+          "op": "in",
+          "field": "answers.existing_system",
+          "values": ["not_assessed", "undecided"]
+        },
+        "explanation": "Existing-system integration has not been assessed.",
+        "affected_components": ["backend", "features"],
+        "recommended_review_action": "Ask internally about external systems; skipped answers are not confirmation that integration is absent.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "existing_system_compatibility",
+        "severity": "warning",
+        "when": {
+          "op": "eq",
+          "field": "answers.existing_system",
+          "value": "existing"
+        },
+        "explanation": "Existing-system compatibility, APIs and integration scope are unverified.",
+        "affected_components": ["backend", "features"],
+        "recommended_review_action": "Verify reuse and whether the API feature covers the integration; preserve current valid charges.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "migration_not_assessed",
+        "severity": "warning",
+        "when": {
+          "op": "in",
+          "field": "answers.migration_required",
+          "values": ["not_assessed", "undecided"]
+        },
+        "explanation": "Migration has not been assessed.",
+        "affected_components": ["migration"],
+        "recommended_review_action": "Confirm whether data transfer is needed; keep this item pending and excluded.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "migration_source_unknown",
+        "severity": "warning",
+        "when": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "eq",
+              "field": "answers.migration_required",
+              "value": "yes"
+            },
+            {
+              "op": "eq",
+              "field": "answers.migration_source",
+              "value": "unknown"
+            }
+          ]
+        },
+        "explanation": "Migration is requested but its source is unknown.",
+        "affected_components": ["migration"],
+        "recommended_review_action": "Inspect source format, volume, access, quality and data mapping before quotation.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "publishing_undecided",
+        "severity": "warning",
+        "when": {
+          "op": "eq",
+          "field": "answers.publishing",
+          "value": "undecided"
+        },
+        "explanation": "Publishing responsibility is undecided.",
+        "affected_components": ["publishing"],
+        "recommended_review_action": "Confirm who publishes and which stores; exclude pending fees from the current sum.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "publishing_platform_mismatch",
+        "severity": "blocking",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.platform",
+                  "value": "ios"
+                },
+                {
+                  "op": "in",
+                  "field": "answers.publishing",
+                  "values": ["google", "both"]
+                }
+              ]
+            },
+            {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.platform",
+                  "value": "android"
+                },
+                {
+                  "op": "in",
+                  "field": "answers.publishing",
+                  "values": ["apple", "both"]
+                }
+              ]
+            }
+          ]
+        },
+        "explanation": "Selected publishing stores include a platform outside the development scope.",
+        "affected_components": ["architecture", "publishing"],
+        "recommended_review_action": "Resolve platforms and publishing with the customer; do not silently change either charge.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "offline_synchronisation",
+        "severity": "warning",
+        "when": {
+          "op": "contains",
+          "field": "answers.features",
+          "value": "offline"
+        },
+        "explanation": "Structured local storage does not establish complex offline synchronisation scope.",
+        "affected_components": ["features", "backend"],
+        "recommended_review_action": "Assess conflict handling, sync and recovery; complex sync requires manual scope and feasibility review.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "payment_provider_assumptions",
+        "severity": "warning",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "payments"
+            },
+            {
+              "op": "contains",
+              "field": "answers.features",
+              "value": "subscriptions"
+            }
+          ]
+        },
+        "explanation": "Provider, payment flow and subscription rules are not yet verified.",
+        "affected_components": ["features", "backend"],
+        "recommended_review_action": "Confirm payment provider, refunds, recurring payments, store requirements and external fees.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "ai_manual_review",
+        "severity": "blocking",
+        "when": {
+          "op": "contains",
+          "field": "answers.features",
+          "value": "ai"
+        },
+        "explanation": "AI is a starting allowance, not a fixed quotation.",
+        "affected_components": ["features", "backend"],
+        "recommended_review_action": "Define AI use case, feasibility, data handling, provider and usage costs; replace allowance only with an audited approved amount.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "design_screen_scope",
+        "severity": "blocking",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "in",
+              "field": "answers.screens",
+              "values": ["over_20", "undecided"]
+            },
+            {
+              "op": "in",
+              "field": "answers.design",
+              "values": ["advanced", "undecided"]
+            },
+            {
+              "op": "all",
+              "conditions": [
+                {
+                  "op": "eq",
+                  "field": "answers.design",
+                  "value": "custom"
+                },
+                {
+                  "op": "in",
+                  "field": "answers.screens",
+                  "values": ["11_20", "over_20", "undecided"]
+                }
+              ]
+            }
+          ]
+        },
+        "explanation": "The design or screen scope is outside a supported fixed catalogue combination.",
+        "affected_components": ["screens", "design"],
+        "recommended_review_action": "Define screen inventory and design complexity and provide a manual quotation.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "supplied_design_verification",
+        "severity": "warning",
+        "when": {
+          "op": "eq",
+          "field": "answers.design",
+          "value": "supplied"
+        },
+        "explanation": "Supplied designs are provisionally priced at zero pending readiness review.",
+        "affected_components": ["design"],
+        "recommended_review_action": "Verify all screens, states, assets, interactions and handoff completeness.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "backend_recommendation_review",
+        "severity": "warning",
+        "when": {
+          "op": "always"
+        },
+        "explanation": "Backend selection is a provisional technical recommendation.",
+        "affected_components": ["backend"],
+        "recommended_review_action": "Verify architecture, capacity, integration and feasibility; no existing website is automatically reusable.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "advanced_admin_scope",
+        "severity": "warning",
+        "when": {
+          "op": "eq",
+          "field": "answers.admin_dashboard",
+          "value": "advanced"
+        },
+        "explanation": "Advanced administration reporting, roles and operational workflows are unconfirmed.",
+        "affected_components": ["admin", "backend"],
+        "recommended_review_action": "Document management sections, permissions, reporting and operational workflows.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "other_requirements_review",
+        "severity": "warning",
+        "when": {
+          "op": "nonempty",
+          "field": "answers.other_requirements"
+        },
+        "explanation": "Free-text requirements are not automatically priced.",
+        "affected_components": ["features"],
+        "recommended_review_action": "Read the additional scope and assess required charges manually.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "unpriced_scope",
+        "severity": "blocking",
+        "when": {
+          "op": "nonempty",
+          "field": "calculation.pending_item_ids"
+        },
+        "explanation": "One or more scope items have no determined price.",
+        "affected_components": [
+          "architecture",
+          "screens",
+          "design",
+          "backend",
+          "admin",
+          "migration",
+          "publishing",
+          "maintenance"
+        ],
+        "recommended_review_action": "Resolve each pending or manual item before fixed-price approval.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "third_party_costs",
+        "severity": "information",
+        "when": {
+          "op": "always"
+        },
+        "explanation": "Hosting, storage usage, developer accounts, provider licences, transaction fees and AI usage are excluded unless explicitly agreed.",
+        "affected_components": ["backend", "features", "publishing", "maintenance"],
+        "recommended_review_action": "Record applicable exclusions and separately agree third-party costs; never automatically add unapproved hosting/storage fees.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": false,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "technical_feasibility",
+        "severity": "warning",
+        "when": {
+          "op": "always"
+        },
+        "explanation": "Technical feasibility must be assessed before a fixed-price quotation.",
+        "affected_components": ["architecture", "features", "backend"],
+        "recommended_review_action": "Record feasibility assessment, dependencies and assumptions.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "delivery_schedule",
+        "severity": "warning",
+        "when": {
+          "op": "always"
+        },
+        "explanation": "FinTaxTech determines delivery following assessment; the customer does not select a timeline.",
+        "affected_components": ["architecture", "features"],
+        "recommended_review_action": "Assess effort, dependencies, team capacity and delivery schedule internally.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "arithmetic_reconciliation",
+        "severity": "blocking",
+        "when": {
+          "op": "eq",
+          "field": "calculation.arithmetic_reconciled",
+          "value": false
+        },
+        "explanation": "Itemised charges do not reconcile to the reported one-time and monthly totals.",
+        "affected_components": ["all"],
+        "recommended_review_action": "Reject the calculation and correct arithmetic before displaying an estimate.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "vat_registration_unverified",
+        "severity": "warning",
+        "when": {
+          "op": "ne",
+          "field": "derived.vat_configuration_verified",
+          "value": true
+        },
+        "explanation": "VAT registration and transaction treatment have not been verified.",
+        "affected_components": ["tax"],
+        "recommended_review_action": "Verify registration, effective rate and transaction treatment before final quotation; do not automatically add VAT.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      },
+      {
+        "id": "approval_infrastructure_missing",
+        "severity": "blocking",
+        "when": {
+          "op": "any",
+          "conditions": [
+            {
+              "op": "ne",
+              "field": "review_context.authenticated_approval_available",
+              "value": true
+            },
+            {
+              "op": "ne",
+              "field": "review_context.persistent_audit_storage_available",
+              "value": true
+            }
+          ]
+        },
+        "explanation": "Authenticated server-side approval and persistent audit storage are not available.",
+        "affected_components": ["all"],
+        "recommended_review_action": "Keep fixed-price approval and issuance disabled until both capabilities are implemented and verified.",
+        "initial_resolution_status": "unresolved",
+        "blocks_fixed_price_approval": true,
+        "auto_remove_charges": false
+      }
+    ],
+    "finding_schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "severity",
+        "explanation",
+        "affected_line_item_ids",
+        "recommended_review_action",
+        "resolution_status",
+        "blocks_fixed_price_approval"
+      ],
+      "properties": {
+        "rule_id": {
+          "type": "string",
+          "enum": [
+            "duplicate_feature_charges",
+            "screen_feature_overlap",
+            "backend_feature_overlap",
+            "authentication_overlap",
+            "social_auth_dependency",
+            "admin_backend_overlap",
+            "booking_without_dashboard",
+            "integration_not_assessed",
+            "existing_system_compatibility",
+            "migration_not_assessed",
+            "migration_source_unknown",
+            "publishing_undecided",
+            "publishing_platform_mismatch",
+            "offline_synchronisation",
+            "payment_provider_assumptions",
+            "ai_manual_review",
+            "design_screen_scope",
+            "supplied_design_verification",
+            "backend_recommendation_review",
+            "advanced_admin_scope",
+            "other_requirements_review",
+            "unpriced_scope",
+            "third_party_costs",
+            "technical_feasibility",
+            "delivery_schedule",
+            "arithmetic_reconciliation",
+            "vat_registration_unverified",
+            "approval_infrastructure_missing"
+          ]
+        },
+        "severity": {
+          "enum": ["information", "warning", "blocking"]
+        },
+        "explanation": {
+          "type": "string"
+        },
+        "affected_line_item_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "architecture.ios",
+              "architecture.android",
+              "architecture.both",
+              "architecture.undecided",
+              "screens.1_5",
+              "screens.6_10",
+              "screens.11_20",
+              "screens.over_20",
+              "screens.undecided",
+              "design.standard.1_5",
+              "design.standard.6_10",
+              "design.standard.11_20",
+              "design.standard.over_20",
+              "design.standard.undecided",
+              "design.custom.up_to_10",
+              "design.custom.review",
+              "design.advanced",
+              "design.supplied",
+              "design.undecided",
+              "feature.registration",
+              "feature.social_sign_in",
+              "feature.profiles",
+              "feature.roles",
+              "feature.booking",
+              "feature.payments",
+              "feature.push",
+              "feature.messaging",
+              "feature.search",
+              "feature.maps",
+              "feature.camera",
+              "feature.offline",
+              "feature.api",
+              "feature.analytics",
+              "feature.subscriptions",
+              "feature.ai",
+              "backend.none",
+              "backend.existing",
+              "backend.basic",
+              "backend.standard",
+              "backend.advanced",
+              "backend.unknown",
+              "admin.none",
+              "admin.basic",
+              "admin.advanced",
+              "admin.undecided",
+              "publishing.self",
+              "publishing.apple",
+              "publishing.google",
+              "publishing.both",
+              "publishing.undecided",
+              "maintenance.none",
+              "maintenance.basic",
+              "maintenance.premium_one",
+              "maintenance.premium_both",
+              "maintenance.undecided",
+              "maintenance.premium_platform_pending",
+              "migration.none",
+              "migration.csv",
+              "migration.database",
+              "migration.app",
+              "migration.unknown",
+              "migration.not_assessed",
+              "qa.standard",
+              "qa.extended",
+              "qa.advanced"
+            ]
+          }
+        },
+        "recommended_review_action": {
+          "type": "string"
+        },
+        "resolution_status": {
+          "enum": ["unresolved", "resolved", "accepted_with_reason", "not_applicable"]
+        },
+        "blocks_fixed_price_approval": {
+          "type": "boolean"
+        }
+      }
+    },
+    "affected_line_item_mapping": "Expand affected_components to the selected item IDs for each component. all means all selected items; tax may have an empty item list and is identified by its rule ID. Preserve component context in internal review UI.",
+    "no_automatic_charge_removal": true,
+    "resolution": "Only an authenticated authorised reviewer may resolve or accept a finding. Record reviewer, timestamp, evidence and rationale. Re-evaluate findings after input or catalogue changes; prior approval is invalidated. Arithmetic or invalid-input failures cannot be waived; correct and recalculate.",
+    "adjustments": "Preserve original line item and original amount. Record authorised adjustment, reason, reviewer and audit reference. Never silently remove valid charges for a possible overlap."
+  },
+  "quotation_workflow": {
+    "states": ["draft", "indicative", "needs_review", "approved", "issued"],
+    "initial_state": "draft",
+    "estimate_label": "Non-binding indicative estimate; fixed-price quotation subject to FinTaxTech approval.",
+    "state_rules": [
+      {
+        "state": "draft",
+        "when": "Incomplete or invalid questionnaire; no customer estimate."
+      },
+      {
+        "state": "needs_review",
+        "when": "Completed valid questionnaire and any unresolved warning/blocking finding, pending/manual scope or from/provisional amount."
+      },
+      {
+        "state": "indicative",
+        "when": "Completed valid questionnaire with reconciled calculation and no unresolved warning/blocking findings or unpriced scope; still not an approved fixed-price quotation."
+      },
+      {
+        "state": "approved",
+        "when": "Explicit authenticated authorised reviewer approval after all gates pass."
+      },
+      {
+        "state": "issued",
+        "when": "An authenticated authorised issuance action follows valid approval and stores the issued snapshot."
+      }
+    ],
+    "approval_enabled_by_default": false,
+    "issuance_enabled_by_default": false,
+    "required_gates": [
+      "Authenticated server-side reviewer identity and authorisation.",
+      "Persistent approval and adjustment audit storage.",
+      "No pending or manual_quote items, from allowances or unverified provisional scope.",
+      "All approval-blocking findings resolved with evidence.",
+      "Exact arithmetic reconciliation.",
+      "Verified VAT treatment.",
+      "Reviewed feasibility, exclusions and delivery schedule.",
+      "Approved immutable calculation snapshot matches current input and catalogue versions."
+    ],
+    "persist_fields": [
+      "quotation_id",
+      "input_snapshot",
+      "services_version",
+      "pricing_version",
+      "calculation_version",
+      "itemised_original_charges",
+      "pending_items",
+      "assumptions",
+      "exclusions",
+      "findings_and_resolutions",
+      "manual_adjustments_with_reasons",
+      "reviewer_id",
+      "approval_timestamp",
+      "approved_calculation_hash",
+      "issued_snapshot",
+      "issuance_timestamp"
+    ],
+    "any_input_catalogue_or_adjustment_change": "Invalidate approval, recalculate and require a new review.",
+    "no_infrastructure": "Keep approved/issued transitions disabled. The JSON files do not provide authentication, persistence or an approval system."
+  },
+  "estimate_output_contract": {
+    "customer_allowed": [
+      "Non-binding indicative label",
+      "Itemised known one-time charges",
+      "Separate monthly maintenance",
+      "Known subtotals before applicable VAT",
+      "Pending decisions and excluded unpriced scope",
+      "Assumptions and exclusions",
+      "VAT treatment",
+      "Delivery schedule pending assessment",
+      "Fixed-price approval required notice"
+    ],
+    "internal_only": [
+      "Full catalogue",
+      "Review findings",
+      "Backend rule traces",
+      "Reviewer identities",
+      "Adjustment history",
+      "Approval and audit storage"
+    ],
+    "required_numeric_fields": ["one_time_subtotal_pence", "monthly_subtotal_pence"],
+    "pending_item_amount": null,
+    "include_flags": ["has_pending_scope", "is_lower_bound", "is_non_binding"],
+    "customer_price_gate": "Only after final requirements confirmation."
+  },
+  "regression_cases": [
+    {
+      "id": "booking_both_platforms_17546",
+      "answers": {
+        "platform": "both",
+        "app_type": "booking",
+        "features": [
+          "booking",
+          "registration",
+          "social_sign_in",
+          "profiles",
+          "payments",
+          "push",
+          "camera"
+        ],
+        "other_requirements": "",
+        "design": "standard",
+        "screens": "6_10",
+        "admin_dashboard": "none",
+        "existing_system": "not_assessed",
+        "migration_required": "not_assessed",
+        "migration_source": "not_assessed",
+        "publishing": "undecided",
+        "maintenance": "basic",
+        "qa": "standard"
+      },
+      "review_context": {},
+      "expected": {
+        "backend_tier": "standard",
+        "qa_package": "standard",
+        "feature_count": 7,
+        "one_time_component_totals_pence": {
+          "architecture": 399900,
+          "design": 99900,
+          "screens": 125000,
+          "features": 829900,
+          "backend": 299900,
+          "admin": 0,
+          "qa": 0
+        },
+        "one_time_subtotal_pence": 1754600,
+        "monthly_subtotal_pence": 14900,
+        "pending_item_ids": ["migration.not_assessed", "publishing.undecided"],
+        "migration_status": "not_assessed",
+        "publishing_status": "pending",
+        "vat_status": "not_calculated_unverified",
+        "one_time_vat_pence": null,
+        "monthly_vat_pence": null,
+        "state": "needs_review",
+        "must_include_findings": [
+          "screen_feature_overlap",
+          "backend_feature_overlap",
+          "authentication_overlap",
+          "booking_without_dashboard",
+          "integration_not_assessed",
+          "migration_not_assessed",
+          "publishing_undecided",
+          "payment_provider_assumptions",
+          "technical_feasibility",
+          "delivery_schedule",
+          "approval_infrastructure_missing"
+        ]
+      }
+    }
+  ],
+  "integration_test_requirements": [
+    "Validate both documents and completed responses against the embedded contracts.",
+    "Test iOS, Android and both architecture packages.",
+    "Test all screen bands and manual/unknown cases.",
+    "Test standard, custom replacement, supplied and advanced design cases.",
+    "Reject duplicate and unknown feature IDs.",
+    "Test Step 4 visibility, stale answer clearing, unknowns and explicitly declined migration.",
+    "Test no-dashboard booking retains standard backend and unresolved integration/migration.",
+    "Test existing-system compatibility is not assumed.",
+    "Test basic, premium single and premium both monthly pricing; unknown platform leaves premium pending.",
+    "Test every publishing option, mismatches, undecided exclusion and advance-payment terms.",
+    "Test alternative QA packages require authenticated audited review.",
+    "Test AI as lower bound and mandatory manual review.",
+    "Test arithmetic and separate monthly recurrence.",
+    "Test VAT unverified, verified nonregistered and configured taxable cases.",
+    "Test review permissions, missing infrastructure and approval invalidation.",
+    "Test recalculation after edits and catalogue updates.",
+    "Test customer routes and production bundles do not expose pricing.json or internal validation/audit data."
+  ],
+  "limits": "Configuration deliverables only. No website repository changes, application implementation, deployment, enforceable security controls or approval infrastructure are supplied.",
+  "configuration_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "FinTaxTech mobile pricing configuration",
+    "description": "Extract configuration_schema and validate this entire document against it. Other embedded schemas validate completed answers or generated findings separately.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "configuration_id",
+      "version",
+      "compatible_services_version",
+      "service_id",
+      "currency",
+      "money_unit",
+      "prices_exclude_vat",
+      "distribution",
+      "predicate_language",
+      "catalogue",
+      "calculation",
+      "backend_recommendation",
+      "maintenance_terms",
+      "publishing_terms",
+      "vat",
+      "internal_validation",
+      "quotation_workflow",
+      "estimate_output_contract",
+      "regression_cases",
+      "integration_test_requirements",
+      "limits",
+      "configuration_schema"
+    ],
+    "properties": {
+      "schema_version": {
+        "const": "1.0.0"
+      },
+      "configuration_id": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "compatible_services_version": {
+        "type": "string"
+      },
+      "service_id": {
+        "const": "mobile_app_development"
+      },
+      "currency": {
+        "const": "GBP"
+      },
+      "money_unit": {
+        "const": "integer_pence"
+      },
+      "prices_exclude_vat": {
+        "type": "boolean"
+      },
+      "distribution": {
+        "type": "object"
+      },
+      "predicate_language": {
+        "type": "object"
+      },
+      "catalogue": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "label", "charge_type", "price_mode", "amount_pence"],
+          "properties": {
+            "amount_pence": {
+              "type": ["integer", "null"],
+              "minimum": 0
+            },
+            "assumption": {
+              "type": "string"
+            },
+            "charge_type": {
+              "enum": ["one_time", "monthly"]
+            },
+            "exclusions": {
+              "type": "array"
+            },
+            "id": {
+              "type": "string"
+            },
+            "inclusions": {
+              "type": "array"
+            },
+            "label": {
+              "type": "string"
+            },
+            "price_mode": {
+              "enum": ["fixed", "included", "provisional", "from", "pending", "manual_quote"]
+            },
+            "quantity_policy": {
+              "type": "string"
+            },
+            "replaces": {
+              "type": "string"
+            },
+            "requires_review": {
+              "type": "boolean"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "screen_band": {
+              "type": "string"
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "price_mode": {
+                    "enum": ["pending", "manual_quote"]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "amount_pence": {
+                    "type": "null"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "amount_pence": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "price_mode": {
+                    "const": "included"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "amount_pence": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "calculation": {
+        "type": "object"
+      },
+      "backend_recommendation": {
+        "type": "object"
+      },
+      "maintenance_terms": {
+        "type": "object"
+      },
+      "publishing_terms": {
+        "type": "object"
+      },
+      "vat": {
+        "type": "object"
+      },
+      "internal_validation": {
+        "type": "object"
+      },
+      "quotation_workflow": {
+        "type": "object"
+      },
+      "estimate_output_contract": {
+        "type": "object"
+      },
+      "regression_cases": {
+        "type": "array"
+      },
+      "integration_test_requirements": {
+        "type": "array"
+      },
+      "limits": {
+        "type": "string"
+      },
+      "configuration_schema": {
+        "type": "object"
+      }
+    }
+  }
+}

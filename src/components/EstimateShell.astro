@@ -1,0 +1,33 @@
+---
+import '../styles/branding-estimate.css';
+interface Props {
+  kind: 'branding' | 'mobile';
+  copy: {
+    title: string;
+    intro: string;
+    privacy: string;
+    privacyLink: string;
+    begin: string;
+    noScript: string;
+    contactLink: string;
+  };
+}
+const { kind, copy: c } = Astro.props;
+---
+
+<section
+  class:list={['quiz', 'estimate', `${kind}-estimate`]}
+  data-branding-estimate={kind === 'branding' || undefined}
+  data-mobile-estimate={kind === 'mobile' || undefined}
+  aria-labelledby="estimate-title"
+>
+  <h1 id="estimate-title">{c.title}</h1>
+  <p class="lead">{c.intro}</p>
+  <p class="notice">{c.privacy} <a href="/privacy/">{c.privacyLink}</a></p>
+  <div data-estimate-intro>
+    <button type="button" class="button primary" data-estimate-begin hidden>{c.begin}</button>
+    <noscript><p>{c.noScript}</p></noscript>
+    <p><a href="/contact/">{c.contactLink}</a></p>
+  </div>
+  <div data-estimate-form hidden></div>
+</section>
