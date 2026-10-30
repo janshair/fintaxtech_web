@@ -1,48 +1,74 @@
-.branding-estimate > h1 {
+.estimate > h1 {
   margin-bottom: var(--space-5);
 }
-.branding-estimate .estimate-other {
+.estimate .estimate-other {
   margin-block: var(--space-5);
 }
-.branding-estimate .estimate-custom-row {
+.estimate .estimate-custom-row {
   padding: var(--space-4);
   margin-block: var(--space-3);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
 }
-.branding-estimate .estimate-review-row {
+.estimate .estimate-review-row {
   padding-block: var(--space-5);
   border-top: 1px solid var(--border);
 }
-.branding-estimate :is(li, dd, p, h3) {
+.estimate :is(li, dd, p, h3) {
   overflow-wrap: anywhere;
 }
-.branding-estimate .estimate-summary {
+.estimate .estimate-summary {
   padding: var(--space-5);
   border: 1px solid var(--border);
   background: var(--surface);
   margin-block: var(--space-5);
 }
-.branding-estimate .estimate-summary dd {
+.estimate .estimate-summary dd {
   margin: var(--space-1) 0 var(--space-4);
   font-weight: var(--weight-strong);
 }
-.branding-estimate [aria-invalid='true'] {
+.estimate [aria-invalid='true'] {
   border-color: var(--error);
 }
-.branding-estimate legend h2 {
+.estimate legend h2 {
   margin-bottom: 0;
 }
-.branding-estimate .estimate-contact {
+.estimate .estimate-contact {
   margin-top: var(--space-7);
 }
-.branding-estimate .estimate-consent {
+.estimate .estimate-consent {
   margin-block: var(--space-5);
 }
-.branding-estimate .estimate-items {
+.estimate .estimate-items {
   padding-left: var(--space-5);
 }
-.branding-estimate .button {
+.estimate .button {
   white-space: normal;
+}
+
+.estimate .mobile-question {
+  margin-block: var(--space-6);
+}
+.estimate .mobile-question legend {
+  font-weight: var(--weight-strong);
+}
+.estimate .mobile-option {
+  display: grid;
+  gap: var(--space-1);
+}
+.estimate .mobile-option small {
+  color: var(--muted);
+  font-weight: normal;
+}
+.estimate .estimate-line {
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+.estimate .estimate-line p {
+  margin: var(--space-1) 0;
+}
+.estimate .estimate-total {
+  font-weight: var(--weight-strong);
+  font-size: var(--lead);
 }
