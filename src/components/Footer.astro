@@ -1,7 +1,7 @@
 ---
 import { motionGallery, threeDGallery } from '../content/templates';
 import SocialLinks from './SocialLinks.astro';
-import { company, ui, consentCopy, navigation } from '../content/site';
+import { company, ui, consentCopy, navigation, pricingCalculatorNavigation } from '../content/site';
 import { services } from '../content/services';
 import { legalLinks } from '../content/pages';
 import { careersCopy } from '../content/careers';
@@ -23,6 +23,10 @@ import { careersCopy } from '../content/careers';
         }<a href={motionGallery.route}>{motionGallery.title}</a><a href={threeDGallery.route}
           >{threeDGallery.title}</a
         ><a href="/start/">{ui.start}</a><a href="/selected-work/">{ui.work}</a>
+      </nav>
+      <nav class="footer-links" aria-labelledby="footer-calculators-title">
+        <h3 id="footer-calculators-title">{pricingCalculatorNavigation.title}</h3>
+        {pricingCalculatorNavigation.links.map(({ href, label }) => <a href={href}>{label}</a>)}
       </nav>
       <div class="footer-links">
         <h3>{ui.legal}</h3><a href={careersCopy.route}>{careersCopy.label}</a>{
