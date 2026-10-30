@@ -1,0 +1,67 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import SafosLinks from '../../components/safos/SafosLinks.astro';
+import SafosDownloads from '../../components/safos/SafosDownloads.astro';
+import { safosSupport as copy } from '../../content/safos';
+import { company } from '../../content/site';
+const emailURL = `mailto:${company.email}?subject=Safos%20support`;
+---
+
+<SiteLayout title={copy.title} description={copy.description}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{copy.title}</h1><p class="lead">
+        Need help with an invoice, receipt, client or PDF? Contact the Safos team. Feedback and
+        feature ideas are welcome too.
+      </p>
+    </header>
+    <div class="prose">
+      <section>
+        <h2>Contact the Safos team</h2>
+        <address>
+          <strong>{company.legal}</strong><br /><a href={emailURL}>{company.email}</a><br /><a
+            href={`tel:+${company.whatsapp}`}>{company.phone}</a
+          ><br />Registered office: {company.address}
+        </address>
+        <p>Company number {company.number} · Registered in Scotland</p>
+        <p>{company.hours}. {company.response}</p>
+      </section>
+      <section><h2>Supported platforms</h2><SafosDownloads /></section>
+      <section>
+        <h2>Try these steps first</h2><ol>
+          <li>Check Google Play for an available Safos update.</li>
+          <li>Close and reopen the app. If the problem continues, restart your device.</li>
+          <li>
+            For PDF sharing, check whether the PDF previews correctly and try another sharing
+            option.
+          </li>
+          <li>
+            Do not clear app storage or uninstall Safos to troubleshoot: locally stored invoices,
+            receipts and client details may be permanently lost. Contact us first.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h2>Report a problem</h2><p>Please include:</p><ul>
+          <li>Your app version, device model and operating system version.</li>
+          <li>What you were doing, what you expected and what happened.</li>
+          <li>Any error message and whether the problem happens again.</li>
+        </ul><p>
+          Remove client names, contact details, bank details and other personal information from
+          screenshots. You do not need to send a real invoice or receipt to describe a problem.
+        </p>
+        <a class="button primary" href={emailURL}>Email Safos support</a>
+      </section>
+      <SafosLinks />
+    </div>
+  </div>
+</SiteLayout>
+<style>
+  address {
+    font-style: normal;
+    margin-bottom: var(--space-5);
+  }
+  .prose > section {
+    margin-bottom: var(--space-8);
+  }
+</style>

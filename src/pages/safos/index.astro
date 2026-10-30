@@ -1,0 +1,143 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import SafosDownloads from '../../components/safos/SafosDownloads.astro';
+import SafosLinks from '../../components/safos/SafosLinks.astro';
+import { safos } from '../../content/safos';
+import icon from '../../assets/safos/icon.webp';
+import dashboard from '../../assets/safos/01-dashboard.webp';
+import editor from '../../assets/safos/02-editor.webp';
+import clients from '../../assets/safos/03-clients.webp';
+import pdf from '../../assets/safos/04-pdf.webp';
+import settings from '../../assets/safos/05-settings.webp';
+import invoices from '../../assets/safos/06-invoices.webp';
+const screenshots = [
+  {
+    image: dashboard,
+    alt: 'Safos iOS dashboard with outstanding and paid amounts and recent invoices.',
+    caption: 'See outstanding amounts and recent invoices.',
+  },
+  {
+    image: editor,
+    alt: 'Safos iOS invoice editor with client and line item fields.',
+    caption: 'Create an invoice with your client and line items.',
+  },
+  { image: clients, alt: 'Safos iOS client list.', caption: 'Keep your client details together.' },
+  {
+    image: pdf,
+    alt: 'Safos iOS branded PDF invoice preview.',
+    caption: 'Preview a professional PDF before sharing.',
+  },
+  {
+    image: settings,
+    alt: 'Safos iOS settings for business details and document branding.',
+    caption: 'Make documents look like your business.',
+  },
+  {
+    image: invoices,
+    alt: 'Safos iOS invoice list with document statuses.',
+    caption: 'Find invoices and check their status.',
+  },
+];
+---
+
+<SiteLayout title={safos.name} description={safos.description}>
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">Built and published by FinTaxTech</p>
+      <Image
+        class="safos-icon"
+        src={icon}
+        alt="Safos app icon"
+        width={96}
+        height={96}
+        loading="eager"
+      />
+      <h1>{safos.name}</h1>
+      <p class="safos-headline">{safos.headline}</p>
+      <p class="lead">{safos.intro}</p>
+      <SafosDownloads /><SafosLinks />
+    </header>
+    <section class="section" aria-labelledby="safos-gallery">
+      <h2 id="safos-gallery">A look inside Safos</h2>
+      <p>
+        Preview of the iOS app, currently in App Store review. Android appearance and features may
+        differ.
+      </p>
+      <div class="safos-gallery">
+        {
+          screenshots.map(({ image, alt, caption }) => (
+            <figure>
+              <Image
+                src={image}
+                alt={alt}
+                widths={[320, 640, 960]}
+                sizes="(max-width: 600px) 85vw, 320px"
+                format="webp"
+                loading="lazy"
+              />
+              <figcaption>{caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+    <section class="section" aria-labelledby="safos-features">
+      <h2 id="safos-features">From first invoice to payment</h2>
+      <div class="safos-features">
+        {
+          safos.features.map(([title, description]) => (
+            <section>
+              <>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </>
+            </section>
+          ))
+        }
+      </div>
+    </section>
+    <section class="section" aria-labelledby="safos-download">
+      <h2 id="safos-download">Your next invoice, ready to send</h2>
+      <p>Get Safos on Google Play today. We will add the App Store download link after approval.</p>
+      <SafosDownloads /><a href={safos.supportRoute}>Safos support</a>
+    </section>
+  </div>
+</SiteLayout>
+<style>
+  .safos-icon {
+    display: block;
+    margin-bottom: var(--space-5);
+    border-radius: var(--radius);
+  }
+  .safos-headline {
+    font-family: var(--font-heading);
+    font-size: var(--h2);
+    line-height: var(--line-heading);
+    max-width: var(--reading);
+    margin-top: var(--space-5);
+  }
+  .safos-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--brief-choice-width)), 1fr));
+    gap: var(--space-7);
+  }
+  .safos-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--metoni-screenshot-width)), 1fr));
+    gap: var(--space-6);
+  }
+  figure {
+    margin: 0;
+  }
+  figure img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius);
+  }
+  figcaption {
+    margin-top: var(--space-3);
+    color: var(--muted);
+  }
+</style>

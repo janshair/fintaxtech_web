@@ -1,0 +1,14 @@
+---
+import GooglePlayBadge from '../GooglePlayBadge.astro';
+import { safos } from '../../content/safos';
+---
+
+<div class="actions"><GooglePlayBadge href={safos.playStoreURL} label={safos.playLabel} /></div>
+<p class="muted platform-status">
+  Android — available on Google Play<br />iPhone and iPad — in App Store review; not yet available
+</p>
+<style>
+  .platform-status {
+    margin-top: var(--space-4);
+  }
+</style>

@@ -5,6 +5,7 @@ import { motionGallery, threeDGallery, allTemplates, barberRedirect } from './te
 import { legacyRedirects } from './legacy-redirects';
 import { careersCopy } from './careers';
 import { metoni, metoniSupport } from './metoni';
+import { safos, safosSupport } from './safos';
 import { automationCopy } from './ai-automation';
 import { promptBriefCopy } from './prompt-brief';
 import { promoCopy, promoStatus } from './promo';
@@ -69,6 +70,8 @@ export const seoPages: Record<string, PageSEO> = {
     nofollow: true,
   },
   [careersCopy.route]: { title: careersCopy.title, description: careersCopy.description },
+  [safos.route]: { title: safos.name, description: safos.description },
+  [safos.supportRoute]: { title: safosSupport.title, description: safosSupport.description },
   [metoni.route]: { title: metoni.seoTitle, description: metoni.description },
   [metoni.supportRoute]: { title: metoniSupport.title, description: metoniSupport.description },
   ...Object.fromEntries(

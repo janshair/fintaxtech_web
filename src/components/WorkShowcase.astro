@@ -60,7 +60,9 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
       publishedApps.map((app) => (
         <li class="app-card">
           <div>
-            <h3>{'pageURL' in app ? <a href={app.pageURL}>{app.name}</a> : app.name}</h3>
+            <h3>
+              <a href={app.pageURL}>{app.name}</a>
+            </h3>
             <p>{app.summary}</p>
           </div>
           {'pageURL' in app && (

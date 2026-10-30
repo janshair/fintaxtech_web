@@ -1,4 +1,5 @@
 import { metoni } from './metoni';
+import { safos } from './safos';
 export const workCopy = { appsEyebrow: 'Mobile app development', appsTitle: 'Our published apps' };
 export const publishedApps = [
   {
@@ -12,9 +13,11 @@ export const publishedApps = [
     visitLabel: 'View Metoni on Google Play',
   },
   {
-    name: 'Safos',
-    summary: 'A mobile app built and published by FinTaxTech, available on Android.',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos',
+    name: safos.name,
+    summary: safos.intro,
+    pageURL: safos.route,
+    pageLabel: 'Explore Safos',
+    playStoreUrl: safos.playStoreURL,
     visitLabel: 'View Safos on Google Play',
   },
 ] as const;
