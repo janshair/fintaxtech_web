@@ -16,6 +16,8 @@
 
   // Progress: 0 as the illustration's top enters the visible bottom of the
   // viewport (above the fixed contact bar), 1 when its centre is ~35% down.
+  const clamp = (value) => Math.max(0, Math.min(1, value));
+  const phone = () => innerWidth < 768;
   function barInset() {
     const bar = contactBar.getBoundingClientRect();
     const fixed = bar.height && getComputedStyle(contactBar).position === 'fixed';
@@ -24,7 +26,7 @@
   function measure() {
     const bounds = illustration.getBoundingClientRect();
     const visibleBottom = innerHeight - barInset() - 8;
-    const finishCentre = Math.max(innerHeight * 0.35, bounds.height / 2 + 8);
+    const finishCentre = Math.max(innerHeight * (phone() ? 0.25 : 0.35), bounds.height / 2 + 8);
     const travel = visibleBottom - finishCentre + bounds.height / 2;
     return Math.max(0, Math.min(1, (visibleBottom - bounds.top) / Math.max(1, travel)));
   }
@@ -52,6 +54,7 @@
     if (progress === 1) steps.forEach((node) => node.classList.add('is-done'));
     revealVisible();
     paintHero();
+    paintScenes();
   }
   function schedule() {
     if (!frame) frame = requestAnimationFrame(paint);
@@ -365,6 +368,94 @@
       hero.angle = 0;
     } else if (hero.entered) startAmbient();
   }
+
+  // Scenes below the hero, one per phone screen, on the same loop. Each runs
+  // 0 → 1 from entering above the contact bar to its centre reaching 35% of
+  // the viewport (about 550–650px on a phone). Reads first, then writes.
+  // Reduced motion paints every scene finished.
+  function sceneProgress(box, finish = 0.35) {
+    const bottom = innerHeight - barInset() - 8;
+    const finishCentre = Math.max(innerHeight * finish, box.height / 2 + 8);
+    return clamp((bottom - box.top) / Math.max(1, bottom - finishCentre + box.height / 2));
+  }
+  const ptCard = document.querySelector('.service-card.has-art');
+  const ptSwing = ptCard.querySelector('.ck-swing');
+  const hours = document.querySelector('.hours');
+  const hourTimes = [...hours.querySelectorAll('dd')];
+  const wipes = [...document.querySelectorAll('[data-wipe]')];
+  const scenes = (window.gymMotion.scenes = {});
+  let pulse = null;
+  // The pulse runs down the active day's gutter with a beat beside each class.
+  function buildPulse() {
+    const panel = document.querySelector('.day-panel.is-active');
+    if (!panel || !panel.offsetHeight) return;
+    const svg = panel.querySelector('.pulse');
+    const path = svg.querySelector('path');
+    const top = panel.getBoundingClientRect().top;
+    const height = panel.offsetHeight;
+    const rows = [...panel.querySelectorAll('li')].map((li) => {
+      const box = li.getBoundingClientRect();
+      return [li, Math.round(box.top - top + box.height / 2)];
+    });
+    let d = 'M15 0';
+    for (const [, y] of rows)
+      d += `V${y - 18}L11 ${y - 12}L28 ${y - 4}L3 ${y + 6}L15 ${y + 14}`;
+    svg.setAttribute('viewBox', `0 0 30 ${height}`);
+    path.setAttribute('d', d + `V${height}`);
+    path.setAttribute('pathLength', '100');
+    path.style.strokeDasharray = '100';
+    pulse = { panel, path, height, rows };
+  }
+  function paintScenes() {
+    const reduce = media.matches;
+    if (!pulse || !pulse.panel.classList.contains('is-active')) buildPulse();
+    const bottom = innerHeight - barInset();
+    const pt = reduce ? 1 : sceneProgress(ptCard.getBoundingClientRect());
+    const tt = reduce || !pulse ? 1 : sceneProgress(pulse.panel.getBoundingClientRect());
+    const hp = reduce ? 1 : sceneProgress(hours.getBoundingClientRect());
+    // Gallery pictures wipe in as each one rises fully above the contact bar.
+    const wipe = wipes.map((art) => {
+      if (reduce) return 1;
+      const box = art.getBoundingClientRect();
+      return clamp((bottom - box.top) / box.height);
+    });
+    // A pendulum that swings out, back and settles as the card passes.
+    const angle = reduce ? 0 : 40 * Math.sin(3 * Math.PI * pt) * (1 - 0.4 * pt);
+    ptSwing.style.transform = `rotate(${angle.toFixed(2)}deg)`;
+    if (pulse) {
+      pulse.path.style.strokeDashoffset = (100 * (1 - tt)).toFixed(2);
+      pulse.rows.forEach(([li, y]) => li.classList.toggle('is-beat', tt * pulse.height >= y));
+    }
+    hours.style.setProperty('--ring', hp.toFixed(4));
+    hourTimes.forEach((time, i) => {
+      const settled = clamp((hp - 0.15 - i * 0.18) / 0.15);
+      time.style.transform = `translateY(${Math.round((1 - settled) * 14)}px)`;
+      time.style.opacity = settled.toFixed(3);
+    });
+    wipes.forEach((art, i) => art.style.setProperty('--wipe', wipe[i].toFixed(4)));
+    Object.assign(scenes, { train: pt, timetable: tt, visit: hp, swing: angle });
+    wipe.forEach((value, i) => (scenes['gallery' + (i + 1)] = value));
+    if (window.gymMotion.scenesLog)
+      window.gymMotion.scenesLog.push({
+        y: Math.round(scrollY),
+        hero: +hero.progress.toFixed(3),
+        lift: +window.gymMotion.progress.toFixed(3),
+        ...Object.fromEntries(
+          Object.entries(scenes)
+            .filter(([key]) => key !== 'swing')
+            .map(([key, value]) => [key, +value.toFixed(3)]),
+        ),
+      });
+  }
+  document.addEventListener('gym:day', () => {
+    pulse = null;
+    schedule();
+  });
+  addEventListener('resize', () => (pulse = null), { passive: true });
+  document.fonts?.ready.then(() => {
+    pulse = null;
+    schedule();
+  });
 
   function preference() {
     heroPreference();

@@ -486,3 +486,114 @@ test.describe('hero kettlebell motion', () => {
     }
   });
 });
+
+test.describe('scroll scenes below the hero', () => {
+  const phone = `${route}?name=Dundee%20Fitness&ref=L-TEST`;
+  const names = ['train', 'timetable', 'gallery1', 'gallery2', 'gallery3', 'visit'];
+
+  test('each scene plays 0 → 1 on its own phone screen, one at a time', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(phone);
+    await page.evaluate(() => (document.documentElement.style.scrollBehavior = 'auto'));
+    const height = await page.evaluate(() => document.documentElement.scrollHeight);
+    const rows: Record<string, number>[] = [];
+    for (let y = 0; y <= height - 812; y += 20) {
+      await page.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), y);
+      await page.waitForTimeout(20);
+      rows.push(
+        await page.evaluate((y) => {
+          const motion = (window as any).gymMotion;
+          return { y, hero: motion.hero.progress, lift: motion.progress, ...motion.scenes };
+        }, y),
+      );
+    }
+    const active = (row: Record<string, number>, name: string) => row[name] > 0 && row[name] < 1;
+    for (const name of ['hero', 'lift', ...names]) {
+      const span = rows.filter((row) => active(row, name));
+      expect(span.length, name).toBeGreaterThan(5);
+      for (let i = 1; i < rows.length; i++)
+        expect(rows[i][name], name).toBeGreaterThanOrEqual(rows[i - 1][name] - 0.001);
+      const length = span.at(-1)!.y - span[0].y + 20;
+      if (!name.startsWith('gallery')) {
+        expect(length, name).toBeGreaterThan(480);
+        expect(length, name).toBeLessThan(720);
+      }
+    }
+    for (const row of rows)
+      expect(
+        ['hero', 'lift', ...names].filter((name) => active(row, name)).length,
+        `scenes competing at ${row.y}px`,
+      ).toBeLessThanOrEqual(1);
+    const train = await page.locator('#train').boundingBox();
+    expect(train!.height).toBeLessThan(812 * 1.2);
+  });
+
+  test('day highlight slides, memberships expand, and the pass card draws its tick', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(phone);
+    await page.addStyleTag({ content: noBar });
+    const indicator = page.locator('.day-indicator');
+    const start = await indicator.evaluate((n) => getComputedStyle(n).transform);
+    await page.locator('[data-day=Fri]').click();
+    await expect(page.locator('#day-Fri')).toBeVisible();
+    await expect
+      .poll(() => indicator.evaluate((n) => getComputedStyle(n).transform))
+      .not.toBe(start);
+    await expect(page.locator('#day-Fri .pulse-line')).toHaveAttribute('d', /^M15 0V/);
+    const toggle = page.getByRole('button', { name: 'What’s included in Anytime' });
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.locator('#perks-1')).toBeHidden();
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.locator('#perks-1 li')).toHaveText([
+      'Gym floor & cardio',
+      'All group classes',
+      'Free induction',
+    ]);
+    await toggle.press('Enter');
+    await expect(page.locator('#perks-1')).toBeHidden();
+    await page.locator('.hero .button').click();
+    await page.getByRole('button', { name: 'Next: pick a time' }).click();
+    await page.getByRole('button', { name: 'See my visit' }).click();
+    await expect(page.locator('.pass-card .pass-name')).toHaveText('Dundee Fitness');
+    await expect
+      .poll(() =>
+        page.locator('.pass-tick path').evaluate((n) => getComputedStyle(n).strokeDashoffset),
+      )
+      .toBe('0px');
+  });
+
+  test('reduced motion and no JavaScript show every scene finished', async ({ browser }) => {
+    const context = await browser.newContext({
+      viewport: { width: 375, height: 812 },
+      reducedMotion: 'reduce',
+    });
+    const page = await context.newPage();
+    await page.goto(phone);
+    for (const y of [1200, 3200, 5200, 8200]) {
+      await page.evaluate((y) => scrollTo(0, y), y);
+      await page.waitForTimeout(100);
+      const scenes = await page.evaluate(() => (window as any).gymMotion.scenes);
+      for (const name of names) expect(scenes[name], name).toBe(1);
+      expect(scenes.swing).toBe(0);
+      expect(await page.evaluate(() => document.getAnimations().length)).toBe(0);
+    }
+    await expect(page.locator('.hours dd').last()).toHaveCSS('opacity', '1');
+    await page.locator('[data-day=Sat]').click();
+    await expect(page.locator('#day-Sat')).toBeVisible();
+    expect(await page.evaluate(() => document.getAnimations().length)).toBe(0);
+    await context.close();
+    const offline = await browser.newContext({
+      viewport: { width: 375, height: 812 },
+      javaScriptEnabled: false,
+    });
+    const still = await offline.newPage();
+    await still.goto(phone);
+    await expect(still.locator('.perks').first()).toBeVisible();
+    await expect(still.locator('.perks-toggle').first()).toBeHidden();
+    await expect(still.locator('.wipe').first()).not.toBeInViewport();
+    await offline.close();
+  });
+});

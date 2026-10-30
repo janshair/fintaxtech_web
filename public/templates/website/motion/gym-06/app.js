@@ -128,15 +128,77 @@
   if (nextTag && nextRow) nextRow.append(nextTag);
 
   // Timetable days are progressive enhancement: without JavaScript every day is listed.
+  // The highlight slides between days and the list slides out and in, in the
+  // direction of travel. Reduced motion switches instantly.
+  const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const dayButtons = [...document.querySelectorAll('[data-day]')];
+  const dayPanels = [...document.querySelectorAll('[data-day-panel]')];
+  const indicator = $('.day-indicator');
+  function placeIndicator() {
+    const button = dayButtons.find((node) => node.getAttribute('aria-pressed') === 'true');
+    indicator.style.width = button.offsetWidth + 'px';
+    indicator.style.transform = `translateX(${button.offsetLeft}px)`;
+  }
+  placeIndicator();
+  indicator.classList.add('is-ready');
+  addEventListener('resize', () => {
+    indicator.classList.remove('is-moving');
+    placeIndicator();
+  });
+  function showPanel(next) {
+    dayPanels.forEach((panel) => panel.classList.toggle('is-active', panel === next));
+    document.dispatchEvent(new Event('gym:day'));
+  }
   dayButtons.forEach((button) =>
     button.addEventListener('click', () => {
+      const current = dayPanels.find((panel) => panel.classList.contains('is-active'));
+      const next = dayPanels.find((panel) => panel.dataset.dayPanel === button.dataset.day);
       dayButtons.forEach((other) =>
         other.setAttribute('aria-pressed', String(other === button)),
       );
-      document.querySelectorAll('[data-day-panel]').forEach((panel) => {
-        panel.classList.toggle('is-active', panel.dataset.dayPanel === button.dataset.day);
-      });
+      indicator.classList.toggle('is-moving', !still());
+      placeIndicator();
+      if (next === current) return;
+      if (still()) return showPanel(next);
+      const direction = dayPanels.indexOf(next) > dayPanels.indexOf(current) ? 1 : -1;
+      current
+        .animate(
+          [
+            { opacity: 1, transform: 'translateX(0px)' },
+            { opacity: 0, transform: `translateX(${-24 * direction}px)` },
+          ],
+          { duration: 120, easing: 'ease-in' },
+        )
+        .finished.then(() => {
+          showPanel(next);
+          next.animate(
+            [
+              { opacity: 0, transform: `translateX(${24 * direction}px)` },
+              { opacity: 1, transform: 'translateX(0px)' },
+            ],
+            { duration: 240, easing: 'cubic-bezier(.2,.7,.2,1)' },
+          );
+        });
+    }),
+  );
+
+  // "What's included" opens each membership card; its perks tick in.
+  document.querySelectorAll('.perks-toggle').forEach((toggle) =>
+    toggle.addEventListener('click', () => {
+      const card = toggle.closest('.membership');
+      const open = !card.classList.contains('is-open');
+      card.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      if (!open || still()) return;
+      card.querySelectorAll('.perks li').forEach((item, i) =>
+        item.animate(
+          [
+            { opacity: 0, transform: 'translateY(8px)' },
+            { opacity: 1, transform: 'translateY(0px)' },
+          ],
+          { duration: 220, delay: i * 70, easing: 'ease-out', fill: 'backwards' },
+        ),
+      );
     }),
   );
 
@@ -157,6 +219,22 @@
       else node.removeAttribute('aria-current');
     });
     steps[index].querySelector('h3').focus();
+    // The pass slides out and its tick draws itself.
+    if (index === 2 && !still()) {
+      $('.pass-card').animate(
+        [
+          { opacity: 0, transform: 'translateY(32px)' },
+          { opacity: 1, transform: 'translateY(0px)' },
+        ],
+        { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1.15)', fill: 'backwards' },
+      );
+      $('.pass-tick path').animate([{ strokeDashoffset: 100 }, { strokeDashoffset: 0 }], {
+        duration: 380,
+        delay: 320,
+        easing: 'ease-out',
+        fill: 'backwards',
+      });
+    }
   }
   function bucket(clock) {
     const hour = Number(clock.split(':')[0]);

@@ -437,6 +437,16 @@ Scroll loads the barbell in three equal stages: large plates, then small plates 
 
 The hero kettlebell is animated in `motion.js` with the Web Animations API on nested SVG groups (scroll swing › tap swing › sway › entrance), using transform and opacity only. Its entrance (about 1.4s) plays once when 40% of the kettlebell is above the contact bar. On phones, where the badge and kettlebell top already peek above the bar, it waits for the dumbbell row so the monogram stamp, plates and card are seen. The entrance is followed by a sway, sparkle and badge loop, which pauses off-screen or in a hidden tab. A 0 → 35° → 0 swing follows the hero scrolling away, and the "Play kettlebell animation" button replays a swing. The "Next · example" class follows the visitor's clock. Reduced motion and no-JavaScript show the settled illustration.
 
+Below the hero, each phone screen gets one scroll scene on the same loop. Each runs from entering above the contact bar to its centre at 35% of the viewport, about 500–660px on a 375 × 812 phone, and no two overlap:
+
+- the one-to-one card's hanging kettlebell swings;
+- the barbell loads, over about 640px on phones;
+- a pulse line draws down the timetable with a beat beside each class;
+- each gallery picture's curtain wipes off as it drifts into place;
+- the opening-hours timer ring fills while each time ticks in.
+
+Triggered touches fill the gaps: the day highlight slides and lists slide between days; membership cards rise in turn, the popular one gets a single shine, and "What's included" expands each card; review stars light up one by one; the free-visit demo's pass card slides out and its tick draws itself. Reduced motion paints every scene finished, and without JavaScript all content, including the perks lists, is shown.
+
 Capture the default sample, dialog closed, at 1200 × 900 for `preview.webp` (under 200,000 bytes); recapture it if the default `THEME` changes. Run `pnpm verify` and `pnpm exec playwright test tests/browser/gym-template.spec.ts tests/browser/motion-templates.spec.ts`. The spec includes the 375 × 812 letter test (300ms screenshot, no-JavaScript hero, logged scroll progress, reveal completion, tap-through booking, `ref` and phone links).
 
 ## Template colours
