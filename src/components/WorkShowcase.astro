@@ -26,6 +26,16 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
     </div>
     <ClientFeedback />
   </div>
+  <div class="project-details">
+    {
+      work.projectDetails.map(([question, answer]) => (
+        <section>
+          <h3>{question}</h3>
+          <p>{answer}</p>
+        </section>
+      ))
+    }
+  </div>
   <div class="work-previews">
     <figure>
       <a class="work-preview work-preview-desktop" href={desktop.src}>

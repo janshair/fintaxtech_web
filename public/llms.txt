@@ -54,6 +54,8 @@ FinTaxTech has built and published its own apps on Google Play:
 
 ## Project boundaries and privacy
 
-Client briefs and enquiry forms are noindex utility pages. An unlisted client URL is not access control. Questionnaire answers stay in browser memory; refreshing or closing clears them. PDFs are generated locally and shared only at the customer's initiative. Source documents are shared separately by arrangement.
+Client briefs and enquiry forms are noindex utility pages. An unlisted client URL is not access control. Initial enquiry questionnaires and pricing estimates keep answers in the browser; generating a PDF does not submit those answers. Share these PDFs manually when you choose.
+
+Client briefs have separate submission actions. On the logo brief, reviewing sends nothing; Submit brief sends reviewed answers, image filenames and explanations to FinTaxTech through Slack. Image files remain in the browser and PDF until the customer shares the PDF. On the website demo and production briefs, Download PDF, Open email and Open WhatsApp send the reviewed text to FinTaxTech through Slack. The PDF is generated locally and is not uploaded to Slack. Refreshing or closing clears local answers, not messages already delivered. Slack retains received messages under workspace settings. Source documents are shared separately by arrangement. See the [privacy notice](https://fintaxtech.co.uk/privacy/).
 
 Business accounts remain in the customer's name. Ownership of agreed final deliverables transfers after full payment, subject to licences and the written proposal. FinTaxTech retains its internal prompts, workflows and methods. See the [service terms](https://fintaxtech.co.uk/terms/).

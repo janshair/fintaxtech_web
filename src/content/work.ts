@@ -24,6 +24,20 @@ export const featuredWork = {
   category: 'Website design and development',
   summary:
     'A responsive website for a London appliance repair business. Visitors can explore repair services, check the London service area and find a way to get in touch.',
+  projectDetails: [
+    [
+      'What does the website help visitors do?',
+      'Visitors can explore domestic appliance repair services, check whether the business covers their part of London and find a way to get in touch. These tasks give the website a clear service-enquiry focus.',
+    ],
+    [
+      'What did FinTaxTech deliver?',
+      'FinTaxTech built a responsive website for Ask Appliance Repairs. The desktop and mobile screenshots show the repair-service hero and service cards at different screen sizes. The linked business website provides a view of the live project.',
+    ],
+    [
+      'What evidence is available?',
+      'The project is supported by desktop and mobile screenshots, a link to the business website and feedback attributed to its owner, Usman Riaz. The feedback describes the client experience; it is not a measurement of enquiry growth or sales.',
+    ],
+  ],
   url: 'https://askappliancerepairs.com/',
   visitLabel: 'Visit Ask Appliance Repairs',
   desktopAlt:

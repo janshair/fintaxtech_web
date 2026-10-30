@@ -54,6 +54,26 @@ export const pages: Record<string, InfoPage> = {
     intro: 'Every standard project receives a manual quote after we review the requirements.',
     sections: [
       [
+        'What determines the price of a website?',
+        'Website pricing depends on the agreed pages, content work, design, booking or ecommerce behaviour, back-end services and integrations. A brochure site and a web application have different scopes. The written proposal confirms what is included, what you supply and which costs are separate.',
+      ],
+      [
+        'What determines the price of branding?',
+        'Branding pricing depends on the logo system, business materials, guidelines, concepts and revision rounds agreed for your project. Naming, extra concepts and editable source files need explicit agreement. An indicative estimate helps prepare the discussion; the written proposal confirms the final scope and charges.',
+      ],
+      [
+        'What determines the price of a mobile app?',
+        'App pricing depends on the platforms, user journeys, device features, offline behaviour, back-end services, integrations and testing requirements. Store-submission support and long-term support needs should be scoped explicitly. An indicative estimate is provisional and needs technical review.',
+      ],
+      [
+        'What determines the price of AI automation?',
+        'Automation pricing depends on the process, source quality, system access, integrations, human approvals and exception handling. Privacy and risk affect suitability as well as scope. Any ongoing platform or usage costs must be considered separately from the agreed implementation work.',
+      ],
+      [
+        'Is a pricing-calculator estimate a final quote?',
+        'No. Branding and mobile app calculators provide indicative estimates. They do not commission work or replace technical review. Final deliverables, exclusions, timing and charges are confirmed in an agreed written proposal.',
+      ],
+      [
         'A proposal built around your requirements',
         'Your proposal sets out scope, deliverables, exclusions, customer responsibilities, revisions, timing, ownership, warranty, and charges. Proposals normally remain valid for 14 days.',
       ],

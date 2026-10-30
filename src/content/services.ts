@@ -138,3 +138,75 @@ export const serviceVisuals: Record<ServiceId, string> = {
   'ai-automation':
     'AI workflow illustration: source documents move through structured steps to a result checked by a person.',
 };
+
+export const serviceQuestions: Record<ServiceId, [string, string][]> = {
+  branding: [
+    [
+      'What can a branding project include?',
+      'A branding project can include a logo system, colours, business materials and compact or extended guidelines. Your written proposal confirms the deliverables; naming, extra concepts and editable source files are included only when agreed.',
+    ],
+    [
+      'How are concepts and revisions agreed?',
+      'Concepts and revision rounds are defined in the written proposal before work begins. You approve the brief and visual direction, and each revision round uses one consolidated feedback list.',
+    ],
+    [
+      'Will I own the logo and receive editable files?',
+      'Agreed final assets transfer after full payment, subject to third-party licences. Editable source files must be agreed in the proposal. A design project does not guarantee trademark availability or legal exclusivity.',
+    ],
+  ],
+  websites: [
+    [
+      'Can you redesign my existing website?',
+      'Yes. FinTaxTech creates new websites and complete redesigns or rebuilds. We do not repair, debug or take over abandoned legacy code. Existing content and any URLs to preserve should be identified in the brief.',
+    ],
+    [
+      'Is website copy included?',
+      'Website copy is included only when commissioned in the agreed scope. Otherwise, supply an approved Website Content File. When FinTaxTech creates copy, you provide agreed source material and approve the business facts and claims.',
+    ],
+    [
+      'What happens if I need changes after launch?',
+      'Post-launch changes need an agreed scope. A 30-day defect warranty covers failures against the agreed specification; new requests, unsupported changes and third-party problems are excluded. Your domain and service accounts remain in your name.',
+    ],
+  ],
+  'mobile-apps': [
+    [
+      'Do you build native and cross-platform apps?',
+      'Yes. Options include native iOS in Swift, native Android in Kotlin, Flutter with a shared interface, and Kotlin Multiplatform with shared business logic and native interfaces. User needs, device features and long-term support requirements guide the choice.',
+    ],
+    [
+      'Who owns the app-store accounts and handles submission?',
+      'Your app-store and cloud accounts stay in your name. Quality assurance and store-submission support can be included in the agreed scope. Store approval cannot be guaranteed.',
+    ],
+    [
+      'Can my app work without an internet connection?',
+      'Offline support depends on the tasks users need to complete. Viewing saved information and recording work to synchronise later have different requirements. Agree the offline tasks, synchronisation and conflict handling before development.',
+    ],
+  ],
+  'ai-automation': [
+    [
+      'Which processes are suitable for AI automation?',
+      'A defined, repetitive process is a useful starting point. Suitability depends on source quality, access to your systems, available APIs, privacy and risk. FinTaxTech scopes each workflow individually and does not promise autonomous or error-free decisions.',
+    ],
+    [
+      'What information is needed to scope a workflow?',
+      'Describe the current process, source information, tools involved, intended result and points that need human approval. You must have authority to supply and process the material; transfer documents securely after engagement.',
+    ],
+    [
+      'Will a person still need to review the results?',
+      'Human review, approvals and exception handling are part of the workflow decisions. Agree who checks results and what happens when information is missing or uncertain. Highly sensitive or regulated workflows may be declined.',
+    ],
+  ],
+};
+
+export const serviceReading: Record<ServiceId, { href: string; label: string }[]> = {
+  branding: [{ href: '/estimate/branding/', label: 'Prepare an indicative branding estimate' }],
+  websites: [{ href: '/pricing/', label: 'What affects website project pricing?' }],
+  'mobile-apps': [
+    { href: '/estimate/mobile/', label: 'Prepare an indicative mobile app estimate' },
+    {
+      href: '/blog/does-your-app-need-to-work-offline/',
+      label: 'Decide which app tasks need to work offline',
+    },
+  ],
+  'ai-automation': [{ href: '/pricing/', label: 'How project scope and pricing are agreed' }],
+};

@@ -3,7 +3,12 @@ import ServiceHeroVisual from '../../components/ServiceHeroVisual.astro';
 import ServiceOutcomeFlow from '../../components/ServiceOutcomeFlow.astro';
 import '../../styles/home-motion.css';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { services, serviceCopy as c } from '../../content/services';
+import {
+  services,
+  serviceCopy as c,
+  serviceQuestions,
+  serviceReading,
+} from '../../content/services';
 import { ui, home } from '../../content/site';
 export function getStaticPaths() {
   return services.map((service) => ({ params: { service: service.id }, props: { service } }));
@@ -37,15 +42,26 @@ const { service: s } = Astro.props;
       <h2>{c.ownership}</h2><p>{s.ownership}</p>
     </div><section class="section">
       <h2>{c.faq}</h2>{
-        home.faqs.slice(1, 3).map(([q, a]) => (
-          <details>
-            <>
-              <summary>{q}</summary>
-              <p>{a}</p>
-            </>
-          </details>
-        ))
+        [...serviceQuestions[s.id], ...home.faqs.slice(s.id === 'branding' ? 2 : 1, 3)].map(
+          ([q, a]) => (
+            <details>
+              <>
+                <summary>{q}</summary>
+                <p>{a}</p>
+              </>
+            </details>
+          ),
+        )
       }
+      <ul>
+        {
+          serviceReading[s.id].map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
     </section><section class="section">
       <h2>{c.brief}</h2><p>{c.briefText}</p><div class="actions">
         <a class="button" href={`/enquiry/?service=${s.id}&stage=2`}>{c.brief}</a><a

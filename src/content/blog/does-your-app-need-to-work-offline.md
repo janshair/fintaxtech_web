@@ -4,6 +4,7 @@ seoTitle: 'Does Your App Need to Work Offline? A Planning Guide'
 description: 'Should your mobile app work without a signal? A plain-English guide to offline needs, trade-offs and the questions to settle before development starts.'
 slug: does-your-app-need-to-work-offline
 pubDate: 2026-10-16
+updatedDate: 2026-10-30
 author: FinTaxTech Ltd.
 category: Mobile App Development
 tags: [Offline apps, App planning, Mobile experience]
@@ -12,6 +13,8 @@ imageAlt: Illustration of a phone showing a broken signal symbol beside a stack 
 draft: false
 cta: general
 ---
+
+Your app needs offline support when users must complete essential tasks without a reliable internet connection. Decide which tasks must work offline: viewing saved information, recording work or both. If users can change data offline, agree how it will synchronise and how conflicting changes will be handled when the connection returns.
 
 Most apps are planned by people sitting at a desk with fast Wi-Fi. Most apps are used on trains, in car parks, in basements, in rural areas and in buildings where the signal comes and goes. The gap between those two situations is where the question of offline working lives.
 
@@ -52,11 +55,11 @@ Our guide to [an MVP versus a full mobile app](https://fintaxtech.co.uk/blog/mvp
 
 It helps to think of offline support as a ladder. Each step is more useful to the customer and more work to design, build and test. The table below is illustrative, not a quote.
 
-| Level | What the customer can do without a signal | What it involves |
-| --- | --- | --- |
-| **1. Polite failure** | Nothing, but the app explains what is wrong and keeps their place | Clear messages, no lost input |
-| **2. Read-only** | View content they have already opened or chosen to save | Deciding what to store on the phone and how long it stays |
-| **3. Read and change** | Create or edit records, then sync later | Storage, sync rules and handling of conflicts |
+| Level                  | What the customer can do without a signal                         | What it involves                                          |
+| ---------------------- | ----------------------------------------------------------------- | --------------------------------------------------------- |
+| **1. Polite failure**  | Nothing, but the app explains what is wrong and keeps their place | Clear messages, no lost input                             |
+| **2. Read-only**       | View content they have already opened or chosen to save           | Deciding what to store on the phone and how long it stays |
+| **3. Read and change** | Create or edit records, then sync later                           | Storage, sync rules and handling of conflicts             |
 
 Level 1 should be the minimum for any app. Level 3 is the most demanding, because two people can change the same record while offline and the app then has to decide what happens. That decision is a business rule, not a technical detail, and you will need to make it.
 
