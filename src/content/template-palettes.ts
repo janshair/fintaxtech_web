@@ -269,4 +269,18 @@ export const templatePalettes = {
       '--on-accent-163f33': ['accent', '#163f33'],
     },
   },
+  'gym-06': {
+    brand: '#2b1f4f',
+    accent: '#c8f04b',
+    paper: '#f4f1ea',
+    dark: false,
+    // Tints are mixed in CSS with color-mix(), so only the primaries are authored.
+    tones: {
+      '#2b1f4f': 'brand',
+      '#c8f04b': 'accent',
+    },
+    foregrounds: {
+      '--on-brand-soft-d9d3e6': ['brand', '#d9d3e6'],
+    },
+  },
 } as const;

@@ -93,6 +93,23 @@ export const motionTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Explore a personalised cleaning company website demonstration by FinTaxTech, with example services, scroll-driven cleaning and a sample quote journey.',
   },
+  {
+    id: 'gym-06',
+    name: 'Full Circuit',
+    industry: 'Gyms & fitness centres',
+    description:
+      'A friendly local gym website in plum and lime, with a barbell that loads as you scroll, an example class timetable and a sample free-visit booking.',
+    route: '/templates/website/motion/gym-06/',
+    preview: {
+      src: '/templates/website/motion/gym-06/preview.webp',
+      alt: 'Full Circuit gym demo: Hillmoor Fitness Club, a chalk-white hero reading “Stronger starts round the corner.” beside an illustrated plum kettlebell marked HF.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Full Circuit — Gym website demo by FinTaxTech',
+    seoDescription:
+      'Explore a personalised gym and fitness centre website demonstration by FinTaxTech, with example memberships, a class timetable, scroll-driven motion and a sample visit booking.',
+  },
 ];
 
 export const barberRedirect = {

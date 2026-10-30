@@ -47,6 +47,38 @@ describe('website template registry and discovery', () => {
   });
 });
 
+describe('gym demonstration content', () => {
+  const gym = motionTemplates.find((t) => t.id === 'gym-06')!;
+  it('uses the next globally unique suffix and ships its own scripts', () => {
+    const suffixes = allTemplates.map((t) => Number(t.id.split('-').at(-1)));
+    expect(Number(gym.id.split('-').at(-1))).toBe(Math.max(...suffixes));
+    for (const file of ['identity.js', 'motion.js'])
+      expect(existsSync(`public${gym.route}${file}`)).toBe(true);
+  });
+  it('provides promotion hooks, marked samples and honest placeholders', async () => {
+    const { gymDemo, THEME } = await import('../src/content/gym-demo');
+    const source = readFileSync('src/content/gym-demo.ts', 'utf8');
+    expect(
+      source.startsWith('// Change these hex codes, save, and the whole template recolours.'),
+    ).toBe(true);
+    const page = readFileSync(`src/pages${gym.route}index.astro`, 'utf8');
+    for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
+      expect(page).toContain(`data-capture="${hook}"`);
+    expect(page).toContain('data-sample-price');
+    expect(page).toContain('data-sample-review');
+    expect(page).toContain('Example reviews — your real Google reviews appear here.');
+    expect(page).toContain('Your own photos go here.');
+    expect(page).toContain('Picture your business here?');
+    expect(gymDemo.reviews).toHaveLength(3);
+    const css = readFileSync(`public${gym.route}styles.css`, 'utf8');
+    for (const hex of Object.values(THEME)) expect(css.toLowerCase()).not.toContain(hex);
+    const content = page + JSON.stringify(gymDemo);
+    expect(content).not.toMatch(
+      /guaranteed|lose \d|weight loss|certified|accredited|insured|award/i,
+    );
+  });
+});
+
 describe('3D café demonstration content and budgets', () => {
   const route = threeDTemplates[0].route;
   it('reserves the next globally unique suffix', () => {
