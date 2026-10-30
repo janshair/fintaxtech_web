@@ -160,3 +160,12 @@ test('the cleaning gallery card opens the implemented Fresh Start demo', async (
   await expect(page).toHaveURL(cleaning.route);
   await expect(page.locator('h1')).toContainText('A clean home.');
 });
+
+test('the gym gallery card opens the implemented Full Circuit demo', async ({ page }) => {
+  const gym = motionTemplates.find((template) => template.id === 'gym-06')!;
+  await page.goto(gallery.route);
+  await page.getByRole('link', { name: `${gallery.previewLabel} ${gym.name}` }).click();
+  await expect(page).toHaveURL(gym.route);
+  await expect(page.locator('h1')).toContainText('Stronger starts');
+  await expect(page.locator('[data-business]').first()).toHaveText('Hillmoor Fitness Club');
+});

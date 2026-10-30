@@ -12,6 +12,7 @@ const files = {
   'automotive-03': 'automotive',
   'cleaning-04': 'cleaning',
   'juice-bar-05': 'juice-bar',
+  'gym-06': 'gym',
 };
 const originals = new Map();
 await mkdir(out, { recursive: true });

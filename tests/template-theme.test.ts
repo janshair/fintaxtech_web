@@ -13,12 +13,14 @@ import { THEME as tailoring } from '../src/content/tailoring-demo';
 import { THEME as automotive } from '../src/content/automotive-demo';
 import { THEME as cleaning } from '../src/content/cleaning-demo';
 import { THEME as juice } from '../src/content/juice-bar-demo';
+import { THEME as gym } from '../src/content/gym-demo';
 const themes = {
   'barber-01': barber,
   'tailoring-02': tailoring,
   'automotive-03': automotive,
   'cleaning-04': cleaning,
   'juice-bar-05': juice,
+  'gym-06': gym,
 };
 
 describe('build-time template colours', () => {

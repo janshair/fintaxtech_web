@@ -1,0 +1,648 @@
+---
+import '@fontsource/archivo/latin-800.css';
+import { templateTheme } from '../../../../../lib/template-theme';
+import { THEME, gymDemo as c } from '../../../../../content/gym-demo';
+import { motionTemplates, motionGallery } from '../../../../../content/templates';
+import { seoPages } from '../../../../../content/seo';
+import { absoluteURL, structuredData } from '../../../../../lib/seo';
+import GymArtwork from '../../../../../components/templates/GymArtwork.astro';
+const template = motionTemplates.find((item) => item.id === c.id)!;
+const { title, description } = seoPages[c.route];
+const canonical = absoluteURL(c.route);
+const image = absoluteURL(template.preview.src);
+const theme = templateTheme('gym-06', THEME);
+const asset = (file: string) => `${c.route}${file}`;
+---
+
+<!doctype html>
+<html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content={theme.pageBackground} />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta
+      property="og:image:alt"
+      content={template.preview.alt}
+    />
+    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+      property="og:image:height"
+      content={String(template.preview.height)}
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta name="twitter:description" content={description} /><meta
+      name="twitter:image"
+      content={image}
+    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        structuredData(c.route, title, description, undefined, image),
+      ).replace(/</g, '\\u003c')}
+    />
+    <link rel="stylesheet" href={asset('styles.css')} />
+    <!-- The blocking script observes streamed identity nodes before their first paint.
+         Values are assigned only as text, or as tel:/wa.me links built from digits.
+         No query data enters requests or storage. -->
+    <script is:inline src="/templates/website/motion/gym-06/identity.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <aside class="demo-strip" aria-label="Demonstration controls">
+      <a href="/" class="agency">FinTaxTech <span aria-hidden="true">↗</span></a>
+      <span class="demo-id">{c.label}</span>
+      <a class="gallery-link" href={motionGallery.route}>All templates</a>
+      <a class="agency-contact" href="/contact/" data-agency-link>Discuss this website</a>
+      <button type="button" data-edit>Change name</button>
+    </aside>
+    <header class="business-header wrap">
+      <a class="brand" href="#home" aria-label="Back to the top"
+        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
+          data-business>{c.name}</span
+        ></a
+      >
+      <nav aria-label="Gym navigation">
+        <a href="#train">Train</a><a href="#timetable">Timetable</a><a href="#prices">Prices</a><a
+          href="#visit">Visit</a
+        >
+      </nav>
+      <a class="header-action" href="#visit" data-book>Book a visit</a>
+    </header>
+    <main id="main">
+      <section class="hero wrap" id="home" data-capture="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">{c.hero.eyebrow}</p>
+          <p class="hero-name">
+            <strong data-business>{c.name}</strong>
+            <span>Your local gym in <span data-hero-area>{c.area}</span></span>
+          </p>
+          <h1>Stronger starts <span class="mark">round the corner.</span></h1>
+          <p class="lead">{c.hero.description}</p>
+          <div class="hero-actions">
+            <a class="button accent" href="#visit" data-book data-capture="demo"
+              >{c.hero.action} <span aria-hidden="true">→</span></a
+            >
+            <a class="text-link" href="#timetable">See this week’s classes</a>
+          </div>
+          <p class="small-note">{c.hero.note}</p>
+        </div>
+        <div class="hero-art">
+          <GymArtwork kind="hero" />
+          <button class="kb-button" type="button" aria-label="Play kettlebell animation"></button>
+          <div class="hero-card" aria-label="Example classes today">
+            <p class="eyebrow">TODAY · EXAMPLE</p>
+            <ul>
+              {
+                c.timetable[0].classes.map(([time, name], i) => (
+                  <li data-class-at={time}>
+                    <>
+                      <span class="class-at">{time}</span>
+                      {name}
+                      {i === 0 && (
+                        <span class="next-tag" data-next-tag>
+                          <>
+                            <span class="next-dot" aria-hidden="true" />
+                            Next · example
+                          </>
+                        </span>
+                      )}
+                    </>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <span class="hero-sticker">Beginners<br />welcome</span>
+        </div>
+      </section>
+      <div class="ticker" aria-label="Example highlights">
+        <span>Open gym floor</span><span aria-hidden="true">●</span><span>Small group classes</span
+        ><span aria-hidden="true">●</span><span>Personal training</span><span aria-hidden="true"
+          >●</span
+        ><span>Free first visit</span>
+      </div>
+      <section
+        class="section wrap"
+        id="train"
+        data-capture="services"
+        aria-labelledby="train-title"
+      >
+        <header class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow">01 / WAYS TO TRAIN</p>
+            <h2 id="train-title">Your gym, <span class="mark">your pace.</span></h2>
+          </div>
+          <p>
+            Lift, ride, stretch or try a class. These are sample services and prices, ready to
+            become your own.
+          </p>
+        </header>
+        <div class="service-grid">
+          {
+            c.services.map((s, i) => (
+              <a class="service-card" href="#visit" data-service={s.id} data-reveal>
+                <>
+                  <span class="count">0{i + 1}</span>
+                  <p class="eyebrow">{s.type}</p>
+                  <h3>{s.name}</h3>
+                  <p>{s.description}</p>
+                  <span class="price">
+                    <>
+                      <strong data-sample-price>{s.price}</strong>
+                      <span class="arrow" aria-hidden="true">
+                        →
+                      </span>
+                    </>
+                  </span>
+                  <span class="small-note">{s.detail}</span>
+                </>
+              </a>
+            ))
+          }
+        </div>
+        <ul class="facilities" aria-label="Example facilities" data-reveal>
+          {
+            c.facilities.map(([icon, label]) => (
+              <li>
+                <>
+                  <span aria-hidden="true">{icon}</span>
+                  {label}
+                </>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="small-note">Example facilities. Your real kit list goes here.</p>
+      </section>
+      <section class="first-visit section" id="first-visit" aria-labelledby="first-title">
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <div>
+              <p class="eyebrow">02 / YOUR FIRST WEEK</p>
+              <h2 id="first-title">Warm up. Load up. <span class="mark">Lift off.</span></h2>
+            </div>
+            <p>Scroll to load the bar. Every first visit starts light.</p>
+          </header>
+          <div class="process-layout">
+            <figure class="motion-stage" data-capture="motion">
+              <div class="lift-scene" data-lift-illustration>
+                <GymArtwork kind="bar" />
+              </div>
+              <p class="stage-caption" aria-hidden="true">
+                <span data-stage-number>03</span>
+                <span data-stage-caption>{c.process[2][0]}</span>
+              </p>
+              <div class="motion-progress" aria-hidden="true"><span></span></div>
+              <figcaption class="small-note">
+                An original illustration. No training result is claimed.
+              </figcaption>
+            </figure>
+            <ol class="process-steps">
+              {
+                c.process.map(([heading, text], i) => (
+                  <li>
+                    <>
+                      <span class="step-number">0{i + 1}</span>
+                      <div>
+                        <>
+                          <h3>{heading}</h3>
+                          <p>{text}</p>
+                        </>
+                      </div>
+                    </>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap" id="timetable" aria-labelledby="timetable-title">
+        <header class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow">03 / THIS WEEK AT THE CLUB</p>
+            <h2 id="timetable-title">Find a class <span class="mark">that fits.</span></h2>
+          </div>
+          <p>An example weekly timetable. Pick a day, then book a taster session.</p>
+        </header>
+        <div class="day-tabs" role="group" aria-label="Choose a day">
+          {
+            c.timetable.map((d, i) => (
+              <button
+                type="button"
+                data-day={d.day}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                aria-controls={`day-${d.day}`}
+              >
+                <>
+                  <span aria-hidden="true">{d.day}</span>
+                  <span class="sr-only">{d.label}</span>
+                </>
+              </button>
+            ))
+          }
+        </div>
+        <div class="timetable">
+          {
+            c.timetable.map((d, i) => (
+              <div
+                class:list={['day-panel', { 'is-active': i === 0 }]}
+                id={`day-${d.day}`}
+                data-day-panel={d.day}
+              >
+                <>
+                  <h3>{d.label}</h3>
+                  <ul>
+                    {d.classes.map(([time, name, length]) => (
+                      <li>
+                        <>
+                          <span class="class-time">{time}</span>
+                          <span class="class-name">
+                            <>
+                              <strong>{name}</strong>
+                              <span>{length} · example</span>
+                            </>
+                          </span>
+                          <a
+                            class="class-book"
+                            href="#visit"
+                            data-class={name}
+                            data-class-day={d.label}
+                            data-class-time={time}
+                            aria-label={`Book a taster: ${name}, ${d.label} ${time}`}
+                          >
+                            Book a taster <span aria-hidden="true">→</span>
+                          </a>
+                        </>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              </div>
+            ))
+          }
+        </div>
+        <p class="small-note tools-note">
+          Already use Glofox, Mindbody or TeamUp for class bookings? We’ll connect it.
+        </p>
+      </section>
+      <section class="prices section" id="prices" aria-labelledby="prices-title">
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <div>
+              <p class="eyebrow">04 / MEMBERSHIPS</p>
+              <h2 id="prices-title">Simple prices. <span class="mark">No guesswork.</span></h2>
+            </div>
+            <p>Example memberships only. Your real prices, joining fees and terms go here.</p>
+          </header>
+          <div class="membership-grid">
+            {
+              c.memberships.map((m) => (
+                <article
+                  class:list={['membership', { featured: 'featured' in m && m.featured }]}
+                  data-reveal
+                >
+                  <>
+                    {'featured' in m && m.featured && <p class="badge">Most popular · example</p>}
+                    <h3>{m.name}</h3>
+                    <p class="membership-price" data-sample-price>
+                      <>
+                        <strong>{m.price}</strong>
+                        <span>{m.period}</span>
+                      </>
+                    </p>
+                    <p class="small-note">{m.note}</p>
+                    <ul>
+                      {m.perks.map((perk) => (
+                        <li>{perk}</li>
+                      ))}
+                    </ul>
+                    <a class="button outline" href="#visit" data-service="gym">
+                      Book a free visit <span aria-hidden="true">→</span>
+                    </a>
+                  </>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+      <section
+        class="section wrap"
+        id="gallery"
+        data-capture="gallery"
+        aria-labelledby="gallery-title"
+      >
+        <header class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow">05 / INSIDE THE CLUB</p>
+            <h2 id="gallery-title">Room to move. <span class="mark">Kit to use.</span></h2>
+          </div>
+          <p>
+            Your own photos go here. These original illustrations show how a gallery of your gym
+            could look.
+          </p>
+        </header>
+        <div class="work-grid">
+          {
+            c.work.map(([kind, heading, text]) => (
+              <figure data-reveal>
+                <>
+                  <div class="work-art">
+                    <GymArtwork kind={kind as 'weights' | 'studio' | 'cardio'} />
+                  </div>
+                  <figcaption>
+                    <>
+                      <span class="eyebrow">ILLUSTRATED EXAMPLE</span>
+                      <h3>{heading}</h3>
+                      <p>{text}</p>
+                    </>
+                  </figcaption>
+                </>
+              </figure>
+            ))
+          }
+        </div>
+      </section>
+      <section class="reviews section" data-capture="reviews" aria-labelledby="reviews-title">
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <div>
+              <p class="eyebrow">06 / FROM THE GYM FLOOR</p>
+              <h2 id="reviews-title">Members who <span class="mark">keep coming back.</span></h2>
+            </div>
+            <p>Example reviews — your real Google reviews appear here.</p>
+          </header>
+          <div class="review-grid">
+            {
+              c.reviews.map((r) => (
+                <article class="review-card" data-sample-review data-reveal>
+                  <>
+                    <div class="review-top">
+                      <>
+                        <span class="avatar" aria-hidden="true">
+                          {r.initials}
+                        </span>
+                        <div>
+                          <>
+                            <h3>{r.name}</h3>
+                            <p class="review-date">{r.date}</p>
+                          </>
+                        </div>
+                        <span class="review-tag">Example review</span>
+                      </>
+                    </div>
+                    <p class="stars" aria-label="5 out of 5 stars (example)">
+                      ★★★★★
+                    </p>
+                    <p>{r.text}</p>
+                  </>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+      <section
+        class="visit section"
+        id="visit"
+        data-capture="contact"
+        aria-labelledby="visit-title"
+      >
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <div>
+              <p class="eyebrow">07 / COME AND SAY HELLO</p>
+              <h2 id="visit-title">Your first visit <span class="mark">is on us.</span></h2>
+            </div>
+            <p>
+              <span data-business>{c.name}</span> · <span data-area>{c.area}</span><br />Example
+              offer and details. Your real address and terms go here.
+            </p>
+          </header>
+          <div class="details-grid">
+            <div class="contact-card" id="book">
+              <p class="eyebrow">BOOK A FREE VISIT · DEMO</p>
+              <h3>See the gym floor before you decide.</h3>
+              <p>Try the visit journey. No session is booked and nothing is sent.</p>
+              <button class="button accent" type="button" data-book
+                >Book a free visit <span aria-hidden="true">→</span></button
+              >
+              <div class="contact-actions">
+                <a href="#visit" data-call>Call <span data-phone>Your number here</span></a><a
+                  href="#visit"
+                  data-whatsapp>WhatsApp <span data-phone>Your number here</span></a
+                ><button type="button" data-directions>Directions</button>
+              </div>
+            </div>
+            <div class="hours">
+              <h3>Opening hours</h3>
+              <p class="small-note">Example opening hours</p>
+              <dl>
+                {
+                  c.hours.map(([day, hours]) => (
+                    <div>
+                      <>
+                        <dt>{day}</dt>
+                        <dd>{hours}</dd>
+                      </>
+                    </div>
+                  ))
+                }
+              </dl>
+            </div>
+            <div class="map-card">
+              <svg class="map-drawing" viewBox="0 0 360 200" aria-hidden="true" focusable="false">
+                <rect width="360" height="200" class="f-brand-soft"></rect>
+                <path d="M-10 150C90 120 170 170 370 96" stroke="#fff" stroke-width="18" fill="none"
+                ></path>
+                <path d="M120-10 150 210M250-10l-30 220" stroke="#fff" stroke-width="12" fill="none"
+                ></path>
+                <rect x="24" y="20" width="70" height="50" rx="8" class="f-accent-soft"></rect>
+                <rect x="270" y="130" width="70" height="52" rx="8" class="f-accent-soft"></rect>
+                <path
+                  d="M190 52c-17 0-30 13-30 30 0 23 30 50 30 50s30-27 30-50c0-17-13-30-30-30Z"
+                  class="f-brand"></path>
+                <circle cx="190" cy="82" r="11" class="f-accent"></circle>
+              </svg>
+              <div class="map-copy">
+                <p class="eyebrow">FIND US</p>
+                <h3 data-area>{c.area}</h3>
+                <p class="small-note">Your address here · map placeholder</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap questions" aria-labelledby="questions-title">
+        <div data-reveal>
+          <p class="eyebrow">GOOD TO KNOW</p>
+          <h2 id="questions-title">Questions before <span class="mark">your first visit.</span></h2>
+        </div>
+        <div>
+          {
+            c.questions.map(([question, answer]) => (
+              <details>
+                <>
+                  <summary>
+                    {question}
+                    <span aria-hidden="true">+</span>
+                  </summary>
+                  <p>{answer}</p>
+                </>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+      <section class="agency-offer" aria-labelledby="offer-title">
+        <div class="wrap offer-inner">
+          <div>
+            <p class="eyebrow">FULL CIRCUIT / GYM-06 · BY FINTAXTECH</p>
+            <h2 id="offer-title">
+              Picture your business here? <span class="mark">We’ll make it yours.</span>
+            </h2>
+            <p>A website for <span data-business>{c.name}</span>, shaped around your members.</p>
+          </div>
+          <a class="button accent" href="/contact/" data-agency-link
+            >Talk to FinTaxTech <span aria-hidden="true">→</span></a
+          >
+        </div>
+      </section>
+      <noscript
+        ><p class="wrap">
+          This is a demonstration website. Enable JavaScript to personalise the name or try the
+          visit journey. <a href="/contact/">Contact FinTaxTech about your website.</a>
+        </p></noscript
+      >
+    </main>
+    <footer class="wrap site-footer">
+      <a class="brand" href="#home"
+        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
+          data-business>{c.name}</span
+        ></a
+      >
+      <p>
+        A fictional gym demonstration by FinTaxTech.<br />No visits, classes, calls, messages or
+        payments are submitted.
+      </p>
+      <a href={motionGallery.route}>{motionGallery.backLabel} <span aria-hidden="true">↗</span></a>
+    </footer>
+    <div class="mobile-contact" aria-label="Example contact actions">
+      <a href="#visit" data-call>Call</a><a href="#visit" data-book>Book a visit</a>
+    </div>
+    <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
+      <button class="close" data-close type="button" aria-label="Close business name dialog"
+        >×</button
+      >
+      <p class="eyebrow">YOUR GYM, READY TO GO</p>
+      <h2 id="name-title">{c.nameDialog.title}</h2>
+      <p id="name-description">{c.nameDialog.description}</p>
+      <form id="name-form" novalidate>
+        <label for="business-name">Business name</label><input
+          id="business-name"
+          name="business"
+          maxlength="100"
+          placeholder="Tayside Strength Club"
+          autocomplete="off"
+          aria-describedby="name-hint name-error"
+        />
+        <p id="name-error" class="form-error" role="alert"></p>
+        <p id="name-hint" class="small-note">
+          Up to 100 characters. Kept only in this page and its URL.
+        </p>
+        <button class="button accent" type="submit"
+          >Preview my website <span aria-hidden="true">→</span></button
+        >
+      </form>
+      <div class="dialog-links">
+        <button id="restore-name" class="text-button" type="button"
+          >Explore the sample / restore default</button
+        ><button id="copy-link" class="text-button" type="button">Copy your link</button>
+      </div>
+    </dialog>
+    <dialog id="visit-dialog" aria-labelledby="visit-dialog-title" aria-describedby="visit-intro">
+      <button class="close" data-close type="button" aria-label="Close visit booking demo">×</button
+      >
+      <p class="eyebrow">EXAMPLE BOOKING · NOTHING IS SENT</p>
+      <h2 id="visit-dialog-title">Your free visit.</h2>
+      <p id="visit-intro">Try booking a visit to <span data-business>{c.name}</span>.</p>
+      <ol class="flow-progress" aria-label="Booking steps">
+        <li data-step-indicator>1. Try</li><li data-step-indicator>2. When</li><li
+          data-step-indicator
+        >
+          3. Done
+        </li>
+      </ol>
+      <form id="try-form">
+        <h3 tabindex="-1">01 / What would you like to try?</h3>
+        <label for="visit-service">Choose one</label><select id="visit-service"
+          >{c.services.map((s) => <option value={s.id}>{s.name}</option>)}</select
+        >
+        <p class="small-note" id="visit-class" hidden></p>
+        <button class="button accent" type="submit"
+          >Next: pick a time <span aria-hidden="true">→</span></button
+        >
+      </form>
+      <form id="when-form" hidden>
+        <h3 tabindex="-1">02 / Pick a sample day and time</h3>
+        <p>Example choices only. No name, email or phone number needed.</p>
+        <label for="visit-day">Day</label><select id="visit-day"
+          >{c.flow.days.map((day) => <option>{day}</option>)}</select
+        ><label for="visit-time">Time</label><select id="visit-time"
+          >{c.flow.times.map(([value, label]) => <option value={value}>{label}</option>)}</select
+        ><label for="visit-level">Where are you starting from?</label><select id="visit-level"
+          >{c.flow.levels.map((level) => <option>{level}</option>)}</select
+        >
+        <button class="button accent" type="submit"
+          >See my visit <span aria-hidden="true">→</span></button
+        ><button class="text-button" type="button" data-restart>Back</button>
+      </form>
+      <div id="visit-final" hidden>
+        <h3 tabindex="-1">03 / See you on the gym floor.</h3>
+        <p id="visit-summary" class="visit-summary"></p>
+        <p>
+          This is where members would book a visit or class on your finished website. <strong
+            >Demo only, nothing is sent.</strong
+          >
+        </p>
+        <p>No booking, class place, payment or message is submitted.</p>
+        <a class="button accent" href="/contact/" data-agency-link
+          >Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech <span
+            aria-hidden="true">→</span
+          ></a
+        ><button class="text-button" type="button" data-restart>Try another booking</button>
+      </div>
+    </dialog>
+    <dialog id="contact-dialog" aria-labelledby="contact-title">
+      <button class="close" data-close type="button" aria-label="Close contact preview">×</button>
+      <p class="eyebrow">EXAMPLE CONTACT ACTION</p>
+      <h2 id="contact-title">Contact preview</h2>
+      <p data-business>{c.name}</p>
+      <p id="contact-explanation"></p>
+      <p class="contact-preview-value"></p>
+      <a class="button accent" href="/contact/" data-agency-link
+        >Discuss your website with FinTaxTech <span aria-hidden="true">→</span></a
+      >
+    </dialog>
+    <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+    <script
+      is:inline
+      type="application/json"
+      id="template-copy"
+      set:html={JSON.stringify(c).replace(/</g, '\\u003c')}
+    />
+    <script is:inline src="/templates/website/motion/gym-06/app.js"></script>
+    <script is:inline src="/templates/website/motion/gym-06/motion.js" defer></script>
+  </body>
+</html>
