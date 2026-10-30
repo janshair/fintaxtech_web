@@ -1,0 +1,5498 @@
+{
+  "schemaVersion": "1.0.0",
+  "configId": "fintaxtech-website-quotation",
+  "pairedFile": "services.json",
+  "brand": "FinTaxTech",
+  "currency": "GBP",
+  "moneyUnit": "minor",
+  "minorUnitsPerMajor": 100,
+  "source": "User-supplied approved specification, sections 1–14, 30 October 2026",
+  "sourceNotes": [
+    "The approved original Service Prices Question 7 includes up to five standard informational pages in the Shopify package; store system screens are additional included templates, not extra informational pages.",
+    "The final supplied specification supersedes earlier submission, email, branding-screen and minor-refresh proposals."
+  ],
+  "publication": {
+    "visibility": "public",
+    "notice": "Both JSON files are publicly accessible on the static website. They contain selling prices and public rules, not confidential costs, credentials or margins."
+  },
+  "tax": {
+    "status": "unconfigured",
+    "vatRegistered": null,
+    "rateBasisPoints": null,
+    "amountsBasis": "before_any_applicable_VAT",
+    "display": "Before any applicable VAT; tax treatment to be confirmed.",
+    "unconfiguredBehavior": "Return taxMinor and grossTotalMinor as null. Do not assume a zero VAT rate or add VAT automatically.",
+    "configuredBehavior": "Use only the company's verified configured tax treatment. Round tax to the nearest penny, half up."
+  },
+  "packages": {
+    "business": {
+      "label": "Business Website",
+      "kind": "fixed",
+      "amountMinor": 99900,
+      "billing": "one_time",
+      "standardPageAllowance": 5,
+      "includedCapabilities": [
+        "responsive",
+        "branded_layouts",
+        "basic_contact",
+        "contact_links",
+        "social_links",
+        "testimonials",
+        "gallery_basic",
+        "maps",
+        "cta",
+        "essential_visibility",
+        "performance",
+        "accessibility",
+        "https",
+        "standard_launch",
+        "qa",
+        "ready_content"
+      ],
+      "cmsIncluded": false,
+      "designRevisionRounds": 1,
+      "timelineWeeks": {
+        "min": 2,
+        "max": 3
+      }
+    },
+    "corporate": {
+      "label": "Corporate Website",
+      "kind": "fixed",
+      "amountMinor": 199900,
+      "billing": "one_time",
+      "standardPageAllowance": 10,
+      "includedCapabilities": [
+        "responsive",
+        "branded_layouts",
+        "basic_contact",
+        "contact_links",
+        "social_links",
+        "testimonials",
+        "gallery_basic",
+        "maps",
+        "cta",
+        "essential_visibility",
+        "performance",
+        "accessibility",
+        "https",
+        "standard_launch",
+        "qa",
+        "ready_content",
+        "cms",
+        "premium_layouts",
+        "case_studies",
+        "analytics",
+        "cms_handover"
+      ],
+      "cmsIncluded": true,
+      "designRevisionRounds": 2,
+      "timelineWeeks": {
+        "min": 4,
+        "max": 6
+      }
+    },
+    "shopify": {
+      "label": "Shopify E-commerce",
+      "kind": "fixed",
+      "amountMinor": 299900,
+      "billing": "one_time",
+      "platform": "Shopify",
+      "standardPageAllowance": 5,
+      "initialProductAllowance": 20,
+      "includedCapabilities": [
+        "responsive",
+        "branded_layouts",
+        "basic_contact",
+        "contact_links",
+        "social_links",
+        "testimonials",
+        "gallery_basic",
+        "maps",
+        "cta",
+        "essential_visibility",
+        "performance",
+        "accessibility",
+        "https",
+        "standard_launch",
+        "qa",
+        "ready_content",
+        "shopify_admin",
+        "storefront",
+        "product_templates",
+        "cart_checkout",
+        "standard_gateway",
+        "shipping_tax",
+        "inventory_orders",
+        "product_search",
+        "training",
+        "order_notifications"
+      ],
+      "cmsIncluded": true,
+      "designRevisionRounds": 2,
+      "timelineWeeks": {
+        "min": 4,
+        "max": 6
+      }
+    },
+    "custom_web_app": {
+      "label": "Custom Web Application",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "standardPageAllowance": null,
+      "includedCapabilities": [],
+      "cmsIncluded": null,
+      "designRevisionRounds": null,
+      "timelineWeeks": null,
+      "reviewRequired": true
+    }
+  },
+  "items": {
+    "page_standard": {
+      "label": "Additional standard page",
+      "kind": "unit",
+      "amountMinor": 14900,
+      "billing": "one_time",
+      "unit": "page"
+    },
+    "page_enhanced": {
+      "label": "Additional enhanced page",
+      "kind": "unit",
+      "amountMinor": 29900,
+      "billing": "one_time",
+      "unit": "page"
+    },
+    "page_advanced": {
+      "label": "Additional advanced page",
+      "kind": "unit",
+      "amountMinor": 49900,
+      "billing": "one_time",
+      "unit": "page"
+    },
+    "page_upgrade_enhanced": {
+      "label": "Enhanced layout upgrade",
+      "kind": "unit",
+      "amountMinor": 15000,
+      "billing": "one_time",
+      "unit": "page"
+    },
+    "page_upgrade_advanced": {
+      "label": "Advanced layout upgrade",
+      "kind": "unit",
+      "amountMinor": 35000,
+      "billing": "one_time",
+      "unit": "page"
+    },
+    "content_polish": {
+      "label": "Improve supplied text",
+      "kind": "unit",
+      "amountMinor": 4900,
+      "billing": "one_time",
+      "unit": "page"
+    },
+    "copywriting": {
+      "label": "Write website text: up to 500 words",
+      "kind": "unit",
+      "amountMinor": 14900,
+      "billing": "one_time",
+      "unit": "page",
+      "wordLimit": 500,
+      "language": "English",
+      "revisionRounds": 1
+    },
+    "long_form": {
+      "label": "Additional copy: per 500 words",
+      "kind": "unit",
+      "amountMinor": 9900,
+      "billing": "one_time",
+      "unit": "500_word_block",
+      "blockWords": 500,
+      "partialBlockPolicy": "Requires review unless the customer explicitly requests whole 500-word blocks; do not silently round up."
+    },
+    "blog_article": {
+      "label": "Write a blog article: up to 800 words",
+      "kind": "unit",
+      "amountMinor": 14900,
+      "billing": "one_time",
+      "unit": "article",
+      "wordLimit": 800,
+      "includes": ["Basic research", "SEO formatting"],
+      "revisionRounds": 1
+    },
+    "product_simple": {
+      "label": "Additional simple product setup",
+      "kind": "unit",
+      "amountMinor": 1000,
+      "billing": "one_time",
+      "unit": "product",
+      "allowedPackages": ["shopify"]
+    },
+    "product_variable": {
+      "label": "Additional variable product setup",
+      "kind": "unit",
+      "amountMinor": 2000,
+      "billing": "one_time",
+      "unit": "product",
+      "allowedPackages": ["shopify"]
+    },
+    "stock_images": {
+      "label": "Source up to 10 licensed stock images",
+      "kind": "fixed",
+      "amountMinor": 4900,
+      "billing": "one_time",
+      "maxQuantity": 10,
+      "additionalQuantityPolicy": "manual_review",
+      "licensePolicy": "Use appropriately licensed images; disclose any extra licence cost before approval."
+    },
+    "image_editing": {
+      "label": "Edit and optimise up to 20 supplied images",
+      "kind": "fixed",
+      "amountMinor": 9900,
+      "billing": "one_time",
+      "maxQuantity": 20,
+      "additionalQuantityPolicy": "manual_review",
+      "excludes": "Specialist retouching and work beyond the described standard scope"
+    },
+    "cms": {
+      "label": "Editable content management system",
+      "kind": "fixed",
+      "amountMinor": 59900,
+      "billing": "one_time",
+      "allowedPackages": ["business"]
+    },
+    "blog_basic": {
+      "label": "Basic blog setup",
+      "kind": "fixed",
+      "amountMinor": 19900,
+      "billing": "one_time",
+      "scope": "Article listing and standard article template"
+    },
+    "blog_custom": {
+      "label": "Custom blog setup",
+      "kind": "fixed",
+      "amountMinor": 39900,
+      "billing": "one_time",
+      "scope": "Categories, filtering and customised blog layouts; editorial permissions/workflows require separate review"
+    },
+    "form_advanced": {
+      "label": "Advanced enquiry form",
+      "kind": "fixed",
+      "amountMinor": 29900,
+      "billing": "one_time"
+    },
+    "form_multistep": {
+      "label": "Multi-step quotation form",
+      "kind": "fixed",
+      "amountMinor": 59900,
+      "billing": "one_time",
+      "excludes": [
+        "Automatic price calculation",
+        "CRM integration",
+        "Database",
+        "Customer accounts",
+        "Custom backend"
+      ]
+    },
+    "gallery_filterable": {
+      "label": "Filterable gallery",
+      "kind": "fixed",
+      "amountMinor": 24900,
+      "billing": "one_time"
+    },
+    "newsletter": {
+      "label": "Newsletter integration",
+      "kind": "fixed",
+      "amountMinor": 9900,
+      "billing": "one_time"
+    },
+    "reviews": {
+      "label": "Customer reviews widget",
+      "kind": "fixed",
+      "amountMinor": 9900,
+      "billing": "one_time"
+    },
+    "whatsapp_widget": {
+      "label": "WhatsApp chat widget",
+      "kind": "fixed",
+      "amountMinor": 9900,
+      "billing": "one_time"
+    },
+    "live_chat": {
+      "label": "Third-party live chat",
+      "kind": "fixed",
+      "amountMinor": 19900,
+      "billing": "one_time"
+    },
+    "booking_embed": {
+      "label": "Embedded booking calendar",
+      "kind": "fixed",
+      "amountMinor": 29900,
+      "billing": "one_time"
+    },
+    "payment_hosted": {
+      "label": "Hosted payment integration",
+      "kind": "fixed",
+      "amountMinor": 29900,
+      "billing": "one_time"
+    },
+    "payment_custom": {
+      "label": "Custom payment integration",
+      "kind": "fixed",
+      "amountMinor": 99900,
+      "billing": "one_time",
+      "scope": "One defined API payment flow, payment-status handling and testing; technical assessment before price confirmation"
+    },
+    "crm": {
+      "label": "Standard connection to one supported CRM",
+      "kind": "fixed",
+      "amountMinor": 49900,
+      "billing": "one_time",
+      "scope": "One existing account, supported connector and straightforward field mapping; custom synchronisation requires review"
+    },
+    "seo_advanced": {
+      "label": "Advanced SEO: up to five pages",
+      "kind": "fixed",
+      "amountMinor": 39900,
+      "billing": "one_time"
+    },
+    "aeo_advanced": {
+      "label": "Advanced AEO",
+      "kind": "fixed",
+      "amountMinor": 29900,
+      "billing": "one_time"
+    },
+    "geo_advanced": {
+      "label": "Advanced GEO",
+      "kind": "fixed",
+      "amountMinor": 39900,
+      "billing": "one_time"
+    },
+    "business_profile": {
+      "label": "Google Business Profile setup or optimisation",
+      "kind": "fixed",
+      "amountMinor": 24900,
+      "billing": "one_time"
+    },
+    "local_seo": {
+      "label": "Local SEO setup",
+      "kind": "fixed",
+      "amountMinor": 29900,
+      "billing": "one_time"
+    },
+    "directories": {
+      "label": "Up to five business directory listings",
+      "kind": "fixed",
+      "amountMinor": 9900,
+      "billing": "one_time",
+      "maxQuantity": 5,
+      "additionalQuantityPolicy": "manual_review"
+    },
+    "migration_pages_small": {
+      "label": "Extract and migrate up to five pages",
+      "kind": "fixed",
+      "amountMinor": 19900,
+      "billing": "one_time"
+    },
+    "migration_pages_medium": {
+      "label": "Extract and migrate six to twenty pages",
+      "kind": "fixed",
+      "amountMinor": 49900,
+      "billing": "one_time"
+    },
+    "migration_blog": {
+      "label": "Extract and migrate up to twenty blog articles",
+      "kind": "fixed",
+      "amountMinor": 29900,
+      "billing": "one_time"
+    },
+    "migration_hosting": {
+      "label": "Move an existing compatible website or service",
+      "kind": "fixed",
+      "amountMinor": 14900,
+      "billing": "one_time"
+    },
+    "migration_dns": {
+      "label": "Standalone DNS migration",
+      "kind": "fixed",
+      "amountMinor": 9900,
+      "billing": "one_time",
+      "availableInWebsiteJourney": false,
+      "reason": "Rate retained for standalone work. Standard domain connection for a new build/rebuild is included; no separate DNS-only service is offered by this journey."
+    },
+    "revision_extra": {
+      "label": "Additional consolidated revision round",
+      "kind": "fixed",
+      "amountMinor": 9900,
+      "billing": "one_time"
+    },
+    "design_concept": {
+      "label": "Additional design concept",
+      "kind": "fixed",
+      "amountMinor": 19900,
+      "billing": "one_time"
+    },
+    "payment_subscriptions": {
+      "label": "Recurring subscriptions integration",
+      "kind": "from",
+      "amountMinor": 149900,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "api": {
+      "label": "Third-party API integration",
+      "kind": "from",
+      "amountMinor": 99900,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "automation": {
+      "label": "Workflow automation",
+      "kind": "from",
+      "amountMinor": 49900,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "product_csv": {
+      "label": "CSV product import",
+      "kind": "from",
+      "amountMinor": 19900,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false,
+      "allowedPackages": ["shopify"]
+    },
+    "language": {
+      "label": "Additional language setup",
+      "kind": "from",
+      "amountMinor": 49900,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "booking_custom": {
+      "label": "Custom booking engine",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "payment_complex": {
+      "label": "Complex payment workflow",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "backend": {
+      "label": "Custom backend or database",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "publishing_custom": {
+      "label": "Custom publishing workflows",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "product_complex": {
+      "label": "Complex product setup",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false,
+      "allowedPackages": ["shopify"]
+    },
+    "migration_complex": {
+      "label": "Complex migration or redirects",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "custom_requirement": {
+      "label": "Other or unclear requirement",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "page_review": {
+      "label": "Page layout requires assessment",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "content_review": {
+      "label": "Content requirements need assessment",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "visibility_review": {
+      "label": "Search visibility recommendation",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "support_review": {
+      "label": "Support requirements need assessment",
+      "kind": "manual",
+      "amountMinor": null,
+      "billing": "one_time",
+      "reviewRequired": true,
+      "includeInKnownSubtotal": false
+    },
+    "booking_link": {
+      "label": "Link to an existing booking page",
+      "kind": "included",
+      "amountMinor": 0,
+      "billing": "one_time",
+      "includedBy": ["business", "corporate", "shopify"]
+    },
+    "payment_link": {
+      "label": "Link to an existing payment page",
+      "kind": "included",
+      "amountMinor": 0,
+      "billing": "one_time",
+      "includedBy": ["business", "corporate", "shopify"]
+    },
+    "essential_visibility": {
+      "label": "Essential SEO, AEO and GEO",
+      "kind": "included",
+      "amountMinor": 0,
+      "billing": "one_time",
+      "includedBy": ["business", "corporate", "shopify"]
+    },
+    "standard_launch": {
+      "label": "Standard deployment and domain connection",
+      "kind": "included",
+      "amountMinor": 0,
+      "billing": "one_time",
+      "includedBy": ["business", "corporate", "shopify"]
+    },
+    "ready_content": {
+      "label": "Place ready-to-use supplied content",
+      "kind": "included",
+      "amountMinor": 0,
+      "billing": "one_time",
+      "includedBy": ["business", "corporate", "shopify"]
+    },
+    "minor_work": {
+      "label": "Agreed additional minor work",
+      "kind": "unit",
+      "amountMinor": 4900,
+      "billing": "hourly",
+      "unit": "hour"
+    },
+    "urgent_work": {
+      "label": "Agreed urgent work, subject to availability",
+      "kind": "unit",
+      "amountMinor": 7500,
+      "billing": "hourly",
+      "unit": "hour"
+    }
+  },
+  "monthlyPlans": {
+    "none": {
+      "label": "No optional plan",
+      "amountMinor": 0,
+      "billing": "monthly",
+      "allowedPackages": ["business", "corporate", "shopify", "custom_web_app"],
+      "minorUpdateMinutes": 0,
+      "includes": [],
+      "note": "No FinTaxTech recurring plan selected. Hosting/platform costs may still be payable to the customer's provider."
+    },
+    "hosting_essentials": {
+      "label": "Hosting Essentials",
+      "amountMinor": 1900,
+      "billing": "monthly",
+      "allowedPackages": ["business", "corporate"],
+      "minorUpdateMinutes": 0,
+      "includes": [
+        "Managed compatible hosting",
+        "SSL configuration",
+        "Deployment support",
+        "Basic uptime monitoring"
+      ]
+    },
+    "website_care": {
+      "label": "Website Care",
+      "amountMinor": 4900,
+      "billing": "monthly",
+      "allowedPackages": ["business", "corporate"],
+      "minorUpdateMinutes": 0,
+      "includes": [
+        "Managed compatible hosting",
+        "Monitoring",
+        "Applicable software updates",
+        "Backups where supported",
+        "Technical issue resolution"
+      ]
+    },
+    "website_care_plus": {
+      "label": "Website Care Plus",
+      "amountMinor": 9900,
+      "billing": "monthly",
+      "allowedPackages": ["business", "corporate"],
+      "minorUpdateMinutes": 60,
+      "includes": [
+        "Everything in Website Care",
+        "Up to 60 minutes of minor content updates monthly",
+        "Priority support"
+      ]
+    },
+    "shopify_care": {
+      "label": "Shopify Store Care",
+      "amountMinor": 14900,
+      "billing": "monthly",
+      "allowedPackages": ["shopify"],
+      "minorUpdateMinutes": 60,
+      "includes": [
+        "Store monitoring",
+        "Theme and app compatibility checks",
+        "Technical assistance",
+        "Up to 60 minutes of minor store updates monthly"
+      ],
+      "excludes": ["Shopify subscription", "Paid apps", "Transaction fees", "Domain registration"]
+    }
+  },
+  "calculationContract": {
+    "engineRequired": true,
+    "note": "Declarative configuration; the consuming static site's client-side renderer/calculator must implement this contract. These files themselves do not execute a form or generate a PDF.",
+    "inputContractFile": "services.json#answerModel",
+    "unknownIdPolicy": "validation_error_and_manual_review",
+    "invalidOrNegativeQuantity": "validation_error; never coerce, clamp or default to zero",
+    "missingRequiredAnswer": "needs_details; fullTotalMinor=null",
+    "deduplicateBy": "Unique price item ID plus work scope; UI selections are unique. Duplicate IDs in imported input are invalid.",
+    "operationsInOrder": [
+      "validate_answers_and_compatible_options",
+      "expand_cms_dependency_once",
+      "resolve_inclusions_and_overlaps",
+      "calculate_package",
+      "calculate_pages",
+      "calculate_content",
+      "calculate_features",
+      "calculate_products",
+      "calculate_migrations",
+      "calculate_visibility",
+      "calculate_project_extras",
+      "calculate_separate_monthly_plan",
+      "collect_clarification_and_manual_review_flags",
+      "calculate_milestones_only_if_complete",
+      "apply_configured_tax_only",
+      "render_same_result_on_screen_and_pdf"
+    ],
+    "knownSubtotalMinor": "Sum only priced, non-overlapping, in-scope one-time lines. Included lines have explicit kind=included. Unknown/manual/from amounts never enter this subtotal as zero.",
+    "monthlySubtotalMinor": "Selected compatible plan only; never add it to the one-time subtotal or payment milestones.",
+    "fullTotalMinor": "Equals knownSubtotalMinor only when no missing details, pricing review, scope overlap or unsupported requirement remains; otherwise null. This remains an indicative pre-tax estimate, not a contract.",
+    "fromPrice": {
+      "showAs": "Provisional minimum, subject to review",
+      "lineAmountMinor": null,
+      "displayStartingAtFrom": "items.<id>.amountMinor",
+      "sumIntoFullTotal": false,
+      "reason": "A published starting price is not a confirmed price for this customer's scope."
+    },
+    "manualPrice": {
+      "showAs": "Requires Review",
+      "lineAmountMinor": null,
+      "sumIntoFullTotal": false
+    },
+    "emptyKnownSubtotalDisplay": "No priced items yet — manual quotation required. Never display an unpriced custom application as a £0 project.",
+    "customApplication": "All selections are requirements for a manual technical quotation. Do not automatically price individual add-ons, apply standard-package inclusions, or generate package milestones for a custom application. knownSubtotalMinor and fullTotalMinor are null until a separately agreed scope is priced.",
+    "statusPriority": ["invalid_input", "needs_details", "requires_review", "estimated"],
+    "pendingDisplay": "Known priced subtotal only — additional items require review. Full project price pending.",
+    "staticReview": "Flags are local to the browser/PDF; nothing is sent to FinTaxTech and no staff review is automatically scheduled."
+  },
+  "pageRules": {
+    "count": "Unique requested informational pages, including a blog listing if selected. Store system screens and the standard blog article template are excluded.",
+    "standardRateRef": "items.page_standard",
+    "enhancedUpgradeRef": "items.page_upgrade_enhanced",
+    "advancedUpgradeRef": "items.page_upgrade_advanced",
+    "formula": "max(0, informationalPageCount - package.standardPageAllowance) * 14900 + enhancedPageCount * 15000 + advancedPageCount * 35000",
+    "formulaUsesMinorUnits": true,
+    "calculation": {
+      "operation": "sum",
+      "terms": [
+        {
+          "operation": "multiply",
+          "quantity": "max(0, informationalPageCount - package.standardPageAllowance)",
+          "priceRef": "items.page_standard"
+        },
+        {
+          "operation": "multiply",
+          "quantity": "reviewedEnhancedPageCount",
+          "priceRef": "items.page_upgrade_enhanced"
+        },
+        {
+          "operation": "multiply",
+          "quantity": "reviewedAdvancedPageCount",
+          "priceRef": "items.page_upgrade_advanced"
+        }
+      ]
+    },
+    "equivalentExtraPageRefs": {
+      "standard": "items.page_standard",
+      "enhanced": "items.page_enhanced",
+      "advanced": "items.page_advanced"
+    },
+    "allocation": "Every page receives at most one allowance credit of £149; no unused credit is paid out or reused. The formula is independent of page ordering.",
+    "assessment": "Customer chooses page names and describes special needs. Standard layouts are assumed only when explicitly accepted. FinTaxTech determines enhanced/advanced scope; customer special requests remain review items with clearly labelled indicative layout uplifts.",
+    "noAutomaticUpgradeFromFeature": true,
+    "excludedShopifyScreenRoles": [
+      "storefront",
+      "product_listing",
+      "product_detail",
+      "cart",
+      "checkout",
+      "order_management"
+    ],
+    "blog": "Basic/custom blog fee includes the standard article template. Count the blog listing once; if all page slots are used, add one standard informational page, not another template fee.",
+    "backend": "Not covered by any page tier; requires a separate technical quotation."
+  },
+  "contentRules": {
+    "perPageModes": {
+      "supplied": null,
+      "polish": "content_polish",
+      "write": "copywriting"
+    },
+    "mutuallyExclusivePerPage": ["polish", "write"],
+    "extraWords": "Charge whole 500-word blocks explicitly requested in addition to the copywriting allowance; otherwise ask for word count and review. Never charge the first 500 words again.",
+    "articleWords": "£149 covers up to 800 words per article. Longer/specialist/non-English work requires review, not an invented multiple.",
+    "stockImageBundleRef": "items.stock_images",
+    "imageEditingBundleRef": "items.image_editing",
+    "bundlePolicy": "One scoped bundle per service; greater quantities or complex work require review. Do not silently multiply bundles.",
+    "reviewWhen": [
+      "Unknown page content mode",
+      "Specialist or non-English copy",
+      "Unclear brief",
+      "Extra copy without explicit word blocks",
+      "Articles over 800 words",
+      "Stock images over 10",
+      "Edited images over 20",
+      "Nonstandard retouching"
+    ],
+    "readySuppliedContent": "Placement of approved, ready-to-use material is included; writing, extraction and extensive restructuring are different work."
+  },
+  "dependencyRules": [
+    {
+      "id": "blog_requires_cms",
+      "whenAnySelected": ["blog_basic", "blog_custom"],
+      "requireCapability": "cms",
+      "addPriceRefByPackage": {
+        "business": "items.cms",
+        "corporate": null,
+        "shopify": null,
+        "custom_web_app": null
+      },
+      "maximumCharges": 1
+    },
+    {
+      "id": "corporate_cms",
+      "package": "corporate",
+      "includes": ["cms"],
+      "suppressItemIds": ["cms"]
+    },
+    {
+      "id": "shopify_cms",
+      "package": "shopify",
+      "includes": ["shopify_admin"],
+      "suppressItemIds": ["cms"]
+    },
+    {
+      "id": "blog_migration_destination",
+      "whenSelected": "migration_blog",
+      "requireAny": ["blog_basic", "blog_custom"],
+      "onMissing": "needs_details; ask whether a new blog or a reviewed existing destination is required"
+    },
+    {
+      "id": "article_publishing",
+      "when": "content.publishArticles=true",
+      "requireAny": ["blog_basic", "blog_custom"],
+      "onMissing": "needs_details; do not silently include publishing setup"
+    }
+  ],
+  "overlapRules": [
+    {
+      "id": "form_tiers",
+      "itemIds": ["form_advanced", "form_multistep"],
+      "sameScopeResolution": "keep form_multistep only",
+      "differentScopes": "manual_review"
+    },
+    {
+      "id": "blog_tiers",
+      "itemIds": ["blog_basic", "blog_custom"],
+      "sameScopeResolution": "keep blog_custom only"
+    },
+    {
+      "id": "payment_tiers",
+      "itemIds": ["payment_hosted", "payment_custom", "payment_subscriptions", "payment_complex"],
+      "sameScopeResolution": "keep only explicitly selected highest-scope flow; unresolved alternatives require details"
+    },
+    {
+      "id": "shopify_checkout",
+      "package": "shopify",
+      "itemIds": ["payment_hosted", "payment_custom"],
+      "when": "paymentPurpose=standard_store_checkout",
+      "resolution": "suppress; standard gateway already included; customisations must be described and reviewed"
+    },
+    {
+      "id": "booking_checkout",
+      "itemIds": ["booking_embed", "payment_hosted"],
+      "when": "bookingProviderIncludesPayment=true and paymentPurpose=same_booking",
+      "resolution": "suppress payment_hosted"
+    },
+    {
+      "id": "page_feature",
+      "resolution": "Never infer a page uplift from a paid feature. If a described layout and feature cover the same work, hold disputed lines for review; do not invent a discount or count both."
+    },
+    {
+      "id": "integration_duplicates",
+      "resolution": "The newsletter service has one item ID. CRM/API/automation or multiple connectors covering the same workflow require scope review; hold overlapping lines pending a distinct-work assessment."
+    },
+    {
+      "id": "visibility_overlap",
+      "itemIds": [
+        "seo_advanced",
+        "aeo_advanced",
+        "geo_advanced",
+        "local_seo",
+        "business_profile",
+        "directories"
+      ],
+      "resolution": "One optional service may be priced for its defined incremental scope. Two or more potentially overlapping visibility services require review before a combined price; do not simply add list prices. Essentials are never charged again."
+    },
+    {
+      "id": "migration_extraction",
+      "itemIds": [
+        "migration_pages_small",
+        "migration_pages_medium",
+        "migration_blog",
+        "product_csv"
+      ],
+      "resolution": "Page migration tiers are alternatives. Exclude article/product records from page counts. The same records cannot incur both CSV import and per-product entry; unresolved overlap requires review."
+    },
+    {
+      "id": "hosting_bundles",
+      "resolution": "Choose exactly one optional plan. Care/Care Plus already includes compatible hosting; no extra £19 hosting line. Shopify subscription provides store hosting."
+    },
+    {
+      "id": "defect_maintenance",
+      "resolution": "Warranty defects and technical work already covered by the selected maintenance plan are never billable as extra minor hours."
+    }
+  ],
+  "shopifyRules": {
+    "onlyForPackage": "shopify",
+    "includedInitialProducts": 20,
+    "input": "Explicit included simple/variable counts plus extra simple/variable counts. Included counts sum to at most 20. Extra entries cannot be charged while allowance remains unused.",
+    "formula": "extraSimple * 1000 + extraVariable * 2000",
+    "mixedProducts": "Ask the customer to identify which listings FinTaxTech should set up first within the 20 included slots; do not silently allocate cheaper or more expensive listings to the allowance.",
+    "csv": "One reviewed alternative to manual entry for the same records; not an additional automatic surcharge.",
+    "complex": "Complex products need assessment even if they fall within the first 20 listings.",
+    "selfManaged": "Customer-added products after handover do not incur FinTaxTech setup fees.",
+    "excludedProviderCosts": [
+      "Shopify subscription",
+      "Paid themes and apps",
+      "Payment processing fees",
+      "Domain registration"
+    ],
+    "customFeatures": "Standard store checkout/admin is included. Custom checkout, apps, inventory synchronisation or account workflows require technical review."
+  },
+  "migrationRules": {
+    "newBuildAndRebuildSamePrice": true,
+    "redesignSurchargeMinor": 0,
+    "minorRefreshOffered": false,
+    "contentPageBands": [
+      {
+        "min": 1,
+        "max": 5,
+        "priceRef": "items.migration_pages_small"
+      },
+      {
+        "min": 6,
+        "max": 20,
+        "priceRef": "items.migration_pages_medium"
+      }
+    ],
+    "blogBand": {
+      "min": 1,
+      "max": 20,
+      "priceRef": "items.migration_blog"
+    },
+    "largerOrUnknown": "Requires Review; no automatic batch multiplication",
+    "onlyChargeExtractionOrImport": true,
+    "included": [
+      "Standard new website launch",
+      "Standard existing domain connection",
+      "Placement of ready-to-use customer-supplied content",
+      "Up to 10 standard redirects for a rebuild where technically supported"
+    ],
+    "hostingMigration": "£149 only for actually moving an existing compatible website/service, not launching the new build. Shopify platform migration is reviewed.",
+    "standaloneDns": "£99 catalogue rate retained but hidden in this complete-build journey, because standard domain connection is included.",
+    "reviewChecks": [
+      "Ownership and access",
+      "Exportability and platform restrictions",
+      "Data quality",
+      "DNS/email impact",
+      "URL/SEO preservation",
+      "Redirect support and counts",
+      "Product/customer/order-data handling",
+      "Records overlapping other import/entry services"
+    ]
+  },
+  "visibilityRules": {
+    "default": "essential",
+    "includedInPackages": ["business", "corporate", "shopify"],
+    "essentialExtraMinor": 0,
+    "customerNames": ["SEO", "AEO", "GEO"],
+    "technicalDeliverySpecification": [
+      "Metadata",
+      "Appropriate structured data",
+      "Google Search Console setup",
+      "sitemap.xml",
+      "robots.txt",
+      "llms.txt",
+      "Public business and service summaries"
+    ],
+    "technicalFilenamesInQuestionnaire": false,
+    "recommendationChoice": "Requires Review; ask about goals, audience, location and priorities, with no invented automatic price.",
+    "guarantees": "No guarantee of rankings, traffic, AI citations or inclusion in generated answers.",
+    "essentialsScope": "Foundational website setup; ongoing campaigns and advanced optimisation are separate."
+  },
+  "supportRules": {
+    "optional": true,
+    "singlePlanOnly": true,
+    "extraMinorRateRef": "items.minor_work",
+    "urgentRateRef": "items.urgent_work",
+    "urgentSubjectToAvailability": true,
+    "billableExtraMinutesFormula": "max(0, qualifyingMinorUpdateMinutes - selectedPlan.minorUpdateMinutes)",
+    "qualifyingMinorUpdateMinutes": "Exclude warranty defects, included technical maintenance and work outside minor-content/store-update scope before subtracting the allowance.",
+    "approvalRequiredBeforeWorkAndCharge": true,
+    "approvalProcess": [
+      "Identify work outside included obligations",
+      "Provide scoped price/time estimate",
+      "Obtain customer approval of scope, rate and limit",
+      "Only then perform and bill agreed excess work"
+    ],
+    "unapprovedExcess": {
+      "chargeMinor": null,
+      "display": "Additional work requires a separate estimate and approval; no charge authorised."
+    },
+    "billingIncrementMinutes": null,
+    "unusedAllowanceRollover": null,
+    "responseTimeSla": null,
+    "unconfiguredTermsPolicy": "Billing increments, rollover, SLA and minimum term were not approved. Do not invent them; agree applicable terms separately. Priority is not a guaranteed response deadline.",
+    "wholeHourExampleFormula": "monthly plan + (qualifying hours minus included hours, floored at 0) * agreed hourly rate; illustrative only until approved",
+    "majorChanges": "New features, redesigns and major changes require a separate quote, not automatic hourly billing."
+  },
+  "commercialTerms": {
+    "estimateOnly": true,
+    "paymentSchedule": [
+      {
+        "id": "deposit",
+        "percent": 50,
+        "due": "Before work starts"
+      },
+      {
+        "id": "design_approval",
+        "percent": 30,
+        "due": "After design approval"
+      },
+      {
+        "id": "pre_launch",
+        "percent": 20,
+        "due": "Before final launch or handover"
+      }
+    ],
+    "milestoneBasis": "Agreed one-time project price; recurring and third-party charges are separate. Example milestones use the complete pre-tax estimate only. Final tax treatment follows the agreement/invoice.",
+    "milestoneRounding": "Round first two instalments to nearest penny, half up; final instalment is the remainder so they sum exactly to the agreed basis.",
+    "customOrLargeProjects": "Price, scope, timeline, revisions and milestone schedule agreed separately after review.",
+    "warranty": {
+      "days": 30,
+      "starts": "Launch or formal handover",
+      "covers": "Defects in FinTaxTech's delivered work against the approved specification",
+      "excludes": [
+        "New requirements",
+        "Customer changes",
+        "Unsupported modifications",
+        "Third-party failures",
+        "Domain/platform problems outside delivered work"
+      ]
+    },
+    "revisionDefinition": "One consolidated set of feedback refining the agreed scope. Fixing an in-scope delivery defect is not a paid revision.",
+    "extraRevisionRef": "items.revision_extra",
+    "minorChangeRef": "items.minor_work",
+    "urgentWorkRef": "items.urgent_work",
+    "extraDesignConceptRef": "items.design_concept",
+    "scopeChanges": "Separately scoped, quoted and approved before work or charges.",
+    "timelineStartsAfter": [
+      "Required content and assets",
+      "Required account access",
+      "Necessary approvals",
+      "Agreed deposit and start date"
+    ],
+    "timelineQualification": "Estimates depend on capacity and complete customer inputs. Customer delays and complex add-ons can move delivery dates; add-on extensions need review, not an invented fixed duration.",
+    "customerResponsibilities": [
+      "Supply and approve content and assets",
+      "Provide authorised account access",
+      "Supply consolidated feedback and approvals",
+      "Own or license supplied materials"
+    ],
+    "ownership": "Document ownership, handover and third-party licence restrictions in the customer agreement. Customer owns their domain/platform accounts; no account credentials belong in this configuration or questionnaire.",
+    "excludedUnlessStated": [
+      "Domain registration",
+      "Paid hosting/platform services",
+      "Ongoing maintenance",
+      "Paid tools/themes/plugins",
+      "Shopify subscription",
+      "Transaction fees",
+      "Translation",
+      "Specialist professional review"
+    ],
+    "noContractOrReservationFromPdf": true
+  },
+  "brandingPromotion": {
+    "separateService": true,
+    "includeInWebsiteTotal": false,
+    "logoStartingAtMinor": 9900,
+    "brandIdentityStartingAtMinor": 29900,
+    "urlConfigRef": "services.json#brandingCta.url"
+  },
+  "examples": [
+    {
+      "id": "example_01",
+      "name": "Business baseline",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": 99900,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [49950, 29970, 19980],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_02",
+      "name": "One extra standard page",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "six",
+            "name": "FAQs",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 114800,
+        "fullTotalMinor": 114800,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "page_standard",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [57400, 34440, 22960],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_03",
+      "name": "Reviewed enhanced included page",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "special",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "specialDetails": "Front-end interactive presentation"
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "externalReviewFixture": {
+        "page_0": "enhanced"
+      },
+      "expected": {
+        "knownSubtotalMinor": 114900,
+        "fullTotalMinor": 114900,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "page_upgrade_enhanced",
+            "quantity": 1,
+            "amountMinor": 15000,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [57450, 34470, 22980],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_04",
+      "name": "Reviewed advanced included page",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "special",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "specialDetails": "Front-end interactive presentation"
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "externalReviewFixture": {
+        "page_0": "advanced"
+      },
+      "expected": {
+        "knownSubtotalMinor": 134900,
+        "fullTotalMinor": 134900,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "page_upgrade_advanced",
+            "quantity": 1,
+            "amountMinor": 35000,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [67450, 40470, 26980],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_05",
+      "name": "Business plus CMS and basic blog",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "role": "blog_listing"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["blog_basic"],
+        "featureDetails": {
+          "cms": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          },
+          "blog_basic": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 179700,
+        "fullTotalMinor": 179700,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "blog_basic",
+            "quantity": 1,
+            "amountMinor": 19900,
+            "status": "priced"
+          },
+          {
+            "id": "cms",
+            "quantity": 1,
+            "amountMinor": 59900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [89850, 53910, 35940],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_06",
+      "name": "Business blog automatically adds CMS once",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "role": "blog_listing"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["blog_basic"],
+        "featureDetails": {
+          "cms": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          },
+          "blog_basic": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 179700,
+        "fullTotalMinor": 179700,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "blog_basic",
+            "quantity": 1,
+            "amountMinor": 19900,
+            "status": "priced"
+          },
+          {
+            "id": "cms",
+            "quantity": 1,
+            "amountMinor": 59900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [89850, 53910, 35940],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_07",
+      "name": "Corporate includes CMS; blog only adds £199",
+      "input": {
+        "packageId": "corporate",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_5",
+            "name": "Page 6",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_6",
+            "name": "Page 7",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_7",
+            "name": "Page 8",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_8",
+            "name": "Page 9",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_9",
+            "name": "Page 10",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "role": "blog_listing"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["cms", "blog_basic"],
+        "featureDetails": {
+          "blog_basic": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 219800,
+        "fullTotalMinor": 219800,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "corporate",
+            "amountMinor": 199900,
+            "status": "priced"
+          },
+          {
+            "id": "blog_basic",
+            "quantity": 1,
+            "amountMinor": 19900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [109900, 65940, 43960],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_08",
+      "name": "Corporate with selected included CMS",
+      "input": {
+        "packageId": "corporate",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_5",
+            "name": "Page 6",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_6",
+            "name": "Page 7",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_7",
+            "name": "Page 8",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_8",
+            "name": "Page 9",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_9",
+            "name": "Page 10",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["cms"],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 199900,
+        "fullTotalMinor": 199900,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "corporate",
+            "amountMinor": 199900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [99950, 59970, 39980],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_09",
+      "name": "Shopify 20 included plus 3 simple and 2 variable; Store Care",
+      "input": {
+        "packageId": "shopify",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "checkout",
+            "name": "Checkout",
+            "role": "checkout",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["cms", "payment_hosted"],
+        "featureDetails": {
+          "payment_hosted": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "paymentPurpose": "standard_store_checkout"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "website_care_plus"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        },
+        "shopify": {
+          "method": "manual",
+          "includedSimple": 15,
+          "includedVariable": 5,
+          "extraSimple": 3,
+          "extraVariable": 2,
+          "complexCount": 0,
+          "details": "Standard products; supplied descriptions, images and variation data"
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 306900,
+        "fullTotalMinor": 306900,
+        "monthlySubtotalMinor": 14900,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "shopify",
+            "amountMinor": 299900,
+            "status": "priced"
+          },
+          {
+            "id": "product_simple",
+            "quantity": 3,
+            "amountMinor": 3000,
+            "status": "priced"
+          },
+          {
+            "id": "product_variable",
+            "quantity": 2,
+            "amountMinor": 4000,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [153450, 92070, 61380],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_10",
+      "name": "Shopify has no duplicate CMS or standard checkout fee",
+      "input": {
+        "packageId": "shopify",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "checkout",
+            "name": "Checkout",
+            "role": "checkout",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["cms", "payment_hosted"],
+        "featureDetails": {
+          "payment_hosted": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "paymentPurpose": "standard_store_checkout"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "website_care_plus"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        },
+        "shopify": {
+          "method": "manual",
+          "includedSimple": 15,
+          "includedVariable": 5,
+          "extraSimple": 3,
+          "extraVariable": 2,
+          "complexCount": 0,
+          "details": "Standard products; supplied descriptions, images and variation data"
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 306900,
+        "fullTotalMinor": 306900,
+        "monthlySubtotalMinor": 14900,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "shopify",
+            "amountMinor": 299900,
+            "status": "priced"
+          },
+          {
+            "id": "payment_hosted",
+            "amountMinor": 0,
+            "status": "included_in_shopify_checkout"
+          },
+          {
+            "id": "product_simple",
+            "quantity": 3,
+            "amountMinor": 3000,
+            "status": "priced"
+          },
+          {
+            "id": "product_variable",
+            "quantity": 2,
+            "amountMinor": 4000,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [153450, 92070, 61380],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_11",
+      "name": "Shopify checkout screen does not consume a page",
+      "input": {
+        "packageId": "shopify",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "checkout",
+            "name": "Checkout",
+            "role": "checkout",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["cms", "payment_hosted"],
+        "featureDetails": {
+          "payment_hosted": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "paymentPurpose": "standard_store_checkout"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "website_care_plus"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        },
+        "shopify": {
+          "method": "manual",
+          "includedSimple": 15,
+          "includedVariable": 5,
+          "extraSimple": 3,
+          "extraVariable": 2,
+          "complexCount": 0,
+          "details": "Standard products; supplied descriptions, images and variation data"
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 306900,
+        "fullTotalMinor": 306900,
+        "monthlySubtotalMinor": 14900,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "shopify",
+            "amountMinor": 299900,
+            "status": "priced"
+          },
+          {
+            "id": "payment_hosted",
+            "amountMinor": 0,
+            "status": "included_in_shopify_checkout"
+          },
+          {
+            "id": "product_simple",
+            "quantity": 3,
+            "amountMinor": 3000,
+            "status": "priced"
+          },
+          {
+            "id": "product_variable",
+            "quantity": 2,
+            "amountMinor": 4000,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [153450, 92070, 61380],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_12",
+      "name": "Reject static hosting plan for Shopify",
+      "input": {
+        "packageId": "shopify",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "checkout",
+            "name": "Checkout",
+            "role": "checkout",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["cms", "payment_hosted"],
+        "featureDetails": {
+          "payment_hosted": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "paymentPurpose": "standard_store_checkout"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "website_care_plus"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        },
+        "shopify": {
+          "method": "manual",
+          "includedSimple": 15,
+          "includedVariable": 5,
+          "extraSimple": 3,
+          "extraVariable": 2,
+          "complexCount": 0,
+          "details": "Standard products; supplied descriptions, images and variation data"
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 306900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": null,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "shopify",
+            "amountMinor": 299900,
+            "status": "priced"
+          },
+          {
+            "id": "payment_hosted",
+            "amountMinor": 0,
+            "status": "included_in_shopify_checkout"
+          },
+          {
+            "id": "product_simple",
+            "quantity": 3,
+            "amountMinor": 3000,
+            "status": "priced"
+          },
+          {
+            "id": "product_variable",
+            "quantity": 2,
+            "amountMinor": 4000,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": ["Incompatible support plan"],
+        "milestonesMinor": null,
+        "status": "invalid_input"
+      }
+    },
+    {
+      "id": "example_13",
+      "name": "Reject Shopify-only support for Business",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "shopify_care"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": null,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": ["Incompatible support plan"],
+        "milestonesMinor": null,
+        "status": "invalid_input"
+      }
+    },
+    {
+      "id": "example_14",
+      "name": "API from £999 stays pending, not free",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["api"],
+        "featureDetails": {
+          "api": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "api",
+            "amountMinor": null,
+            "startingAtMinor": 99900,
+            "status": "requires_review"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "api",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          },
+          {
+            "id": "api",
+            "message": "Technical assessment required before price confirmation",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_15",
+      "name": "Unpriced custom booking keeps full price pending",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["booking_custom"],
+        "featureDetails": {
+          "booking_custom": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "booking_custom",
+            "amountMinor": null,
+            "startingAtMinor": null,
+            "status": "requires_review"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "booking_custom",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_16",
+      "name": "Same form workflow charged once at multi-step tier",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["form_advanced", "form_multistep"],
+        "featureDetails": {
+          "form_advanced": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          },
+          "form_multistep": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 159800,
+        "fullTotalMinor": 159800,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "form_multistep",
+            "quantity": 1,
+            "amountMinor": 59900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [79900, 47940, 31960],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_17",
+      "name": "Booking with provider checkout prevents duplicate payment fee",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["booking_embed", "payment_hosted"],
+        "featureDetails": {
+          "booking_embed": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "bookingProviderIncludesPayment": false
+          },
+          "payment_hosted": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "paymentPurpose": "same_booking"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 129800,
+        "fullTotalMinor": 129800,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "booking_embed",
+            "quantity": 1,
+            "amountMinor": 29900,
+            "status": "priced"
+          },
+          {
+            "id": "payment_hosted",
+            "amountMinor": 0,
+            "status": "covered_by_booking_provider"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [64900, 38940, 25960],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_18",
+      "name": "Distinct booking and hosted payment work",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["booking_embed", "payment_hosted"],
+        "featureDetails": {
+          "booking_embed": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "bookingProviderIncludesPayment": false
+          },
+          "payment_hosted": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "paymentPurpose": "same_booking"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 159700,
+        "fullTotalMinor": 159700,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "booking_embed",
+            "quantity": 1,
+            "amountMinor": 29900,
+            "status": "priced"
+          },
+          {
+            "id": "payment_hosted",
+            "quantity": 1,
+            "amountMinor": 29900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [79850, 47910, 31940],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_19",
+      "name": "Approved landscaping example",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["form_advanced", "gallery_filterable", "newsletter"],
+        "featureDetails": {
+          "form_advanced": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          },
+          "gallery_filterable": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          },
+          "newsletter": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 164600,
+        "fullTotalMinor": 164600,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "form_advanced",
+            "quantity": 1,
+            "amountMinor": 29900,
+            "status": "priced"
+          },
+          {
+            "id": "gallery_filterable",
+            "quantity": 1,
+            "amountMinor": 24900,
+            "status": "priced"
+          },
+          {
+            "id": "newsletter",
+            "quantity": 1,
+            "amountMinor": 9900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [82300, 49380, 32920],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_20",
+      "name": "Five-page copywriting",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 1,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 174400,
+        "fullTotalMinor": 174400,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [87200, 52320, 34880],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_21",
+      "name": "Additional word block excludes first 500 words",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 1,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "write",
+            "extraWordBlocks": 0,
+            "contentBrief": "Supplied business brief"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 184300,
+        "fullTotalMinor": 184300,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "long_form",
+            "quantity": 1,
+            "amountMinor": 9900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          },
+          {
+            "id": "copywriting",
+            "quantity": 1,
+            "amountMinor": 14900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [92150, 55290, 36860],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_22",
+      "name": "Single image bundles at their limits",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 11,
+          "editImageCount": 20
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 114700,
+        "fullTotalMinor": 114700,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "stock_images",
+            "quantity": 1,
+            "amountMinor": 4900,
+            "status": "priced"
+          },
+          {
+            "id": "image_editing",
+            "quantity": 1,
+            "amountMinor": 9900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [57350, 34410, 22940],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_23",
+      "name": "Stock images beyond bundle require review",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 11,
+          "editImageCount": 20
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 109800,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "content_review",
+            "amountMinor": null,
+            "startingAtMinor": null,
+            "status": "requires_review"
+          },
+          {
+            "id": "image_editing",
+            "quantity": 1,
+            "amountMinor": 9900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "content_review",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          },
+          {
+            "id": "stockImageCount",
+            "message": "Quantity exceeds one approved bundle; request a scoped price",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_24",
+      "name": "Five-page extraction and ten included redirects",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "yes",
+          "details": {
+            "scope": "Extract old ordinary-page text and images",
+            "technicalNotes": "Compatible accessible website; no email or platform move",
+            "pageCount": 21,
+            "articleCount": 0,
+            "redirectCount": 10,
+            "redirectsSupported": true,
+            "moveExistingService": false,
+            "accessConfirmed": "yes"
+          }
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 119800,
+        "fullTotalMinor": 119800,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "migration_pages_small",
+            "quantity": 1,
+            "amountMinor": 19900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [59900, 35940, 23960],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_25",
+      "name": "Six-page extraction selects one migration band",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "yes",
+          "details": {
+            "scope": "Extract old ordinary-page text and images",
+            "technicalNotes": "Compatible accessible website; no email or platform move",
+            "pageCount": 21,
+            "articleCount": 0,
+            "redirectCount": 10,
+            "redirectsSupported": true,
+            "moveExistingService": false,
+            "accessConfirmed": "yes"
+          }
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 149800,
+        "fullTotalMinor": 149800,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "migration_pages_medium",
+            "quantity": 1,
+            "amountMinor": 49900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [74900, 44940, 29960],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_26",
+      "name": "Larger extraction is not silently repeated in batches",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "yes",
+          "details": {
+            "scope": "Extract old ordinary-page text and images",
+            "technicalNotes": "Compatible accessible website; no email or platform move",
+            "pageCount": 21,
+            "articleCount": 0,
+            "redirectCount": 10,
+            "redirectsSupported": true,
+            "moveExistingService": false,
+            "accessConfirmed": "yes"
+          }
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "migration_complex",
+            "amountMinor": null,
+            "startingAtMinor": null,
+            "status": "requires_review"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "migration_complex",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_27",
+      "name": "Overlapping SEO/AEO/GEO combined price held for review",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "advanced",
+          "services": ["seo_advanced"],
+          "goals": "Local leads and answer-oriented content"
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "seo_advanced",
+            "amountMinor": null,
+            "startingAtMinor": 39900,
+            "status": "overlap_review_not_summed"
+          },
+          {
+            "id": "aeo_advanced",
+            "amountMinor": null,
+            "startingAtMinor": 29900,
+            "status": "overlap_review_not_summed"
+          },
+          {
+            "id": "geo_advanced",
+            "amountMinor": null,
+            "startingAtMinor": 39900,
+            "status": "overlap_review_not_summed"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "visibility_overlap",
+            "message": "Potentially shared audits/content need scope review; combined price pending",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_28",
+      "name": "One defined advanced SEO service",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "advanced",
+          "services": ["seo_advanced"],
+          "goals": "Local leads and answer-oriented content"
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 139800,
+        "fullTotalMinor": 139800,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "seo_advanced",
+            "quantity": 1,
+            "amountMinor": 39900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [69900, 41940, 27960],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_29",
+      "name": "Visibility recommendation needs review, not free work",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "recommend",
+          "services": [],
+          "goals": "Recommend services for local lead generation"
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "visibility_review",
+            "amountMinor": null,
+            "startingAtMinor": null,
+            "status": "requires_review"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "visibility_review",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_30",
+      "name": "Unclear layout requests details",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "unsure",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "specialDetails": ""
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "page_review",
+            "amountMinor": null,
+            "startingAtMinor": null,
+            "status": "requires_review"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "page_review",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          },
+          {
+            "id": "page_0",
+            "message": "Describe the special page requirement",
+            "needsDetails": true
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "needs_details"
+      }
+    },
+    {
+      "id": "example_31",
+      "name": "Custom application has no invented price",
+      "input": {
+        "packageId": "custom_web_app",
+        "customAppBrief": "A described custom application",
+        "pages": [],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": null,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [],
+        "reviewFlags": [
+          {
+            "id": "custom_web_app",
+            "message": "Custom application requires a technical quotation",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_32",
+      "name": "Unknown feature rejected instead of free",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["unpriced_unknown_feature"],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": ["Unknown feature: unpriced_unknown_feature"],
+        "milestonesMinor": null,
+        "status": "invalid_input"
+      }
+    },
+    {
+      "id": "example_33",
+      "name": "Negative quantity rejected",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": -1
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": ["extraWordBlocks must be a nonnegative integer"],
+        "milestonesMinor": null,
+        "status": "invalid_input"
+      }
+    },
+    {
+      "id": "example_34",
+      "name": "Duplicate feature input rejected",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["cms", "cms"],
+        "featureDetails": {
+          "cms": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 159800,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "cms",
+            "quantity": 1,
+            "amountMinor": 59900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": ["Duplicate feature ID"],
+        "milestonesMinor": null,
+        "status": "invalid_input"
+      }
+    },
+    {
+      "id": "example_35",
+      "name": "Boolean is not a valid quantity",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": true,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": ["stockImageCount must be a nonnegative integer"],
+        "milestonesMinor": null,
+        "status": "invalid_input"
+      }
+    },
+    {
+      "id": "example_36",
+      "name": "CSV reviewed alternative avoids per-product double charge",
+      "input": {
+        "packageId": "shopify",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        },
+        "shopify": {
+          "method": "csv",
+          "includedSimple": 20,
+          "includedVariable": 0,
+          "extraSimple": 50,
+          "extraVariable": 0,
+          "complexCount": 0,
+          "details": "Supplied CSV for all records"
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 299900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "shopify",
+            "amountMinor": 299900,
+            "status": "priced"
+          },
+          {
+            "id": "product_csv",
+            "amountMinor": null,
+            "startingAtMinor": 19900,
+            "status": "requires_review"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "product_csv",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_37",
+      "name": "Additional revision and design concept",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 1,
+          "extraConcepts": 1
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 129700,
+        "fullTotalMinor": 129700,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "revision_extra",
+            "quantity": 1,
+            "amountMinor": 9900,
+            "status": "priced"
+          },
+          {
+            "id": "design_concept",
+            "quantity": 1,
+            "amountMinor": 19900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [64850, 38910, 25940],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_38",
+      "name": "Shared CRM/API workflow holds overlapping lines",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["crm", "api"],
+        "featureDetails": {
+          "crm": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "sameWorkflowAs": "api"
+          },
+          "api": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider",
+            "sameWorkflowAs": "crm"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "api",
+            "amountMinor": null,
+            "startingAtMinor": 99900,
+            "status": "overlap_review_not_summed"
+          },
+          {
+            "id": "crm",
+            "amountMinor": null,
+            "startingAtMinor": 49900,
+            "status": "overlap_review_not_summed"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "integration_overlap",
+            "message": "Shared workflow needs distinct-work review; disputed lines are not summed",
+            "needsDetails": false
+          },
+          {
+            "id": "api",
+            "message": "Technical assessment required before price confirmation",
+            "needsDetails": false
+          },
+          {
+            "id": "integration_overlap",
+            "message": "Shared workflow needs distinct-work review",
+            "needsDetails": false
+          },
+          {
+            "id": "integration_overlap",
+            "message": "Shared workflow needs distinct-work review; disputed lines are not summed",
+            "needsDetails": false
+          },
+          {
+            "id": "integration_overlap",
+            "message": "Shared workflow needs distinct-work review",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_39",
+      "name": "Basic and custom blog resolve to one custom blog",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "role": "blog_listing"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["blog_basic", "blog_custom"],
+        "featureDetails": {
+          "blog_custom": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 199700,
+        "fullTotalMinor": 199700,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "blog_custom",
+            "quantity": 1,
+            "amountMinor": 39900,
+            "status": "priced"
+          },
+          {
+            "id": "cms",
+            "quantity": 1,
+            "amountMinor": 59900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [99850, 59910, 39940],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "example_40",
+      "name": "Language setup from £499 stays pending",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "advanced",
+          "services": ["language"],
+          "goals": "Serve a second language",
+          "languageDetails": "French version, translation to be arranged"
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 99900,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "language",
+            "amountMinor": null,
+            "startingAtMinor": 49900,
+            "status": "requires_review"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "language",
+            "message": "Requires Review; not included in known priced subtotal",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_41",
+      "name": "Custom payment list price requires technical assessment",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": ["payment_custom"],
+        "featureDetails": {
+          "payment_custom": {
+            "purpose": "A distinct website workflow",
+            "scope": "Standard supported configuration",
+            "provider": "Customer's supported provider"
+          }
+        },
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "expected": {
+        "knownSubtotalMinor": 199800,
+        "fullTotalMinor": null,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "payment_custom",
+            "quantity": 1,
+            "amountMinor": 99900,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [
+          {
+            "id": "payment_custom",
+            "message": "Technical assessment required before price confirmation",
+            "needsDetails": false
+          }
+        ],
+        "validationErrors": [],
+        "milestonesMinor": null,
+        "status": "requires_review"
+      }
+    },
+    {
+      "id": "example_42",
+      "name": "Extra and upgraded pages use one allowance credit each",
+      "input": {
+        "packageId": "business",
+        "customAppBrief": "",
+        "pages": [
+          {
+            "id": "page_0",
+            "name": "Page 1",
+            "layoutNeeds": "special",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "specialDetails": "Enhanced layout"
+          },
+          {
+            "id": "page_1",
+            "name": "Page 2",
+            "layoutNeeds": "special",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0,
+            "specialDetails": "Advanced layout"
+          },
+          {
+            "id": "page_2",
+            "name": "Page 3",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_3",
+            "name": "Page 4",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "page_4",
+            "name": "Page 5",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied",
+            "extraWordBlocks": 0
+          },
+          {
+            "id": "extra_0",
+            "name": "Extra 0",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied"
+          },
+          {
+            "id": "extra_1",
+            "name": "Extra 1",
+            "layoutNeeds": "standard",
+            "contentMode": "supplied"
+          }
+        ],
+        "content": {
+          "blogArticleCount": 0,
+          "publishArticles": false,
+          "stockImageCount": 0,
+          "editImageCount": 0
+        },
+        "features": [],
+        "featureDetails": {},
+        "visibility": {
+          "mode": "essential",
+          "services": []
+        },
+        "migration": {
+          "required": "no"
+        },
+        "support": {
+          "planId": "none"
+        },
+        "projectExtras": {
+          "extraRevisionRounds": 0,
+          "extraConcepts": 0
+        }
+      },
+      "externalReviewFixture": {
+        "page_0": "enhanced",
+        "page_1": "advanced"
+      },
+      "expected": {
+        "knownSubtotalMinor": 179700,
+        "fullTotalMinor": 179700,
+        "monthlySubtotalMinor": 0,
+        "taxMinor": null,
+        "grossTotalMinor": null,
+        "lines": [
+          {
+            "id": "business",
+            "amountMinor": 99900,
+            "status": "priced"
+          },
+          {
+            "id": "page_standard",
+            "quantity": 2,
+            "amountMinor": 29800,
+            "status": "priced"
+          },
+          {
+            "id": "page_upgrade_enhanced",
+            "quantity": 1,
+            "amountMinor": 15000,
+            "status": "priced"
+          },
+          {
+            "id": "page_upgrade_advanced",
+            "quantity": 1,
+            "amountMinor": 35000,
+            "status": "priced"
+          }
+        ],
+        "reviewFlags": [],
+        "validationErrors": [],
+        "milestonesMinor": [89850, 53910, 35940],
+        "status": "estimated"
+      }
+    },
+    {
+      "id": "support_five_hours",
+      "name": "Care Plus, five hours of qualifying minor work",
+      "qualifyingMinutes": 300,
+      "includedMinutes": 60,
+      "excessMinutes": 240,
+      "rateMinorPerHour": 4900,
+      "planMinor": 9900,
+      "illustrativeApprovedTotalMinor": 29500,
+      "unapprovedChargeMinor": null,
+      "notice": "Illustrative at an agreed £49/hour; additional work requires a scoped estimate and advance approval. Excludes warranty defects and included maintenance. No billing increment or rollover policy is assumed."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import EstimateShell from '../../components/EstimateShell.astro';
+import { websiteEstimateCopy as c } from '../../content/website-estimate';
+---
+
+<SiteLayout title={c.title} description={c.description} noindex>
+  <EstimateShell kind="website" copy={c} />
+</SiteLayout>
+<script>
+  import '../../scripts/website-estimate';
+</script>

@@ -1,3 +1,4 @@
+import { websiteEstimateCopy } from './website-estimate';
 import { mobileEstimateCopy } from './mobile-estimate';
 import { brandingEstimateCopy } from './branding-estimate';
 import { motionGallery, threeDGallery, allTemplates, barberRedirect } from './templates';
@@ -29,6 +30,12 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [websiteEstimateCopy.route]: {
+    title: websiteEstimateCopy.title,
+    description: websiteEstimateCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
   [mobileEstimateCopy.route]: {
     title: mobileEstimateCopy.title,
     description: mobileEstimateCopy.description,

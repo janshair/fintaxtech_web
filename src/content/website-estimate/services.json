@@ -1,0 +1,1169 @@
+{
+  "schemaVersion": "1.0.0",
+  "configId": "fintaxtech-website-quotation",
+  "pairedFile": "pricing.json",
+  "brand": "FinTaxTech",
+  "source": "User-supplied approved specification, sections 1–14, 30 October 2026",
+  "locale": "en-GB",
+  "runtime": {
+    "mode": "static_client_side",
+    "api": null,
+    "backend": null,
+    "emailSubmission": false,
+    "serverSubmission": false,
+    "liveEstimate": true,
+    "pdfGeneration": "client_side",
+    "preserveAnswersAcrossSteps": true,
+    "persistence": "in_memory_per_open_tab",
+    "persistentStorageDefault": false,
+    "network": "Load public static configuration/assets only. Never transmit questionnaire answers, PDF contents or field values to APIs, email, analytics or another server.",
+    "scopeOfStaticConstraint": "The estimator uses no API or email. Integrations, contact delivery and store notifications selected as customer-project requirements are separately scoped deliverables, not actions performed by this estimator.",
+    "publicConfigurationNotice": "Both JSON files can be viewed by visitors. File separation does not make prices confidential.",
+    "untrustedText": "Render customer text as text, not HTML; do not execute expressions supplied in answers."
+  },
+  "conditionContract": {
+    "fieldPaths": "Dot-separated paths in answerModel; $row refers to a repeatable row.",
+    "operators": {
+      "eq": "Strict equality",
+      "in": "Field value is in the given array",
+      "contains": "Array contains the given value",
+      "notEmpty": "Non-empty trimmed string or array",
+      "gt": "Numeric greater than",
+      "true": "Boolean true"
+    },
+    "combination": "all: every child condition; any: at least one; not: negate one condition. Missing values never satisfy conditions except explicit missing-validation rules.",
+    "hiddenAnswers": "Preserve inactive answers locally so returning to a choice restores them, but exclude all inactive branches from pricing and PDF. Reject incompatible imported selections; never silently price hidden Shopify options.",
+    "defaults": "Apply only on first entry or explicit reset; never overwrite an existing answer."
+  },
+  "packageOptions": [
+    {
+      "id": "business",
+      "label": "Business Website",
+      "priceRef": "packages.business",
+      "summary": "A professional small-business website with up to five standard pages."
+    },
+    {
+      "id": "corporate",
+      "label": "Corporate Website",
+      "priceRef": "packages.corporate",
+      "summary": "Up to ten standard pages, editable content and a stronger branded presence."
+    },
+    {
+      "id": "shopify",
+      "label": "Shopify E-commerce",
+      "priceRef": "packages.shopify",
+      "summary": "A Shopify store with twenty initial product listings and up to five informational pages."
+    },
+    {
+      "id": "custom_web_app",
+      "label": "Custom Web Application",
+      "priceRef": "packages.custom_web_app",
+      "summary": "A bespoke portal, platform or application requiring a technical quotation."
+    }
+  ],
+  "capabilityLabels": {
+    "responsive": "Responsive design for phones, tablets and computers",
+    "branded_layouts": "Professional branded layouts",
+    "basic_contact": "Basic contact form",
+    "contact_links": "Clickable phone, email and WhatsApp links",
+    "social_links": "Social media links",
+    "testimonials": "Testimonials supplied by you",
+    "gallery_basic": "Basic image gallery",
+    "maps": "Business location map",
+    "cta": "Clear calls to action",
+    "essential_visibility": "Essential SEO, AEO and GEO",
+    "performance": "Performance fundamentals",
+    "accessibility": "Accessibility fundamentals",
+    "https": "Secure HTTPS setup",
+    "standard_launch": "Standard launch and existing domain connection",
+    "qa": "Standard testing before launch",
+    "ready_content": "Placement of ready-to-use content supplied by you",
+    "cms": "Edit existing page content yourself",
+    "premium_layouts": "Premium branded layouts using reusable components",
+    "case_studies": "Case studies and portfolios using standard layouts",
+    "analytics": "Basic analytics and search performance setup",
+    "cms_handover": "CMS handover",
+    "shopify_admin": "Shopify Admin for product, inventory and order management",
+    "storefront": "Shopify storefront",
+    "product_templates": "Standard product and catalogue layouts",
+    "cart_checkout": "Basket and checkout",
+    "standard_gateway": "One standard payment gateway",
+    "shipping_tax": "Standard shipping and tax configuration",
+    "inventory_orders": "Basic inventory and order management",
+    "product_search": "Product categories and search",
+    "training": "Basic store training and handover",
+    "order_notifications": "Standard store order notifications"
+  },
+  "customApplicationBehavior": {
+    "packageId": "custom_web_app",
+    "preserveSixStepNavigation": true,
+    "requirementsOnly": true,
+    "automaticAddonPricing": false,
+    "includedVisibilityClaim": false,
+    "monthlyPlanChoices": ["none"],
+    "visibilityStepCopy": "Describe your search visibility goals for the technical review; package inclusions and prices will be agreed separately.",
+    "estimateCopy": "Custom application — manual quotation required. Your requirements are recorded in this local PDF; no price or review has been confirmed."
+  },
+  "steps": [
+    {
+      "id": "website",
+      "number": 1,
+      "title": "Choose Your Website",
+      "questions": [
+        {
+          "id": "packageId",
+          "label": "What type of website do you need?",
+          "type": "single_choice",
+          "required": true,
+          "optionsRef": "packageOptions"
+        },
+        {
+          "id": "customAppBrief",
+          "label": "What should your application do, and who will use it?",
+          "type": "textarea",
+          "required": true,
+          "visibleWhen": {
+            "field": "packageId",
+            "op": "eq",
+            "value": "custom_web_app"
+          },
+          "help": "Describe users, main tasks, data, integrations and any deadline. We need to assess the scope before pricing.",
+          "reviewPriceRef": "items.custom_requirement"
+        }
+      ],
+      "scopeNote": "For new builds and complete rebuilds. Minor refreshes, repairs and improvements to inherited code are not offered in this quotation journey."
+    },
+    {
+      "id": "pages_content",
+      "number": 2,
+      "title": "Pages & Content",
+      "questions": [
+        {
+          "id": "pages",
+          "label": "What pages would you like?",
+          "type": "repeatable_pages",
+          "required": true,
+          "visibleWhen": {
+            "field": "packageId",
+            "op": "in",
+            "value": ["business", "corporate", "shopify"]
+          },
+          "suggestions": [
+            "Home",
+            "About",
+            "Services",
+            "Contact",
+            "Gallery",
+            "Portfolio",
+            "Testimonials",
+            "FAQs",
+            "Our Team",
+            "Pricing"
+          ],
+          "allowCustomNames": true,
+          "minRows": 1,
+          "help": "Choose names or add your own. Your package's included allowance is shown above; extra pages update the estimate.",
+          "rowFields": [
+            {
+              "id": "id",
+              "label": "Page reference",
+              "type": "generated_id",
+              "required": true
+            },
+            {
+              "id": "name",
+              "label": "Page name",
+              "type": "short_text",
+              "required": true
+            },
+            {
+              "id": "description",
+              "label": "What would you like on this page?",
+              "type": "textarea",
+              "required": false
+            },
+            {
+              "id": "layoutNeeds",
+              "label": "Does this page need a special layout or interaction?",
+              "type": "single_choice",
+              "required": true,
+              "default": "standard",
+              "options": [
+                {
+                  "id": "standard",
+                  "label": "A standard layout is fine"
+                },
+                {
+                  "id": "special",
+                  "label": "I need a tailored layout or interaction"
+                },
+                {
+                  "id": "unsure",
+                  "label": "I'm not sure"
+                }
+              ]
+            },
+            {
+              "id": "specialDetails",
+              "label": "Describe the special layout or interaction you need",
+              "type": "textarea",
+              "required": true,
+              "visibleWhen": {
+                "field": "$row.layoutNeeds",
+                "op": "in",
+                "value": ["special", "unsure"]
+              },
+              "help": "Tell us what visitors should see or do. FinTaxTech will assess the layout and any separate functionality.",
+              "reviewPriceRef": "items.page_review"
+            },
+            {
+              "id": "contentMode",
+              "label": "Who will prepare the text for this page?",
+              "type": "single_choice",
+              "required": true,
+              "default": "supplied",
+              "options": [
+                {
+                  "id": "supplied",
+                  "label": "I'll supply ready-to-use text",
+                  "priceRef": "items.ready_content"
+                },
+                {
+                  "id": "polish",
+                  "label": "Improve my existing text",
+                  "priceRef": "items.content_polish"
+                },
+                {
+                  "id": "write",
+                  "label": "Write up to 500 words from my brief",
+                  "priceRef": "items.copywriting"
+                },
+                {
+                  "id": "unsure",
+                  "label": "I need help deciding",
+                  "priceRef": "items.content_review"
+                }
+              ]
+            },
+            {
+              "id": "contentBrief",
+              "label": "What should the text cover?",
+              "type": "textarea",
+              "required": true,
+              "visibleWhen": {
+                "field": "$row.contentMode",
+                "op": "in",
+                "value": ["polish", "write", "unsure"]
+              }
+            },
+            {
+              "id": "extraWordBlocks",
+              "label": "Additional 500-word blocks beyond the included copywriting allowance",
+              "type": "integer",
+              "required": false,
+              "min": 0,
+              "default": 0,
+              "visibleWhen": {
+                "field": "$row.contentMode",
+                "op": "eq",
+                "value": "write"
+              },
+              "priceRef": "items.long_form",
+              "help": "Choose whole blocks only if you know the extra amount needed. Otherwise describe your needs for review."
+            }
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Additional content and images",
+          "type": "content_options",
+          "required": false,
+          "fields": [
+            {
+              "id": "blogArticleCount",
+              "label": "How many articles would you like us to write?",
+              "type": "integer",
+              "required": false,
+              "min": 0,
+              "default": 0,
+              "priceRef": "items.blog_article"
+            },
+            {
+              "id": "articleBrief",
+              "label": "Topics, audience and approximate article lengths",
+              "type": "textarea",
+              "required": true,
+              "visibleWhen": {
+                "field": "content.blogArticleCount",
+                "op": "gt",
+                "value": 0
+              }
+            },
+            {
+              "id": "publishArticles",
+              "label": "Should these articles be published on this new website?",
+              "type": "boolean",
+              "required": true,
+              "visibleWhen": {
+                "field": "content.blogArticleCount",
+                "op": "gt",
+                "value": 0
+              }
+            },
+            {
+              "id": "stockImageCount",
+              "label": "How many stock images should we source?",
+              "type": "integer",
+              "required": false,
+              "min": 0,
+              "default": 0,
+              "priceRef": "items.stock_images"
+            },
+            {
+              "id": "editImageCount",
+              "label": "How many supplied images should we edit and optimise?",
+              "type": "integer",
+              "required": false,
+              "min": 0,
+              "default": 0,
+              "priceRef": "items.image_editing"
+            },
+            {
+              "id": "otherDetails",
+              "label": "Any specialist content, other language, longer text or detailed image work?",
+              "type": "textarea",
+              "required": false,
+              "reviewPriceRef": "items.content_review"
+            }
+          ]
+        },
+        {
+          "id": "migration.required",
+          "label": "Do you need us to extract or transfer content or services from an existing website?",
+          "type": "single_choice",
+          "required": true,
+          "default": "no",
+          "options": [
+            {
+              "id": "no",
+              "label": "No, or I'll supply ready-to-use content"
+            },
+            {
+              "id": "yes",
+              "label": "Yes"
+            },
+            {
+              "id": "unsure",
+              "label": "I'm not sure",
+              "priceRef": "items.migration_complex"
+            }
+          ]
+        },
+        {
+          "id": "migration.details",
+          "label": "Tell us what needs transferring",
+          "type": "migration_details",
+          "required": true,
+          "visibleWhen": {
+            "field": "migration.required",
+            "op": "in",
+            "value": ["yes", "unsure"]
+          },
+          "fields": [
+            {
+              "id": "sourceUrl",
+              "label": "Existing website address",
+              "type": "url",
+              "required": false
+            },
+            {
+              "id": "scope",
+              "label": "Content, services and platforms to transfer",
+              "type": "textarea",
+              "required": true
+            },
+            {
+              "id": "pageCount",
+              "label": "Number of ordinary pages to extract and migrate",
+              "type": "integer",
+              "required": true,
+              "min": 0
+            },
+            {
+              "id": "articleCount",
+              "label": "Number of blog articles to migrate",
+              "type": "integer",
+              "required": true,
+              "min": 0
+            },
+            {
+              "id": "moveExistingService",
+              "label": "Move an existing compatible hosting service as additional work?",
+              "type": "boolean",
+              "required": true,
+              "help": "Launching your new website is already included."
+            },
+            {
+              "id": "redirectCount",
+              "label": "How many changed page addresses need redirects?",
+              "type": "integer",
+              "required": true,
+              "min": 0
+            },
+            {
+              "id": "accessConfirmed",
+              "label": "Can you provide authorised access or an export?",
+              "type": "single_choice",
+              "required": true,
+              "options": [
+                {
+                  "id": "yes",
+                  "label": "Yes"
+                },
+                {
+                  "id": "no",
+                  "label": "No"
+                },
+                {
+                  "id": "unsure",
+                  "label": "I'm not sure"
+                }
+              ]
+            },
+            {
+              "id": "technicalNotes",
+              "label": "Any platform restrictions, email/DNS impact or product, customer and order data?",
+              "type": "textarea",
+              "required": true
+            }
+          ],
+          "help": "Standard launch and domain connection are included. Only extra extraction or transfer work is chargeable; unclear transfers require review."
+        }
+      ]
+    },
+    {
+      "id": "features",
+      "number": 3,
+      "title": "Website Features",
+      "includedCapabilitySource": "pricing.json#packages.<packageId>.includedCapabilities",
+      "includedFirst": true,
+      "groups": [
+        {
+          "id": "popular",
+          "title": "Popular optional features",
+          "collapsed": false,
+          "optionIds": [
+            "form_advanced",
+            "form_multistep",
+            "gallery_filterable",
+            "newsletter",
+            "reviews",
+            "whatsapp_widget",
+            "live_chat"
+          ]
+        },
+        {
+          "id": "advanced",
+          "title": "Advanced features and integrations",
+          "collapsed": true,
+          "optionIds": [
+            "cms",
+            "blog_basic",
+            "blog_custom",
+            "publishing_custom",
+            "booking_link",
+            "booking_embed",
+            "booking_custom",
+            "payment_link",
+            "payment_hosted",
+            "payment_custom",
+            "payment_subscriptions",
+            "payment_complex",
+            "crm",
+            "api",
+            "automation",
+            "backend"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "features",
+          "label": "What should your website do?",
+          "type": "multi_choice",
+          "required": false,
+          "default": [],
+          "options": [
+            {
+              "id": "form_advanced",
+              "label": "Advanced enquiry form",
+              "priceRef": "items.form_advanced"
+            },
+            {
+              "id": "form_multistep",
+              "label": "Multi-step quotation form",
+              "priceRef": "items.form_multistep"
+            },
+            {
+              "id": "gallery_filterable",
+              "label": "Filterable gallery",
+              "priceRef": "items.gallery_filterable"
+            },
+            {
+              "id": "newsletter",
+              "label": "Newsletter integration",
+              "priceRef": "items.newsletter"
+            },
+            {
+              "id": "reviews",
+              "label": "Customer reviews widget",
+              "priceRef": "items.reviews"
+            },
+            {
+              "id": "whatsapp_widget",
+              "label": "WhatsApp chat widget",
+              "priceRef": "items.whatsapp_widget"
+            },
+            {
+              "id": "live_chat",
+              "label": "Third-party live chat",
+              "priceRef": "items.live_chat"
+            },
+            {
+              "id": "cms",
+              "label": "Editable content management system",
+              "priceRef": "items.cms",
+              "visibleWhen": {
+                "field": "packageId",
+                "op": "eq",
+                "value": "business"
+              }
+            },
+            {
+              "id": "blog_basic",
+              "label": "Basic blog setup",
+              "priceRef": "items.blog_basic"
+            },
+            {
+              "id": "blog_custom",
+              "label": "Custom blog setup",
+              "priceRef": "items.blog_custom"
+            },
+            {
+              "id": "publishing_custom",
+              "label": "Custom publishing workflows",
+              "priceRef": "items.publishing_custom"
+            },
+            {
+              "id": "booking_link",
+              "label": "Link to an existing booking page",
+              "priceRef": "items.booking_link"
+            },
+            {
+              "id": "booking_embed",
+              "label": "Embedded booking calendar",
+              "priceRef": "items.booking_embed"
+            },
+            {
+              "id": "booking_custom",
+              "label": "Custom booking engine",
+              "priceRef": "items.booking_custom"
+            },
+            {
+              "id": "payment_link",
+              "label": "Link to an existing payment page",
+              "priceRef": "items.payment_link"
+            },
+            {
+              "id": "payment_hosted",
+              "label": "Hosted payment integration",
+              "priceRef": "items.payment_hosted"
+            },
+            {
+              "id": "payment_custom",
+              "label": "Custom payment integration",
+              "priceRef": "items.payment_custom"
+            },
+            {
+              "id": "payment_subscriptions",
+              "label": "Recurring subscriptions integration",
+              "priceRef": "items.payment_subscriptions"
+            },
+            {
+              "id": "payment_complex",
+              "label": "Complex payment workflow",
+              "priceRef": "items.payment_complex"
+            },
+            {
+              "id": "crm",
+              "label": "Standard connection to one supported CRM",
+              "priceRef": "items.crm"
+            },
+            {
+              "id": "api",
+              "label": "Third-party API integration",
+              "priceRef": "items.api"
+            },
+            {
+              "id": "automation",
+              "label": "Workflow automation",
+              "priceRef": "items.automation"
+            },
+            {
+              "id": "backend",
+              "label": "Custom backend or database",
+              "priceRef": "items.backend"
+            }
+          ],
+          "help": "Standard package features are already included. Select only additional work you need."
+        },
+        {
+          "id": "featureDetails",
+          "label": "Tell us about your selected features",
+          "type": "selected_feature_details",
+          "required": true,
+          "visibleWhen": {
+            "field": "features",
+            "op": "notEmpty"
+          },
+          "fieldsForEverySelection": [
+            {
+              "id": "purpose",
+              "label": "What should this feature help visitors do?",
+              "type": "textarea",
+              "required": true
+            },
+            {
+              "id": "scope",
+              "label": "Describe the work and any limits or quantities",
+              "type": "textarea",
+              "required": true
+            },
+            {
+              "id": "provider",
+              "label": "Which existing service should this connect to?",
+              "type": "short_text",
+              "required": false,
+              "help": "Required for provider integrations. If unknown, describe what you need; this creates a review item."
+            },
+            {
+              "id": "sameWorkflowAs",
+              "label": "Does this cover the same work as another selected feature?",
+              "type": "selected_feature_reference",
+              "required": false
+            }
+          ],
+          "followupsByItem": {
+            "form_multistep": [
+              "Questions and conditional steps",
+              "Do you need automated pricing, accounts, saved data or CRM?"
+            ],
+            "booking_embed": ["Booking provider", "Does it already include checkout?"],
+            "payment_hosted": [
+              "Payment provider",
+              "Is this standard store checkout, the same booking, or a separate flow?"
+            ],
+            "payment_custom": [
+              "Provider and API",
+              "Payment flow, confirmation and status handling",
+              "Any storage, subscriptions or special authentication?"
+            ],
+            "crm": [
+              "CRM provider and supported connector",
+              "Fields and direction of transfer",
+              "Any custom synchronisation?"
+            ],
+            "api": [
+              "API documentation address",
+              "Systems, authentication, fields, sync frequency and failures"
+            ],
+            "automation": ["Trigger, actions, systems and expected volume"],
+            "payment_subscriptions": [
+              "Billing cycles, plans, cancellations, retries and customer access"
+            ],
+            "publishing_custom": ["Authors, permissions, approvals and publishing workflow"]
+          }
+        },
+        {
+          "id": "shopify",
+          "label": "Initial Shopify product setup",
+          "type": "shopify_products",
+          "required": true,
+          "visibleWhen": {
+            "field": "packageId",
+            "op": "eq",
+            "value": "shopify"
+          },
+          "help": "Twenty standard product listings are included. Tell us which products belong in those first twenty; extra setup is priced separately. You may add more products yourself after handover.",
+          "fields": [
+            {
+              "id": "method",
+              "label": "How should we set up the initial products?",
+              "type": "single_choice",
+              "required": true,
+              "options": [
+                {
+                  "id": "manual",
+                  "label": "Enter standard listings"
+                },
+                {
+                  "id": "csv",
+                  "label": "Import a CSV file",
+                  "priceRef": "items.product_csv"
+                },
+                {
+                  "id": "unsure",
+                  "label": "I'm not sure",
+                  "priceRef": "items.product_complex"
+                }
+              ]
+            },
+            {
+              "id": "includedSimple",
+              "label": "Simple products in the included allowance",
+              "type": "integer",
+              "required": true,
+              "min": 0
+            },
+            {
+              "id": "includedVariable",
+              "label": "Products with sizes or colours in the included allowance",
+              "type": "integer",
+              "required": true,
+              "min": 0
+            },
+            {
+              "id": "extraSimple",
+              "label": "Additional simple listings",
+              "type": "integer",
+              "required": true,
+              "min": 0,
+              "priceRef": "items.product_simple"
+            },
+            {
+              "id": "extraVariable",
+              "label": "Additional listings with sizes or colours",
+              "type": "integer",
+              "required": true,
+              "min": 0,
+              "priceRef": "items.product_variable"
+            },
+            {
+              "id": "complexCount",
+              "label": "Products needing complex configuration",
+              "type": "integer",
+              "required": true,
+              "min": 0,
+              "reviewPriceRef": "items.product_complex"
+            },
+            {
+              "id": "details",
+              "label": "Product types, supplied data, variations and import needs",
+              "type": "textarea",
+              "required": true
+            }
+          ]
+        },
+        {
+          "id": "otherRequirements",
+          "label": "Anything else your website needs to do?",
+          "type": "textarea",
+          "required": false,
+          "reviewPriceRef": "items.custom_requirement"
+        }
+      ],
+      "mutualExclusions": [
+        {
+          "itemIds": ["form_advanced", "form_multistep"],
+          "scope": "same_workflow",
+          "prefer": "form_multistep"
+        },
+        {
+          "itemIds": ["blog_basic", "blog_custom"],
+          "prefer": "blog_custom"
+        },
+        {
+          "itemIds": [
+            "payment_hosted",
+            "payment_custom",
+            "payment_subscriptions",
+            "payment_complex"
+          ],
+          "scope": "same_payment_flow",
+          "action": "ask_customer_to_choose_or_review"
+        }
+      ],
+      "dependenciesRef": "pricing.json#dependencyRules"
+    },
+    {
+      "id": "visibility",
+      "number": 4,
+      "title": "Search Visibility",
+      "questions": [
+        {
+          "id": "visibility.mode",
+          "label": "Would you like additional search visibility services?",
+          "type": "single_choice",
+          "required": true,
+          "default": "essential",
+          "visibleWhen": {
+            "field": "packageId",
+            "op": "in",
+            "value": ["business", "corporate", "shopify"]
+          },
+          "help": "Essential SEO, AEO and GEO are included in standard packages. Results and AI citations cannot be guaranteed.",
+          "options": [
+            {
+              "id": "essential",
+              "label": "I'm happy with the included essential SEO, AEO and GEO",
+              "priceRef": "items.essential_visibility"
+            },
+            {
+              "id": "advanced",
+              "label": "Explore additional visibility services"
+            },
+            {
+              "id": "recommend",
+              "label": "I'm not sure — recommend what's best",
+              "priceRef": "items.visibility_review"
+            }
+          ]
+        },
+        {
+          "id": "visibility.services",
+          "label": "Which additional services interest you?",
+          "type": "multi_choice",
+          "required": false,
+          "default": [],
+          "visibleWhen": {
+            "field": "visibility.mode",
+            "op": "eq",
+            "value": "advanced"
+          },
+          "options": [
+            {
+              "id": "seo_advanced",
+              "label": "Advanced SEO: up to five pages",
+              "priceRef": "items.seo_advanced"
+            },
+            {
+              "id": "aeo_advanced",
+              "label": "Advanced AEO",
+              "priceRef": "items.aeo_advanced"
+            },
+            {
+              "id": "geo_advanced",
+              "label": "Advanced GEO",
+              "priceRef": "items.geo_advanced"
+            },
+            {
+              "id": "business_profile",
+              "label": "Google Business Profile setup or optimisation",
+              "priceRef": "items.business_profile"
+            },
+            {
+              "id": "local_seo",
+              "label": "Local SEO setup",
+              "priceRef": "items.local_seo"
+            },
+            {
+              "id": "directories",
+              "label": "Up to five business directory listings",
+              "priceRef": "items.directories"
+            },
+            {
+              "id": "language",
+              "label": "Additional language setup",
+              "priceRef": "items.language"
+            }
+          ]
+        },
+        {
+          "id": "visibility.goals",
+          "label": "What are your goals, audience, target locations and priorities?",
+          "type": "textarea",
+          "required": true,
+          "visibleWhen": {
+            "field": "visibility.mode",
+            "op": "in",
+            "value": ["advanced", "recommend"]
+          }
+        },
+        {
+          "id": "visibility.languageDetails",
+          "label": "Which languages, pages and translation arrangements do you need?",
+          "type": "textarea",
+          "required": true,
+          "visibleWhen": {
+            "field": "visibility.services",
+            "op": "contains",
+            "value": "language"
+          }
+        },
+        {
+          "id": "customVisibilityGoals",
+          "label": "What search visibility goals should we consider in the application review?",
+          "type": "textarea",
+          "required": false,
+          "visibleWhen": {
+            "field": "packageId",
+            "op": "eq",
+            "value": "custom_web_app"
+          }
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "number": 5,
+      "title": "Hosting & Support",
+      "questions": [
+        {
+          "id": "support.planId",
+          "label": "Choose optional hosting or support",
+          "type": "single_choice",
+          "required": true,
+          "default": "none",
+          "options": [
+            {
+              "id": "none",
+              "label": "No optional plan",
+              "priceRef": "monthlyPlans.none",
+              "visibleWhen": {
+                "field": "packageId",
+                "op": "in",
+                "value": ["business", "corporate", "shopify", "custom_web_app"]
+              }
+            },
+            {
+              "id": "hosting_essentials",
+              "label": "Hosting Essentials",
+              "priceRef": "monthlyPlans.hosting_essentials",
+              "visibleWhen": {
+                "field": "packageId",
+                "op": "in",
+                "value": ["business", "corporate"]
+              }
+            },
+            {
+              "id": "website_care",
+              "label": "Website Care",
+              "priceRef": "monthlyPlans.website_care",
+              "visibleWhen": {
+                "field": "packageId",
+                "op": "in",
+                "value": ["business", "corporate"]
+              }
+            },
+            {
+              "id": "website_care_plus",
+              "label": "Website Care Plus",
+              "priceRef": "monthlyPlans.website_care_plus",
+              "visibleWhen": {
+                "field": "packageId",
+                "op": "in",
+                "value": ["business", "corporate"]
+              }
+            },
+            {
+              "id": "shopify_care",
+              "label": "Shopify Store Care",
+              "priceRef": "monthlyPlans.shopify_care",
+              "visibleWhen": {
+                "field": "packageId",
+                "op": "in",
+                "value": ["shopify"]
+              }
+            }
+          ],
+          "help": "Choose one plan. Shopify hosting is billed directly by Shopify. Other compatible hosting can be arranged separately."
+        },
+        {
+          "id": "support.additionalNeeds",
+          "label": "Do you expect more update time, urgent support or other ongoing work?",
+          "type": "textarea",
+          "required": false,
+          "reviewPriceRef": "items.support_review"
+        }
+      ],
+      "policyCopy": "Care Plus and Shopify Store Care include up to 60 minutes of qualifying minor updates monthly. Hosting Essentials and Website Care include no discretionary content-update hours. Extra work is estimated and agreed before work or charges. Warranty defects and maintenance already covered by your plan are not charged again.",
+      "policyRef": "pricing.json#supportRules"
+    },
+    {
+      "id": "estimate",
+      "number": 6,
+      "title": "Website Estimate & PDF",
+      "questions": [
+        {
+          "id": "projectExtras",
+          "label": "Any additional design work beyond the package?",
+          "type": "project_extras",
+          "required": false,
+          "fields": [
+            {
+              "id": "extraRevisionRounds",
+              "label": "Additional consolidated design revision rounds",
+              "type": "integer",
+              "required": false,
+              "default": 0,
+              "min": 0,
+              "priceRef": "items.revision_extra"
+            },
+            {
+              "id": "extraConcepts",
+              "label": "Additional design concepts",
+              "type": "integer",
+              "required": false,
+              "default": 0,
+              "min": 0,
+              "priceRef": "items.design_concept"
+            }
+          ]
+        },
+        {
+          "id": "deadline",
+          "label": "Any target date or timing constraints?",
+          "type": "short_text",
+          "required": false
+        },
+        {
+          "id": "customerLabel",
+          "label": "Business or project name for your PDF",
+          "type": "short_text",
+          "required": false
+        }
+      ],
+      "displaySections": [
+        "Answers and included scope",
+        "Itemised one-time priced subtotal",
+        "Provisional minimums and Requires Review items",
+        "Full estimate status",
+        "Optional monthly plan separately",
+        "Excluded third-party charges",
+        "VAT status",
+        "Indicative timeline and revision allowance",
+        "Payment milestones",
+        "30-day defect warranty",
+        "Customer responsibilities and scope-change approval",
+        "Clarification questions",
+        "Optional separate branding quotation"
+      ],
+      "actions": [
+        {
+          "id": "edit",
+          "label": "Edit answers",
+          "action": "navigate_to_step_preserving_answers"
+        },
+        {
+          "id": "download_pdf",
+          "label": "Download estimate PDF",
+          "action": "generate_pdf_in_browser"
+        }
+      ],
+      "notice": "This is an indicative estimate, not a confirmed fixed-price quotation. Downloading this PDF sends nothing to FinTaxTech, starts no review and reserves no capacity.",
+      "pendingPdf": "Allow a Requirements & Partial Estimate PDF with a prominent Full price pending — Requires Review label; include every unresolved item and clarification. Never present it as a complete quotation."
+    }
+  ],
+  "clarificationPolicy": {
+    "onUnclear": "Reveal the relevant details question immediately, retain the answer and mark the affected line Requires Review. Details allow a future human assessment; entering text alone does not automatically resolve manual pricing.",
+    "missingDetailsStatus": "needs_details",
+    "afterDetailsStatus": "requires_review",
+    "triggers": [
+      "Not sure selections",
+      "Custom app or custom functionality",
+      "Unclear page layout or content",
+      "Unspecified provider/scope",
+      "From-price services",
+      "Unknown migration complexity",
+      "Unknown product mix or complex products",
+      "Overlapping work",
+      "Unknown support needs",
+      "Unpriced item",
+      "Unsupported selection or quantity"
+    ],
+    "genericQuestion": "Describe what you need, what visitors should be able to do, the systems involved and any quantities or constraints.",
+    "blockCompletePriceWhileUnresolved": true,
+    "pendingLineAmountMinor": null,
+    "unpricedCopy": "Requires Review — additional cost has not yet been determined.",
+    "neverClaim": [
+      "Request submitted",
+      "Email sent",
+      "Review scheduled",
+      "Unknown items are included for free"
+    ]
+  },
+  "brandingCta": {
+    "enabled": true,
+    "placements": ["estimate", "pdf"],
+    "title": "Need a Logo or Professional Branding?",
+    "body": "Explore a separate logo and branding estimate. Branding is optional and is priced independently from your website.",
+    "buttonLabel": "Get a logo and branding estimate",
+    "startingPricesRef": "brandingPromotion",
+    "url": null,
+    "urlPolicy": "Configure an approved HTTPS URL or same-site root-relative path. Reject javascript:, data: and protocol-relative URLs. Never invent a destination.",
+    "whenUrlMissing": "Show the optional promotion and starting prices as plain text; omit the button and PDF hyperlink.",
+    "target": "_blank",
+    "rel": "noopener noreferrer",
+    "passAnswersInUrl": false,
+    "includeInWebsiteTotal": false,
+    "countsAsQuestionnaireStep": false
+  },
+  "pdf": {
+    "generation": "client_side",
+    "filenamePattern": "FinTaxTech-Website-Estimate-{localReference}.pdf",
+    "localReference": "Generate locally; informational only, not evidence of a server record.",
+    "timestamp": "Include local generation date, timezone and config version; use actual browser date.",
+    "dataSource": "Same normalized calculation result used on screen; do not calculate a second independent price in the PDF renderer.",
+    "include": [
+      "All active answers",
+      "Itemised prices and included work",
+      "Known subtotal",
+      "Pending total and review flags if any",
+      "Provisional minimum labels",
+      "Optional monthly charges separately",
+      "Tax disclosure",
+      "Payment milestones if calculable",
+      "Timeline and revision limits",
+      "Warranty and commercial terms",
+      "Exclusions",
+      "Clarification questions",
+      "Separate branding promotion"
+    ],
+    "pendingReviewHeader": "REQUIRES REVIEW — FULL PROJECT PRICE PENDING",
+    "emailOrUpload": false
+  },
+  "answerModel": {
+    "packageId": "Required packageOptions ID",
+    "customAppBrief": "Required for custom_web_app",
+    "pages": "Array of {id, name, description?, layoutNeeds:standard|special|unsure, specialDetails?, contentMode:supplied|polish|write|unsure, contentBrief?, extraWordBlocks:nonnegative integer}. A blog listing has role=blog_listing. Optional staff assessment fields must never be trusted from customer input.",
+    "content": "{blogArticleCount:integer, articleBrief?:string, publishArticles:boolean, stockImageCount:integer, editImageCount:integer, otherDetails?:string}",
+    "features": "Unique array of visible feature option IDs; maximum one standard workflow per catalogue item. Multiple distinct workflows need review.",
+    "featureDetails": "Map keyed by selected item ID: {purpose, scope, provider?, sameWorkflowAs?:item ID, bookingProviderIncludesPayment?:boolean, paymentPurpose?:standard_store_checkout|same_booking|separate, customSynchronisation?:boolean}. No secrets or credentials.",
+    "shopify": "Only active for shopify: {method:manual|csv|unsure, includedSimple, includedVariable, extraSimple, extraVariable, complexCount: nonnegative integers, details:string}. Quantities describe FinTaxTech initial setup, not future customer-managed inventory.",
+    "migration": "{required:no|yes|unsure, details?:{sourceUrl?, scope, pageCount, articleCount, redirectCount:nonnegative integers, moveExistingService:boolean, accessConfirmed:yes|no|unsure, technicalNotes:string, complex?:boolean, redirectsSupported?:boolean}}",
+    "visibility": "{mode:essential|advanced|recommend, services:unique array of visibility option IDs, goals?:string, languageDetails?:string}",
+    "support": "{planId:monthlyPlans ID, additionalNeeds?:string}",
+    "projectExtras": "{extraRevisionRounds:nonnegative integer, extraConcepts:nonnegative integer}",
+    "otherRequirements": "Optional string; nonempty requires details/review",
+    "deadline": "Optional string; feasibility requires confirmation if constrained",
+    "customerLabel": "Optional string used locally on PDF",
+    "customVisibilityGoals": "Optional string for custom application review; no standard-package visibility inclusions are assumed.",
+    "trustedAssessment": "Not part of public answer input. Only a separately reviewed scope can resolve manual flags. Client-side fields cannot prove staff approval."
+  },
+  "validation": {
+    "requiredForCompleteEstimate": [
+      "packageId",
+      "pages for standard packages",
+      "content",
+      "features",
+      "migration.required",
+      "visibility.mode",
+      "support.planId"
+    ],
+    "numbers": "Finite nonnegative integers only for counts; reject strings, booleans, fractions, negatives and missing required counts.",
+    "strings": "Trim and require nonempty where required. Escape on display/PDF. Page IDs must be unique and page names nonempty.",
+    "unknownFieldsOrIds": "Reject unknown price-bearing fields and IDs; show a validation/review message rather than silently dropping requested work.",
+    "arrayUniqueness": ["pages.id", "features", "visibility.services"],
+    "crossFileReferences": "priceRef resolves against pricing.json; capability IDs resolve against capabilityLabels; option IDs and all conditions must be supported by the consuming client."
+  }
+}

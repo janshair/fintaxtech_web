@@ -72,3 +72,72 @@
   font-weight: var(--weight-strong);
   font-size: var(--lead);
 }
+
+/* Website choices use the same radio + stacked copy composition as mobile. */
+.website-estimate .choice {
+  align-items: flex-start;
+}
+.website-estimate .choice > input {
+  flex: 0 0 auto;
+  margin-top: var(--space-1);
+}
+.website-estimate .mobile-option {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: break-word;
+  font-weight: normal;
+}
+.website-estimate .mobile-option strong,
+.website-estimate .estimate-option-price {
+  font-weight: var(--weight-strong);
+}
+.website-estimate .estimate-key-inclusions {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: var(--small);
+}
+.website-estimate .estimate-key-inclusions > span::before {
+  content: '• ';
+}
+.website-estimate .estimate-option-details {
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.website-estimate summary {
+  cursor: pointer;
+}
+.website-estimate details {
+  margin-block: var(--space-3);
+}
+.website-estimate .estimate-option-details ul {
+  padding-left: var(--space-5);
+  color: var(--muted);
+  margin-top: var(--space-3);
+}
+.website-estimate input:is([type='number'], [type='url']) {
+  width: 100%;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+.website-estimate input[type='number'] {
+  max-width: 12rem;
+}
+.website-estimate .estimate-custom-row > fieldset {
+  margin-block: var(--space-4);
+}
+.website-estimate .website-page-suggestions {
+  margin-bottom: var(--space-5);
+}
+.website-estimate .website-page-suggestions > p {
+  flex-basis: 100%;
+}
+.website-estimate [data-result] {
+  margin-block: var(--space-6);
+}
