@@ -196,8 +196,7 @@
   registration.addEventListener('input', clearRegistrationError);
   carForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    const sample =
-      registration.value.trim().replace(/\s+/g, ' ').toUpperCase() || c.request.registrationExample;
+    const sample = registration.value.trim().replace(/\s+/g, ' ').toUpperCase();
     if (!/^[A-Z0-9 ]{2,10}$/.test(sample)) {
       registration.setCustomValidity(c.request.registrationError);
       registration.setAttribute('aria-invalid', 'true');

@@ -209,12 +209,14 @@ for (const width of [390, 1440])
     await page.goto(c.route + named);
     await expect(page.locator('.hero-art')).toHaveClass(/ambient-active/);
     const scene = page.locator('#workshop');
-    const sceneTop = await scene.evaluate((node) => node.getBoundingClientRect().top + scrollY);
-    const stageTop = await page
-      .locator('.workshop-stage')
-      .evaluate((node) => node.getBoundingClientRect().top + scrollY);
-    const length = width < 768 ? 844 * 0.6 : (await scene.boundingBox())!.height - 844;
-    const start = width < 768 ? stageTop - 844 * 0.7 : sceneTop;
+    // The illustration stays in normal flow: its pass starts as its top enters the viewport
+    // and finishes when its centre reaches 35% of the viewport height.
+    const stage = await page.locator('.workshop-stage > .automotive-art').evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      return { top: rect.top + scrollY, height: rect.height };
+    });
+    const length = 844 * 0.65 + stage.height / 2;
+    const start = stage.top - 844;
     const value = (key: string) =>
       scene.evaluate((node, key) => Number(node.style.getPropertyValue(key)), key);
     await move(page, start + length * 0.2);

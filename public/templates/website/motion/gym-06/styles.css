@@ -1192,6 +1192,8 @@ dialog h3 {
 }
 dialog .eyebrow {
   color: #5c5a63;
+  /* Wrap clear of the close button, like the heading below it. */
+  padding-right: 36px;
 }
 .close {
   position: absolute;
