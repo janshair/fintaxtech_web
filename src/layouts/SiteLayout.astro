@@ -1,4 +1,5 @@
 ---
+import { locationFromPath, locationStartURL } from '../content/locations';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { seoPages, seoCopy } from '../content/seo';
 import { structuredData, absoluteURL, type ArticleSEO, type SocialImage } from '../lib/seo';
@@ -24,6 +25,8 @@ interface Props {
   socialImage?: SocialImage;
 }
 const pathname = Astro.url.pathname.replace(/(\.html)\/$/, '$1').replace(/^\/404\/$/, '/404.html');
+const locationPage = locationFromPath(pathname);
+const startHref = locationPage ? locationStartURL(locationPage) : '/start/';
 const configured = seoPages[pathname];
 const title = configured?.title ?? Astro.props.title;
 const description = configured?.description ?? Astro.props.description ?? home.intro;
@@ -143,8 +146,9 @@ const imageURL = absoluteURL(socialImage.url);
       </style></noscript
     ></head
   ><body
-    ><Header /><main id="main"><Breadcrumbs title={article?.title ?? title} /><slot /></main><Footer
-    /><Consent /><script>
+    ><Header startHref={startHref} /><main id="main">
+      <Breadcrumbs title={article?.title ?? title} /><slot />
+    </main><Footer startHref={startHref} /><Consent /><script>
       import '../scripts/site';
     </script></body
   >

@@ -1,0 +1,133 @@
+---
+import HeroProcessVisual from './HeroProcessVisual.astro';
+import HomeProcessSteps from './HomeProcessSteps.astro';
+import '../styles/home-motion.css';
+import ServiceSelector from './ServiceSelector.astro';
+import FinalCTA from './FinalCTA.astro';
+import LatestArticles from './blog/LatestArticles.astro';
+import { company, ui, home as c } from '../content/site';
+import HomeWork from './HomeWork.astro';
+import { pages } from '../content/pages';
+import { locationStartURL, type LocationPage } from '../content/locations';
+interface Props {
+  location?: LocationPage;
+}
+const { location } = Astro.props;
+const startHref = location ? locationStartURL(location) : '/start/';
+---
+
+<section class="container hero">
+  <div>
+    <p class="eyebrow">{company.tagline}</p><h1>{location?.h1 ?? c.title}</h1><p class="lead">
+      {location?.intro ?? c.intro}
+    </p><p class="muted hero-location">
+      {location?.availability ?? c.serviceArea}
+    </p><div class="actions">
+      <a class="button primary" href={location ? startHref : '#choose'}
+        >{location ? ui.start : ui.choose}</a
+      ><a class="button" href="/how-it-works/">{ui.how}</a>
+    </div>
+  </div><div class="hero-art">
+    <HeroProcessVisual />
+  </div>
+</section>
+{
+  location && (
+    <section class="section">
+      <div class="container">
+        <h2>{location.sectionTitle}</h2>
+        {location.paragraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+        {location.office && (
+          <>
+            <h3>{location.office.label}</h3>
+            <p>{location.office.address}</p>
+            <a href={location.office.profileURL} target="_blank" rel="noopener noreferrer">
+              {location.office.profileLabel}
+            </a>
+          </>
+        )}
+        <h2>{location.faqTitle}</h2>
+        {location.faqs.map(([question, answer]) => (
+          <details>
+            <summary>{question}</summary>
+            <p>{answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+<ServiceSelector id="choose" animated />
+<section class="section">
+  <div class="container split">
+    <div><p class="eyebrow">{c.why}</p><h2>{c.whyTitle}</h2></div><div>
+      {
+        c.reasons.map(([title, text]) => (
+          <article class="reason">
+            <>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <p class="eyebrow">{ui.process}</p><h2>{c.processTitle}</h2><HomeProcessSteps /><p
+      class="muted"
+    >
+      {c.pdfNotice}
+    </p>
+  </div>
+</section>
+<section class="section">
+  <div class="container split">
+    <h2>{c.priceTitle}</h2><div>
+      <p class="lead">{c.priceText}</p><a class="text-link" href="/pricing/"
+        >{pages.pricing.title} →</a
+      >
+    </div>
+  </div>
+</section>
+<HomeWork />
+<section class="section">
+  <div class="container">
+    <h2>{c.faqTitle}</h2>{
+      c.faqs.map(([q, a]) => (
+        <details>
+          <>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </>
+        </details>
+      ))
+    }
+  </div>
+</section><LatestArticles /><FinalCTA href={startHref} />
+
+<script>
+  import '../scripts/home-motion';
+</script>
+
+<style>
+  .hero-location {
+    font-size: var(--small);
+    max-width: 56ch;
+  }
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-art {
+    min-width: 0;
+  }
+  @media (--selector-desktop) {
+    .hero {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+  }
+</style>

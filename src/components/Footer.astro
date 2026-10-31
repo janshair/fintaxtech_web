@@ -1,4 +1,9 @@
 ---
+import { locations, locationCopy } from '../content/locations';
+interface Props {
+  startHref?: string;
+}
+const { startHref = '/start/' } = Astro.props;
 import { motionGallery, threeDGallery } from '../content/templates';
 import SocialLinks from './SocialLinks.astro';
 import { company, ui, consentCopy, navigation, pricingCalculatorNavigation } from '../content/site';
@@ -22,12 +27,22 @@ import { careersCopy } from '../content/careers';
           navigation.slice(2).map(([href, label]) => <a href={href}>{label}</a>)
         }<a href={motionGallery.route}>{motionGallery.title}</a><a href={threeDGallery.route}
           >{threeDGallery.title}</a
-        ><a href="/start/">{ui.start}</a><a href="/selected-work/">{ui.work}</a>
+        ><a href={startHref}>{ui.start}</a><a href="/selected-work/">{ui.work}</a>
       </nav>
-      <nav class="footer-links" aria-labelledby="footer-calculators-title">
-        <h3 id="footer-calculators-title">{pricingCalculatorNavigation.title}</h3>
-        {pricingCalculatorNavigation.links.map(({ href, label }) => <a href={href}>{label}</a>)}
-      </nav>
+      <div class="footer-links">
+        <nav class="footer-links" aria-labelledby="footer-calculators-title">
+          <h3 id="footer-calculators-title">{pricingCalculatorNavigation.title}</h3>
+          {pricingCalculatorNavigation.links.map(({ href, label }) => <a href={href}>{label}</a>)}
+        </nav>
+        <nav class="footer-links" aria-labelledby="footer-areas-title">
+          <h3 id="footer-areas-title">{locationCopy.areasTitle}</h3>
+          {
+            locations.map((location) => (
+              <a href={`/locations/${location.slug}/`}>{location.name}</a>
+            ))
+          }
+        </nav>
+      </div>
       <div class="footer-links">
         <h3>{ui.legal}</h3><a href={careersCopy.route}>{careersCopy.label}</a>{
           legalLinks.map(([href, label]) => <a href={href}>{label}</a>)

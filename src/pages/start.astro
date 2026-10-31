@@ -20,8 +20,16 @@ import { seoPages } from '../content/seo';
     />
   </div>
   <script>
+    import { locationFromSlug } from '../content/locations';
     import { legacyJourneyURL } from '../lib/journey-url';
     const destination = legacyJourneyURL(location.search);
     if (destination) location.replace(destination);
+    else {
+      const approvedLocation = locationFromSlug(
+        new URLSearchParams(location.search).get('location'),
+      );
+      const heading = document.getElementById('start-title');
+      if (heading && approvedLocation) heading.textContent = approvedLocation.welcomeHeading;
+    }
   </script>
 </SiteLayout>
