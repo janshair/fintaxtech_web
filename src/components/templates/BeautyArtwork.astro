@@ -1,0 +1,359 @@
+---
+// Original illustrations for the Top Coat salon demo (beauty-08). Brand-coloured
+// parts use the f-/s- classes, which read --brand and --accent from THEME; skin,
+// nail-bed, lash and brow-tint colours are fixed illustration colours.
+interface Props {
+  kind: 'bottle' | 'hand' | 'eye' | 'brow' | 'swatch' | 'french' | 'art' | 'lash' | 'chrome';
+  // Gallery tiles are square, so wide scenes are cropped to fill them.
+  tile?: boolean;
+}
+const { kind, tile } = Astro.props;
+
+// Hand: four fingers and a thumb; each nail gets a bare bed, a base coat,
+// the colour coat and a gloss stroke, all clipped to the nail shape.
+const fingers = [
+  { x: 104, y: 78, w: 54, h: 250 },
+  { x: 166, y: 48, w: 56, h: 280 },
+  { x: 230, y: 70, w: 54, h: 260 },
+  { x: 292, y: 118, w: 46, h: 210 },
+];
+const nails = [
+  { x: 113, y: 88, w: 36, h: 58 },
+  { x: 175, y: 58, w: 38, h: 62 },
+  { x: 239, y: 80, w: 36, h: 58 },
+  { x: 300, y: 127, w: 30, h: 48 },
+  { x: 102, y: 182, w: 36, h: 50, thumb: true },
+];
+const sparkles = [
+  [70, 70, 1],
+  [350, 82, 0.8],
+  [228, 30, 0.6],
+  [372, 196, 0.7],
+];
+
+// Eye: lashes sit on the upper lid curve, each rotated to the lid's normal.
+const lid = (t: number) => {
+  const [p0, p1, p2] = [
+    [60, 112],
+    [180, 22],
+    [300, 112],
+  ];
+  const x = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0];
+  const y = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1];
+  const dx = 2 * (1 - t) * (p1[0] - p0[0]) + 2 * t * (p2[0] - p1[0]);
+  const dy = 2 * (1 - t) * (p1[1] - p0[1]) + 2 * t * (p2[1] - p1[1]);
+  return { x, y, angle: (Math.atan2(dy, dx) * 180) / Math.PI };
+};
+const lashes = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9].map((t, i) => ({
+  ...lid(t),
+  // Outer lashes are longer and lean outward, like a cat-eye set.
+  length: 22 + t * 18,
+  lean: (t - 0.45) * 26,
+  // Tips curl outward; before the lift each lash lies flatter towards its own side.
+  dir: t < 0.5 ? -1 : 1,
+  curl: Math.round((t - 0.5) * 70),
+  i,
+}));
+const hairs = [
+  [70, 112, -30],
+  [92, 104, -32],
+  [114, 96, -30],
+  [136, 88, -26],
+  [158, 82, -22],
+  [180, 76, -18],
+  [202, 72, -12],
+  [224, 70, -6],
+  [246, 72, 4],
+  [268, 78, 14],
+  [290, 86, 24],
+];
+const tileNails = (count: number, spread = 30) =>
+  Array.from({ length: count }, (_, i) => ({
+    x: 100 + (i - (count - 1) / 2) * spread,
+    r: (i - (count - 1) / 2) * 9,
+    i,
+  }));
+---
+
+{
+  kind === 'bottle' && (
+    <svg class="bottle-art" viewBox="0 0 320 430" aria-hidden="true" focusable="false">
+      <defs>
+        <clipPath id="bottle-glass">
+          <rect x="70" y="176" width="180" height="214" rx="46" />
+        </clipPath>
+      </defs>
+      <ellipse class="bottle-shadow f-brand-faint" cx="160" cy="404" rx="96" ry="12" />
+      <g class="bottle">
+        <g class="bottle-cap">
+          <rect class="brush-stem" x="154" y="140" width="12" height="74" rx="4" />
+          <path class="f-brand" d="M152 196h16c2 14-2 30-8 38-6-8-10-24-8-38Z" />
+          <rect class="f-cap" x="116" y="34" width="88" height="110" rx="16" />
+          <rect class="cap-shine" x="128" y="46" width="12" height="84" rx="6" />
+        </g>
+        <rect class="f-neck" x="128" y="144" width="64" height="36" rx="6" />
+        <rect class="f-brand" x="70" y="176" width="180" height="214" rx="46" />
+        <g clip-path="url(#bottle-glass)">
+          <rect class="bottle-shine" x="88" y="188" width="28" height="190" rx="14" />
+          <rect class="bottle-shine thin" x="126" y="188" width="8" height="190" rx="4" />
+        </g>
+        <rect
+          class="glass-edge"
+          x="78"
+          y="184"
+          width="164"
+          height="198"
+          rx="40"
+          fill="none"
+          stroke-width="2"
+        />
+        <path
+          class="f-accent"
+          d="M160 262c10-16 34-8 26 12-5 12-26 26-26 26s-21-14-26-26c-8-20 16-28 26-12Z"
+        />
+      </g>
+    </svg>
+  )
+}
+{
+  kind === 'hand' && (
+    <svg class="hand-art" viewBox="0 0 400 380" aria-hidden="true" focusable="false">
+      <defs>
+        {nails.map((n, k) => (
+          <clipPath id={`nail-clip-${k}`}>
+            <rect x={n.x} y={n.y} width={n.w} height={n.h} rx={n.w / 2} />
+          </clipPath>
+        ))}
+      </defs>
+      <rect class="f-brand-soft" width="400" height="380" rx="28" />
+      <circle class="f-accent-soft" cx="330" cy="300" r="120" opacity="0.5" />
+      <g class="skin">
+        <g transform="rotate(-26 120 340)">
+          <rect x="92" y="170" width="56" height="200" rx="28" />
+        </g>
+        {fingers.map((f) => (
+          <rect x={f.x} y={f.y} width={f.w} height={f.h} rx={f.w / 2} />
+        ))}
+        <rect x="100" y="230" width="244" height="200" rx="72" />
+      </g>
+      <g class="knuckles">
+        <path d="M118 236q13 6 26 0M182 214q14 6 28 0M244 230q13 6 26 0M302 262q10 5 20 0" />
+      </g>
+      {nails.map((n, k) => {
+        const cx = n.x + n.w / 2;
+        const line = `M${cx} ${n.y + n.h + 4}V${n.y - 4}`;
+        const body = (
+          <g class="nail" style={`--k:${k}`} clip-path={`url(#nail-clip-${k})`}>
+            <rect class="nail-bed" x={n.x} y={n.y} width={n.w} height={n.h} />
+            <path class="coat coat-base" pathLength="100" d={line} stroke-width={n.w + 10} />
+            <path class="coat coat-colour" pathLength="100" d={line} stroke-width={n.w + 10} />
+            <path
+              class="gloss"
+              pathLength="100"
+              d={`M${n.x + 9} ${n.y + n.h - 12}Q${n.x + 7} ${n.y + 18} ${n.x + 17} ${n.y + 9}`}
+            />
+          </g>
+        );
+        return n.thumb ? <g transform="rotate(-26 120 340)">{body}</g> : body;
+      })}
+      {nails.map((n, k) => {
+        const outline = (
+          <rect
+            class="nail-outline"
+            style={`--k:${k}`}
+            pathLength="100"
+            x={n.x}
+            y={n.y}
+            width={n.w}
+            height={n.h}
+            rx={n.w / 2}
+          />
+        );
+        return n.thumb ? <g transform="rotate(-26 120 340)">{outline}</g> : outline;
+      })}
+      <g transform="rotate(-8 200 60)">
+        <g class="nail-file">
+          <rect x="0" y="40" width="170" height="22" rx="11" />
+          <path d="M18 51h134" stroke-dasharray="2 6" />
+        </g>
+      </g>
+      {sparkles.map(([x, y, s], i) => (
+        <g transform={`translate(${x} ${y}) scale(${s})`}>
+          <path
+            class="sparkle"
+            style={`--i:${i}`}
+            d="M0-16C2-3 3-2 16 0 3 2 2 3 0 16-2 3-3 2-16 0-3-2-2-3 0-16Z"
+          />
+        </g>
+      ))}
+    </svg>
+  )
+}
+{
+  kind === 'eye' && (
+    <svg class="eye-art" viewBox="0 0 360 200" aria-hidden="true" focusable="false">
+      <defs>
+        <clipPath id="eye-white">
+          <path d="M60 112Q180 22 300 112 180 176 60 112Z" />
+        </clipPath>
+      </defs>
+      <rect class="f-skin-light" width="360" height="200" rx="24" />
+      <path class="s-skin" d="M50 70Q180-6 312 74" stroke-width="3" />
+      <path class="f-white" d="M60 112Q180 22 300 112 180 176 60 112Z" />
+      <g clip-path="url(#eye-white)">
+        <circle class="f-iris" cx="180" cy="104" r="36" />
+        <circle class="f-pupil" cx="180" cy="104" r="15" />
+        <circle class="f-white" cx="190" cy="94" r="6" />
+      </g>
+      <path class="lower-lid" d="M60 112Q180 176 300 112" />
+      {[0.2, 0.32, 0.44, 0.56, 0.68, 0.8].map((t) => {
+        const x = (1 - t) ** 2 * 60 + 2 * (1 - t) * t * 180 + t * t * 300;
+        const y = (1 - t) ** 2 * 112 + 2 * (1 - t) * t * 176 + t * t * 112;
+        return <path class="lower-lash" d={`M${x} ${y}l${(t - 0.5) * 8} 8`} />;
+      })}
+      {lashes.map((l) => (
+        <g
+          transform={`translate(${l.x.toFixed(1)} ${l.y.toFixed(1)}) rotate(${(l.angle - 90 + l.lean).toFixed(1)})`}
+        >
+          <path
+            class="lash"
+            style={`--i:${l.i};--curl:${l.curl}deg`}
+            d={`M0 0Q${-l.dir * l.length * 0.1} ${-l.length * 0.7} ${l.dir * l.length * 0.35} ${-l.length}`}
+          />
+        </g>
+      ))}
+      <path class="lash-line" d="M60 112Q180 22 300 112" />
+    </svg>
+  )
+}
+{
+  kind === 'brow' && (
+    <svg
+      class="brow-art"
+      viewBox="0 0 360 200"
+      preserveAspectRatio={tile ? 'xMidYMid slice' : undefined}
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect class="f-skin-light" width="360" height="200" rx="24" />
+      <path class="brow-guide" d="M58 160 70 54M58 160 300 50M58 160 330 120" />
+      <circle class="brow-guide-dot" cx="70" cy="110" r="4" />
+      <circle class="brow-guide-dot" cx="246" cy="66" r="4" />
+      <circle class="brow-guide-dot" cx="318" cy="102" r="4" />
+      <path
+        class="brow-fill"
+        d="M58 124C96 92 162 66 228 64c34-1 66 12 92 36-30-12-62-16-94-14-56 4-112 20-168 38Z"
+      />
+      {hairs.map(([x, y, r], i) => (
+        <path
+          class="brow-hair"
+          style={`--i:${i}`}
+          d={`M${x} ${y}l14 -6`}
+          transform={`rotate(${r} ${x} ${y})`}
+        />
+      ))}
+      <path
+        class="brow-outline"
+        pathLength="100"
+        d="M58 124C96 92 162 66 228 64c34-1 66 12 92 36-30-12-62-16-94-14-56 4-112 20-168 38Z"
+      />
+      <path class="s-skin" d="M70 176q110-28 230 0" stroke-width="3" />
+    </svg>
+  )
+}
+{
+  kind === 'swatch' && (
+    <svg class="tile-art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <rect class="f-brand-soft" width="200" height="200" />
+      {tileNails(5, 26).map((n) => (
+        <rect
+          class={['f-brand', 'f-brand-mid', 'f-accent', 'f-accent-soft', 'f-brand-deep'][n.i]}
+          x={n.x - 14}
+          y="44"
+          width="28"
+          height="112"
+          rx="14"
+          transform={`rotate(${n.r} 100 190)`}
+        />
+      ))}
+      <circle class="f-white" cx="100" cy="176" r="8" />
+    </svg>
+  )
+}
+{
+  kind === 'french' && (
+    <svg class="tile-art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <defs>
+        {tileNails(4, 38).map((n) => (
+          <clipPath id={`french-${n.i}`}>
+            <rect x={n.x - 15} y="50" width="30" height="96" rx="15" />
+          </clipPath>
+        ))}
+      </defs>
+      <rect class="f-accent-faint" width="200" height="200" />
+      {tileNails(4, 38).map((n) => (
+        <g clip-path={`url(#french-${n.i})`}>
+          <rect class="f-nail" x={n.x - 15} y="50" width="30" height="96" />
+          <path class="f-white" d={`M${n.x - 16} 50h32v26q-16-10-32 0Z`} />
+        </g>
+      ))}
+    </svg>
+  )
+}
+{
+  kind === 'art' && (
+    <svg class="tile-art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <rect class="f-brand" width="200" height="200" />
+      {tileNails(3, 50).map((n) => (
+        <g>
+          <rect class="f-accent-soft" x={n.x - 18} y="40" width="36" height="120" rx="18" />
+          <circle class="f-white" cx={n.x} cy="76" r="6" />
+          <circle class="f-brand" cx={n.x - 9} cy="102" r="4" />
+          <circle class="f-brand" cx={n.x + 9} cy="102" r="4" />
+          <circle class="f-white" cx={n.x} cy="126" r="5" />
+        </g>
+      ))}
+    </svg>
+  )
+}
+{
+  kind === 'lash' && (
+    <svg class="tile-art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <rect class="f-skin-light" width="200" height="200" />
+      <path class="tile-lid" d="M34 104q66 40 132 0" />
+      {Array.from({ length: 11 }, (_, i) => {
+        const t = 0.06 + i * 0.088;
+        const x = 34 + t * 132;
+        const y = 104 + Math.sin(t * Math.PI) * 20;
+        return (
+          <path class="tile-lash" d={`M${x} ${y}q${(t - 0.5) * 30} 22 ${(t - 0.5) * 44} 40`} />
+        );
+      })}
+      <path class="s-skin" d="M40 70q60-34 120 0" stroke-width="3" />
+    </svg>
+  )
+}
+{
+  kind === 'chrome' && (
+    <svg class="tile-art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="chrome-sheen" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" class="stop-accent" />
+          <stop offset="0.45" class="stop-white" />
+          <stop offset="1" class="stop-brand" />
+        </linearGradient>
+      </defs>
+      <rect class="f-brand-deep" width="200" height="200" />
+      {tileNails(4, 36).map((n) => (
+        <rect
+          x={n.x - 14}
+          y={52 + Math.abs(n.r)}
+          width="28"
+          height="100"
+          rx="14"
+          fill="url(#chrome-sheen)"
+        />
+      ))}
+    </svg>
+  )
+}

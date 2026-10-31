@@ -7,7 +7,7 @@ const posts = (await getPublishedPosts()).slice(0, 3);
 
 {
   posts.length > 0 && (
-    <section class="section" aria-labelledby="latest-articles">
+    <section class="section latest-articles" aria-labelledby="latest-articles">
       <div class="container">
         <h2 id="latest-articles">{blogCopy.latest}</h2>
         <ArticleList posts={posts} heading="h3" />
@@ -20,3 +20,11 @@ const posts = (await getPublishedPosts()).slice(0, 3);
     </section>
   )
 }
+
+<style>
+  @media (--tablet) {
+    .latest-articles :global(.article-list > li:nth-child(n + 3)) {
+      display: none;
+    }
+  }
+</style>

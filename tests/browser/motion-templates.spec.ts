@@ -177,3 +177,11 @@ test('the consultant gallery card opens the implemented Signature demo', async (
   await expect(page).toHaveURL(consultant.route);
   await expect(page.locator('h1')).toHaveText('Morgan Ellis');
 });
+
+test('the beauty gallery card opens the implemented Top Coat demo', async ({ page }) => {
+  const beauty = motionTemplates.find((template) => template.id === 'beauty-08')!;
+  await page.goto(gallery.route);
+  await page.getByRole('link', { name: `${gallery.previewLabel} ${beauty.name}` }).click();
+  await expect(page).toHaveURL(beauty.route);
+  await expect(page.locator('h1')).toHaveText('Plum & Polish Studio');
+});

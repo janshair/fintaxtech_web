@@ -234,6 +234,10 @@ for (const width of [320, 390, 768, 1440]) {
       .locator('.note-move')
       .first()
       .evaluate((n) => getComputedStyle(n).transform);
+    // The clear line draws itself in every browser (Firefox ignores a unitless calc() here).
+    const line = () =>
+      page.locator('.clear-line').evaluate((n) => parseFloat(getComputedStyle(n).strokeDashoffset));
+    expect(await line()).toBe(100);
     await page.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), top);
     await expect.poll(progress).toBe(1);
     expect(
@@ -242,6 +246,7 @@ for (const width of [320, 390, 768, 1440]) {
         .first()
         .evaluate((n) => getComputedStyle(n).transform),
     ).not.toBe(before);
+    expect(await line()).toBe(0);
     await expect(page.locator('.process-steps li').nth(2)).toHaveClass(/is-current/);
     if (width < 768) expect((await stage.boundingBox())!.height).toBeLessThan(844);
     await page.evaluate((y) => scrollTo({ top: y - innerHeight, behavior: 'instant' }), top);
