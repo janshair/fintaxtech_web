@@ -1,7 +1,8 @@
 // Posts newly published blog articles to the FinTaxTech Facebook Page and Instagram account.
 //
 // Reads social/posts/<slug>.json files (written by the daily blog routine), waits until the
-// article URL is live, then publishes to both networks. When the post file names a "music" track it
+// article URL is live (the site deploys alongside this run, usually in 2 minutes but sometimes
+// over 15), then publishes to both networks. When the post file names a "music" track it
 // renders and posts a vertical Reel (scripts/social-reel.mjs); otherwise it posts the portrait
 // images, as one image or as a swipeable carousel when "images" lists several. Facebook text never
 // contains links, because the Page has a monthly limit on link posts.
@@ -268,7 +269,7 @@ async function main() {
   const pageToken = page.access_token;
   for (const post of posts) {
     log(`### ${post.slug}`);
-    const live = await waitForUrl(post.url, DRY_RUN ? { attempts: 1, delayMs: 0 } : { attempts: 20, delayMs: 30_000 });
+    const live = await waitForUrl(post.url, DRY_RUN ? { attempts: 1, delayMs: 0 } : { attempts: 50, delayMs: 30_000 });
     log(`Article URL ${live ? 'is live' : '❌ is not reachable'}: ${post.url}`);
     if (!live && !DRY_RUN) {
       failed = true;
