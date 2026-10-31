@@ -25,6 +25,7 @@ describe('static location pages', () => {
     }
     expect(locationFromPath('/locations/dundee/extra/')).toBeUndefined();
     for (const location of locations) {
+      expect(location.slug).toBe(location.name.toLowerCase());
       expect(locationFromSlug(location.slug)).toBe(location);
       expect(locationFromPath(`/locations/${location.slug}/`)).toBe(location);
       expect(locationStartURL(location)).toBe(`/start/?location=${location.slug}`);
@@ -71,9 +72,7 @@ describe('static location pages', () => {
       if (location.slug !== 'dundee') {
         expect(location.office).toBeUndefined();
         expect(location.availability).toContain('based in Dundee');
-        expect(location.availability).toContain(
-          `do not have ${location.slug === 'edinburgh' ? 'an' : 'a'} ${location.name} office`,
-        );
+        expect(location.availability).toContain(`do not have an office in ${location.name}`);
       }
     }
   });
