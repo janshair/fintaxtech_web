@@ -1,3 +1,4 @@
+import { locationFromPath } from '../content/locations';
 import { company, ui } from '../content/site';
 import { seoPages } from '../content/seo';
 import { publicProfiles } from '../content/social';
@@ -38,7 +39,10 @@ export function breadcrumbs(path: string, title?: string) {
     items.push({ name: blogCopy.label, url: absoluteURL('/blog/') });
   if (path.startsWith(careersCopy.route) && path !== careersCopy.route)
     items.push({ name: careersCopy.label, url: absoluteURL(careersCopy.route) });
-  items.push({ name: seoPages[path]?.title ?? title ?? company.name, url: absoluteURL(path) });
+  items.push({
+    name: locationFromPath(path)?.name ?? seoPages[path]?.title ?? title ?? company.name,
+    url: absoluteURL(path),
+  });
   return items;
 }
 export function structuredData(
@@ -54,6 +58,7 @@ export function structuredData(
   const website = absoluteURL('/#website');
   const crumbs = breadcrumbs(path, article?.title ?? job?.title);
   const jobPosting = jobStructuredData(path, job);
+  const location = locationFromPath(path);
   const service = services.find((s) => path === `/services/${s.id}/`);
   return {
     '@context': 'https://schema.org',
@@ -106,10 +111,24 @@ export function structuredData(
         ...(path === '/about/' ? { mainEntity: { '@id': organization } } : {}),
         ...(path === metoni.route ? { mainEntity: { '@id': absoluteURL('/metoni/#app') } } : {}),
         ...(crumbs.length ? { breadcrumb: { '@id': url + '#breadcrumb' } } : {}),
-        ...(service ? { mainEntity: { '@id': url + '#service' } } : {}),
+        ...(service || location ? { mainEntity: { '@id': url + '#service' } } : {}),
         ...(article ? { mainEntity: { '@id': url + '#article' } } : {}),
         ...(jobPosting ? { mainEntity: { '@id': jobPosting['@id'] } } : {}),
       },
+      ...(location
+        ? [
+            {
+              '@type': 'Service',
+              '@id': url + '#service',
+              name: location.h1,
+              description: location.description,
+              url,
+              provider: { '@id': organization },
+              areaServed: { '@type': 'City', name: location.name },
+              serviceType: services.map((service) => service.name),
+            },
+          ]
+        : []),
       ...(jobPosting ? [jobPosting] : []),
       ...(path === metoni.route
         ? [

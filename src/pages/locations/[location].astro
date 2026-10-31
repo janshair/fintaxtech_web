@@ -1,0 +1,19 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import HomePresentation from '../../components/HomePresentation.astro';
+import { locations, type LocationPage } from '../../content/locations';
+export function getStaticPaths() {
+  return locations.map((location) => ({
+    params: { location: location.slug },
+    props: { location },
+  }));
+}
+interface Props {
+  location: LocationPage;
+}
+const { location } = Astro.props;
+---
+
+<SiteLayout title={location.seoTitle} description={location.description}>
+  <HomePresentation location={location} />
+</SiteLayout>

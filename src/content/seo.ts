@@ -1,3 +1,4 @@
+import { locations } from './locations';
 import { websiteEstimateCopy } from './website-estimate';
 import { mobileEstimateCopy } from './mobile-estimate';
 import { brandingEstimateCopy } from './branding-estimate';
@@ -31,6 +32,16 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  ...Object.fromEntries(
+    locations.map((location) => [
+      `/locations/${location.slug}/`,
+      {
+        title: location.seoTitle,
+        description: location.description,
+        canonical: location.canonical,
+      },
+    ]),
+  ),
   [websiteEstimateCopy.route]: {
     title: websiteEstimateCopy.title,
     description: websiteEstimateCopy.description,
