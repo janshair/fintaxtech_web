@@ -169,3 +169,11 @@ test('the gym gallery card opens the implemented Full Circuit demo', async ({ pa
   await expect(page.locator('h1')).toContainText('Stronger starts');
   await expect(page.locator('[data-business]').first()).toHaveText('Hillmoor Fitness Club');
 });
+
+test('the consultant gallery card opens the implemented Signature demo', async ({ page }) => {
+  const consultant = motionTemplates.find((template) => template.id === 'consultant-07')!;
+  await page.goto(gallery.route);
+  await page.getByRole('link', { name: `${gallery.previewLabel} ${consultant.name}` }).click();
+  await expect(page).toHaveURL(consultant.route);
+  await expect(page.locator('h1')).toHaveText('Morgan Ellis');
+});

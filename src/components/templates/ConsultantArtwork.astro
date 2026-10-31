@@ -1,0 +1,315 @@
+---
+interface Props {
+  kind?: 'board' | 'portrait' | 'avatar' | 'calendar' | 'untangle' | 'stack' | 'align';
+}
+const { kind = 'board' } = Astro.props;
+// Original SVG illustrations created for this demo; no photographs, people or licensed artwork.
+// Brand-coloured parts use .f-* / .s-* classes so THEME recolours them.
+const notes = [
+  // x, y, scattered offset dx/dy and rotation for the "tangle" state
+  [108, 70, 40, 150, -18],
+  [108, 128, 170, 60, 14],
+  [282, 70, -60, 170, 22],
+  [282, 128, 120, 120, -12],
+  [456, 70, -230, 140, 16],
+  [456, 128, -150, 40, -24],
+];
+// Case-study sheets: final x/y in three neat stacks, then the scattered offset and turn.
+const sheets = [
+  [112, 196, 60, -80, -24],
+  [208, 196, -60, -110, 14],
+  [304, 196, -120, -60, -16],
+  [112, 182, 150, -40, 18],
+  [208, 182, 70, -70, -30],
+  [304, 182, -40, -100, 26],
+  [112, 168, 40, -10, 32],
+  [208, 168, -20, -30, 8],
+];
+const arrows = [-130, 70, 160, -40, 110, -150, 45, -95, 0];
+// Calendar: [column, row] of each example free slot, in the order they tick in.
+const slots = [
+  [0, 0],
+  [2, 0],
+  [1, 1],
+  [4, 1],
+  [3, 0],
+  [1, 2],
+  [3, 2],
+];
+---
+
+{
+  kind === 'board' && (
+    <svg
+      class="ce-art board-art"
+      viewBox="0 0 640 420"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect width="640" height="420" rx="26" class="f-paper" />
+      <g class="f-brand-faint">
+        {Array.from({ length: 13 }, (_, x) =>
+          Array.from({ length: 8 }, (_, y) => <circle cx={32 + x * 48} cy={30 + y * 52} r="2" />),
+        )}
+      </g>
+      <path
+        class="tangle"
+        pathLength="100"
+        d="M70 300c40-90 120 30 60 40s-40-110 40-90 30 120-30 70 50-120 110-60-40 110 20 70 90-120 120-40-70 70-10 60 80-110 130-30-60 60 0 40"
+      />
+      {notes.map(([x, y, dx, dy, r], i) => (
+        <g
+          class="note"
+          style={`--dx:${dx}px;--dy:${dy}px;--r:${r}deg`}
+          transform={`translate(${x} ${y})`}
+        >
+          <g class="note-move">
+            <rect width="78" height="48" rx="6" class={i % 2 ? 'f-accent-soft' : 'f-brand-soft'} />
+            <path
+              d="M12 16h52M12 28h36"
+              class="s-brand-mid"
+              stroke-width="4"
+              stroke-linecap="round"
+            />
+          </g>
+        </g>
+      ))}
+      <path
+        class="clear-line-track"
+        d="M60 312C140 300 180 300 233 300s120 4 174 0 120-12 173-28"
+      />
+      <path
+        class="clear-line"
+        pathLength="100"
+        d="M60 312C140 300 180 300 233 300s120 4 174 0 120-12 173-28"
+      />
+      {[
+        [233, 300],
+        [407, 300],
+        [580, 272],
+      ].map(([cx, cy], i) => (
+        <g class={`milestone milestone-${i + 1}`}>
+          <circle cx={cx} cy={cy} r="15" class="f-brand" />
+          <circle cx={cx} cy={cy} r="6" class="f-accent" />
+        </g>
+      ))}
+      <g class="done-tick">
+        <circle cx="580" cy="200" r="30" class="f-accent" />
+        <path class="tick-path" pathLength="100" d="M566 200l10 10 19-21" />
+      </g>
+    </svg>
+  )
+}
+{
+  kind === 'portrait' && (
+    <svg
+      class="ce-art portrait-art"
+      viewBox="0 0 400 480"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect width="400" height="480" rx="28" class="f-brand-soft" />
+      <circle cx="320" cy="90" r="120" class="f-accent-soft" />
+      <path d="M0 380c90-40 170 30 260-10s110-50 140-40v150H0Z" class="f-brand-faint-fill" />
+      <g class="portrait-figure">
+        <path d="M86 420c8-80 54-120 114-120s106 40 114 120Z" class="f-brand-mid-fill" />
+        <path d="m172 304 28 34 28-34" class="s-paper" stroke-width="6" stroke-linejoin="round" />
+        <rect x="182" y="240" width="36" height="52" rx="16" class="f-brand-mid-fill" />
+        <circle cx="200" cy="190" r="66" class="f-brand-mid-fill" />
+        <path
+          d="M136 182c0-46 30-70 66-70 38 0 62 26 62 62-30 4-60-6-82-30-10 18-26 32-46 38Z"
+          class="f-brand-faint"
+        />
+      </g>
+      <rect
+        x="24"
+        y="24"
+        width="352"
+        height="432"
+        rx="20"
+        pathLength="100"
+        class="portrait-frame"
+      />
+    </svg>
+  )
+}
+{
+  kind === 'avatar' && (
+    <svg
+      class="ce-art avatar-art"
+      viewBox="0 0 120 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <clipPath id="avatar-clip">
+        <circle cx="60" cy="60" r="56" />
+      </clipPath>
+      <circle cx="60" cy="60" r="58" class="f-paper" />
+      <g clip-path="url(#avatar-clip)">
+        <circle cx="60" cy="60" r="56" class="f-brand-soft" />
+        <path d="M22 120c4-30 18-44 38-44s34 14 38 44Z" class="f-brand-mid-fill" />
+        <circle cx="60" cy="50" r="21" class="f-brand-mid-fill" />
+      </g>
+      <circle cx="60" cy="60" r="56" class="s-brand-mid" stroke-width="2" stroke-dasharray="5 6" />
+    </svg>
+  )
+}
+{
+  kind === 'calendar' && (
+    <svg
+      class="ce-art calendar-art"
+      viewBox="0 0 320 170"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {['M', 'T', 'W', 'T', 'F'].map((day, i) => (
+        <text x={72 + i * 52} y="18" class="cal-text" text-anchor="middle">
+          {day}
+        </text>
+      ))}
+      {['AM', 'MID', 'PM'].map((time, i) => (
+        <text x="0" y={57 + i * 44} class="cal-text">
+          {time}
+        </text>
+      ))}
+      {Array.from({ length: 15 }, (_, i) => (
+        <rect
+          x={50 + (i % 5) * 52}
+          y={30 + Math.floor(i / 5) * 44}
+          width="44"
+          height="36"
+          rx="8"
+          class="f-brand-soft"
+        />
+      ))}
+      {slots.map(([col, row], i) => (
+        <g class="slot" style={`--i:${i}`}>
+          <rect
+            x={50 + col * 52}
+            y={30 + row * 44}
+            width="44"
+            height="36"
+            rx="8"
+            class="f-accent"
+          />
+          <path
+            class="slot-tick"
+            pathLength="100"
+            d={`M${62 + col * 52} ${48 + row * 44}l6 6 12-13`}
+          />
+        </g>
+      ))}
+    </svg>
+  )
+}
+{
+  kind === 'untangle' && (
+    <svg
+      class="ce-art case-svg"
+      viewBox="0 0 480 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect width="480" height="300" class="f-brand-soft" />
+      <rect x="40" y="36" width="400" height="228" rx="14" class="f-paper" />
+      <path
+        class="case-before"
+        pathLength="100"
+        d="M80 190c30-80 70 40 40 50s-20-90 30-70 10 90-20 60 40-100 80-60-30 80 10 60 60-90 90-30-40 50 0 40 50-70 90-60"
+      />
+      <path class="case-track" d="M80 210C170 210 200 130 280 130s110-30 130-50" />
+      <path class="case-after" pathLength="100" d="M80 210C170 210 200 130 280 130s110-30 130-50" />
+      <circle cx="410" cy="80" r="11" class="f-accent case-dot" />
+      <text x="64" y="246" class="case-label case-before-label">
+        BEFORE
+      </text>
+      <text x="64" y="246" class="case-label case-after-label">
+        AFTER
+      </text>
+    </svg>
+  )
+}
+{
+  kind === 'stack' && (
+    <svg
+      class="ce-art case-svg"
+      viewBox="0 0 480 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect width="480" height="300" class="f-accent-soft" />
+      <rect x="40" y="36" width="400" height="228" rx="14" class="f-paper" />
+      <path d="M92 242h296" class="s-brand-mid" stroke-width="3" stroke-linecap="round" />
+      {sheets.map(([x, y, dx, dy, r], i) => (
+        <g transform={`translate(${x - 32} ${y})`}>
+          <g class="sheet" style={`--dx:${dx}px;--dy:${dy}px;--r:${r}deg`}>
+            <rect
+              width="64"
+              height="40"
+              rx="6"
+              class={i % 3 === 1 ? 'f-accent-soft' : 'f-brand-faint-fill'}
+            />
+            <path
+              d="M12 14h40M12 26h24"
+              class="s-brand-mid"
+              stroke-width="4"
+              stroke-linecap="round"
+            />
+          </g>
+        </g>
+      ))}
+      <text x="64" y="260" class="case-label case-before-label">
+        BEFORE
+      </text>
+      <text x="64" y="260" class="case-label case-after-label">
+        AFTER
+      </text>
+    </svg>
+  )
+}
+{
+  kind === 'align' && (
+    <svg
+      class="ce-art case-svg"
+      viewBox="0 0 480 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect width="480" height="300" class="f-brand-soft" />
+      <rect x="40" y="36" width="400" height="228" rx="14" class="f-paper" />
+      {arrows.map((r, i) => (
+        <g transform={`translate(${170 + (i % 3) * 80} ${96 + Math.floor(i / 3) * 56})`}>
+          <g class="arrow" style={`--r:${r}deg`}>
+            <path
+              d="M-20 0h40m-14-12 14 12-14 12"
+              class={i === 4 ? 's-accent-deep' : 's-brand'}
+              stroke-width="6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+        </g>
+      ))}
+      <text x="64" y="246" class="case-label case-before-label">
+        BEFORE
+      </text>
+      <text x="64" y="246" class="case-label case-after-label">
+        AFTER
+      </text>
+    </svg>
+  )
+}
