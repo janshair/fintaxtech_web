@@ -21,7 +21,16 @@ export interface LocationPage {
 export const locationCopy = { areasTitle: 'Areas We Serve' };
 
 // Edit shared wording here once. Add a city to the array to generate its page.
-export const locations: LocationPage[] = ['Dundee', 'Edinburgh', 'Glasgow'].map(
+export const locations: LocationPage[] = [
+    "Glasgow",
+    "Edinburgh",
+    "Aberdeen",
+    "Dundee",
+    "Dunfermline",
+    "Inverness",
+    "Perth",
+    "Stirling"
+  ].map(
   (name): LocationPage => {
     const city = { name, slug: name.toLowerCase(), isBase: name === 'Dundee' };
     return {
