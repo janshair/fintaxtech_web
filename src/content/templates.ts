@@ -127,6 +127,23 @@ export const motionTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Explore a personalised website demonstration for freelancers and consultants by FinTaxTech, with example services, case studies, scroll-driven motion and a sample discovery-call booking.',
   },
+  {
+    id: 'beauty-08',
+    name: 'Top Coat',
+    industry: 'Beauty, nail & lash salons',
+    description:
+      'A soft boutique salon website in plum and rose, with a polish bottle that paints the name, a scroll-told manicure, lash and brow scenes, and a sample booking.',
+    route: '/templates/website/motion/beauty-08/',
+    preview: {
+      src: '/templates/website/motion/beauty-08/preview.webp',
+      alt: 'Top Coat beauty salon demo: Plum & Polish Studio in large plum serif type with a painted underline, beside a plum nail-polish bottle on a rose arch and an “Open till 8:30pm” example card.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Top Coat — Beauty salon website demo by FinTaxTech',
+    seoDescription:
+      'Explore a personalised nail, lash and brow salon website demonstration by FinTaxTech, with example treatments and prices, scroll-driven motion and a sample appointment booking.',
+  },
 ];
 
 export const barberRedirect = {

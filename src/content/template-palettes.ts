@@ -297,4 +297,18 @@ export const templatePalettes = {
       '--on-brand-soft-d9d3e6': ['brand', '#d6dbe6'],
     },
   },
+  'beauty-08': {
+    brand: '#5c2a4f',
+    accent: '#e7a6b0',
+    paper: '#fbf5f2',
+    dark: false,
+    // Tints are mixed in CSS with color-mix(), so only the primaries are authored.
+    tones: {
+      '#5c2a4f': 'brand',
+      '#e7a6b0': 'accent',
+    },
+    foregrounds: {
+      '--on-brand-soft-ead7e2': ['brand', '#ead7e2'],
+    },
+  },
 } as const;

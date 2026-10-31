@@ -157,6 +157,78 @@ describe('consultant demonstration content', () => {
   });
 });
 
+describe('beauty salon demonstration content', () => {
+  const beauty = motionTemplates.find((t) => t.id === 'beauty-08')!;
+  it('keeps its globally unique suffix and ships its own scripts', () => {
+    const suffixes = allTemplates.map((t) => Number(t.id.split('-').at(-1)));
+    expect(new Set(suffixes).size).toBe(suffixes.length);
+    expect(Number(beauty.id.split('-').at(-1))).toBe(8);
+    for (const file of ['identity.js', 'motion.js'])
+      expect(existsSync(`public${beauty.route}${file}`)).toBe(true);
+  });
+  it('lists every requested treatment with a duration and an example price', async () => {
+    const { treatments, treatmentGroups } = await import('../src/content/beauty-demo');
+    expect(treatmentGroups.map((group) => group.label)).toEqual([
+      'Nails',
+      'Lashes',
+      'Brows',
+      'Extras',
+    ]);
+    const names = (group: string) =>
+      treatments
+        .filter((item) => item.group === group)
+        .map((item) => item.name)
+        .join(' | ');
+    for (const word of ['Gel', 'BIAB', 'Acrylic', 'Nail art'])
+      expect(names('nails')).toContain(word);
+    for (const word of ['Classic', 'Hybrid', 'Volume', 'lift & tint'])
+      expect(names('lashes')).toContain(word);
+    for (const word of ['shape', 'tint', 'lamination']) expect(names('brows')).toContain(word);
+    expect(names('extras').length).toBeGreaterThan(0);
+    expect(new Set(treatments.map((item) => item.id)).size).toBe(treatments.length);
+    for (const item of treatments) {
+      expect(item.duration).toMatch(/\d+ min/);
+      expect(item.price).toMatch(/£\d/);
+    }
+  });
+  it('labels samples, includes salon essentials and makes no restricted or invented claims', async () => {
+    const { beautyDemo, treatments, THEME } = await import('../src/content/beauty-demo');
+    const source = readFileSync('src/content/beauty-demo.ts', 'utf8');
+    expect(
+      source.startsWith('// Change these hex codes, save, and the whole template recolours.'),
+    ).toBe(true);
+    const page = readFileSync(`src/pages${beauty.route}index.astro`, 'utf8');
+    for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
+      expect(page).toContain(`data-capture="${hook}"`);
+    for (const text of [
+      'data-sample-price',
+      'data-sample-review',
+      'Example reviews — your real Google reviews appear here.',
+      'Your own photos and Instagram posts go here.',
+      'Already use Fresha, Booksy or Treatwell? We’ll connect your booking link.',
+      'This is where clients would book and pay a deposit on your finished website.',
+      'Demo only — nothing is booked or charged.',
+      'Talk to FinTaxTech',
+      'Picture your business here?',
+      'GIFT VOUCHER · EXAMPLE',
+      'CANCELLATIONS &amp; DEPOSITS · PLACEHOLDER',
+      'Illustrated example',
+    ])
+      expect(page).toContain(text);
+    expect(beautyDemo.patchTest).toBe(
+      'A patch test may be needed 48 hours before your first lash or brow tint — your salon will confirm.',
+    );
+    expect(beautyDemo.flow.technicians).toEqual(['Any available', 'Amira', 'Jess']);
+    expect(beautyDemo.hours.some(([, hours]) => /20:30/.test(hours))).toBe(true);
+    const css = readFileSync(`public${beauty.route}styles.css`, 'utf8');
+    for (const hex of Object.values(THEME)) expect(css.toLowerCase()).not.toContain(hex);
+    const content = page + JSON.stringify(beautyDemo) + JSON.stringify(treatments);
+    expect(content).not.toMatch(
+      /botox|filler|injectable|anti-wrinkle|safe for (?:everyone|all)|damage.free|best in (?:town|dundee)|lasts? (?:up to )?\d|guaranteed|certified|accredited|insured|award|qualified|partner/i,
+    );
+  });
+});
+
 describe('3D café demonstration content and budgets', () => {
   const route = threeDTemplates[0].route;
   it('reserves the next globally unique suffix', () => {

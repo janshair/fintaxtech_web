@@ -662,7 +662,7 @@ h1 em {
   stroke-width: 4.5;
   stroke-linecap: round;
   stroke-dasharray: 100;
-  stroke-dashoffset: calc((var(--p1) * 50 + var(--p2) * 50) * -1);
+  stroke-dashoffset: calc((var(--p1) * 50 + var(--p2) * 50) * -1px);
 }
 .note-move {
   transform-box: fill-box;
@@ -682,7 +682,7 @@ h1 em {
   stroke-width: 6;
   stroke-linecap: round;
   stroke-dasharray: 100;
-  stroke-dashoffset: calc((1 - var(--progress)) * 100);
+  stroke-dashoffset: calc((1 - var(--progress)) * 100px);
 }
 .milestone {
   transform-box: fill-box;
@@ -710,7 +710,7 @@ h1 em {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 100;
-  stroke-dashoffset: calc((1 - clamp(0, calc((var(--p3) - 0.7) * 3.4), 1)) * 100);
+  stroke-dashoffset: calc((1 - clamp(0, calc((var(--p3) - 0.7) * 3.4), 1)) * 100px);
 }
 .stage-caption {
   display: none;
@@ -833,7 +833,7 @@ h1 em {
   stroke-width: 4;
   stroke-linecap: round;
   stroke-dasharray: 100 120;
-  stroke-dashoffset: calc(var(--cp) * -100);
+  stroke-dashoffset: calc(var(--cp) * -100px);
   /* Fades out at the end, so no round cap is left behind. */
   opacity: clamp(0, calc((1 - var(--cp)) * 5), 1);
 }
@@ -849,7 +849,7 @@ h1 em {
   stroke-width: 6;
   stroke-linecap: round;
   stroke-dasharray: 100;
-  stroke-dashoffset: calc((1 - var(--cp)) * 100);
+  stroke-dashoffset: calc((1 - var(--cp)) * 100px);
 }
 .case-dot {
   transform-box: fill-box;
@@ -930,7 +930,7 @@ h1 em {
   stroke: color-mix(in srgb, var(--brand) 55%, var(--paper));
   stroke-width: 2.5;
   stroke-dasharray: 100;
-  stroke-dashoffset: calc((1 - var(--ap)) * 100);
+  stroke-dashoffset: calc((1 - var(--ap)) * 100px);
 }
 .portrait-figure {
   opacity: clamp(0, calc((var(--ap) - 0.35) * 2.5), 1);
@@ -1105,7 +1105,7 @@ h1 em {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 100;
-  stroke-dashoffset: calc((1 - var(--shown)) * 100);
+  stroke-dashoffset: calc((1 - var(--shown)) * 100px);
 }
 .slot-calendar .small-note {
   margin: 8px 0 0;

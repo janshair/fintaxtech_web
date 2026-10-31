@@ -1,0 +1,1695 @@
+/* Top Coat (beauty-08). Every brand colour comes from --brand / --accent (set
+   from THEME at build time); tints are mixed from them, never hard-coded.
+   Skin, nail-bed, lash and brow-tint colours are fixed illustration colours. */
+@property --tp {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+:root {
+  --paper: #fbf5f2;
+  --white: #fffdfc;
+  --ink: color-mix(in srgb, var(--brand-text) 86%, #000);
+  /* Muted text mixes toward a fixed mid-dark neutral, so it stays AA on paper for any brand. */
+  --muted: color-mix(in srgb, var(--brand-text) 40%, #5f5a60);
+  --line: color-mix(in srgb, var(--brand) 15%, var(--paper));
+  --soft: color-mix(in srgb, var(--brand) 6%, var(--paper));
+  --accent-soft: color-mix(in srgb, var(--accent) 30%, var(--paper));
+  --brand-deep: color-mix(in srgb, var(--brand) 70%, #000);
+  --on-brand-muted: var(--on-brand-soft-ead7e2, var(--on-brand));
+  --skin: #e5b090;
+  --skin-shade: #c98c6d;
+  --skin-light: #f7e0d3;
+  --nail-bed: #f3d1c7;
+  --nail-edge: #c48672;
+  --lash: #2b1c22;
+  --tint: #6a4632;
+  --display: Didot, 'Bodoni 72', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --sans: Archivo, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color-scheme: light;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 16px;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  overflow-x: clip;
+}
+body.dialog-open {
+  overflow: hidden;
+}
+a {
+  color: inherit;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+a,
+summary {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+h3:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 4px;
+}
+p {
+  line-height: 1.65;
+  margin: 0 0 18px;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+h1 {
+  font-size: clamp(2.7rem, 7vw, 6rem);
+  line-height: 1;
+  margin-bottom: 22px;
+  overflow-wrap: anywhere;
+  color: var(--brand-text);
+}
+h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.9rem);
+  max-width: 18ch;
+}
+h3 {
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+h2 em {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+[data-business],
+[data-area],
+[data-hero-area] {
+  overflow-wrap: anywhere;
+}
+.wrap {
+  width: min(1200px, calc(100% - 32px));
+  margin-inline: auto;
+}
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.small-note {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.sr-only,
+.js .panel-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 30;
+  padding: 10px 16px;
+  background: var(--brand);
+  color: var(--on-brand);
+  border-radius: 8px;
+}
+.skip:focus {
+  top: 12px;
+}
+
+/* FinTaxTech demonstration strip */
+.demo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  padding: 8px 16px;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+.demo-strip a,
+.demo-strip button {
+  color: var(--on-brand);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 4px 0;
+}
+.demo-strip a:hover,
+.demo-strip button:hover {
+  text-decoration: underline;
+}
+.demo-strip .demo-id {
+  color: var(--on-brand-muted);
+  margin-right: auto;
+}
+.demo-strip [data-edit] {
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+/* Header */
+.business-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-family: var(--display);
+  font-size: 1.3rem;
+  line-height: 1.15;
+  min-width: 0;
+}
+.monogram {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+.business-header nav {
+  display: flex;
+  gap: 26px;
+  margin-left: auto;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.business-header nav a {
+  text-decoration: none;
+  padding-block: 8px;
+}
+.business-header nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+.header-action {
+  flex: none;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  background: var(--brand);
+  color: var(--on-brand);
+  border: 2px solid var(--brand);
+  transition: box-shadow 0.2s ease;
+}
+.button.accent {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+.button:hover {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 20%, transparent);
+}
+.text-button,
+.text-link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  padding: 10px 0;
+  color: var(--ink);
+}
+
+/* Hero: the business name with a painted underline, beside a polish bottle */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 56px;
+  align-items: center;
+  padding-block: 56px 80px;
+}
+.hero-copy {
+  animation: settle 0.4s ease-out both;
+}
+@keyframes settle {
+  from {
+    opacity: 0.6;
+  }
+}
+.hero .eyebrow {
+  color: var(--muted);
+}
+.name-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  padding-bottom: 0.12em;
+}
+.name-stroke {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.02em;
+  height: 0.12em;
+  border-radius: 0.1em 0.3em 0.12em 0.4em / 0.08em 0.1em 0.06em 0.12em;
+  background: color-mix(in srgb, var(--brand) 88%, transparent);
+  transform-origin: left center;
+}
+/* Set by identity.js before first paint; motion.js paints the line with the brush. */
+.paint-pending .name-stroke {
+  transform: scaleX(0);
+}
+.name-brush {
+  position: absolute;
+  left: -8px;
+  bottom: -0.06em;
+  width: 46px;
+  height: 12px;
+  border-radius: 3px 12px 12px 3px;
+  background: linear-gradient(90deg, var(--brand-deep) 0 62%, var(--brand) 62%);
+  opacity: 0;
+  transform-origin: 100% 50%;
+  pointer-events: none;
+}
+.tagline {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 2.3vw, 1.85rem);
+  line-height: 1.3;
+  max-width: 28ch;
+  margin-bottom: 14px;
+}
+.hero .lead {
+  color: var(--muted);
+  max-width: 36rem;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 24px;
+  margin: 26px 0 16px;
+}
+.hero-art {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+}
+.hero-halo {
+  position: absolute;
+  inset: 6% 4% 0;
+  border-radius: 220px 220px 32px 32px;
+  background: var(--accent-soft);
+}
+.bottle-art {
+  position: relative;
+  display: block;
+  width: min(100%, 340px);
+  height: auto;
+  overflow: visible;
+}
+.bottle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 7s ease-in-out infinite alternate paused;
+}
+@keyframes sway {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+.bottle-shine {
+  fill: #fff;
+  opacity: 0.32;
+  animation: turn 7s ease-in-out infinite alternate paused;
+}
+.bottle-shine.thin {
+  opacity: 0.2;
+}
+@keyframes turn {
+  from {
+    transform: translateX(-12px);
+  }
+  to {
+    transform: translateX(120px);
+  }
+}
+.hero-art.is-live .bottle,
+.hero-art.is-live .bottle-shine,
+.hero-art.is-live .live-dot::after {
+  animation-play-state: running;
+}
+.bottle-cap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.brush-stem {
+  fill: #cdbab2;
+}
+.f-cap {
+  fill: var(--brand-deep);
+}
+.cap-shine {
+  fill: #fff;
+  opacity: 0.18;
+}
+.f-neck {
+  fill: color-mix(in srgb, var(--brand) 55%, #000);
+}
+.glass-edge {
+  stroke: #fff;
+  opacity: 0.25;
+}
+.bottle-shadow {
+  opacity: 0.6;
+}
+.hero-card {
+  position: absolute;
+  left: -8px;
+  bottom: 12%;
+  display: grid;
+  gap: 2px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: 0 18px 40px color-mix(in srgb, var(--brand) 16%, transparent);
+}
+.hero-card .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: var(--muted);
+}
+.hero-card strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+.hero-card span:last-child {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.live-dot {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--brand);
+  opacity: 0;
+  animation: pulse 2.2s ease-out infinite paused;
+}
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+/* Illustration fills: brand colours are mixed from THEME */
+.f-white {
+  fill: #fff;
+}
+.s-paper {
+  stroke: var(--white);
+  fill: none;
+}
+.f-brand {
+  fill: var(--brand);
+}
+.f-brand-deep {
+  fill: var(--brand-deep);
+}
+.f-brand-mid {
+  fill: color-mix(in srgb, var(--brand) 60%, var(--paper));
+}
+.f-brand-soft {
+  fill: color-mix(in srgb, var(--brand) 9%, var(--paper));
+}
+.f-brand-faint {
+  fill: color-mix(in srgb, var(--brand) 22%, var(--paper));
+}
+.f-accent {
+  fill: var(--accent);
+}
+.f-accent-soft {
+  fill: color-mix(in srgb, var(--accent) 50%, var(--paper));
+}
+.f-accent-faint {
+  fill: color-mix(in srgb, var(--accent) 22%, var(--paper));
+}
+.f-skin-light {
+  fill: var(--skin-light);
+}
+.f-nail {
+  fill: var(--nail-bed);
+}
+.f-iris {
+  fill: #7a5236;
+}
+.f-pupil {
+  fill: var(--lash);
+}
+.s-skin {
+  stroke: var(--skin-shade);
+  fill: none;
+  stroke-linecap: round;
+}
+.stop-accent {
+  stop-color: var(--accent);
+}
+.stop-white {
+  stop-color: #fff;
+}
+.stop-brand {
+  stop-color: var(--brand);
+}
+
+/* Sections */
+.section {
+  padding-block: clamp(64px, 9vw, 112px);
+}
+.section-heading {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 36px;
+  max-width: 760px;
+}
+.section-heading .eyebrow,
+.section-heading h2 {
+  margin: 0;
+}
+.section-heading > p:last-child {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 4px 0 0;
+}
+
+/* Treatments: tabs and price rows. Rows slide in with scroll (--rp, written by
+   motion.js) or after a tab change (--tp, animated by app.js), and a shimmer
+   sweeps across each example price as its row lands. */
+.tabs {
+  display: none;
+}
+.js .tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  max-width: 560px;
+  padding: 6px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+}
+.tabs button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.tabs button[aria-selected='true'] {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.js .price-panel:not(.is-active) {
+  display: none;
+}
+.price-panel + .price-panel {
+  margin-top: 28px;
+}
+.js .price-panel + .price-panel {
+  margin-top: 0;
+}
+.panel-title {
+  margin-bottom: 12px;
+}
+.price-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.price-row {
+  --shown: clamp(0, calc((min(var(--rp, 1), var(--tp, 1)) * 1.7 - var(--i) * 0.18) * 1.6), 1);
+  --sweep: clamp(0, calc((min(var(--rp, 1), var(--tp, 1)) * 1.7 - var(--i) * 0.18 - 0.4) * 2.2), 1);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  gap: 8px 22px;
+  align-items: center;
+  padding: 20px 24px;
+  opacity: var(--shown);
+  transform: translateX(calc((1 - var(--shown)) * 32px));
+}
+.price-row + .price-row {
+  border-top: 1px solid var(--line);
+}
+.price-row h4 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+.price-row p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.duration {
+  color: var(--muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.price-tag {
+  position: relative;
+  overflow: hidden;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+}
+.price-tag strong {
+  position: relative;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.3rem;
+  white-space: nowrap;
+}
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in srgb, #fff 80%, transparent) 50%,
+    transparent 80%
+  );
+  transform: translateX(calc((var(--sweep) * 2.2 - 1.1) * 100%));
+  pointer-events: none;
+}
+.row-book {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 2px solid var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+}
+.row-book:hover {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.price-note {
+  margin-top: 16px;
+}
+
+/* Your appointment, start to finish: --s1..--s4 (written by motion.js) run
+   prep, base coat, colour and top coat; each nail follows a little after the last. */
+.story {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.story .section-heading > p:last-child,
+.story .small-note,
+.story .eyebrow {
+  color: var(--on-brand-muted);
+}
+.story-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+.story-stage {
+  margin: 0;
+  min-width: 0;
+}
+.hand-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 28px;
+}
+.skin {
+  fill: var(--skin);
+}
+.knuckles path {
+  fill: none;
+  stroke: var(--skin-shade);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+.nail-bed {
+  fill: var(--nail-bed);
+}
+.nail-outline {
+  --o: clamp(0, calc((var(--s1, 1) - var(--k) * 0.08) * 2.4), 1);
+  fill: none;
+  stroke: var(--nail-edge);
+  stroke-width: 2;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc((1 - var(--o)) * 100px);
+}
+.nail-file {
+  fill: #e6d2c9;
+  stroke: #c9ada2;
+  stroke-width: 1.5;
+  transform: translateX(calc(-180px + var(--s1, 1) * 520px));
+  opacity: clamp(0, calc(min(var(--s1, 1), 1 - var(--s1, 1)) * 8), 1);
+}
+.nail-file path {
+  fill: none;
+}
+.coat {
+  fill: none;
+  stroke-dasharray: 100;
+}
+.coat-base {
+  --c: clamp(0, calc((var(--s2, 1) - var(--k) * 0.11) * 2.2), 1);
+  stroke: #fff;
+  opacity: 0.45;
+  stroke-dashoffset: calc((1 - var(--c)) * 100px);
+}
+.coat-colour {
+  --c: clamp(0, calc((var(--s3, 1) - var(--k) * 0.11) * 2.2), 1);
+  stroke: var(--brand);
+  stroke-dashoffset: calc((1 - var(--c)) * 100px);
+}
+.gloss {
+  --c: clamp(0, calc((var(--s4, 1) - var(--k) * 0.09) * 2.4), 1);
+  fill: none;
+  stroke: #fff;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc((1 - var(--c)) * 100px);
+  opacity: calc(var(--c) * 0.85);
+}
+.sparkle {
+  --c: clamp(0, calc((var(--s4, 1) - 0.5 - var(--i) * 0.08) * 3.2), 1);
+  fill: var(--accent);
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(var(--c)) rotate(calc((1 - var(--c)) * 90deg));
+}
+.stage-caption {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 0;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+.stage-caption [data-stage-number] {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.motion-progress {
+  height: 6px;
+  margin: 18px 0 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--on-brand) 22%, var(--brand));
+  overflow: hidden;
+}
+.motion-progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 1));
+}
+.story-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.story-steps li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--on-brand) 26%, var(--brand));
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+.story-steps li p {
+  margin: 8px 0 0;
+  color: var(--on-brand-muted);
+  transition: color 0.25s ease;
+}
+.step-number {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.story-steps li.is-current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.story-steps li.is-current p {
+  color: var(--on-accent);
+}
+
+/* Lashes and brows: --lp and --bp are written by motion.js */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.feature-card {
+  border-radius: 26px;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+.feature-art {
+  position: relative;
+}
+.feature-art svg,
+.tile svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.art-tag,
+.tile-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.feature-copy {
+  padding: 22px 24px 14px;
+}
+.feature-copy h3 {
+  margin-bottom: 10px;
+}
+.feature-copy p {
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.lash-line,
+.lower-lid {
+  fill: none;
+  stroke: var(--lash);
+  stroke-width: 4.5;
+  stroke-linecap: round;
+}
+.lower-lid {
+  stroke: var(--skin-shade);
+  stroke-width: 2.5;
+}
+.lower-lash {
+  stroke: var(--lash);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+.lash {
+  --l: clamp(0, calc(var(--lp, 1) * 1.4 - var(--i) * 0.045), 1);
+  fill: none;
+  stroke: var(--lash);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform: rotate(calc((1 - var(--l)) * var(--curl))) scale(calc(0.32 + var(--l) * 0.68));
+}
+.brow-guide {
+  fill: none;
+  stroke: color-mix(in srgb, var(--brand) 45%, var(--skin-light));
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+  opacity: calc(1 - var(--bp, 1) * 0.65);
+}
+.brow-guide-dot {
+  fill: var(--brand);
+  opacity: calc(1 - var(--bp, 1) * 0.65);
+}
+.brow-outline {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc((1 - clamp(0, calc(var(--bp, 1) * 2.2), 1)) * 100px);
+  opacity: calc(1 - clamp(0, calc((var(--bp, 1) - 0.75) * 3), 0.7));
+}
+.brow-fill {
+  fill: var(--tint);
+  opacity: calc(clamp(0, calc((var(--bp, 1) - 0.42) * 2.4), 1) * 0.92);
+}
+.brow-hair {
+  fill: none;
+  stroke: #4a2f22;
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: clamp(0, calc((var(--bp, 1) - 0.62 - var(--i) * 0.02) * 6), 1);
+}
+.patch-note {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 24px 0 0;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: var(--accent-soft);
+  max-width: 760px;
+}
+.patch-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-weight: 600;
+}
+
+/* Gallery: tiles deal out of a fanned stack (--gp from motion.js; --dx/--dy/--fan measured) */
+.gallery {
+  background: var(--soft);
+}
+.insta-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.insta-head div {
+  display: grid;
+  min-width: 0;
+}
+.insta-head strong {
+  font-weight: 600;
+}
+.insta-head span:last-child {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.insta-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.tile {
+  --shown: clamp(0, calc((var(--gp, 1) - var(--i) * 0.08) * 1.67), 1);
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  aspect-ratio: 1;
+  background: var(--white);
+  transform-origin: 50% 100%;
+  transform: translate(
+      calc(var(--dx, 0px) * (1 - var(--shown))),
+      calc(var(--dy, 0px) * (1 - var(--shown)))
+    )
+    rotate(calc(var(--fan, 0deg) * (1 - var(--shown))));
+}
+.tile svg {
+  height: 100%;
+}
+.tile figcaption {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.tile figcaption span:last-child {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--white) 88%, transparent);
+  color: var(--ink);
+}
+.tile-tag {
+  position: static;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+}
+.tile-lid {
+  fill: none;
+  stroke: var(--lash);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.tile-lash {
+  fill: none;
+  stroke: var(--lash);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+/* Before and after your appointment */
+.care-grid,
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.care-card,
+.policy-card,
+.voucher-card {
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 26px 24px;
+  min-width: 0;
+}
+.care-card h3,
+.policy-card h3 {
+  margin-bottom: 14px;
+}
+.care-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.care-card li {
+  position: relative;
+  padding-left: 26px;
+  line-height: 1.55;
+}
+.care-card li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.45em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Example reviews */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.review-card {
+  padding: 24px;
+  border-radius: 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: #2a2328;
+}
+.review-top {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-weight: 600;
+}
+.review-card h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.review-date {
+  margin: 0;
+  font-size: 0.84rem;
+  color: #5e575c;
+}
+.review-tag {
+  align-self: start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #8b848a;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #4b4449;
+  white-space: nowrap;
+}
+.stars {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.12em;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.review-card > p:last-child {
+  margin: 0;
+}
+
+/* Policies and gift vouchers */
+.policy-card .eyebrow {
+  color: var(--muted);
+}
+.policy-card p:last-child {
+  margin: 0;
+  color: var(--muted);
+}
+.voucher-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.voucher-card > p {
+  margin: 0;
+  color: var(--muted);
+}
+.voucher {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.voucher .eyebrow {
+  margin: 10px 0 0;
+  color: var(--on-brand-muted);
+}
+.voucher .monogram {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.voucher strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+.voucher-value {
+  font-family: var(--display);
+  font-size: 2.4rem;
+  line-height: 1.1;
+}
+.voucher-card .button {
+  justify-self: start;
+}
+
+/* Visit us */
+.contact {
+  background: var(--soft);
+}
+.contact-line {
+  font-weight: 600;
+}
+.details-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.contact-card,
+.hours,
+.map-card {
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 26px 24px;
+  min-width: 0;
+}
+.contact-card h3,
+.hours h3 {
+  margin-bottom: 12px;
+}
+.contact-card .button {
+  width: 100%;
+  margin: 6px 0 16px;
+}
+.contact-actions {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.contact-actions a,
+.contact-actions button {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  font-weight: 600;
+  text-align: left;
+  color: var(--ink);
+}
+.contact-actions span {
+  font-weight: 400;
+  color: var(--muted);
+}
+.contact-actions a:hover,
+.contact-actions button:hover {
+  border-color: var(--brand);
+}
+.hours dl {
+  margin: 0;
+}
+.hours dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.hours dt {
+  font-weight: 600;
+}
+.hours dd {
+  margin: 0;
+  white-space: nowrap;
+}
+.map-card {
+  padding: 0;
+  overflow: hidden;
+}
+.map-drawing {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.map-copy {
+  padding: 20px 24px 8px;
+}
+.map-copy .eyebrow {
+  color: var(--muted);
+}
+.map-copy .small-note {
+  margin-top: 8px;
+}
+
+/* FinTaxTech offer and footer */
+.agency-offer {
+  background: var(--brand);
+  color: var(--on-brand);
+  padding-block: 64px;
+}
+.offer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px 40px;
+}
+.offer-inner > div {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+.agency-offer .eyebrow,
+.agency-offer p {
+  color: var(--on-brand-muted);
+}
+.agency-offer h2 {
+  max-width: 20ch;
+  margin-bottom: 16px;
+}
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px 32px;
+  padding-block: 36px 40px;
+}
+.site-footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.site-footer > a:last-child {
+  font-weight: 600;
+}
+noscript p {
+  padding-block: 24px;
+}
+.mobile-contact {
+  display: none;
+}
+
+/* Dialogs */
+dialog {
+  width: min(520px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  border: 0;
+  border-radius: 26px;
+  padding: 30px 26px 26px;
+  background: var(--white);
+  color: #2a2328;
+  box-shadow: 0 30px 80px #00000040;
+}
+dialog::backdrop {
+  background: color-mix(in srgb, var(--brand-deep) 72%, transparent);
+}
+dialog h2 {
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
+  margin-bottom: 14px;
+  padding-right: 36px;
+}
+dialog h3 {
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+}
+dialog .eyebrow,
+dialog .small-note {
+  color: #5e575c;
+}
+dialog > .eyebrow {
+  /* Wrap clear of the close button, like the heading below it. */
+  padding-right: 36px;
+}
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  line-height: 1;
+  background: var(--soft);
+  color: #2a2328;
+}
+dialog label {
+  display: block;
+  font-weight: 600;
+  margin: 14px 0 6px;
+}
+dialog input,
+dialog select {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 2px solid #8b848a;
+  background: #fff;
+  color: #2a2328;
+}
+dialog .button {
+  width: 100%;
+  margin-top: 18px;
+}
+.form-error {
+  margin: 8px 0 0;
+  color: #a1261b;
+  font-weight: 600;
+}
+.form-error:empty {
+  display: none;
+}
+.dialog-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-top: 10px;
+}
+dialog .text-button {
+  color: #2a2328;
+}
+.flow-progress {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.flow-progress li {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--soft);
+  text-align: center;
+}
+.flow-progress li[aria-current='step'] {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.book-price {
+  margin: 8px 0 0;
+  color: #5e575c;
+}
+.book-price strong {
+  color: #2a2328;
+}
+.booked-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--accent-soft);
+}
+.booked-card .eyebrow {
+  margin-bottom: 2px;
+}
+.booked-name {
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  overflow-wrap: anywhere;
+}
+.book-summary {
+  margin: 4px 0 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.sparkles {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.sparkles i {
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  background: var(--brand);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+.sparkles i:nth-child(even) {
+  background: var(--accent);
+  width: 10px;
+  height: 10px;
+}
+.contact-preview-value {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  overflow-wrap: anywhere;
+}
+
+/* Scroll reveals: only hidden once motion.js has started and motion is allowed */
+.reveal-ready [data-reveal] {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+.reveal-ready [data-reveal]:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+@media (max-width: 1020px) {
+  .details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .contact-card {
+    grid-column: 1 / -1;
+  }
+  .business-header nav {
+    display: none;
+  }
+  .header-action {
+    margin-left: auto;
+  }
+}
+@media (max-width: 860px) {
+  .hero,
+  .story-layout,
+  .feature-grid,
+  .care-grid,
+  .policy-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero {
+    gap: 28px;
+    padding-block: 28px 64px;
+  }
+  .hero-art {
+    max-width: 380px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .bottle-art {
+    width: min(78%, 280px);
+  }
+  .review-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .stage-caption {
+    display: flex;
+  }
+}
+@media (max-width: 899px) {
+  .mobile-contact {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 8px;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    background: var(--brand);
+    border-top: 1px solid color-mix(in srgb, var(--on-brand) 24%, var(--brand));
+  }
+  .mobile-contact a {
+    display: grid;
+    place-items: center;
+    min-height: 48px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--on-brand);
+    color: var(--on-brand);
+  }
+  .mobile-contact a[data-book] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+  }
+  body {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+  html {
+    scroll-padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 600px) {
+  .demo-strip {
+    gap: 4px 12px;
+    font-size: 0.74rem;
+  }
+  .demo-strip .demo-id {
+    flex-basis: 100%;
+    order: -1;
+    margin-right: 0;
+  }
+  .demo-strip .gallery-link {
+    display: none;
+  }
+  .demo-strip [data-edit] {
+    margin-left: auto;
+  }
+  .business-header {
+    padding-block: 10px;
+    gap: 12px;
+  }
+  .brand {
+    font-size: 1.12rem;
+  }
+  .monogram {
+    width: 40px;
+    height: 40px;
+  }
+  .header-action {
+    display: none;
+  }
+  .hero {
+    padding-top: 20px;
+  }
+  .hero-actions .button {
+    width: 100%;
+  }
+  .hero-actions {
+    margin-top: 20px;
+  }
+  .hero .lead {
+    margin-bottom: 0;
+  }
+  .hero-card {
+    left: 0;
+    bottom: 8%;
+  }
+  .price-row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding: 18px 16px;
+  }
+  .row-copy {
+    grid-column: 1 / -1;
+  }
+  .price-tag {
+    justify-self: end;
+  }
+  .tabs button {
+    padding-inline: 4px;
+    font-size: 0.92rem;
+  }
+  .details-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .story-steps li {
+    padding: 16px;
+    gap: 14px;
+  }
+  .section-heading {
+    margin-bottom: 26px;
+  }
+  .insta-grid {
+    gap: 6px;
+  }
+  .tile figcaption {
+    left: 6px;
+    bottom: 6px;
+  }
+  .tile figcaption span:last-child {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
