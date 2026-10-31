@@ -110,6 +110,23 @@ export const motionTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Explore a personalised gym and fitness centre website demonstration by FinTaxTech, with example memberships, a class timetable, scroll-driven motion and a sample visit booking.',
   },
+  {
+    id: 'consultant-07',
+    name: 'Signature',
+    industry: 'Freelancers & consultants',
+    description:
+      'A refined personal-brand website in ink and rose, with a large name and monogram, a scroll that turns a tangle into a clear plan, and a free discovery-call demo.',
+    route: '/templates/website/motion/consultant-07/',
+    preview: {
+      src: '/templates/website/motion/consultant-07/preview.webp',
+      alt: 'Signature consultant demo: Morgan Ellis, Business consultant in Dundee, in large serif type beside an arched ink-blue card with the monogram ME, a rose signature line and a “Your photo here” placeholder.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Signature — Consultant website demo by FinTaxTech',
+    seoDescription:
+      'Explore a personalised website demonstration for freelancers and consultants by FinTaxTech, with example services, case studies, scroll-driven motion and a sample discovery-call booking.',
+  },
 ];
 
 export const barberRedirect = {

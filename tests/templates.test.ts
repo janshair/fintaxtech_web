@@ -49,9 +49,10 @@ describe('website template registry and discovery', () => {
 
 describe('gym demonstration content', () => {
   const gym = motionTemplates.find((t) => t.id === 'gym-06')!;
-  it('uses the next globally unique suffix and ships its own scripts', () => {
+  it('keeps its globally unique suffix and ships its own scripts', () => {
     const suffixes = allTemplates.map((t) => Number(t.id.split('-').at(-1)));
-    expect(Number(gym.id.split('-').at(-1))).toBe(Math.max(...suffixes));
+    expect(new Set(suffixes).size).toBe(suffixes.length);
+    expect(Number(gym.id.split('-').at(-1))).toBe(6);
     for (const file of ['identity.js', 'motion.js'])
       expect(existsSync(`public${gym.route}${file}`)).toBe(true);
   });
@@ -75,6 +76,83 @@ describe('gym demonstration content', () => {
     const content = page + JSON.stringify(gymDemo);
     expect(content).not.toMatch(
       /guaranteed|lose \d|weight loss|certified|accredited|insured|award/i,
+    );
+  });
+});
+
+describe('consultant demonstration content', () => {
+  const consultant = motionTemplates.find((t) => t.id === 'consultant-07')!;
+  it('keeps its globally unique suffix and ships its own scripts', () => {
+    const suffixes = allTemplates.map((t) => Number(t.id.split('-').at(-1)));
+    expect(new Set(suffixes).size).toBe(suffixes.length);
+    expect(Number(consultant.id.split('-').at(-1))).toBe(7);
+    for (const file of ['identity.js', 'motion.js'])
+      expect(existsSync(`public${consultant.route}${file}`)).toBe(true);
+  });
+  it('labels every credential, client and result as a placeholder or example', async () => {
+    const { consultantDemo, THEME } = await import('../src/content/consultant-demo');
+    const source = readFileSync('src/content/consultant-demo.ts', 'utf8');
+    expect(
+      source.startsWith('// Change these hex codes, save, and the whole template recolours.'),
+    ).toBe(true);
+    const page = readFileSync(`src/pages${consultant.route}index.astro`, 'utf8');
+    for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
+      expect(page).toContain(`data-capture="${hook}"`);
+    for (const text of [
+      'data-sample-price',
+      'data-sample-review',
+      'Example reviews — your real Google reviews appear here.',
+      'Example case study',
+      'Your photo here',
+      'Your qualification here',
+      'Client logo',
+      'Picture your business here?',
+    ])
+      expect(page).toContain(text);
+    expect(consultantDemo.role).toBe('Business consultant');
+    const css = readFileSync(`public${consultant.route}styles.css`, 'utf8');
+    for (const hex of Object.values(THEME)) expect(css.toLowerCase()).not.toContain(hex);
+    const { rolePresets } = await import('../src/content/consultant-demo');
+    const content = page + JSON.stringify(consultantDemo) + JSON.stringify(rolePresets);
+    expect(content).not.toMatch(
+      /chartered|certified|accredited|ACCA|CIMA|ICAS|HMRC|regulated by|award-winning|guaranteed|\d+% /i,
+    );
+  });
+  it('gives every role preset complete example copy, matched by keyword', async () => {
+    const { rolePresets, consultantDemo } = await import('../src/content/consultant-demo');
+    for (const preset of Object.values(rolePresets)) {
+      expect(preset.promise.length).toBeGreaterThan(20);
+      expect(preset.services).toHaveLength(4);
+      for (const service of preset.services) {
+        expect(service.price).toMatch(/£/);
+        expect(service.detail).toMatch(/^Example · /);
+      }
+      expect(preset.cases).toHaveLength(3);
+      expect(preset.clients).toHaveLength(5);
+      expect(preset.topics).toHaveLength(5);
+    }
+    // The same first-match rule as identity.js; unknown roles keep the consultant copy.
+    const presetFor = (role: string) =>
+      (Object.keys(rolePresets) as (keyof typeof rolePresets)[]).find((key) =>
+        new RegExp(rolePresets[key].match, 'i').test(role),
+      ) || 'consultant';
+    for (const [role, key] of [
+      ['Bookkeeper', 'bookkeeper'],
+      ['Chartered accountant', 'bookkeeper'],
+      ['Life coach', 'coach'],
+      ['Personal trainer', 'coach'],
+      ['Web designer', 'designer'],
+      ['Marketing consultant', 'designer'],
+      ['IT support', 'tech'],
+      ['Web developer', 'tech'],
+      ['Business consultant', 'consultant'],
+      ['Recruitment specialist', 'consultant'],
+      ['Architect', 'consultant'],
+    ])
+      expect(presetFor(role), role).toBe(key);
+    expect(consultantDemo.hero.tagline).toBe(rolePresets.consultant.promise);
+    expect(consultantDemo.services.map((s) => s.name)).toEqual(
+      rolePresets.consultant.services.map((s) => s.name),
     );
   });
 });
