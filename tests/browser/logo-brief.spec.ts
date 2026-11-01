@@ -86,7 +86,7 @@ test('shortened sections, exact name, Other, maximum and shared design cards pre
 }, info) => {
   test.setTimeout(120000);
   await begin(page);
-  await expect(page.getByRole('progressbar')).toHaveAttribute('max', '7');
+  await expect(page.getByRole('progressbar')).toHaveAttribute('max', '6');
   await page.getByRole('button', { name: 'Next', exact: true }).click();
   await expect(page.locator('#error-project')).toContainText('Complete');
   await page.getByLabel('New brand', { exact: true }).focus();
@@ -230,7 +230,8 @@ test('image validation, captions, removal, replacement and competitor limits', a
   expect(
     await preview.evaluate((img: HTMLImageElement) => [img.naturalWidth, img.naturalHeight]),
   ).toEqual([1600, 800]);
-  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  // References are in the final section, so validation runs from the Review brief button.
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('Complete');
   await page
     .getByLabel('What specifically do you like about this reference?')

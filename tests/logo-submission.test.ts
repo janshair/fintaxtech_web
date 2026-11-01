@@ -27,9 +27,17 @@ const payload = () => ({
 });
 afterEach(() => vi.unstubAllGlobals());
 
-it('keeps seven focused sections and shares all nineteen design choices with the public enquiry', () => {
+it('keeps six focused sections and shares all nineteen design choices with the public enquiry', () => {
   const state = completeLogoBrief();
-  expect(logoBriefSections).toHaveLength(7);
+  expect(logoBriefSections).toHaveLength(6);
+  const lastSection = logoBriefSections.at(-1)!;
+  expect(lastSection.title).toBe('References and inspiration');
+  expect(lastSection.fields.at(-1)).toMatchObject({
+    id: 'anything',
+    label: 'Anything else we should know?',
+    type: 'long',
+    optional: true,
+  });
   expect(rules.invalidSection(state)).toBe(-1);
   expect(fieldOptions(field('designStyle'), state.answers)).toEqual(brandingDesignQuestion.options);
   expect(field('designStyle').examples).toBe(brandingDesignQuestion.examples);
@@ -109,6 +117,11 @@ it('removes retired questions from state, review and submissions while retaining
     'avoid',
     'primaryUse',
     'deadlineReason',
+    'approver',
+    'approverName',
+    'groupContact',
+    'deadline',
+    'deadlineDate',
   ];
   for (const id of retired) state.answers[id] = 'RETIRED ANSWER';
   state.answers.uses = ['Signage', 'Vehicles', 'Other'];
@@ -376,4 +389,32 @@ it('server coalesces concurrent logo requests and rejects changed answers on the
   changed.txt = formatLogoBrief(changed);
   expect((await post(changed)).status).toBe(409);
   expect(fetcher).toHaveBeenCalledTimes(1);
+});
+
+it('omits approval and deadline from the brief, TXT export and accepted payload', () => {
+  const removed = ['approver', 'approverName', 'groupContact', 'deadline', 'deadlineDate'];
+  const fieldIds = logoBriefSections.flatMap((section) => section.fields).map((f) => f.id);
+  for (const id of removed) expect(fieldIds).not.toContain(id);
+  expect(logoBriefSections.map((section) => section.title)).not.toContain('Approval and timing');
+  for (const project of ['New brand', 'Complete redesign']) {
+    const state = completeLogoBrief();
+    state.answers.project = project;
+    if (project === 'Complete redesign') {
+      state.answers.identityProblems = 'Hard to read.';
+      state.answers.identityImprovements = 'Simpler lettering.';
+    }
+    const submission = canonicalLogoSubmission(state, date);
+    const txt = formatLogoBrief(submission);
+    expect(txt).not.toMatch(/\[APPROVAL\]|\[DEADLINE\]|approver|deadline/i);
+    for (const id of removed) expect(submission.state.answers).not.toHaveProperty(id);
+    const body = { ...logoSubmissionMetadata(submission), txt, trap: '' };
+    expect(JSON.stringify(validateLogoSubmission(body))).not.toMatch(/approver|deadline/i);
+    // A stale client still sending the removed keys is rejected by the server.
+    expect(() =>
+      validateLogoSubmission({
+        ...body,
+        state: { ...body.state, answers: { ...body.state.answers, deadline: 'Yes' } },
+      }),
+    ).toThrow();
+  }
 });
