@@ -1,0 +1,727 @@
+---
+// Original illustrations for the Save the Date wedding-supplier demo (wedding-09).
+// Brand-coloured parts use f-/s- classes, which read --brand and --accent from
+// THEME. Skin, hair, film, gold, sponge and wood are fixed illustration colours.
+// Every scene is an illustrated example: no real couples, venues or photos.
+// Parts with data-seg="stage from to" are driven by motion.js (it writes --t);
+// without it --t falls back to 1, so the finished picture always shows.
+import Bloom from './WeddingBloom.astro';
+import Couple from './WeddingCouple.astro';
+interface Props {
+  kind: string;
+  tile?: boolean;
+}
+const { kind, tile } = Astro.props;
+
+// Camera iris: six overlapping wedges that slide out radially to open.
+const blades = [0, 60, 120, 180, 240, 300];
+// Film strip sprockets and frames.
+const sprockets = Array.from({ length: 27 }, (_, i) => 8 + i * 24);
+const frames = [0, 1, 2, 3].map((i) => 30 + i * 164);
+// Bouquet built stem by stem: each stem draws, then its flower opens.
+const bouquet = [
+  { x: 228, y: 110, r: 21, kind: 'rose', tone: 'paper' },
+  { x: 292, y: 108, r: 21, kind: 'rose', tone: 'accent-deep' },
+  { x: 260, y: 86, r: 25, kind: 'peony', tone: 'accent' },
+  { x: 244, y: 146, r: 19, kind: 'daisy', tone: 'paper' },
+  { x: 282, y: 146, r: 19, kind: 'peony', tone: 'paper' },
+  { x: 214, y: 70, r: 12, kind: 'bud', tone: 'accent' },
+  { x: 306, y: 66, r: 12, kind: 'bud', tone: 'accent-deep' },
+] as const;
+const stemCount = bouquet.length;
+const stemSeg = (i: number) => {
+  const from = (i / stemCount) * 0.82;
+  return [
+    `2 ${from.toFixed(3)} ${(from + 0.24).toFixed(3)}`,
+    `2 ${(from + 0.12).toFixed(3)} ${Math.min(1, from + 0.3).toFixed(3)}`,
+  ];
+};
+const leaves = [
+  { x: 232, y: 176, a: -150 },
+  { x: 284, y: 176, a: -30 },
+  { x: 214, y: 132, a: -170 },
+  { x: 304, y: 130, a: -10 },
+];
+// Cake tiers, bottom first.
+const tiers = [
+  { x: 95, y: 190, w: 210, h: 68, band: 'brand-soft' },
+  { x: 125, y: 132, w: 150, h: 58, band: 'accent-soft' },
+  { x: 152, y: 82, w: 96, h: 50, band: 'gold-soft' },
+];
+const scallop = (x: number, y: number, w: number, size = 10) => {
+  const n = Math.max(3, Math.round(w / size));
+  const step = w / n;
+  let d = `M${x} ${y}`;
+  for (let i = 0; i < n; i++)
+    d += ` q${(step / 2).toFixed(2)} ${(step * 0.6).toFixed(2)} ${step.toFixed(2)} 0`;
+  return d;
+};
+const petals = Array.from({ length: 9 }, (_, i) => i);
+const bulbs = [12, 34, 56, 78, 100, 122, 140];
+const confetti = [
+  [24, 40, 'accent'],
+  [46, 70, 'gold'],
+  [150, 36, 'paper'],
+  [170, 64, 'accent'],
+  [130, 22, 'gold'],
+  [34, 110, 'paper'],
+  [176, 112, 'gold'],
+  [60, 26, 'paper'],
+  [96, 30, 'accent'],
+  [150, 90, 'accent'],
+] as const;
+---
+
+{
+  kind === 'camera' && (
+    <svg class="art camera-art" viewBox="0 0 360 320" aria-hidden="true" focusable="false">
+      <defs>
+        <clipPath id="wd-lens">
+          <circle cx="180" cy="190" r="94" />
+        </clipPath>
+      </defs>
+      <rect x="124" y="40" width="112" height="44" rx="12" class="f-brand" />
+      <rect x="258" y="52" width="44" height="22" rx="8" class="f-accent" />
+      <rect x="20" y="70" width="320" height="230" rx="30" class="f-brand" />
+      <rect x="20" y="120" width="320" height="140" class="f-leather" />
+      <rect x="44" y="86" width="48" height="18" rx="5" class="f-white" opacity=".55" />
+      <circle cx="180" cy="190" r="116" class="f-gold" />
+      <circle cx="180" cy="190" r="106" class="f-film" />
+      <g clip-path="url(#wd-lens)">
+        <rect x="86" y="96" width="188" height="188" class="f-accent-soft" />
+        <circle cx="228" cy="142" r="18" class="f-gold-soft" />
+        <path d="M86 238c40-30 80-26 110-10 30-18 62-16 78-2v58H86Z" class="f-brand-soft" />
+        <path d="M128 284v-72a52 52 0 0 1 104 0v72" class="s-arch" />
+        <Bloom x={129} y={226} r={11} tone="paper" />
+        <Bloom x={138} y={186} r={12} kind="peony" tone="accent" />
+        <Bloom x={162} y={163} r={11} tone="accent-deep" />
+        <Bloom x={198} y={163} r={11} kind="daisy" tone="paper" />
+        <Bloom x={222} y={186} r={12} kind="peony" tone="paper" />
+        <Bloom x={231} y={226} r={11} tone="accent" />
+        <Couple x={180} y={280} s={0.92} />
+        <g class="iris">
+          {blades.map((a) => (
+            <g transform={`rotate(${a} 180 190)`}>
+              <path class="blade" d="M180 200 70 40h220Z" />
+            </g>
+          ))}
+        </g>
+      </g>
+      <path d="M116 150a76 76 0 0 1 58-38" class="s-glare" />
+    </svg>
+  )
+}
+{
+  kind === 'bouquet-hero' && (
+    <svg class="art bouquet-hero-art" viewBox="0 0 360 380" aria-hidden="true" focusable="false">
+      <g class="s-stems">
+        {[148, 160, 172, 184, 196, 208].map((x, i) => (
+          <path d={`M${x} 190 L${168 + i * 5} 370`} />
+        ))}
+      </g>
+      <path d="M118 200c-30-30-30-70 4-80 0 34 0 56-4 80Z" class="f-brand-soft" />
+      <path d="M242 200c30-30 30-70-4-80 0 34 0 56 4 80Z" class="f-brand-soft" />
+      <path d="M98 150c-28-8-44-34-30-58 22 12 30 34 30 58Z" class="f-brand" />
+      <path d="M262 150c28-8 44-34 30-58-22 12-30 34-30 58Z" class="f-brand" />
+      <Bloom x={180} y={112} r={40} kind="peony" tone="accent" />
+      <Bloom x={120} y={138} r={32} tone="paper" />
+      <Bloom x={240} y={136} r={32} tone="accent-deep" />
+      <Bloom x={150} y={186} r={28} kind="daisy" tone="paper" />
+      <Bloom x={212} y={190} r={30} kind="peony" tone="paper" />
+      <Bloom x={128} y={74} r={18} kind="bud" tone="accent" />
+      <Bloom x={236} y={70} r={18} kind="bud" tone="accent-deep" />
+      <Bloom x={180} y={56} r={16} kind="daisy" tone="paper" />
+      <rect x="160" y="250" width="44" height="34" rx="6" class="f-accent" />
+      <path
+        d="M182 266c-30-26-52-6-30 6 10 4 22 0 30-6Zm0 0c30-26 52-6 30 6-10 4-22 0-30-6Z"
+        class="f-accent"
+      />
+      <path d="M182 268l-26 58M182 268l24 60" class="s-ribbon" />
+    </svg>
+  )
+}
+{
+  kind === 'cake-hero' && (
+    <svg class="art cake-hero-art" viewBox="0 0 360 380" aria-hidden="true" focusable="false">
+      <path d="M150 352h60l-8-22h-44Z" class="f-gold" />
+      <ellipse cx="180" cy="330" rx="138" ry="12" class="f-gold" />
+      <rect x="70" y="244" width="220" height="84" rx="8" class="f-icing" />
+      <rect x="70" y="282" width="220" height="16" class="f-brand-soft" />
+      <ellipse cx="180" cy="244" rx="110" ry="9" class="f-icing-top" />
+      <rect x="102" y="170" width="156" height="74" rx="8" class="f-icing" />
+      <rect x="102" y="206" width="156" height="14" class="f-accent-soft" />
+      <ellipse cx="180" cy="170" rx="78" ry="8" class="f-icing-top" />
+      <rect x="130" y="108" width="100" height="62" rx="8" class="f-icing" />
+      <ellipse cx="180" cy="108" rx="50" ry="7" class="f-icing-top" />
+      <path d={scallop(70, 326, 220, 12)} class="piping" />
+      <path d={scallop(102, 242, 156, 12)} class="piping" />
+      <path class="piping piping-draw" pathLength="1" d={scallop(130, 168, 100, 10)} />
+      <Bloom x={96} y={252} r={18} tone="accent" />
+      <Bloom x={118} y={244} r={13} kind="daisy" tone="paper" />
+      <Bloom x={262} y={176} r={15} kind="peony" tone="accent" />
+      <Bloom x={244} y={170} r={11} tone="accent-deep" />
+      <g class="hero-topper">
+        <path d="M168 108V78M192 108V78" class="s-gold" />
+        <path
+          d="M168 80c-12-10-14-24-2-24 4 0 6 4 6 6 0-2 2-6 6-6 12 0 10 14-10 24Z"
+          class="f-gold"
+          transform="translate(-4 0)"
+        />
+        <path
+          d="M192 80c-12-10-14-24-2-24 4 0 6 4 6 6 0-2 2-6 6-6 12 0 10 14-10 24Z"
+          class="f-accent"
+          transform="translate(-4 0)"
+        />
+      </g>
+    </svg>
+  )
+}
+{
+  kind === 'film' && (
+    <svg class="art film-art" viewBox="0 0 400 260" aria-hidden="true" focusable="false">
+      <defs>
+        <clipPath id="wd-frame">
+          <rect width="150" height="124" rx="4" />
+        </clipPath>
+      </defs>
+      <g class="film-strip">
+        <rect x="0" y="40" width="680" height="180" rx="6" class="f-film" />
+        {sprockets.map((x) => (
+          <>
+            <rect x={x} y="49" width="12" height="9" rx="2" class="f-sprocket" />
+            <rect x={x} y="202" width="12" height="9" rx="2" class="f-sprocket" />
+          </>
+        ))}
+        {frames.map((x, i) => (
+          <g transform={`translate(${x} 68)`}>
+            <g clip-path="url(#wd-frame)">
+              {i === 0 && (
+                <>
+                  <rect width="150" height="124" class="f-accent-soft" />
+                  <rect x="14" y="14" width="48" height="64" rx="3" class="f-white" />
+                  <path d="M38 14v64M14 46h48" class="s-pane" />
+                  <path d="M62 30 120 124H40L14 78Z" class="f-white" opacity=".35" />
+                  <path d="M100 14v8M86 30l14-8 14 8Z" class="s-gold" />
+                  <path d="M92 32h16l16 76H76Z" class="f-white" />
+                  <path d="M92 32h16l-2 16h-12Z" class="f-accent" opacity=".5" />
+                  <rect x="0" y="108" width="150" height="16" class="f-wood" />
+                  <path d="M30 108c-4-10 4-16 8-16s10 6 6 16Z" class="f-brand-soft" />
+                  <Bloom x={34} y={88} r={7} tone="accent-deep" />
+                </>
+              )}
+              {i === 1 && (
+                <>
+                  <rect width="150" height="124" class="f-paper-dim" />
+                  <path d="M0 98h150v26H0Z" class="f-brand-soft" />
+                  <path d="M52 124 68 98h14l16 26Z" class="f-white" opacity=".7" />
+                  <path d="M40 124V62a35 35 0 0 1 70 0v62" class="s-arch" />
+                  <Bloom x={42} y={74} r={8} tone="accent" />
+                  <Bloom x={56} y={40} r={8} kind="peony" tone="paper" />
+                  <Bloom x={75} y={28} r={9} tone="accent-deep" />
+                  <Bloom x={94} y={40} r={8} kind="peony" tone="accent" />
+                  <Bloom x={108} y={74} r={8} tone="paper" />
+                  <Couple x={74} y={116} s={0.78} skin={['#c98f6b', '#f0c7a8']} />
+                </>
+              )}
+              {i === 2 && (
+                <>
+                  <rect width="150" height="124" class="f-brand-deep" />
+                  <path d="M0 18q75 34 150 0" class="s-lights" />
+                  {bulbs.map((x) => (
+                    <circle
+                      cx={x}
+                      cy={18 + 34 * (1 - ((x - 75) / 75) ** 2) * 0.5}
+                      r="3.2"
+                      class="f-gold-soft"
+                    />
+                  ))}
+                  <ellipse cx="75" cy="118" rx="62" ry="10" class="f-brand" />
+                  <Couple x={75} y={116} s={0.8} skin={['#f0c7a8', '#7a4b33']} dark />
+                </>
+              )}
+              {i === 3 && (
+                <>
+                  <rect width="150" height="124" class="f-paper-dim" />
+                  <rect x="55" y="46" width="40" height="30" rx="6" class="s-placeholder" />
+                  <circle cx="75" cy="61" r="9" class="s-placeholder" />
+                  <path d="M66 46l4-6h10l4 6" class="s-placeholder" />
+                </>
+              )}
+              {i < 3 && (
+                <>
+                  <rect class="frame-tint" width="150" height="124" data-seg={`${i + 1} 0 1`} />
+                  <rect class="frame-blank" width="150" height="124" data-seg={`${i + 1} 0 1`} />
+                </>
+              )}
+            </g>
+          </g>
+        ))}
+      </g>
+    </svg>
+  )
+}
+{
+  kind === 'bouquet' && (
+    <svg class="art bouquet-art" viewBox="0 0 400 280" aria-hidden="true" focusable="false">
+      <rect x="22" y="44" width="96" height="196" rx="16" class="f-white card-shadow" />
+      <rect x="40" y="62" width="60" height="6" rx="3" class="f-brand-soft" />
+      {(['accent', 'paper', 'brand-soft'] as const).map((tone, i) => (
+        <g transform={`translate(70 ${108 + i * 50})`}>
+          <circle r="20" class="swatch-ring" />
+          <circle
+            r="20"
+            class={`swatch f-${tone} bloom-edge`}
+            data-seg={`1 ${(i * 0.28).toFixed(2)} ${(i * 0.28 + 0.44).toFixed(2)}`}
+          />
+        </g>
+      ))}
+      <g class="leaf-group">
+        {leaves.map((leaf, i) => (
+          <g transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.a})`}>
+            <path
+              class="leaf f-brand-soft"
+              d="M0 0c10-12 30-12 38 0-8 10-28 10-38 0Z"
+              data-seg={`2 ${(0.1 + i * 0.18).toFixed(2)} ${(0.4 + i * 0.18).toFixed(2)}`}
+            />
+          </g>
+        ))}
+      </g>
+      <g class="s-stems">
+        {bouquet.map((b, i) => (
+          <path
+            class="stem"
+            pathLength="1"
+            d={`M${b.x} ${b.y} L258 206 L${246 + i * 4} 270`}
+            data-seg={stemSeg(i)[0]}
+          />
+        ))}
+      </g>
+      {bouquet.map((b, i) => (
+        <Bloom
+          x={b.x}
+          y={b.y}
+          r={b.r}
+          kind={b.kind}
+          tone={b.tone}
+          class="grow"
+          seg={stemSeg(i)[1]}
+        />
+      ))}
+      <rect
+        x="244"
+        y="196"
+        width="30"
+        height="22"
+        rx="4"
+        class="ribbon-wrap f-accent"
+        data-seg="3 0 0.35"
+      />
+      <path
+        class="ribbon s-ribbon"
+        pathLength="1"
+        d="M259 206c-34-30-58-4-30 6 10 3 20-1 30-6"
+        data-seg="3 0.3 0.62"
+      />
+      <path
+        class="ribbon s-ribbon"
+        pathLength="1"
+        d="M259 206c34-30 58-4 30 6-10 3-20-1-30-6"
+        data-seg="3 0.42 0.74"
+      />
+      <path class="ribbon s-ribbon" pathLength="1" d="M259 208l-22 52" data-seg="3 0.66 0.9" />
+      <path class="ribbon s-ribbon" pathLength="1" d="M259 208l20 54" data-seg="3 0.74 1" />
+    </svg>
+  )
+}
+{
+  kind === 'tiers' && (
+    <svg class="art tiers-art" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
+      <path d="M170 292h60l-10-26h-40Z" class="f-gold" />
+      <ellipse cx="200" cy="264" rx="138" ry="11" class="f-gold" />
+      {tiers.map((t, i) => (
+        <g class="tier" data-seg={`${i + 1} 0 0.55`}>
+          <rect x={t.x} y={t.y} width={t.w} height={t.h} rx="8" class="f-icing" />
+          <rect x={t.x} y={t.y + t.h * 0.5} width={t.w} height={t.h * 0.2} class={`f-${t.band}`} />
+          <ellipse cx={t.x + t.w / 2} cy={t.y} rx={t.w / 2} ry="7" class="f-icing-top" />
+        </g>
+      ))}
+      {tiers.map((t, i) => (
+        <path
+          class="piping"
+          pathLength="1"
+          d={scallop(t.x, t.y + t.h - 2, t.w, 11)}
+          data-seg={`${i + 1} 0.5 0.95`}
+        />
+      ))}
+      <Bloom x={112} y={196} r={14} tone="accent" class="grow" seg="1 0.8 1" />
+      <Bloom x={268} y={138} r={12} kind="peony" tone="accent" class="grow" seg="2 0.8 1" />
+      <g class="topper" data-seg="3 0.72 1">
+        <path d="M188 82V52M212 82V52" class="s-gold" />
+        <path
+          d="M184 54c-12-10-14-24-2-24 4 0 6 4 6 6 0-2 2-6 6-6 12 0 10 14-10 24Z"
+          class="f-gold"
+        />
+        <path
+          d="M208 54c-12-10-14-24-2-24 4 0 6 4 6 6 0-2 2-6 6-6 12 0 10 14-10 24Z"
+          class="f-accent"
+        />
+      </g>
+    </svg>
+  )
+}
+{
+  kind === 'map' && (
+    <svg class="map-drawing" viewBox="0 0 360 200" aria-hidden="true" focusable="false">
+      <rect width="360" height="200" class="f-brand-soft" />
+      <path d="M-10 140C90 110 170 170 370 90" class="s-road" stroke-width="16" />
+      <path d="M110-10 140 210M250-10l-30 220" class="s-road" stroke-width="10" />
+      <rect x="24" y="22" width="70" height="46" rx="8" class="f-accent-soft" />
+      <rect x="268" y="132" width="70" height="48" rx="8" class="f-accent-soft" />
+      <path
+        d="M190 50c-17 0-30 13-30 30 0 23 30 50 30 50s30-27 30-50c0-17-13-30-30-30Z"
+        class="f-brand"
+      />
+      <circle cx="190" cy="80" r="11" class="f-accent" />
+    </svg>
+  )
+}
+{
+  tile && (
+    <svg class="art tile-svg" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      {kind === 'getting-ready' && (
+        <>
+          <rect width="200" height="200" class="f-accent-soft" />
+          <rect x="20" y="22" width="70" height="96" rx="4" class="f-white" />
+          <path d="M55 22v96M20 70h70" class="s-pane" />
+          <path d="M90 50 170 200H60L20 118Z" class="f-white" opacity=".3" />
+          <path d="M138 20v10M118 42l20-12 20 12Z" class="s-gold" />
+          <path d="M128 44h20l26 116h-72Z" class="f-white" />
+          <path d="M128 44h20l-2 24h-16Z" class="f-accent" opacity=".5" />
+          <rect y="168" width="200" height="32" class="f-wood" />
+          <path d="M40 168c-6-14 6-22 12-22s16 8 10 22Z" class="f-brand-soft" />
+          <Bloom x={46} y={140} r={10} tone="accent-deep" />
+        </>
+      )}
+      {kind === 'rings' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <ellipse cx="100" cy="150" rx="70" ry="12" class="f-brand-soft" opacity=".5" />
+          <circle cx="84" cy="104" r="34" class="s-ring" />
+          <circle cx="120" cy="110" r="30" class="s-ring" />
+          <path d="M76 66l8-10 8 10-8 8Z" class="f-white diamond" />
+          <Bloom x={156} y={52} r={18} tone="accent" />
+          <Bloom x={40} y={160} r={14} kind="daisy" tone="paper" />
+        </>
+      )}
+      {kind === 'confetti' && (
+        <>
+          <rect width="200" height="200" class="f-brand-soft" />
+          <rect y="160" width="200" height="40" class="f-paper-dim" />
+          {confetti.map(([x, y, tone], i) => (
+            <rect
+              x={x}
+              y={y}
+              width="8"
+              height="5"
+              rx="1.5"
+              transform={`rotate(${i * 37} ${x} ${y})`}
+              class={`f-${tone}`}
+            />
+          ))}
+          <Couple x={100} y={178} s={1.2} skin={['#9a6447', '#e3b296']} />
+        </>
+      )}
+      {kind === 'golden-hour' && (
+        <>
+          <rect width="200" height="200" class="f-accent-soft" />
+          <circle cx="132" cy="96" r="40" class="f-gold-soft" />
+          <path d="M0 150c50-34 110-40 200-12v62H0Z" class="f-brand" />
+          <Couple x={84} y={150} s={0.95} dark skin={['#5b3a2a', '#5b3a2a']} />
+        </>
+      )}
+      {kind === 'details' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <g transform="rotate(-8 90 100)">
+            <rect x="40" y="46" width="96" height="124" rx="4" class="f-white card-shadow" />
+            <path d="M58 76h60M64 92h48M58 120h60M70 136h36" class="s-lines" />
+          </g>
+          <circle cx="146" cy="146" r="16" class="f-accent-deep" />
+          <circle cx="146" cy="146" r="9" class="s-white" />
+          <path d="M150 40c20 0 30 20 24 40-16-6-26-22-24-40Z" class="f-brand-soft" />
+          <Bloom x={160} y={92} r={10} kind="daisy" tone="paper" />
+        </>
+      )}
+      {kind === 'first-dance' && (
+        <>
+          <rect width="200" height="200" class="f-brand-deep" />
+          <path d="M0 30q100 50 200 0" class="s-lights" />
+          {[14, 42, 70, 100, 130, 158, 186].map((x) => (
+            <circle cx={x} cy={30 + 25 * (1 - ((x - 100) / 100) ** 2)} r="4" class="f-gold-soft" />
+          ))}
+          <ellipse cx="100" cy="180" rx="80" ry="14" class="f-brand" />
+          <Couple x={100} y={178} s={1.15} dark skin={['#e3b296', '#c98f6b']} />
+        </>
+      )}
+      {kind === 'bridal-bouquet' && (
+        <>
+          <rect width="200" height="200" class="f-accent-soft" />
+          <g class="s-stems">
+            {[86, 94, 102, 110].map((x) => (
+              <path d={`M${x} 110 L${96 + (x - 98) / 3} 190`} />
+            ))}
+          </g>
+          <Bloom x={100} y={74} r={26} kind="peony" tone="paper" />
+          <Bloom x={66} y={96} r={20} tone="accent-deep" />
+          <Bloom x={134} y={96} r={20} tone="accent" />
+          <Bloom x={84} y={120} r={16} kind="daisy" tone="paper" />
+          <Bloom x={118} y={122} r={17} kind="peony" tone="accent" />
+          <rect x="88" y="140" width="20" height="18" rx="3" class="f-brand" />
+        </>
+      )}
+      {kind === 'buttonholes' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          {[44, 100, 156].map((x, i) => (
+            <g>
+              <path d={`M${x} 110 L${x} 170`} class="s-stem-solid" />
+              <path d={`M${x} 120c-18-4-24-20-16-30 10 6 16 16 16 30Z`} class="f-brand-soft" />
+              <rect x={x - 5} y="140" width="10" height="20" rx="2" class="f-accent" />
+              <Bloom
+                x={x}
+                y={96}
+                r={18}
+                kind={i === 1 ? 'peony' : 'rose'}
+                tone={i === 1 ? 'accent' : 'paper'}
+              />
+            </g>
+          ))}
+        </>
+      )}
+      {kind === 'centrepiece' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <rect y="140" width="200" height="60" class="f-white" />
+          <rect x="20" y="70" width="10" height="70" rx="3" class="f-white card-shadow" />
+          <rect x="170" y="60" width="10" height="80" rx="3" class="f-white card-shadow" />
+          <path
+            d="M25 70c-4-8 4-14 0-20 6 4 6 14 0 20ZM175 60c-4-8 4-14 0-20 6 4 6 14 0 20Z"
+            class="f-gold-soft"
+          />
+          <path d="M60 150h80l-10-24H70Z" class="f-gold" />
+          <path d="M44 120c10-18 30-20 40-8M156 120c-10-18-30-20-40-8" class="s-stem-solid" />
+          <Bloom x={78} y={112} r={18} tone="accent" />
+          <Bloom x={102} y={102} r={20} kind="peony" tone="paper" />
+          <Bloom x={126} y={114} r={17} tone="accent-deep" />
+          <Bloom x={56} y={124} r={11} kind="daisy" tone="paper" />
+          <Bloom x={146} y={124} r={11} kind="bud" tone="accent" />
+        </>
+      )}
+      {kind === 'flower-arch' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <rect y="168" width="200" height="32" class="f-brand-soft" />
+          <path d="M84 200 94 168h12l10 32Z" class="f-white" opacity=".8" />
+          <path d="M44 172V90a56 56 0 0 1 112 0v82" class="s-arch" />
+          {[
+            [46, 140],
+            [48, 104],
+            [62, 66],
+            [88, 42],
+            [118, 44],
+            [142, 70],
+            [154, 106],
+            [156, 142],
+          ].map(([x, y], i) => (
+            <Bloom
+              x={x}
+              y={y}
+              r={i % 2 ? 12 : 14}
+              kind={i % 3 ? 'rose' : 'peony'}
+              tone={i % 2 ? 'accent' : 'paper'}
+            />
+          ))}
+        </>
+      )}
+      {kind === 'crown' && (
+        <>
+          <rect width="200" height="200" class="f-accent-soft" />
+          <ellipse cx="100" cy="104" rx="66" ry="56" class="s-stem-solid" />
+          {Array.from({ length: 12 }, (_, i) => {
+            const a = (i / 12) * Math.PI * 2;
+            return (
+              <Bloom
+                x={Math.round(100 + Math.cos(a) * 66)}
+                y={Math.round(104 + Math.sin(a) * 56)}
+                r={i % 3 === 0 ? 15 : 11}
+                kind={i % 3 === 0 ? 'peony' : i % 3 === 1 ? 'daisy' : 'bud'}
+                tone={i % 2 ? 'paper' : 'accent'}
+              />
+            );
+          })}
+        </>
+      )}
+      {kind === 'aisle' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <path d="M80 70h40l50 130H30Z" class="f-white" />
+          {[
+            [34, 96],
+            [24, 140],
+            [14, 186],
+            [166, 96],
+            [176, 140],
+            [186, 186],
+          ].map(([x, y], i) => (
+            <g>
+              <path d={`M${x - 12} ${y + 8}c4-14 20-14 24 0`} class="f-brand-soft" />
+              <Bloom x={x - 6} y={y - 2} r={9} tone={i % 2 ? 'accent' : 'paper'} />
+              <Bloom x={x + 7} y={y + 2} r={8} kind="daisy" tone="paper" />
+            </g>
+          ))}
+        </>
+      )}
+      {kind === 'semi-naked' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <ellipse cx="100" cy="172" rx="80" ry="8" class="f-wood" />
+          <rect x="44" y="110" width="112" height="60" rx="6" class="f-sponge" />
+          <path d="M44 128h112M44 150h112" class="s-cream" />
+          <rect x="66" y="62" width="68" height="48" rx="6" class="f-sponge" />
+          <path d="M66 78h68M66 94h68" class="s-cream" />
+          <Bloom x={130} y={62} r={13} tone="accent" />
+          <Bloom x={146} y={112} r={10} kind="daisy" tone="paper" />
+          <circle cx="78" cy="58" r="5" class="f-berry" />
+          <circle cx="90" cy="56" r="5" class="f-berry" />
+        </>
+      )}
+      {kind === 'pressed-flower' && (
+        <>
+          <rect width="200" height="200" class="f-accent-soft" />
+          <ellipse cx="100" cy="182" rx="76" ry="7" class="f-gold" />
+          <rect x="40" y="130" width="120" height="50" rx="6" class="f-icing" />
+          <rect x="56" y="88" width="88" height="42" rx="6" class="f-icing" />
+          <rect x="72" y="52" width="56" height="36" rx="6" class="f-icing" />
+          {[
+            [56, 150],
+            [84, 162],
+            [120, 148],
+            [146, 160],
+            [72, 104],
+            [110, 114],
+            [130, 100],
+            [92, 66],
+            [114, 74],
+          ].map(([x, y], i) => (
+            <Bloom x={x} y={y} r={5} kind="daisy" tone={i % 2 ? 'accent-deep' : 'brand-soft'} />
+          ))}
+        </>
+      )}
+      {kind === 'dessert-table' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <rect y="140" width="200" height="60" class="f-white" />
+          <rect x="74" y="80" width="52" height="60" rx="5" class="f-icing" />
+          <rect x="84" y="52" width="32" height="28" rx="4" class="f-icing" />
+          <Bloom x={112} y={52} r={8} tone="accent" />
+          {[24, 46, 154, 176].map((x) => (
+            <g>
+              <path d={`M${x - 9} 126h18l-3 14h-12Z`} class="f-accent" />
+              <circle cx={x} cy="122" r="10" class="f-icing-top" />
+            </g>
+          ))}
+          {[30, 50, 150, 170].map((x, i) => (
+            <circle cx={x} cy="152" r="7" class={i % 2 ? 'f-brand-soft' : 'f-accent-soft'} />
+          ))}
+        </>
+      )}
+      {kind === 'cupcakes' && (
+        <>
+          <rect width="200" height="200" class="f-accent-soft" />
+          <path d="M98 30v150M102 30v150" class="s-gold" />
+          {[
+            [70, 64, 'paper'],
+            [130, 64, 'accent'],
+            [46, 112, 'accent'],
+            [100, 112, 'paper'],
+            [154, 112, 'accent'],
+            [34, 160, 'paper'],
+            [78, 160, 'accent'],
+            [122, 160, 'paper'],
+            [166, 160, 'accent'],
+          ].map(([x, y, tone]) => (
+            <g>
+              <path d={`M${Number(x) - 12} ${y}h24l-3 17h-18Z`} class="f-wood" />
+              <path
+                d={`M${Number(x) - 6} ${y}v16M${x} ${y}v17M${Number(x) + 6} ${y}v16`}
+                class="s-cream"
+                style="stroke-width:1.5"
+                opacity=".6"
+              />
+              <path
+                d={`M${Number(x) - 14} ${y}a14 13 0 0 1 28 0Z`}
+                class={tone === 'accent' ? 'f-accent-deep' : 'f-icing'}
+              />
+              <circle cx={x} cy={Number(y) - 14} r="3" class="f-berry" />
+            </g>
+          ))}
+          <path d="M20 82h160M16 130h168M10 178h180" class="s-gold" />
+        </>
+      )}
+      {kind === 'topper' && (
+        <>
+          <rect width="200" height="200" class="f-paper-dim" />
+          <rect x="30" y="120" width="140" height="80" rx="8" class="f-icing" />
+          <ellipse cx="100" cy="120" rx="70" ry="9" class="f-icing-top" />
+          <path d={scallop(30, 196, 140, 12)} class="piping" />
+          <path d="M84 120V70M116 120V70" class="s-gold" />
+          <path
+            d="M84 74c-18-14-20-34-4-34 6 0 8 6 8 8 0-2 3-8 8-8 16 0 14 20-12 34Z"
+            class="f-gold"
+            transform="translate(-4 0)"
+          />
+          <path
+            d="M116 74c-18-14-20-34-4-34 6 0 8 6 8 8 0-2 3-8 8-8 16 0 14 20-12 34Z"
+            class="f-accent"
+            transform="translate(-4 0)"
+          />
+          <Bloom x={50} y={128} r={12} tone="accent" />
+        </>
+      )}
+      {kind === 'tasting-box' && (
+        <>
+          <rect width="200" height="200" class="f-brand-soft" />
+          <rect x="26" y="40" width="148" height="128" rx="10" class="f-white card-shadow" />
+          <rect x="26" y="40" width="148" height="12" class="f-accent" />
+          {[0, 1, 2, 3, 4, 5].map((i) => {
+            const x = 50 + (i % 3) * 50;
+            const y = 82 + Math.floor(i / 3) * 52;
+            return (
+              <g>
+                <rect x={x - 18} y={y - 12} width="36" height="30" rx="4" class="f-sponge" />
+                <path d={`M${x - 18} ${y + 2}h36`} class="s-cream" />
+                <rect
+                  x={x - 18}
+                  y={y - 16}
+                  width="36"
+                  height="8"
+                  rx="3"
+                  class={i % 2 ? 'f-accent-soft' : 'f-icing'}
+                />
+              </g>
+            );
+          })}
+        </>
+      )}
+    </svg>
+  )
+}
+{
+  kind === 'petals' && (
+    <span class="petals" aria-hidden="true">
+      {petals.map((i) => (
+        <i style={`--i:${i}`} />
+      ))}
+    </span>
+  )
+}

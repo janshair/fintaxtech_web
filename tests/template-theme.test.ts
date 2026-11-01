@@ -16,6 +16,7 @@ import { THEME as juice } from '../src/content/juice-bar-demo';
 import { THEME as gym } from '../src/content/gym-demo';
 import { THEME as consultant } from '../src/content/consultant-demo';
 import { THEME as beauty } from '../src/content/beauty-demo';
+import { THEME as wedding } from '../src/content/wedding-demo';
 const themes = {
   'barber-01': barber,
   'tailoring-02': tailoring,
@@ -25,6 +26,7 @@ const themes = {
   'gym-06': gym,
   'consultant-07': consultant,
   'beauty-08': beauty,
+  'wedding-09': wedding,
 };
 
 describe('build-time template colours', () => {
