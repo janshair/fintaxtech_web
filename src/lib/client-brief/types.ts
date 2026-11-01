@@ -1,9 +1,14 @@
-export type BriefKind = 'logo' | 'website' | 'websiteDemo' | 'mobile' | 'prompt';
+export type BriefKind = 'logo' | 'website' | 'websiteDemo' | 'mobile' | 'prompt' | 'template';
 
 export interface BriefCondition {
   id: string;
   values?: string[];
   matches?: string;
+}
+// A format rule with the message shown when a value does not match (Unicode flag).
+export interface BriefPattern {
+  source: string;
+  message: string;
 }
 
 export interface BriefField {
@@ -22,7 +27,10 @@ export interface BriefField {
     | 'email'
     | 'pages'
     | 'urls'
-    | 'rows';
+    | 'rows'
+    | 'phone'
+    | 'colour'
+    | 'hidden';
   imagePurpose?: 'current-logo';
   imageExplanationMin?: number;
   imageExplanationHelp?: string;
@@ -34,6 +42,7 @@ export interface BriefField {
     add: string;
     remove: (n: number) => string;
     max?: number;
+    min?: number;
     unique?: { key: string; againstOptionsFrom?: string };
     fields: {
       key: string;
@@ -42,13 +51,24 @@ export interface BriefField {
       options?: string[];
       optional?: boolean;
       when?: BriefCondition;
+      maxLength?: number;
+      pattern?: BriefPattern;
     }[];
   };
   optional?: boolean;
   max?: number;
+  // Character limit for text answers, replacing the default short/long limit.
+  maxLength?: number;
+  pattern?: BriefPattern;
+  // Shown beside a confirm checkbox instead of the business-name spelling confirmation.
+  confirmText?: string;
+  // Options listed for context but not selectable yet.
+  comingSoon?: string[];
+  // Query parameter that pre-fills this field, sanitised before use.
+  prefill?: string;
   help?: string;
   when?: BriefCondition | BriefCondition[];
-  requiredWhen?: BriefCondition;
+  requiredWhen?: BriefCondition | BriefCondition[];
   exclusive?: string[];
   followUp?: {
     values: string[];

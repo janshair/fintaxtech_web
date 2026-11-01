@@ -24,6 +24,12 @@ import type { BriefField } from '../lib/client-brief/types';
 import { createWebsiteDelivery } from '../lib/client-brief/website-delivery';
 import { isWebsiteBrief } from '../lib/client-brief/website-submission';
 import { websiteDeliveryCopy } from '../content/client-brief';
+import { templateTextCopy } from '../content/template-brief';
+import {
+  templateBriefFilename,
+  templateBriefText,
+  templatePrefill,
+} from '../lib/client-brief/template-brief';
 
 const shell = document.querySelector<HTMLElement>('[data-client-brief]')!;
 const definition =
@@ -41,7 +47,14 @@ let sections = visibleSections({});
 const root = shell.querySelector<HTMLElement>('[data-brief-form]')!;
 const intro = shell.querySelector<HTMLElement>('[data-brief-intro]')!;
 const begin = shell.querySelector<HTMLButtonElement>('[data-brief-begin]')!;
-let state = emptyBrief();
+// Template briefs start from the demo link's values (and the route's template).
+const fresh = () => {
+  const brief = emptyBrief();
+  if (kind === 'template')
+    brief.answers = templatePrefill(location.search, shell.dataset.template || undefined);
+  return brief;
+};
+let state = fresh();
 let position = 0;
 let dirty = false;
 let busy = false;
@@ -137,7 +150,7 @@ function renderRows(field: BriefField, wrap: HTMLElement) {
               renderKeepingSelection(id);
           },
           part.type === 'long' ? 'textarea' : part.type,
-          part.type === 'long' ? limits.long : limits.short,
+          part.maxLength ?? (part.type === 'long' ? limits.long : limits.short),
         );
         label.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')!.required =
           !part.optional;
@@ -223,7 +236,9 @@ function renderField(field: BriefField) {
           : 'choices',
     );
     const otherChoices = illustrated ? el('div', undefined, 'choices choices-followup') : choices;
-    fieldOptions(field, state.answers).forEach((option, index) => {
+    const available = fieldOptions(field, state.answers);
+    [...available, ...(field.comingSoon ?? [])].forEach((option, index) => {
+      const soon = index >= available.length;
       const example = field.examples?.[option];
       const label = el(
         'label',
@@ -235,9 +250,10 @@ function renderField(field: BriefField) {
       input.name = field.id;
       input.id = `${field.id}-${index}`;
       input.value = option;
-      input.checked = includesAnswer(state.answers[field.id], option);
+      input.checked = !soon && includesAnswer(state.answers[field.id], option);
+      input.disabled = soon;
       input.addEventListener('change', () => {
-        if (busy) return;
+        if (busy || soon) return;
         if (field.type === 'multi') {
           const selected = (state.answers[field.id] as string[] | undefined) ?? [];
           const next = toggleChoice(field, selected, option);
@@ -254,6 +270,10 @@ function renderField(field: BriefField) {
       });
       const title = el('span', undefined, example?.image ? 'choice-title' : undefined);
       title.append(input, el('span', option));
+      if (soon) {
+        label.classList.add('choice-soon');
+        title.append(el('span', c.comingSoon, 'choice-badge'));
+      }
       if (example) {
         const image = el('img');
         image.src = example.image ?? `/images/logo-brief/${example.file}`;
@@ -262,7 +282,7 @@ function renderField(field: BriefField) {
         image.height = 400;
         image.decoding = 'async';
         if (example.image) {
-          input.setAttribute('aria-label', option);
+          input.setAttribute('aria-label', soon ? `${option} (${c.comingSoon})` : option);
           label.append(image, title);
           if (example.description) {
             const description = el('span', example.description, 'choice-description');
@@ -310,7 +330,8 @@ function renderField(field: BriefField) {
     field.type === 'date' ||
     field.type === 'url' ||
     field.type === 'email' ||
-    field.type === 'urls'
+    field.type === 'urls' ||
+    field.type === 'phone'
   ) {
     const label = textField(
       field.id,
@@ -338,13 +359,47 @@ function renderField(field: BriefField) {
             ? 'url'
             : field.type === 'email'
               ? 'email'
-              : 'text',
-      field.type === 'long' || field.type === 'urls' ? limits.long : limits.short,
+              : field.type === 'phone'
+                ? 'tel'
+                : 'text',
+      field.maxLength ??
+        (field.type === 'long' || field.type === 'urls' ? limits.long : limits.short),
     );
     label.querySelector('span')!.classList.add('sr-only');
     const control = label.querySelector('input, textarea')!;
     if (isRequired(field, state.answers)) control.setAttribute('required', '');
     wrap.append(label);
+  } else if (field.type === 'colour') {
+    // A typed #RRGGBB code with a native picker beside it; the text field holds the answer.
+    const value = String(state.answers[field.id] ?? '');
+    const label = textField(
+      field.id,
+      `${field.label} (#RRGGBB)`,
+      value,
+      (next) => {
+        update(field.id, next);
+        if (/^#[0-9a-f]{6}$/i.test(next.trim())) picker.value = next.trim().toLowerCase();
+      },
+      'text',
+      7,
+    );
+    const text = label.querySelector('input')!;
+    text.required = true;
+    text.placeholder = '#1F3A5F';
+    text.spellcheck = false;
+    const picker = el('input');
+    picker.type = 'color';
+    picker.id = `${field.id}-picker`;
+    picker.className = 'brief-colour-picker';
+    picker.setAttribute('aria-label', `${field.label} picker`);
+    picker.value = /^#[0-9a-f]{6}$/i.test(value) ? value.toLowerCase() : '#000000';
+    picker.addEventListener('input', () => {
+      text.value = picker.value.toUpperCase();
+      text.dispatchEvent(new Event('input'));
+    });
+    const row = el('div', undefined, 'brief-colour');
+    row.append(picker, label);
+    wrap.append(row);
   } else if (field.type === 'rows') {
     renderRows(field, wrap);
   } else if (field.type === 'confirm') {
@@ -355,8 +410,11 @@ function renderField(field: BriefField) {
     input.required = true;
     input.checked = state.answers[field.id] === true;
     input.addEventListener('change', () => update(field.id, input.checked));
-    const span = el('span', c.confirmation(String(state.answers.trading ?? '')));
-    span.id = 'name-confirmation';
+    const span = el(
+      'span',
+      field.confirmText ?? c.confirmation(String(state.answers.trading ?? '')),
+    );
+    if (!field.confirmText) span.id = 'name-confirmation';
     label.append(input, span);
     wrap.append(label);
   } else if (field.type === 'competitors') {
@@ -601,7 +659,9 @@ function render(focus = true, focusId?: string) {
   const form = el('form');
   form.noValidate = true;
   form.autocomplete = 'off';
-  for (const field of section.fields.filter((field) => isVisible(field, state.answers)))
+  for (const field of section.fields.filter(
+    (field) => isVisible(field, state.answers) && field.type !== 'hidden',
+  ))
     form.append(renderField(field));
   if (busy)
     form
@@ -706,7 +766,7 @@ function review() {
       updateStatus();
     });
   };
-  if (delivery) root.append(el('p', websiteDeliveryCopy.notice, 'notice'));
+  if (delivery) root.append(el('p', c.deliveryNotice ?? websiteDeliveryCopy.notice, 'notice'));
   const actions = el('div', undefined, 'actions');
   actions.append(
     button(c.back, () => {
@@ -749,8 +809,32 @@ function review() {
           .forEach((button) => (button.disabled = button.textContent === 'Brief submitted'));
       }
     },
-    !logoDelivery,
+    !logoDelivery && kind !== 'template',
   );
+  if (kind === 'template') {
+    // The .txt is built from the same reviewed answers that Slack receives.
+    actions.append(
+      button(
+        templateTextCopy.download,
+        () => {
+          if (busy) return;
+          completeReviewed();
+          try {
+            const text = templateBriefText(state);
+            download(
+              new Blob([text], { type: 'text/plain;charset=utf-8' }),
+              templateBriefFilename(state),
+            );
+            pdfStatus = templateTextCopy.downloaded;
+          } catch {
+            pdfStatus = templateTextCopy.error;
+          }
+          updateStatus();
+        },
+        true,
+      ),
+    );
+  }
   actions.append(save);
   if (logoDelivery && logoSubmission) {
     const submit = button(
@@ -838,7 +922,7 @@ window.addEventListener('pagehide', () => {
 });
 window.addEventListener('pageshow', (event) => {
   if (event.persisted) {
-    state = emptyBrief();
+    state = fresh();
     position = 0;
     dirty = false;
     busy = false;

@@ -15,6 +15,7 @@ import { mobileAppBriefCopy } from './mobile-app-brief';
 import { websiteBriefCopy } from './website-brief';
 import { websiteDemoBriefCopy } from './website-demo-brief';
 import { logoBriefCopy } from './logo-brief';
+import { templateBriefCopy, templateChoices } from './template-brief';
 import { pages } from './pages';
 import { blogCopy } from './blog';
 import { services } from './services';
@@ -133,6 +134,22 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
     nofollow: true,
   },
+  ...Object.fromEntries(
+    [
+      templateBriefCopy.route,
+      ...templateChoices
+        .filter((t) => t.available)
+        .map((t) => `${templateBriefCopy.route}${t.id}/`),
+    ].map((path) => [
+      path,
+      {
+        title: templateBriefCopy.title,
+        description: templateBriefCopy.description,
+        noindex: true,
+        nofollow: true,
+      },
+    ]),
+  ),
   [logoBriefCopy.route]: {
     title: logoBriefCopy.title,
     description: logoBriefCopy.description,

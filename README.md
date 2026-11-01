@@ -145,6 +145,26 @@ Edit `src/content/website-demo-brief.ts`; it uses the same form, validation, rev
 
 Like the other client briefs, this route is unlisted, `noindex,nofollow`, excluded from analytics and has no access gate. Draft answers remain in page memory; refreshing, closing or returning from the browser history cache clears them. After review, existing final actions send the reviewed text through the server to Slack. Clients can still download `FinTaxTech-free-website-demo-brief.pdf` and attach it manually. No uploads or save-and-resume have been added. Coverage lives in `tests/website-demo-brief.test.ts` and `tests/browser/website-demo-brief.spec.ts`.
 
+## Template website brief
+
+Send `/client/website-brief/templates/` to let a customer choose a website template and enter the real content for their business. `/client/website-brief/templates/<template-id>/` starts with that template chosen. barber-01's final "Want this for …? Talk to FinTaxTech" button and its "Enquire about this template" link open the brief with `name`, `area`, `phone` and `ref` from the demo link. A smaller link beneath the button still goes to `/contact/`.
+
+Query values are trimmed, length-capped and rendered as text. A phone is kept only if it contains phone characters, a `ref` only if it is 1–32 letters, numbers, `-` or `_`, and `template` only if that template has a schema. `ref`, `role` and `type` are hidden fields: they go into the Slack submission and the .txt header, never into the form.
+
+It is the existing brief engine with a `template` kind. The template picker lists every template in `src/content/templates.ts`; those without a schema show as Coming soon and can't be chosen. Core sections (business, contact, opening hours, online, brand, reviews and qualifications, files to send, approval) live in `src/content/template-brief.ts`. Each optional content group offers "Use the template’s sample for now", so nobody is blocked. Reviews need a ticked permission and are left out entirely when there are none: example reviews never go live.
+
+After review, **Download .txt** saves `FinTaxTech-template-brief-<template-id>-<business-slug>.txt` (UTF-8, LF). The file contains a readable brief and a files-to-send checklist, followed by a JSON block between `BEGIN TEMPLATE DATA` and `END TEMPLATE DATA`. In the JSON, skipped or sample content is `null`, so the build keeps the demo's copy. `content` matches the template's content file. Download .txt, Download PDF, email and WhatsApp send the same text to Slack through the existing delivery. The JSON is built in `src/lib/client-brief/template-brief.ts`.
+
+To add a schema for another template:
+
+1. Move any business content still hard-coded in the template's page (services, prices, hours) into its `src/content/*-demo.ts` file, and confirm the page renders unchanged.
+2. Create `src/content/template-briefs/<template-id>.ts` exporting `sections` and `toTemplateData(answers, rows)`. The data must match the keys of that content file. Prefix field ids with the template (like `barberServices`), use `sampleChoice` / `whenOwn` from `shared.ts`, and set `bookingLinkWhen` if a choice makes the booking link required.
+3. Register it in `src/content/template-briefs/index.ts`. The picker, the direct route and the SEO entry follow automatically.
+4. Point the demo's final offer link at `/client/website-brief/templates/<template-id>/` with its current values.
+5. Add unit tests (limits, data shape) beside `tests/template-brief.test.ts`, and extend `tests/browser/template-brief.spec.ts`.
+
+Like the other briefs, the route is unlisted, `noindex,nofollow`, outside the sitemap, has no analytics, and keeps answers only in page memory.
+
 ## Client brief delivery and hosting setup
 
 `/client/website-brief/`, `/client/website-demo-brief/` and `/client/logo-brief/` use the server-side delivery service. The logo brief has an explicit Submit brief action as described above. For the two website briefs, the review screen explains that **Download PDF**, **Open email** and **Open WhatsApp** send the reviewed text to FinTaxTech. Entering review, editing, Back, theme changes and other incidental actions do not submit. PDF generation/download runs independently: a Slack failure never prevents the download or clears answers, and a PDF font error never cancels Slack delivery. Slack receives structured plain text, not the PDF file. Email/WhatsApp still open blank messages for manual attachments. Mobile-app and AI Automation production briefs retain their local-only behaviour.

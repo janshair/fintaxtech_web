@@ -45,6 +45,20 @@
       button.firstChild.textContent = name ? copy.client.changeName : copy.client.tryName;
     });
     announcement.textContent = copy.client.updated + businessName + '.';
+    if (briefReady) updateBriefLinks();
+  }
+  // The template brief opens with this preview's values already filled in.
+  let briefReady = false;
+  function updateBriefLinks() {
+    const url = new URL(copy.briefRoute, window.location.origin);
+    if (businessName !== defaultName) url.searchParams.set('name', businessName);
+    if (area) url.searchParams.set('area', area);
+    // Phone characters only; the brief applies its own UK phone check.
+    const briefPhone = clean(params.get('phone'));
+    if (/^\+?[\d ()-]{6,20}$/.test(briefPhone)) url.searchParams.set('phone', briefPhone);
+    const ref = (params.get('ref') || '').trim();
+    if (/^[A-Za-z0-9_-]{1,32}$/.test(ref)) url.searchParams.set('ref', ref);
+    document.querySelectorAll('[data-brief-link]').forEach(el => { el.href = url.pathname + url.search; });
   }
   applyName(params.get('name'));
   const area = clean(params.get('area'));
@@ -66,6 +80,8 @@
       ? '+44 ' + digits.slice(2, 6) + ' ' + digits.slice(6)
       : '+' + digits;
   }
+  briefReady = true;
+  updateBriefLinks();
   if (area) document.querySelectorAll('[data-directions]').forEach(el => {
     el.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(area);
     el.target = '_blank'; el.rel = 'noopener noreferrer';
@@ -137,7 +153,7 @@
     (step === 0 ? bookingService : [slotsForm, confirmation][step - 1].querySelector('h3')).focus();
   }
   function showBooking(trigger, service) {
-    bookingService.value = service || 'The Signature Cut';
+    bookingService.value = service || copy.services[0].name;
     slotsForm.reset();
     openDialog(bookingDialog, trigger);
     bookingStep(0);

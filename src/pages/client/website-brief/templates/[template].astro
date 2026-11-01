@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import ClientBriefShell from '../../../../components/ClientBriefShell.astro';
+import { templateBriefCopy as c, templateChoices } from '../../../../content/template-brief';
+// Only templates with a brief schema get a direct link.
+export function getStaticPaths() {
+  return templateChoices
+    .filter((template) => template.available)
+    .map((template) => ({ params: { template: template.id } }));
+}
+const { template } = Astro.params;
+---
+
+<SiteLayout title={c.title} description={c.description} noindex>
+  <ClientBriefShell kind="template" template={template} />
+</SiteLayout>

@@ -1,5 +1,6 @@
 import { briefCopy as c } from '../../content/client-brief';
 import { validEmail } from '../validation';
+import { ukPhone } from '../uk-phone';
 import {
   omitPrioritySource,
   priorityOfferingsText,
@@ -43,7 +44,14 @@ export const isVisible = (field: Pick<BriefField, 'when'>, answers: BriefAnswers
     matchesCondition(condition, answers),
   );
 export const isRequired = (field: BriefField, answers: BriefAnswers): boolean =>
-  !field.optional || !!(field.requiredWhen && matchesCondition(field.requiredWhen, answers));
+  field.type !== 'hidden' &&
+  (!field.optional ||
+    (Array.isArray(field.requiredWhen) ? field.requiredWhen : [field.requiredWhen]).some(
+      (condition) => !!condition && matchesCondition(condition, answers),
+    ));
+export const validColour = (value: string) => /^#[0-9a-f]{6}$/i.test(value);
+const breaksPattern = (pattern: BriefField['pattern'], value: string) =>
+  !!pattern && !new RegExp(pattern.source, 'u').test(value);
 export const hasOther = (field: BriefField, answers: BriefAnswers) =>
   isVisible(field, answers) && includesAnswer(answers[field.id], c.other);
 export const requiresOtherText = (field: BriefField, answers: BriefAnswers) =>
@@ -120,6 +128,7 @@ export function createBriefRules(sections: BriefSection[]) {
       const rows = state.rows[field.id] ?? [];
       if (!rows.length) return isRequired(field, state.answers) ? c.rowRequired : undefined;
       if (field.repeat.max && rows.length > field.repeat.max) return c.rowLimit(field.repeat.max);
+      if (field.repeat.min && rows.length < field.repeat.min) return c.rowMin(field.repeat.min);
       const source = sections
         .flatMap((section) => section.fields)
         .find((f) => f.id === field.repeat?.unique?.againstOptionsFrom);
@@ -129,8 +138,10 @@ export function createBriefRules(sections: BriefSection[]) {
           if (!isVisible(part, row.values)) continue;
           const value = row.values[part.key] ?? '';
           if (!value.trim() && !part.optional) return c.missing;
-          const max = part.type === 'long' ? limits.long : limits.short;
+          const max = part.maxLength ?? (part.type === 'long' ? limits.long : limits.short);
           if (value.length > max) return c.tooLong(max);
+          if (value.trim() && breaksPattern(part.pattern, value.trim()))
+            return part.pattern!.message;
           if (part.type === 'url' && value.trim()) {
             try {
               if (!['http:', 'https:'].includes(new URL(value.trim()).protocol))
@@ -203,8 +214,16 @@ export function createBriefRules(sections: BriefSection[]) {
       }
       return;
     }
+    if (field.type === 'confirm' && field.confirmText)
+      return answer === true ? undefined : c.missing;
     if (field.type === 'confirm')
       return answer === true && String(state.answers.trading ?? '').trim() ? undefined : c.missing;
+    if (field.type === 'hidden') {
+      if (answer === undefined || answer === '') return;
+      if (typeof answer !== 'string' || answer.length > (field.maxLength ?? limits.short))
+        return c.invalidChoice;
+      return breaksPattern(field.pattern, answer) ? c.invalidChoice : undefined;
+    }
     if (
       answer === undefined ||
       answer === '' ||
@@ -228,9 +247,14 @@ export function createBriefRules(sections: BriefSection[]) {
       if (typeof answer !== 'string' || !fieldOptions(field, state.answers).includes(answer))
         return c.invalidChoice;
     } else {
-      const max = field.type === 'long' || field.type === 'urls' ? limits.long : limits.short;
+      const max =
+        field.maxLength ??
+        (field.type === 'long' || field.type === 'urls' ? limits.long : limits.short);
       if (typeof answer !== 'string') return c.missing;
       if (answer.length > max) return c.tooLong(max);
+      if (breaksPattern(field.pattern, answer.trim())) return field.pattern!.message;
+      if (field.type === 'phone' && !ukPhone(answer)) return c.invalidPhone;
+      if (field.type === 'colour' && !validColour(answer.trim())) return c.invalidColour;
       if (field.type === 'email' && !validEmail(answer.trim())) return c.invalidEmail;
       if (field.type === 'url') {
         try {
@@ -285,7 +309,10 @@ export function createBriefRules(sections: BriefSection[]) {
           (field) => field.type === 'images' && isVisible(field, state.answers),
         )?.imagePurpose,
         rows: section.fields
-          .filter((field) => isVisible(field, state.answers) && field.type !== 'images')
+          .filter(
+            (field) =>
+              isVisible(field, state.answers) && field.type !== 'images' && field.type !== 'hidden',
+          )
           .flatMap((field) => {
             if (omitPrioritySource(field.id, state)) return [];
             if (field.id === 'priorityOfferings') {
@@ -318,7 +345,8 @@ export function createBriefRules(sections: BriefSection[]) {
                   )
                   .join('\n') || c.notProvided;
             else if (field.type === 'confirm')
-              value = answer === true ? c.confirmed : c.notProvided;
+              value =
+                answer === true ? (field.confirmText ? c.agreed : c.confirmed) : c.notProvided;
             else if (answer) {
               const format = (item: string) =>
                 item === c.other && (!field.otherField || field.optionsFrom)

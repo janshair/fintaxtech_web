@@ -99,3 +99,36 @@
 .client-brief .brief-row fieldset.field {
   display: block;
 }
+
+/* Template brief: unavailable templates and colour pickers. */
+.client-brief .choice-soon {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.client-brief .choice-badge {
+  margin-left: auto;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: normal;
+  white-space: nowrap;
+}
+.client-brief .brief-colour {
+  display: flex;
+  align-items: end;
+  gap: var(--space-4);
+}
+.client-brief .brief-colour > .field {
+  flex: 1;
+  min-width: 0;
+}
+.client-brief .brief-colour-picker {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}

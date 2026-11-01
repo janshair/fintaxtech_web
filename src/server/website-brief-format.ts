@@ -7,11 +7,14 @@ import {
   provisionalAssetPermission,
   websiteOutputLabels,
 } from '../lib/client-brief/website-presentation';
+import { templateBriefText } from '../lib/client-brief/template-brief';
 
 export const escapeSlackText = (text: string) =>
   text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
-export function formatWebsiteBrief(payload: WebsiteSubmission) {
+export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new Date()) {
+  // Template briefs send Slack the same text the customer downloads.
+  if (payload.kind === 'template') return templateBriefText(payload, submittedAt);
   const definition = clientBriefDefinitions[payload.kind];
   const demo = payload.kind === 'websiteDemo';
   const state = { ...emptyBrief(), ...structuredClone(payload) };
@@ -308,7 +311,7 @@ export function slackWebsiteParts(
   submissionId: string,
   submittedAt: string,
 ) {
-  const body = formatWebsiteBrief(payload);
+  const body = formatWebsiteBrief(payload, new Date(submittedAt));
   const chunks: string[] = [];
   let chunk = '';
   // Count the escaped fallback too: even a long answer made of '&' must stay below Slack's limit.

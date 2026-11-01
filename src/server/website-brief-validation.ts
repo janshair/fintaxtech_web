@@ -53,6 +53,9 @@ export function validateWebsiteSubmission(input: unknown): WebsiteSubmission {
   for (const [id, answer] of Object.entries(input.answers)) {
     if (!(
       text(answer) ||
+      (answer === true &&
+        fields.find((field) => field.id === id)?.type === 'confirm' &&
+        input.kind === 'template') ||
       (Array.isArray(answer) &&
         answer.length <= 30 &&
         answer.every((value) => text(value, limits.short)) &&
