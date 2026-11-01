@@ -185,3 +185,12 @@ test('the beauty gallery card opens the implemented Top Coat demo', async ({ pag
   await expect(page).toHaveURL(beauty.route);
   await expect(page.locator('h1')).toHaveText('Plum & Polish Studio');
 });
+
+test('the wedding gallery card opens the implemented Save the Date demo', async ({ page }) => {
+  const wedding = motionTemplates.find((template) => template.id === 'wedding-09')!;
+  await page.goto(gallery.route);
+  await page.getByRole('link', { name: `${gallery.previewLabel} ${wedding.name}` }).click();
+  await expect(page).toHaveURL(wedding.route);
+  await expect(page.locator('h1')).toHaveText('Hazel & Wren');
+  await expect(page.locator('.badge')).toHaveText('Now booking 2027 weddings · example');
+});

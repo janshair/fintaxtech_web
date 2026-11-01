@@ -1,0 +1,77 @@
+---
+// One original illustrated flower for the Save the Date demo (wedding-09),
+// drawn at radius 20 and scaled. Tones map to f-* classes that read THEME.
+interface Props {
+  x: number;
+  y: number;
+  r?: number;
+  kind?: 'rose' | 'peony' | 'daisy' | 'bud';
+  tone?: 'accent' | 'accent-deep' | 'paper' | 'brand-soft' | 'gold';
+  class?: string;
+  style?: string;
+  seg?: string;
+}
+const { x, y, r = 20, kind = 'rose', tone = 'accent', class: extra, style, seg } = Astro.props;
+const s = +(r / 20).toFixed(3);
+const petals = Array.from({ length: 10 }, (_, i) => i * 36);
+const ring = Array.from({ length: 6 }, (_, i) => i * 60);
+---
+
+<g transform={`translate(${x} ${y})`}>
+  <g class:list={['bloom', extra]} style={style} data-seg={seg}>
+    <g transform={`scale(${s})`}>
+      {
+        kind === 'rose' && (
+          <>
+            <circle r="20" class={`f-${tone} bloom-edge`} />
+            <path
+              d="M-9 3c-1-9 9-14 14-7 4 6-2 12-8 10-5-2-4-8 1-8M-15 -4c4-12 22-15 28-2M-14 9c6 9 22 8 27-3"
+              class="bloom-line"
+            />
+          </>
+        )
+      }
+      {
+        kind === 'peony' && (
+          <>
+            {ring.map((a) => (
+              <circle
+                cx="0"
+                cy="-11"
+                r="10"
+                transform={`rotate(${a})`}
+                class={`f-${tone} bloom-edge`}
+              />
+            ))}
+            <circle r="12" class={`f-${tone} bloom-edge`} />
+            <path d="M-6-2c3-6 10-5 11 1M-7 5c5 4 11 3 13-2" class="bloom-line" />
+          </>
+        )
+      }
+      {
+        kind === 'daisy' && (
+          <>
+            {petals.map((a) => (
+              <ellipse
+                cy="-11"
+                rx="5"
+                ry="10"
+                transform={`rotate(${a})`}
+                class={`f-${tone} bloom-edge`}
+              />
+            ))}
+            <circle r="6.5" class="f-gold" />
+          </>
+        )
+      }
+      {
+        kind === 'bud' && (
+          <>
+            <path d="M0 14C-12 6-10-10 0-18 10-10 12 6 0 14Z" class={`f-${tone} bloom-edge`} />
+            <path d="M-8 10c4 5 12 5 16 0L0 20Z" class="f-brand-soft" />
+          </>
+        )
+      }
+    </g>
+  </g>
+</g>

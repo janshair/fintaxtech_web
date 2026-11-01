@@ -1,0 +1,25 @@
+---
+// An original, faceless illustrated couple (no real people), feet at (x, y).
+interface Props {
+  x: number;
+  y: number;
+  s?: number;
+  skin?: [string, string];
+  dark?: boolean;
+}
+const { x, y, s = 1, skin = ['#e3b296', '#9a6447'], dark = false } = Astro.props;
+---
+
+<g transform={`translate(${x} ${y}) scale(${s})`} class:list={['couple', { 'is-dark': dark }]}>
+  <path d="M5-70h24l4 70H22l-5-44-4 44H1Z" class="suit"></path>
+  <path d="M12-70l5 13 5-13Z" class="f-white"></path>
+  <path d="M15-57h4l-2 6Z" class="f-accent"></path>
+  <circle cx="17" cy="-80" r="8.5" fill={skin[1]}></circle>
+  <path d="M8.5-82c0-10 17-12 17-1-5-3-11-4-17 1Z" class="hair-dark"></path>
+  <path d="M-16-69c4-3 13-3 16 0l17 69h-52Z" class="dress"></path>
+  <path d="M-16-69c4-3 13-3 16 0l-1 10h-14Z" class="dress-bodice"></path>
+  <circle cx="-8" cy="-79" r="8.5" fill={skin[0]}></circle>
+  <path d="M-17-79c-2-13 18-15 18-2 0 5-1 10 1 15-9 0-18-4-19-13Z" class="hair-light"></path>
+  <path d="M-2-60c6 2 11 4 16 3" class="arm"></path>
+  <circle cx="11" cy="-56" r="5" class="f-accent"></circle>
+</g>
