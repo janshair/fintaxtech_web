@@ -66,6 +66,7 @@ export const pricingCalculatorNavigation = {
     { href: '/estimate/branding/', label: 'Branding' },
     { href: '/estimate/mobile/', label: 'Mobile app' },
     { href: '/estimate/website/', label: 'Website' },
+    { href: '/estimate/ai-automation/', label: 'AI Automation' },
   ],
 };
 export const navigation = [

@@ -1,0 +1,12 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import EstimateShell from '../../components/EstimateShell.astro';
+import { aiEstimateCopy as c } from '../../content/ai-automation-estimate';
+---
+
+<SiteLayout title={c.title} description={c.description} noindex
+  ><EstimateShell kind="ai-automation" copy={c} /></SiteLayout
+>
+<script>
+  import '../../scripts/ai-automation-estimate';
+</script>

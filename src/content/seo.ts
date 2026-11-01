@@ -1,3 +1,4 @@
+import { aiEstimateCopy } from './ai-automation-estimate';
 import { locations } from './locations';
 import { websiteEstimateCopy } from './website-estimate';
 import { mobileEstimateCopy } from './mobile-estimate';
@@ -32,6 +33,12 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
+  [aiEstimateCopy.route]: {
+    title: aiEstimateCopy.title,
+    description: aiEstimateCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
   ...Object.fromEntries(
     locations.map((location) => [
       `/locations/${location.slug}/`,

@@ -1,7 +1,7 @@
 ---
 import '../styles/branding-estimate.css';
 interface Props {
-  kind: 'branding' | 'mobile' | 'website';
+  kind: 'branding' | 'mobile' | 'website' | 'ai-automation';
   copy: {
     title: string;
     intro: string;
@@ -17,6 +17,7 @@ const { kind, copy: c } = Astro.props;
 
 <section
   class:list={['quiz', 'estimate', `${kind}-estimate`]}
+  data-ai-automation-estimate={kind === 'ai-automation' || undefined}
   data-branding-estimate={kind === 'branding' || undefined}
   data-website-estimate={kind === 'website' || undefined}
   data-mobile-estimate={kind === 'mobile' || undefined}

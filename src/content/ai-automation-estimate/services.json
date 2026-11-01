@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "fintaxtech-ai-automation-services-v1",
+  "route": "/estimate/ai-automation/",
+  "steps": [
+    { "id": "service", "title": "What Would You Like to Automate?" },
+    { "id": "process", "title": "How Does Your Business Work Today?" },
+    { "id": "tools", "title": "Which Tools Do You Use?" },
+    { "id": "features", "title": "Additional Features" },
+    { "id": "support", "title": "Maintenance & Support" },
+    { "id": "estimate", "title": "Your Automation Estimate" }
+  ],
+  "services": [
+    {
+      "id": "website_assistant",
+      "title": "AI Website Assistant",
+      "description": "Answer approved FAQs and capture enquiries."
+    },
+    {
+      "id": "lead_automation",
+      "title": "Enquiry & Lead Automation",
+      "description": "Organise enquiries, update records and notify your team."
+    },
+    {
+      "id": "booking_automation",
+      "title": "Booking & Appointment Automation",
+      "description": "Support requests, reminders and existing booking tools."
+    },
+    {
+      "id": "document_automation",
+      "title": "Document & Admin Automation",
+      "description": "Extract agreed information and prepare records for human review."
+    }
+  ],
+  "discoveryChoice": {
+    "id": "unsure",
+    "title": "I'm not sure — help me choose",
+    "requiresDescription": true
+  },
+  "websiteAssistant": {
+    "outcomes": ["faq", "leads", "booking", "recommendations", "other"],
+    "currentProcesses": ["manual", "contact_form", "existing_chat", "none"],
+    "knowledgeSources": ["website", "documents", "both", "need_help"],
+    "usageBands": ["under_100", "100_to_500", "over_500", "unknown"],
+    "websiteStatuses": ["existing", "in_development", "none"],
+    "existingTools": [
+      "email",
+      "spreadsheet",
+      "crm",
+      "calendar",
+      "booking_software",
+      "other",
+      "none"
+    ],
+    "bookingModes": ["link", "human_confirmation", "direct_booking", "unsure"],
+    "enquiryDestinations": ["email", "spreadsheet", "crm", "multiple", "unsure"],
+    "knowledgeLevels": ["basic", "faq_setup", "complex"],
+    "extraCapabilities": ["human_handoff", "multilingual", "recommendations", "file_upload"]
+  }
+}

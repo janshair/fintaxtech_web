@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "fintaxtech-ai-automation-pricing-v1",
+  "currency": "GBP",
+  "vatTreatment": "to_be_confirmed",
+  "starter": {
+    "price": 999,
+    "includedWorkflows": 1,
+    "includedStandardSteps": 5,
+    "includedSupportedConnections": 2,
+    "includedRevisions": 1,
+    "defectWarrantyDays": 30,
+    "targetDeliveryWorkingDays": { "min": 5, "max": 10 },
+    "includes": [
+      "standard_error_notification",
+      "basic_logging",
+      "configuration",
+      "testing",
+      "deployment",
+      "basic_documentation",
+      "handover"
+    ]
+  },
+  "addOns": {
+    "additionalStandardStep": { "price": 99, "unit": "step" },
+    "additionalSupportedConnection": { "price": 199, "unit": "connection" },
+    "additionalIndependentWorkflow": {
+      "startingPrice": 699,
+      "unit": "workflow",
+      "manualReview": true
+    },
+    "knowledgeBaseSetup": { "price": 199, "maxApprovedFaqEntries": 20 },
+    "additionalDocumentTemplate": { "price": 149, "unit": "template" }
+  },
+  "supportPlans": [
+    { "id": "self", "name": "Self-Managed", "monthlyPrice": 0, "monitoring": false },
+    { "id": "care", "name": "Automation Care", "monthlyPrice": 49, "monitoring": true },
+    {
+      "id": "plus",
+      "name": "Automation Care Plus",
+      "monthlyPrice": 99,
+      "monitoring": true,
+      "minorChangesMinutesPerMonth": 60
+    }
+  ],
+  "manualReviewTriggers": [
+    "unsupported_integration",
+    "complex_api",
+    "complex_logic",
+    "sensitive_data",
+    "high_volume_processing",
+    "complex_knowledge",
+    "complex_recommendations",
+    "direct_booking_unverified",
+    "additional_workflows",
+    "unknown_scope"
+  ],
+  "thirdPartyCostsIncluded": false,
+  "pdf": {
+    "clientSideOnly": true,
+    "label": "Indicative Estimate",
+    "nonBinding": true,
+    "requiresEmail": false
+  },
+  "pricingRules": [
+    "no_double_charging",
+    "count_only_actual_connections",
+    "no_automatic_charge_for_selected_outcomes",
+    "manual_review_items_not_zero",
+    "extra_work_requires_approval"
+  ]
+}

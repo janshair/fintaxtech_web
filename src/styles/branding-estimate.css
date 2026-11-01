@@ -141,3 +141,22 @@
 .website-estimate [data-result] {
   margin-block: var(--space-6);
 }
+
+.ai-automation-estimate .choice {
+  align-items: flex-start;
+}
+.ai-automation-estimate .choice > input {
+  flex: 0 0 auto;
+  margin-top: var(--space-1);
+}
+.ai-automation-estimate .mobile-option {
+  min-width: 0;
+}
+.ai-automation-estimate input[type='number'] {
+  width: min(100%, 12rem);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
