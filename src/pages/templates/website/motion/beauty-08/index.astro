@@ -371,20 +371,17 @@ const assets = '/templates/website/motion/beauty-08/';
         <div class="policy-grid">
           <div class="policy-card" data-reveal>
             <p class="eyebrow">CANCELLATIONS &amp; DEPOSITS · PLACEHOLDER</p>
-            <h3>Your booking policy here</h3>
-            <p>
-              Example: a small deposit secures your appointment and comes off your bill. Please give
-              24 hours’ notice to move or cancel. Your own policy goes here.
-            </p>
+            <h3>{b.policy.title}</h3>
+            <p>{b.policy.text}</p>
           </div>
           <div class="voucher-card" data-reveal>
             <div class="voucher">
               <span class="monogram" data-monogram aria-hidden="true">{b.monogram}</span>
               <p class="eyebrow">GIFT VOUCHER · EXAMPLE</p>
               <strong data-business>{b.name}</strong>
-              <span class="voucher-value" data-sample-price>£25</span>
+              <span class="voucher-value" data-sample-price>{b.voucher.value}</span>
             </div>
-            <p>Gift vouchers from £20, for any treatment. Example values.</p>
+            <p>{b.voucher.note}</p>
             <button class="button" type="button" data-voucher
               >Ask about gift vouchers <span aria-hidden="true">→</span></button
             >
@@ -598,9 +595,14 @@ const assets = '/templates/website/motion/beauty-08/';
             >Demo only — nothing is booked or charged.</strong
           >
         </p>
-        <a class="button accent" href="/contact/" data-agency-link
+        <a
+          class="button accent"
+          href="/client/website-brief/templates/?template=beauty-08"
+          data-brief-link
           ><span>Want this for <span data-business>{b.name}</span>? Talk to FinTaxTech</span>
           <span aria-hidden="true">→</span></a
+        ><a class="text-link brief-contact" href="/contact/" data-agency-link
+          >Or ask FinTaxTech a question first</a
         ><button class="text-button" type="button" data-restart>Book something else</button>
       </div>
     </dialog>

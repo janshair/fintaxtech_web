@@ -52,6 +52,13 @@
       .forEach((node) =>
         node.setAttribute('href', '/contact/' + (v.ref ? '?ref=' + encodeURIComponent(v.ref) : '')),
       );
+    // The final offer opens the template brief with this preview's values.
+    const brief = new URLSearchParams({ template: 'juice-bar-05' });
+    for (const key of ['name', 'area', 'phone', 'ref']) if (v[key]) brief.set(key, v[key]);
+    const briefHref = '/client/website-brief/templates/?' + brief;
+    document.querySelectorAll('[data-brief-link]').forEach((node) => {
+      if (node.getAttribute('href') !== briefHref) node.setAttribute('href', briefHref);
+    });
     document
       .querySelectorAll('[data-call]')
       .forEach((node) =>

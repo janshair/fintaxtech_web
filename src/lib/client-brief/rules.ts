@@ -1,5 +1,17 @@
 import { briefCopy as c } from '../../content/client-brief';
 import { validEmail } from '../validation';
+import { ukPhone } from '../uk-phone';
+import {
+  dayHoursText,
+  durationMessage,
+  hoursProblem,
+  normalizeDuration,
+  normalizePostcode,
+  normalizePrice,
+  postcodeMessage,
+  priceMessage,
+  weekDays,
+} from './formats';
 import {
   omitPrioritySource,
   priorityOfferingsText,
@@ -43,7 +55,31 @@ export const isVisible = (field: Pick<BriefField, 'when'>, answers: BriefAnswers
     matchesCondition(condition, answers),
   );
 export const isRequired = (field: BriefField, answers: BriefAnswers): boolean =>
-  !field.optional || !!(field.requiredWhen && matchesCondition(field.requiredWhen, answers));
+  field.type !== 'hidden' &&
+  (!field.optional ||
+    (Array.isArray(field.requiredWhen) ? field.requiredWhen : [field.requiredWhen]).some(
+      (condition) => !!condition && matchesCondition(condition, answers),
+    ));
+export const validColour = (value: string) => /^#[0-9a-f]{6}$/i.test(value);
+const breaksPattern = (pattern: BriefField['pattern'], value: string) =>
+  !!pattern && !new RegExp(pattern.source, 'u').test(value);
+// The tidy form of a formatted value, or null when it cannot be understood.
+export function formatted(format: BriefField['format'], value: string): string | null {
+  if (!format) return value;
+  if (format.kind === 'duration') return normalizeDuration(value);
+  if (format.kind === 'price') return normalizePrice(value, format);
+  return normalizePostcode(value);
+}
+const formatProblem = (format: BriefField['format'], value: string) =>
+  !format || formatted(format, value) !== null
+    ? undefined
+    : format.kind === 'duration'
+      ? durationMessage
+      : format.kind === 'price'
+        ? priceMessage(format)
+        : postcodeMessage;
+export const hasRows = (field: Pick<BriefField, 'type'>) =>
+  field.type === 'rows' || field.type === 'hours';
 export const hasOther = (field: BriefField, answers: BriefAnswers) =>
   isVisible(field, answers) && includesAnswer(answers[field.id], c.other);
 export const requiresOtherText = (field: BriefField, answers: BriefAnswers) =>
@@ -88,7 +124,7 @@ export function createBriefRules(sections: BriefSection[]) {
     for (const field of sections.flatMap((s) => s.fields)) {
       if (!applicable.has(field.id) || !isVisible(field, state.answers)) {
         delete state.answers[field.id];
-        if (field.type === 'rows') delete state.rows[field.id];
+        if (hasRows(field)) delete state.rows[field.id];
       }
       if (!requiresOtherText(field, state.answers)) delete state.answers[`${field.id}Other`];
       for (const row of state.rows[field.id] ?? [])
@@ -116,10 +152,11 @@ export function createBriefRules(sections: BriefSection[]) {
   function validateField(field: BriefField, state: BriefState): string | undefined {
     if (!isVisible(field, state.answers)) return;
     const answer = state.answers[field.id];
-    if (field.type === 'rows' && field.repeat) {
+    if (hasRows(field) && field.repeat) {
       const rows = state.rows[field.id] ?? [];
       if (!rows.length) return isRequired(field, state.answers) ? c.rowRequired : undefined;
       if (field.repeat.max && rows.length > field.repeat.max) return c.rowLimit(field.repeat.max);
+      if (field.repeat.min && rows.length < field.repeat.min) return c.rowMin(field.repeat.min);
       const source = sections
         .flatMap((section) => section.fields)
         .find((f) => f.id === field.repeat?.unique?.againstOptionsFrom);
@@ -129,8 +166,12 @@ export function createBriefRules(sections: BriefSection[]) {
           if (!isVisible(part, row.values)) continue;
           const value = row.values[part.key] ?? '';
           if (!value.trim() && !part.optional) return c.missing;
-          const max = part.type === 'long' ? limits.long : limits.short;
+          const max = part.maxLength ?? (part.type === 'long' ? limits.long : limits.short);
           if (value.length > max) return c.tooLong(max);
+          if (value.trim() && breaksPattern(part.pattern, value.trim()))
+            return part.pattern!.message;
+          const problem = value.trim() ? formatProblem(part.format, value) : undefined;
+          if (problem) return problem;
           if (part.type === 'url' && value.trim()) {
             try {
               if (!['http:', 'https:'].includes(new URL(value.trim()).protocol))
@@ -147,7 +188,14 @@ export function createBriefRules(sections: BriefSection[]) {
           if (names.has(key)) return c.rowDuplicate;
           names.add(key);
         }
+        if (field.type === 'hours') {
+          const problem = hoursProblem(row.values);
+          if (problem) return problem;
+        }
       }
+      const single = field.repeat.single;
+      if (single && rows.filter((row) => row.values[single.key] === single.value).length > 1)
+        return single.message;
       return;
     }
     if (field.type === 'competitors') {
@@ -203,8 +251,16 @@ export function createBriefRules(sections: BriefSection[]) {
       }
       return;
     }
+    if (field.type === 'confirm' && field.confirmText)
+      return answer === true ? undefined : c.missing;
     if (field.type === 'confirm')
       return answer === true && String(state.answers.trading ?? '').trim() ? undefined : c.missing;
+    if (field.type === 'hidden') {
+      if (answer === undefined || answer === '') return;
+      if (typeof answer !== 'string' || answer.length > (field.maxLength ?? limits.short))
+        return c.invalidChoice;
+      return breaksPattern(field.pattern, answer) ? c.invalidChoice : undefined;
+    }
     if (
       answer === undefined ||
       answer === '' ||
@@ -228,9 +284,16 @@ export function createBriefRules(sections: BriefSection[]) {
       if (typeof answer !== 'string' || !fieldOptions(field, state.answers).includes(answer))
         return c.invalidChoice;
     } else {
-      const max = field.type === 'long' || field.type === 'urls' ? limits.long : limits.short;
+      const max =
+        field.maxLength ??
+        (field.type === 'long' || field.type === 'urls' ? limits.long : limits.short);
       if (typeof answer !== 'string') return c.missing;
       if (answer.length > max) return c.tooLong(max);
+      if (breaksPattern(field.pattern, answer.trim())) return field.pattern!.message;
+      const problem = formatProblem(field.format, answer);
+      if (problem) return problem;
+      if (field.type === 'phone' && !ukPhone(answer)) return c.invalidPhone;
+      if (field.type === 'colour' && !validColour(answer.trim())) return c.invalidColour;
       if (field.type === 'email' && !validEmail(answer.trim())) return c.invalidEmail;
       if (field.type === 'url') {
         try {
@@ -285,13 +348,25 @@ export function createBriefRules(sections: BriefSection[]) {
           (field) => field.type === 'images' && isVisible(field, state.answers),
         )?.imagePurpose,
         rows: section.fields
-          .filter((field) => isVisible(field, state.answers) && field.type !== 'images')
+          .filter(
+            (field) =>
+              isVisible(field, state.answers) && field.type !== 'images' && field.type !== 'hidden',
+          )
           .flatMap((field) => {
             if (omitPrioritySource(field.id, state)) return [];
             if (field.id === 'priorityOfferings') {
               const value = priorityOfferingsText(state.rows[field.id]);
               return value ? [{ label: websiteOutputLabels[field.id], value }] : [];
             }
+            if (field.type === 'hours')
+              return [
+                {
+                  label: field.label,
+                  value: (state.rows[field.id] ?? [])
+                    .map((row, index) => `${weekDays[index]}: ${dayHoursText(row.values)}`)
+                    .join('\n'),
+                },
+              ];
             if (field.type === 'rows' && field.repeat) {
               const repeat = field.repeat;
               return (state.rows[field.id] ?? []).map((row, index) => ({
@@ -318,7 +393,8 @@ export function createBriefRules(sections: BriefSection[]) {
                   )
                   .join('\n') || c.notProvided;
             else if (field.type === 'confirm')
-              value = answer === true ? c.confirmed : c.notProvided;
+              value =
+                answer === true ? (field.confirmText ? c.agreed : c.confirmed) : c.notProvided;
             else if (answer) {
               const format = (item: string) =>
                 item === c.other && (!field.otherField || field.optionsFrom)

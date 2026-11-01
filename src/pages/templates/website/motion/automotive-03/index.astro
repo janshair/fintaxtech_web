@@ -377,8 +377,11 @@ const theme = templateTheme('automotive-03', THEME);
         >
           {c.request.final}
         </p><p class="small-note">{c.request.finalNote}</p><a
-          class="button final-offer agency-contact"
-          href={c.contact}>{c.offerBefore}<span data-business>{c.name}</span>{c.offerAfter}</a
+          class="button final-offer"
+          href="/client/website-brief/templates/?template=automotive-03"
+          data-brief-link>{c.offerBefore}<span data-business>{c.name}</span>{c.offerAfter}</a
+        ><a class="text-link brief-contact agency-contact" href={c.contact}
+          >Or ask FinTaxTech a question first</a
         ><button type="button" class="plain" data-restart>{c.request.restart}</button>
       </div>
     </dialog>

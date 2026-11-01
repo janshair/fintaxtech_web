@@ -1,10 +1,20 @@
-export type BriefKind = 'logo' | 'website' | 'websiteDemo' | 'mobile' | 'prompt';
+export type BriefKind = 'logo' | 'website' | 'websiteDemo' | 'mobile' | 'prompt' | 'template';
 
 export interface BriefCondition {
   id: string;
   values?: string[];
   matches?: string;
 }
+// A format rule with the message shown when a value does not match (Unicode flag).
+export interface BriefPattern {
+  source: string;
+  message: string;
+}
+// Typed values that are understood and tidied: see formats.ts.
+export type BriefFormat =
+  | { kind: 'duration' }
+  | { kind: 'price'; words?: readonly string[]; per?: boolean }
+  | { kind: 'postcode' };
 
 export interface BriefField {
   id: string;
@@ -22,7 +32,11 @@ export interface BriefField {
     | 'email'
     | 'pages'
     | 'urls'
-    | 'rows';
+    | 'rows'
+    | 'phone'
+    | 'colour'
+    | 'hidden'
+    | 'hours';
   imagePurpose?: 'current-logo';
   imageExplanationMin?: number;
   imageExplanationHelp?: string;
@@ -34,6 +48,9 @@ export interface BriefField {
     add: string;
     remove: (n: number) => string;
     max?: number;
+    min?: number;
+    // At most one row may give this answer, like one "most popular" membership.
+    single?: { key: string; value: string; message: string };
     unique?: { key: string; againstOptionsFrom?: string };
     fields: {
       key: string;
@@ -42,13 +59,28 @@ export interface BriefField {
       options?: string[];
       optional?: boolean;
       when?: BriefCondition;
+      maxLength?: number;
+      pattern?: BriefPattern;
+      format?: BriefFormat;
     }[];
   };
   optional?: boolean;
   max?: number;
+  // Character limit for text answers, replacing the default short/long limit.
+  maxLength?: number;
+  pattern?: BriefPattern;
+  format?: BriefFormat;
+  // For a single choice pre-filled from the query: option → pattern the value must match.
+  prefillMatch?: Record<string, string>;
+  // Shown beside a confirm checkbox instead of the business-name spelling confirmation.
+  confirmText?: string;
+  // Options listed for context but not selectable yet.
+  comingSoon?: string[];
+  // Query parameter that pre-fills this field, sanitised before use.
+  prefill?: string;
   help?: string;
   when?: BriefCondition | BriefCondition[];
-  requiredWhen?: BriefCondition;
+  requiredWhen?: BriefCondition | BriefCondition[];
   exclusive?: string[];
   followUp?: {
     values: string[];

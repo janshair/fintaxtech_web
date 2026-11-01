@@ -146,7 +146,12 @@ test('all six services finish the sample quote flow, validate details and send n
     await expect(page.locator('.final-offer')).toHaveText(
       'Want this for Tayside Motorworks? Talk to FinTaxTech',
     );
+    // The final offer opens the template brief; /contact/ stays as the secondary link.
     await expect(page.locator('.final-offer')).toHaveAttribute(
+      'href',
+      '/client/website-brief/templates/?template=automotive-03&name=Tayside+Motorworks&area=Broughty+Ferry&phone=01382+000000&ref=LETTER03',
+    );
+    await expect(page.locator('#quote-final .brief-contact')).toHaveAttribute(
       'href',
       'http://localhost:4323/contact/?ref=LETTER03',
     );

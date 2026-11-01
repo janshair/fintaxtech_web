@@ -51,6 +51,8 @@
 .hero-business [data-hero-area]{color:var(--paper)}
 .booking-offer{display:block;text-align:center;line-height:1.6;overflow-wrap:anywhere}
 dialog .booking-offer [data-business]{font:inherit;line-height:inherit}
+/* The secondary contact route beneath the template brief link. */
+dialog .booking-contact{display:flex;width:fit-content;max-width:100%;margin:14px auto 0;font-size:11px}
 @media(max-width:767px){
  .site-footer .footer-brand{flex:0 0 100%;width:100%;max-width:100%}
  .hero{padding-top:28px}.hero-business{font-size:20px;margin-top:14px}.hero h1{margin-top:18px}

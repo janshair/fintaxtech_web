@@ -108,10 +108,10 @@ for (const width of [320, 375, 390, 768, 1440]) {
   }
 }
 
-test('booking ends with a personalised contact link; review cards contain no invented quotes', async ({
+test('booking ends with a personalised template brief link; review cards contain no invented quotes', async ({
   page,
 }) => {
-  await page.goto(route + john);
+  await page.goto(route + john + '&phone=07526%20699217&ref=L-TEST');
   await expect(page.locator('.reviews-grid blockquote')).toHaveCount(0);
   await expect(page.locator('.review-placeholder')).toHaveCount(3);
   for (const card of await page.locator('.review-placeholder').all())
@@ -123,12 +123,19 @@ test('booking ends with a personalised contact link; review cards contain no inv
   await page.getByRole('button', { name: copy.continueBooking }).click();
   await expect(page.locator('#booking-result')).toHaveText(copy.confirmation);
   const offer = page.getByRole('link', { name: 'Want this for John Barber? Talk to FinTaxTech' });
-  await expect(offer).toHaveAttribute('href', '/contact/');
+  const brief = `${copy.briefRoute}&name=John+Barber&area=London&phone=07526+699217&ref=L-TEST`;
+  await expect(offer).toHaveAttribute('href', brief);
+  await expect(page.locator('.enquiry-strip [data-brief-link]')).toHaveAttribute('href', brief);
+  await expect(page.getByRole('link', { name: copy.contactAlternative })).toHaveAttribute(
+    'href',
+    '/contact/',
+  );
   await expect(page.getByRole('button', { name: copy.restart })).toBeVisible();
   await offer.focus();
   await page.keyboard.press('Enter');
-  await expect(page).toHaveURL('/contact/');
-  await expect(page.locator('#contact-form')).toBeVisible();
+  await expect(page).toHaveURL(brief);
+  await page.getByRole('button', { name: 'Begin template brief' }).click();
+  await expect(page.getByLabel('The Brass Standard', { exact: true })).toBeChecked();
 });
 
 test('phone review screenshots', async ({ page }, testInfo) => {

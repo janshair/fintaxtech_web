@@ -180,10 +180,7 @@ const theme = templateTheme('juice-bar-05', THEME);
             ))
           }
         </div>
-        <p class="allergens">
-          Ask us about allergens — full allergen information is available in store. This
-          demonstration menu must be checked and replaced before use.
-        </p>
+        <p class="allergens">{c.allergens}</p>
       </section>
       <section class="story section" id="story" aria-labelledby="story-title">
         <div class="wrap">
@@ -272,9 +269,7 @@ const theme = templateTheme('juice-bar-05', THEME);
                 <span style={`--stamp-delay:${i * 90}ms`}>{i === 9 ? '♡' : '✳'}</span>
               ))
             }
-          </div><p>Your 10th drink is on us.</p><small
-            >An example loyalty card. Your own terms and offer go here.</small
-          >
+          </div><p>{c.loyalty.offer}</p><small>{c.loyalty.note}</small>
         </aside>
       </section>
       <section class="coffee-section section" id="coffee" aria-labelledby="coffee-title">
@@ -607,8 +602,13 @@ const theme = templateTheme('juice-bar-05', THEME);
           This is where your customers would order ahead on your finished website. <strong
             >Demo only — nothing is ordered or paid.</strong
           >
-        </p><a class="button orange" href="/contact/" data-agency-link
-          >Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech</a
+        </p><a
+          class="button orange"
+          href="/client/website-brief/templates/?template=juice-bar-05"
+          data-brief-link
+          ><span>Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech</span></a
+        ><a class="text-link brief-contact" href="/contact/" data-agency-link
+          >Or ask FinTaxTech a question first</a
         ><button class="text-link" type="button" data-restart>Try another drink</button>
       </div>
     </dialog>

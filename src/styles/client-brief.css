@@ -99,3 +99,81 @@
 .client-brief .brief-row fieldset.field {
   display: block;
 }
+
+/* Template brief: unavailable templates and colour pickers. */
+.client-brief .choice-soon {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.client-brief .choice-badge {
+  margin-left: auto;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: normal;
+  white-space: nowrap;
+}
+.client-brief .brief-colour {
+  display: flex;
+  align-items: end;
+  gap: var(--space-4);
+}
+.client-brief .brief-colour > .field {
+  flex: 1;
+  min-width: 0;
+}
+.client-brief .brief-colour-picker {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* Template brief: the weekly hours grid and the review's spelling check. */
+.client-brief .brief-hours-tools {
+  margin-block: var(--space-4);
+}
+.client-brief .brief-day {
+  margin-block: var(--space-3);
+  padding-block: var(--space-4);
+}
+.client-brief .brief-day legend {
+  font-weight: var(--weight-strong);
+}
+.client-brief .brief-day-status {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+}
+.client-brief .brief-day-times {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.client-brief .brief-day-times > .field {
+  flex: 1 1 8rem;
+  min-width: 0;
+}
+.client-brief input[type='time'] {
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+.client-brief .brief-day-note {
+  margin-top: var(--space-4);
+}
+.client-brief .brief-check {
+  font-weight: var(--weight-strong);
+}
+[data-client-brief='template'] .brief-review dd {
+  font-size: 1.05rem;
+  color: var(--text);
+}

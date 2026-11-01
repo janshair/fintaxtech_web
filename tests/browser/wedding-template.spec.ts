@@ -364,7 +364,7 @@ for (const [index, width] of [320, 390, 768, 1440].entries()) {
         `Saturday 12 June 2027 · Wedding · ${presets[type].packages[0].name} · ${w.flow.defaultGuests}`,
       );
       await expect(page.locator('.checked-name')).toHaveText('Test Business');
-      await expect(page.locator('#date-final [data-agency-link]')).toContainText(
+      await expect(page.locator('#date-final [data-brief-link]')).toContainText(
         'Want this for Test Business? Talk to FinTaxTech',
       );
       await page.keyboard.press('Escape');
@@ -575,12 +575,12 @@ for (const type of supplierTypes) {
     await page.getByRole('button', { name: 'Next: your day' }).click();
     await page.getByRole('button', { name: 'Check availability' }).click();
     await expect(page.locator('#date-final')).toContainText('Demo only — nothing is sent.');
-    await expect(page.locator('#date-final [data-agency-link]')).toContainText(
+    await expect(page.locator('#date-final [data-brief-link]')).toContainText(
       "Want this for Jay's Cuts & Co?",
     );
     expect(
       new URL(
-        (await page.locator('#date-final [data-agency-link]').getAttribute('href'))!,
+        (await page.locator('#date-final [data-brief-link]').getAttribute('href'))!,
         page.url(),
       ).searchParams.get('ref'),
     ).toBe('L-TEST');

@@ -696,9 +696,14 @@ const json = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
           This is where couples would check availability and send an enquiry on your finished
           website. <strong>Demo only — nothing is sent.</strong>
         </p>
-        <a class="button accent" href="/contact/" data-agency-link
+        <a
+          class="button accent"
+          href="/client/website-brief/templates/?template=wedding-09"
+          data-brief-link
           ><span>Want this for <span data-business>{w.name}</span>? Talk to FinTaxTech</span>
           <span aria-hidden="true">→</span></a
+        ><a class="text-link brief-contact" href="/contact/" data-agency-link
+          >Or ask FinTaxTech a question first</a
         ><button class="text-button" type="button" data-restart>Check another date</button>
       </div>
     </dialog>

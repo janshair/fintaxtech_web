@@ -1,8 +1,8 @@
 import { clientBriefDefinitions } from './definitions';
-import { createBriefRules, isVisible, requiresOtherText } from './rules';
+import { createBriefRules, hasRows, isVisible, requiresOtherText } from './rules';
 import type { BriefAnswers, BriefState } from './types';
 
-export type WebsiteBriefKind = 'website' | 'websiteDemo';
+export type WebsiteBriefKind = 'website' | 'websiteDemo' | 'template';
 export const websiteSubmissionPath = '/api/website-brief/';
 export const websitePayloadLimit = 256 * 1024;
 export interface WebsiteSubmission {
@@ -21,7 +21,7 @@ export interface DeliveryResult {
   code?: string;
 }
 export const isWebsiteBrief = (kind: string): kind is WebsiteBriefKind =>
-  kind === 'website' || kind === 'websiteDemo';
+  kind === 'website' || kind === 'websiteDemo' || kind === 'template';
 
 // A canonical snapshot of applicable answers. Row IDs are UI details, not brief content.
 export function reviewedWebsiteSubmission(
@@ -41,9 +41,10 @@ export function reviewedWebsiteSubmission(
     if (Array.isArray(answer) && answer.length)
       answers[field.id] = field.options!.filter((value) => answer.includes(value));
     else if (typeof answer === 'string' && answer.trim()) answers[field.id] = answer.trim();
+    else if (field.type === 'confirm' && answer === true) answers[field.id] = true;
     if (requiresOtherText(field, state.answers))
       answers[`${field.id}Other`] = String(state.answers[`${field.id}Other`] ?? '').trim();
-    if (field.type === 'rows' && state.rows[field.id]?.length)
+    if (hasRows(field) && state.rows[field.id]?.length)
       rows[field.id] = state.rows[field.id].map((row, index) => ({
         id: String(index),
         values: Object.fromEntries(

@@ -10,6 +10,38 @@ export const barberDemo = {
     'Campaign links count page loads by reference code and day. No cookies or personalisation details are sent by this counter. Repeat visits may be counted.',
   defaultName: 'The Brass Standard',
   nameHint: 'Up to 100 characters. Your business name becomes part of this page’s shareable link.',
+  // Illustrative services, durations and prices. The page and the sample booking list render from here.
+  services: [
+    {
+      name: 'The Signature Cut',
+      description: 'Consultation, precision cut & finish',
+      duration: '40 min',
+      price: '£30',
+    },
+    {
+      name: 'The Skin Fade',
+      description: 'Seamless blend. A considered finish.',
+      duration: '45 min',
+      price: '£35',
+    },
+    {
+      name: 'The Beard Ritual',
+      description: 'Sculpt, shape & hot towel',
+      duration: '30 min',
+      price: '£25',
+    },
+    {
+      name: 'The Full Treatment',
+      description: 'Signature cut, beard & hot towel',
+      duration: '70 min',
+      price: '£55',
+    },
+  ],
+  hours: [
+    ['Monday – Friday', '09:00 – 19:00'],
+    ['Saturday', '09:00 – 18:00'],
+    ['Sunday', 'Closed'],
+  ],
   ritual: [
     ['01 / CONSULT', 'A moment to understand your style.'],
     ['02 / CRAFT', 'Precision, patience and a personal touch.'],
@@ -18,7 +50,6 @@ export const barberDemo = {
   galleryEyebrow: 'THE LOOKBOOK',
   illustrationLabel: 'Illustrated example',
   closeLabel: 'Close',
-  sunday: 'Closed',
   galleryTitle: 'A style for every chair.',
   galleryNote:
     'Your Instagram work goes here. Illustrated examples, not photographs of customer cuts.',
@@ -37,6 +68,9 @@ export const barberDemo = {
   bookingOfferBefore: 'Want this for ',
   bookingOfferAfter: '? Talk to FinTaxTech',
   contactRoute: '/contact/',
+  // The final offer opens the template brief with the current name, area, phone and ref.
+  briefRoute: '/client/website-brief/templates/?template=barber-01',
+  contactAlternative: 'Or ask FinTaxTech a question first',
   locationNote: 'Your location, your opening hours. Example hours shown.',
   call: 'Call',
   whatsapp: 'WhatsApp',

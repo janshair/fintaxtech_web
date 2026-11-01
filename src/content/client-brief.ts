@@ -76,6 +76,11 @@ export const briefCopy = {
   rowDuplicate:
     'Use a unique name for each entry. Choose a listed feature using its checkbox instead of adding it again.',
   invalidURLs: 'Enter one complete http:// or https:// app link per line.',
+  rowMin: (min: number) => `Add at least ${min} entries.`,
+  invalidPhone: 'Enter a UK phone number, like 01592 000000 or 07700 900000.',
+  invalidColour: 'Enter a colour as a # followed by six letters or numbers, like #1F3A5F.',
+  agreed: 'Confirmed',
+  comingSoon: 'Coming soon',
 };
 export type BriefCopy = typeof briefCopy & {
   route: string;
@@ -89,6 +94,8 @@ export type BriefCopy = typeof briefCopy & {
   reviewIntro: string;
   disclaimer: string;
   pdfFilename: string;
+  // Replaces the shared Slack notice, for briefs with extra final actions.
+  deliveryNotice?: string;
 };
 
 export const websiteDeliveryCopy = {

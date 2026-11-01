@@ -74,6 +74,15 @@
     document.querySelectorAll('.agency-contact').forEach((node) => {
       node.href = contact.href;
     });
+    // The final offer opens the template brief with this preview's values.
+    const brief = new URL('/client/website-brief/templates/?template=automotive-03', location.origin);
+    if (name) brief.searchParams.set('name', name);
+    if (area) brief.searchParams.set('area', area);
+    if (digits) brief.searchParams.set('phone', raw);
+    if (/^[A-Za-z0-9_-]{1,32}$/.test(ref)) brief.searchParams.set('ref', ref);
+    document.querySelectorAll('[data-brief-link]').forEach((node) => {
+      node.href = brief.pathname + brief.search;
+    });
   }
   update();
   const menu = document.querySelector('#navigation');

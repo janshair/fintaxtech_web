@@ -367,6 +367,7 @@ export const consultantDemo = {
     action: 'Book a free 15-minute call',
     note: 'A fictional professional. Example services, prices and availability.',
   },
+  heroCall: { title: 'Free 15-minute calls', days: 'Tuesday and Thursday' },
   services: serviceIds.map((id, i) => ({ id, ...rolePresets.consultant.services[i] })),
   clients: rolePresets.consultant.clients,
   process: [

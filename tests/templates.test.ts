@@ -255,7 +255,9 @@ describe('3D café demonstration content and budgets', () => {
     for (const hook of ['hero', 'menu', 'build', 'story', 'gallery', 'contact'])
       expect(page).toContain(`data-capture="${hook}"`);
     expect(page).toContain('data-sample-price');
-    expect(page).toContain('Ask us about allergens');
+    // The allergen line and loyalty offer live in the content file the page renders from.
+    expect(page).toContain('{c.allergens}');
+    expect(juiceBarDemo.allergens).toContain('Ask us about allergens');
     expect(page).toContain('A little neighbourhood love');
     expect(page).toContain('Example reviews — your real Google reviews appear here.');
     expect(page).toContain('nothing is ordered or paid');

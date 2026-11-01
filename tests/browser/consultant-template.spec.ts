@@ -207,7 +207,7 @@ for (const width of [320, 390, 768, 1440]) {
       await expect(page.locator('#call-summary')).toHaveText(
         `${rolePresets.bookkeeper.topics[index]} · ${c.flow.days[0]} · ${c.flow.times[0]} · 15 minutes`,
       );
-      await expect(page.locator('#call-final [data-agency-link]')).toContainText(
+      await expect(page.locator('#call-final [data-brief-link]')).toContainText(
         'Want this for Sarah Reid? Talk to FinTaxTech',
       );
       await page.getByRole('button', { name: 'Try another booking' }).click();
@@ -504,7 +504,7 @@ test('letter link on a 375 × 812 phone: instant hero, continuous scroll, tap-th
   await page.getByRole('button', { name: 'Next: pick a time' }).click();
   await page.getByRole('button', { name: 'See my booking' }).click();
   await expect(page.locator('#call-final')).toContainText('Demo only, nothing is booked.');
-  await expect(page.locator('#call-final [data-agency-link]')).toContainText(
+  await expect(page.locator('#call-final [data-brief-link]')).toContainText(
     "Want this for Jay's Cuts & Co?",
   );
   expect(

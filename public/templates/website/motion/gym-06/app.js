@@ -36,6 +36,15 @@
     });
     links(current.phone);
     document.title = name + c.titleSuffix;
+    // The final offer opens the template brief with this preview's values.
+    const brief = new URL('/client/website-brief/templates/?template=gym-06', location.origin);
+    if (current.name) brief.searchParams.set('name', current.name);
+    if (current.area) brief.searchParams.set('area', current.area);
+    if (current.phone && current.phone.display) brief.searchParams.set('phone', current.phone && current.phone.display);
+    if (current.ref) brief.searchParams.set('ref', current.ref);
+    document.querySelectorAll('[data-brief-link]').forEach((node) => {
+      node.href = brief.pathname + brief.search;
+    });
     const contact = new URL('/contact/', location.origin);
     if (current.ref) contact.searchParams.set('ref', current.ref);
     document.querySelectorAll('[data-agency-link]').forEach((node) => {

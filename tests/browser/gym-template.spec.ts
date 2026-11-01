@@ -269,7 +269,7 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('#visit-time')).toHaveValue('evening');
     await page.getByRole('button', { name: 'See my visit' }).click();
     await expect(page.locator('#visit-summary')).toContainText('Kettlebell basics · Thursday');
-    const enquiry = page.locator('#visit-final [data-agency-link]');
+    const enquiry = page.locator('#visit-final [data-brief-link]');
     await expect(enquiry).toContainText('Want this for Test Business? Talk to FinTaxTech');
     await page.locator('#visit-dialog [data-close]').click();
     await page.locator('[data-edit]').click();
@@ -408,7 +408,7 @@ test('letter link on a 375 × 812 phone: instant hero, continuous scroll, tap-th
   await page.getByRole('button', { name: 'Next: pick a time' }).click();
   await page.getByRole('button', { name: 'See my visit' }).click();
   await expect(page.locator('#visit-final')).toContainText('Demo only, nothing is sent.');
-  await expect(page.locator('#visit-final [data-agency-link]')).toContainText(
+  await expect(page.locator('#visit-final [data-brief-link]')).toContainText(
     "Want this for Jay's Cuts & Co?",
   );
   expect(

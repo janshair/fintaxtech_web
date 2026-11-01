@@ -1450,3 +1450,15 @@ dialog #restore-name {
     filter: none;
   }
 }
+
+/* The secondary contact route beneath the template brief link. */
+.brief-contact {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 14px auto 0;
+  color: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

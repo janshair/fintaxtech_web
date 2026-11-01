@@ -46,7 +46,7 @@ export const cleaningDemo = {
       description:
         'An empty-property clean, with a room-by-room checklist agreed around the space.',
       price: 'From £160',
-      detail: 'Example · no deposit guarantee',
+      detail: 'Example · checklist agreed with you',
       icon: '⌂',
     },
     {

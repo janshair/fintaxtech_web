@@ -1,0 +1,489 @@
+import { briefCopy, websiteDeliveryCopy, type BriefCopy } from './client-brief';
+import { allTemplates } from './templates';
+import { templateBriefSchemas, type TemplateBriefSchema } from './template-briefs';
+import { hourStatuses, weekDays } from '../lib/client-brief/formats';
+import { ownWords, sampleChoice, useSample, whenOwn } from './template-briefs/shared';
+import type { BriefField, BriefSection } from '../lib/client-brief/types';
+
+const route = '/client/website-brief/templates/';
+export const templateBriefCopy: BriefCopy = {
+  ...briefCopy,
+  shareHelp:
+    'Download the .txt file for your records; it is the copy we build from. Download PDF also creates a readable copy. Email and WhatsApp open a blank message, where you can attach either file. If you change your answers, download them again.',
+  downloaded:
+    'Your PDF download has been requested. Slack delivery status is shown separately. The PDF itself has not been uploaded.',
+  route,
+  title: 'Template Website Brief',
+  description:
+    'Choose a FinTaxTech website template and enter the real details for your business. Review your answers, download them as a .txt file and send them to FinTaxTech.',
+  intro:
+    'Choose one of our website templates, then enter the real details for your business: services, prices, opening hours, contact details and reviews. We build your website from that template using your answers. Anything you are not ready to write can use the template’s sample for now.',
+  privacy:
+    'Answers stay in this page’s memory while you complete the brief. After review, Download .txt, Download PDF, Open email or Open WhatsApp sends the reviewed answers to FinTaxTech through Slack. The website does not save a resumable brief. Refreshing or closing clears your local answers; it does not delete information already delivered to Slack.',
+  workflow:
+    'After review, download your answers as a .txt file. We use it to build your website from the chosen template, then check the details with you before anything goes live. Your logo and photos are sent separately; nothing is uploaded here.',
+  begin: 'Begin template brief',
+  reviewTitle: 'Review your template brief',
+  reviewIntro:
+    'Check your details. Anything marked “Use the template’s sample for now” keeps the template’s wording until you send your own. Use a final action below when you are ready to send these reviewed answers.',
+  disclaimer:
+    'Only include details you are happy to publish. Reviews, qualifications and memberships must be real and yours to use. You approve the business details used on your website.',
+  pdfFilename: 'FinTaxTech-template-brief.pdf',
+  deliveryNotice:
+    'Continuing with Download .txt, Download PDF, Open email or Open WhatsApp sends these reviewed answers to FinTaxTech through Slack. The downloads work independently of Slack delivery. Do not include passwords, access tokens, sensitive records or unnecessary personal information.',
+};
+export const templateBriefRedirect = {
+  title: 'The template brief has moved',
+  message:
+    'Continue to the template website brief with your template chosen. Use the link below if you are not redirected automatically.',
+  label: 'Open the template brief',
+};
+export const hoursCopy = {
+  weekdays: 'Copy Monday to Tuesday–Friday',
+  everyDay: 'Same every day',
+  opens: 'Opens',
+  closes: 'Closes',
+  overnight: 'Closes after midnight',
+  note: 'note, like Late night Thursday (optional)',
+};
+export const templateTextCopy = {
+  check:
+    'Read this carefully before you send it. Names, services, prices and reviews appear on your website exactly as you typed them, so this is the moment to catch a typo.',
+  download: 'Download .txt',
+  downloaded:
+    'Your .txt download has been requested. Slack delivery status is shown separately. Keep the file: it is the copy we build your website from.',
+  error: 'The .txt file could not be created. Your answers are still here. Please try again.',
+};
+
+// Picker options use the design name; the brief maps it back to the template id.
+export const templateChoices = allTemplates.map((template) => ({
+  ...template,
+  available: !!templateBriefSchemas[template.id],
+}));
+export const templateName = (id: string) => templateChoices.find((t) => t.id === id)!.name;
+export const templateByChoice = (name: unknown) =>
+  templateChoices.find((template) => template.available && template.name === name);
+
+const url = (id: string, label: string): BriefField => ({ id, label, type: 'url', optional: true });
+const schemas = Object.values(templateBriefSchemas);
+const reviewStars = ['5', '4', '3', '2', '1'];
+export const reviewOptions = {
+  yes: 'Yes, I have real reviews to add',
+  no: 'Not yet — leave reviews out',
+};
+export const qualificationOptions = {
+  yes: 'Yes, I’ll list them',
+  no: 'No — leave this out',
+};
+export const fileOptions = { logo: 'Logo', none: 'None for now' } as const;
+// Each template lists its own photos to send, between the logo and "None for now".
+export const fileChoices = (schema: TemplateBriefSchema) => ({
+  logo: fileOptions.logo,
+  ...schema.files,
+  none: fileOptions.none,
+});
+export const filesFieldId = (schema: TemplateBriefSchema) => `${schema.prefix}Files`;
+
+const choose: BriefSection = {
+  title: 'Choose your template',
+  fields: [
+    {
+      id: 'templateChoice',
+      label: 'Which template should your website use?',
+      type: 'single',
+      prefill: 'template',
+      options: templateChoices.filter((t) => t.available).map((t) => t.name),
+      comingSoon: templateChoices.filter((t) => !t.available).map((t) => t.name),
+      help: 'Choose the design your website will be built from. You can look at each template first in the template gallery.',
+      examples: Object.fromEntries(
+        templateChoices.map((t) => [
+          t.name,
+          { image: t.preview.src, alt: t.preview.alt, description: t.industry },
+        ]),
+      ),
+    },
+    // From the demo link, for FinTaxTech: never shown or asked.
+    {
+      id: 'ref',
+      label: 'Reference',
+      type: 'hidden',
+      optional: true,
+      prefill: 'ref',
+      maxLength: 32,
+      pattern: { source: '^[A-Za-z0-9_-]{1,32}$', message: '' },
+    },
+    {
+      id: 'presetRole',
+      label: 'Demo role',
+      type: 'hidden',
+      optional: true,
+      prefill: 'role',
+      maxLength: 60,
+    },
+    {
+      id: 'presetType',
+      label: 'Demo type',
+      type: 'hidden',
+      optional: true,
+      prefill: 'type',
+      maxLength: 60,
+    },
+  ],
+};
+
+const business: BriefSection = {
+  title: 'Your business',
+  fields: [
+    {
+      id: 'businessName',
+      label: 'Business name',
+      type: 'text',
+      maxLength: 100,
+      prefill: 'name',
+      help: 'Exactly as it should appear on your website.',
+    },
+    {
+      id: 'monogram',
+      label: 'Short name or monogram',
+      type: 'text',
+      optional: true,
+      maxLength: 3,
+      pattern: { source: '^[\\p{L}\\p{N}]{2,3}$', message: 'Use 2 or 3 letters or numbers.' },
+      help: '2 or 3 letters. Leave blank to use your initials.',
+    },
+    {
+      id: 'businessArea',
+      label: 'Town or area',
+      type: 'text',
+      maxLength: 60,
+      prefill: 'area',
+    },
+    sampleChoice('heroSource', 'Headline under your name', 'One line about what you do.'),
+    {
+      id: 'heroLine',
+      label: 'Your headline',
+      type: 'text',
+      maxLength: 120,
+      when: whenOwn('heroSource'),
+    },
+    sampleChoice('introSource', 'Short introduction', 'A few sentences about your business.'),
+    {
+      id: 'intro',
+      label: 'Your introduction',
+      type: 'long',
+      maxLength: 280,
+      when: whenOwn('introSource'),
+    },
+  ],
+};
+
+export const noPublicAddress = 'Service area only — no public address';
+const contact: BriefSection = {
+  title: 'Contact details',
+  fields: [
+    {
+      id: 'contactPhone',
+      label: 'Phone number',
+      type: 'phone',
+      maxLength: 20,
+      prefill: 'phone',
+    },
+    {
+      id: 'whatsapp',
+      label: 'WhatsApp',
+      type: 'single',
+      options: ['Same as my phone number', 'A different number', 'No WhatsApp'],
+    },
+    {
+      id: 'whatsappNumber',
+      label: 'WhatsApp number',
+      type: 'phone',
+      maxLength: 20,
+      when: { id: 'whatsapp', values: ['A different number'] },
+    },
+    { id: 'contactEmail', label: 'Email address', type: 'email' },
+    {
+      id: 'addressChoice',
+      label: 'Address',
+      type: 'single',
+      options: ['Show my address', noPublicAddress],
+    },
+    {
+      id: 'street',
+      label: 'Street address',
+      type: 'text',
+      maxLength: 80,
+      when: { id: 'addressChoice', values: ['Show my address'] },
+      help: 'Building and street, like 79 Yarrow Terrace.',
+    },
+    {
+      id: 'town',
+      label: 'Town or city',
+      type: 'text',
+      maxLength: 40,
+      when: { id: 'addressChoice', values: ['Show my address'] },
+    },
+    {
+      id: 'postcode',
+      label: 'Postcode',
+      type: 'text',
+      maxLength: 10,
+      format: { kind: 'postcode' },
+      when: { id: 'addressChoice', values: ['Show my address'] },
+    },
+    {
+      id: 'serviceArea',
+      label: 'Towns or areas you serve',
+      type: 'text',
+      optional: true,
+      requiredWhen: { id: 'addressChoice', values: [noPublicAddress] },
+      maxLength: 120,
+      help: 'Required if you have no public address. Also useful for mobile or delivery businesses.',
+    },
+  ],
+};
+
+const hours: BriefSection = {
+  title: 'Opening hours',
+  fields: [
+    sampleChoice('hoursSource', 'Opening hours'),
+    {
+      id: 'hours',
+      label: 'Your opening hours',
+      type: 'hours',
+      when: whenOwn('hoursSource'),
+      help: 'Times use the 24-hour clock. Days with the same hours are grouped on your website, like Monday – Friday.',
+      repeat: {
+        title: (n) => weekDays[n - 1],
+        add: '',
+        remove: () => '',
+        min: 7,
+        max: 7,
+        fields: [
+          { key: 'status', label: 'Open?', type: 'single', options: [...hourStatuses] },
+          {
+            key: 'opens',
+            label: 'Opens',
+            type: 'text',
+            maxLength: 5,
+            when: { id: 'status', values: ['Open'] },
+          },
+          {
+            key: 'closes',
+            label: 'Closes',
+            type: 'text',
+            maxLength: 5,
+            when: { id: 'status', values: ['Open'] },
+          },
+          {
+            key: 'overnight',
+            label: 'Closes after midnight',
+            type: 'single',
+            options: ['Yes'],
+            optional: true,
+            when: { id: 'status', values: ['Open'] },
+          },
+          {
+            key: 'note',
+            label: 'Note, like Late night Thursday (optional)',
+            type: 'text',
+            maxLength: 40,
+            optional: true,
+          },
+        ],
+      },
+    },
+  ],
+};
+
+const online: BriefSection = {
+  title: 'Online',
+  fields: [
+    url('instagram', 'Instagram'),
+    url('facebook', 'Facebook'),
+    url('tiktok', 'TikTok'),
+    url('pinterest', 'Pinterest'),
+    url('linkedin', 'LinkedIn'),
+    {
+      ...url('bookingLink', 'Booking or ordering link'),
+      help: 'From Fresha, Booksy, Treatwell or a similar tool.',
+      requiredWhen: schemas.flatMap((schema) => schema.bookingLinkWhen ?? []),
+    },
+    {
+      id: 'googleProfile',
+      label: 'Google Business Profile',
+      type: 'single',
+      options: ['I have one', 'I need one', 'Not sure'],
+    },
+    {
+      ...url('googleProfileLink', 'Google Business Profile link'),
+      when: { id: 'googleProfile', values: ['I have one'] },
+    },
+    {
+      id: 'existingSite',
+      label: 'Existing website or domain',
+      type: 'text',
+      optional: true,
+      maxLength: 100,
+      help: 'Like yourbusiness.co.uk, if you have one.',
+    },
+  ],
+};
+
+export const colourOptions = {
+  template: 'Use the template’s colours',
+  own: 'Choose my own colours',
+};
+export const logoOptions = {
+  have: 'I have a logo and will send it',
+  need: 'I need a logo',
+  monogram: 'Use my monogram for now',
+};
+const brand: BriefSection = {
+  title: 'Brand',
+  fields: [
+    {
+      id: 'colours',
+      label: 'Colours',
+      type: 'single',
+      options: Object.values(colourOptions),
+    },
+    {
+      id: 'brandColour',
+      label: 'Main colour',
+      type: 'colour',
+      when: { id: 'colours', values: [colourOptions.own] },
+      help: 'Used for the header, buttons and headings.',
+    },
+    {
+      id: 'accentColour',
+      label: 'Accent colour',
+      type: 'colour',
+      when: { id: 'colours', values: [colourOptions.own] },
+      help: 'Used for highlights and the main call to action. We check both colours are readable.',
+    },
+    { id: 'logo', label: 'Logo', type: 'single', options: Object.values(logoOptions) },
+  ],
+};
+
+const proof: BriefSection = {
+  title: 'Reviews and qualifications',
+  fields: [
+    {
+      id: 'hasReviews',
+      label: 'Customer reviews',
+      type: 'single',
+      options: Object.values(reviewOptions),
+      help: 'Without real reviews, the reviews section is left out. Example reviews never go live.',
+    },
+    {
+      id: 'reviews',
+      label: 'Your reviews',
+      type: 'rows',
+      when: { id: 'hasReviews', values: [reviewOptions.yes] },
+      repeat: {
+        title: (n) => `Review ${n}`,
+        add: 'Add a review',
+        remove: (n) => `Remove review ${n}`,
+        max: 6,
+        fields: [
+          {
+            key: 'name',
+            label: 'First name and initial, like Sam T.',
+            type: 'text',
+            maxLength: 40,
+            pattern: {
+              source: "^[\\p{L}][\\p{L}’'-]*(?: [\\p{L}][\\p{L}’'-]*)* [\\p{L}]\\.?$",
+              message: 'Use a first name and initial, like Sam T.',
+            },
+          },
+          { key: 'text', label: 'Review', type: 'long', maxLength: 300 },
+          { key: 'stars', label: 'Star rating', type: 'single', options: reviewStars },
+          { key: 'source', label: 'Where it was posted, like Google', type: 'text', maxLength: 40 },
+        ],
+      },
+    },
+    {
+      id: 'reviewPermission',
+      label: 'Permission',
+      type: 'confirm',
+      when: { id: 'hasReviews', values: [reviewOptions.yes] },
+      confirmText: 'I have permission to use these reviews on my website.',
+    },
+    {
+      id: 'hasQualifications',
+      label: 'Qualifications, memberships or insurance',
+      type: 'single',
+      options: Object.values(qualificationOptions),
+      help: 'Only list what you actually hold.',
+    },
+    {
+      id: 'qualifications',
+      label: 'What you hold',
+      type: 'rows',
+      when: { id: 'hasQualifications', values: [qualificationOptions.yes] },
+      repeat: {
+        title: (n) => `Qualification ${n}`,
+        add: 'Add a qualification',
+        remove: (n) => `Remove qualification ${n}`,
+        max: 6,
+        fields: [
+          { key: 'name', label: 'Name, like NVQ Level 2 Barbering', type: 'text', maxLength: 80 },
+          {
+            key: 'detail',
+            label: 'Awarding body or year (optional)',
+            type: 'text',
+            maxLength: 80,
+            optional: true,
+          },
+        ],
+      },
+    },
+  ],
+};
+
+const files: BriefSection = {
+  title: 'Files you will send',
+  fields: schemas.map((schema) => ({
+    id: filesFieldId(schema),
+    label: 'Which files will you send us?',
+    type: 'multi' as const,
+    options: Object.values(fileChoices(schema)),
+    exclusive: [fileOptions.none],
+    when: { id: 'templateChoice', values: [templateName(schema.id)] },
+    help: 'Send them by email or WhatsApp after this brief. Nothing is uploaded here.',
+  })),
+};
+
+const confirm: BriefSection = {
+  title: 'Confirm',
+  fields: [
+    {
+      id: 'approve',
+      label: 'Approval',
+      type: 'confirm',
+      confirmText: 'These details are accurate and I approve them for my website.',
+    },
+  ],
+};
+
+// Template sections show only when that template is chosen.
+const templateSections = schemas.flatMap((schema) =>
+  schema.sections.map((section) => ({
+    ...section,
+    when: { id: 'templateChoice', values: [templateName(schema.id)] },
+  })),
+);
+export const templateBriefSections: BriefSection[] = [
+  choose,
+  business,
+  ...templateSections,
+  contact,
+  hours,
+  online,
+  brand,
+  proof,
+  files,
+  confirm,
+];
+export { ownWords, useSample };

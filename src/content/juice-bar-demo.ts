@@ -59,6 +59,12 @@ export const juiceBarDemo = {
     ['Find your colour.', 'Watch the cup fill. Choose your own mix in the drink builder.'],
     ['Make it your morning.', 'Lid on, straw in. Your finished drink turns to say hello.'],
   ],
+  allergens:
+    'Ask us about allergens — full allergen information is available in store. This demonstration menu must be checked and replaced before use.',
+  loyalty: {
+    offer: 'Your 10th drink is on us.',
+    note: 'An example loyalty card. Your own terms and offer go here.',
+  },
   hours: [
     ['Monday–Friday', '06:30–17:00'],
     ['Saturday', '07:00–16:00'],
