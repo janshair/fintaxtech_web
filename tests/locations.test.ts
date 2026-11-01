@@ -25,11 +25,30 @@ describe('static location pages', () => {
     }
     expect(locationFromPath('/locations/dundee/extra/')).toBeUndefined();
     for (const location of locations) {
-      expect(location.slug).toBe(location.name.toLowerCase());
+      expect(location.slug).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
       expect(locationFromSlug(location.slug)).toBe(location);
       expect(locationFromPath(`/locations/${location.slug}/`)).toBe(location);
       expect(locationStartURL(location)).toBe(`/start/?location=${location.slug}`);
     }
+  });
+  it('uses stable hyphenated URLs for multiword and already hyphenated names', () => {
+    for (const [slug, name] of [
+      ['newcastle-upon-tyne', 'Newcastle upon Tyne'],
+      ['kingston-upon-hull', 'Kingston upon Hull'],
+      ['stoke-on-trent', 'Stoke-on-Trent'],
+      ['northern-ireland', 'Northern Ireland'],
+    ]) {
+      const location = locationFromSlug(slug)!;
+      expect(location.name).toBe(name);
+      expect(new URL(location.canonical).pathname).toBe(`/locations/${slug}/`);
+      expect(
+        new URL(locationStartURL(location), 'https://fintaxtech.co.uk').searchParams.get(
+          'location',
+        ),
+      ).toBe(slug);
+    }
+    expect(locationFromSlug('newcastle upon tyne')).toBeUndefined();
+    expect(locationFromSlug('newcastle%20upon%20tyne')).toBeUndefined();
   });
   it('registers distinct canonical pages without query variants', () => {
     expect(locations.length).toBeGreaterThan(0);
