@@ -1,6 +1,6 @@
 import { brandingDesignQuestion } from './branding-design';
 import { briefCopy } from './client-brief';
-import { tradingNameField, approverNameField } from './client-brief-fields';
+import { tradingNameField } from './client-brief-fields';
 import type { BriefSection } from '../lib/logo-brief/types';
 
 export const logoBriefCopy = {
@@ -322,42 +322,6 @@ export const logoBriefSections: BriefSection[] = [
         type: 'competitors',
         optional: true,
         help: 'Optionally list up to five competitors. These details are for our later review; this form does not check their websites.',
-      },
-    ],
-  },
-  {
-    title: 'Approval and timing',
-    fields: [
-      {
-        id: 'approver',
-        label: 'Final approver',
-        type: 'single',
-        options: ['Me', 'One named person', 'Group providing one consolidated decision'],
-      },
-      { ...approverNameField, when: { id: 'approver', values: ['Me', 'One named person'] } },
-      {
-        id: 'groupContact',
-        label: 'Group contact name',
-        type: 'text',
-        when: {
-          id: 'approver',
-          values: ['Group providing one consolidated decision'],
-        },
-      },
-      {
-        id: 'deadline',
-        label: 'Is there a deadline?',
-        type: 'single',
-        options: ['No fixed deadline', 'Yes'],
-      },
-      {
-        id: 'deadlineDate',
-        label: 'Deadline date',
-        type: 'date',
-        when: {
-          id: 'deadline',
-          values: ['Yes'],
-        },
       },
       {
         id: 'anything',

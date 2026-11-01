@@ -31,16 +31,12 @@ describe('post-payment brief rules', () => {
       futureDetail: 'Hidden future',
       colour: 'Designer to recommend',
       preferredColours: 'Hidden colours',
-      deadline: 'No fixed deadline',
-      deadlineDate: '2026-10-12',
-      deadlineReason: 'Other',
-      deadlineReasonOther: 'Hidden reason',
       references: 'No',
     };
     state.images = [
       { id: 'old', data: 'secret', width: 1, height: 1, explanation: 'Hidden image' },
     ];
-    for (const id of ['taglineText', 'preferredColours', 'deadlineDate'])
+    for (const id of ['taglineText', 'preferredColours'])
       expect(validateField(field(id), state)).toBeUndefined();
     pruneBrief(state);
     expect(JSON.stringify(state)).not.toContain('Hidden');
@@ -70,7 +66,7 @@ describe('post-payment brief rules', () => {
     state.answers.personality = [...five, 'Creative'];
     expect(validateField(f, state)).toBe(c.tooMany(5));
   });
-  it('validates whitespace, long answers, exact-name confirmation, dates and competitors', () => {
+  it('validates whitespace, long answers, exact-name confirmation and competitors', () => {
     const state = emptyBrief();
     state.answers.trading = '   ';
     expect(validateField(field('trading'), state)).toBe(c.missing);
@@ -83,9 +79,6 @@ describe('post-payment brief rules', () => {
     expect(validateField(field('nameConfirmed'), state)).toBeUndefined();
     state.answers.anything = 'A'.repeat(limits.long + 1);
     expect(validateField(field('anything'), state)).toBe(c.tooLong(limits.long));
-    state.answers.deadline = 'Yes';
-    state.answers.deadlineDate = '2026-02-30';
-    expect(validateField(field('deadlineDate'), state)).toBe(c.invalidDate);
     state.competitors = [{ id: '1', name: 'Example', website: 'javascript:alert(1)' }];
     expect(validateField(field('competitors'), state)).toBe(c.invalidWebsite);
     state.competitors[0].website = 'https://example.org';

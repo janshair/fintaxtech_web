@@ -9,7 +9,9 @@ import {
 } from '../client-brief/rules';
 import type { BriefState } from '../client-brief/types';
 
-export const LOGO_BRIEF_SCHEMA_VERSION = 'fintaxtech-logo-brief-v3';
+// v4: removed the approval (approver, approverName, groupContact) and deadline
+// (deadline, deadlineDate) questions, so the [APPROVAL] and [DEADLINE] blocks are gone.
+export const LOGO_BRIEF_SCHEMA_VERSION = 'fintaxtech-logo-brief-v4';
 
 export const logoSubmissionPath = '/api/logo-brief/';
 export interface LogoSubmission {
@@ -113,21 +115,6 @@ const groups: [string, [string, string][]][] = [
     ],
   ],
   ['APPLICATIONS', [['uses', 'Logo uses']]],
-  [
-    'APPROVAL',
-    [
-      ['approver', 'Final approver'],
-      ['approverName', 'Approver/contact name'],
-      ['groupContact', 'Group contact name'],
-    ],
-  ],
-  [
-    'DEADLINE',
-    [
-      ['deadline', 'Deadline'],
-      ['deadlineDate', 'Deadline date'],
-    ],
-  ],
   ['ADDITIONAL NOTES', [['anything', 'Anything else supplied by the client']]],
 ];
 
