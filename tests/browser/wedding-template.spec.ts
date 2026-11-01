@@ -95,8 +95,10 @@ test('link values apply before first paint, stay local, and metadata remains can
   await expect(page.locator('#name-dialog')).not.toBeVisible();
   for (const [selector, title, value] of [
     ['[data-directions]', 'Directions preview', 'Broughty Ferry'],
-    ['[data-social="instagram"]', 'Instagram preview', '@yourbusiness'],
-    ['[data-social="pinterest"]', 'Pinterest preview', 'Your mood boards'],
+    ['.meet [data-social="instagram"]', 'Instagram preview', '@yourbusiness'],
+    ['.meet [data-social="pinterest"]', 'Pinterest preview', 'Your mood boards'],
+    ['.site-footer [data-social="instagram"]', 'Instagram preview', '@yourbusiness'],
+    ['.site-footer [data-social="pinterest"]', 'Pinterest preview', 'Your mood boards'],
     ['[data-fairs]', 'Wedding fairs preview', 'Your next wedding fair here'],
   ]) {
     const trigger = page.locator(selector);
@@ -135,6 +137,22 @@ for (const type of supplierTypes) {
     await expect(page.locator(`[data-story="${type}"]`)).toBeVisible();
     await expect(page.locator('[data-story]:visible')).toHaveCount(1);
     await expect(page.locator('.allergen-note')).toBeVisible({ visible: type === 'cakes' });
+    // Placeholder Instagram and Pinterest links, with icons, in Meet us and the footer.
+    for (const area of ['.meet', '.site-footer']) {
+      const links = page.locator(`${area} .social-links a`);
+      expect(await visibleText(page, `${area} .social-links a`)).toEqual([
+        'Instagram',
+        'Pinterest',
+      ]);
+      for (const link of await links.all()) {
+        await expect(link).toHaveAttribute('href', '#contact');
+        await expect(link.locator('.social-icon svg')).toBeVisible();
+      }
+      await expect(page.locator(`${area} .social-note`)).toHaveText(
+        'Your Instagram and Pinterest go here',
+      );
+      await expect(page.locator(`${area} .social-note`)).toBeVisible();
+    }
     // Every package's button opens the demo with that package chosen.
     for (const item of p.packages) {
       const trigger = page.locator(`[data-package="${item.id}"]`);

@@ -433,8 +433,12 @@
   );
   $('[data-directions]').addEventListener('click', (e) => preview('directions', e.currentTarget));
   $('[data-fairs]').addEventListener('click', (e) => preview('fairs', e.currentTarget));
-  $$('[data-social]').forEach((button) =>
-    button.addEventListener('click', () => preview(button.dataset.social, button)),
+  // Placeholder links: no real accounts, so they explain instead of jumping to #contact.
+  $$('[data-social]').forEach((link) =>
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      preview(link.dataset.social, link);
+    }),
   );
 
   function restore() {

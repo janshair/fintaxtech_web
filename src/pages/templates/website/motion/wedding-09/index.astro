@@ -13,6 +13,7 @@ import { motionTemplates, motionGallery } from '../../../../../content/templates
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import WeddingArtwork from '../../../../../components/templates/WeddingArtwork.astro';
+import SocialLinks from '../../../../../components/templates/WeddingSocialLinks.astro';
 const template = motionTemplates.find((item) => item.id === w.id)!;
 const { title, description } = seoPages[w.route];
 const canonical = absoluteURL(w.route);
@@ -465,13 +466,7 @@ const json = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
             <p class="eyebrow">FOLLOW ALONG · PLACEHOLDER</p>
             <h3>Instagram &amp; Pinterest</h3>
             <p>Your latest weddings, mood boards and behind-the-scenes, linked from here.</p>
-            <div class="social-links">
-              <button type="button" data-social="instagram"
-                ><span class="social-icon" aria-hidden="true">◎</span> Instagram</button
-              ><button type="button" data-social="pinterest"
-                ><span class="social-icon" aria-hidden="true">P</span> Pinterest</button
-              >
-            </div>
+            <SocialLinks />
           </div>
         </div>
       </section>
@@ -570,6 +565,7 @@ const json = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
         A fictional wedding business, shown as a demonstration by FinTaxTech.<br />No bookings,
         enquiries, deposits or messages are submitted.
       </p>
+      <SocialLinks />
       <a href={motionGallery.route}>{motionGallery.backLabel} <span aria-hidden="true">↗</span></a>
     </footer>
     <div class="mobile-contact" aria-label="Example contact actions">

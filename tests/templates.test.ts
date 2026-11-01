@@ -321,7 +321,10 @@ describe('wedding supplier demonstration content', () => {
     expect(
       source.startsWith('// Change these hex codes, save, and the whole template recolours.'),
     ).toBe(true);
-    const page = readFileSync(`src/pages${wedding.route}index.astro`, 'utf8');
+    // The Instagram and Pinterest placeholder links live in their own component.
+    const page =
+      readFileSync(`src/pages${wedding.route}index.astro`, 'utf8') +
+      readFileSync('src/components/templates/WeddingSocialLinks.astro', 'utf8');
     for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
       expect(page).toContain(`data-capture="${hook}"`);
     for (const text of [
@@ -336,6 +339,7 @@ describe('wedding supplier demonstration content', () => {
       'Picture your business here?',
       'data-social="instagram"',
       'data-social="pinterest"',
+      'Your Instagram and Pinterest go here',
       'MEET US',
       'example: booked',
     ])
