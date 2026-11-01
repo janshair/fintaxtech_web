@@ -36,9 +36,10 @@ for (const location of locations) {
     expect(await links.count()).toBeGreaterThanOrEqual(3);
     for (const link of await links.all())
       await expect(link).toHaveAttribute('href', `/start/?location=${location.slug}`);
-    await expect(
-      page.getByRole('navigation', { name: 'Areas We Serve' }).getByRole('link'),
-    ).toHaveCount(3);
+    await expect(page.locator('footer a[href^="/locations/"]')).toHaveCount(0);
+    const llms = await request.get('/llms.txt');
+    expect(llms.status()).toBe(200);
+    expect(await llms.text()).toContain(`[${location.name}](${location.canonical})`);
     const graph = await page.locator('script[type="application/ld+json"]').textContent();
     expect(
       JSON.parse(graph!)['@graph'].find((node: any) => node['@type'] === 'Service').areaServed.name,

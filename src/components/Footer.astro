@@ -1,5 +1,4 @@
 ---
-import { locations, locationCopy } from '../content/locations';
 interface Props {
   startHref?: string;
 }
@@ -33,14 +32,6 @@ import { careersCopy } from '../content/careers';
         <nav class="footer-links" aria-labelledby="footer-calculators-title">
           <h3 id="footer-calculators-title">{pricingCalculatorNavigation.title}</h3>
           {pricingCalculatorNavigation.links.map(({ href, label }) => <a href={href}>{label}</a>)}
-        </nav>
-        <nav class="footer-links" aria-labelledby="footer-areas-title">
-          <h3 id="footer-areas-title">{locationCopy.areasTitle}</h3>
-          {
-            locations.map((location) => (
-              <a href={`/locations/${location.slug}/`}>{location.name}</a>
-            ))
-          }
         </nav>
       </div>
       <div class="footer-links">

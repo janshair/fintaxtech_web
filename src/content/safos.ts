@@ -4,8 +4,10 @@ export const safos = {
   supportRoute: '/safos/support/',
   privacyRoute: '/safos/privacy.html',
   playStoreURL: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos',
+  appStoreURL: 'https://apps.apple.com/gb/app/safos-invoice-receipt-maker/id6828525324',
+  appStoreLabel: 'Download Safos on the App Store',
   description:
-    'Create invoices and receipts, organise clients and share branded PDFs with Safos by FinTaxTech. Available on Google Play; the iOS app is in App Store review.',
+    'Create invoices and receipts, organise clients and share branded PDFs with Safos by FinTaxTech. Available on Google Play and the App Store.',
   headline: 'Create an invoice. Send a PDF. Keep track of who has paid.',
   intro:
     'A straightforward invoice and receipt maker for freelancers, sole traders and small businesses. Keep your clients organised, give documents your own branding and share a PDF your client can open anywhere.',
@@ -33,7 +35,7 @@ export const safos = {
     ],
     [
       'A native iOS experience',
-      'The iPhone and iPad version includes Light and Dark Mode and a native Liquid Glass design. This version is currently in App Store review.',
+      'The iPhone and iPad version includes Light and Dark Mode and a native Liquid Glass design.',
     ],
   ],
 };

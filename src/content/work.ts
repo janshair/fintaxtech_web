@@ -18,6 +18,8 @@ export const publishedApps = [
     pageURL: safos.route,
     pageLabel: 'Explore Safos',
     playStoreUrl: safos.playStoreURL,
+    appStoreUrl: safos.appStoreURL,
+    appStoreLabel: safos.appStoreLabel,
     visitLabel: 'View Safos on Google Play',
   },
 ] as const;

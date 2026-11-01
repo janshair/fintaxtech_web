@@ -19,12 +19,14 @@ FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, 
 
 ## Published apps
 
-FinTaxTech has built and published its own apps on Google Play:
+FinTaxTech has built and published its own apps on Google Play and the Apple App Store:
 
-- [Metoni: Workout Tracker](https://fintaxtech.co.uk/metoni/): strength-training workout tracker on Android, with on-device workout storage and no account required; iPhone and iPad App Store release pending, not yet available.
+- [Metoni: Workout Tracker](https://fintaxtech.co.uk/metoni/): strength-training workout tracker on Android and iOS, with on-device workout storage and no account required.
 - [Metoni support](https://fintaxtech.co.uk/metoni/support/): troubleshooting, contact information and policy links.
 - [Metoni on Google Play](https://play.google.com/store/apps/details?id=uk.co.fintaxtech.metoni)
+- [Metoni on the App Store](https://apps.apple.com/gb/app/metoni-workout-tracker/id6819672803)
 - [Safos on Google Play](https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos)
+- [Safos on the App Store](https://apps.apple.com/gb/app/safos-invoice-receipt-maker/id6828525324)
 
 ## Start a project
 

@@ -22,15 +22,16 @@ export const locationCopy = { areasTitle: 'Areas We Serve' };
 
 // Edit shared wording here once. Add a city to the array to generate its page.
 export const locations: LocationPage[] = [
-    "Glasgow",
-    "Edinburgh",
-    "Aberdeen",
-    "Dundee",
-    "Dunfermline",
-    "Inverness",
-    "Perth",
-    "Stirling"
-  ].map(
+  "London", "Birmingham", "Manchester", "Leeds", "Liverpool",
+  "Newcastle upon Tyne", "Sheffield", "Bristol", "Leicester", "Coventry",
+  "Nottingham", "Kingston upon Hull", "Bradford", "Stoke-on-Trent", "Wolverhampton",
+  "Plymouth", "Southampton", "Reading", "Derby", "Glasgow",
+  "Edinburgh", "Aberdeen", "Dundee", "Dunfermline", "Inverness",
+  "Perth", "Stirling", "Cardiff", "Swansea", "Newport",
+  "Bangor", "St Asaph", "St Davids", "Wrexham", "Belfast",
+  "Derry", "Lisburn", "Newry", "Armagh", "Bangor",
+  "England", "Scotland", "Wales", "Northern Ireland", "NorthernIreland", "NI"
+].map(
   (name): LocationPage => {
     const city = { name, slug: name.toLowerCase(), isBase: name === 'Dundee' };
     return {
@@ -67,13 +68,13 @@ export const locations: LocationPage[] = [
       ],
       ...(city.isBase
         ? {
-            office: {
-              label: `${city.name} registered office`,
-              address: company.address,
-              profileLabel: googleBusinessProfile.label,
-              profileURL: googleBusinessProfile.url,
-            },
-          }
+          office: {
+            label: `${city.name} registered office`,
+            address: company.address,
+            profileLabel: googleBusinessProfile.label,
+            profileURL: googleBusinessProfile.url,
+          },
+        }
         : {}),
       canonical: `${company.url}/locations/${city.slug}/`,
       welcomeHeading: `What would you like to create for your ${city.name} business?`,
