@@ -116,8 +116,8 @@ const theme = templateTheme('consultant-07', THEME);
           </div>
           <div class="hero-card">
             <span class="eyebrow"><span class="live-dot"></span>THIS WEEK · EXAMPLE</span>
-            <strong>Free 15-minute calls</strong>
-            <span>Tuesday and Thursday</span>
+            <strong>{c.heroCall.title}</strong>
+            <span>{c.heroCall.days}</span>
           </div>
         </div>
       </section>
@@ -526,9 +526,14 @@ const theme = templateTheme('consultant-07', THEME);
           This is where clients would book a call. <strong>Demo only, nothing is booked.</strong>
         </p>
         <p>No call, payment or message is submitted.</p>
-        <a class="button accent" href="/contact/" data-agency-link
+        <a
+          class="button accent"
+          href="/client/website-brief/templates/?template=consultant-07"
+          data-brief-link
           ><span>Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech</span>
           <span aria-hidden="true">→</span></a
+        ><a class="text-link brief-contact" href="/contact/" data-agency-link
+          >Or ask FinTaxTech a question first</a
         ><button class="text-button" type="button" data-restart>Try another booking</button>
       </div>
     </dialog>

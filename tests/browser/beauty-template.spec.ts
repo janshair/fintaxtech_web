@@ -285,7 +285,7 @@ for (const width of [320, 390, 768, 1440]) {
         `${treatments[0].name} · Any available · ${b.flow.days[0]} ${b.flow.times[0]} · ${treatments[0].duration}`,
       );
       await expect(page.locator('.booked-name')).toHaveText('Test Business');
-      await expect(page.locator('#book-final [data-agency-link]')).toContainText(
+      await expect(page.locator('#book-final [data-brief-link]')).toContainText(
         'Want this for Test Business? Talk to FinTaxTech',
       );
       await page.getByRole('button', { name: 'Book something else' }).click();
@@ -512,7 +512,7 @@ test('letter link on a 375 × 812 phone: instant hero, continuous scroll, tap-th
   await expect(page.locator('#book-final')).toContainText(
     'Demo only — nothing is booked or charged.',
   );
-  await expect(page.locator('#book-final [data-agency-link]')).toContainText(
+  await expect(page.locator('#book-final [data-brief-link]')).toContainText(
     "Want this for Jay's Cuts & Co?",
   );
   expect(

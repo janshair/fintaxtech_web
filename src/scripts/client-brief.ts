@@ -8,6 +8,7 @@ import { clientBriefDefinitions } from '../lib/client-brief/definitions';
 import { company } from '../content/site';
 import {
   createBriefRules,
+  formatted,
   imagesForField,
   emptyBrief,
   requiresOtherText,
@@ -24,7 +25,8 @@ import type { BriefField } from '../lib/client-brief/types';
 import { createWebsiteDelivery } from '../lib/client-brief/website-delivery';
 import { isWebsiteBrief } from '../lib/client-brief/website-submission';
 import { websiteDeliveryCopy } from '../content/client-brief';
-import { templateTextCopy } from '../content/template-brief';
+import { templateTextCopy, hoursCopy } from '../content/template-brief';
+import { hourStatuses, tidy, weekDays } from '../lib/client-brief/formats';
 import {
   templateBriefFilename,
   templateBriefText,
@@ -50,8 +52,7 @@ const begin = shell.querySelector<HTMLButtonElement>('[data-brief-begin]')!;
 // Template briefs start from the demo link's values (and the route's template).
 const fresh = () => {
   const brief = emptyBrief();
-  if (kind === 'template')
-    brief.answers = templatePrefill(location.search, shell.dataset.template || undefined);
+  if (kind === 'template') brief.answers = templatePrefill(location.search);
   return brief;
 };
 let state = fresh();
@@ -97,6 +98,7 @@ function textField(
   onInput: (value: string) => void,
   type = 'text',
   max: number = limits.short,
+  format?: BriefField['format'],
 ) {
   const wrap = el('label', undefined, 'field');
   wrap.htmlFor = id;
@@ -125,8 +127,112 @@ function textField(
     onInput(input.value);
     updateCount();
   });
+  // Template briefs tidy spaces when you leave a field and show formatted values in
+  // their final form (40 → 40 min, £ 30 → £30). Spelling is never changed.
+  if (kind === 'template')
+    input.addEventListener('change', () => {
+      const next = formatted(format, tidy(input.value)) ?? tidy(input.value);
+      if (next === input.value) return;
+      input.value = next;
+      onInput(next);
+      updateCount();
+    });
   wrap.append(input, count);
   return wrap;
+}
+function renderHours(field: BriefField, wrap: HTMLElement) {
+  const rows = (state.rows[field.id] ??= []);
+  while (rows.length < weekDays.length)
+    rows.push({ id: weekDays[rows.length].toLowerCase(), values: {} });
+  const copyMonday = (count: number, id: string) => {
+    dirty = true;
+    for (let index = 1; index < count; index++) rows[index].values = { ...rows[0].values };
+    delete errors[field.id];
+    pruneBrief(state);
+    render(false, id);
+  };
+  const tools = el('div', undefined, 'actions brief-hours-tools');
+  const weekdays = button(hoursCopy.weekdays, () => copyMonday(5, weekdays.id));
+  weekdays.id = `${field.id}-copy-weekdays`;
+  const everyDay = button(hoursCopy.everyDay, () => copyMonday(7, everyDay.id));
+  everyDay.id = `${field.id}-copy-all`;
+  tools.append(weekdays, everyDay);
+  rows.forEach((row, index) => {
+    const day = el('fieldset', undefined, 'brief-row brief-day');
+    day.append(el('legend', weekDays[index]));
+    const id = `${field.id}-${row.id}`;
+    const statuses = el('div', undefined, 'choices brief-day-status');
+    hourStatuses.forEach((status, statusIndex) => {
+      const label = el('label', undefined, 'choice');
+      const input = el('input');
+      input.type = 'radio';
+      input.name = `${id}-status`;
+      input.id = `${id}-status-${statusIndex}`;
+      input.value = status;
+      input.required = true;
+      input.checked = row.values.status === status;
+      input.setAttribute('aria-label', `${weekDays[index]}: ${status}`);
+      input.addEventListener('change', () => {
+        dirty = true;
+        row.values.status = status;
+        pruneBrief(state);
+        render(false, input.id);
+      });
+      label.append(input, el('span', status));
+      statuses.append(label);
+    });
+    day.append(statuses);
+    if (row.values.status === 'Open') {
+      const times = el('div', undefined, 'brief-day-times');
+      for (const key of ['opens', 'closes'] as const) {
+        const label = el('label', undefined, 'field');
+        label.htmlFor = `${id}-${key}`;
+        label.append(el('span', key === 'opens' ? hoursCopy.opens : hoursCopy.closes));
+        const input = el('input');
+        input.type = 'time';
+        input.id = `${id}-${key}`;
+        input.required = true;
+        input.value = row.values[key] ?? '';
+        input.setAttribute(
+          'aria-label',
+          `${weekDays[index]}: ${key === 'opens' ? hoursCopy.opens : hoursCopy.closes}`,
+        );
+        input.addEventListener('input', () => {
+          dirty = true;
+          row.values[key] = input.value;
+        });
+        label.append(input);
+        times.append(label);
+      }
+      const late = el('label', undefined, 'choice');
+      const overnight = el('input');
+      overnight.type = 'checkbox';
+      overnight.id = `${id}-overnight`;
+      overnight.checked = row.values.overnight === 'Yes';
+      overnight.setAttribute('aria-label', `${weekDays[index]}: ${hoursCopy.overnight}`);
+      overnight.addEventListener('change', () => {
+        dirty = true;
+        if (overnight.checked) row.values.overnight = 'Yes';
+        else delete row.values.overnight;
+      });
+      late.append(overnight, el('span', hoursCopy.overnight));
+      times.append(late);
+      day.append(times);
+    }
+    const note = textField(
+      `${id}-note`,
+      `${weekDays[index]}: ${hoursCopy.note}`,
+      row.values.note ?? '',
+      (value) => (row.values.note = value),
+      'text',
+      40,
+    );
+    note.classList.add('brief-day-note');
+    day.append(note);
+    wrap.append(day);
+    // Fill in Monday, then copy it on: the shortcuts follow Monday in reading and Tab order.
+    if (index === 0) wrap.append(tools);
+  });
 }
 function renderRows(field: BriefField, wrap: HTMLElement) {
   const repeat = field.repeat!;
@@ -151,6 +257,7 @@ function renderRows(field: BriefField, wrap: HTMLElement) {
           },
           part.type === 'long' ? 'textarea' : part.type,
           part.maxLength ?? (part.type === 'long' ? limits.long : limits.short),
+          part.format,
         );
         label.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea')!.required =
           !part.optional;
@@ -364,6 +471,7 @@ function renderField(field: BriefField) {
                 : 'text',
       field.maxLength ??
         (field.type === 'long' || field.type === 'urls' ? limits.long : limits.short),
+      field.format,
     );
     label.querySelector('span')!.classList.add('sr-only');
     const control = label.querySelector('input, textarea')!;
@@ -400,6 +508,8 @@ function renderField(field: BriefField) {
     const row = el('div', undefined, 'brief-colour');
     row.append(picker, label);
     wrap.append(row);
+  } else if (field.type === 'hours') {
+    renderHours(field, wrap);
   } else if (field.type === 'rows') {
     renderRows(field, wrap);
   } else if (field.type === 'confirm') {
@@ -722,6 +832,8 @@ function review() {
   heading.tabIndex = -1;
   const reviewNotice = el('p', logoStatuses.get(logoKey) ?? c.reviewIntro);
   root.append(heading, reviewNotice);
+  // Template answers are published as typed, so ask for a careful read first.
+  if (kind === 'template') root.append(el('p', templateTextCopy.check, 'notice brief-check'));
   const summary = el('div', undefined, 'brief-review');
   briefSummary(state).forEach((section) => {
     const item = el('section');

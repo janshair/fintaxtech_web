@@ -1,6 +1,15 @@
 import type { BriefSection } from '../../lib/client-brief/types';
 import type { TemplateBriefSchema } from './index';
-import { price, rowValues, sampleChoice, whenOwn } from './shared';
+import {
+  duration,
+  price,
+  rowValues,
+  sampleChoice,
+  stepPairs,
+  stepsChoice,
+  whenOwn,
+  whenWritten,
+} from './shared';
 
 // barber-01 (The Brass Standard). The content object matches the shape of
 // src/content/barber-demo.ts: services, ritual and cuts replace those keys.
@@ -33,13 +42,19 @@ const sections: BriefSection[] = [
           fields: [
             { key: 'name', label: 'Service name', type: 'text', maxLength: 40 },
             { key: 'description', label: 'Short description', type: 'text', maxLength: 80 },
-            { key: 'duration', label: 'Duration, like 40 min', type: 'text', maxLength: 20 },
+            {
+              key: 'duration',
+              label: 'Length in minutes, like 40 or 1 h 30',
+              type: 'text',
+              maxLength: 20,
+              format: duration,
+            },
             {
               key: 'price',
               label: 'Price, like £30 or From £30',
               type: 'text',
               maxLength: 20,
-              pattern: price,
+              format: price,
             },
           ],
         },
@@ -56,18 +71,16 @@ const sections: BriefSection[] = [
   {
     title: 'Your ritual and lookbook',
     fields: [
-      {
-        id: 'barberRitualSource',
-        label: 'The three ritual steps',
-        type: 'single',
-        options: ['Keep the template’s steps', 'Write my own'],
-        help: 'The template shows Consult, Craft and Finish as you scroll.',
-      },
+      stepsChoice(
+        'barberRitualSource',
+        'The three ritual steps',
+        'The template shows Consult, Craft and Finish as you scroll.',
+      ),
       {
         id: 'barberRitual',
         label: 'Your three steps',
         type: 'rows',
-        when: { id: 'barberRitualSource', values: ['Write my own'] },
+        when: whenWritten('barberRitualSource'),
         repeat: {
           title: (n) => `Step ${n}`,
           add: 'Add a step',
@@ -105,17 +118,16 @@ const sections: BriefSection[] = [
 
 export const barber01: TemplateBriefSchema = {
   id: 'barber-01',
+  prefix: 'barber',
   sections,
+  files: {
+    gallery: 'Gallery / work photos (up to 6)',
+    team: 'Team or portrait photos',
+    premises: 'Premises photos',
+  },
   bookingLinkWhen: { id: 'barberBooking', values: ['Online booking link'] },
   toTemplateData(answers, rows) {
     const services = rowValues(answers, rows, 'barberServicesSource', 'barberServices');
-    const ritual =
-      answers.barberRitualSource === 'Write my own'
-        ? (rows.barberRitual ?? []).map((row, index) => [
-            `0${index + 1} / ${row.values.title.trim().toUpperCase()}`,
-            row.values.line.trim(),
-          ])
-        : null;
     const lookbook = rowValues(answers, rows, 'barberLookbookSource', 'barberLookbook');
     return {
       services:
@@ -125,7 +137,10 @@ export const barber01: TemplateBriefSchema = {
           duration,
           price,
         })) ?? null,
-      ritual,
+      ritual:
+        stepPairs(answers, rows, 'barberRitualSource', 'barberRitual')?.map(
+          ([title, line], index) => [`0${index + 1} / ${title.toUpperCase()}`, line],
+        ) ?? null,
       cuts: lookbook
         ? Array.from({ length: 6 }, (_, index) => lookbook[index]?.label || null)
         : null,

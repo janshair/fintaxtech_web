@@ -1,5 +1,5 @@
 import { clientBriefDefinitions } from '../lib/client-brief/definitions';
-import { createBriefRules, emptyBrief, limits } from '../lib/client-brief/rules';
+import { createBriefRules, emptyBrief, hasRows, limits } from '../lib/client-brief/rules';
 import {
   isWebsiteBrief,
   reviewedWebsiteSubmission,
@@ -45,7 +45,7 @@ export function validateWebsiteSubmission(input: unknown): WebsiteSubmission {
     !knownKeys(input.answers, allowed) ||
     !knownKeys(
       input.rows,
-      fields.filter((field) => field.type === 'rows').map((field) => field.id),
+      fields.filter(hasRows).map((field) => field.id),
     )
   )
     throw new SubmissionError('invalid');

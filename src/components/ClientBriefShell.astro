@@ -3,19 +3,12 @@ import { clientBriefDefinitions } from '../lib/client-brief/definitions';
 import '../styles/client-brief.css';
 interface Props {
   kind: keyof typeof clientBriefDefinitions;
-  // A template brief's direct link starts with this template chosen.
-  template?: string;
 }
-const { kind, template } = Astro.props;
+const { kind } = Astro.props;
 const { copy: c } = clientBriefDefinitions[kind];
 ---
 
-<section
-  class="quiz client-brief"
-  data-client-brief={kind}
-  data-template={template}
-  aria-labelledby="client-brief-title"
->
+<section class="quiz client-brief" data-client-brief={kind} aria-labelledby="client-brief-title">
   <h1 id="client-brief-title">{c.title}</h1>
   <p class="lead">{c.intro}</p>
   <p class="notice">{c.privacy}</p>

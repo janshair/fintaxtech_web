@@ -1,6 +1,7 @@
 import { briefCopy, websiteDeliveryCopy, type BriefCopy } from './client-brief';
 import { allTemplates } from './templates';
-import { templateBriefSchemas } from './template-briefs';
+import { templateBriefSchemas, type TemplateBriefSchema } from './template-briefs';
+import { hourStatuses, weekDays } from '../lib/client-brief/formats';
 import { ownWords, sampleChoice, useSample, whenOwn } from './template-briefs/shared';
 import type { BriefField, BriefSection } from '../lib/client-brief/types';
 
@@ -31,7 +32,23 @@ export const templateBriefCopy: BriefCopy = {
   deliveryNotice:
     'Continuing with Download .txt, Download PDF, Open email or Open WhatsApp sends these reviewed answers to FinTaxTech through Slack. The downloads work independently of Slack delivery. Do not include passwords, access tokens, sensitive records or unnecessary personal information.',
 };
+export const templateBriefRedirect = {
+  title: 'The template brief has moved',
+  message:
+    'Continue to the template website brief with your template chosen. Use the link below if you are not redirected automatically.',
+  label: 'Open the template brief',
+};
+export const hoursCopy = {
+  weekdays: 'Copy Monday to Tuesday–Friday',
+  everyDay: 'Same every day',
+  opens: 'Opens',
+  closes: 'Closes',
+  overnight: 'Closes after midnight',
+  note: 'note, like Late night Thursday (optional)',
+};
 export const templateTextCopy = {
+  check:
+    'Read this carefully before you send it. Names, services, prices and reviews appear on your website exactly as you typed them, so this is the moment to catch a typo.',
   download: 'Download .txt',
   downloaded:
     'Your .txt download has been requested. Slack delivery status is shown separately. Keep the file: it is the copy we build your website from.',
@@ -43,6 +60,7 @@ export const templateChoices = allTemplates.map((template) => ({
   ...template,
   available: !!templateBriefSchemas[template.id],
 }));
+export const templateName = (id: string) => templateChoices.find((t) => t.id === id)!.name;
 export const templateByChoice = (name: unknown) =>
   templateChoices.find((template) => template.available && template.name === name);
 
@@ -57,13 +75,14 @@ export const qualificationOptions = {
   yes: 'Yes, I’ll list them',
   no: 'No — leave this out',
 };
-export const fileOptions = {
-  logo: 'Logo',
-  gallery: 'Gallery / work photos (up to 6)',
-  team: 'Team or portrait photos',
-  premises: 'Premises photos',
-  none: 'None for now',
-} as const;
+export const fileOptions = { logo: 'Logo', none: 'None for now' } as const;
+// Each template lists its own photos to send, between the logo and "None for now".
+export const fileChoices = (schema: TemplateBriefSchema) => ({
+  logo: fileOptions.logo,
+  ...schema.files,
+  none: fileOptions.none,
+});
+export const filesFieldId = (schema: TemplateBriefSchema) => `${schema.prefix}Files`;
 
 const choose: BriefSection = {
   title: 'Choose your template',
@@ -75,7 +94,7 @@ const choose: BriefSection = {
       prefill: 'template',
       options: templateChoices.filter((t) => t.available).map((t) => t.name),
       comingSoon: templateChoices.filter((t) => !t.available).map((t) => t.name),
-      help: 'Templates marked Coming soon can’t be chosen here yet. Contact FinTaxTech if you’d like one of them.',
+      help: 'Choose the design your website will be built from. You can look at each template first in the template gallery.',
       examples: Object.fromEntries(
         templateChoices.map((t) => [
           t.name,
@@ -189,10 +208,26 @@ const contact: BriefSection = {
       options: ['Show my address', 'Service area only — no public address'],
     },
     {
-      id: 'address',
-      label: 'Your address',
-      type: 'long',
-      maxLength: 200,
+      id: 'street',
+      label: 'Street address',
+      type: 'text',
+      maxLength: 80,
+      when: { id: 'addressChoice', values: ['Show my address'] },
+      help: 'Building and street, like 79 Yarrow Terrace.',
+    },
+    {
+      id: 'town',
+      label: 'Town or city',
+      type: 'text',
+      maxLength: 40,
+      when: { id: 'addressChoice', values: ['Show my address'] },
+    },
+    {
+      id: 'postcode',
+      label: 'Postcode',
+      type: 'text',
+      maxLength: 10,
+      format: { kind: 'postcode' },
       when: { id: 'addressChoice', values: ['Show my address'] },
     },
     {
@@ -213,28 +248,45 @@ const hours: BriefSection = {
     {
       id: 'hours',
       label: 'Your opening hours',
-      type: 'rows',
+      type: 'hours',
       when: whenOwn('hoursSource'),
-      help: 'One line per day or group of days, like Monday – Friday. Up to 7 lines.',
+      help: 'Times use the 24-hour clock. Days with the same hours are grouped on your website, like Monday – Friday.',
       repeat: {
-        title: (n) => `Hours line ${n}`,
-        add: 'Add a line',
-        remove: (n) => `Remove hours line ${n}`,
+        title: (n) => weekDays[n - 1],
+        add: '',
+        remove: () => '',
+        min: 7,
         max: 7,
         fields: [
-          { key: 'days', label: 'Day or days', type: 'text', maxLength: 30 },
+          { key: 'status', label: 'Open?', type: 'single', options: [...hourStatuses] },
           {
-            key: 'status',
-            label: 'Open?',
-            type: 'single',
-            options: ['Open', 'Closed', 'By appointment'],
+            key: 'opens',
+            label: 'Opens',
+            type: 'text',
+            maxLength: 5,
+            when: { id: 'status', values: ['Open'] },
           },
           {
-            key: 'times',
-            label: 'Times, like 09:00 – 18:00',
+            key: 'closes',
+            label: 'Closes',
             type: 'text',
-            maxLength: 30,
+            maxLength: 5,
             when: { id: 'status', values: ['Open'] },
+          },
+          {
+            key: 'overnight',
+            label: 'Closes after midnight',
+            type: 'single',
+            options: ['Yes'],
+            optional: true,
+            when: { id: 'status', values: ['Open'] },
+          },
+          {
+            key: 'note',
+            label: 'Note, like Late night Thursday (optional)',
+            type: 'text',
+            maxLength: 40,
+            optional: true,
           },
         ],
       },
@@ -390,16 +442,15 @@ const proof: BriefSection = {
 
 const files: BriefSection = {
   title: 'Files you will send',
-  fields: [
-    {
-      id: 'files',
-      label: 'Which files will you send us?',
-      type: 'multi',
-      options: Object.values(fileOptions),
-      exclusive: [fileOptions.none],
-      help: 'Send them by email or WhatsApp after this brief. Nothing is uploaded here.',
-    },
-  ],
+  fields: schemas.map((schema) => ({
+    id: filesFieldId(schema),
+    label: 'Which files will you send us?',
+    type: 'multi' as const,
+    options: Object.values(fileChoices(schema)),
+    exclusive: [fileOptions.none],
+    when: { id: 'templateChoice', values: [templateName(schema.id)] },
+    help: 'Send them by email or WhatsApp after this brief. Nothing is uploaded here.',
+  })),
 };
 
 const confirm: BriefSection = {
@@ -418,10 +469,7 @@ const confirm: BriefSection = {
 const templateSections = schemas.flatMap((schema) =>
   schema.sections.map((section) => ({
     ...section,
-    when: {
-      id: 'templateChoice',
-      values: [templateChoices.find((t) => t.id === schema.id)!.name],
-    },
+    when: { id: 'templateChoice', values: [templateName(schema.id)] },
   })),
 );
 export const templateBriefSections: BriefSection[] = [

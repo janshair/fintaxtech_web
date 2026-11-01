@@ -15,7 +15,7 @@ import { mobileAppBriefCopy } from './mobile-app-brief';
 import { websiteBriefCopy } from './website-brief';
 import { websiteDemoBriefCopy } from './website-demo-brief';
 import { logoBriefCopy } from './logo-brief';
-import { templateBriefCopy, templateChoices } from './template-brief';
+import { templateBriefCopy, templateBriefRedirect, templateChoices } from './template-brief';
 import { pages } from './pages';
 import { blogCopy } from './blog';
 import { services } from './services';
@@ -134,17 +134,19 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
     nofollow: true,
   },
+  [templateBriefCopy.route]: {
+    title: templateBriefCopy.title,
+    description: templateBriefCopy.description,
+    noindex: true,
+    nofollow: true,
+  },
+  // Old per-template links redirect to the single route with ?template=.
   ...Object.fromEntries(
-    [
-      templateBriefCopy.route,
-      ...templateChoices
-        .filter((t) => t.available)
-        .map((t) => `${templateBriefCopy.route}${t.id}/`),
-    ].map((path) => [
-      path,
+    templateChoices.map((t) => [
+      `${templateBriefCopy.route}${t.id}/`,
       {
-        title: templateBriefCopy.title,
-        description: templateBriefCopy.description,
+        title: templateBriefRedirect.title,
+        description: templateBriefRedirect.message,
         noindex: true,
         nofollow: true,
       },

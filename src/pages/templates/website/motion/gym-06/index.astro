@@ -661,10 +661,14 @@ const asset = (file: string) => `${c.route}${file}`;
           >
         </p>
         <p>No booking, class place, payment or message is submitted.</p>
-        <a class="button accent" href="/contact/" data-agency-link
-          >Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech <span
-            aria-hidden="true">→</span
-          ></a
+        <a
+          class="button accent"
+          href="/client/website-brief/templates/?template=gym-06"
+          data-brief-link
+          ><span>Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech</span>
+          <span aria-hidden="true">→</span></a
+        ><a class="text-link brief-contact" href="/contact/" data-agency-link
+          >Or ask FinTaxTech a question first</a
         ><button class="text-button" type="button" data-restart>Try another booking</button>
       </div>
     </dialog>

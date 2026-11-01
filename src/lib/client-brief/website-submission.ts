@@ -1,5 +1,5 @@
 import { clientBriefDefinitions } from './definitions';
-import { createBriefRules, isVisible, requiresOtherText } from './rules';
+import { createBriefRules, hasRows, isVisible, requiresOtherText } from './rules';
 import type { BriefAnswers, BriefState } from './types';
 
 export type WebsiteBriefKind = 'website' | 'websiteDemo' | 'template';
@@ -44,7 +44,7 @@ export function reviewedWebsiteSubmission(
     else if (field.type === 'confirm' && answer === true) answers[field.id] = true;
     if (requiresOtherText(field, state.answers))
       answers[`${field.id}Other`] = String(state.answers[`${field.id}Other`] ?? '').trim();
-    if (field.type === 'rows' && state.rows[field.id]?.length)
+    if (hasRows(field) && state.rows[field.id]?.length)
       rows[field.id] = state.rows[field.id].map((row, index) => ({
         id: String(index),
         values: Object.fromEntries(

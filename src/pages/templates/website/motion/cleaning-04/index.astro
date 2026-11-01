@@ -6,14 +6,7 @@ import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import CleaningArtwork from '../../../../../components/templates/CleaningArtwork.astro';
 import PictureSparkles from '../../../../../components/templates/PictureSparkles.astro';
-// Keep this template's copy adjustment local to its page and embedded demo copy.
-const c = {
-  ...baseCopy,
-  services: baseCopy.services.map((service) => ({
-    ...service,
-    detail: service.id === 'moving' ? 'Example · checklist agreed with you' : service.detail,
-  })),
-};
+const c = baseCopy;
 const template = motionTemplates.find((item) => item.id === c.id)!;
 const { title, description } = seoPages[c.route];
 const canonical = absoluteURL(c.route);
@@ -486,8 +479,13 @@ const theme = templateTheme('cleaning-04', THEME);
           price and availability.
         </p><button class="text-button" type="button" data-restart>Try another clean</button><a
           class="button"
-          href="/contact/"
-          data-agency-link>Discuss your website with FinTaxTech <span aria-hidden="true">↗</span></a
+          href="/client/website-brief/templates/?template=cleaning-04"
+          data-brief-link
+          >Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech <span
+            aria-hidden="true">↗</span
+          ></a
+        ><a class="text-link brief-contact" href="/contact/" data-agency-link
+          >Or ask FinTaxTech a question first</a
         >
       </div>
     </dialog>

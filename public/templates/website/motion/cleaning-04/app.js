@@ -29,6 +29,15 @@
       node.textContent = current.phone || 'Your number here';
     });
     document.title = name + c.titleSuffix;
+    // The final offer opens the template brief with this preview's values.
+    const brief = new URL('/client/website-brief/templates/?template=cleaning-04', location.origin);
+    if (current.name) brief.searchParams.set('name', current.name);
+    if (current.area) brief.searchParams.set('area', current.area);
+    if (current.phone) brief.searchParams.set('phone', current.phone);
+    if (current.ref) brief.searchParams.set('ref', current.ref);
+    document.querySelectorAll('[data-brief-link]').forEach((node) => {
+      node.href = brief.pathname + brief.search;
+    });
     const contact = new URL('/contact/', location.origin);
     if (current.ref) contact.searchParams.set('ref', current.ref);
     document.querySelectorAll('[data-agency-link], .agency-contact').forEach((node) => {

@@ -225,6 +225,14 @@ export const beautyDemo = {
     description:
       'Type your business name, for example The Lash Loft. It stays in this page and its shareable link.',
   },
+  policy: {
+    title: 'Your booking policy here',
+    text: 'Example: a small deposit secures your appointment and comes off your bill. Please give 24 hours’ notice to move or cancel. Your own policy goes here.',
+  },
+  voucher: {
+    value: '£25',
+    note: 'Gift vouchers from £20, for any treatment. Example values.',
+  },
   contactNotes: {
     call: 'On your finished website, Call would ring your salon directly. Add your number to the preview link to try it.',
     message:

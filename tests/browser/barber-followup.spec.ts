@@ -123,7 +123,7 @@ test('booking ends with a personalised template brief link; review cards contain
   await page.getByRole('button', { name: copy.continueBooking }).click();
   await expect(page.locator('#booking-result')).toHaveText(copy.confirmation);
   const offer = page.getByRole('link', { name: 'Want this for John Barber? Talk to FinTaxTech' });
-  const brief = `${copy.briefRoute}?name=John+Barber&area=London&phone=07526+699217&ref=L-TEST`;
+  const brief = `${copy.briefRoute}&name=John+Barber&area=London&phone=07526+699217&ref=L-TEST`;
   await expect(offer).toHaveAttribute('href', brief);
   await expect(page.locator('.enquiry-strip [data-brief-link]')).toHaveAttribute('href', brief);
   await expect(page.getByRole('link', { name: copy.contactAlternative })).toHaveAttribute(

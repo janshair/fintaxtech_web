@@ -69,7 +69,7 @@ export const barberDemo = {
   bookingOfferAfter: '? Talk to FinTaxTech',
   contactRoute: '/contact/',
   // The final offer opens the template brief with the current name, area, phone and ref.
-  briefRoute: '/client/website-brief/templates/barber-01/',
+  briefRoute: '/client/website-brief/templates/?template=barber-01',
   contactAlternative: 'Or ask FinTaxTech a question first',
   locationNote: 'Your location, your opening hours. Example hours shown.',
   call: 'Call',
