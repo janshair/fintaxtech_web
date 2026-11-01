@@ -144,6 +144,23 @@ export const motionTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Explore a personalised nail, lash and brow salon website demonstration by FinTaxTech, with example treatments and prices, scroll-driven motion and a sample appointment booking.',
   },
+  {
+    id: 'wedding-09',
+    name: 'Save the Date',
+    industry: 'Wedding photographers, florists & cake makers',
+    description:
+      'A romantic editorial website in ivory, sage and blush for wedding suppliers, with a shutter, bouquet or cake that builds as you scroll and a “Check your date” demo.',
+    route: '/templates/website/motion/wedding-09/',
+    preview: {
+      src: '/templates/website/motion/wedding-09/preview.webp',
+      alt: 'Save the Date wedding demo: Hazel & Wren, wedding photography in Perthshire, in large serif type beside an illustrated sage camera whose lens shows a couple under a flower arch.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Save the Date — Wedding supplier website demo by FinTaxTech',
+    seoDescription:
+      'Explore a personalised website demonstration for wedding photographers, florists and cake makers by FinTaxTech, with example packages, scroll-driven motion and a sample date checker.',
+  },
 ];
 
 export const barberRedirect = {

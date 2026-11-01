@@ -265,3 +265,94 @@ describe('3D café demonstration content and budgets', () => {
     );
   });
 });
+
+describe('wedding supplier demonstration content', () => {
+  const wedding = motionTemplates.find((t) => t.id === 'wedding-09')!;
+  it('keeps its globally unique suffix and ships its own scripts', () => {
+    const suffixes = allTemplates.map((t) => Number(t.id.split('-').at(-1)));
+    expect(new Set(suffixes).size).toBe(suffixes.length);
+    expect(Number(wedding.id.split('-').at(-1))).toBe(9);
+    for (const file of ['identity.js', 'motion.js'])
+      expect(existsSync(`public${wedding.route}${file}`)).toBe(true);
+  });
+  it('gives every supplier preset complete example copy, matched by keyword', async () => {
+    const { presets, supplierTypes } = await import('../src/content/wedding-demo');
+    expect([...supplierTypes]).toEqual(['photographer', 'florist', 'cakes']);
+    for (const key of supplierTypes) {
+      const preset = presets[key];
+      expect(preset.hero.tagline.length).toBeGreaterThan(20);
+      expect(preset.scene.steps).toHaveLength(3);
+      expect(preset.gallery).toHaveLength(6);
+      expect(preset.packages).toHaveLength(3);
+      for (const item of preset.packages) expect(item.price).toMatch(/^£\d/);
+      expect(preset.process).toHaveLength(4);
+      expect(preset.reviews).toHaveLength(3);
+      // Fictional couples: first names only.
+      for (const review of preset.reviews)
+        expect(review.name).toMatch(/^[A-Z][a-z]+ & [A-Z][a-z]+$/);
+      const faqs = preset.faqs.map(([q, a]) => q + ' ' + a).join(' ');
+      for (const topic of [/travel|deliver/i, /deposit/i, /available/i])
+        expect(faqs).toMatch(topic);
+    }
+    expect(presets.florist.faqs.map((f) => f.join(' ')).join(' ')).toMatch(/season/i);
+    expect(presets.cakes.faqs.map((f) => f.join(' ')).join(' ')).toMatch(/dietary/i);
+    // The same first-match rule as identity.js; unknown types keep the photographer copy.
+    const presetFor = (type: string) =>
+      (Object.keys(presets) as (keyof typeof presets)[]).find((key) =>
+        new RegExp(presets[key].match, 'i').test(type),
+      ) || 'photographer';
+    for (const [type, key] of [
+      ['photographer', 'photographer'],
+      ['Wedding Photography', 'photographer'],
+      ['florist', 'florist'],
+      ['Flowers', 'florist'],
+      ['cakes', 'cakes'],
+      ['Cake maker', 'cakes'],
+      ['BAKERY', 'cakes'],
+      ['Videographer', 'photographer'],
+      ['DJ', 'photographer'],
+    ])
+      expect(presetFor(type), type).toBe(key);
+  });
+  it('labels samples, includes supplier essentials and makes no invented claims', async () => {
+    const { weddingDemo, presets, allergenLine, THEME } =
+      await import('../src/content/wedding-demo');
+    const source = readFileSync('src/content/wedding-demo.ts', 'utf8');
+    expect(
+      source.startsWith('// Change these hex codes, save, and the whole template recolours.'),
+    ).toBe(true);
+    // The Instagram and Pinterest placeholder links live in their own component.
+    const page =
+      readFileSync(`src/pages${wedding.route}index.astro`, 'utf8') +
+      readFileSync('src/components/templates/WeddingSocialLinks.astro', 'utf8');
+    for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
+      expect(page).toContain(`data-capture="${hook}"`);
+    for (const text of [
+      'data-sample-price',
+      'data-sample-review',
+      'Example · from',
+      'Example reviews — your real Google reviews appear here.',
+      'Your own photos go here.',
+      'This is where couples would check availability and send an enquiry on your finished',
+      'Demo only — nothing is sent.',
+      'Talk to FinTaxTech',
+      'Picture your business here?',
+      'data-social="instagram"',
+      'data-social="pinterest"',
+      'Your Instagram and Pinterest go here',
+      'MEET US',
+      'example: booked',
+    ])
+      expect(page).toContain(text);
+    expect(weddingDemo.badge).toBe('Now booking 2027 weddings · example');
+    expect(allergenLine).toBe(
+      'Ask about allergens and dietary requirements — your baker will confirm.',
+    );
+    const css = readFileSync(`public${wedding.route}styles.css`, 'utf8');
+    for (const hex of Object.values(THEME)) expect(css.toLowerCase()).not.toContain(hex);
+    const content = page + JSON.stringify(weddingDemo) + JSON.stringify(presets);
+    expect(content).not.toMatch(
+      /guaranteed|perfect day|award|featured in|as seen in|allergen.free|nut.free|certified|accredited|insured|(?<!\d)\d{1,3}\+? (?:happy )?(?:weddings|couples)|hundreds of|partner/i,
+    );
+  });
+});

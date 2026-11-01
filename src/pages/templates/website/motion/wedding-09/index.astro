@@ -1,0 +1,722 @@
+---
+import '@fontsource/archivo/latin-400.css';
+import '@fontsource/archivo/latin-600.css';
+import { templateTheme } from '../../../../../lib/template-theme';
+import {
+  THEME,
+  weddingDemo as w,
+  presets,
+  supplierTypes,
+  allergenLine,
+} from '../../../../../content/wedding-demo';
+import { motionTemplates, motionGallery } from '../../../../../content/templates';
+import { seoPages } from '../../../../../content/seo';
+import { absoluteURL, structuredData } from '../../../../../lib/seo';
+import WeddingArtwork from '../../../../../components/templates/WeddingArtwork.astro';
+import SocialLinks from '../../../../../components/templates/WeddingSocialLinks.astro';
+const template = motionTemplates.find((item) => item.id === w.id)!;
+const { title, description } = seoPages[w.route];
+const canonical = absoluteURL(w.route);
+const image = absoluteURL(template.preview.src);
+const theme = templateTheme('wedding-09', THEME);
+const types = supplierTypes;
+const first = presets[w.defaultType];
+const heroArt = { photographer: 'camera', florist: 'bouquet-hero', cakes: 'cake-hero' } as const;
+const sceneArt = { photographer: 'film', florist: 'bouquet', cakes: 'tiers' } as const;
+// Only what the browser needs: the matching rule and labels for identity.js,
+// packages and demo wording for app.js.
+const typePresets = Object.fromEntries(
+  types.map((key) => [
+    key,
+    {
+      match: presets[key].match,
+      label: presets[key].label,
+      packages: presets[key].packages.map(({ id, name, price }) => ({ id, name, price })),
+      demo: presets[key].demo,
+    },
+  ]),
+);
+const copy = {
+  name: w.name,
+  monogram: w.monogram,
+  area: w.area,
+  titleSuffix: w.titleSuffix,
+  contactNotes: w.contactNotes,
+  flow: w.flow,
+};
+const assets = '/templates/website/motion/wedding-09/';
+const json = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-type={w.defaultType}
+  style={theme.style}
+  data-custom-theme={theme.custom || undefined}
+>
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content={theme.pageBackground} />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta
+      property="og:image:alt"
+      content={template.preview.alt}
+    />
+    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+      property="og:image:height"
+      content={String(template.preview.height)}
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta name="twitter:description" content={description} /><meta
+      name="twitter:image"
+      content={image}
+    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        structuredData(w.route, title, description, undefined, image),
+      ).replace(/</g, '\\u003c')}
+    />
+    <link rel="stylesheet" href={`${assets}styles.css`} />
+    <script is:inline type="application/json" id="type-presets" set:html={json(typePresets)} />
+    <!-- The blocking script reads ?type before the body paints, so the matching
+         supplier's copy and artwork show first. Link values are assigned only as
+         text, or as tel:/wa.me links built from digits. Nothing is sent or stored. -->
+    <script is:inline src="/templates/website/motion/wedding-09/identity.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <aside class="demo-strip" aria-label="Demonstration controls">
+      <a href="/" class="agency">FinTaxTech <span aria-hidden="true">↗</span></a>
+      <span class="demo-id">{w.label}</span>
+      <a class="gallery-link" href={motionGallery.route}>All templates</a>
+      <a class="agency-contact" href="/contact/" data-agency-link>Discuss this website</a>
+      <button type="button" data-edit>Change name</button>
+    </aside>
+    <header class="business-header wrap">
+      <a class="brand" href="#home" aria-label="Back to the top"
+        ><span class="monogram" data-monogram aria-hidden="true">{w.monogram}</span><span
+          data-business>{w.name}</span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#portfolio">Portfolio</a><a href="#packages">Packages</a><a href="#how"
+          >How it works</a
+        ><a href="#faqs">FAQs</a><a href="#contact">Contact</a>
+      </nav>
+      <a class="header-action" href="#contact" data-book>Check your date</a>
+    </header>
+    <main id="main">
+      <section class="hero wrap" id="home" data-capture="hero">
+        <div class="hero-copy">
+          <p class="badge"><span class="badge-dot" aria-hidden="true"></span>{w.badge}</p>
+          <p class="eyebrow">
+            <span data-type-label>{first.label}</span> · <span data-hero-area>{w.area}</span>
+          </p>
+          <h1><span data-business>{w.name}</span></h1>
+          <p class="tagline">
+            {types.map((k) => <span data-only={k}>{presets[k].hero.tagline}</span>)}
+          </p>
+          <p class="lead">{types.map((k) => <span data-only={k}>{presets[k].hero.lead}</span>)}</p>
+          <div class="hero-actions">
+            <a class="button accent" href="#contact" data-book data-capture="demo"
+              >{w.hero.action} <span aria-hidden="true">→</span></a
+            >
+            <a class="text-link" href="#packages">See packages &amp; prices</a>
+          </div>
+          <p class="small-note">{w.hero.note}</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-arch"></div>
+          {
+            types.map((k) => (
+              <div class:list={['hero-figure', `hero-${k}`]} data-only={k}>
+                <>
+                  {k === 'florist' && <WeddingArtwork kind="petals" />}
+                  <WeddingArtwork kind={heroArt[k]} />
+                </>
+              </div>
+            ))
+          }
+          <div class="hero-card">
+            <span class="monogram" data-monogram>{w.monogram}</span>
+            <span class="hero-card-copy"
+              ><span class="eyebrow">NEXT FREE SATURDAY · EXAMPLE</span><strong>12 June 2027</strong
+              ></span
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="story section" id="story" aria-labelledby="story-title">
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <p class="eyebrow">
+              01 · {types.map((k) => <span data-only={k}>{presets[k].scene.eyebrow}</span>)}
+            </p>
+            <h2 id="story-title">
+              {
+                types.map((k) => (
+                  <span data-only={k}>
+                    {presets[k].scene.title} <em>{presets[k].scene.em}</em>
+                  </span>
+                ))
+              }
+            </h2>
+            <p>{types.map((k) => <span data-only={k}>{presets[k].scene.intro}</span>)}</p>
+          </header>
+          <div class="story-layout">
+            <figure class="story-stage" data-capture="motion">
+              {
+                types.map((k) => (
+                  <div class={`scene scene-${k}`} data-only={k} data-story={k}>
+                    <WeddingArtwork kind={sceneArt[k]} />
+                  </div>
+                ))
+              }
+              <p class="stage-caption" aria-hidden="true">
+                <span data-stage-number>03</span>
+                <span data-stage-caption>{first.scene.steps[2][0]}</span>
+              </p>
+              <div class="motion-progress" aria-hidden="true"><span></span></div>
+              <figcaption class="small-note">
+                An original illustration, not a real wedding or couple.
+              </figcaption>
+            </figure>
+            <ol class="story-steps">
+              {
+                [0, 1, 2].map((i) => (
+                  <li>
+                    <>
+                      <span class="step-number">0{i + 1}</span>
+                      <div>
+                        <>
+                          <h3>
+                            {types.map((k) => (
+                              <span data-only={k}>{presets[k].scene.steps[i][0]}</span>
+                            ))}
+                          </h3>
+                          <p>
+                            {types.map((k) => (
+                              <span data-only={k}>{presets[k].scene.steps[i][1]}</span>
+                            ))}
+                          </p>
+                        </>
+                      </div>
+                    </>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="gallery section"
+        id="portfolio"
+        data-capture="gallery"
+        aria-labelledby="gallery-title"
+      >
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <p class="eyebrow">02 · PORTFOLIO</p>
+            <h2 id="gallery-title">Moments, <em>beautifully kept.</em></h2>
+            <p>Your own photos go here. These are illustrated examples, not real weddings.</p>
+          </header>
+          <div class="gallery-grid" data-gallery>
+            {
+              types.map((k) =>
+                presets[k].gallery.map((tile, i) => (
+                  <figure class="tile" data-only={k} style={`--i:${i}`}>
+                    <>
+                      <div class="tile-art">
+                        <WeddingArtwork kind={tile.kind} tile />
+                      </div>
+                      <figcaption>
+                        <>
+                          <span class="tile-tag">Example</span> <span>{tile.label}</span>
+                        </>
+                      </figcaption>
+                    </>
+                  </figure>
+                )),
+              )
+            }
+          </div>
+          <p class="photos-note" data-reveal>
+            <span class="photos-icon" aria-hidden="true">+</span> Your own photos go here — your best
+            weddings, chosen by you.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="section wrap packages"
+        id="packages"
+        data-capture="services"
+        aria-labelledby="packages-title"
+      >
+        <header class="section-heading" data-reveal>
+          <p class="eyebrow">03 · PACKAGES</p>
+          <h2 id="packages-title">
+            {
+              types.map((k) => (
+                <span data-only={k}>
+                  {presets[k].packagesTitle[0]} <em>{presets[k].packagesTitle[1]}</em>
+                </span>
+              ))
+            }
+          </h2>
+          <p>Example packages and prices, ready to be replaced with your own.</p>
+        </header>
+        {
+          types.map((k) => (
+            <div class={`package-grid package-${k}`} data-only={k} data-packages={k}>
+              {presets[k].packages.map((p, i) => (
+                <article
+                  class:list={['package-card', { popular: 'popular' in p && p.popular }]}
+                  style={`--i:${i}`}
+                  data-package-card
+                >
+                  <>
+                    {k === 'photographer' && (
+                      <span class="viewfinder" aria-hidden="true">
+                        <>
+                          <i />
+                          <i />
+                          <i />
+                          <i />
+                        </>
+                      </span>
+                    )}
+                    <p class="package-flag">
+                      {'popular' in p && p.popular ? 'Most popular · example' : 'Example package'}
+                    </p>
+                    <h3>{p.name}</h3>
+                    <p class="package-detail">{p.detail}</p>
+                    <p class="package-price">
+                      <>
+                        <span>Example · from</span> <strong data-sample-price>{p.price}</strong>
+                      </>
+                    </p>
+                    <ul>
+                      {p.items.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                    <a class="button" href="#contact" data-package={p.id}>
+                      <>
+                        Check your date<span class="sr-only"> for {p.name}</span>{' '}
+                        <span aria-hidden="true">→</span>
+                      </>
+                    </a>
+                  </>
+                </article>
+              ))}
+            </div>
+          ))
+        }
+        <p class="small-note package-note">
+          {types.map((k) => <span data-only={k}>{presets[k].packageNote}</span>)}
+        </p>
+        <p class="allergen-note" data-only="cakes" role="note">
+          <span class="note-icon" aria-hidden="true">!</span><span>{allergenLine}</span>
+        </p>
+      </section>
+
+      <section class="process section" id="how" aria-labelledby="process-title">
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <p class="eyebrow">04 · HOW IT WORKS</p>
+            <h2 id="process-title">From first hello <em>to the day.</em></h2>
+            <p>Your story timeline, from the first enquiry to the wedding itself.</p>
+          </header>
+          <div class="timeline" data-timeline>
+            <span class="timeline-line" aria-hidden="true"><span></span></span>
+            <ol>
+              {
+                [0, 1, 2, 3].map((i) => (
+                  <li class="timeline-step">
+                    <>
+                      <span class="timeline-dot" aria-hidden="true">
+                        {i + 1}
+                      </span>
+                      <h3>
+                        {types.map((k) => (
+                          <span data-only={k}>{presets[k].process[i][0]}</span>
+                        ))}
+                      </h3>
+                      <p>
+                        {types.map((k) => (
+                          <span data-only={k}>{presets[k].process[i][1]}</span>
+                        ))}
+                      </p>
+                    </>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="reviews section" data-capture="reviews" aria-labelledby="reviews-title">
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <p class="eyebrow">05 · KIND WORDS</p>
+            <h2 id="reviews-title">Couples <em>say it best.</em></h2>
+            <p>Example reviews — your real Google reviews appear here.</p>
+          </header>
+          <div class="review-grid">
+            {
+              [0, 1, 2].map((i) => (
+                <article class="review-card" data-sample-review data-reveal style={`--i:${i}`}>
+                  <>
+                    <div class="review-top">
+                      <>
+                        <span class="avatar" aria-hidden="true">
+                          {types.map((k) => (
+                            <span data-only={k}>{presets[k].reviews[i].initials}</span>
+                          ))}
+                        </span>
+                        <div>
+                          <>
+                            <h3>
+                              {types.map((k) => (
+                                <span data-only={k}>{presets[k].reviews[i].name}</span>
+                              ))}
+                            </h3>
+                            <p class="review-date">
+                              {types.map((k) => (
+                                <span data-only={k}>{presets[k].reviews[i].date}</span>
+                              ))}
+                            </p>
+                          </>
+                        </div>
+                        <span class="review-tag">Example review</span>
+                      </>
+                    </div>
+                    <p class="stars" role="img" aria-label="5 out of 5 stars (example)">
+                      ★★★★★
+                    </p>
+                    <p>
+                      {types.map((k) => (
+                        <span data-only={k}>{presets[k].reviews[i].text}</span>
+                      ))}
+                    </p>
+                  </>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap faqs" id="faqs" aria-labelledby="faq-title">
+        <header class="section-heading" data-reveal>
+          <p class="eyebrow">06 · QUESTIONS</p>
+          <h2 id="faq-title">Good <em>to know.</em></h2>
+          <p>Example answers. Your own travel, deposit and booking policies go here.</p>
+        </header>
+        {
+          types.map((k) => (
+            <div class="faq-list" data-only={k}>
+              {presets[k].faqs.map(([question, answer]) => (
+                <details>
+                  <>
+                    <summary>{question}</summary>
+                    <p>{answer}</p>
+                  </>
+                </details>
+              ))}
+            </div>
+          ))
+        }
+      </section>
+
+      <section class="section wrap meet" id="meet" aria-labelledby="meet-title">
+        <header class="section-heading" data-reveal>
+          <p class="eyebrow">07 · MEET US</p>
+          <h2 id="meet-title">Say hello <em>in person.</em></h2>
+        </header>
+        <div class="meet-grid">
+          <div class="meet-card fair-card" data-reveal>
+            <p class="eyebrow">{w.fairs.eyebrow}</p>
+            <h3>{w.fairs.title}</h3>
+            <p class="fair-next">{w.fairs.next}</p>
+            <p>{types.map((k) => <span data-only={k}>{presets[k].fairs}</span>)}</p>
+            <button class="button" type="button" data-fairs
+              >See upcoming dates <span aria-hidden="true">→</span></button
+            >
+          </div>
+          <div class="meet-card social-card" data-reveal>
+            <p class="eyebrow">FOLLOW ALONG · PLACEHOLDER</p>
+            <h3>Instagram &amp; Pinterest</h3>
+            <p>Your latest weddings, mood boards and behind-the-scenes, linked from here.</p>
+            <SocialLinks />
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="contact section"
+        id="contact"
+        data-capture="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="wrap">
+          <header class="section-heading" data-reveal>
+            <p class="eyebrow">08 · CONTACT</p>
+            <h2 id="contact-title">Tell us about <em>your day.</em></h2>
+            <p class="contact-line">
+              <span data-business>{w.name}</span>{' · '}<span data-type-label>{first.label}</span>{
+                ' · '
+              }<span data-area>{w.area}</span>
+            </p>
+          </header>
+          <div class="details-grid">
+            <div class="contact-card">
+              <p class="eyebrow">CHECK YOUR DATE · DEMO</p>
+              <h3>Is your date still free?</h3>
+              <p>Try the availability check. Nothing is booked, reserved or sent.</p>
+              <button class="button accent" type="button" data-book
+                >Check your date <span aria-hidden="true">→</span></button
+              >
+              <div class="contact-actions">
+                <a href="#contact" data-call>Call <span data-phone>Your number here</span></a><a
+                  href="#contact"
+                  data-whatsapp>WhatsApp <span data-phone>Your number here</span></a
+                ><button type="button" data-directions>Directions</button>
+              </div>
+              <p class="small-note tools-line">
+                {types.map((k) => <span data-only={k}>{presets[k].tools}</span>)}
+              </p>
+            </div>
+            <div class="hours">
+              <h3>Opening hours</h3>
+              <p class="small-note">Example hours · consultations by appointment</p>
+              <dl>
+                {
+                  w.hours.map(([day, hours]) => (
+                    <div>
+                      <>
+                        <dt>{day}</dt>
+                        <dd>{hours}</dd>
+                      </>
+                    </div>
+                  ))
+                }
+              </dl>
+            </div>
+            <div class="map-card">
+              <WeddingArtwork kind="map" />
+              <div class="map-copy">
+                <p class="eyebrow">FIND THE STUDIO</p>
+                <h3 data-area>{w.area}</h3>
+                <p class="small-note">Your address here · parking details · map placeholder</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="agency-offer" aria-labelledby="offer-title">
+        <div class="wrap offer-inner" data-reveal>
+          <div>
+            <p class="eyebrow">SAVE THE DATE / WEDDING-09 · BY FINTAXTECH</p>
+            <h2 id="offer-title">Picture your business here? <em>We’ll make it yours.</em></h2>
+            <p>
+              A website for <span data-business>{w.name}</span>, with your portfolio, packages and
+              date checker.
+            </p>
+          </div>
+          <a class="button accent" href="/contact/" data-agency-link
+            >Talk to FinTaxTech <span aria-hidden="true">→</span></a
+          >
+        </div>
+      </section>
+      <noscript
+        ><p class="wrap">
+          This is a demonstration website. Enable JavaScript to personalise the name or try the date
+          checker. <a href="/contact/">Contact FinTaxTech about your website.</a>
+        </p></noscript
+      >
+    </main>
+    <footer class="wrap site-footer">
+      <a class="brand" href="#home"
+        ><span class="monogram" data-monogram aria-hidden="true">{w.monogram}</span><span
+          data-business>{w.name}</span
+        ></a
+      >
+      <p>
+        A fictional wedding business, shown as a demonstration by FinTaxTech.<br />No bookings,
+        enquiries, deposits or messages are submitted.
+      </p>
+      <SocialLinks />
+      <a href={motionGallery.route}>{motionGallery.backLabel} <span aria-hidden="true">↗</span></a>
+    </footer>
+    <div class="mobile-contact" aria-label="Example contact actions">
+      <a href="#contact" data-call>Call</a><a href="#contact" data-book>Check your date</a>
+    </div>
+
+    <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
+      <button class="close" data-close type="button" aria-label="Close name dialog">×</button>
+      <p class="eyebrow">YOUR NAME, YOUR WEBSITE</p>
+      <h2 id="name-title">{w.nameDialog.title}</h2>
+      <p id="name-description">{w.nameDialog.description}</p>
+      <form id="name-form" novalidate>
+        <label for="business-name">Your business name</label><input
+          id="business-name"
+          name="business"
+          maxlength="100"
+          placeholder="Rose & Thistle Flowers"
+          autocomplete="off"
+          aria-describedby="name-hint name-error"
+        />
+        <p id="name-error" class="form-error" role="alert"></p>
+        <p id="name-hint" class="small-note">
+          Up to 100 characters. Kept only in this page and its URL.
+        </p>
+        <label for="business-type">What do you do?</label><select id="business-type"
+          ><option value="photographer">Wedding photographer</option><option value="florist"
+            >Wedding florist</option
+          ><option value="cakes">Wedding cake maker</option></select
+        >
+        <button class="button accent" type="submit"
+          >Preview my website <span aria-hidden="true">→</span></button
+        >
+      </form>
+      <div class="dialog-links">
+        <button id="restore-name" class="text-button" type="button"
+          >Explore the sample / restore default</button
+        ><button id="copy-link" class="text-button" type="button">Copy your link</button>
+      </div>
+    </dialog>
+
+    <dialog id="date-dialog" aria-labelledby="date-title" aria-describedby="date-intro">
+      <button class="close" data-close type="button" aria-label="Close date checker demo">×</button>
+      <p class="eyebrow">EXAMPLE AVAILABILITY · NOTHING IS SENT</p>
+      <h2 id="date-title">Check your date.</h2>
+      <p id="date-intro">
+        See how couples would check availability with <span data-business>{w.name}</span>.
+      </p>
+      <ol class="flow-progress" aria-label="Date checker steps">
+        <li data-step-indicator>1. Date</li><li data-step-indicator>2. Your day</li><li
+          data-step-indicator
+        >
+          3. Done
+        </li>
+      </ol>
+      <form id="date-form">
+        <h3 tabindex="-1">01 / Choose your wedding date</h3>
+        <div class="calendar">
+          <div class="cal-head">
+            <button type="button" class="cal-nav" data-month="-1" aria-label="Previous month"
+              >‹</button
+            >
+            <p id="cal-month" aria-live="polite">June 2027</p>
+            <button type="button" class="cal-nav" data-month="1" aria-label="Next month">›</button>
+          </div>
+          <div class="cal-days" aria-hidden="true">
+            <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span
+              >Sa</span
+            ><span>Su</span>
+          </div>
+          <div class="cal-grid" id="cal-grid" role="group" aria-labelledby="cal-month"></div>
+          <p class="cal-key">
+            <span><i class="key key-free" aria-hidden="true"></i> Available</span>
+            <span><i class="key key-booked" aria-hidden="true"></i> example: booked</span>
+          </p>
+        </div>
+        <p id="date-status" class="date-status" role="status">
+          Saturday 12 June 2027 · available (example)
+        </p>
+        <button class="button accent" type="submit"
+          >Next: your day <span aria-hidden="true">→</span></button
+        >
+      </form>
+      <form id="day-form" hidden>
+        <h3 tabindex="-1">02 / Tell us about your day</h3>
+        <p>Sample choices. No name, email or phone number needed.</p>
+        <label for="day-event">Event</label><select id="day-event"
+          >{w.flow.events.map((event) => <option>{event}</option>)}</select
+        ><label for="day-package" data-package-label>{first.demo.packageLabel}</label><select
+          id="day-package"
+          aria-describedby="day-price"
+          >{
+            first.packages.map((p) => (
+              <option value={p.id} data-price={p.price}>
+                {p.name}
+              </option>
+            ))
+          }</select
+        >
+        <p id="day-price" class="book-price">
+          Example · from <strong data-sample-price>{first.packages[0].price}</strong>
+        </p>
+        <label for="day-guests">Guests</label><select id="day-guests"
+          >{
+            w.flow.guests.map((guests) => (
+              <option selected={guests === w.flow.defaultGuests}>{guests}</option>
+            ))
+          }</select
+        >
+        <button class="button accent" type="submit"
+          >Check availability <span aria-hidden="true">→</span></button
+        ><button class="text-button" type="button" data-restart>Back</button>
+      </form>
+      <div id="date-final" hidden>
+        <h3 tabindex="-1">03 / <span data-final-title>{first.demo.finalTitle}</span></h3>
+        <div class="checked-card">
+          <span class="confetti" aria-hidden="true"
+            >{Array.from({ length: 24 }, (_, i) => <i style={`--i:${i}`} />)}</span
+          >
+          <span class="develop" aria-hidden="true"></span>
+          <span class="monogram" data-monogram aria-hidden="true">{w.monogram}</span>
+          <div>
+            <p class="eyebrow" data-card-eyebrow>{first.demo.cardEyebrow}</p>
+            <strong class="checked-name" data-business>{w.name}</strong>
+            <p id="date-summary" class="date-summary"></p>
+          </div>
+        </div>
+        <p>
+          This is where couples would check availability and send an enquiry on your finished
+          website. <strong>Demo only — nothing is sent.</strong>
+        </p>
+        <a class="button accent" href="/contact/" data-agency-link
+          ><span>Want this for <span data-business>{w.name}</span>? Talk to FinTaxTech</span>
+          <span aria-hidden="true">→</span></a
+        ><button class="text-button" type="button" data-restart>Check another date</button>
+      </div>
+    </dialog>
+
+    <dialog id="contact-dialog" aria-labelledby="contact-dialog-title">
+      <button class="close" data-close type="button" aria-label="Close contact preview">×</button>
+      <p class="eyebrow">EXAMPLE CONTACT ACTION</p>
+      <h2 id="contact-dialog-title">Contact preview</h2>
+      <p data-business>{w.name}</p>
+      <p id="contact-explanation"></p>
+      <p class="contact-preview-value"></p>
+      <a class="button accent" href="/contact/" data-agency-link
+        >Discuss your website with FinTaxTech <span aria-hidden="true">→</span></a
+      >
+    </dialog>
+    <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+    <script is:inline type="application/json" id="template-copy" set:html={json(copy)} />
+    <script is:inline src="/templates/website/motion/wedding-09/app.js"></script>
+    <script is:inline src="/templates/website/motion/wedding-09/motion.js" defer></script>
+  </body>
+</html>
