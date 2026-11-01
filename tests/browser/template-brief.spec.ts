@@ -313,7 +313,14 @@ test('hours shortcuts, closing-time check, tidying and reloading clears answers'
   await page.locator('#contactPhone').fill('01382 000000');
   await page.getByLabel('No WhatsApp', { exact: true }).check();
   await page.locator('#contactEmail').fill('a@b.example');
+  // Without a public address, the towns or areas served become required.
+  await expect(page.locator('#field-serviceArea legend small')).toHaveText('Optional');
+  await page.getByLabel('Service area only — no public address', { exact: true }).check();
+  await expect(page.locator('#field-serviceArea legend small')).toHaveText('Required');
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.locator('#error-serviceArea')).toBeVisible();
   await page.getByLabel('Show my address', { exact: true }).check();
+  await expect(page.locator('#field-serviceArea legend small')).toHaveText('Optional');
   await page.locator('#street').fill('79 Yarrow Terrace');
   await page.locator('#town').fill('Dundee');
   await page.locator('#postcode').fill('dd2  4dx');

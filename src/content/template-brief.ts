@@ -177,6 +177,7 @@ const business: BriefSection = {
   ],
 };
 
+export const noPublicAddress = 'Service area only — no public address';
 const contact: BriefSection = {
   title: 'Contact details',
   fields: [
@@ -205,7 +206,7 @@ const contact: BriefSection = {
       id: 'addressChoice',
       label: 'Address',
       type: 'single',
-      options: ['Show my address', 'Service area only — no public address'],
+      options: ['Show my address', noPublicAddress],
     },
     {
       id: 'street',
@@ -235,8 +236,9 @@ const contact: BriefSection = {
       label: 'Towns or areas you serve',
       type: 'text',
       optional: true,
+      requiredWhen: { id: 'addressChoice', values: [noPublicAddress] },
       maxLength: 120,
-      help: 'For mobile or delivery businesses.',
+      help: 'Required if you have no public address. Also useful for mobile or delivery businesses.',
     },
   ],
 };

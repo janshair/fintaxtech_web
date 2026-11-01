@@ -1,6 +1,6 @@
 import type { TemplateBriefSchema } from './index';
 import { caseKinds, serviceIds } from '../consultant-demo';
-import { price, rowValues, sampleChoice, whenOwn } from './shared';
+import { ownWords, price, rowValues, sampleChoice, whenOwn } from './shared';
 
 // consultant-07 (Signature). Content mirrors src/content/consultant-demo.ts:
 // role, services, clients, cases, about, heroCall and flow. The role text picks
@@ -130,17 +130,24 @@ export const consultant07: TemplateBriefSchema = {
     {
       title: 'Your discovery call',
       fields: [
+        sampleChoice(
+          'consultantCallSource',
+          'Free call length and days',
+          'The template offers free 15-minute calls on Tuesday and Thursday.',
+        ),
         {
           id: 'consultantCallLength',
           label: 'Free call length',
           type: 'single',
           options: ['15 minutes', '30 minutes'],
+          when: whenOwn('consultantCallSource'),
         },
         {
           id: 'consultantCallDays',
           label: 'Days you take calls',
           type: 'multi',
           options: callDays,
+          when: whenOwn('consultantCallSource'),
         },
         sampleChoice(
           'consultantTopicsSource',
@@ -170,13 +177,12 @@ export const consultant07: TemplateBriefSchema = {
     const clients = rowValues(answers, rows, 'consultantClientsSource', 'consultantClients');
     const topics = rowValues(answers, rows, 'consultantTopicsSource', 'consultantTopics');
     const about =
-      answers.consultantAboutSource === 'I’ll enter my own'
-        ? String(answers.consultantAbout)
-        : null;
+      answers.consultantAboutSource === ownWords ? String(answers.consultantAbout) : null;
+    const call = answers.consultantCallSource === ownWords;
     const minutes = String(answers.consultantCallLength ?? '').split(' ')[0];
     const days = Array.isArray(answers.consultantCallDays)
       ? callDays.filter((day) => (answers.consultantCallDays as string[]).includes(day))
-      : [];
+      : null;
     return {
       role: answers.consultantRole,
       services:
@@ -200,9 +206,10 @@ export const consultant07: TemplateBriefSchema = {
             }))
           : [],
       about: about?.split(/\n\s*\n/).map((paragraph) => paragraph.replace(/\n/g, ' ')) ?? null,
-      hero: { action: `Book a free ${minutes}-minute call` },
-      heroCall: { title: `Free ${minutes}-minute calls`, days: listDays(days) },
-      flow: { topics: topics?.map((row) => row.label) ?? null, days },
+      hero: call ? { action: `Book a free ${minutes}-minute call` } : null,
+      heroCall:
+        call && days ? { title: `Free ${minutes}-minute calls`, days: listDays(days) } : null,
+      flow: { topics: topics?.map((row) => row.label) ?? null, days: call ? days : null },
     };
   },
 };

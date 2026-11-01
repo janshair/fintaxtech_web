@@ -263,6 +263,7 @@ const fixtures: Record<
       gymFirstVisit: 'A paid day pass',
       gymDayPass: '£ 8',
       gymTimetableSource: 'I’ll add my classes',
+      gymFacilitiesSource: ownWords,
       gymFacilities: ['Free weights & racks', 'Cardio zone', 'Other'],
       gymFacilitiesOther: 'Sauna',
       gymProcessSource: keepSteps,
@@ -330,6 +331,7 @@ const fixtures: Record<
       consultantAboutSource: ownWords,
       consultantAbout:
         'I help small firms keep their books tidy.\n\nMost clients stay for years because the monthly routine just works.',
+      consultantCallSource: ownWords,
       consultantCallLength: '30 minutes',
       consultantCallDays: ['Tuesday', 'Thursday'],
       consultantTopicsSource: useSample,

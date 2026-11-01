@@ -81,12 +81,12 @@ const contentFiles: Record<string, { file: unknown; extras: string[]; samples: s
   'gym-06': {
     file: gymDemo,
     extras: ['timetableLink', 'firstVisit'],
-    samples: ['services', 'memberships', 'timetable', 'process', 'questions'],
+    samples: ['services', 'memberships', 'timetable', 'facilities', 'process', 'questions'],
   },
   'consultant-07': {
     file: consultantDemo,
     extras: [],
-    samples: ['services', 'clients', 'about'],
+    samples: ['services', 'clients', 'about', 'hero', 'heroCall'],
   },
   'beauty-08': {
     file: { ...beautyDemo, treatments },
@@ -241,6 +241,56 @@ describe('template brief registry and route', () => {
     }
     expect(clientBriefDefinitions.template.sections).toBe(sections);
     expect(barberDemo.briefRoute).toBe('/client/website-brief/templates/?template=barber-01');
+  });
+});
+
+// Required answers with no template sample: facts only the customer can give,
+// where a default could publish something untrue, and honesty confirmations.
+const requiredFacts: Record<string, string> = {
+  barberBooking: 'how customers book',
+  tailoringAppointments: 'appointments or walk-ins',
+  automotiveMot: 'MOT wording only for an approved station',
+  cleaningProducts: 'who brings products',
+  juiceOrdering: 'how customers order',
+  juiceAllergens: 'allergen wording confirmation',
+  gymFirstVisit: 'whether a first visit is free, paid or not offered',
+  consultantRole: 'picks the role preset',
+  consultantCasesChoice: 'real case studies or none',
+  beautyPatchTest: 'patch-test wording confirmation',
+  beautyVouchers: 'whether vouchers are sold',
+  weddingType: 'picks the supplier preset',
+  weddingFairs: 'real fairs or none',
+};
+describe('every required content group can use the template’s sample', () => {
+  it.each(templateIds)('%s', (id) => {
+    for (const item of templateBriefSchemas[id].sections.flatMap((s) => s.fields)) {
+      if (item.when || item.optional || requiredFacts[item.id]) continue;
+      expect(
+        item.options?.some(
+          (option) => option === useSample || option === keepSteps || /sample/i.test(option),
+        ),
+        item.id,
+      ).toBe(true);
+    }
+  });
+});
+
+describe('contact details', () => {
+  it('requires the towns or areas served when there is no public address', () => {
+    const state = completeTemplateBrief();
+    expect(error(state, 'serviceArea')).toBeUndefined();
+    state.answers.addressChoice = 'Service area only — no public address';
+    rules.pruneBrief(state);
+    expect(state.answers.street).toBeUndefined();
+    expect(error(state, 'serviceArea')).toBe(templateBriefCopy.missing);
+    state.answers.serviceArea = 'Dundee,  Angus and Fife';
+    expect(error(state, 'serviceArea')).toBeUndefined();
+    const data = toTemplateBriefData(state);
+    expect(data.contact).toMatchObject({
+      address: null,
+      addressParts: null,
+      serviceArea: 'Dundee, Angus and Fife',
+    });
   });
 });
 

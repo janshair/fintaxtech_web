@@ -7,6 +7,7 @@ import {
   faqPairs,
   faqRows,
   optionKey,
+  ownWords,
   price,
   rowValues,
   sampleChoice,
@@ -205,11 +206,13 @@ export const gym06: TemplateBriefSchema = {
           type: 'url',
           when: { id: 'gymTimetableSource', values: [timetableOptions.link] },
         },
+        sampleChoice('gymFacilitiesSource', 'Facilities'),
         {
           id: 'gymFacilities',
-          label: 'Facilities',
+          label: 'Your facilities',
           type: 'multi',
           options: [...Object.keys(facilityIcons), 'Other'],
+          when: whenOwn('gymFacilitiesSource'),
           help: 'Only what you actually have.',
         },
         stepsChoice('gymProcessSource', 'The three first-visit steps'),
@@ -260,11 +263,14 @@ export const gym06: TemplateBriefSchema = {
           }))
           .filter((day) => day.classes.length),
       timetableLink: typeof answers.gymTimetableLink === 'string' ? answers.gymTimetableLink : null,
-      facilities: facilities.map((label) =>
-        label === 'Other'
-          ? ['✳', String(answers.gymFacilitiesOther ?? '')]
-          : [facilityIcons[label], label],
-      ),
+      facilities:
+        answers.gymFacilitiesSource === ownWords
+          ? facilities.map((label) =>
+              label === 'Other'
+                ? ['✳', String(answers.gymFacilitiesOther ?? '')]
+                : [facilityIcons[label], label],
+            )
+          : null,
       firstVisit: {
         offer: optionKey(firstVisit, answers.gymFirstVisit),
         price: typeof answers.gymDayPass === 'string' ? answers.gymDayPass : null,
