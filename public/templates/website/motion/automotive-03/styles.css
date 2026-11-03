@@ -117,7 +117,6 @@ select:focus-visible {
 .eyebrow,
 .technical-label,
 .demo-id,
-.service-tag,
 .service-number,
 .step-number,
 .work-state {
@@ -333,12 +332,9 @@ nav a:hover {
 .button:hover > span[aria-hidden] {
   transform: translate(3px, -3px);
 }
-.text-link {
-  display: inline-flex;
-  gap: 12px;
-  font-size: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line);
+.button-outline {
+  background: transparent;
+  color: var(--on-brand-f2ede3);
 }
 .hero .small-note {
   margin-top: 20px;
@@ -471,14 +467,20 @@ nav a:hover {
 .service-number {
   color: var(--tone-657377);
 }
-.service-tag {
-  font-size: 9px;
-  color: var(--tone-77520e);
-}
 .service-row h3 {
   grid-column: 1/-1;
-  font-size: 29px;
-  margin: 28px 0 12px;
+  font-size: 25px;
+  margin: 28px 0 10px;
+}
+.service-row .service-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  max-width: none;
+}
+.service-row[data-repair] .service-price {
+  color: var(--tone-77520e);
 }
 .service-row p {
   grid-column: 1/-1;
@@ -692,11 +694,40 @@ nav a:hover {
   margin-top: 25px;
   max-width: 450px;
 }
-#quote {
-  margin-top: 30px;
+.quote-call {
+  font-size: 15px;
+  margin-top: 18px;
 }
-#quote .small-note {
-  margin-top: 20px;
+.quote-call a {
+  display: inline-flex;
+  gap: 8px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--line);
+}
+/* Desktop: heading and FAQ on the left, form on the right. Phones: heading, form, FAQ. */
+.quote-grid {
+  grid-template-areas:
+    'head card'
+    'more card';
+  row-gap: 0;
+}
+.quote-head {
+  grid-area: head;
+}
+.quote-card {
+  grid-area: card;
+}
+.quote-more {
+  grid-area: more;
+}
+.quote-faq {
+  margin-top: 40px;
+}
+.quote-faq > h3 {
+  margin-bottom: 25px;
+}
+.quote-tools {
+  margin-top: 30px;
   max-width: 400px;
 }
 .visit .button {
@@ -704,8 +735,225 @@ nav a:hover {
   border-color: var(--ink);
   color: var(--on-brand-f2ede3);
 }
-#quote-details > h3 {
-  margin-bottom: 25px;
+.quote-card {
+  align-self: start;
+  background: var(--tone-fffdf7);
+  border: 1px solid var(--line);
+  padding: 10px 35px 35px;
+}
+.quote-card .demo-result {
+  font-size: 20px;
+}
+.visit-info {
+  padding-top: 0;
+}
+.visit-info .section-heading {
+  padding-top: 70px;
+  margin-bottom: 0;
+  border-top: 1px solid var(--line);
+}
+.visit-info .contact-grid {
+  margin-top: 45px;
+  padding-top: 0;
+  border-top: 0;
+}
+.drop-off {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.drop-off::before {
+  content: '⏱ ';
+  color: var(--tone-77520e);
+}
+/* MOT: a navy band between the service menu and the workshop story. */
+.mot {
+  background: var(--navy);
+}
+.mot-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 90px;
+  align-items: start;
+}
+.mot-approval {
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 22px;
+  color: var(--accent-text);
+}
+.mot-price {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 28px 0 34px;
+}
+.mot-price span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.mot-price strong {
+  font-size: 44px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.mot-checks {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 30px;
+}
+.mot-checks li {
+  font-size: 14px;
+  padding: 11px 0 11px 26px;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.mot-checks li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent-text);
+}
+.mot-retest {
+  margin: 26px 0 30px;
+  display: grid;
+  gap: 4px;
+}
+.mot-retest strong {
+  font-size: 17px;
+}
+.mot-reminder {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 35px;
+  --muted: var(--tone-4d5e64);
+}
+.mot-reminder > p {
+  font-size: 14px;
+  margin-top: 8px;
+  color: var(--muted);
+}
+.mot-reminder :focus-visible {
+  outline-color: var(--tone-80560d);
+}
+.mot-reminder .button {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-brand-f2ede3);
+}
+.form-thanks .demo-result {
+  margin-top: 25px;
+}
+.form-thanks .demo-result:focus {
+  outline: none;
+}
+/* A yellow UK number plate. Real-world plate colours, so not part of the theme palette. */
+.plate {
+  display: flex;
+  border: 2px solid #1b1b1b;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f7d117;
+  max-width: 320px;
+}
+.plate::before {
+  content: 'UK';
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 0 0 34px;
+  padding-bottom: 7px;
+  background: #00309a;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+input.plate-input {
+  border: 0;
+  background: transparent;
+  color: #111;
+  min-height: 56px;
+  font:
+    700 28px/1 'Arial Narrow',
+    Arial,
+    sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+input.plate-input::placeholder {
+  color: #6b5a00;
+  opacity: 1;
+}
+input.plate-input:focus-visible {
+  outline: none;
+}
+.plate:focus-within {
+  outline: 3px solid var(--tone-80560d);
+  outline-offset: 4px;
+}
+.plate:has(input[aria-invalid='true']) {
+  border-color: var(--tone-8b301e);
+  box-shadow: 0 0 0 1px var(--tone-8b301e);
+}
+input.plate-input[aria-invalid='true'] {
+  border: 0;
+}
+/* Trust: plain promises a garage can edit, and accreditation slots that stay hidden. */
+.trust-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 25px;
+}
+.trust-grid li {
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+}
+.trust-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--amber);
+  color: var(--accent-text);
+  border-radius: 50%;
+  font-size: 15px;
+}
+.trust-grid h3 {
+  font-size: 18px;
+  margin: 18px 0 10px;
+  line-height: 1.3;
+}
+.trust-grid p {
+  font-size: 13px;
+  color: var(--muted);
+}
+.accreditations {
+  list-style: none;
+  padding: 0;
+  margin: 45px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.accreditation-slot {
+  border: 1px solid var(--line);
+  padding: 14px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+.trust + .reviews {
+  padding-top: 0;
+  border-top: 0;
 }
 details {
   border-block-start: 1px solid var(--line);
@@ -814,6 +1062,34 @@ dd {
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.07em;
+}
+.map-load {
+  position: relative;
+  align-self: flex-start;
+  margin-top: 18px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid var(--amber);
+  background: transparent;
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 700;
+}
+.map .map-privacy {
+  position: relative;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--tone-adc0c6);
+}
+.map-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.map :focus-visible {
+  outline-color: var(--amber);
 }
 footer {
   display: grid;
@@ -1058,14 +1334,13 @@ form > h3,
   transform-box: fill-box;
   transform: scale(calc(0.7 + var(--check) * 0.3));
 }
-.contact-actions a span,
-.text-link span {
+.contact-actions a span {
   transition: transform 0.3s;
 }
 .contact-actions a:hover span {
   transform: translate(3px, -3px);
 }
-.text-link:hover span {
+.hero-actions .button:hover > span[aria-hidden] {
   transform: translateY(3px);
 }
 .service-row::after {
@@ -1218,8 +1493,12 @@ form > h3,
     padding-right: 10px;
   }
   .visit-grid,
-  .contact-grid {
+  .contact-grid,
+  .mot-grid {
     gap: 50px;
+  }
+  .trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   nav {
     gap: 20px;
@@ -1337,20 +1616,18 @@ form > h3,
     line-height: 1.65;
   }
   .hero-actions {
-    gap: 18px;
+    gap: 12px;
     margin-top: 24px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+  }
+  .hero-actions .button {
+    flex: 1 1 auto;
   }
   .button {
     padding: 14px 17px;
     font-size: 12px;
     gap: 15px;
     min-height: 50px;
-  }
-  .text-link {
-    font-size: 11px;
-    gap: 8px;
-    white-space: nowrap;
   }
   .hero .small-note {
     font-size: 10px;
@@ -1402,7 +1679,7 @@ form > h3,
     min-height: 220px;
   }
   .service-row h3 {
-    font-size: 27px;
+    font-size: 23px;
     margin-top: 22px;
   }
   .service-row p {
@@ -1512,9 +1789,44 @@ form > h3,
     font-size: 13px;
   }
   .visit-grid,
-  .contact-grid {
+  .contact-grid,
+  .mot-grid {
     grid-template-columns: 1fr;
     gap: 45px;
+  }
+  .quote-grid {
+    grid-template-areas: 'head' 'card' 'more';
+    row-gap: 35px;
+  }
+  html {
+    /* Keep focused form fields clear of the sticky Call / WhatsApp bar. */
+    scroll-padding-bottom: 90px;
+  }
+  .mot-checks,
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+  .mot-price strong {
+    font-size: 38px;
+  }
+  .mot-reminder,
+  .quote-card {
+    padding: 25px 20px;
+  }
+  .quote-card {
+    padding-top: 5px;
+  }
+  .trust-grid {
+    gap: 0;
+  }
+  .trust-grid li {
+    padding-block: 20px;
+  }
+  .quote-faq {
+    margin-top: 30px;
+  }
+  .visit-info .section-heading {
+    padding-top: 50px;
   }
   .visit-grid > div > p:not(.eyebrow) {
     font-size: 13px;
@@ -1595,7 +1907,7 @@ form > h3,
     flex: 1;
   }
   .mobile-actions a:last-child {
-    flex: 2;
+    flex: 1;
     background: var(--amber);
     color: var(--on-accent-111e26);
     border-color: var(--amber);
@@ -1649,10 +1961,6 @@ form > h3,
     padding-inline: 12px;
     gap: 10px;
     font-size: 11px;
-  }
-  .text-link {
-    font-size: 10px;
-    gap: 5px;
   }
   .demo-strip {
     padding-inline: 15px;
