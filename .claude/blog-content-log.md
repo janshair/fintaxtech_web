@@ -12,7 +12,7 @@ mobile-app-maintenance-after-launch, app-store-and-google-play-submission-checkl
 mobile-app-ux-basics, push-notifications-without-annoying-people,
 do-you-need-user-accounts-in-your-app, does-your-app-need-to-work-offline
 
-Website Design and Development (11): plan-your-website-pages-and-navigation, website-accessibility-basics-for-business-owners, website-vs-web-application, does-your-website-need-a-cms,
+Website Design and Development (12): website-analytics-what-to-measure, plan-your-website-pages-and-navigation, website-accessibility-basics-for-business-owners, website-vs-web-application, does-your-website-need-a-cms,
 new-business-website-launch-checklist, who-owns-your-business-website,
 small-business-website-quotes-vary, redesign-or-rebuild-business-website,
 what-slows-a-website-build-down, website-copy-that-answers-customer-questions,
@@ -50,6 +50,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-18: prepare-documents-for-ai-assisted-work — pushed to main, awaiting owner review
 - 2026-10-19: choosing-photography-and-imagery-for-your-brand — pushed to main, awaiting owner review
 - 2026-10-27: does-your-app-need-an-admin-panel — pushed to main, awaiting owner review
+- 2026-11-03: website-analytics-what-to-measure — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -75,6 +76,7 @@ repeatable-ai-workflows-for-your-business
 17. ~~Preparing Your Documents for AI-Assisted Work: A Practical Tidy-Up Checklist (AI Automation; ai-automation)~~ added 2026-10-18 as queue was exhausted (AI and Branding had fewest, 10; AI longest since last post; document preparation not yet covered); published 2026-10-18
 18. ~~Choosing Photography and Imagery for Your Brand: How to Keep Pictures Consistent and Safe to Use (Branding and Graphic Design; branding)~~ added 2026-10-19 as queue was exhausted (Branding had fewest, 10; brand imagery not yet covered); published 2026-10-19
 19. ~~Does Your App Need an Admin Panel? How to Manage Content and Users Without a Developer (Mobile App Development; mobile-apps)~~ added 2026-10-27 as queue was exhausted (all categories at 11; mobile longest since last post; admin tooling not yet covered); published 2026-10-27
+20. ~~Website Analytics Without the Jargon: What to Measure and What to Ignore (Website Design and Development; websites)~~ added 2026-11-03 as queue was exhausted (websites, branding and AI tied at 11 and websites longest since last post; analytics not yet covered); published 2026-11-03
 
 ## Conventions reminder
 

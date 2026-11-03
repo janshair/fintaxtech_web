@@ -1,0 +1,46 @@
+{
+  "slug": "website-analytics-what-to-measure",
+  "url": "https://fintaxtech.co.uk/blog/website-analytics-what-to-measure/",
+  "date": "2026-11-03",
+  "title": "Website Analytics Without the Jargon: What to Measure and What to Ignore",
+  "category": "Website Design and Development",
+  "music": "knockout",
+  "cards": [
+    {
+      "heading": "Start with questions, not charts",
+      "text": "Decide what you want to learn before you open a dashboard full of numbers."
+    },
+    {
+      "heading": "Count actions, not just visits",
+      "text": "Enquiries, bookings and calls usually say more than total traffic does."
+    },
+    {
+      "heading": "Ignore numbers you won't act on",
+      "text": "If a figure moves and you would change nothing, stop watching it."
+    },
+    {
+      "heading": "Own your analytics account",
+      "text": "Your business should hold the account, with your developer given access."
+    },
+    {
+      "heading": "Confirm consent in writing",
+      "text": "Ask what the tool records and whether a consent notice is needed. This is not legal advice."
+    }
+  ],
+  "facebook": {
+    "message": "Is your website dashboard full of numbers you never act on?\nMost small-business sites need only a handful of measures, chosen before launch. Our latest guide explains which numbers help, which can safely be ignored, and what to agree with your developer first, including who owns the account and how consent is handled. Watch for the key points in the short video.\n\nTo read the full article, visit the FinTaxTech website and find \"Website Analytics Without the Jargon: What to Measure and What to Ignore\" in our Blog section.\n#WebsiteAnalytics #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "A dashboard full of charts isn't insight. Most small sites only need a few numbers, chosen before the site is built.\nWatch for the essentials:\n→ Start with questions, not charts\n→ Count enquiries and bookings, not just visits\n→ Ignore numbers you would never act on\n→ Make sure your business owns the analytics account\n→ Confirm in writing whether consent is needed\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#WebsiteAnalytics #WebsiteDesign #SmallBusiness #WebDevelopment #DigitalMarketing #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social.jpg",
+  "images": [
+    "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social.jpg",
+    "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social-2.jpg",
+    "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social-3.jpg",
+    "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social-4.jpg",
+    "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social-5.jpg",
+    "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social-6.jpg",
+    "src/assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-social-7.jpg"
+  ]
+}
