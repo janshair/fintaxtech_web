@@ -5,11 +5,12 @@ export const THEME = {
 };
 
 // Edit prices here, in one place. Fixed-cost jobs may show a price. Repairs that depend
-// on the car (brakes, clutch, timing belt) have no entry: they always say "Free quote".
+// on the car (brakes, clutch, exhausts, timing belt) have no entry: they always say
+// "Free quote".
 export const PRICES = {
   mot: '£54.85',
-  interim: 'From £xx',
   full: 'From £xx',
+  interim: 'From £xx',
   oil: 'From £xx',
   combo: 'From £xx',
   diagnostics: '£xx, deducted if we do the repair',
@@ -22,6 +23,8 @@ export const automotiveDemo = {
   id: 'automotive-03',
   name: 'Vector Motorworks',
   monogram: 'VM',
+  // Shown until ?area= gives the town.
+  area: 'Dundee',
   route: '/templates/website/motion/automotive-03/',
   titleSuffix: ' — Garage website demo by FinTaxTech',
   agency: 'FinTaxTech',
@@ -43,101 +46,125 @@ export const automotiveDemo = {
   close: 'Close',
   hero: {
     eyebrow: 'MOT · SERVICING · REPAIRS',
-    first: 'FOR THE',
-    second: 'ROAD AHEAD.',
-    description:
-      'MOTs, servicing and repairs for all makes and models. Clear prices for fixed jobs, a free quote for repairs, and no work done without your approval.',
+    // The headline is the garage name; the town comes from ?area=.
+    before: 'MOTs, servicing and repairs for cars and vans in ',
+    after: '. We call to explain what’s needed before any work starts.',
     mot: 'Book your MOT',
     quote: 'Get a free quote',
-    note: 'Drop-off from 8am. We call you with a price before any repair starts.',
+    note: 'Drop-off from 8am. Free MOT retest within 10 working days.',
     artLabel:
       'Original illustration of a silver car in profile, with detailed wheels, an amber headlight and technical guide lines.',
-    artCaption: 'CARE IN EVERY DETAIL',
+    artCaption: 'CARS · VANS · MOTORHOMES',
     artDetail: 'MOT / SERVICING / DIAGNOSTICS / REPAIRS',
   },
+  // Example promises under the hero: keep only what the garage really offers.
+  trustLabel: 'Why drivers choose us',
+  trust: [
+    'We call before any work starts',
+    'Repairs guaranteed',
+    'All makes & models',
+    'Cars, vans & motorhomes',
+  ],
+  accreditationsLabel: 'Accreditations',
+  // Logo slots are hidden by default. Set `show: true` ONLY if the garage really holds
+  // that membership, and replace the text badge with the official logo the scheme
+  // supplies to members. Never show a badge the garage has not earned.
+  accreditations: [
+    { name: 'Good Garage Scheme', show: false },
+    { name: 'The Motor Ombudsman', show: false },
+    { name: 'IMI (Institute of the Motor Industry)', show: false },
+    { name: 'Bosch Car Service', show: false },
+  ],
   services: {
     eyebrow: '01 / SERVICES & PRICES',
-    title: 'Clear prices.\nHonest quotes.',
-    intro:
-      'Fixed jobs show a price. Repairs depend on your car, so we look first and give you a free quote.',
-    note: 'Example prices for this demo. Repair prices are always agreed with you before work starts.',
+    title: 'MOT, servicing\n& car repairs.',
+    intro: 'Fixed jobs have a price. Repairs depend on your car, so we look first and quote free.',
+    note: 'Example prices. Repairs are quoted after we’ve looked at your car.',
+    repairsTitle: 'Repairs & more',
+    // The first six are the main cards; the rest form the compact list underneath.
     items: [
       {
         code: 'mot',
         name: 'MOT',
-        description: 'Class 4 and 7 MOT tests. Wait in reception or drop your car off.',
+        description: 'Class 4 & 7 MOTs. Free retest within 10 working days.',
         price: PRICES.mot,
-        repair: false,
-      },
-      {
-        code: 'interim',
-        name: 'Interim service',
-        description: 'Oil and filter, fluid top-ups and a safety check between full services.',
-        price: PRICES.interim,
         repair: false,
       },
       {
         code: 'full',
         name: 'Full service',
-        description: 'A complete service to your car’s schedule, with a written report.',
+        description: 'Everything on your car’s service schedule, with a written report.',
         price: PRICES.full,
+        repair: false,
+      },
+      {
+        code: 'interim',
+        name: 'Interim service',
+        description: 'Oil, filter, top-ups and a safety check between full services.',
+        price: PRICES.interim,
         repair: false,
       },
       {
         code: 'oil',
         name: 'Oil & filter change',
-        description: 'The right engine oil for your car and a new oil filter.',
+        description: 'The right oil for your engine and a new filter.',
         price: PRICES.oil,
         repair: false,
       },
       {
         code: 'combo',
-        name: 'MOT + service combo',
-        description: 'Your MOT and service in one visit, for less than booking them separately.',
+        name: 'MOT + service',
+        description: 'Both in one visit. Cheaper than booking them separately.',
         price: PRICES.combo,
         repair: false,
+        badge: 'Best value',
       },
       {
         code: 'diagnostics',
-        name: 'Diagnostics / warning lights',
-        description: 'A warning light on the dash? We read the fault codes and find the cause.',
+        name: 'Diagnostics',
+        description: 'Warning light on? We read the fault codes and tell you what’s wrong.',
         price: PRICES.diagnostics,
         repair: false,
       },
       {
         code: 'brakes',
-        name: 'Brakes, pads & discs',
-        description:
-          'Squealing, grinding or a soft pedal? We check them and tell you what is needed.',
+        name: 'Brakes',
+        description: 'Pads, discs and brake fluid.',
         price: FREE_QUOTE,
         repair: true,
       },
       {
         code: 'clutch',
         name: 'Clutch & gearbox',
-        description:
-          'Slipping clutch or difficult gear changes. We find the fault and quote first.',
-        price: FREE_QUOTE,
-        repair: true,
-      },
-      {
-        code: 'timing-belt',
-        name: 'Timing belt / wet belt',
-        description: 'Replaced at the right interval to protect your engine, wet belts included.',
+        description: 'Slipping clutch or stiff gears.',
         price: FREE_QUOTE,
         repair: true,
       },
       {
         code: 'tyres',
         name: 'Tyres',
-        description: 'New tyres fitted and balanced, and puncture repairs where it is safe.',
+        description: 'Fitted, balanced and puncture repairs.',
         price: PRICES.tyres,
         repair: false,
       },
       {
+        code: 'exhausts',
+        name: 'Exhausts',
+        description: 'Blowing, rattling or failed emissions.',
+        price: FREE_QUOTE,
+        repair: true,
+      },
+      {
+        code: 'timing-belt',
+        name: 'Timing belt',
+        description: 'Changed on time to protect your engine.',
+        price: FREE_QUOTE,
+        repair: true,
+      },
+      {
         code: 'aircon',
         name: 'Air con regas',
-        description: 'Air con blowing warm? We regas the system and check it for leaks.',
+        description: 'Cold air again, with a leak check.',
         price: PRICES.aircon,
         repair: false,
       },
@@ -146,8 +173,8 @@ export const automotiveDemo = {
   mot: {
     eyebrow: '02 / MOT',
     title: 'MOT due?\nBook it in.',
-    // Edit to match the garage's DVSA approval and the vehicle classes it tests.
-    approval: 'DVSA-approved MOT test centre · Classes 4 & 7',
+    // Edit to match the garage's DVSA approval.
+    approval: 'DVSA-approved MOT test centre',
     priceLabel: 'MOT test',
     checkedTitle: 'What’s checked',
     checked: [
@@ -161,7 +188,7 @@ export const automotiveDemo = {
     retestNote: 'Example copy. Retest terms are set by the garage.',
     book: 'Book your MOT',
     reminder: {
-      title: 'Get a free MOT reminder',
+      title: 'Free MOT reminder',
       intro: 'We’ll text you before your MOT is due.',
       plateLabel: 'Number plate',
       phoneLabel: 'Mobile number',
@@ -171,88 +198,70 @@ export const automotiveDemo = {
     },
   },
   process: {
-    eyebrow: '03 / IN THE WORKSHOP',
-    title: 'Know the work.\nThen the way forward.',
-    intro: 'Follow the road line through an illustrated service journey.',
-    caption: 'ILLUSTRATED SERVICE JOURNEY',
+    eyebrow: '03 / HOW IT WORKS',
+    title: 'Book in.\nWe’ll do the rest.',
+    intro: 'Three simple steps, and no work without your say-so.',
+    caption: 'HOW IT WORKS',
     artLabel:
       'Illustrated car on a workshop lift: a diagnostic sweep, rotating wheels, a service tool and a final check follow scrolling.',
     steps: [
+      ['Book in', 'Book online or give us a call. Drop your car off from 8am.'],
       [
-        'Tell us what changed',
-        'Describe the issue or the service you need. The garage confirms the next step and a suitable time.',
+        'We check and call you',
+        'We find out what’s needed and call you with the price. Nothing is done until you say yes.',
       ],
-      [
-        'Inspect. Explain. Agree.',
-        'The vehicle is assessed and the proposed work explained. The scope and price are agreed before repairs.',
-      ],
-      [
-        'Work done. Checked.',
-        'Agreed work is carried out and checked. The garage talks you through it before collection.',
-      ],
+      ['Fixed and ready', 'We do the work, test it and call you when it’s ready to collect.'],
     ],
   },
   work: {
-    eyebrow: '04 / UNDER THE SURFACE',
-    title: 'Small details.\nProper attention.',
-    intro: 'Illustrated before-and-after examples. Your own workshop photos belong here.',
+    eyebrow: '04 / OUR WORK',
+    title: 'Before and after.',
+    intro: 'Illustrated examples. Your own workshop photos go here.',
     before: 'Before',
     after: 'After',
     items: [
       {
         kind: 'brakes',
-        title: 'A fresh surface',
-        caption: 'An illustrated brake-disc replacement.',
+        title: 'New brake discs',
+        caption: 'Worn discs replaced.',
         alt: 'Illustration comparing a marked brake disc with a clean replacement disc.',
       },
       {
         kind: 'tyres',
-        title: 'A new set of grooves',
-        caption: 'An illustrated tyre replacement.',
+        title: 'New tyres',
+        caption: 'Worn tread replaced.',
         alt: 'Illustration comparing shallow tyre markings with the defined tread of a replacement tyre.',
       },
       {
         kind: 'filter',
-        title: 'A clean start',
-        caption: 'An illustrated air-filter replacement.',
+        title: 'New air filter',
+        caption: 'Changed at the service.',
         alt: 'Illustration comparing a dusty air filter with a clean pleated replacement.',
       },
     ],
   },
-  trust: {
-    eyebrow: '05 / WHY DRIVERS COME BACK',
-    title: 'No surprises.\nJust honest work.',
-    // Example promises: edit each one so it matches what the garage really offers.
-    items: [
-      [
-        'No work done without your approval',
-        'We call you with the price first. Nothing extra is done unless you say yes.',
-      ],
-      ['We show you the old parts', 'Ask to see what we replaced and why it needed doing.'],
-      [
-        'Courtesy car / collection & delivery available',
-        'Ask when you book and we will keep you on the road.',
-      ],
-      ['All makes and models', 'Petrol, diesel, hybrid and electric cars and small vans.'],
-    ],
-    accreditationsLabel: 'Accreditations',
-    // Logo slots are hidden by default. Set `show: true` ONLY if the garage really holds
-    // that membership, and replace the text badge with the official logo the scheme
-    // supplies to members. Never show a badge the garage has not earned.
-    accreditations: [
-      { name: 'Good Garage Scheme', show: false },
-      { name: 'The Motor Ombudsman', show: false },
-      { name: 'IMI (Institute of the Motor Industry)', show: false },
-      { name: 'Bosch Car Service', show: false },
-    ],
-  },
   reviews: {
-    title: 'A place for your reputation.',
-    intro: 'Real feedback from the people who know your garage.',
-    placeholder: 'Your Google reviews appear here',
+    title: 'What drivers say.',
+    intro: 'Example reviews for this demo. Your own Google reviews go here.',
+    label: 'Example review',
+    // Example reviews only: replace with the garage's real Google reviews.
+    items: [
+      {
+        text: 'MOT and service done the same morning. They called before changing the brake pads and the price was exactly what they said.',
+        name: 'Sarah M.',
+      },
+      {
+        text: 'Warning light came on and they found the fault the same day. Clear explanation and no pressure.',
+        name: 'Daniel R.',
+      },
+      {
+        text: 'Honest garage. Showed me the old parts and the van was ready when they said it would be.',
+        name: 'Priya K.',
+      },
+    ],
   },
   quote: {
-    eyebrow: '06 / FREE QUOTE',
+    eyebrow: '05 / FREE QUOTE',
     title: 'Get a free quote.',
     intro:
       'Tell us what your car needs. We will call you back with a price before any work starts.',
@@ -277,7 +286,7 @@ export const automotiveDemo = {
     },
   },
   visit: {
-    eyebrow: '07 / FIND US',
+    eyebrow: '06 / FIND US',
     title: 'Opening hours\nand directions.',
     hoursLabel: 'Opening hours',
     // Example hours: keep a Saturday morning line if the garage opens then.
@@ -289,13 +298,15 @@ export const automotiveDemo = {
     dropOff: 'Drop-off from 8am',
     sampleNote: 'Example opening hours for this demonstration.',
     locationLabel: 'Find the workshop',
-    // The garage's full address. The map and directions use it, plus ?area= when given.
-    address: '',
-    location: 'Your address here',
-    mapNote: 'Your map and address appear here.',
+    // Example street address: the town comes from ?area= (or `area` above). The map and
+    // directions use both.
+    address: 'Unit 4, Station Road Industrial Estate',
+    mapNote: 'Example address for this demo.',
     showMap: 'Show map',
     mapPrivacy: 'Loads Google Maps only when you choose to.',
-    phone: 'Your number here',
+    // Example number from Ofcom's range reserved for drama, so it never reaches anyone.
+    // ?phone= replaces it everywhere.
+    phone: '01632 960123',
     call: 'Call',
     whatsapp: 'WhatsApp',
     directions: 'Directions',
