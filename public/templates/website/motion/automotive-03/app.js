@@ -10,6 +10,14 @@
     Array.from((value || '').trim().replace(/\s+/gu, ' '))
       .slice(0, limit)
       .join('');
+  // Lower-case words from a letter link are title-cased for display ("b&t autos" becomes
+  // "B&T Autos"). Words that already contain capitals, such as "McLaren" or "MOT", are kept.
+  const titleCase = (value) =>
+    value.replace(/\S+/gu, (word) =>
+      word === word.toLowerCase()
+        ? word.replace(/(^|[&/(-])(\p{L})/gu, (_, before, letter) => before + letter.toUpperCase())
+        : word,
+    );
   let business = c.name;
   let lastTrigger;
   let offered = new URL(location.href).searchParams.has('name');
@@ -46,7 +54,7 @@
   }
   function update() {
     const query = params();
-    const name = clean(query.get('name'), 100);
+    const name = titleCase(clean(query.get('name'), 100));
     business = name || c.name;
     document.querySelectorAll('[data-business]').forEach((node) => {
       node.textContent = business;
@@ -61,41 +69,39 @@
       node.textContent = initials;
     });
     document.title = business + c.titleSuffix;
-    const area = clean(query.get('area'), 100);
-    mapQuery = [c.visit.address, area].filter(Boolean).join(', ');
-    document.querySelectorAll('[data-area]').forEach((node) => {
-      node.textContent = mapQuery || c.visit.location;
+    const town = clean(query.get('area'), 100) || c.area;
+    document.querySelectorAll('[data-town]').forEach((node) => {
+      node.textContent = town;
     });
-    const heroArea = document.querySelector('[data-hero-area]');
-    heroArea.textContent = area ? ' · ' + area : '';
-    heroArea.hidden = !area;
-    const phone = ukPhone(query.get('phone'));
+    mapQuery = c.visit.address + ', ' + town;
+    // An invalid or missing ?phone= falls back to the example number.
+    const phone = ukPhone(query.get('phone')) || ukPhone(c.visit.phone);
     // tel: has an opaque path: construct its URL only after the strict digits validation above.
-    const tel = phone && new URL(`tel:+${phone.international}`);
+    const tel = new URL(`tel:+${phone.international}`);
     const whatsapp = new URL('https://wa.me/');
-    if (phone) whatsapp.pathname = phone.international;
+    whatsapp.pathname = phone.international;
     document.querySelectorAll('[data-call]').forEach((node) => {
-      node.href = phone ? tel.href : '#contact-details';
+      node.href = tel.href;
     });
     document.querySelectorAll('[data-whatsapp]').forEach((node) => {
-      node.href = phone ? whatsapp.href : '#contact-details';
+      node.href = whatsapp.href;
       node.rel = 'noopener noreferrer';
     });
     document.querySelectorAll('[data-phone-text]').forEach((node) => {
-      node.textContent = phone ? phone.display : c.visit.phone;
+      node.textContent = phone.display;
     });
     const maps = new URL('https://www.google.com/maps/dir/');
     maps.searchParams.set('api', '1');
     maps.searchParams.set('destination', mapQuery);
     document.querySelectorAll('[data-directions]').forEach((node) => {
-      node.href = mapQuery ? maps.href : '#map';
+      node.href = maps.href;
       node.rel = 'noopener noreferrer';
     });
     if (mapLoaded !== false && mapLoaded !== mapQuery) {
       document.querySelector('.map-frame').remove();
       mapLoaded = false;
     }
-    mapLoad.hidden = !mapQuery || mapLoaded !== false;
+    mapLoad.hidden = mapLoaded !== false;
     mapLoad.nextElementSibling.hidden = mapLoad.hidden;
     // A ref code is only carried by a deliberate agency-enquiry navigation, never tracked or displayed.
     const ref = (query.get('ref') || '').trim();
@@ -253,13 +259,13 @@
     String(today.getMonth() + 1).padStart(2, '0'),
     String(today.getDate()).padStart(2, '0'),
   ].join('-');
-  // Service rows and MOT links pick the service and go straight to the form's first field.
-  // Without JavaScript they remain plain links to #quote.
-  document.querySelectorAll('[data-service]').forEach((link) =>
+  // Quote links go straight to the form's first field; service rows and MOT links also pick
+  // the service. Without JavaScript they remain plain links to #quote.
+  document.querySelectorAll('[data-service], [data-quote]').forEach((link) =>
     link.addEventListener('click', (event) => {
       event.preventDefault();
       if (!final.hidden) swap(quoteForm, final, false);
-      service.value = link.dataset.service;
+      if (link.dataset.service) service.value = link.dataset.service;
       quoteForm.closest('.quote-card').scrollIntoView({ block: 'start' });
       plate.focus({ preventScroll: true });
     }),

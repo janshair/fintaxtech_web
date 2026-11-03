@@ -63,12 +63,14 @@ for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 844 });
     const requests: import('@playwright/test').Request[] = [];
     page.on('request', (req) => requests.push(req));
-    for (const name of [
-      "Jay's Cuts & Co",
-      'A'.repeat(100),
-      '<img src=x onerror=alert(1)>',
-      'The',
-      '   ',
+    // [link value, displayed name]: lower-case words are title-cased, capitals are kept.
+    for (const [name, shown] of [
+      ["Jay's Cuts & Co", "Jay's Cuts & Co"],
+      ['b&t autos', 'B&T Autos'],
+      ['A'.repeat(100), 'A'.repeat(100)],
+      ['<img src=x onerror=alert(1)>', '<img Src=x Onerror=alert(1)>'],
+      ['The', 'The'],
+      ['   ', c.name],
     ]) {
       await page.goto(
         c.route +
@@ -81,8 +83,8 @@ for (const width of [320, 390, 768, 1440]) {
           }),
       );
       for (const node of await page.locator('[data-business]').all())
-        await expect(node).toHaveText(name.trim() || c.name);
-      await expect(page).toHaveTitle((name.trim() || c.name) + c.titleSuffix);
+        await expect(node).toHaveText(shown);
+      await expect(page).toHaveTitle(shown + c.titleSuffix);
       await expect(page.locator('[data-business] img')).toHaveCount(0);
       await expect(page.locator('#name-dialog')).not.toBeVisible();
       for (const node of await page.locator('[data-phone-text]').all())
@@ -99,7 +101,7 @@ for (const width of [320, 390, 768, 1440]) {
         true,
       );
       expect((await page.locator('footer [data-business]').boundingBox())!.width).toBeGreaterThan(
-        name === 'The' ? 20 : 100,
+        shown.length < 12 ? 20 : 100,
       );
     }
     for (const req of requests) {
@@ -125,7 +127,7 @@ test('every service fills the free quote form, validates details and sends nothi
   const form = page.locator('#quote-form');
   const final = page.locator('#quote-final');
   for (const item of c.services.items) {
-    await page.locator(`.service-row[data-service=${item.code}]`).click();
+    await page.locator(`#services [data-service=${item.code}]`).click();
     await expect(page.locator('#quote-service')).toHaveValue(item.code);
     await expect(page.locator('#quote-plate')).toBeFocused();
     await page.getByRole('button', { name: c.quote.submit }).click();
@@ -172,21 +174,27 @@ test('every service fills the free quote form, validates details and sends nothi
 
 test('fixed jobs show prices, repairs only say free quote', async ({ page }) => {
   await page.goto(c.route);
-  const rows = page.locator('.service-row');
-  await expect(rows.locator('h3')).toHaveText(c.services.items.map((item) => item.name));
-  await expect(page.locator('#quote-service option')).toHaveText(
-    c.services.items.map((item) => item.name),
-  );
-  await expect(page.locator('[data-service=mot] .service-price')).toHaveText('£54.85');
+  const names = c.services.items.map((item) => item.name);
+  await expect(page.locator('.service-row h3')).toHaveText(names.slice(0, 6));
+  await expect(page.locator('.repair-name')).toHaveText(names.slice(6));
+  await expect(page.locator('#quote-service option')).toHaveText(names);
+  await expect(page.locator('#services [data-service=mot] .service-price')).toHaveText('£54.85');
   await expect(page.locator('.mot-price strong')).toHaveText('£54.85');
-  for (const code of ['brakes', 'clutch', 'timing-belt']) {
-    const price = page.locator(`.service-row[data-service=${code}]`);
-    await expect(price).toHaveAttribute('data-repair', '');
-    await expect(price.locator('.service-price')).toHaveText('Free quote');
-    await expect(price).not.toContainText('£');
-  }
-  for (const row of await page.locator('.service-row[data-repair]').all())
+  await expect(page.locator('.service-badge')).toHaveCount(1);
+  await expect(page.locator('[data-service=combo] .service-badge')).toHaveText('Best value');
+  for (const code of ['brakes', 'clutch', 'exhausts', 'timing-belt']) {
+    const row = page.locator(`.repair-row[data-service=${code}]`);
+    await expect(row).toHaveAttribute('data-repair', '');
     await expect(row.locator('.service-price')).toHaveText('Free quote');
+    await expect(row).not.toContainText('£');
+  }
+  await expect(page.locator('#services [data-repair]')).toHaveCount(4);
+  for (const row of await page.locator('#services [data-repair]').all())
+    await expect(row.locator('.service-price')).toHaveText('Free quote');
+  await expect(page.locator('.service-note')).toHaveText(c.services.note);
+  await expect(page.locator('main')).not.toContainText(
+    /Your number here|Your address here|reviews appear here|road ahead/i,
+  );
   await expect(page.locator('main')).not.toContainText(/maintenance package|auto care solution/i);
 });
 
@@ -217,7 +225,7 @@ test('MOT section, reminder form, hero buttons and hidden accreditation slots', 
   await expect(page.locator('#quote-form')).toBeInViewport();
   // Tapping a link is not the visitor's own scroll, so the name prompt stays closed.
   await expect(page.locator('#name-dialog')).not.toBeVisible();
-  await expect(page.locator('.trust-grid h3')).toHaveText(c.trust.items.map(([title]) => title));
+  await expect(page.locator('.trust-list li')).toContainText([...c.trust]);
   await expect(page.locator('.accreditations')).toBeHidden();
   for (const slot of await page.locator('.accreditation-slot').all())
     await expect(slot).toBeHidden();
@@ -236,8 +244,9 @@ test('URL name, area and phone fill the garage details; the map loads only on re
   await expect(page.locator('.garage-header [data-business]')).toHaveText('B&T Autos');
   await expect(page.locator('footer [data-business]')).toHaveText('B&T Autos');
   await expect(page.locator('[data-monogram]').first()).toHaveText('BT');
-  await expect(page.locator('.hero-identity')).toHaveText('B&T Autos · Dundee');
-  await expect(page.locator('.map-area')).toHaveText('Dundee');
+  await expect(page.locator('.hero-identity')).toHaveText('B&T Autos');
+  await expect(page.locator('.hero .lead [data-town]')).toHaveText('Dundee');
+  await expect(page.locator('.map-area')).toHaveText(`${c.visit.address}, Dundee`);
   for (const node of await page.locator('[data-phone-text]').all())
     await expect(node).toHaveText('01382 221621');
   for (const node of await page.locator('[data-call]').all())
@@ -249,21 +258,31 @@ test('URL name, area and phone fill the garage details; the map loads only on re
     'href',
     'https://wa.me/447700900123',
   );
-  await expect(page.locator('[data-map-load]')).toBeHidden();
-  await page.goto(c.route + '?area=Dundee');
+  await page.goto(c.route + '?name=b%26t%20autos&area=Broughty%20Ferry');
+  await expect(page).toHaveTitle('B&T Autos' + c.titleSuffix);
+  for (const node of await page.locator('[data-town]').all())
+    await expect(node).toHaveText('Broughty Ferry');
   expect(requests.filter((url) => !url.startsWith('http://localhost:4323'))).toEqual([]);
   await expect(page.locator('.map-frame')).toHaveCount(0);
   await page.getByRole('button', { name: c.visit.showMap }).click();
-  await expect(page.locator('.map-frame')).toHaveAttribute(
-    'src',
-    'https://www.google.com/maps?q=Dundee&output=embed',
-  );
+  const map = new URL('https://www.google.com/maps');
+  map.searchParams.set('q', `${c.visit.address}, Broughty Ferry`);
+  map.searchParams.set('output', 'embed');
+  await expect(page.locator('.map-frame')).toHaveAttribute('src', map.href);
   // The sticky bar never covers the end of the page.
   await move(page, await page.evaluate(() => document.body.scrollHeight));
   const bar = (await page.locator('.mobile-actions').boundingBox())!;
   const offer = (await page.locator('.agency-offer').boundingBox())!;
   expect(offer.y + offer.height).toBeLessThanOrEqual(bar.y);
 });
+
+for (const width of [390, 1440])
+  test(`the MOT card is in view after one screen of scrolling at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto(c.route + named);
+    await move(page, 844);
+    await expect(page.locator('#services [data-service=mot]')).toBeInViewport({ ratio: 1 });
+  });
 
 test('delayed prompt, edit, restore, first scroll, invalid inputs and history', async ({
   page,
@@ -287,12 +306,15 @@ test('delayed prompt, edit, restore, first scroll, invalid inputs and history', 
   await page.goto(c.route + '?name=Alpha&area=Dundee');
   await page.goto(c.route + '?name=Beta&area=London');
   await page.goBack();
-  await expect(page.locator('.hero-identity')).toHaveText('Alpha · Dundee');
+  await expect(page.locator('.hero-identity')).toHaveText('Alpha');
+  await expect(page.locator('.lead [data-town]')).toHaveText('Dundee');
   await page.goForward();
-  await expect(page.locator('.hero-identity')).toHaveText('Beta · London');
+  await expect(page.locator('.hero-identity')).toHaveText('Beta');
+  await expect(page.locator('.lead [data-town]')).toHaveText('London');
   await page.goto(c.route + '?name=%20&phone=javascript:alert(1)&area=%20&ref=bad%40ref');
   await expect(page.locator('[data-business]').first()).toHaveText(c.name);
-  await expect(page.locator('[data-call]').first()).toHaveAttribute('href', '#contact-details');
+  // An invalid ?phone= falls back to the example number.
+  await expect(page.locator('[data-call]').first()).toHaveAttribute('href', 'tel:+441632960123');
   for (const node of await page.locator('[data-phone-text]').all())
     await expect(node).toHaveText(c.visit.phone);
   await expect(page.locator('.agency-contact').first()).toHaveAttribute(
@@ -379,6 +401,7 @@ test('accessible page, menu, keyboard quote and no-JavaScript content', async ({
   ).toEqual([]);
   await page.locator('.hero-copy [data-quote]').focus();
   await page.keyboard.press('Enter');
+  await expect(page.locator('#quote-plate')).toBeFocused();
   await expect(page.locator('#quote-form')).toBeInViewport();
   await page.locator('#quote-form').getByLabel(c.quote.plateLabel).fill('DEMO 01');
   await page.locator('#quote-form').getByLabel(c.quote.nameLabel).fill('Sam');
@@ -393,6 +416,11 @@ test('accessible page, menu, keyboard quote and no-JavaScript content', async ({
   const staticPage = await context.newPage();
   await staticPage.goto('http://localhost:4323' + c.route);
   await expect(staticPage.locator('.hero-identity')).toHaveText(c.name);
+  await expect(staticPage.locator('[data-call]').first()).toHaveAttribute(
+    'href',
+    'tel:+441632960123',
+  );
+  await expect(staticPage.locator('.review-label')).toHaveText(Array(3).fill(c.reviews.label));
   for (const [title, body] of c.process.steps) {
     await expect(staticPage.locator('.steps')).toContainText(title);
     await expect(staticPage.locator('.steps')).toContainText(body);
