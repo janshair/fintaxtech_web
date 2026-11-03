@@ -7,7 +7,20 @@ export interface MotionTemplate {
   preview: { src: string; alt: string; width: number; height: number };
   seoTitle: string;
   seoDescription: string;
+  // Motion templates: the trade named in their neutral link preview.
+  trade?: string;
 }
+
+// Link previews (Open Graph and Twitter) for the motion templates. Crawlers do not
+// run the page script, so ?name= cannot change them: they name no business at all.
+// Regenerate the images with pnpm og-images after changing a template's THEME.
+export const templateSocial = (template: MotionTemplate) => ({
+  image: `/og/${template.id}.png`,
+  width: 1200,
+  height: 630,
+  alt: `${template.trade} website demo by FinTaxTech: “Your business name here” in the template’s colours.`,
+  description: 'Preview a website made for your business. Designed by FinTaxTech.',
+});
 
 export const motionGallery = {
   route: '/templates/website/motion/',
@@ -38,7 +51,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 833,
     },
-    seoTitle: 'The Brass Standard — Barber website demo by FinTaxTech',
+    trade: 'Barber',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Barber website demo – by FinTaxTech',
     seoDescription:
       'Explore a personalised barber website demonstration by FinTaxTech, with responsive design and scroll-driven motion.',
   },
@@ -55,7 +70,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 900,
     },
-    seoTitle: 'The Fold Atelier — Tailoring website demo by FinTaxTech',
+    trade: 'Tailoring',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Tailoring website demo – by FinTaxTech',
     seoDescription:
       'Preview a personalised tailoring and alterations website demonstration by FinTaxTech, with scroll-driven stitching and an illustrative fitting journey.',
   },
@@ -72,7 +89,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 900,
     },
-    seoTitle: 'Vector Motorworks — Garage website demo by FinTaxTech',
+    trade: 'Garage',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Garage website demo – by FinTaxTech',
     seoDescription:
       'Preview a personalised garage and mechanic website by FinTaxTech, with servicing, repairs, scroll-driven motion and a sample quote journey.',
   },
@@ -89,7 +108,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 900,
     },
-    seoTitle: 'Fresh Start — Cleaning website demo by FinTaxTech',
+    trade: 'Cleaning',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Cleaning website demo – by FinTaxTech',
     seoDescription:
       'Explore a personalised cleaning company website demonstration by FinTaxTech, with example services, scroll-driven cleaning and a sample quote journey.',
   },
@@ -106,7 +127,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 900,
     },
-    seoTitle: 'Full Circuit — Gym website demo by FinTaxTech',
+    trade: 'Gym',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Gym website demo – by FinTaxTech',
     seoDescription:
       'Explore a personalised gym and fitness centre website demonstration by FinTaxTech, with example memberships, a class timetable, scroll-driven motion and a sample visit booking.',
   },
@@ -123,7 +146,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 900,
     },
-    seoTitle: 'Signature — Consultant website demo by FinTaxTech',
+    trade: 'Consultant',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Consultant website demo – by FinTaxTech',
     seoDescription:
       'Explore a personalised website demonstration for freelancers and consultants by FinTaxTech, with example services, case studies, scroll-driven motion and a sample discovery-call booking.',
   },
@@ -140,7 +165,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 900,
     },
-    seoTitle: 'Top Coat — Beauty salon website demo by FinTaxTech',
+    trade: 'Beauty salon',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Beauty salon website demo – by FinTaxTech',
     seoDescription:
       'Explore a personalised nail, lash and brow salon website demonstration by FinTaxTech, with example treatments and prices, scroll-driven motion and a sample appointment booking.',
   },
@@ -157,7 +184,9 @@ export const motionTemplates: readonly MotionTemplate[] = [
       width: 1200,
       height: 900,
     },
-    seoTitle: 'Save the Date — Wedding supplier website demo by FinTaxTech',
+    trade: 'Wedding supplier',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Wedding supplier website demo – by FinTaxTech',
     seoDescription:
       'Explore a personalised website demonstration for wedding photographers, florists and cake makers by FinTaxTech, with example packages, scroll-driven motion and a sample date checker.',
   },

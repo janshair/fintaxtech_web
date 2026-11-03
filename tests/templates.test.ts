@@ -358,3 +358,43 @@ describe('wedding supplier demonstration content', () => {
     );
   });
 });
+
+describe('motion template link previews', () => {
+  // Crawlers ignore ?name=, so previews must never show the demo's own business.
+  it('use a neutral title, description and 1200×630 image with no demo business name', async () => {
+    const { templateSocial } = await import('../src/content/templates');
+    const demoNames: Record<string, string> = {
+      'barber-01': (await import('../src/content/barber-demo')).barberDemo.defaultName,
+      'tailoring-02': (await import('../src/content/tailoring-demo')).tailoringDemo.name,
+      'automotive-03': (await import('../src/content/automotive-demo')).automotiveDemo.name,
+      'cleaning-04': (await import('../src/content/cleaning-demo')).cleaningDemo.name,
+      'gym-06': (await import('../src/content/gym-demo')).gymDemo.name,
+      'consultant-07': (await import('../src/content/consultant-demo')).consultantDemo.name,
+      'beauty-08': (await import('../src/content/beauty-demo')).beautyDemo.name,
+      'wedding-09': (await import('../src/content/wedding-demo')).weddingDemo.name,
+    };
+    expect(motionTemplates.map((t) => t.id)).toEqual(Object.keys(demoNames));
+    for (const template of motionTemplates) {
+      const social = templateSocial(template);
+      expect(template.seoTitle).toBe(`${template.trade} website demo – by FinTaxTech`);
+      expect(seoPages[template.route].title).toBe(template.seoTitle);
+      expect(social.description).toBe(
+        'Preview a website made for your business. Designed by FinTaxTech.',
+      );
+      for (const text of [
+        template.seoTitle,
+        template.seoDescription,
+        social.alt,
+        social.description,
+      ])
+        expect(text, template.id).not.toContain(demoNames[template.id]);
+      const png = readFileSync(`public${social.image}`);
+      expect(png.subarray(1, 4).toString()).toBe('PNG');
+      expect([png.readUInt32BE(16), png.readUInt32BE(20)], template.id).toEqual([1200, 630]);
+      expect(png.length).toBeLessThan(150_000);
+      const page = readFileSync(`src/pages${template.route}index.astro`, 'utf8');
+      expect(page).toContain('templateSocial(');
+      expect(page).not.toContain('template.preview.alt');
+    }
+  });
+});

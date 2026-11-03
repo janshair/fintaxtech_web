@@ -194,3 +194,33 @@ test('the wedding gallery card opens the implemented Save the Date demo', async 
   await expect(page.locator('h1')).toHaveText('Hazel & Wren');
   await expect(page.locator('.badge')).toHaveText('Now booking 2027 weddings · example');
 });
+
+// Link previews are read without running the page script, so ?name= cannot change them.
+for (const template of motionTemplates)
+  test(`${template.id} link preview is neutral, absolute and loads`, async ({ request }) => {
+    const html = await (
+      await request.get(`${template.route}?name=KM%20Beauty%20Therapy&area=Glenrothes`)
+    ).text();
+    const head = html.split('</head>')[0];
+    const meta = (key: string) =>
+      head.match(new RegExp(`<meta (?:property|name)="${key}" content="([^"]*)"`))?.[1];
+    const title = `${template.trade} website demo – by FinTaxTech`;
+    expect(head).toContain(`<title>${title}</title>`);
+    expect(meta('og:title')).toBe(title);
+    expect(meta('twitter:title')).toBe(title);
+    expect(meta('og:description')).toBe(
+      'Preview a website made for your business. Designed by FinTaxTech.',
+    );
+    expect(meta('twitter:description')).toBe(meta('og:description'));
+    expect(meta('og:url')).toBe(`https://fintaxtech.co.uk${template.route}`);
+    expect(meta('og:type')).toBe('website');
+    expect(meta('twitter:card')).toBe('summary_large_image');
+    const image = `https://fintaxtech.co.uk/og/${template.id}.png`;
+    expect(meta('og:image')).toBe(image);
+    expect(meta('twitter:image')).toBe(image);
+    expect([meta('og:image:width'), meta('og:image:height')]).toEqual(['1200', '630']);
+    expect(head).not.toContain('KM Beauty');
+    const png = await request.get(new URL(image).pathname);
+    expect(png.status()).toBe(200);
+    expect(png.headers()['content-type']).toContain('image/png');
+  });

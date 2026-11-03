@@ -3,14 +3,16 @@ import '@fontsource/ibm-plex-sans/latin-400.css';
 import '@fontsource/ibm-plex-sans/latin-600.css';
 import { templateTheme } from '../../../../../lib/template-theme';
 import { THEME, consultantDemo as c, rolePresets } from '../../../../../content/consultant-demo';
-import { motionTemplates, motionGallery } from '../../../../../content/templates';
+import { motionTemplates, motionGallery, templateSocial } from '../../../../../content/templates';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import ConsultantArtwork from '../../../../../components/templates/ConsultantArtwork.astro';
 const template = motionTemplates.find((item) => item.id === c.id)!;
 const { title, description } = seoPages[c.route];
 const canonical = absoluteURL(c.route);
-const image = absoluteURL(template.preview.src);
+// Neutral link preview: crawlers ignore ?name=, so it names no business.
+const social = templateSocial(template);
+const image = absoluteURL(social.image);
 const theme = templateTheme('consultant-07', THEME);
 ---
 
@@ -24,25 +26,25 @@ const theme = templateTheme('consultant-07', THEME);
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
     <meta property="og:title" content={title} /><meta
       property="og:description"
-      content={description}
+      content={social.description}
     />
     <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
     <meta property="og:image" content={image} /><meta
       property="og:image:alt"
-      content={template.preview.alt}
+      content={social.alt}
     />
-    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+    <meta property="og:image:width" content={String(social.width)} /><meta
       property="og:image:height"
-      content={String(template.preview.height)}
+      content={String(social.height)}
     />
     <meta name="twitter:card" content="summary_large_image" /><meta
       name="twitter:title"
       content={title}
     />
-    <meta name="twitter:description" content={description} /><meta
+    <meta name="twitter:description" content={social.description} /><meta
       name="twitter:image"
       content={image}
-    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    /><meta name="twitter:image:alt" content={social.alt} />
     <script
       is:inline
       type="application/ld+json"

@@ -1,10 +1,10 @@
 ---
 import { templateTheme } from '../../../../../lib/template-theme';
-import { seoPages, seoCopy } from '../../../../../content/seo';
+import { seoPages } from '../../../../../content/seo';
 import { structuredData, absoluteURL } from '../../../../../lib/seo';
 import { THEME, barberDemo as c } from '../../../../../content/barber-demo';
 import BarberCutIllustration from '../../../../../components/templates/BarberCutIllustration.astro';
-import { motionGallery } from '../../../../../content/templates';
+import { motionGallery, motionTemplates, templateSocial } from '../../../../../content/templates';
 import { referenceCodes, visitEndpoint } from '../../../../../lib/barber-visits';
 const visitConfig = {
   endpoint: visitEndpoint(import.meta.env.PUBLIC_BARBER_VISIT_ENDPOINT || ''),
@@ -13,7 +13,9 @@ const visitConfig = {
 const path = '/templates/website/motion/barber-01/';
 const { title, description } = seoPages[path];
 const canonical = absoluteURL(path);
-const image = absoluteURL('/social.png');
+// Neutral link preview: crawlers ignore ?name=, so it names no business.
+const social = templateSocial(motionTemplates.find((item) => item.id === 'barber-01')!);
+const image = absoluteURL(social.image);
 const theme = templateTheme('barber-01', THEME);
 ---
 
@@ -35,18 +37,18 @@ const theme = templateTheme('barber-01', THEME);
     <script is:inline src="/templates/website/motion/barber-01/app.js" defer></script>
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={social.description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={image} />
-    <meta property="og:image:alt" content={seoCopy.imageAlt} />
+    <meta property="og:image:alt" content={social.alt} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={social.description} />
     <meta name="twitter:image" content={image} />
-    <meta name="twitter:image:alt" content={seoCopy.imageAlt} />
+    <meta name="twitter:image:alt" content={social.alt} />
     <script
       is:inline
       type="application/ld+json"
