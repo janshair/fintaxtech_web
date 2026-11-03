@@ -1,6 +1,6 @@
 ---
 import { templateTheme } from '../../../../../lib/template-theme';
-import { THEME, automotiveDemo as c } from '../../../../../content/automotive-demo';
+import { THEME, PRICES, automotiveDemo as c } from '../../../../../content/automotive-demo';
 import { motionTemplates, motionGallery } from '../../../../../content/templates';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
@@ -10,6 +10,8 @@ const { title, description } = seoPages[c.route];
 const canonical = absoluteURL(c.route);
 const image = absoluteURL(template.preview.src);
 const theme = templateTheme('automotive-03', THEME);
+// Links for the example number; app.js swaps in ?phone= when given.
+const examplePhone = '44' + c.visit.phone.replace(/\D/g, '').slice(1);
 ---
 
 <!doctype html>
@@ -82,19 +84,15 @@ const theme = templateTheme('automotive-03', THEME);
       <section class="hero wrap" id="home">
         <div class="hero-copy">
           <p class="eyebrow">{c.hero.eyebrow}</p>
-          <p class="hero-identity">
-            <span data-business>{c.name}</span><span data-hero-area hidden></span>
-          </p>
-          <h1>
-            <span class="headline-mask"><span>{c.hero.first}</span></span><span
-              class="headline-mask"><span>{c.hero.second}</span></span
-            >
+          <h1 class="hero-identity">
+            <span class="headline-mask"><span data-business>{c.name}</span></span>
           </h1>
-          <p class="lead">{c.hero.description}</p>
+          <p class="lead">{c.hero.before}<span data-town>{c.area}</span>{c.hero.after}</p>
           <div class="hero-actions">
-            <a class="button" href="#quote" data-quote>{c.quote}<span aria-hidden="true">↗</span></a
-            ><a class="text-link" href="#services"
-              >{c.hero.secondary}<span aria-hidden="true">↓</span></a
+            <a class="button" href="#mot" data-hero-mot
+              >{c.hero.mot}<span aria-hidden="true">↓</span></a
+            ><a class="button button-outline" href="#quote" data-quote
+              >{c.hero.quote}<span aria-hidden="true">↓</span></a
             >
           </div>
           <p class="small-note">{c.hero.note}</p>
@@ -111,6 +109,38 @@ const theme = templateTheme('automotive-03', THEME);
           <p class="technical-label art-caption">{c.hero.artDetail}</p>
         </div>
       </section>
+      <section class="trust-strip" aria-label={c.trustLabel}>
+        <ul class="wrap trust-list">
+          {
+            c.trust.map((item) => (
+              <li>
+                <>
+                  <span class="trust-mark" aria-hidden="true">
+                    ✓
+                  </span>
+                  {item}
+                </>
+              </li>
+            ))
+          }
+        </ul>
+        <!-- Accreditation logo slots stay hidden unless switched on in
+             src/content/automotive-demo.ts (accreditations: show: true).
+             Only switch one on if the garage really holds that membership. -->
+        <ul
+          class="wrap accreditations"
+          aria-label={c.accreditationsLabel}
+          hidden={!c.accreditations.some((item) => item.show)}
+        >
+          {
+            c.accreditations.map((item) => (
+              <li class="accreditation-slot" hidden={!item.show}>
+                {item.name}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
       <section class="services paper section" id="services" aria-labelledby="services-title">
         <div class="wrap">
           <header class="section-heading">
@@ -120,14 +150,15 @@ const theme = templateTheme('automotive-03', THEME);
           </header>
           <div class="service-grid">
             {
-              c.services.items.map((service, i) => (
+              c.services.items.slice(0, 6).map((service, i) => (
                 <a class="service-row" href="#quote" data-service={service.code}>
                   <>
                     <span class="service-number" aria-hidden="true">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span class="service-tag">{service.label}</span>
+                    {'badge' in service && <span class="service-badge">{service.badge}</span>}
                     <h3>{service.name}</h3>
+                    <p class="service-price">{service.price}</p>
                     <p>{service.description}</p>
                     <span class="service-arrow" aria-hidden="true">
                       ↗
@@ -136,7 +167,99 @@ const theme = templateTheme('automotive-03', THEME);
                 </a>
               ))
             }
+          </div>
+          <div class="repairs">
+            <h3 id="repairs-title">{c.services.repairsTitle}</h3>
+            <ul class="repair-list" aria-labelledby="repairs-title">
+              {
+                c.services.items.slice(6).map((service, i) => (
+                  <li>
+                    <a
+                      class="repair-row"
+                      href="#quote"
+                      data-service={service.code}
+                      data-repair={service.repair ? '' : undefined}
+                    >
+                      <>
+                        <span class="service-number" aria-hidden="true">
+                          {String(i + 7).padStart(2, '0')}
+                        </span>
+                        <span class="repair-name">{service.name}</span>
+                        <span class="repair-note">{service.description}</span>
+                        <span class="service-price">{service.price}</span>
+                        <span class="service-arrow" aria-hidden="true">
+                          ↗
+                        </span>
+                      </>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
           </div><p class="small-note service-note">{c.services.note}</p>
+        </div>
+      </section>
+      <section class="mot section" id="mot" aria-labelledby="mot-title">
+        <div class="wrap mot-grid">
+          <div class="mot-intro">
+            <p class="eyebrow">{c.mot.eyebrow}</p><h2 id="mot-title">{c.mot.title}</h2><p
+              class="mot-approval"
+            >
+              {c.mot.approval}
+            </p><p class="mot-price">
+              <span>{c.mot.priceLabel}</span><strong>{PRICES.mot}</strong>
+            </p><h3>{c.mot.checkedTitle}</h3><ul class="mot-checks">
+              {c.mot.checked.map((item) => <li>{item}</li>)}
+            </ul><p class="mot-retest">
+              <strong>{c.mot.retest}</strong><span class="small-note">{c.mot.retestNote}</span>
+            </p><a class="button" href="#quote" data-service="mot"
+              >{c.mot.book}<span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div class="mot-reminder">
+            <h3 id="reminder-title">{c.mot.reminder.title}</h3><p>{c.mot.reminder.intro}</p><form
+              id="reminder-form"
+              aria-labelledby="reminder-title"
+              autocomplete="off"
+              novalidate
+            >
+              <label for="reminder-plate">{c.mot.reminder.plateLabel}</label><span class="plate"
+                ><input
+                  id="reminder-plate"
+                  class="plate-input"
+                  type="text"
+                  maxlength="8"
+                  required
+                  autocomplete="off"
+                  autocapitalize="characters"
+                  spellcheck="false"
+                  placeholder={c.quote.platePlaceholder}
+                  aria-describedby="reminder-plate-error"
+                /></span
+              ><p id="reminder-plate-error" class="form-error" role="alert" hidden>
+                {c.quote.errors.plate}
+              </p><label for="reminder-phone">{c.mot.reminder.phoneLabel}</label><input
+                id="reminder-phone"
+                type="tel"
+                inputmode="tel"
+                maxlength="20"
+                required
+                autocomplete="tel"
+                aria-describedby="reminder-phone-error"
+              /><p id="reminder-phone-error" class="form-error" role="alert" hidden>
+                {c.quote.errors.phone}
+              </p><button class="button" type="submit"
+                >{c.mot.reminder.submit}<span aria-hidden="true">↗</span></button
+              ><p class="small-note">{c.quote.demoNote}</p>
+            </form>
+            <div id="reminder-thanks" class="form-thanks" hidden>
+              <p class="demo-result" tabindex="-1">{c.mot.reminder.thanks}</p><p class="small-note">
+                {c.quote.demoNote}
+              </p><button type="button" class="plain" data-reminder-again
+                >{c.mot.reminder.again}</button
+              >
+            </div>
+          </div>
         </div>
       </section>
       <section class="workshop" id="workshop" aria-labelledby="workshop-title">
@@ -207,47 +330,136 @@ const theme = templateTheme('automotive-03', THEME);
           class="review-grid"
         >
           {
-            Array.from({ length: 3 }, () => (
-              <p>
-                <span aria-hidden="true">“</span>
-                {c.reviews.placeholder}
-              </p>
+            c.reviews.items.map((review) => (
+              <figure class="review">
+                <>
+                  <p class="review-label">{c.reviews.label}</p>
+                  <p class="review-stars" role="img" aria-label="5 out of 5 stars">
+                    ★★★★★
+                  </p>
+                  <blockquote>
+                    <p>{review.text}</p>
+                  </blockquote>
+                  <figcaption>{review.name}</figcaption>
+                </>
+              </figure>
             ))
           }
         </div>
       </section>
-      <section class="visit paper section" id="visit" aria-labelledby="visit-title">
-        <div class="wrap visit-grid">
-          <div>
-            <p class="eyebrow">{c.visit.eyebrow}</p><h2 id="visit-title">{c.visit.title}</h2><p>
-              {c.visit.intro}
-            </p><div id="quote">
-              <a class="button" href="#quote-details" data-quote
-                >{c.quote}<span aria-hidden="true">↗</span></a
-              ><p class="small-note">{c.visit.tools}</p>
+      <section class="visit paper section" id="quote" aria-labelledby="quote-title">
+        <div class="wrap visit-grid quote-grid">
+          <div class="quote-head">
+            <p class="eyebrow">{c.quote.eyebrow}</p><h2 id="quote-title">{c.quote.title}</h2><p>
+              {c.quote.intro}
+            </p><p class="quote-call">
+              {c.quote.call}<a href={`tel:+${examplePhone}`} data-call
+                ><span data-phone-text>{c.visit.phone}</span><span aria-hidden="true">↗</span></a
+              >
+            </p>
+          </div>
+          <div class="quote-card">
+            <form id="quote-form" aria-labelledby="quote-title" novalidate>
+              <label for="quote-plate">{c.quote.plateLabel}</label><span class="plate"
+                ><input
+                  id="quote-plate"
+                  class="plate-input"
+                  type="text"
+                  maxlength="8"
+                  required
+                  autocomplete="off"
+                  autocapitalize="characters"
+                  spellcheck="false"
+                  placeholder={c.quote.platePlaceholder}
+                  aria-describedby="quote-plate-error"
+                /></span
+              ><p id="quote-plate-error" class="form-error" role="alert" hidden>
+                {c.quote.errors.plate}
+              </p><label for="quote-service">{c.quote.serviceLabel}</label><select
+                id="quote-service"
+                >{
+                  c.services.items.map((item) => <option value={item.code}>{item.name}</option>)
+                }</select
+              ><label for="quote-date">{c.quote.dateLabel}</label><input
+                id="quote-date"
+                type="date"
+              /><label for="quote-name">{c.quote.nameLabel}</label><input
+                id="quote-name"
+                type="text"
+                maxlength="80"
+                required
+                autocomplete="name"
+                aria-describedby="quote-name-error"
+              /><p id="quote-name-error" class="form-error" role="alert" hidden>
+                {c.quote.errors.name}
+              </p><label for="quote-phone">{c.quote.phoneLabel}</label><input
+                id="quote-phone"
+                type="tel"
+                inputmode="tel"
+                maxlength="20"
+                required
+                autocomplete="tel"
+                aria-describedby="quote-phone-error"
+              /><p id="quote-phone-error" class="form-error" role="alert" hidden>
+                {c.quote.errors.phone}
+              </p><button class="button" type="submit"
+                >{c.quote.submit}<span aria-hidden="true">↗</span></button
+              ><p class="small-note">{c.quote.demoNote}</p>
+            </form>
+            <div id="quote-final" class="form-thanks" hidden>
+              <svg
+                class="confirmation-mark"
+                width="48"
+                height="40"
+                viewBox="0 0 48 40"
+                aria-hidden="true"
+                ><path
+                  pathLength="1"
+                  d="m5 20 12 12L42 6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"></path></svg
+              ><h3 tabindex="-1">{c.quote.thanksTitle}</h3><p class="demo-result">
+                {c.quote.thanks}
+              </p><p id="quote-summary"></p><p class="small-note">{c.quote.demoNote}</p><a
+                class="button final-offer"
+                href="/client/website-brief/templates/?template=automotive-03"
+                data-brief-link>{c.offerBefore}<span data-business>{c.name}</span>{c.offerAfter}</a
+              ><a class="text-link brief-contact agency-contact" href={c.contact}
+                >Or ask FinTaxTech a question first</a
+              ><button type="button" class="plain" data-restart>{c.quote.again}</button>
             </div>
           </div>
-          <div id="quote-details">
-            <h3>{c.practical.title}</h3>{
-              c.practical.items.map(([title, answer]) => (
-                <details>
-                  <>
-                    <summary>{title}</summary>
-                    <p>{answer}</p>
-                  </>
-                </details>
-              ))
-            }
+          <div class="quote-more">
+            <div class="quote-faq">
+              <h3>{c.practical.title}</h3>{
+                c.practical.items.map(([title, answer]) => (
+                  <details>
+                    <>
+                      <summary>{title}</summary>
+                      <p>{answer}</p>
+                    </>
+                  </details>
+                ))
+              }
+            </div><p class="small-note quote-tools">{c.quote.tools}</p>
           </div>
+        </div>
+      </section>
+      <section class="visit visit-info paper section" id="visit" aria-labelledby="visit-title">
+        <div class="wrap">
+          <header class="section-heading">
+            <p class="eyebrow">{c.visit.eyebrow}</p><h2 id="visit-title">{c.visit.title}</h2>
+          </header>
         </div>
         <div class="wrap contact-grid" id="contact-details">
           <div class="contact-info">
             <h3>{c.visit.contactLabel}</h3><p class="phone-number" data-phone-text>
               {c.visit.phone}
             </p><div class="contact-actions">
-              <a href="#contact-details" data-call
+              <a href={`tel:+${examplePhone}`} data-call
                 >{c.visit.call}<span aria-hidden="true">↗</span></a
-              ><a href="#contact-details" data-whatsapp
+              ><a href={`https://wa.me/${examplePhone}`} data-whatsapp
                 >{c.visit.whatsapp}<span aria-hidden="true">↗</span></a
               ><a href="#map" data-directions
                 >{c.visit.directions}<span aria-hidden="true">↗</span></a
@@ -263,7 +475,9 @@ const theme = templateTheme('automotive-03', THEME);
                   </div>
                 ))
               }
-            </dl><p class="small-note">{c.visit.sampleNote}</p>
+            </dl><p class="drop-off">{c.visit.dropOff}</p><p class="small-note">
+              {c.visit.sampleNote}
+            </p>
           </div>
           <div class="map" id="map">
             <svg class="map-lines" viewBox="0 0 500 320" aria-hidden="true"
@@ -273,10 +487,11 @@ const theme = templateTheme('automotive-03', THEME);
                 r="44"></circle></svg
             ><span class="map-pin" aria-hidden="true">⌖</span><h3>{c.visit.locationLabel}</h3><p
               class="map-area"
-              data-area
             >
-              {c.visit.location}
-            </p><p>{c.visit.mapNote}</p>
+              {c.visit.address}, <span data-town>{c.area}</span>
+            </p><p>{c.visit.mapNote}</p><button type="button" class="map-load" data-map-load hidden
+              >{c.visit.showMap}</button
+            ><p class="small-note map-privacy" hidden>{c.visit.mapPrivacy}</p>
           </div>
         </div>
       </section>
@@ -296,8 +511,9 @@ const theme = templateTheme('automotive-03', THEME);
       >
     </aside>
     <aside class="mobile-actions" aria-label={c.visit.contactLabel}>
-      <a href="#contact-details" data-call>{c.visit.call}</a><a href="#quote" data-quote
-        >{c.quote}<span aria-hidden="true">↗</span></a
+      <a href={`tel:+${examplePhone}`} data-call>{c.visit.call}</a><a
+        href={`https://wa.me/${examplePhone}`}
+        data-whatsapp>{c.visit.whatsapp}<span aria-hidden="true">↗</span></a
       >
     </aside>
     <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
@@ -319,71 +535,6 @@ const theme = templateTheme('automotive-03', THEME);
           >{c.nameDialog.submit}<span aria-hidden="true">↗</span></button
         >
       </form><button type="button" class="plain" id="restore-name">{c.nameDialog.reset}</button>
-    </dialog>
-    <dialog id="quote-dialog" aria-labelledby="quote-title">
-      <button class="close" type="button" data-close aria-label={c.close}>×</button><p
-        class="eyebrow"
-      >
-        {c.request.label}
-      </p><h2 id="quote-title">{c.request.title}</h2><p>
-        {c.request.description}<span data-business>{c.name}</span>.
-      </p>
-      <div class="quote-progress" aria-hidden="true"><span></span></div>
-      <form id="service-form">
-        <h3>{c.request.serviceTitle}</h3><label for="quote-service">{c.request.serviceLabel}</label
-        ><select id="quote-service"
-          >{c.services.items.map((item) => <option value={item.code}>{item.name}</option>)}</select
-        ><button class="button" type="submit"
-          >{c.request.next}<span aria-hidden="true">↗</span></button
-        >
-      </form>
-      <form id="car-form" hidden autocomplete="off" novalidate>
-        <h3 tabindex="-1">{c.request.detailsTitle}</h3><p id="car-note">{c.request.note}</p><label
-          for="sample-registration">{c.request.registrationLabel}</label
-        ><input
-          id="sample-registration"
-          type="text"
-          maxlength="10"
-          required
-          autocomplete="off"
-          spellcheck="false"
-          placeholder={c.request.registrationExample}
-          aria-describedby="car-note registration-error"
-          pattern="[A-Za-z0-9 ]{2,10}"
-        /><p id="registration-error" class="form-error" role="alert" hidden>
-          {c.request.registrationError}
-        </p><label for="preferred-day">{c.request.dayLabel}</label><select
-          id="preferred-day"
-          required
-          >{
-            c.request.days.map((day, index) => (
-              <option selected={index === c.request.days.length - 1}>{day}</option>
-            ))
-          }</select
-        ><button class="button" type="submit"
-          >{c.request.confirm}<span aria-hidden="true">↗</span></button
-        ><button type="button" class="plain" data-restart>{c.request.back}</button>
-      </form>
-      <div id="quote-final" hidden>
-        <svg class="confirmation-mark" width="48" height="40" viewBox="0 0 48 40" aria-hidden="true"
-          ><path
-            pathLength="1"
-            d="m5 20 12 12L42 6"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"></path></svg
-        ><h3 tabindex="-1">{c.request.finalTitle}</h3><p id="quote-summary"></p><p
-          class="demo-result"
-        >
-          {c.request.final}
-        </p><p class="small-note">{c.request.finalNote}</p><a
-          class="button final-offer"
-          href="/client/website-brief/templates/?template=automotive-03"
-          data-brief-link>{c.offerBefore}<span data-business>{c.name}</span>{c.offerAfter}</a
-        ><a class="text-link brief-contact agency-contact" href={c.contact}
-          >Or ask FinTaxTech a question first</a
-        ><button type="button" class="plain" data-restart>{c.request.restart}</button>
-      </div>
     </dialog>
     <p id="announcement" class="sr-only" aria-live="polite"></p>
     <noscript
