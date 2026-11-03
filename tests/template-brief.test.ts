@@ -415,15 +415,21 @@ describe('template content details', () => {
       booking: 'online',
     });
   });
-  it('automotive-03: MOT only when approved, label upper-cased, illustration code', () => {
+  it('automotive-03: MOT only when approved, repairs always say Free quote', () => {
     const data = content('automotive-03');
     expect(data.mot).toBe(true);
     expect(data.services.items[0]).toEqual({
-      code: 'servicing',
+      code: 'mot',
       name: 'MOT',
       description: 'Annual MOT test while you wait',
-      label: 'TEST',
       price: 'From £45',
+      repair: false,
+    });
+    // A price typed for a repair is never shown.
+    expect(data.services.items[1]).toMatchObject({
+      code: 'brakes',
+      price: 'Free quote',
+      repair: true,
     });
     expect(data.makes).toBe('Ford and Vauxhall specialists');
     const state = completeTemplateBrief('automotive-03');

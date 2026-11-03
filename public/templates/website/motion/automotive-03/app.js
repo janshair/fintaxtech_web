@@ -69,13 +69,15 @@
       node.textContent = initials;
     });
     document.title = business + c.titleSuffix;
-    const town = clean(query.get('area'), 100) || c.area;
+    const area = clean(query.get('area'), 100);
+    const town = area || c.area;
     document.querySelectorAll('[data-town]').forEach((node) => {
       node.textContent = town;
     });
     mapQuery = c.visit.address + ', ' + town;
     // An invalid or missing ?phone= falls back to the example number.
-    const phone = ukPhone(query.get('phone')) || ukPhone(c.visit.phone);
+    const ownPhone = ukPhone(query.get('phone'));
+    const phone = ownPhone || ukPhone(c.visit.phone);
     // tel: has an opaque path: construct its URL only after the strict digits validation above.
     const tel = new URL(`tel:+${phone.international}`);
     const whatsapp = new URL('https://wa.me/');
@@ -114,7 +116,8 @@
     const brief = new URL('/client/website-brief/templates/?template=automotive-03', location.origin);
     if (name) brief.searchParams.set('name', name);
     if (area) brief.searchParams.set('area', area);
-    if (phone) brief.searchParams.set('phone', query.get('phone').trim());
+    // Only values from the visitor's own link go to the brief, never the example number.
+    if (ownPhone) brief.searchParams.set('phone', query.get('phone').trim());
     if (/^[A-Za-z0-9_-]{1,32}$/.test(ref)) brief.searchParams.set('ref', ref);
     document.querySelectorAll('[data-brief-link]').forEach((node) => {
       node.href = brief.pathname + brief.search;

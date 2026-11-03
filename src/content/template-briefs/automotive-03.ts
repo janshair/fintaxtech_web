@@ -3,9 +3,11 @@ import { automotiveDemo } from '../automotive-demo';
 import {
   captionRows,
   cycle,
+  optionKey,
   price,
   rowValues,
   sampleChoice,
+  slug,
   stepPairs,
   stepRows,
   stepsChoice,
@@ -13,11 +15,13 @@ import {
 } from './shared';
 
 // automotive-03 (Vector Motorworks). Content mirrors src/content/automotive-demo.ts:
-// services.items, process.steps and work.items. Each service picks one of the
-// template's illustrations; MOT wording appears only for an approved test station.
-const pictures = Object.fromEntries(
-  automotiveDemo.services.items.map((item) => [item.name, item.code]),
-) as Record<string, string>;
+// services.items, process.steps and work.items. The first six services are the main
+// cards and the rest a compact list. A repair never shows a fixed price, whatever was
+// typed: it always says "Free quote". MOT wording appears only for an approved station.
+export const jobOptions = {
+  fixed: 'A fixed-price job, like an MOT or service',
+  repair: 'A repair that depends on the car (always shows Free quote)',
+};
 export const motOptions = {
   yes: 'Yes — we are a DVSA-approved MOT testing station',
   no: 'No',
@@ -38,7 +42,7 @@ export const automotive03: TemplateBriefSchema = {
         sampleChoice(
           'automotiveServicesSource',
           'Services',
-          'List 4 to 8 services. Work and prices are confirmed with each customer before repairs.',
+          'List 4 to 12 services. The first six are the main cards. Repairs are quoted after you’ve looked at the car.',
         ),
         {
           id: 'automotiveServices',
@@ -50,28 +54,22 @@ export const automotive03: TemplateBriefSchema = {
             add: 'Add a service',
             remove: (n) => `Remove service ${n}`,
             min: 4,
-            max: 8,
+            max: 12,
             fields: [
-              { key: 'name', label: 'Service name', type: 'text', maxLength: 24 },
+              { key: 'name', label: 'Service name', type: 'text', maxLength: 28 },
               { key: 'description', label: 'Short description', type: 'text', maxLength: 100 },
               {
-                key: 'label',
-                label: 'One or two words, like REPAIR',
-                type: 'text',
-                maxLength: 14,
+                key: 'job',
+                label: 'Type of job',
+                type: 'single',
+                options: Object.values(jobOptions),
               },
               {
                 key: 'price',
-                label: 'Price, like From £45 or Quote on request',
+                label: 'Price, like £54.85, From £45 or Free quote',
                 type: 'text',
-                maxLength: 20,
-                format: { ...price, words: ['Quote on request'] },
-              },
-              {
-                key: 'picture',
-                label: 'Illustration',
-                type: 'single',
-                options: Object.keys(pictures),
+                maxLength: 40,
+                format: { ...price, words: ['Free quote', 'Ask for prices', 'Quote on request'] },
               },
             ],
           },
@@ -106,7 +104,7 @@ export const automotive03: TemplateBriefSchema = {
         stepsChoice(
           'automotiveProcessSource',
           'The three process steps',
-          'The template shows Tell us what changed, Inspect. Explain. Agree. and Work done. Checked.',
+          'The template shows Book in, We check and call you, and Fixed and ready.',
         ),
         stepRows('automotiveProcess', 'automotiveProcessSource', 3, { title: 28, line: 110 }),
         sampleChoice(
@@ -118,7 +116,7 @@ export const automotive03: TemplateBriefSchema = {
           'automotiveWork',
           'automotiveWorkSource',
           3,
-          { title: 'Title, like A fresh surface', caption: 'What was done' },
+          { title: 'Title, like New brake discs', caption: 'What was done' },
           { title: 28, caption: 50 },
         ),
       ],
@@ -132,13 +130,16 @@ export const automotive03: TemplateBriefSchema = {
     const extras = Array.isArray(answers.automotiveExtras) ? answers.automotiveExtras : [];
     return {
       services: services && {
-        items: services.map(({ name, description, label, price, picture }) => ({
-          code: pictures[picture],
-          name,
-          description,
-          label: label.toUpperCase(),
-          price,
-        })),
+        items: services.map(({ name, description, job, price }) => {
+          const repair = optionKey(jobOptions, job) === 'repair';
+          return {
+            code: slug(name),
+            name,
+            description,
+            price: repair ? automotiveDemo.freeQuote : price,
+            repair,
+          };
+        }),
       },
       process: steps && { steps },
       work: work && {
