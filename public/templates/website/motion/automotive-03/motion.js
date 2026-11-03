@@ -218,7 +218,7 @@
   );
   document
     .querySelectorAll(
-      '.section-heading, .service-row, .reviews h2, .reviews > p, .review-grid > p, .visit-grid > div, .contact-info, .map',
+      '.section-heading, .service-row, .mot-intro, .mot-reminder, .trust-grid > li, .reviews h2, .reviews > p, .review-grid > p, .visit-grid > div, .contact-info, .map',
     )
     .forEach((node, i) => {
       node.setAttribute('data-reveal', '');
