@@ -60,15 +60,6 @@ export const contactRedirect = {
   message:
     'You are being redirected to Start Your Project. If you are not redirected automatically, use the link below.',
 };
-export const pricingCalculatorNavigation = {
-  title: 'Pricing calculator',
-  links: [
-    { href: '/estimate/branding/', label: 'Branding' },
-    { href: '/estimate/mobile/', label: 'Mobile app' },
-    { href: '/estimate/website/', label: 'Website' },
-    { href: '/estimate/ai-automation/', label: 'AI Automation' },
-  ],
-};
 export const navigation = [
   ['/', 'Home'],
   ['/services/', 'Services'],

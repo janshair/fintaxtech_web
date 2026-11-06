@@ -236,7 +236,7 @@ export const allTemplates = [...motionTemplates, ...threeDTemplates];
 
 export const websiteGallery = {
   route: '/templates/website/',
-  title: 'Website templates',
+  title: 'Website Templates',
   description:
     'Browse 3D and motion website templates by FinTaxTech. Explore interactive product demos and scroll-driven designs for your business.',
 };
@@ -258,3 +258,18 @@ export const websiteCategories = [
     featuredId: 'gym-06',
   },
 ];
+
+export const templateDirectory = {
+  route: '/templates/',
+  title: 'Templates',
+  breadcrumbLabel: 'templates',
+  description: 'Browse FinTaxTech templates for branding, websites, mobile apps and AI automation.',
+  pendingMessage: 'Uploading in progress',
+};
+
+export const templateCategories = [
+  { title: 'Branding', service: 'branding', route: '/templates/branding/' },
+  { title: 'Website', service: 'websites', route: websiteGallery.route },
+  { title: 'Mobile Apps', service: 'mobile-apps', route: '/templates/mobile-apps/' },
+  { title: 'AI Automation', service: 'ai-automation', route: '/templates/ai-automation/' },
+] as const;

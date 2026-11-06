@@ -7,6 +7,7 @@ import { blogCopy } from '../content/blog';
 import { metoni } from '../content/metoni';
 import { safos } from '../content/safos';
 import { careersCopy } from '../content/careers';
+import { templateDirectory, websiteGallery } from '../content/templates';
 import { jobStructuredData, type JobSEO } from './job-seo';
 export interface ArticleSEO {
   title: string;
@@ -29,6 +30,13 @@ const organizationNames = [company.name, company.legal].map(normalizeAuthor);
 export function breadcrumbs(path: string, title?: string) {
   if (path === '/' || seoPages[path]?.noindex) return [];
   const items = [{ name: ui.home, url: absoluteURL('/') }];
+  if (path.startsWith(templateDirectory.route) && path !== templateDirectory.route)
+    items.push({
+      name: templateDirectory.breadcrumbLabel,
+      url: absoluteURL(templateDirectory.route),
+    });
+  if (path.startsWith(websiteGallery.route) && path !== websiteGallery.route)
+    items.push({ name: websiteGallery.title, url: absoluteURL(websiteGallery.route) });
   if (path.startsWith(safos.route) && path !== safos.route)
     items.push({ name: safos.name, url: absoluteURL(safos.route) });
   if (path.startsWith(metoni.route) && path !== metoni.route)

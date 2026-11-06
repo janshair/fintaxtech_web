@@ -592,7 +592,7 @@ Run `pnpm verify` and `pnpm exec playwright test tests/browser/website-estimate.
 
 ## AI Automation estimates
 
-`/estimate/ai-automation/` is a six-step local calculator using the shared `EstimateShell`, estimate/form styles, site layout, PDF font/logo and design tokens. It is linked in the footer's Pricing calculator group, has a self-referencing canonical and `noindex,nofollow`, and stays outside the sitemap.
+`/estimate/ai-automation/` is a six-step local calculator using the shared `EstimateShell`, estimate/form styles, site layout, PDF font/logo and design tokens. It is linked from the Forms directory, has a self-referencing canonical and `noindex,nofollow`, and stays outside the sitemap.
 
 - Source files: `src/content/ai-automation-estimate/services.json` and `pricing.json`. These preserve the supplied service IDs, major-GBP prices and rules. `src/lib/ai-automation-estimate/config.ts` validates them; arithmetic converts approved integer-pound prices to integer pence once.
 - Customer wording and conditional question definitions live in `src/content/ai-automation-estimate.ts`. The supplied question JSON only spells out Website Assistant options. The other three task lists use the approved specification's service descriptions. No additional paid service was invented.

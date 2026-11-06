@@ -4,6 +4,7 @@ import { websiteEstimateCopy } from './website-estimate';
 import { mobileEstimateCopy } from './mobile-estimate';
 import { brandingEstimateCopy } from './branding-estimate';
 import {
+  templateDirectory,
   websiteGallery,
   motionGallery,
   threeDGallery,
@@ -73,6 +74,10 @@ export const seoPages: Record<string, PageSEO> = {
     description: brandingEstimateCopy.description,
     noindex: true,
     nofollow: true,
+  },
+  [templateDirectory.route]: {
+    title: templateDirectory.title,
+    description: templateDirectory.description,
   },
   [websiteGallery.route]: { title: websiteGallery.title, description: websiteGallery.description },
   [threeDGallery.route]: { title: threeDGallery.title, description: threeDGallery.description },

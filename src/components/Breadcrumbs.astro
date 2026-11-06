@@ -19,7 +19,7 @@ const items = breadcrumbs(
             {i === items.length - 1 ? (
               <span aria-current="page">{item.name}</span>
             ) : (
-              <a href={item.url}>{item.name}</a>
+              <a href={new URL(item.url).pathname}>{item.name}</a>
             )}
           </li>
         ))}

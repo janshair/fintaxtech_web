@@ -20,6 +20,7 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  standalone?: boolean;
   article?: ArticleSEO;
   job?: JobSEO;
   socialImage?: SocialImage;
@@ -32,7 +33,7 @@ const title = configured?.title ?? Astro.props.title;
 const description = configured?.description ?? Astro.props.description ?? home.intro;
 const noindex = Astro.props.noindex || configured?.noindex || false;
 const canonical = new URL(configured?.canonical ?? pathname, company.url);
-const { article, job } = Astro.props;
+const { article, job, standalone = false } = Astro.props;
 const socialImage = Astro.props.socialImage ?? {
   url: '/social.png',
   width: 1200,
@@ -146,9 +147,10 @@ const imageURL = absoluteURL(socialImage.url);
       </style></noscript
     ></head
   ><body
-    ><Header startHref={startHref} /><main id="main">
-      <Breadcrumbs title={article?.title ?? title} /><slot />
-    </main><Footer startHref={startHref} /><Consent /><script>
+    >{!standalone && <Header startHref={startHref} />}<main id="main">
+      {!standalone && <Breadcrumbs title={article?.title ?? title} />}<slot />
+    </main>{!standalone && <Footer startHref={startHref} />}
+    {!standalone && <Consent />}<script>
       import '../scripts/site';
     </script></body
   >
