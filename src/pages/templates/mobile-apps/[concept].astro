@@ -1,0 +1,107 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import PhoneFrame from '../../../components/templates/mobile/PhoneFrame.astro';
+import FieldPanels from '../../../components/templates/mobile/FieldPanels.astro';
+import LoyaltyPanels from '../../../components/templates/mobile/LoyaltyPanels.astro';
+import LearningPanels from '../../../components/templates/mobile/LearningPanels.astro';
+import { conceptPhotos } from '../../../components/templates/mobile/photos';
+import { mobileConcepts } from '../../../content/mobile-concepts';
+import '../../../styles/booking-concept.css';
+import '../../../styles/mobile-concepts.css';
+
+export function getStaticPaths() {
+  return mobileConcepts.map((concept) => ({
+    params: { concept: concept.slug },
+    props: { concept },
+  }));
+}
+const { concept } = Astro.props;
+const Panels = { field: FieldPanels, loyalty: LoyaltyPanels, learning: LearningPanels }[concept.id];
+---
+
+<SiteLayout title={concept.title} description={concept.description}>
+  <article class="container booking-page">
+    <div
+      class="booking-demo"
+      data-concept={concept.id}
+      data-actions={JSON.stringify(concept.actions)}
+    >
+      <div class="walkthrough-intro">
+        <h1>{concept.title}</h1><p class="lead">{concept.description}</p>
+        <h2>App walkthrough</h2><div class="step-list" role="group" aria-label="Walkthrough steps">
+          {
+            concept.steps.map((s, i) => (
+              <button
+                type="button"
+                data-step={i}
+                aria-current={i === 0 ? 'step' : undefined}
+                disabled={i > 0}
+              >
+                <span class="step-dot" aria-hidden="true" />
+                {i + 1}. {s}
+              </button>
+            ))
+          }
+        </div>
+        <p class="demo-note">
+          Try this fictional journey at {concept.app}. Your selections last for this preview.
+        </p><noscript>Enable JavaScript to try the walkthrough.</noscript>
+      </div>
+      <div class="comparison">
+        <div class="platform-picker" role="group" aria-label="Preview platform">
+          <button data-show="android" type="button" aria-pressed="true">Android</button><button
+            data-show="ios"
+            type="button"
+            aria-pressed="false">iOS</button>
+        </div>
+        {
+          (['android', 'ios'] as const).map((platform) => (
+            <PhoneFrame platform={platform} photo={conceptPhotos[concept.id]} name={concept.app}>
+              <>
+                <Panels />
+                <div data-panel="4" hidden>
+                  <>
+                    <h3 tabindex="-1">{concept.complete[0]}</h3>
+                    <p>{concept.complete[1]}</p>
+                  </>
+                </div>
+              </>
+              <button type="button" class="phone-action" data-next>
+                {concept.actions[0]}
+              </button>
+            </PhoneFrame>
+          ))
+        }
+      </div>
+      <p class="visually-hidden" role="status" data-status></p>
+    </div>
+    <div class="audiences">
+      {
+        concept.audiences.map(([title, copy]) => (
+          <section>
+            <>
+              <h2>{title}</h2>
+              <p>{copy}</p>
+            </>
+          </section>
+        ))
+      }
+    </div>
+    <section class="booking-faq">
+      <h2>FAQs</h2>{
+        concept.faqs.map(([q, a]) => (
+          <details>
+            <>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </>
+          </details>
+        ))
+      }
+    </section>
+    <a class="booking-enquiry" href="/enquiry/?service=mobile-apps">{concept.enquiry} →</a>
+  </article>
+</SiteLayout>
+<script>
+  import '../../../scripts/mobile-concepts';
+</script>

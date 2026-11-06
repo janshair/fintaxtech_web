@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import { mobileAppGallery, bookingConcept } from '../../../content/mobile-app-templates';
+import { mobileConcepts, mobileConceptRoute } from '../../../content/mobile-concepts';
+import { conceptPhotos } from '../../../components/templates/mobile/photos';
+import salon from '../../../assets/booking/fern-studio.webp';
+import safosIcon from '../../../assets/safos/icon.webp';
+import metoniIcon from '../../../assets/metoni/icon.webp';
+import safosPreview from '../../../assets/safos/04-pdf.webp';
+import metoniPreview from '../../../assets/metoni/store/01-log-in-two-taps.png';
+import { safos } from '../../../content/safos';
+import { metoni } from '../../../content/metoni';
+const concepts = [
+  { ...bookingConcept, photo: salon, link: 'Try the booking walkthrough' },
+  ...mobileConcepts.map((c) => ({
+    ...c,
+    route: mobileConceptRoute(c),
+    photo: conceptPhotos[c.id],
+    link: 'Try the walkthrough',
+  })),
+];
+const apps = [
+  {
+    name: 'Safos',
+    route: safos.route,
+    icon: safosIcon,
+    preview: safosPreview,
+    alt: 'Safos invoice preview',
+    description: 'Turn a line item into a branded PDF invoice and check who has paid.',
+  },
+  {
+    name: 'Metoni',
+    route: metoni.route,
+    icon: metoniIcon,
+    preview: metoniPreview,
+    alt: 'Metoni workout logging screen',
+    description: 'Log a set, time your rest and pick up where you left off next session.',
+  },
+];
+---
+
+<SiteLayout title={mobileAppGallery.title} description={mobileAppGallery.description}>
+  <div class="container listing">
+    <h1>Mobile apps</h1><p class="lead">{mobileAppGallery.description}</p>
+    <section>
+      <h2>Published apps</h2><div class="cards">
+        {
+          apps.map((app) => (
+            <a class="published" href={app.route}>
+              <>
+                <div>
+                  <>
+                    <Image src={app.icon} alt="" width={48} height={48} />
+                    <h3>{app.name}</h3>
+                    <p>{app.description}</p>
+                    <strong>Explore {app.name} →</strong>
+                  </>
+                </div>
+                <Image class="store-screen" src={app.preview} alt={app.alt} width={192} />
+              </>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+    <section>
+      <h2>App ideas for your business</h2><div class="cards">
+        {
+          concepts.map((c) => (
+            <a class="booking-card" href={c.route}>
+              <>
+                <Image class="cover" src={c.photo} alt="" width={640} />
+                <div>
+                  <>
+                    <h3>{c.title}</h3>
+                    <p>{c.description}</p>
+                    <strong>{c.link} →</strong>
+                  </>
+                </div>
+              </>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+    <div class="actions">
+      <a class="button primary" href="/enquiry/?service=mobile-apps">Discuss my app idea</a><a
+        href="/estimate/mobile/">Estimate my app</a>
+    </div>
+  </div>
+</SiteLayout>
+<style>
+  .listing {
+    padding-block: var(--space-6) var(--space-9);
+  }
+  section {
+    margin: var(--space-7) 0;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+  .cards a {
+    display: flex;
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .cards a:hover,
+  .cards a:focus-visible {
+    border-color: var(--accent);
+  }
+  .cards a > div {
+    padding: var(--space-5);
+  }
+  .cards p {
+    margin-bottom: var(--space-4);
+  }
+  .cards strong {
+    color: var(--accent);
+  }
+  .cards h3 {
+    font-size: var(--h3);
+    margin-bottom: 0.5rem;
+  }
+  .published {
+    align-items: center;
+    justify-content: space-between;
+  }
+  .published div img {
+    border-radius: 0.6rem;
+    margin-bottom: 0.65rem;
+  }
+  .published .store-screen {
+    width: 31%;
+    height: auto;
+    align-self: stretch;
+    object-fit: cover;
+    object-position: top;
+  }
+  .booking-card {
+    flex-direction: column;
+  }
+  .cover {
+    width: 100%;
+    height: clamp(11rem, 17vw, 15rem);
+    object-fit: cover;
+    object-position: center 58%;
+  }
+  @media (max-width: 45rem) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

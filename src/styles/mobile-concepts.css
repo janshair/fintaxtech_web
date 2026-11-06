@@ -1,0 +1,78 @@
+[data-concept='field'] {
+  --concept-panel: #dce6ed;
+  --concept-ink: #13374e;
+  --concept-btn: #215475;
+  --concept-glass: #e2f1f5cd;
+}
+[data-concept='loyalty'] {
+  --concept-panel: #f6e5d3;
+  --concept-ink: #482d21;
+  --concept-btn: #764127;
+  --concept-glass: #ffeddbc9;
+}
+[data-concept='learning'] {
+  --concept-panel: #e1e4f5;
+  --concept-ink: #212a50;
+  --concept-btn: #3c4683;
+  --concept-glass: #eef0ffcd;
+}
+[data-concept] [data-platform='android'] .device-screen {
+  background: var(--concept-panel);
+  color: var(--concept-ink);
+}
+[data-concept] [data-platform='ios'] :is(.app-bar, .phone-sheet) {
+  background: linear-gradient(130deg, #ffffffd9, var(--concept-glass));
+}
+[data-concept] .phone-action {
+  background: var(--concept-btn);
+  color: white;
+}
+[data-concept] .app-bar strong {
+  font-size: clamp(1rem, 5cqw, 1.25rem);
+}
+[data-concept] .phone-sheet dl {
+  margin: 0.8rem 0 0;
+}
+[data-concept] .phone-sheet dt {
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-top: 0.65rem;
+}
+[data-concept] .phone-sheet dd {
+  margin: 0.15rem 0 0;
+}
+[data-concept] .phone-sheet label {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+[data-concept] input {
+  width: 1.2em;
+  height: 1.2em;
+  accent-color: var(--concept-btn);
+  vertical-align: middle;
+}
+[data-concept] select {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  min-height: 44px;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid #626873;
+  color: #171b22;
+  background: #fafaf8;
+  font: inherit;
+}
+[data-concept] .stamp-row {
+  color: var(--concept-btn);
+  font-size: clamp(1.1rem, 7cqw, 1.8rem);
+  margin-block: 0.5rem;
+}
+[data-concept] .step-list button:disabled {
+  opacity: 0.65;
+}
+[data-concept] [data-hint]:empty {
+  display: none;
+}

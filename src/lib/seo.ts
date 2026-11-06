@@ -1,3 +1,4 @@
+import { mobileAppGallery } from '../content/mobile-app-templates';
 import { industryDirectory } from '../content/automation-industries';
 import { brandingGallery, logoGallery } from '../content/branding-gallery';
 import { locationFromPath } from '../content/locations';
@@ -37,7 +38,7 @@ export function breadcrumbs(path: string, title?: string) {
       name: templateDirectory.breadcrumbLabel,
       url: absoluteURL(templateDirectory.route),
     });
-  for (const parent of [brandingGallery, logoGallery, industryDirectory]) {
+  for (const parent of [brandingGallery, logoGallery, industryDirectory, mobileAppGallery]) {
     if (path.startsWith(parent.route) && path !== parent.route)
       items.push({ name: parent.title, url: absoluteURL(parent.route) });
   }

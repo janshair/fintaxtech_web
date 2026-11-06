@@ -1,0 +1,72 @@
+---
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import BookingPhone from '../../../../components/templates/booking/BookingPhone.astro';
+import { bookingConcept, bookingSteps } from '../../../../content/mobile-app-templates';
+import '../../../../styles/booking-concept.css';
+---
+
+<SiteLayout title={bookingConcept.title} description={bookingConcept.description}>
+  <article class="container booking-page">
+    <div class="booking-demo" data-booking-demo>
+      <div class="walkthrough-intro">
+        <h1>Booking &amp; appointments</h1><p class="lead">{bookingConcept.description}</p>
+        <h2>Booking walkthrough</h2>
+        <div class="step-list" role="group" aria-label="Booking walkthrough steps">
+          {
+            bookingSteps.map((step, i) => (
+              <button type="button" data-step={i} aria-current={i === 1 ? 'step' : undefined}>
+                <span aria-hidden="true" class="step-dot" />
+                {i + 1}. {step}
+              </button>
+            ))
+          }
+        </div>
+        <p class="demo-note">
+          Try a sample appointment at Fern Studio. All bookings here are fictional.
+        </p>
+        <noscript>Enable JavaScript to try each step of the walkthrough.</noscript>
+      </div>
+      <div class="comparison">
+        <div class="platform-picker" role="group" aria-label="Preview platform">
+          <button type="button" data-show="android" aria-pressed="true">Android</button><button
+            type="button"
+            data-show="ios"
+            aria-pressed="false">iOS</button>
+        </div>
+        <BookingPhone platform="android" /><BookingPhone platform="ios" />
+      </div>
+      <p class="visually-hidden" role="status" data-booking-status></p>
+    </div>
+    <div class="audiences">
+      <section>
+        <h2>For clients</h2><p>
+          Choose a service, see available times and manage an upcoming visit.
+        </p>
+      </section><section>
+        <h2>For the business</h2><p>
+          Set treatment lengths, staff hours and how much notice clients need to reschedule.
+        </p>
+      </section>
+    </div>
+    <section class="booking-faq">
+      <h2>FAQs</h2>
+      <details>
+        <summary>Can it use my existing booking calendar?</summary><p>
+          We’d check which appointments your calendar can share and which changes it accepts. In a
+          live app, both the customer and reception would use the same availability, with a final
+          check before a slot is confirmed.
+        </p>
+      </details>
+      <details>
+        <summary>Can I start with one location?</summary><p>
+          Yes. A first release could cover one salon, its treatments, staff hours and rescheduling
+          rules. Additional locations can follow once that booking journey works for your team.
+        </p>
+      </details>
+    </section>
+    <a class="booking-enquiry" href="/enquiry/?service=mobile-apps">Discuss my booking app →</a>
+  </article>
+</SiteLayout>
+<script>
+  import '../../../../scripts/booking-concept';
+</script>

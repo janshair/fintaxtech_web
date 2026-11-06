@@ -1,0 +1,439 @@
+.booking-page {
+  max-width: 86rem;
+  padding-block: var(--space-7) var(--space-9);
+}
+.booking-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.84fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+}
+.walkthrough-intro {
+  container-type: inline-size;
+  padding-top: 2rem;
+}
+.walkthrough-intro h1 {
+  font-size: clamp(2.15rem, 15cqw, 4.65rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+.walkthrough-intro .lead {
+  margin-block: 1.3rem 2.2rem;
+  max-width: 31ch;
+}
+.walkthrough-intro h2,
+.audiences h2,
+.booking-faq h2 {
+  font-size: clamp(1.45rem, 2.4vw, 2.05rem);
+  margin: 0 0 1rem;
+}
+.step-list {
+  display: grid;
+}
+.step-list button {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 54px;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--border);
+  text-align: left;
+  padding: 0.65rem 0.7rem;
+  font: inherit;
+  color: var(--text);
+}
+.step-list button:last-child {
+  border-bottom: 1px solid var(--border);
+}
+.step-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex: none;
+  border-radius: 50%;
+}
+.step-list button[aria-current] {
+  color: var(--text);
+  background: var(--soft);
+  font-weight: 650;
+  border-radius: 0.3rem;
+}
+.step-list button[aria-current] .step-dot {
+  background: var(--accent);
+}
+.demo-note {
+  color: var(--muted);
+  font-size: var(--small);
+  margin: 0.9rem 0 0;
+  max-width: 44ch;
+}
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 2rem);
+}
+.platform {
+  min-width: 0;
+  width: 100%;
+  max-width: 24rem;
+  justify-self: center;
+}
+.platform-label {
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+}
+.platform-picker {
+  display: none;
+}
+.device {
+  container-type: inline-size;
+  padding: 6px;
+  border: 2px solid #73746e;
+  border-radius: 14% / 7%;
+  background: #161714;
+  box-shadow:
+    0 4px 12px #14191124,
+    inset 0 0 0 1px #44463e;
+}
+.device-screen {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 12% / 6%;
+  min-height: 199cqw;
+  display: flex;
+  flex-direction: column;
+  background: #e3e8cf;
+  color: #13260f;
+  font:
+    500 clamp(0.88rem, 4.6cqw, 1.05rem)/1.35 Roboto,
+    Arial,
+    sans-serif;
+}
+.device-screen button {
+  font: inherit;
+  color: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.device-screen button:disabled {
+  cursor: default;
+}
+.status-bar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3.7cqw 7cqw 1cqw;
+  color: #10150d;
+  font-size: 3.45cqw;
+  font-weight: 700;
+}
+.status-bar i {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 3.5cqw;
+  width: 3.9cqw;
+  height: 3.9cqw;
+  background: #111;
+  border-radius: 100px;
+}
+.signals {
+  width: 11cqw;
+  height: auto;
+}
+.app-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  padding: 1cqw 3cqw;
+  min-height: 17.5cqw;
+}
+.app-bar strong {
+  font-size: 5.6cqw;
+}
+.app-bar button {
+  width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  font-size: 1.85rem;
+  line-height: 1;
+}
+.app-bar button:disabled {
+  visibility: hidden;
+}
+.salon-image {
+  display: block;
+  object-fit: cover;
+  object-position: 50% 57%;
+}
+[data-platform='android'] .salon-image {
+  position: relative;
+  order: 1;
+  margin: 0 2cqw;
+  width: 96%;
+  height: 61cqw;
+  flex: 1 0 61cqw;
+  border-radius: 4cqw;
+}
+.phone-sheet {
+  position: relative;
+  order: 2;
+  margin-top: auto;
+  padding: 5.5cqw 4.5cqw 6cqw;
+}
+.phone-sheet h3 {
+  font-family: inherit;
+  font-size: clamp(1.15rem, 7cqw, 1.75rem);
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  margin: 0 0 1.7cqw;
+}
+.phone-sheet p {
+  margin: 0 0 3cqw;
+}
+.phone-sheet .appointment-date {
+  display: flex;
+  align-items: center;
+  gap: 1.8cqw;
+  margin: 5cqw 0 4cqw;
+  font-size: clamp(0.85rem, 4.1cqw, 1.05rem);
+  font-weight: 600;
+}
+.time-choices {
+  display: flex;
+  gap: 1.5cqw;
+}
+.time-choices button,
+.treatments button {
+  border: 1px solid transparent;
+  background: #d0d8b9;
+  min-height: 44px;
+  border-radius: 2.8cqw;
+}
+.time-choices button {
+  flex: 1;
+  padding: 0.2em;
+}
+.time-choices button[aria-pressed='true'],
+.treatments button[aria-pressed='true'] {
+  background: #284c27;
+  color: #fff;
+}
+.time-choices button:disabled {
+  opacity: 0.5;
+}
+.treatments {
+  display: grid;
+  gap: 1.4cqw;
+}
+.treatments button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+.treatments small {
+  font-size: 0.8em;
+}
+.phone-sheet .phone-action {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 6cqw;
+  border: 0;
+  border-radius: 100px;
+  background: #244c24;
+  color: white;
+  font-weight: 650;
+}
+.phone-action:disabled {
+  opacity: 0.6;
+}
+.device button:focus-visible,
+.device h3:focus-visible {
+  outline: 3px solid #0049b4;
+  outline-offset: 1px;
+}
+[data-platform='ios'] .device-screen {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  background: #d1cfb8;
+  color: #141914;
+}
+[data-platform='ios'] .salon-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-position: 53% 50%;
+  z-index: -1;
+}
+[data-platform='ios'] .status-bar {
+  background: linear-gradient(#ede7d5b8, transparent);
+}
+[data-platform='ios'] .status-bar i {
+  width: 24cqw;
+  height: 6cqw;
+  top: 2.7cqw;
+}
+[data-platform='ios'] .app-bar,
+[data-platform='ios'] .phone-sheet {
+  border: 1px solid #ffffffcc;
+  box-shadow:
+    inset 0 1px 2px #ffffffc0,
+    0 4px 12px #302d242e;
+  backdrop-filter: blur(16px) saturate(125%);
+  background: linear-gradient(130deg, #faf6e3bf, #e2dfceb8 48%, #f1eddad6);
+}
+[data-platform='ios'] .app-bar {
+  margin: 5cqw 3cqw;
+  justify-content: center;
+  border-radius: 100px;
+  min-height: 14cqw;
+}
+[data-platform='ios'] .app-bar button {
+  position: absolute;
+  left: 0.2rem;
+}
+[data-platform='ios'] .phone-sheet {
+  margin: auto 3cqw 4cqw;
+  border-radius: 8cqw;
+  padding: 5.5cqw 4cqw;
+}
+[data-platform='ios'] .time-choices {
+  border: 1px solid #ffffffd4;
+  border-radius: 100px;
+  background: #faf6e452;
+  padding: 2px;
+  gap: 0;
+}
+[data-platform='ios'] .time-choices button {
+  background: transparent;
+  border-radius: 100px;
+}
+[data-platform='ios'] .time-choices button[aria-pressed='true'] {
+  background: #405d3d;
+  color: #fff;
+}
+[data-platform='ios'] .phone-action {
+  background: linear-gradient(#4e7540, #355735);
+  box-shadow: inset 0 1px 1px #ffffff95;
+}
+.audiences {
+  margin-top: var(--space-7);
+  padding-block: var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  border-block: 1px solid var(--border);
+}
+.audiences section + section {
+  border-left: 1px solid var(--border);
+  padding-left: var(--space-6);
+}
+.audiences p {
+  margin: 0;
+  max-width: 55ch;
+}
+.booking-faq {
+  padding-block: var(--space-6) var(--space-4);
+}
+.booking-faq details {
+  border-bottom: 1px solid var(--border);
+}
+.booking-faq summary {
+  padding-block: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.booking-faq details p {
+  max-width: 70ch;
+}
+.booking-enquiry {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+}
+.booking-demo .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 58rem) {
+  .booking-demo {
+    grid-template-columns: 1fr;
+  }
+  .walkthrough-intro {
+    padding: 0;
+  }
+  .walkthrough-intro h1 {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+  }
+  .walkthrough-intro .lead {
+    max-width: 54ch;
+    margin-bottom: 1.3rem;
+  }
+  .step-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem;
+  }
+  .step-list button:last-child {
+    border-bottom: 0;
+  }
+}
+@media (max-width: 42rem) {
+  .comparison {
+    grid-template-columns: 1fr;
+  }
+  [data-visible-platform] .platform-picker {
+    display: flex;
+    justify-self: center;
+    background: var(--layer, var(--surface));
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px;
+  }
+  .platform-picker button {
+    min-width: 5rem;
+    min-height: 44px;
+    font: inherit;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    border-radius: 100px;
+  }
+  .platform-picker button[aria-pressed='true'] {
+    background: var(--text);
+    color: var(--bg);
+  }
+  [data-visible-platform='android'] [data-platform='ios'],
+  [data-visible-platform='ios'] [data-platform='android'] {
+    display: none;
+  }
+  .platform {
+    max-width: 22rem;
+  }
+  .step-list button {
+    padding: 0.45rem 0.3rem;
+    font-size: 0.95rem;
+    gap: 0.3rem;
+  }
+  .audiences {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .audiences section + section {
+    border: 0;
+    padding: 0;
+  }
+}

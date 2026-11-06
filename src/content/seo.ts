@@ -1,3 +1,5 @@
+import { mobileConcepts, mobileConceptRoute } from './mobile-concepts';
+import { mobileAppGallery, bookingConcept } from './mobile-app-templates';
 import { industryDirectory, retailGuide, industryGuides } from './automation-industries';
 import { brandingGallery, logoGallery, minimalismGuide, designGuides } from './branding-gallery';
 import { aiEstimateCopy } from './ai-automation-estimate';
@@ -77,6 +79,14 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
     nofollow: true,
   },
+  [mobileAppGallery.route]: mobileAppGallery,
+  [bookingConcept.route]: bookingConcept,
+  ...Object.fromEntries(
+    mobileConcepts.map((concept) => [
+      mobileConceptRoute(concept),
+      { title: concept.title, description: concept.description },
+    ]),
+  ),
   [industryDirectory.route]: industryDirectory,
   [retailGuide.route]: retailGuide,
   ...Object.fromEntries(

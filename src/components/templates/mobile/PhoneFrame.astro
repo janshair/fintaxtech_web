@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props {
+  platform: 'android' | 'ios';
+  photo: ImageMetadata;
+  name: string;
+  backLabel?: string;
+}
+const { platform, photo, name, backLabel = 'Previous step' } = Astro.props;
+const label = platform === 'android' ? 'Android · Material Design' : 'iOS · Liquid Glass';
+---
+
+<section class="platform" data-platform={platform} aria-label={label}>
+  <h2 class="platform-label">{label}</h2>
+  <div class="device">
+    <div class="device-screen">
+      <Image
+        class="salon-image"
+        src={photo}
+        widths={[420, 680]}
+        sizes="(max-width: 750px) 80vw, 380px"
+        alt=""
+        loading="eager"
+      />
+      <div class="status-bar" aria-hidden="true">
+        <span>10:24</span><i></i><svg
+          class="signals"
+          viewBox="0 0 38 14"
+          width="38"
+          height="14"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        >
+          <path d="M1 5q6-6 12 0M3.5 7.5q3.5-3.5 7 0M6 10q1-1 2 0"></path><rect
+            x="18"
+            y="3"
+            width="16"
+            height="8"
+            rx="2"></rect><path d="M36 5.5v3"></path><rect
+            x="20"
+            y="5"
+            width="11"
+            height="4"
+            rx="1"
+            fill="currentColor"
+            stroke="none"></rect>
+        </svg>
+      </div>
+      <div class="app-bar">
+        <button type="button" data-back aria-label={backLabel}>‹</button><strong>{name}</strong>
+      </div>
+      <div class="phone-sheet"><slot /></div>
+    </div>
+  </div>
+</section>
