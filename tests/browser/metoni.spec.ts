@@ -67,7 +67,9 @@ test('Metoni routes, store destinations and static metadata', async ({
     await expect(staticPage.locator('meta[name=robots]')).toHaveCount(0);
     await expect(staticPage.locator('meta[property="og:image"]')).toHaveCount(1);
     await expect(
-      staticPage.locator('main').getByRole('link', { name: metoni.supportLabel, exact: true }),
+      staticPage
+        .locator(route === metoni.route ? 'body' : 'main')
+        .getByRole('link', { name: metoni.supportLabel, exact: true }),
     ).toHaveCount(route === metoni.route ? 2 : 1);
   }
   await staticPage.goto(metoni.route);
@@ -108,6 +110,7 @@ for (const theme of ['light', 'dark'])
   test(`Metoni responsive layout and accessibility in ${theme}`, async ({ page }, info) => {
     await page.addInitScript((theme) => {
       localStorage.setItem('ftt:theme', theme);
+      localStorage.setItem('metoni:theme', theme);
       localStorage.setItem('ftt:consent', 'rejected');
     }, theme);
     for (const width of [320, 390, 1280]) {
@@ -123,7 +126,7 @@ for (const theme of ['light', 'dark'])
         await expect(link).toBeFocused();
         if (route === metoni.route) {
           const images = page.locator('.metoni-gallery img');
-          await expect(images).toHaveCount(6);
+          await expect(images).toHaveCount(8);
           for (const img of await images.all()) {
             await img.scrollIntoViewIfNeeded();
             await expect

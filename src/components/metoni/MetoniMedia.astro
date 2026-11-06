@@ -1,40 +1,23 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import { metoni } from '../../content/metoni';
 import { metoniMedia } from '../../content/metoni-media';
-const { screenshots, video } = metoniMedia;
+const { video } = metoniMedia;
 const poster = video
   ? await getImage({ src: video.poster, format: 'webp', width: Math.min(1200, video.poster.width) })
   : undefined;
 ---
 
 {
-  screenshots.length > 0 && (
-    <section class="section" aria-labelledby="metoni-gallery">
-      <h2 id="metoni-gallery">{metoni.galleryTitle}</h2>
-      <div class="metoni-gallery">
-        {screenshots.map(({ image, alt, caption }) => (
-          <figure>
-            <Image
-              src={image}
-              alt={alt}
-              widths={[320, 640, 960]}
-              sizes="(max-width: 600px) 85vw, 320px"
-              format="webp"
-              loading="lazy"
-            />
-            <figcaption>{caption}</figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
-  )
-}
-{
   video && poster && (
     <section class="section" aria-labelledby="metoni-video">
-      <h2 id="metoni-video">{metoni.videoTitle}</h2>
-      <p id="metoni-video-description">{metoni.videoPrivacy}</p>
+      <div class="video-copy">
+        <h2 id="metoni-video">{metoni.videoTitle}</h2>
+        <p id="metoni-video-description">{metoni.videoPrivacy}</p>
+        <a href={`https://youtu.be/${video.youtubeId}`} target="_blank" rel="noopener noreferrer">
+          {metoni.videoLink} ↗
+        </a>
+      </div>
       <div class="youtube-video" data-youtube-video>
         <img
           src={poster.src}
@@ -62,12 +45,6 @@ const poster = video
           />
         </template>
       </div>
-      <p>
-        {metoni.videoFallback}{' '}
-        <a href={`https://youtu.be/${video.youtubeId}`} target="_blank" rel="noopener noreferrer">
-          {metoni.videoLink}
-        </a>
-      </p>
     </section>
   )
 }
@@ -87,49 +64,3 @@ const poster = video
     );
   });
 </script>
-<style>
-  .metoni-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--metoni-screenshot-width)), 1fr));
-    gap: var(--space-6);
-  }
-  figure {
-    margin: 0;
-  }
-  figure img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: var(--radius);
-  }
-  figcaption {
-    margin-top: var(--space-3);
-    color: var(--muted);
-  }
-  .youtube-video {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    min-height: var(--video-min-height);
-    margin-bottom: var(--space-5);
-    background: var(--surface);
-  }
-  .youtube-video img,
-  .youtube-video :global(iframe) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    inset: 0;
-    border: 0;
-    object-fit: contain;
-  }
-  .youtube-video button {
-    position: absolute;
-    bottom: var(--space-4);
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    max-width: calc(100% - var(--space-6));
-  }
-</style>

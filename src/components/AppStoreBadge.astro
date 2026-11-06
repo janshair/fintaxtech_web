@@ -2,18 +2,17 @@
 interface Props {
   href: string;
   label: string;
+  artwork?: string;
 }
-const { href, label } = Astro.props;
+const {
+  href,
+  label,
+  artwork = 'https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg',
+} = Astro.props;
 ---
 
 <a class="app-store-badge" href={href} target="_blank" rel="noopener noreferrer">
-  <img
-    src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-    alt={label}
-    width="120"
-    height="40"
-    decoding="async"
-  />
+  <img src={artwork} alt={label} width="120" height="40" decoding="async" />
 </a>
 
 <style>

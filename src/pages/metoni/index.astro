@@ -1,75 +1,207 @@
 ---
 import { Image } from 'astro:assets';
-import SiteLayout from '../../layouts/SiteLayout.astro';
-import MetoniDownloads from '../../components/metoni/MetoniDownloads.astro';
-import MetoniLinks from '../../components/metoni/MetoniLinks.astro';
+import StoreGallery from '../../components/metoni/StoreGallery.astro';
 import MetoniMedia from '../../components/metoni/MetoniMedia.astro';
+import GooglePlayBadge from '../../components/GooglePlayBadge.astro';
+import AppStoreBadge from '../../components/AppStoreBadge.astro';
 import { metoni } from '../../content/metoni';
-import { metoniMedia, metoniSocial } from '../../content/metoni-media';
+import { metoniSocial } from '../../content/metoni-media';
+import { absoluteURL, structuredData } from '../../lib/seo';
+import icon from '../../assets/metoni/icon.webp';
+import dashboard from '../../assets/metoni/home_dark.webp';
+import workout from '../../assets/metoni/active_dark.webp';
+import appleBadge from '../../assets/metoni/store/app-store.svg?url';
+import '../../styles/metoni.css';
+
+const imageURL = absoluteURL(metoniSocial.url);
+const canonical = absoluteURL(metoni.route);
 ---
 
-<SiteLayout title={metoni.seoTitle} description={metoni.description} socialImage={metoniSocial}>
-  <div class="container">
-    <header class="page-head">
-      <p class="eyebrow">{metoni.eyebrow}</p>
-      {
-        metoniMedia.icon && (
-          <Image
-            class="metoni-icon"
-            src={metoniMedia.icon}
-            alt={metoniMedia.iconAlt}
-            width={96}
-            height={96}
-            loading="eager"
-          />
-        )
-      }
-      <h1>{metoni.name}</h1>
-      <p class="metoni-headline">{metoni.headline}</p>
-      <p class="lead">{metoni.intro}</p>
-      <MetoniDownloads />
-      <MetoniLinks />
-    </header>
-    <MetoniMedia />
-    <section class="section" aria-labelledby="metoni-features">
-      <h2 id="metoni-features">{metoni.featuresTitle}</h2>
-      <div class="metoni-features">
-        {
-          metoni.features.map(([title, description]) => (
-            <section>
-              <>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </>
-            </section>
-          ))
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#131313" />
+    <script is:inline>
+      try {
+        if (localStorage.getItem('metoni:theme') === 'light') {
+          document.documentElement.dataset.theme = 'light';
+          document.querySelector('meta[name="theme-color"]').content = '#faf7f4';
         }
+      } catch {}
+    </script>
+    <title>{metoni.seoTitle}</title>
+    <meta name="description" content={metoni.description} />
+    <link rel="icon" href={icon.src} type="image/webp" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={metoni.seoTitle} />
+    <meta property="og:description" content={metoni.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Metoni" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content={String(metoniSocial.width)} />
+    <meta property="og:image:height" content={String(metoniSocial.height)} />
+    <meta property="og:image:type" content={metoniSocial.type} />
+    <meta property="og:image:alt" content={metoniSocial.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metoni.seoTitle} />
+    <meta name="twitter:description" content={metoni.description} />
+    <meta name="twitter:image" content={imageURL} />
+    <meta name="twitter:image:alt" content={metoniSocial.alt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        structuredData(metoni.route, metoni.seoTitle, metoni.description, undefined, imageURL),
+      ).replace(/</g, '\\u003c')}
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="wrap bar">
+        <a class="brand" href="#main" aria-label="Metoni home"
+          ><Image src={icon} alt="" width={36} height={36} loading="eager" />Metoni</a
+        >
+        <nav aria-label="Main navigation">
+          <a class="nav-text" href="#screenshots">Screenshots</a>
+          <a class="nav-text" href={metoni.supportRoute} aria-label={metoni.supportLabel}>Support</a
+          >
+          <button
+            type="button"
+            class="theme-switch"
+            hidden
+            aria-label="Light appearance"
+            aria-pressed="false"
+            title="Light appearance"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4"></circle><path
+                d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"
+              ></path>
+            </svg>
+          </button>
+          <a class="cta" href="#download">Get the app <span aria-hidden="true">↓</span></a>
+        </nav>
       </div>
-    </section>
-    <section class="section" aria-labelledby="metoni-download">
-      <h2 id="metoni-download">{metoni.ctaTitle}</h2>
-      <p>{metoni.ctaText}</p>
-      <MetoniDownloads />
-      <a href={metoni.supportRoute}>{metoni.supportLabel}</a>
-    </section>
-  </div>
-</SiteLayout>
-<style>
-  .metoni-icon {
-    display: block;
-    margin-bottom: var(--space-5);
-    border-radius: var(--radius);
-  }
-  .metoni-headline {
-    font-family: var(--font-heading);
-    font-size: var(--h2);
-    line-height: var(--line-heading);
-    max-width: var(--reading);
-    margin-top: var(--space-5);
-  }
-  .metoni-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--brief-choice-width)), 1fr));
-    gap: var(--space-7);
-  }
-</style>
+    </header>
+    <main id="main">
+      <section class="hero page-head" aria-labelledby="headline">
+        <div class="wrap hero-inner">
+          <div class="hero-copy">
+            <p class="kicker">Strength training tracker</p>
+            <h1 id="headline">Log every set.<br /><em>Track progress.</em></h1>
+            <p class="intro">
+              Track weights and reps, time your rests and pick up where you left off. Your training
+              history stays on your device.
+            </p>
+            <div class="badges">
+              <AppStoreBadge
+                href={metoni.appStoreURL}
+                label={metoni.appStoreLabel}
+                artwork={appleBadge}
+              />
+              <GooglePlayBadge href={metoni.playStoreURL} label={metoni.playLabel} />
+            </div>
+            <p class="offline">
+              <i aria-hidden="true"></i> Works offline <span aria-hidden="true">/</span> No account required
+            </p>
+          </div>
+          <div
+            class="hero-art"
+            role="img"
+            aria-label="Metoni’s workout dashboard and live set log in dark mode"
+          >
+            <div class="stripe"></div>
+            <div class="phone rear">
+              <Image src={dashboard} alt="" width={400} loading="eager" />
+            </div>
+            <div class="phone front">
+              <Image src={workout} alt="" width={500} loading="eager" fetchpriority="high" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="metric-band">
+        <dl class="wrap metrics">
+          <div><dt>Built-in exercises</dt><dd>135</dd></div>
+          <div><dt>Muscle groups</dt><dd>9</dd></div>
+          <div><dt>Weight units</dt><dd>Kg / lb</dd></div>
+        </dl>
+      </div>
+      <div class="wrap">
+        <StoreGallery />
+        <section class="features" aria-labelledby="features-title">
+          <h2 id="features-title">{metoni.featuresTitle}</h2>
+          <div class="details-list">
+            {
+              metoni.features.map(([title, description]) => (
+                <details>
+                  <>
+                    <summary>{title}</summary>
+                    <p>{description}</p>
+                  </>
+                </details>
+              ))
+            }
+          </div>
+        </section>
+        <MetoniMedia />
+        <section id="download" aria-labelledby="download-title">
+          <h2 id="download-title">Your next workout,<br /><em>ready to log.</em></h2>
+          <div class="badges">
+            <AppStoreBadge
+              href={metoni.appStoreURL}
+              label={metoni.appStoreLabel}
+              artwork={appleBadge}
+            />
+            <GooglePlayBadge href={metoni.playStoreURL} label={metoni.playLabel} />
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div class="wrap bar">
+        <div class="publisher">
+          Metoni <span>by <a href={absoluteURL('/')}>FinTaxTech</a></span>
+        </div>
+        <nav aria-label="Metoni information">
+          <a href={metoni.supportRoute} aria-label={metoni.supportLabel}>Support</a><a
+            href={metoni.privacyRoute}>Privacy</a
+          ><a href={metoni.termsRoute}>Terms</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.theme-switch');
+      if (toggle) {
+        const root = document.documentElement;
+        toggle.setAttribute('aria-pressed', String(root.dataset.theme === 'light'));
+        toggle.hidden = false;
+        toggle.addEventListener('click', () => {
+          const light = root.dataset.theme !== 'light';
+          root.dataset.theme = light ? 'light' : 'dark';
+          document
+            .querySelector('meta[name="theme-color"]')
+            ?.setAttribute('content', getComputedStyle(root).backgroundColor);
+          toggle.setAttribute('aria-pressed', String(light));
+          try {
+            localStorage.setItem('metoni:theme', root.dataset.theme);
+          } catch {}
+        });
+      }
+    </script>
+  </body>
+</html>

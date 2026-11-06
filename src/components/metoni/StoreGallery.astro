@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import logging from '../../assets/metoni/store/01-log-in-two-taps.png';
+import suggestions from '../../assets/metoni/store/02-smart-suggestions.png';
+import plans from '../../assets/metoni/store/03-plans.png';
+import streaks from '../../assets/metoni/store/04-streaks.png';
+import timer from '../../assets/metoni/store/05-rest-timer.png';
+import settings from '../../assets/metoni/store/06-tune-exercises.png';
+import library from '../../assets/metoni/store/07-exercise-library.png';
+import offline from '../../assets/metoni/store/08-offline-private.png';
+
+const screenshots = [
+  {
+    image: logging,
+    alt: 'Log a set in two taps. The squat log shows the previous session alongside today’s weights and reps.',
+  },
+  {
+    image: suggestions,
+    alt: 'A weight increase suggestion appears after all target reps are met, with a button to apply it.',
+  },
+  { image: plans, alt: 'Saved leg, shoulder, push and pull plans each have a start button.' },
+  {
+    image: streaks,
+    alt: 'The dashboard shows a two-day streak, weekly training activity and recent sessions.',
+  },
+  { image: timer, alt: 'A rest countdown runs above the overhead press sets during a workout.' },
+  { image: settings, alt: 'Exercise settings for weight increments, rest time and target reps.' },
+  {
+    image: library,
+    alt: 'The exercise library filtered to chest movements, with an option to add your own.',
+  },
+  { image: offline, alt: 'Offline workout dashboard in dark mode. No sign-up is required.' },
+];
+---
+
+<section class="gallery-section" id="screenshots" aria-labelledby="gallery-title">
+  <div class="section-heading">
+    <h2 id="gallery-title">Inside Metoni</h2>
+    <div class="gallery-controls" hidden>
+      <button
+        type="button"
+        aria-label="Previous screenshots"
+        aria-controls="store-gallery"
+        data-direction="-1">←</button
+      >
+      <button
+        type="button"
+        aria-label="Next screenshots"
+        aria-controls="store-gallery"
+        data-direction="1">→</button
+      >
+    </div>
+  </div>
+  <div
+    class="metoni-gallery"
+    id="store-gallery"
+    role="region"
+    aria-label="Google Play screenshots"
+    tabindex="0"
+  >
+    {
+      screenshots.map(({ image, alt }) => (
+        <Image
+          src={image}
+          alt={alt}
+          widths={[320, 640, 960]}
+          sizes="(max-width: 640px) 74vw, (max-width: 900px) 32vw, 290px"
+          format="webp"
+          loading="lazy"
+        />
+      ))
+    }
+  </div>
+</section>
+<script>
+  const gallery = document.querySelector<HTMLElement>('#store-gallery');
+  const controls = document.querySelector<HTMLElement>('.gallery-controls');
+  if (gallery && controls) {
+    const buttons = controls.querySelectorAll<HTMLButtonElement>('button');
+    const sync = () => {
+      buttons[0].disabled = gallery.scrollLeft <= 1;
+      buttons[1].disabled = gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 1;
+    };
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        const step =
+          gallery.children[1].getBoundingClientRect().left -
+          gallery.children[0].getBoundingClientRect().left;
+        gallery.scrollBy({
+          left: Number(button.dataset.direction) * step,
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+        });
+      });
+    }
+    controls.hidden = false;
+    gallery.addEventListener('scroll', sync, { passive: true });
+    new ResizeObserver(sync).observe(gallery);
+    sync();
+  }
+</script>
