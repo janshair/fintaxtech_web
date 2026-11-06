@@ -1,4 +1,4 @@
-import { industryDirectory, retailGuide } from './automation-industries';
+import { industryDirectory, retailGuide, industryGuides } from './automation-industries';
 import { brandingGallery, logoGallery, minimalismGuide, designGuides } from './branding-gallery';
 import { aiEstimateCopy } from './ai-automation-estimate';
 import { locations } from './locations';
@@ -79,6 +79,9 @@ export const seoPages: Record<string, PageSEO> = {
   },
   [industryDirectory.route]: industryDirectory,
   [retailGuide.route]: retailGuide,
+  ...Object.fromEntries(
+    industryGuides.map(({ route, title, description }) => [route, { title, description }]),
+  ),
   [brandingGallery.route]: brandingGallery,
   [logoGallery.route]: logoGallery,
   [minimalismGuide.route]: minimalismGuide,

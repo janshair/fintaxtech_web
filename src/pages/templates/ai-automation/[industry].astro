@@ -1,0 +1,68 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import IndustryFAQs from '../../../components/templates/IndustryFAQs.astro';
+import { industryDirectory, industryGuides } from '../../../content/automation-industries';
+import '../../../styles/automation-gallery.css';
+
+export function getStaticPaths() {
+  return industryGuides.map((guide) => ({ params: { industry: guide.slug }, props: { guide } }));
+}
+const { guide } = Astro.props;
+const { workflow } = guide;
+---
+
+<SiteLayout title={guide.title} description={guide.description}>
+  <article class="container automation-page">
+    <header class="workflow-intro">
+      <h1>AI automation for {guide.title.toLowerCase()}</h1>
+      <p class="lead">{workflow.intro}</p>
+    </header>
+    <section class="workflow-example">
+      <h2>{workflow.exampleTitle}</h2><p class="muted">
+        Illustrative example using fictional details.
+      </p>
+      <div class="exchange">
+        <div><h3>{workflow.input[0]}</h3><blockquote>{workflow.input[1]}</blockquote></div>
+        <div>
+          <h3>What the team can check</h3><dl>
+            {
+              workflow.evidence.map(([label, text]) => (
+                <div>
+                  <>
+                    <dt>{label}</dt>
+                    <dd>{text}</dd>
+                  </>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+      <div class="draft-reply"><h3>{workflow.output[0]}</h3><p>{workflow.output[1]}</p></div>
+    </section>
+    <section class="guide-row">
+      <h2>How the workflow runs</h2>
+      <ol class="workflow-steps">
+        {
+          workflow.steps.map(([label, text]) => (
+            <li>
+              <strong>{label}</strong> {text}
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+    <section class="guide-row"><h2>What we need from you</h2><p>{workflow.preparation}</p></section>
+    <section class="guide-row"><h2>{workflow.pilot[0]}</h2><p>{workflow.pilot[1]}</p></section>
+    <section class="guide-row">
+      <h2>Frequently asked questions</h2><IndustryFAQs faqs={guide.faqs} />
+    </section>
+    <div class="automation-next">
+      <h2>{workflow.enquiry[0]}</h2><p>{workflow.enquiry[1]}</p>
+      <div class="actions">
+        <a class="button primary" href="/enquiry/?service=ai-automation">Discuss your workflow</a><a
+          href={industryDirectory.route}>Explore all industries</a>
+      </div>
+    </div>
+  </article>
+</SiteLayout>

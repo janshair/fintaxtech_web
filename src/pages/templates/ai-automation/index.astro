@@ -19,17 +19,17 @@ import '../../../styles/automation-gallery.css';
     </header>
     <div class="industry-grid">
       {
-        industries.map(({ title, summary, guide, faqs }) => (
+        industries.map(({ title, slug, summary, linkLabel, faqs }) => (
           <section class="industry-card">
-            <h2>{guide ? <a href={guide}>{title}</a> : title}</h2>
+            <h2>
+              <a href={industryDirectory.route + slug + '/'}>{title}</a>
+            </h2>
             {summary.map((line) => (
               <p>{line}</p>
             ))}
-            {guide && (
-              <a class="guide-link" href={guide}>
-                Explore the retail workflow <span aria-hidden="true">→</span>
-              </a>
-            )}
+            <a class="guide-link" href={industryDirectory.route + slug + '/'}>
+              {linkLabel} <span aria-hidden="true">→</span>
+            </a>
             <>
               <h3>FAQs</h3>
               <IndustryFAQs faqs={faqs} />

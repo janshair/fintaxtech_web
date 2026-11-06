@@ -2,7 +2,7 @@
   padding-block: var(--space-6) var(--space-9);
 }
 .industry-intro,
-.retail-intro {
+.workflow-intro {
   margin-bottom: var(--space-7);
 }
 .industry-intro {
@@ -22,14 +22,14 @@
   gap: var(--space-5);
 }
 .industry-card,
-.retail-example {
+.workflow-example {
   padding: clamp(1.25rem, 3vw, 2rem);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 0.6rem;
 }
 .industry-card h2,
-.retail-example h2,
+.workflow-example h2,
 .automation-next h2,
 .guide-row h2 {
   font-size: clamp(1.45rem, 2.6vw, 2.1rem);
@@ -41,7 +41,7 @@
   margin: 0 0 var(--space-3);
 }
 .industry-card h3,
-.retail-example h3 {
+.workflow-example h3 {
   font-size: 1rem;
   margin: var(--space-5) 0 var(--space-2);
 }
@@ -57,7 +57,7 @@
 .automation-next p {
   max-width: 65ch;
 }
-.retail-intro {
+.workflow-intro {
   max-width: 56rem;
 }
 .exchange > div {
@@ -65,18 +65,20 @@
   padding: var(--space-5);
   border-radius: 0.5rem;
 }
-.retail-example h3 {
+.workflow-example h3 {
   margin-top: 0;
 }
-.retail-example blockquote,
-.retail-example dl,
-.retail-example dd {
+.draft-reply p,
+.workflow-example blockquote,
+.workflow-example dl,
+.workflow-example dd {
   margin: 0;
 }
-.retail-example dt {
+.workflow-example dt {
   font-weight: var(--weight-strong);
 }
-.retail-example dt:not(:first-child) {
+.workflow-example dt:not(:first-child),
+.workflow-example dl > div + div {
   margin-top: 0.6rem;
 }
 .draft-reply {
