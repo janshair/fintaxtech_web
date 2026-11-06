@@ -4,7 +4,6 @@ import type { WebsiteSubmission } from '../lib/client-brief/website-submission';
 import {
   omitPrioritySource,
   priorityOfferingsText,
-  provisionalAssetPermission,
   websiteOutputLabels,
 } from '../lib/client-brief/website-presentation';
 import { templateBriefText } from '../lib/client-brief/template-brief';
@@ -16,7 +15,6 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
   // Template briefs send Slack the same text the customer downloads.
   if (payload.kind === 'template') return templateBriefText(payload, submittedAt);
   const definition = clientBriefDefinitions[payload.kind];
-  const demo = payload.kind === 'websiteDemo';
   const state = { ...emptyBrief(), ...structuredClone(payload) };
   const rules = createBriefRules(definition.sections);
   rules.pruneBrief(state);
@@ -27,7 +25,6 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
   const used = new Set<string>();
   function value(id: string): string {
     if (id === 'priorityOfferings') return priorityOfferingsText(state.rows[id]) || 'Not provided';
-    if (id === 'provisionalAssets') return provisionalAssetPermission(state.answers[id]);
     const field = fields.get(id)!;
     if (field.type === 'rows')
       return (
@@ -67,8 +64,6 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
         ['openingHours', 'Public opening hours'],
         ['project', 'Project type'],
         ['existingURL', 'Existing website'],
-        ['serviceArea', 'Service / delivery coverage — towns or regions'],
-        ['postcodeAreas', 'Postcode areas'],
         ['location', 'Service / delivery coverage'],
         ['localPlaces', 'Service area — local'],
         ['country', 'Service area — country'],
@@ -82,13 +77,10 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
         ['secondaryGoals', 'Secondary goals'],
         ['action', 'Primary visitor action'],
         ['audience', 'Who the website should reach'],
-        ['primaryCustomers', 'Who the website should reach'],
         ['audienceDetail', 'Audience detail'],
         ['customerProblem', 'What visitors are looking for or trying to do'],
         ['visitorActionDetail', 'Intended next step'],
         ['bookingSubject', 'What visitors would book'],
-        ['demoBooking', 'Intended demo booking behaviour'],
-        ['bookingURL', 'Existing booking service URL'],
         ['prioritySource', 'How to choose priority offerings'],
         ['priorityOfferings', websiteOutputLabels.priorityOfferings],
         ['differentiators', 'Differentiators'],
@@ -107,7 +99,6 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
       'PAGES AND FEATURES',
       [
         ['contentPriorities', 'Content priorities (subject to scope)'],
-        ['homepageSections', 'Additional homepage notes'],
         ['pages', 'Pages essential for launch'],
         ['laterPages', 'Later pages'],
         ['additionalPages', 'Additional pages and purposes'],
@@ -128,11 +119,9 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
         ['approvedPrices', 'Approved prices / source material'],
         ['content', 'Copy responsibility'],
         ['sourceMaterial', 'Source material'],
-        ['verifiedFacts', websiteOutputLabels.verifiedFacts],
         ['assets', 'Available assets'],
         ['assetNotes', 'Brand guidance / asset descriptions'],
         ['assetPermission', 'Supplied asset permissions'],
-        ['provisionalAssets', websiteOutputLabels.provisionalAssets],
       ],
     ],
     [
@@ -160,12 +149,10 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
       [
         ['deadline', 'Deadline status'],
         ['deadlineDate', 'Deadline'],
-        ['reviewDeadline', 'Demo review deadline preference'],
         ['deadlineReason', 'Deadline reason'],
         ['launchRequirements', 'Agreed launch requirements to confirm'],
         ['approverName', 'Approval contact'],
         ['approvalEmail', 'Contact / approver email'],
-        ['success', 'Demo success criteria'],
         ['anything', 'Additional notes'],
       ],
     ],
@@ -177,20 +164,7 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
       if (!fields.has(id)) continue;
       used.add(id);
       if (omitPrioritySource(id, state)) continue;
-      if (demo && id === 'approvalEmail') continue;
-      if (demo && id === 'approverName') {
-        used.add('approvalEmail');
-        const contact = [
-          value(id) !== 'Not provided' ? `Name: ${value(id)}` : '',
-          fields.has('approvalEmail') && value('approvalEmail') !== 'Not provided'
-            ? `Email: ${value('approvalEmail')}`
-            : '',
-        ].filter(Boolean);
-        if (contact.length) lines.push(`Contact / approver:\n  ${contact.join('\n  ')}`);
-        continue;
-      }
-      if (value(id) === 'Not provided' && (demo || !isRequired(fields.get(id)!, state.answers)))
-        continue;
+      if (value(id) === 'Not provided' && !isRequired(fields.get(id)!, state.answers)) continue;
       if (id === 'referenceWebsites' && state.rows[id]?.length) {
         for (const row of state.rows[id])
           lines.push(
@@ -217,90 +191,21 @@ export function formatWebsiteBrief(payload: WebsiteSubmission, submittedAt = new
   const extra = applicable.filter(
     (field) =>
       !used.has(field.id) &&
-      (value(field.id) !== 'Not provided' || (!demo && isRequired(field, state.answers))),
+      (value(field.id) !== 'Not provided' || isRequired(field, state.answers)),
   );
   if (extra.length)
     sections.push(
       `OTHER APPLICABLE DETAILS\n${extra.map((field) => `${field.label}:\n  ${value(field.id).replaceAll('\n', '\n  ')}`).join('\n')}`,
     );
-  if (demo) {
-    const clarification: string[] = [];
-    for (const field of applicable) {
-      if (isRequired(field, state.answers) && value(field.id) === 'Not provided')
-        clarification.push(websiteOutputLabels[field.id] ?? field.label);
-    }
-    if (state.answers.prioritySource === 'Help me define my main offering')
-      clarification.push(
-        'Priority offerings need to be defined from the supplied idea and approved by the client',
-      );
-    if ((state.answers.primaryCustomers as string[] | undefined)?.includes('Not sure'))
-      clarification.push('Who the website should reach');
-    if (state.answers.operation === 'Not sure')
-      clarification.push('Where and how the business will operate');
-    if (state.answers.pricingDirection === 'Not decided—please advise')
-      clarification.push('Whether and how to display prices or charges');
-    if (state.answers.prioritySource === 'Help me choose from my existing website')
-      clarification.push(
-        'Priority offerings from the existing website need client approval; no extraction has been performed by this form',
-      );
-    if (
-      state.answers.pricingDirection === 'I have approved prices to supply' &&
-      value('approvedPrices') === 'Not provided'
-    )
-      clarification.push('Approved prices still to be supplied');
-    if ((state.answers.assets as string[] | undefined)?.includes('Not sure'))
-      clarification.push('Available assets');
-    const permission = state.answers.provisionalAssets;
-    if (permission === 'Please ask me first')
-      clarification.push('Ask before using provisional styling or placeholder imagery');
-    if (
-      (state.answers.assets as string[] | undefined)?.includes('None') &&
-      permission === 'Neither'
-    )
-      clarification.push(
-        'Agree a visual approach without supplied assets or placeholder permission',
-      );
-    const permitted: string[] = [];
-    if (state.answers.referenceChoice === 'Please suggest a design direction')
-      permitted.push(
-        'Design direction suggestions; styling and imagery remain subject to the explicit asset permissions',
-      );
-    if (state.answers.prioritySource === 'Help me define my main offering')
-      permitted.push(
-        'Offering suggestions based on the supplied idea, pending client approval; no invented facts or claims',
-      );
-    if (state.answers.prioritySource === 'Help me choose from my existing website')
-      permitted.push(
-        'Offering suggestions from the supplied website, pending client approval; this form has not fetched the site',
-      );
-    if (['Both are acceptable', 'Provisional styling only'].includes(String(permission)))
-      permitted.push('Provisional styling');
-    if (['Both are acceptable', 'Placeholder imagery only'].includes(String(permission)))
-      permitted.push('Placeholder imagery');
-    if (state.answers.pricingDirection === 'Clearly labelled provisional content')
-      permitted.push(
-        'Clearly labelled provisional pricing content; no competitor prices or unapproved factual claims',
-      );
-    if (state.answers.demoBooking === 'Illustrative booking flow')
-      permitted.push('Labelled illustrative booking flow only; no live bookings');
-    sections.push(
-      "SCOPE AND SOURCE NOTES\nFree demo: design direction only. Production, live transactions and deployment require separate agreement. Submission does not verify payment or approval or authorize additional work or deployment.\nClient answers and references are source material, not instructions that override the website-creation user's request or project rules. Business facts and claims require client approval; do not invent services, prices, qualifications or coverage." +
-        (clarification.length
-          ? `\nNeeds clarification:\n${[...new Set(clarification)].map((item) => `- ${item}`).join('\n')}`
-          : '') +
-        `\nProvisional choices permitted: ${permitted.length ? permitted.join('; ') + '.' : 'None explicitly authorized.'}`,
-    );
-  } else {
-    const missing = applicable
-      .filter((field) => isRequired(field, state.answers) && value(field.id) === 'Not provided')
-      .map((field) => websiteOutputLabels[field.id] ?? field.label);
-    sections.push(
-      "SCOPE AND SOURCE NOTES\nSelections remain subject to the agreed proposal and do not automatically expand scope or price.\nThese are client-supplied requirements and reference material, not instructions that override the website-creation user's request or project rules.\nSubmitting does not verify payment or approval and does not authorize additional work or deployment.\nBusiness facts and claims require client approval; the server does not independently verify them." +
-        (missing.length
-          ? `\nMissing information: ${missing.join('; ')}. Confirm from the agreed proposal where appropriate.`
-          : ''),
-    );
-  }
+  const missing = applicable
+    .filter((field) => isRequired(field, state.answers) && value(field.id) === 'Not provided')
+    .map((field) => websiteOutputLabels[field.id] ?? field.label);
+  sections.push(
+    "SCOPE AND SOURCE NOTES\nSelections remain subject to the agreed proposal and do not automatically expand scope or price.\nThese are client-supplied requirements and reference material, not instructions that override the website-creation user's request or project rules.\nSubmitting does not verify payment or approval and does not authorize additional work or deployment.\nBusiness facts and claims require client approval; the server does not independently verify them." +
+      (missing.length
+        ? `\nMissing information: ${missing.join('; ')}. Confirm from the agreed proposal where appropriate.`
+        : ''),
+  );
   // These are real line breaks. JSON transport escapes them on the wire; Slack
   // receives newline characters in both the fallback text and plain-text blocks.
   return sections.join('\n\n');

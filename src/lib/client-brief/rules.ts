@@ -15,7 +15,6 @@ import {
 import {
   omitPrioritySource,
   priorityOfferingsText,
-  provisionalAssetPermission,
   websiteOutputLabels,
 } from './website-presentation';
 import type {
@@ -406,7 +405,6 @@ export function createBriefRules(sections: BriefSection[]) {
             }
             if (website && !isRequired(field, state.answers) && (!value || value === c.notProvided))
               return [];
-            if (field.id === 'provisionalAssets') value = provisionalAssetPermission(answer);
             const rows = [{ label: websiteOutputLabels[field.id] ?? field.label, value }];
             if (
               field.followUp?.pdfNote &&

@@ -11,7 +11,7 @@ import {
   reviewedWebsiteSubmission,
   websitePayloadLimit,
 } from '../src/lib/client-brief/website-submission';
-import { completeWebsiteDemoBrief } from './fixtures/website-demo-brief';
+import { detailedWebsiteBrief } from './fixtures/website-brief';
 
 const exec = promisify(execFile);
 const root = process.cwd();
@@ -87,7 +87,7 @@ globalThis.fetch = async (url, options) => {
     expect((await oversized.json()).code).toBe('oversized');
     const ticket = await (await post({}, 'challenge/')).json();
     const data = {
-      ...reviewedWebsiteSubmission('websiteDemo', completeWebsiteDemoBrief()),
+      ...reviewedWebsiteSubmission('website', detailedWebsiteBrief()),
       submissionId: ticket.submissionId,
       trap: '',
     };
@@ -98,7 +98,7 @@ globalThis.fetch = async (url, options) => {
     }
     const calls = (await readFile(callsFile, 'utf8')).trim().split('\n');
     expect(calls).toHaveLength(1);
-    expect(JSON.parse(calls[0]).text).toContain('Demo Orchard Ltd');
+    expect(JSON.parse(calls[0]).text).toContain('Production Orchard Ltd');
     expect(logs).toBe('');
   } finally {
     child.kill();
@@ -218,8 +218,8 @@ it('refreshes the local API schema when a questionnaire changes during developme
         { timeout: 15000 },
       )
       .toBe(405);
-    const data = reviewedWebsiteSubmission('websiteDemo', completeWebsiteDemoBrief());
-    delete data.answers.sector; // Prevent Slack delivery even after the new field is recognized.
+    const data = reviewedWebsiteSubmission('website', detailedWebsiteBrief());
+    delete data.answers.goals; // Prevent Slack delivery even after the new field is recognized.
     data.answers.reloadProbe = 'New question';
     const first = await (await post({}, 'challenge/')).json();
     expect(
@@ -229,12 +229,12 @@ it('refreshes the local API schema when a questionnaire changes during developme
         ).json()
       ).code,
     ).toBe('invalid');
-    const file = join(sandbox, 'src/content/website-demo-brief.ts');
+    const file = join(sandbox, 'src/content/website-brief.ts');
     await writeFile(
       file,
       (await readFile(file, 'utf8')).replace(
-        "{ id: 'sector', label: 'Business sector', type: 'text' },",
-        "{ id: 'sector', label: 'Business sector', type: 'text' }, { id: 'reloadProbe', label: 'New question', type: 'text', optional: true },",
+        "{ id: 'sector', label: 'Business sector', type: 'text', optional: true },",
+        "{ id: 'sector', label: 'Business sector', type: 'text', optional: true }, { id: 'reloadProbe', label: 'New question', type: 'text', optional: true },",
       ),
     );
     // Wait for the previous ticket to expire: an Astro restart rebuilt the API.
@@ -258,7 +258,7 @@ it('refreshes the local API schema when a questionnaire changes during developme
       '',
       second.token,
     );
-    expect((await response.json()).code).toBe('incomplete'); // New field recognized; missing sector still rejected.
+    expect((await response.json()).code).toBe('incomplete'); // New field recognized; missing goals still rejected.
   } finally {
     child.kill();
     await once(child, 'exit');

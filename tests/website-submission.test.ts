@@ -12,14 +12,13 @@ import {
   websitePayloadLimit,
 } from '../src/lib/client-brief/website-submission';
 import { createWebsiteDelivery } from '../src/lib/client-brief/website-delivery';
-import { completeWebsiteDemoBrief } from './fixtures/website-demo-brief';
 import { completeWebsiteBrief, detailedWebsiteBrief } from './fixtures/website-brief';
 
 const origin = 'https://fintaxtech.co.uk';
 // Deliberately invalid test-only URL; every transport in this file is mocked.
 const webhook = 'https://hooks.slack.com/services/TEST_ONLY';
 const payload = () => ({
-  ...reviewedWebsiteSubmission('websiteDemo', completeWebsiteDemoBrief()),
+  ...reviewedWebsiteSubmission('website', detailedWebsiteBrief()),
   trap: '',
 });
 const request = (body: unknown, endpoint = path, headers: Record<string, string> = {}) =>
@@ -118,39 +117,31 @@ describe('server validation and structured website messages', () => {
     ).toThrow('invalid');
   });
   it('maps every applicable answer without treating None or Not needed as missing', () => {
-    for (const [kind, state] of [
-      ['websiteDemo', completeWebsiteDemoBrief()],
-      ['website', detailedWebsiteBrief()],
-    ] as const) {
-      const submission = reviewedWebsiteSubmission(kind, state);
-      const message = formatWebsiteBrief(submission);
-      for (const [id, value] of Object.entries(submission.answers)) {
-        if (
-          id === 'prioritySource' &&
-          value === 'I will list up to three' &&
-          submission.rows.priorityOfferings?.length
-        )
-          continue;
-        const displayed =
-          id === 'provisionalAssets'
-            ? 'Provisional styling permitted; placeholder imagery not permitted.'
-            : value;
-        for (const part of Array.isArray(displayed) ? displayed : String(displayed).split('\n'))
-          expect(message).toContain(part);
-      }
-      expect(message).not.toContain('How to choose priority offerings:');
-      expect(message).not.toContain('I will list up to three');
-      expect(message).not.toContain('Provisional styling only');
-      expect(message).toContain('Priority offerings — services, products, treatments, classes or other offers:\n\n1. ');
-      expect(message).not.toContain('Service or product and short description');
-      for (const rows of Object.values(submission.rows))
-        for (const row of rows)
-          for (const value of Object.values(row.values)) expect(message).toContain(value);
-      expect(message).toContain('Reference URL:');
-      expect(message).toContain('What the client likes:');
-      expect(message).toContain('not instructions that override');
-      expect(message).toContain('does not verify payment or approval');
+    const submission = reviewedWebsiteSubmission('website', detailedWebsiteBrief());
+    const detailed = formatWebsiteBrief(submission);
+    for (const [id, value] of Object.entries(submission.answers)) {
+      if (
+        id === 'prioritySource' &&
+        value === 'I will list up to three' &&
+        submission.rows.priorityOfferings?.length
+      )
+        continue;
+      for (const part of Array.isArray(value) ? value : String(value).split('\n'))
+        expect(detailed).toContain(part);
     }
+    expect(detailed).not.toContain('How to choose priority offerings:');
+    expect(detailed).not.toContain('I will list up to three');
+    expect(detailed).toContain(
+      'Priority offerings — services, products, treatments, classes or other offers:\n\n1. ',
+    );
+    expect(detailed).not.toContain('Service or product and short description');
+    for (const rows of Object.values(submission.rows))
+      for (const row of rows)
+        for (const value of Object.values(row.values)) expect(detailed).toContain(value);
+    expect(detailed).toContain('Reference URL:');
+    expect(detailed).toContain('What the client likes:');
+    expect(detailed).toContain('not instructions that override');
+    expect(detailed).toContain('does not verify payment or approval');
     const state = completeWebsiteBrief();
     state.answers.domain = 'Not needed';
     state.answers.email = 'Not needed';
@@ -161,11 +152,6 @@ describe('server validation and structured website messages', () => {
     // Blank optional production details are omitted, not reported as missing.
     expect(message).not.toContain('Business name:');
     expect(message).not.toContain('Missing information');
-    const demo = formatWebsiteBrief(
-      reviewedWebsiteSubmission('websiteDemo', completeWebsiteDemoBrief()),
-    );
-    expect(demo).not.toContain('DOMAIN, EMAIL AND OPERATIONS');
-    expect(demo).not.toContain('Copy responsibility:');
   });
   it('escapes mentions and formatting, splits without truncation and respects every Slack limit', () => {
     const state = detailedWebsiteBrief();
@@ -239,16 +225,16 @@ describe('server endpoint safeguards and delivery tracking', () => {
   });
   it('resumes partial delivery and retries only definitively rejected parts', async () => {
     const service = api();
-    const state = completeWebsiteDemoBrief();
+    const state = detailedWebsiteBrief();
     for (const id of [
       'customerProblem',
       'designPreferences',
       'designAvoid',
       'assetNotes',
-      'verifiedFacts',
+      'launchRequirements',
     ])
       state.answers[id] = '&'.repeat(2000);
-    const data = { ...reviewedWebsiteSubmission('websiteDemo', state), trap: '' };
+    const data = { ...reviewedWebsiteSubmission('website', state), trap: '' };
     const ticket = await service.ticket();
     service.fetcher
       .mockResolvedValueOnce(new Response('ok'))
@@ -348,10 +334,7 @@ describe('completion controller: memory-only deduplication and safe retry', () =
           Response.json({ status: 'failed', delivered: 0, total: 0, code }, { status: 400 }),
         );
       const status = vi.fn();
-      await createWebsiteDelivery('websiteDemo', fetcher).complete(
-        completeWebsiteDemoBrief(),
-        status,
-      );
+      await createWebsiteDelivery('website', fetcher).complete(detailedWebsiteBrief(), status);
       expect(status.mock.calls.at(-1)![0]).toContain('nothing was sent to Slack');
       expect(status.mock.calls.at(-1)![0]).not.toContain('Slack delivery failed');
       expect(fetcher).toHaveBeenCalledTimes(2);
@@ -377,13 +360,13 @@ describe('completion controller: memory-only deduplication and safe retry', () =
           ? Response.json({ code: 'unavailable' }, { status: 503 })
           : new Response('<html>Static server</html>', { status: statusCode }),
       );
-      const controller = createWebsiteDelivery('websiteDemo', fetcher, async () => {});
+      const controller = createWebsiteDelivery('website', fetcher, async () => {});
       const status = vi.fn();
-      await controller.complete(completeWebsiteDemoBrief(), status);
+      await controller.complete(detailedWebsiteBrief(), status);
       expect(status.mock.calls.at(-1)![0]).toContain('Online brief delivery is unavailable');
       expect(fetcher).toHaveBeenCalledTimes(1);
       expect(service.fetcher).not.toHaveBeenCalled();
-      await controller.complete(completeWebsiteDemoBrief(), status);
+      await controller.complete(detailedWebsiteBrief(), status);
       expect(status.mock.calls.at(-1)![0]).toContain('delivered');
       expect(service.fetcher).toHaveBeenCalledTimes(1);
     },
@@ -391,8 +374,8 @@ describe('completion controller: memory-only deduplication and safe retry', () =
   it('deduplicates identical applicable answers, resubmits changed answers and ignores hidden/UI-only changes', async () => {
     const service = api();
     const fetcher = mockedClient(service);
-    const delivery = createWebsiteDelivery('websiteDemo', fetcher, async () => {});
-    const state = completeWebsiteDemoBrief();
+    const delivery = createWebsiteDelivery('website', fetcher, async () => {});
+    const state = detailedWebsiteBrief();
     const status = vi.fn();
     await Promise.all([delivery.complete(state, status), delivery.complete(state, status)]);
     expect(service.fetcher).toHaveBeenCalledTimes(1);
@@ -400,10 +383,10 @@ describe('completion controller: memory-only deduplication and safe retry', () =
     state.rows.referenceWebsites[0].id = 'new-ui-id';
     await delivery.complete(state, status);
     expect(fetcher).toHaveBeenCalledTimes(2);
-    state.answers.trading = 'Changed demo';
+    state.answers.trading = 'Changed business';
     await delivery.complete(state, status);
     expect(service.fetcher).toHaveBeenCalledTimes(2);
-    state.answers.trading = 'Demo Orchard Ltd';
+    state.answers.trading = 'Production Orchard Ltd';
     await delivery.complete(state, status);
     expect(service.fetcher).toHaveBeenCalledTimes(2);
     expect(status.mock.calls.at(-1)![0]).toContain('delivered');
@@ -420,18 +403,18 @@ describe('completion controller: memory-only deduplication and safe retry', () =
       }
       return response;
     });
-    const controller = createWebsiteDelivery('websiteDemo', fetcher, async () => {});
+    const controller = createWebsiteDelivery('website', fetcher, async () => {});
     const status = vi.fn();
-    await controller.complete(completeWebsiteDemoBrief(), status);
+    await controller.complete(detailedWebsiteBrief(), status);
     expect(service.fetcher).toHaveBeenCalledTimes(1);
     expect(fetcher).toHaveBeenCalledTimes(3);
     expect(status.mock.calls.at(-1)![0]).toContain('delivered');
     const second = api();
     second.fetcher.mockResolvedValueOnce(new Response('invalid_payload', { status: 400 }));
-    const retry = createWebsiteDelivery('websiteDemo', mockedClient(second), async () => {});
-    await retry.complete(completeWebsiteDemoBrief(), status);
+    const retry = createWebsiteDelivery('website', mockedClient(second), async () => {});
+    await retry.complete(detailedWebsiteBrief(), status);
     expect(status.mock.calls.at(-1)![0]).toContain('failed');
-    await retry.complete(completeWebsiteDemoBrief(), status);
+    await retry.complete(detailedWebsiteBrief(), status);
     expect(second.fetcher).toHaveBeenCalledTimes(2);
     expect(status.mock.calls.at(-1)![0]).toContain('delivered');
   });
@@ -443,9 +426,9 @@ describe('completion controller: memory-only deduplication and safe retry', () =
       if (url === path) throw new Error('mock network failure');
       return response;
     });
-    const controller = createWebsiteDelivery('websiteDemo', fetcher, async () => {});
+    const controller = createWebsiteDelivery('website', fetcher, async () => {});
     const status = vi.fn();
-    await controller.complete(completeWebsiteDemoBrief(), status);
+    await controller.complete(detailedWebsiteBrief(), status);
     expect(service.fetcher).toHaveBeenCalledTimes(1);
     expect(fetcher).toHaveBeenCalledTimes(4);
     expect(status.mock.calls.at(-1)![0]).toContain('could not be confirmed');

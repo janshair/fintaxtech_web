@@ -1,5 +1,5 @@
 export const briefCopy = {
-  access: 'This page is unlisted, not access-controlled. Anyone with its link can open it.',
+  access: 'Anyone with its link can open it.',
   noScript:
     'Enable JavaScript to complete this brief and create a PDF locally. You can also contact FinTaxTech using the details below.',
   next: 'Next',

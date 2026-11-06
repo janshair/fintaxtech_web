@@ -83,11 +83,7 @@ export function validateWebsiteSubmission(input: unknown): WebsiteSubmission {
       return { id: String(index), values: row.values as Record<string, string> };
     });
   }
-  if (
-    input.additionalPages.length > limits.additionalPages ||
-    (input.kind === 'websiteDemo' && input.additionalPages.length)
-  )
-    throw new SubmissionError('invalid');
+  if (input.additionalPages.length > limits.additionalPages) throw new SubmissionError('invalid');
   state.additionalPages = input.additionalPages.map((page, index) => {
     if (
       !record(page) ||

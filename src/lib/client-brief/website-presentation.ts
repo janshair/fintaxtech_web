@@ -1,10 +1,8 @@
-import type { BriefAnswers, BriefState } from './types';
+import type { BriefState } from './types';
 
 // Output-only wording. Keep stored selections and client-entered service text unchanged.
 export const websiteOutputLabels: Record<string, string> = {
   priorityOfferings: 'Priority offerings — services, products, treatments, classes or other offers',
-  verifiedFacts: 'Business facts / source material supplied by client',
-  provisionalAssets: 'Provisional styling and placeholder imagery permissions',
 };
 
 export function priorityOfferingsText(rows: BriefState['rows'][string] = []) {
@@ -19,16 +17,4 @@ export function omitPrioritySource(id: string, state: Pick<BriefState, 'answers'
     state.answers.prioritySource === 'I will list up to three' &&
     !!state.rows.priorityOfferings?.some((row) => row.values.description?.trim())
   );
-}
-
-export function provisionalAssetPermission(answer: BriefAnswers[string]) {
-  const wording: Record<string, string> = {
-    'Both are acceptable': 'Provisional styling permitted; placeholder imagery permitted.',
-    'Provisional styling only': 'Provisional styling permitted; placeholder imagery not permitted.',
-    'Placeholder imagery only': 'Provisional styling not permitted; placeholder imagery permitted.',
-    Neither: 'Provisional styling not permitted; placeholder imagery not permitted.',
-    'Please ask me first':
-      'Ask the client before using provisional styling or placeholder imagery; neither is authorized yet.',
-  };
-  return typeof answer === 'string' && answer.trim() ? (wording[answer] ?? answer) : 'Not provided';
 }

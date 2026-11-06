@@ -233,3 +233,28 @@ export const threeDTemplates: readonly MotionTemplate[] = [
   },
 ];
 export const allTemplates = [...motionTemplates, ...threeDTemplates];
+
+export const websiteGallery = {
+  route: '/templates/website/',
+  title: 'Website templates',
+  description:
+    'Browse 3D and motion website templates by FinTaxTech. Explore interactive product demos and scroll-driven designs for your business.',
+};
+
+export const websiteCategories = [
+  {
+    route: threeDGallery.route,
+    title: '3D website templates',
+    description: 'Let visitors explore your products from every angle with interactive 3D models.',
+    linkLabel: 'Explore 3D templates',
+    featuredId: 'juice-bar-05',
+  },
+  {
+    route: motionGallery.route,
+    title: 'Motion website templates',
+    description:
+      'Guide visitors through your site with scroll animations, smooth transitions and subtle hover effects.',
+    linkLabel: 'Explore motion templates',
+    featuredId: 'gym-06',
+  },
+];

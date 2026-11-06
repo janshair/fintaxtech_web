@@ -3,7 +3,13 @@ import { locations } from './locations';
 import { websiteEstimateCopy } from './website-estimate';
 import { mobileEstimateCopy } from './mobile-estimate';
 import { brandingEstimateCopy } from './branding-estimate';
-import { motionGallery, threeDGallery, allTemplates, barberRedirect } from './templates';
+import {
+  websiteGallery,
+  motionGallery,
+  threeDGallery,
+  allTemplates,
+  barberRedirect,
+} from './templates';
 import { legacyRedirects } from './legacy-redirects';
 import { careersCopy } from './careers';
 import { metoni, metoniSupport } from './metoni';
@@ -13,7 +19,7 @@ import { promptBriefCopy } from './prompt-brief';
 import { promoCopy, promoStatus } from './promo';
 import { mobileAppBriefCopy } from './mobile-app-brief';
 import { websiteBriefCopy } from './website-brief';
-import { websiteDemoBriefCopy } from './website-demo-brief';
+import { formsDirectory } from './forms';
 import { logoBriefCopy } from './logo-brief';
 import { templateBriefCopy, templateBriefRedirect, templateChoices } from './template-brief';
 import { pages } from './pages';
@@ -68,6 +74,7 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
     nofollow: true,
   },
+  [websiteGallery.route]: { title: websiteGallery.title, description: websiteGallery.description },
   [threeDGallery.route]: { title: threeDGallery.title, description: threeDGallery.description },
   [motionGallery.route]: { title: motionGallery.title, description: motionGallery.description },
   ...Object.fromEntries(
@@ -128,12 +135,7 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
     nofollow: true,
   },
-  [websiteDemoBriefCopy.route]: {
-    title: websiteDemoBriefCopy.title,
-    description: websiteDemoBriefCopy.description,
-    noindex: true,
-    nofollow: true,
-  },
+  [formsDirectory.route]: { title: formsDirectory.title, description: formsDirectory.description },
   [templateBriefCopy.route]: {
     title: templateBriefCopy.title,
     description: templateBriefCopy.description,

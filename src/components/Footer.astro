@@ -3,7 +3,8 @@ interface Props {
   startHref?: string;
 }
 const { startHref = '/start/' } = Astro.props;
-import { motionGallery, threeDGallery } from '../content/templates';
+import { formsDirectory } from '../content/forms';
+import { websiteGallery } from '../content/templates';
 import SocialLinks from './SocialLinks.astro';
 import { company, ui, consentCopy, navigation, pricingCalculatorNavigation } from '../content/site';
 import { services } from '../content/services';
@@ -24,8 +25,8 @@ import { careersCopy } from '../content/careers';
       <nav class="footer-links" aria-label={ui.footerNav}>
         <h3>{ui.services}</h3>{services.map((s) => <a href={`/services/${s.id}/`}>{s.name}</a>)}{
           navigation.slice(2).map(([href, label]) => <a href={href}>{label}</a>)
-        }<a href={motionGallery.route}>{motionGallery.title}</a><a href={threeDGallery.route}
-          >{threeDGallery.title}</a
+        }<a href={formsDirectory.route}>{formsDirectory.title}</a><a href={websiteGallery.route}
+          >Templates</a
         ><a href={startHref}>{ui.start}</a><a href="/selected-work/">{ui.work}</a>
       </nav>
       <div class="footer-links">

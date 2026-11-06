@@ -2,7 +2,7 @@ import { clientBriefDefinitions } from './definitions';
 import { createBriefRules, hasRows, isVisible, requiresOtherText } from './rules';
 import type { BriefAnswers, BriefState } from './types';
 
-export type WebsiteBriefKind = 'website' | 'websiteDemo' | 'template';
+export type WebsiteBriefKind = 'website' | 'template';
 export const websiteSubmissionPath = '/api/website-brief/';
 export const websitePayloadLimit = 256 * 1024;
 export interface WebsiteSubmission {
@@ -21,7 +21,7 @@ export interface DeliveryResult {
   code?: string;
 }
 export const isWebsiteBrief = (kind: string): kind is WebsiteBriefKind =>
-  kind === 'website' || kind === 'websiteDemo' || kind === 'template';
+  kind === 'website' || kind === 'template';
 
 // A canonical snapshot of applicable answers. Row IDs are UI details, not brief content.
 export function reviewedWebsiteSubmission(

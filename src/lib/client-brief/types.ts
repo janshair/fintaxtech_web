@@ -1,4 +1,4 @@
-export type BriefKind = 'logo' | 'website' | 'websiteDemo' | 'mobile' | 'prompt' | 'template';
+export type BriefKind = 'logo' | 'website' | 'mobile' | 'prompt' | 'template';
 
 export interface BriefCondition {
   id: string;
