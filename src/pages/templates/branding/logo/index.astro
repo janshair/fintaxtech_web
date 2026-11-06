@@ -1,0 +1,56 @@
+---
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import { logoGallery, logoStyles, referencePath } from '../../../../content/branding-gallery';
+import '../../../../styles/branding-gallery.css';
+---
+
+<SiteLayout title={logoGallery.title} description={logoGallery.description}>
+  <div class="container brand-pages">
+    <header class="brand-intro">
+      <h1>Logo styles</h1><p class="lead">
+        Which mark would feel at home on your business? Compare the choices from our branding
+        questionnaire. Some describe the shape of a logo, others the finish of an app icon.
+      </p>
+    </header>
+    <ul class="reference-grid" role="list">
+      {
+        logoStyles.map(({ style, slug, brand, file, note, examples }) => (
+          <li class="reference-card">
+            <a class="style-card-link" href={logoGallery.route + slug + '/'} aria-labelledby={slug}>
+              <div class="specimen">
+                <img
+                  src={referencePath + file}
+                  alt={`${brand} logo reference`}
+                  width="180"
+                  height="120"
+                  loading="lazy"
+                />
+              </div>
+              <div class="reference-copy">
+                <h2 id={slug}>{style}</h2>
+                <p class="specimen-credit">Pictured: {brand}</p>
+                <p>{note}</p>
+                <p class="example-line">
+                  <strong>Examples:</strong> {examples.map(([name]) => name).join(', ')}
+                </p>
+                <span class="read-guide">
+                  Read the design guide <span aria-hidden="true">→</span>
+                </span>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="reference-credit">
+      Brand marks are shown as visual references. <a href="/images/logo-references/credits.txt"
+        >Artwork credits</a
+      >
+    </p>
+    <div class="next-step">
+      <h2>Found your direction?</h2><p>
+        Choose the style you like in the branding enquiry, or ask us to help you narrow it down.
+      </p><a class="button primary" href="/enquiry/?service=branding">Open the branding enquiry</a>
+    </div>
+  </div>
+</SiteLayout>

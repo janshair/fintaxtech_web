@@ -1,0 +1,47 @@
+---
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import LogoExamples from '../../../../components/templates/LogoExamples.astro';
+import { designGuides, logoGallery, referencePath } from '../../../../content/branding-gallery';
+import '../../../../styles/branding-gallery.css';
+
+export function getStaticPaths() {
+  return designGuides.map((guide) => ({ params: { style: guide.slug }, props: { guide } }));
+}
+const { guide } = Astro.props;
+---
+
+<SiteLayout title={guide.style} description={guide.intro}>
+  <article class="container brand-pages">
+    <header class="brand-intro"><h1>{guide.style}</h1><p class="lead">{guide.intro}</p></header>
+    <figure class="hero-specimen">
+      <img
+        src={referencePath + guide.file}
+        alt={`${guide.brand} logo reference`}
+        width="300"
+        height="180"
+      />
+      <figcaption><strong>{guide.brand}</strong><span>{guide.note}</span></figcaption>
+    </figure>
+    <LogoExamples examples={guide.examples} />
+    {
+      guide.sections.map(([heading, body]) => (
+        <section class="guide-section">
+          <>
+            <h2>{heading}</h2>
+            <div>
+              <p>{body}</p>
+            </div>
+          </>
+        </section>
+      ))
+    }
+    <section class="next-step">
+      <h2>Give your designer a starting point</h2>
+      <p>“{guide.brief}”</p>
+      <div class="actions">
+        <a class="button primary" href="/enquiry/?service=branding">Start a branding enquiry</a><a
+          href={logoGallery.route}>Compare all logo styles</a>
+      </div>
+    </section>
+  </article>
+</SiteLayout>

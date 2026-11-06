@@ -1,0 +1,74 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import { brandingGallery, logoGallery, referencePath } from '../../../content/branding-gallery';
+import '../../../styles/branding-gallery.css';
+
+const services = [
+  [
+    'Business stationery',
+    'Carry your identity from a business card to a letterhead or an email signature.',
+    'Business cards · Letterheads · Email signatures',
+  ],
+  [
+    'Social media',
+    'Make a profile picture legible at thumbnail size and give your posts a recognisable layout.',
+    'Profile artwork · Social banners · Post templates',
+  ],
+  [
+    'Print & marketing materials',
+    'Give a reader a clear next step on a flyer, brochure or poster. We design the artwork for your printer.',
+    'Flyers · Brochures · Posters',
+  ],
+  [
+    'Brand guidelines',
+    'Give everyone who uses your identity the same instructions for logo spacing, colours and type.',
+    'Logo usage · Colour palette · Typography',
+  ],
+];
+---
+
+<SiteLayout title={brandingGallery.title} description={brandingGallery.description}>
+  <div class="container brand-pages">
+    <header class="brand-intro">
+      <h1>Branding templates</h1><p class="lead">
+        Explore the pieces that make your business recognisable, from the mark on your invoice to
+        the artwork on your shop window.
+      </p>
+    </header>
+    <a class="logo-feature" href={logoGallery.route}>
+      <div>
+        <h2>Logo design</h2><p>
+          See how real brands use shape, lettering and texture. Find a direction you can describe in
+          your branding brief.
+        </p><strong>Explore logo styles <span aria-hidden="true">→</span></strong>
+      </div>
+      <div class="reference-triptych" aria-hidden="true">
+        {
+          ['nike.svg', 'figma.svg', 'burger-king.svg'].map((file) => (
+            <span>
+              <img src={referencePath + file} alt="" width="120" height="100" />
+            </span>
+          ))
+        }
+      </div>
+    </a>
+    <div class="service-list">
+      {
+        services.map(([title, description, items]) => (
+          <section>
+            <>
+              <h2>{title}</h2>
+              <div>
+                <>
+                  <p>{description}</p>
+                  <small>{items}</small>
+                </>
+              </div>
+            </>
+          </section>
+        ))
+      }
+    </div>
+    <a class="button primary" href="/enquiry/?service=branding">Start a branding enquiry</a>
+  </div>
+</SiteLayout>

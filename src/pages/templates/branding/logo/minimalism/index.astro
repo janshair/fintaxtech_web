@@ -1,0 +1,127 @@
+---
+import LogoExamples from '../../../../../components/templates/LogoExamples.astro';
+import SiteLayout from '../../../../../layouts/SiteLayout.astro';
+import {
+  minimalismGuide,
+  logoGallery,
+  minimalistExample,
+  referencePath,
+} from '../../../../../content/branding-gallery';
+import '../../../../../styles/branding-gallery.css';
+---
+
+<SiteLayout title="Minimalist logo design" description={minimalismGuide.description}>
+  <article class="container brand-pages">
+    <header class="brand-intro">
+      <h1>Minimalism</h1><p class="lead">
+        A minimalist logo gives people one thing to remember. A curve that feels quick. A bite taken
+        from a familiar shape. The designer’s job is deciding which detail earns its place.
+      </p>
+    </header>
+    <figure class="hero-specimen">
+      <img
+        src={referencePath + minimalistExample.file}
+        alt="Nike’s Swoosh, a single curved mark tapering to a point"
+        width="300"
+        height="180"
+      /><figcaption>Nike Swoosh</figcaption>
+    </figure>
+    <LogoExamples examples={minimalistExample.examples} />
+    <section class="guide-section">
+      <h2>What does it say about your brand?</h2><div>
+        <p>
+          A simple mark gives the eye somewhere to settle. On an architect’s drawing, precise angles
+          and generous space can suggest care and accuracy. On a running shoe, a single tilted curve
+          can feel fast. Both are minimalist, yet they send different signals.
+        </p>
+        <p>
+          Decide what someone should feel first. If you want a neighbourhood bakery to feel
+          welcoming, a soft curve and gently rounded lettering may do more for you than a sharply
+          cut monogram.
+        </p>
+      </div>
+    </section>
+    <section class="guide-section">
+      <h2>What a designer looks for</h2><div>
+        <h3>A silhouette you could draw from memory</h3><p>
+          Look at the Swoosh above. The thick end grounds it, then the narrowing stroke pulls your
+          eye forward. Try tracing it in the air. That change in weight is the memorable part.
+        </p>
+        <h3>One deliberate difference</h3><p>
+          Look at Apple’s silhouette below. Cover the bite with your thumb, then uncover it. One cut
+          into the edge gives an otherwise familiar fruit a distinctive outline.
+        </p>
+        <figure class="apple-study">
+          <img
+            src={referencePath + 'apple.svg'}
+            width="64"
+            height="76"
+            alt="Apple’s silhouette with a bite cut from the right edge"
+          /><figcaption>Apple</figcaption>
+        </figure>
+        <h3>Space that survives real use</h3><p>
+          If two strokes nearly touch, they can merge when the logo shrinks. A designer adjusts
+          those gaps by eye and checks them at the size of a profile picture, a receipt or a
+          stitched pocket.
+        </p>
+      </div>
+    </section>
+    <section class="guide-section">
+      <h2>Where it works well</h2><div>
+        <p>
+          Think of a repair business using one mark on a van, a work shirt and a small invoice. A
+          bold outline can carry across all three. A single-colour version also makes a rubber stamp
+          or embroidered patch easier to produce.
+        </p>
+        <p>
+          A new business may still need its name beside the symbol while customers learn the
+          connection. And if every local repair firm already uses a simple spanner, taking detail
+          away won’t make another spanner distinctive. Start with a feature that belongs to your
+          business.
+        </p>
+      </div>
+    </section>
+    <section class="guide-section">
+      <h2>Try the small-size test</h2><div>
+        <div class="size-study">
+          {
+            [96, 48, 24].map((size) => (
+              <figure>
+                <>
+                  <div>
+                    <img
+                      src={referencePath + 'apple.svg'}
+                      width={size}
+                      height={size}
+                      alt={`Apple mark at ${size} pixels`}
+                    />
+                  </div>
+                  <figcaption>{size} px</figcaption>
+                </>
+              </figure>
+            ))
+          }
+        </div>
+        <p>
+          Glance at the smallest version first. Can you still see the bite and the separate leaf? Do
+          the same with your proposed logo in one colour. Then place it beside three competitors’
+          marks and see whether you can pick yours out at a glance.
+        </p>
+      </div>
+    </section>
+    <section class="next-step">
+      <h2>Give your designer a starting point</h2><p>
+        “We want to feel precise and approachable. Our logo needs to read on a small uniform badge
+        and on a van door. The angled roofline of our workshop is something our customers already
+        recognise.”
+      </p><p>
+        In your brief, name one feeling, one distinctive detail and the smallest place the logo will
+        appear.
+      </p><div class="actions">
+        <a class="button primary" href="/enquiry/?service=branding">Start a branding enquiry</a><a
+          href={logoGallery.route}>Compare all logo styles</a
+        >
+      </div>
+    </section>
+  </article>
+</SiteLayout>

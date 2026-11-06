@@ -1,10 +1,10 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { templateCategories, templateDirectory, websiteGallery } from '../../content/templates';
+import { templateCategories, templateDirectory } from '../../content/templates';
 
 export function getStaticPaths() {
   return templateCategories
-    .filter(({ route }) => route !== websiteGallery.route)
+    .filter(({ service }) => service === 'mobile-apps' || service === 'ai-automation')
     .map(({ service, title }) => ({
       params: { category: service },
       props: { title },

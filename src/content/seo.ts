@@ -1,3 +1,4 @@
+import { brandingGallery, logoGallery, minimalismGuide, designGuides } from './branding-gallery';
 import { aiEstimateCopy } from './ai-automation-estimate';
 import { locations } from './locations';
 import { websiteEstimateCopy } from './website-estimate';
@@ -75,6 +76,15 @@ export const seoPages: Record<string, PageSEO> = {
     noindex: true,
     nofollow: true,
   },
+  [brandingGallery.route]: brandingGallery,
+  [logoGallery.route]: logoGallery,
+  [minimalismGuide.route]: minimalismGuide,
+  ...Object.fromEntries(
+    designGuides.map(({ slug, style, intro }) => [
+      logoGallery.route + slug + '/',
+      { title: style, description: intro },
+    ]),
+  ),
   [templateDirectory.route]: {
     title: templateDirectory.title,
     description: templateDirectory.description,

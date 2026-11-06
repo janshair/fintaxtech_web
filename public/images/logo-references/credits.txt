@@ -1,0 +1,22 @@
+Logo gallery • artwork credits
+
+The examples are identified by brand on their cards. Style groupings and visual observations are FinTaxTech’s editorial interpretation.
+
+Apple GarageBand, System Settings and Shortcuts: app icons from the respective macOS app bundles. Apple Podcasts and Photos: Apple Human Interface Guidelines, App icons. The Photos image is a crop of Apple’s platform comparison showing the circular visionOS example.
+https://developer.apple.com/design/human-interface-guidelines/app-icons
+
+Nike Swoosh (designer: Carolyn Davidson) and Unilever: monochrome paths from Simple Icons v13. Nike’s surrounding whitespace was trimmed for presentation.
+https://github.com/simple-icons/simple-icons
+https://www.nike.com/a/never-done-leaving-a-mark-swoosh
+
+Black Flag logo (designer: Raymond Pettibon), Chanel wordmark and Burger King logo:
+https://commons.wikimedia.org/wiki/File:Black_Flag_logo.svg
+https://commons.wikimedia.org/wiki/File:Chanel_logo.svg
+https://commons.wikimedia.org/wiki/File:Burger_King_2020.svg
+
+Debian Open Use Logo: copyright 1999 Software in the Public Interest, Inc. Used unmodified under CC BY-SA 3.0.
+https://www.debian.org/logos/
+https://creativecommons.org/licenses/by-sa/3.0/
+
+Apple, Reddit, Microsoft, Figma, IBM, Linux (Tux, original by Larry Ewing), Airbnb and Disney+: vector artwork distributed via SVGL. Individual brand marks belong to their respective owners.
+https://github.com/pheralb/svgl/tree/main/static/library

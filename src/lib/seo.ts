@@ -1,3 +1,4 @@
+import { brandingGallery, logoGallery } from '../content/branding-gallery';
 import { locationFromPath } from '../content/locations';
 import { company, ui } from '../content/site';
 import { seoPages } from '../content/seo';
@@ -35,6 +36,10 @@ export function breadcrumbs(path: string, title?: string) {
       name: templateDirectory.breadcrumbLabel,
       url: absoluteURL(templateDirectory.route),
     });
+  for (const parent of [brandingGallery, logoGallery]) {
+    if (path.startsWith(parent.route) && path !== parent.route)
+      items.push({ name: parent.title, url: absoluteURL(parent.route) });
+  }
   if (path.startsWith(websiteGallery.route) && path !== websiteGallery.route)
     items.push({ name: websiteGallery.title, url: absoluteURL(websiteGallery.route) });
   if (path.startsWith(safos.route) && path !== safos.route)

@@ -1,0 +1,22 @@
+---
+interface Props {
+  examples: [name: string, observation: string][];
+}
+const { examples } = Astro.props;
+---
+
+<section class="guide-section">
+  <h2>Examples to look at</h2>
+  <dl class="logo-examples">
+    {
+      examples.map(([name, observation]) => (
+        <div>
+          <>
+            <dt>{name}</dt>
+            <dd>{observation}</dd>
+          </>
+        </div>
+      ))
+    }
+  </dl>
+</section>
