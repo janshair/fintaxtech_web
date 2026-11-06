@@ -1,3 +1,4 @@
+import { industryDirectory } from '../content/automation-industries';
 import { brandingGallery, logoGallery } from '../content/branding-gallery';
 import { locationFromPath } from '../content/locations';
 import { company, ui } from '../content/site';
@@ -36,7 +37,7 @@ export function breadcrumbs(path: string, title?: string) {
       name: templateDirectory.breadcrumbLabel,
       url: absoluteURL(templateDirectory.route),
     });
-  for (const parent of [brandingGallery, logoGallery]) {
+  for (const parent of [brandingGallery, logoGallery, industryDirectory]) {
     if (path.startsWith(parent.route) && path !== parent.route)
       items.push({ name: parent.title, url: absoluteURL(parent.route) });
   }

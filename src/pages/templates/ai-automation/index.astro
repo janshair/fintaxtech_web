@@ -1,0 +1,48 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ServiceVisual from '../../../components/ServiceVisual.astro';
+import IndustryFAQs from '../../../components/templates/IndustryFAQs.astro';
+import { industryDirectory, industries } from '../../../content/automation-industries';
+import '../../../styles/automation-gallery.css';
+---
+
+<SiteLayout title={industryDirectory.title} description={industryDirectory.description}>
+  <div class="container automation-page">
+    <header class="industry-intro">
+      <div>
+        <h1>{industryDirectory.title}</h1><p class="lead">
+          When the same emails, forms or documents arrive every day, we can help your team spend
+          less time sorting and retyping them. Find an example from your industry below.
+        </p>
+      </div>
+      <div class="intro-art" aria-hidden="true"><ServiceVisual service="ai-automation" /></div>
+    </header>
+    <div class="industry-grid">
+      {
+        industries.map(({ title, summary, guide, faqs }) => (
+          <section class="industry-card">
+            <h2>{guide ? <a href={guide}>{title}</a> : title}</h2>
+            {summary.map((line) => (
+              <p>{line}</p>
+            ))}
+            {guide && (
+              <a class="guide-link" href={guide}>
+                Explore the retail workflow <span aria-hidden="true">→</span>
+              </a>
+            )}
+            <>
+              <h3>FAQs</h3>
+              <IndustryFAQs faqs={faqs} />
+            </>
+          </section>
+        ))
+      }
+    </div>
+    <div class="automation-next">
+      <h2>What does your team handle repeatedly?</h2><p>
+        Tell us what arrives, which tools you use and who checks the result. An example with
+        fictional details is enough to start.
+      </p><a class="button primary" href="/enquiry/?service=ai-automation">Discuss your workflow</a>
+    </div>
+  </div>
+</SiteLayout>

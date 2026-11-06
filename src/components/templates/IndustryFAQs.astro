@@ -1,0 +1,38 @@
+---
+import type { FAQ } from '../../content/automation-industries';
+interface Props {
+  faqs: FAQ[];
+}
+const { faqs } = Astro.props;
+---
+
+<div class="industry-faq">
+  {
+    faqs.map(([question, answer]) => (
+      <details>
+        <>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </>
+      </details>
+    ))
+  }
+</div>
+<style>
+  details {
+    border-top: 1px solid var(--border);
+  }
+  summary {
+    cursor: pointer;
+    padding-block: 0.8rem;
+    font-weight: var(--weight-strong);
+  }
+  summary::marker {
+    color: var(--accent);
+  }
+  p {
+    color: var(--muted);
+    margin: 0 0 var(--space-4);
+    max-width: 65ch;
+  }
+</style>

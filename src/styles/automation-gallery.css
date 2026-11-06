@@ -1,0 +1,119 @@
+.automation-page {
+  padding-block: var(--space-6) var(--space-9);
+}
+.industry-intro,
+.retail-intro {
+  margin-bottom: var(--space-7);
+}
+.industry-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 21%);
+  align-items: center;
+  gap: var(--space-7);
+}
+.automation-page .lead {
+  margin-bottom: 0;
+  max-width: 62ch;
+}
+.industry-grid,
+.exchange {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+.industry-card,
+.retail-example {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+}
+.industry-card h2,
+.retail-example h2,
+.automation-next h2,
+.guide-row h2 {
+  font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+}
+.industry-card h2 a {
+  color: var(--text);
+}
+.industry-card > p {
+  margin: 0 0 var(--space-3);
+}
+.industry-card h3,
+.retail-example h3 {
+  font-size: 1rem;
+  margin: var(--space-5) 0 var(--space-2);
+}
+.guide-link {
+  font-weight: var(--weight-strong);
+}
+.automation-next {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin-top: var(--space-7);
+  background: var(--soft);
+  border-radius: 0.6rem;
+}
+.automation-next p {
+  max-width: 65ch;
+}
+.retail-intro {
+  max-width: 56rem;
+}
+.exchange > div {
+  background: var(--bg);
+  padding: var(--space-5);
+  border-radius: 0.5rem;
+}
+.retail-example h3 {
+  margin-top: 0;
+}
+.retail-example blockquote,
+.retail-example dl,
+.retail-example dd {
+  margin: 0;
+}
+.retail-example dt {
+  font-weight: var(--weight-strong);
+}
+.retail-example dt:not(:first-child) {
+  margin-top: 0.6rem;
+}
+.draft-reply {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: var(--soft);
+  border-left: 0.22rem solid var(--accent);
+}
+.guide-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr);
+  gap: var(--space-6);
+  padding-block: var(--space-7);
+  border-bottom: 1px solid var(--border);
+}
+.guide-row p:last-child,
+.guide-row h2 {
+  margin-bottom: 0;
+}
+.workflow-steps {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+.workflow-steps li + li {
+  margin-top: 1rem;
+}
+@media (max-width: 47.99rem) {
+  .industry-intro,
+  .industry-grid,
+  .guide-row,
+  .exchange {
+    grid-template-columns: 1fr;
+  }
+  .intro-art {
+    display: none;
+  }
+  .guide-row {
+    gap: var(--space-4);
+  }
+}

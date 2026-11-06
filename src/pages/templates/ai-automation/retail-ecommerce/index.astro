@@ -1,0 +1,129 @@
+---
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import IndustryFAQs from '../../../../components/templates/IndustryFAQs.astro';
+import {
+  retailGuide,
+  industryDirectory,
+  type FAQ,
+} from '../../../../content/automation-industries';
+import '../../../../styles/automation-gallery.css';
+
+const faqs: FAQ[] = [
+  [
+    'Can this work with our shop and shared inbox?',
+    'We first check what your shop, carrier and inbox allow us to read or write. If a direct connection is unavailable, an approved order export can be useful for a pilot. The draft should show when its information was last updated.',
+  ],
+  [
+    'What if the parcel is late or tracking has stopped updating?',
+    'We can flag stale tracking using a threshold you set with your team. The agent sees the last confirmed scan and can contact the carrier before making a promise to the customer.',
+  ],
+  [
+    'Could we use the same approach for returns?',
+    'Yes. An additional workflow could bring up the purchased item, your current returns policy and any missing information. Your team would review exceptions and authorise any refund or exchange.',
+  ],
+  [
+    'How would we know whether it is worth keeping?',
+    'During the pilot, record how long staff spend finding orders and editing replies, how often they accept a draft, and how often an order is matched incorrectly. Compare these with your usual process before expanding.',
+  ],
+];
+---
+
+<SiteLayout title={retailGuide.title} description={retailGuide.description}>
+  <article class="container automation-page">
+    <header class="retail-intro">
+      <h1>AI automation for retail &amp; e-commerce</h1>
+      <p class="lead">
+        A customer asks about a parcel. To answer one line of email, your support agent opens the
+        order, checks the courier and looks up your delivery policy. We can bring those pieces into
+        one reviewable draft.
+      </p>
+    </header>
+    <section class="retail-example">
+      <h2>A split delivery, from email to reply</h2>
+      <p class="muted">Illustrative example using a fictional order.</p>
+      <div class="exchange">
+        <div>
+          <h3>Customer email</h3><blockquote>
+            “My mug arrived, but the tea towels were in the same order. Are they missing? My order
+            number is 1048.”
+          </blockquote>
+        </div>
+        <div>
+          <h3>What the order shows</h3><dl>
+            <dt>Ceramic mug</dt><dd>Parcel 1 · Delivered Monday</dd><dt>Tea towels</dt><dd>
+              Parcel 2 · Dispatched separately
+            </dd><dt>Carrier’s estimate</dt><dd>Thursday · Delivery time unconfirmed</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="draft-reply">
+        <h3>Draft for the agent to review</h3><blockquote>
+          “Thanks for checking. Your tea towels are coming in a second parcel. The carrier currently
+          expects to deliver it on Thursday. I can send you the tracking link for that parcel.”
+        </blockquote>
+      </div>
+    </section>
+    <section class="guide-row">
+      <h2>How it would work in your shop</h2><ol class="workflow-steps">
+        <li>
+          <strong>Identify the request.</strong> A new message in your support inbox starts the lookup.
+          The workflow picks out the order reference and recognises a delivery question.
+        </li>
+        <li>
+          <strong>Match the right order.</strong> Check the reference and the sender against the order
+          using your agreed identity checks. A mismatch, a missing reference or two possible orders sends
+          the message to staff for clarification.
+        </li>
+        <li>
+          <strong>Gather the evidence.</strong> Read the fulfilment record for each item, the latest available
+          carrier update and the relevant delivery policy. Keep the source links and timestamps beside
+          the draft so the agent can check them.
+        </li>
+        <li>
+          <strong>Review and reply.</strong> Your agent checks the facts, edits the wording and sends
+          the reply through the usual inbox. If tracking is missing or the customer asks for compensation,
+          the agent takes over.
+        </li>
+      </ol>
+    </section>
+    <section class="guide-row">
+      <h2>What we need from you</h2><div>
+        <p>
+          To scope a pilot, tell us which inbox and shop system you use, where your delivery policy
+          lives and who can approve replies. Walk us through one routine enquiry and one that needs
+          a manager.
+        </p><p>
+          Use fictional or anonymised examples for the discussion. For the pilot, we agree which
+          order fields the workflow may read, which staff can see the draft and when an exception
+          should be escalated.
+        </p>
+      </div>
+    </section>
+    <section class="guide-row">
+      <h2>Start with one support queue</h2><div>
+        <p>
+          Test against a small set of previously resolved delivery questions. Include a split
+          shipment, an incorrect reference and a carrier update that arrived late. Compare each
+          draft with the facts your agent actually had at the time.
+        </p><p>
+          If the drafts and handovers are useful, introduce them in one inbox with staff approval
+          for every reply. Use the edits your team makes to decide what needs changing before adding
+          another type of enquiry.
+        </p>
+      </div>
+    </section>
+    <section class="guide-row">
+      <h2>Frequently asked questions</h2><IndustryFAQs faqs={faqs} />
+    </section>
+    <div class="automation-next">
+      <h2>Which question fills your inbox?</h2><p>
+        Describe the recurring question and where your team looks for the answer. We can use that to
+        scope a first workflow.
+      </p><div class="actions">
+        <a class="button primary" href="/enquiry/?service=ai-automation"
+          >Discuss your retail workflow</a
+        ><a href={industryDirectory.route}>Explore all industries</a>
+      </div>
+    </div>
+  </article>
+</SiteLayout>
