@@ -1,3 +1,4 @@
+import { calculateFixedScope } from './fixed-scope';
 import { pricing as p, services as s } from './config';
 export interface Answers {
   packageId: string;
@@ -49,6 +50,7 @@ export function calculate(a: Answers) {
     packages = p.packages as Record<string, any>,
     plans = p.monthlyPlans as Record<string, any>;
   const pack = packages[a.packageId];
+  if (pack?.fixedScope) return calculateFixedScope(a, pack);
   const add = (id: string, q = 1, hold = false) => {
     const item = items[id];
     if (!item) {

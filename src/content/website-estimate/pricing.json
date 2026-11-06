@@ -146,6 +146,70 @@
       "designRevisionRounds": null,
       "timelineWeeks": null,
       "reviewRequired": true
+    },
+    "placeholder": {
+      "label": "Placeholder Website",
+      "kind": "fixed",
+      "amountMinor": 39900,
+      "billing": "one_time",
+      "standardPageAllowance": 1,
+      "includedCapabilities": [
+        "placeholder_responsive",
+        "existing_logo",
+        "business_identity",
+        "email_whatsapp",
+        "simple_brand_design",
+        "minor_revision"
+      ],
+      "cmsIncluded": false,
+      "designRevisionRounds": 1,
+      "timelineWeeks": null,
+      "fixedScope": true,
+      "exclusions": [
+        "SEO, AEO or GEO optimisation services",
+        "Additional website pages",
+        "CMS, blog or database",
+        "Custom integrations or advanced functionality",
+        "Logo design or professional copywriting",
+        "Hosting, domain registration or ongoing maintenance",
+        "Additional content sections",
+        "Contact forms"
+      ],
+      "timingNotice": "Delivery timeframe requires confirmation before agreement.",
+      "upgradeNotice": "Need more pages, forms, optimisation services or integrations? Choose Business Website or request a manual scope review. No extras are added to this fixed-scope package automatically.",
+      "logoNotice": "An existing logo is required. Logo design is a separate service and is not included or added automatically."
+    },
+    "landing": {
+      "label": "Single Landing Page",
+      "kind": "fixed",
+      "amountMinor": 69900,
+      "billing": "one_time",
+      "standardPageAllowance": 1,
+      "includedCapabilities": [
+        "landing_responsive",
+        "landing_hero",
+        "landing_intro",
+        "landing_benefits",
+        "landing_contact",
+        "existing_logo",
+        "one_revision"
+      ],
+      "cmsIncluded": false,
+      "designRevisionRounds": 1,
+      "timelineWeeks": null,
+      "fixedScope": true,
+      "exclusions": [
+        "SEO, AEO or GEO optimisation services",
+        "Additional website pages",
+        "CMS, blog or database",
+        "Custom integrations or advanced functionality",
+        "Logo design or professional copywriting",
+        "Hosting, domain registration or ongoing maintenance",
+        "Advanced forms or booking engines"
+      ],
+      "timingNotice": "Delivery timeframe requires confirmation before agreement.",
+      "upgradeNotice": "Need more pages, forms, optimisation services or integrations? Choose Business Website or request a manual scope review. No extras are added to this fixed-scope package automatically.",
+      "logoNotice": "An existing logo is required. Logo design is a separate service and is not included or added automatically."
     }
   },
   "items": {

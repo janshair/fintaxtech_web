@@ -1,4 +1,4 @@
-import { services as s, condition, get } from './config';
+import { services as s, condition, get, websiteStep } from './config';
 import type { Answers } from './calculate';
 export function answerSummary(a: Answers): string[] {
   const rows: string[] = [];
@@ -29,6 +29,7 @@ export function answerSummary(a: Answers): string[] {
     const label = (v: any) => options?.find((o: any) => o.id === v)?.label ?? String(v);
     rows.push(`${q.label}: ${Array.isArray(value) ? value.map(label).join(', ') : label(value)}`);
   }
-  for (const step of s.steps) for (const q of step.questions) visit(q);
+  for (let step = 0; step < 6; step++)
+    for (const q of websiteStep(step, a.packageId).questions) visit(q);
   return rows;
 }

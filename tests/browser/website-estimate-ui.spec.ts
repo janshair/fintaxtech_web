@@ -11,14 +11,16 @@ for (const width of [320, 375, 390, 768, 1440])
       await page.goto('/estimate/website/');
       await page.getByRole('button', { name: 'Prepare my website estimate' }).click();
       const cards = page.locator('.website-estimate .choice-card');
-      await expect(cards).toHaveCount(4);
+      await expect(cards).toHaveCount(6);
       const copy = cards.first().locator('.mobile-option');
       expect((await copy.boundingBox())!.width).toBeGreaterThan(150);
       const radio = page.locator('input[name=packageId][value=business]');
       await radio.focus();
       await page.keyboard.press('Space');
       await expect(radio).toBeChecked();
-      const details = cards.first().locator('details');
+      const details = cards
+        .filter({ has: page.locator('input[value=business]') })
+        .locator('details');
       await details.locator('summary').click();
       await expect(details).toHaveAttribute('open', '');
       await expect(details.getByRole('list')).toBeVisible();

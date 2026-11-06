@@ -604,3 +604,11 @@ Run `pnpm verify` and `pnpm exec playwright test tests/browser/website-estimate.
 VAT is unconfirmed and unadded. Provider/AI/platform/messaging/hosting costs are separate. Maintenance covers one agreed workflow by default; additional workflows require support review. Extra work needs a separately approved scope. No final-price approval, capacity reservation, automatic review or third-party compatibility is implied.
 
 Run `pnpm verify` and `pnpm exec playwright test tests/browser/ai-automation-estimate.spec.ts`. Tests cover all four services, discovery, exact allowance arithmetic, manual/from pricing, exclusive selections, conditional branches, support, local-only data, PDF download/failure and responsive layouts. Example documents/screenshots go to ignored `test-results/ai-estimate/`.
+
+### Entry-level website packages
+
+The website estimator also offers Placeholder Website and Single Landing Page before the existing Business, Corporate, Shopify and custom packages. Their prices, inclusions and exclusions live in the same website `pricing.json`; package cards and questions live in `services.json`. Existing package definitions and calculations are unchanged.
+
+These two packages use `fixedScopeFlow` questions for their own customer-supplied business details and final content. They offer no additional pages, feature/integration selectors, optimisation upgrades or recurring plans. `fixed-scope.ts` returns only the selected package charge and applicable brief, ignoring remembered larger-package extras. Switching packages preserves separate drafts in tab memory. Logo design, copywriting, hosting, domains and maintenance are excluded; requests outside scope point customers to Business Website or manual review without adding fees. The existing separate branding link remains available.
+
+Delivery dates for these new packages were not supplied. The estimate flags timing for confirmation, retains the existing non-binding/VAT/payment/warranty terms and does not invent a deadline. Normal technical website functionality is not intentionally blocked by excluding optimisation services. Run `pnpm exec vitest run tests/website-estimate.test.ts tests/website-entry-packages.test.ts` and the corresponding website browser tests. Sample PDFs/screenshots go to ignored `test-results/entry-packages/`.

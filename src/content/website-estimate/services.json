@@ -37,6 +37,18 @@
   },
   "packageOptions": [
     {
+      "id": "placeholder",
+      "label": "Placeholder Website",
+      "priceRef": "packages.placeholder",
+      "summary": "A simple online presence for businesses not yet ready for a full website."
+    },
+    {
+      "id": "landing",
+      "label": "Single Landing Page",
+      "priceRef": "packages.landing",
+      "summary": "One scrolling page introducing your business, product or service."
+    },
+    {
       "id": "business",
       "label": "Business Website",
       "priceRef": "packages.business",
@@ -92,7 +104,19 @@
     "inventory_orders": "Basic inventory and order management",
     "product_search": "Product categories and search",
     "training": "Basic store training and handover",
-    "order_notifications": "Standard store order notifications"
+    "order_notifications": "Standard store order notifications",
+    "placeholder_responsive": "One responsive static webpage",
+    "existing_logo": "Your existing logo and brand colours",
+    "business_identity": "Business title and tagline prominently displayed in the centre",
+    "email_whatsapp": "Business email and WhatsApp contact button",
+    "simple_brand_design": "Clean, modern design matching your branding",
+    "minor_revision": "One minor revision",
+    "landing_responsive": "One responsive scrolling landing page",
+    "landing_hero": "Headline, supporting text and a clear call-to-action",
+    "landing_intro": "Brief business introduction",
+    "landing_benefits": "Services or key benefits section",
+    "landing_contact": "Contact details and a clear contact call-to-action",
+    "one_revision": "One revision"
   },
   "customApplicationBehavior": {
     "packageId": "custom_web_app",
@@ -1148,7 +1172,8 @@
     "deadline": "Optional string; feasibility requires confirmation if constrained",
     "customerLabel": "Optional string used locally on PDF",
     "customVisibilityGoals": "Optional string for custom application review; no standard-package visibility inclusions are assumed.",
-    "trustedAssessment": "Not part of public answer input. Only a separately reviewed scope can resolve manual flags. Client-side fields cannot prove staff approval."
+    "trustedAssessment": "Not part of public answer input. Only a separately reviewed scope can resolve manual flags. Client-side fields cannot prove staff approval.",
+    "packageBriefs": "Per-package local business/content briefs for fixed-scope packages; only the selected package brief is applicable."
   },
   "validation": {
     "requiredForCompleteEstimate": [
@@ -1165,5 +1190,217 @@
     "unknownFieldsOrIds": "Reject unknown price-bearing fields and IDs; show a validation/review message rather than silently dropping requested work.",
     "arrayUniqueness": ["pages.id", "features", "visibility.services"],
     "crossFileReferences": "priceRef resolves against pricing.json; capability IDs resolve against capabilityLabels; option IDs and all conditions must be supported by the consuming client."
+  },
+  "fixedScopeFlow": {
+    "placeholder": [
+      {
+        "title": "Your Business Information",
+        "questions": [
+          {
+            "id": "packageBriefs.placeholder.logo",
+            "label": "Is your existing logo available?",
+            "type": "single_choice",
+            "required": true,
+            "options": [
+              {
+                "id": "ready",
+                "label": "Yes — I will supply my existing logo"
+              },
+              {
+                "id": "not_ready",
+                "label": "Not yet — logo requirements need review"
+              }
+            ]
+          },
+          {
+            "id": "packageBriefs.placeholder.businessName",
+            "label": "Business name",
+            "type": "short_text",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.placeholder.tagline",
+            "label": "Business tagline",
+            "type": "short_text",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.placeholder.email",
+            "label": "Business email address",
+            "type": "email",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.placeholder.whatsapp",
+            "label": "Business WhatsApp number",
+            "type": "tel",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.placeholder.brandColours",
+            "label": "Existing brand colours or guidelines (optional)",
+            "type": "short_text",
+            "required": false
+          }
+        ],
+        "scopeNote": "Supply your existing logo and final approved text separately after the scope is agreed. Nothing is uploaded or sent by this calculator."
+      },
+      {
+        "title": "Your Page Content",
+        "questions": [
+          {
+            "id": "packageBriefs.placeholder.title",
+            "label": "Business title to display",
+            "type": "short_text",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.placeholder.logoNotes",
+            "label": "Logo or layout notes (optional)",
+            "type": "textarea",
+            "required": false
+          }
+        ],
+        "scopeNote": "A simple online presence for businesses not yet ready for a full website. Need more pages, forms, optimisation services or integrations? Choose Business Website or request a manual scope review. No extras are added to this fixed-scope package automatically."
+      },
+      {
+        "title": "Fixed Package Scope",
+        "questions": [
+          {
+            "id": "packageBriefs.placeholder.outsideScope",
+            "label": "Anything needed beyond this package? (optional)",
+            "type": "textarea",
+            "required": false
+          }
+        ],
+        "scopeNote": "Need more pages, forms, optimisation services or integrations? Choose Business Website or request a manual scope review. No extras are added to this fixed-scope package automatically. Optimisation services are excluded; normal technical website functionality remains intact."
+      },
+      {
+        "title": "Hosting & Support",
+        "questions": [],
+        "policyCopy": "Hosting, domain registration, ongoing maintenance and optional support plans are excluded from this package and estimate. Any separately requested services need their own agreement."
+      },
+      {
+        "title": "Website Estimate & PDF",
+        "questions": []
+      }
+    ],
+    "landing": [
+      {
+        "title": "Your Business Information",
+        "questions": [
+          {
+            "id": "packageBriefs.landing.logo",
+            "label": "Is your existing logo available?",
+            "type": "single_choice",
+            "required": true,
+            "options": [
+              {
+                "id": "ready",
+                "label": "Yes — I will supply my existing logo"
+              },
+              {
+                "id": "not_ready",
+                "label": "Not yet — logo requirements need review"
+              }
+            ]
+          },
+          {
+            "id": "packageBriefs.landing.businessName",
+            "label": "Business name",
+            "type": "short_text",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.tagline",
+            "label": "Business tagline",
+            "type": "short_text",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.email",
+            "label": "Business email address",
+            "type": "email",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.whatsapp",
+            "label": "Business WhatsApp number",
+            "type": "tel",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.brandColours",
+            "label": "Existing brand colours or guidelines (optional)",
+            "type": "short_text",
+            "required": false
+          }
+        ],
+        "scopeNote": "Supply your existing logo and final approved text separately after the scope is agreed. Nothing is uploaded or sent by this calculator."
+      },
+      {
+        "title": "Your Page Content",
+        "questions": [
+          {
+            "id": "packageBriefs.landing.headline",
+            "label": "Main headline",
+            "type": "short_text",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.supportingText",
+            "label": "Supporting text",
+            "type": "textarea",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.introduction",
+            "label": "Brief business introduction",
+            "type": "textarea",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.benefits",
+            "label": "Services or key benefits",
+            "type": "textarea",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.cta",
+            "label": "What should the main contact call-to-action say?",
+            "type": "short_text",
+            "required": true
+          },
+          {
+            "id": "packageBriefs.landing.contactDetails",
+            "label": "Contact details to display",
+            "type": "textarea",
+            "required": true
+          }
+        ],
+        "scopeNote": "One scrolling page introducing your business, product or service. Need more pages, forms, optimisation services or integrations? Choose Business Website or request a manual scope review. No extras are added to this fixed-scope package automatically."
+      },
+      {
+        "title": "Fixed Package Scope",
+        "questions": [
+          {
+            "id": "packageBriefs.landing.outsideScope",
+            "label": "Anything needed beyond this package? (optional)",
+            "type": "textarea",
+            "required": false
+          }
+        ],
+        "scopeNote": "Need more pages, forms, optimisation services or integrations? Choose Business Website or request a manual scope review. No extras are added to this fixed-scope package automatically. Optimisation services are excluded; normal technical website functionality remains intact."
+      },
+      {
+        "title": "Hosting & Support",
+        "questions": [],
+        "policyCopy": "Hosting, domain registration, ongoing maintenance and optional support plans are excluded from this package and estimate. Any separately requested services need their own agreement."
+      },
+      {
+        "title": "Website Estimate & PDF",
+        "questions": []
+      }
+    ]
   }
 }

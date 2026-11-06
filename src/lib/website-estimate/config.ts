@@ -74,3 +74,12 @@ export function condition(c: any, a: any): boolean {
       throw Error('Unsupported condition');
   }
 }
+
+export function isFixedScope(packageId: string): boolean {
+  return (pricing.packages as Record<string, any>)[packageId]?.fixedScope === true;
+}
+export function websiteStep(step: number, packageId: string): any {
+  return step > 0 && isFixedScope(packageId)
+    ? (services.fixedScopeFlow as Record<string, any>)[packageId][step - 1]
+    : services.steps[step];
+}

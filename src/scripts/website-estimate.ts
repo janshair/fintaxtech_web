@@ -1,4 +1,11 @@
-import { services, pricing, get, condition } from '../lib/website-estimate/config';
+import {
+  services,
+  pricing,
+  get,
+  condition,
+  websiteStep,
+  isFixedScope,
+} from '../lib/website-estimate/config';
 import { initialAnswers, calculate, type Answers } from '../lib/website-estimate/calculate';
 import { money, estimateText } from '../lib/website-estimate/presentation';
 import { websiteEstimateCopy as c } from '../content/website-estimate';
@@ -87,6 +94,7 @@ if (root) {
       set(obj, path, v);
       if (
         path === 'packageId' &&
+        !isFixedScope(v) &&
         !(pricing.monthlyPlans as any)[a.support.planId]?.allowedPackages.includes(v)
       )
         a.support.planId = 'none';
@@ -308,7 +316,12 @@ if (root) {
         HTMLInputElement | HTMLTextAreaElement;
       input.setAttribute('aria-label', q.label);
       if (input instanceof HTMLInputElement)
-        input.type = q.type === 'integer' ? 'number' : q.type === 'url' ? 'url' : 'text';
+        input.type =
+          q.type === 'integer'
+            ? 'number'
+            : ['url', 'email', 'tel'].includes(q.type)
+              ? q.type
+              : 'text';
       input.value = String(value ?? '');
       input.required = !!q.required;
       input.maxLength = q.type === 'textarea' ? 5000 : 200;
@@ -343,7 +356,7 @@ if (root) {
         (d) => d.dataset.detailKey,
       ),
     );
-    host.replaceChildren(el('h2', services.steps[step].title));
+    host.replaceChildren(el('h2', websiteStep(step, a.packageId).title));
     const h = host.querySelector('h2')!;
     h.tabIndex = -1;
     if (move) h.focus();
@@ -354,7 +367,7 @@ if (root) {
     progress.setAttribute('aria-label', `${step + 1} / 6`);
     host.append(el('p', c.progress(step + 1)), progress);
     const form = document.createElement('form');
-    const current = services.steps[step] as any;
+    const current = websiteStep(step, a.packageId);
     if (step === 2 && a.packageId !== 'custom_web_app') {
       const included = el('details', '', 'estimate-summary');
       included.dataset.detailKey = 'included';
@@ -425,7 +438,13 @@ if (root) {
     form.onsubmit = (ev) => {
       ev.preventDefault();
       if (step === 5) return;
-      if (!a.packageId || (step === 1 && a.packageId !== 'custom_web_app' && !a.pages.length)) {
+      if (
+        !a.packageId ||
+        (step === 1 &&
+          !isFixedScope(a.packageId) &&
+          a.packageId !== 'custom_web_app' &&
+          !a.pages.length)
+      ) {
         error.textContent = c.error;
         return;
       }
@@ -446,6 +465,7 @@ if (root) {
   };
 }
 export function activeAnswers(a: Answers) {
+  if (isFixedScope(a.packageId)) return calculate(a).answers;
   const result = structuredClone(a);
   if (a.packageId !== 'shopify') delete result.shopify;
   if (a.migration.required === 'no') result.migration = { required: 'no' };
