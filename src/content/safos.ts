@@ -1,6 +1,7 @@
 export const safos = {
   name: 'Safos: Invoice & Receipt Maker',
   route: '/safos/',
+  videoId: 'St16LooIjqk',
   supportRoute: '/safos/support/',
   privacyRoute: '/safos/privacy.html',
   playStoreURL: 'https://play.google.com/store/apps/details?id=uk.co.fintaxtech.safos',

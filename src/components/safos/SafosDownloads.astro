@@ -2,15 +2,26 @@
 import AppStoreBadge from '../AppStoreBadge.astro';
 import GooglePlayBadge from '../GooglePlayBadge.astro';
 import { safos } from '../../content/safos';
+import appleBadge from '../../assets/metoni/store/app-store.svg?url';
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
 ---
 
 <div class="actions">
   <GooglePlayBadge href={safos.playStoreURL} label={safos.playLabel} />
-  <AppStoreBadge href={safos.appStoreURL} label={safos.appStoreLabel} />
+  <AppStoreBadge href={safos.appStoreURL} label={safos.appStoreLabel} artwork={appleBadge} />
 </div>
-<p class="muted platform-status">
-  Android — available on Google Play<br />iPhone and iPad — available on the App Store
-</p>
+{
+  !compact && (
+    <p class="muted platform-status">
+      Android — available on Google Play
+      <br />
+      iPhone and iPad — available on the App Store
+    </p>
+  )
+}
 <style>
   .platform-status {
     margin-top: var(--space-4);

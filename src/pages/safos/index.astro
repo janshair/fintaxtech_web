@@ -2,7 +2,11 @@
 import { Image } from 'astro:assets';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import SafosDownloads from '../../components/safos/SafosDownloads.astro';
-import SafosLinks from '../../components/safos/SafosLinks.astro';
+import Consent from '../../components/Consent.astro';
+import heroScreen from '../../assets/safos/dashboard-screen.webp';
+import invoiceSheet from '../../assets/safos/invoice-sheet.webp';
+import poster from '../../assets/safos/walkthrough.webp';
+import '../../styles/safos.css';
 import { safos } from '../../content/safos';
 import icon from '../../assets/safos/icon.webp';
 import dashboard from '../../assets/safos/01-dashboard.webp';
@@ -41,100 +45,173 @@ const screenshots = [
 ];
 ---
 
-<SiteLayout title={safos.name} description={safos.description}>
-  <div class="container">
-    <header class="page-head">
-      <p class="eyebrow">Built and published by FinTaxTech</p>
-      <Image
-        class="safos-icon"
-        src={icon}
-        alt="Safos app icon"
-        width={96}
-        height={96}
-        loading="eager"
-      />
-      <h1>{safos.name}</h1>
-      <p class="safos-headline">{safos.headline}</p>
-      <p class="lead">{safos.intro}</p>
-      <SafosDownloads /><SafosLinks />
-    </header>
-    <section class="section" aria-labelledby="safos-gallery">
-      <h2 id="safos-gallery">A look inside Safos</h2>
-      <p>Screenshots of the iOS app. Android appearance and features may differ.</p>
-      <div class="safos-gallery">
-        {
-          screenshots.map(({ image, alt, caption }) => (
-            <figure>
-              <Image
-                src={image}
-                alt={alt}
-                widths={[320, 640, 960]}
-                sizes="(max-width: 600px) 85vw, 320px"
-                format="webp"
-                loading="lazy"
-              />
-              <figcaption>{caption}</figcaption>
-            </figure>
-          ))
-        }
+<SiteLayout
+  standalone
+  title={safos.name}
+  description={safos.description}
+  socialImage={{
+    url: poster.src,
+    width: poster.width,
+    height: poster.height,
+    type: 'image/webp',
+    alt: 'Safos dashboard on iPhone and iPad showing recent invoices.',
+  }}
+>
+  <header slot="header" class="safos-header">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="s-wrap mast">
+      <a class="app-brand" href={safos.route}
+        ><Image src={icon} alt="" width={42} height={42} loading="eager" />Safos</a
+      >
+      <nav aria-label="Safos navigation">
+        <a class="nav-section" href="#screenshots">Screenshots</a>
+        <a class="nav-section" href="#walkthrough">Walkthrough</a>
+        <a class="nav-section" href={safos.supportRoute}>Support</a>
+        <button
+          type="button"
+          id="theme-toggle"
+          aria-label="Switch light or dark appearance"
+          title="Switch appearance">◐</button
+        >
+        <a class="download-link" href="#download">Get the app <span aria-hidden="true">↓</span></a>
+      </nav>
+    </div>
+  </header>
+  <div class="safos-page">
+    <section class="s-wrap hero" aria-labelledby="headline">
+      <div class="intro">
+        <p class="kicker">Invoice &amp; receipt maker</p>
+        <h1 id="headline">Your invoices,<br /><em>in order.</em></h1>
+        <p class="summary">
+          Create a branded invoice, send it as a PDF and see who’s paid. Built for freelancers, sole
+          traders and small businesses.
+        </p>
+        <SafosDownloads compact />
+        <a class="watch-jump" href="#walkthrough"
+          ><span aria-hidden="true">▶</span> Watch the walkthrough <small>0:38</small></a
+        >
+      </div>
+      <div
+        class="hero-art"
+        role="img"
+        aria-label="A branded PDF invoice beside the Safos iPhone dashboard with totals and recent clients."
+      >
+        <Image class="invoice-sheet" src={invoiceSheet} alt="" width={480} loading="eager" />
+        <div class="handset">
+          <Image src={heroScreen} alt="" width={500} loading="eager" fetchpriority="high" />
+        </div>
       </div>
     </section>
-    <section class="section" aria-labelledby="safos-features">
-      <h2 id="safos-features">From first invoice to payment</h2>
-      <div class="safos-features">
+    <section id="screenshots" class="screen-section">
+      <div class="s-wrap">
+        <div class="section-heading">
+          <div><h2>Inside Safos</h2><p>Explore the iOS app. Screens on Android may differ.</p></div>
+          <div class="gallery-controls" hidden>
+            <button
+              type="button"
+              aria-controls="store-gallery"
+              aria-label="Previous screenshot"
+              data-direction="-1">←</button
+            >
+            <button
+              type="button"
+              aria-controls="store-gallery"
+              aria-label="Next screenshot"
+              data-direction="1">→</button
+            >
+          </div>
+        </div>
+        <div
+          id="store-gallery"
+          class="screen-rail"
+          tabindex="0"
+          role="region"
+          aria-label="Safos iOS screenshots"
+        >
+          {
+            screenshots.map(({ image, alt, caption }) => (
+              <figure>
+                <>
+                  <Image
+                    src={image}
+                    alt={alt}
+                    widths={[320, 640]}
+                    sizes="(max-width: 600px) 73vw, 260px"
+                    loading="lazy"
+                  />
+                  <figcaption>{caption}</figcaption>
+                </>
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+    <section id="walkthrough" class="s-wrap video-section">
+      <div>
+        <p class="kicker">38-second walkthrough</p><h2>
+          From line item<br />to <em>finished PDF.</em>
+        </h2>
+        <p id="video-note">See Safos on iPhone and iPad. Playing the video connects to YouTube.</p>
+        <a href={`https://youtu.be/${safos.videoId}`}>Watch on YouTube ↗</a>
+      </div>
+      <div class="video-frame" data-youtube-video>
+        <Image
+          src={poster}
+          alt="Safos walkthrough showing the dashboard on iPhone and iPad"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 850px) 60vw, 92vw"
+          loading="lazy"
+        />
+        <button
+          type="button"
+          hidden
+          aria-label="Play the Safos walkthrough"
+          aria-describedby="video-note"><span aria-hidden="true">▶</span></button
+        >
+        <template
+          ><iframe
+            title="Create a branded PDF invoice with Safos"
+            src={`https://www.youtube-nocookie.com/embed/${safos.videoId}?autoplay=1&playsinline=1&rel=0`}
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe></template
+        >
+      </div>
+    </section>
+    <section class="s-wrap feature-section">
+      <h2>From first invoice<br />to <em>payment.</em></h2>
+      <div>
         {
           safos.features.map(([title, description]) => (
-            <section>
+            <details>
               <>
-                <h3>{title}</h3>
+                <summary>{title}</summary>
                 <p>{description}</p>
               </>
-            </section>
+            </details>
           ))
         }
       </div>
     </section>
-    <section class="section" aria-labelledby="safos-download">
-      <h2 id="safos-download">Your next invoice, ready to send</h2>
-      <p>Get Safos on Google Play or the App Store today.</p>
-      <SafosDownloads /><a href={safos.supportRoute}>Safos support</a>
+    <section id="download">
+      <div class="s-wrap download-row">
+        <h2>Your next invoice,<br />ready to send.</h2><SafosDownloads compact />
+      </div>
     </section>
   </div>
+  <footer slot="footer" class="safos-footer">
+    <div class="s-wrap">
+      <p>Safos by <a href="/">FinTaxTech</a></p>
+      <nav aria-label="Safos information">
+        <a href={safos.supportRoute}>Support</a><a href={safos.privacyRoute}>Privacy</a><button
+          data-consent-manage>Cookie settings</button
+        >
+      </nav>
+    </div><Consent />
+  </footer>
 </SiteLayout>
-<style>
-  .safos-icon {
-    display: block;
-    margin-bottom: var(--space-5);
-    border-radius: var(--radius);
-  }
-  .safos-headline {
-    font-family: var(--font-heading);
-    font-size: var(--h2);
-    line-height: var(--line-heading);
-    max-width: var(--reading);
-    margin-top: var(--space-5);
-  }
-  .safos-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--brief-choice-width)), 1fr));
-    gap: var(--space-7);
-  }
-  .safos-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--metoni-screenshot-width)), 1fr));
-    gap: var(--space-6);
-  }
-  figure {
-    margin: 0;
-  }
-  figure img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: var(--radius);
-  }
-  figcaption {
-    margin-top: var(--space-3);
-    color: var(--muted);
-  }
-</style>
+<script>
+  import '../../scripts/store-gallery';
+  import '../../scripts/youtube-video';
+</script>

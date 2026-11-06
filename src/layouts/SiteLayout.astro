@@ -147,9 +147,9 @@ const imageURL = absoluteURL(socialImage.url);
       </style></noscript
     ></head
   ><body
-    >{!standalone && <Header startHref={startHref} />}<main id="main">
+    ><slot name="header">{!standalone && <Header startHref={startHref} />}</slot><main id="main">
       {!standalone && <Breadcrumbs title={article?.title ?? title} />}<slot />
-    </main>{!standalone && <Footer startHref={startHref} />}
+    </main><slot name="footer">{!standalone && <Footer startHref={startHref} />}</slot>
     {!standalone && <Consent />}<script>
       import '../scripts/site';
     </script></body
