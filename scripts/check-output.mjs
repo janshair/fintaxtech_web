@@ -43,7 +43,12 @@ const broken = [];
 for (const file of all.filter((f) => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
   assert(!html.includes('x-dc') && !html.includes('support.js') && !html.includes('dc.html'), file);
-  if (!file.includes('/promo/')) assert(!html.includes('£999'), file);
+  // The gym pilot has a separately scoped £999 setup fee.
+  const outsideGymPackages =
+    file === 'dist/metoni/index.html'
+      ? html.replace(/<section id="for-gyms"[\s\S]*?<\/section>/, '')
+      : html;
+  if (!file.includes('/promo/')) assert(!outsideGymPackages.includes('£999'), file);
   assert.match(html, /<h1[\s>]/, file);
   for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)/g)) {
     const url = match[1];

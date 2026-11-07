@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { metoni } from '../../src/content/metoni';
+import { company } from '../../src/content/site';
 import { publishedApps } from '../../src/content/work';
 
 test('shared Google Play badges retain app destinations, keyboard access and responsive artwork', async ({
@@ -57,7 +58,13 @@ test('Metoni routes, store destinations and static metadata', async ({
   for (const route of [metoni.route, metoni.supportRoute, metoni.privacyRoute, metoni.termsRoute]) {
     expect((await staticPage.goto(route))?.status()).toBe(200);
     await expect(staticPage.locator('h1')).toHaveCount(1);
-    await expect(staticPage.locator('main')).not.toContainText(
+    // Business pilot pricing must remain separate from the consumer app offer.
+    const consumerCopy = await staticPage.locator('main').evaluate((main) => {
+      const copy = main.cloneNode(true) as HTMLElement;
+      copy.querySelector('#for-gyms')?.remove();
+      return copy.textContent;
+    });
+    expect(consumerCopy).not.toMatch(
       /\bAI\b|artificial intelligence|\bPro\b|subscriptions?|[£$€]\d/i,
     );
     await expect(staticPage.locator('link[rel=canonical]')).toHaveAttribute(
@@ -154,7 +161,12 @@ test('Metoni loads YouTube only on keyboard activation and keeps a no-JavaScript
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
   const youtubeRequests: string[] = [];
   page.on('request', (r) => {
-    if (/youtube|ytimg|googlevideo/.test(r.url())) youtubeRequests.push(r.url());
+    if (
+      /(^|\.)(youtube(?:-nocookie)?\.com|ytimg\.com|googlevideo\.com)$/.test(
+        new URL(r.url()).hostname,
+      )
+    )
+      youtubeRequests.push(r.url());
   });
   // Verify our integration deterministically without depending on YouTube's network or consent UI.
   await page.route('https://www.youtube-nocookie.com/embed/**', (route) =>
@@ -203,4 +215,52 @@ test('Metoni loads YouTube only on keyboard activation and keeps a no-JavaScript
   await context.close();
   for (const removed of ['promotional-video.mp4', 'promotional-video.vtt'])
     expect((await request.get(`/metoni/${removed}`)).status()).toBe(404);
+});
+
+test('gym pilot enquiries identify the package and preserve the app download route', async ({
+  page,
+  request,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(metoni.route);
+  const navigation = page.getByRole('link', { name: 'For gyms', exact: true });
+  await navigation.focus();
+  await navigation.press('Enter');
+  await expect(page).toHaveURL(/#for-gyms$/);
+  const section = page.locator('#for-gyms');
+  await expect(section).toContainText('Gym packages are in development.');
+  const packages = [
+    ['Website', '79', '499'],
+    ['Connected Gym', '149', '749'],
+    ['Own Brand', '249', '999'],
+  ];
+  for (const [name, monthly, setup] of packages) {
+    const card = section.getByRole('article', { name, exact: true });
+    await expect(card.locator('.monthly-price')).toHaveText(`£${monthly}/month`);
+    await expect(card.locator('.setup-price')).toHaveText(`£${setup} one-time setup`);
+    const enquiry = card.getByRole('link');
+    await enquiry.focus();
+    await expect(enquiry).toBeFocused();
+    const url = new URL((await enquiry.getAttribute('href'))!);
+    expect(url.protocol).toBe('mailto:');
+    expect(url.pathname).toBe(company.email);
+    expect(url.searchParams.get('subject')).toBe(`Metoni gym package enquiry — ${name}`);
+  }
+  for (const detail of await section.locator('details').all()) {
+    await detail.locator('summary').focus();
+    await detail.locator('summary').press('Enter');
+    await expect(detail).toHaveAttribute('open', '');
+  }
+  expect((await new AxeBuilder({ page }).include('#for-gyms').analyze()).violations).toEqual([]);
+  const example = section.getByRole('link', { name: 'Preview the gym website template' });
+  expect(new URL((await example.getAttribute('href'))!).pathname).toBe(
+    '/templates/website/motion/gym-06/',
+  );
+  expect((await request.get('/templates/website/motion/gym-06/')).status()).toBe(200);
+  expect((await request.get('/contact/')).status()).toBe(200);
+  await page.getByRole('link', { name: 'Get the app' }).click();
+  await expect(page).toHaveURL(/#download$/);
+  await expect(
+    page.locator('#download').getByRole('link', { name: metoni.appStoreLabel }),
+  ).toBeVisible();
 });

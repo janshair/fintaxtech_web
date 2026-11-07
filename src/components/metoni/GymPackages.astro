@@ -1,0 +1,365 @@
+---
+import { company } from '../../content/site';
+
+const packages = [
+  {
+    name: 'Website',
+    monthly: 79,
+    setup: 499,
+    description: 'A managed website that helps prospective members discover your gym and enquire.',
+    inclusions: [
+      'Website customised from our gym template',
+      'Your branding, photos, services and membership information',
+      'Hosting and maintenance',
+      'Working enquiry form',
+      'Link or supported embed for your existing booking provider',
+      'Basic search-engine setup',
+      'Up to 30 minutes of routine website edits each month',
+    ],
+    note: '',
+    cta: 'Enquire about a website',
+  },
+  {
+    name: 'Connected Gym',
+    monthly: 149,
+    setup: 749,
+    description: 'Your website and a gym-branded training experience inside Metoni.',
+    inclusions: [
+      'Everything in Website',
+      'Your gym’s branded area inside the shared Metoni app',
+      'Coach dashboard and member invitations',
+      'Workout programme assignment',
+      'Synchronised workout history and progress',
+      'Gym announcements',
+      'One location, up to 250 enrolled members and five staff accounts',
+    ],
+    note: 'Members download Metoni. This package does not include a separate app-store listing.',
+    cta: 'Enquire about the pilot',
+  },
+  {
+    name: 'Own Brand',
+    monthly: 249,
+    setup: 999,
+    description: 'Your website and training app, presented under your gym’s brand.',
+    inclusions: [
+      'Everything in Connected Gym',
+      'Your own app name and icon',
+      'Separate Apple App Store and Google Play listings',
+      'Assistance preparing your store listings',
+      'Ongoing app maintenance',
+      'One location, up to 250 enrolled members and five staff accounts',
+    ],
+    note: 'Requires gym-owned developer accounts and app-store approval.',
+    cta: 'Discuss your branded app',
+  },
+];
+const commercialDetails = [
+  'Prices exclude VAT where applicable.',
+  'Additional capacity: £50/month per extra 250 enrolled members. Archived members do not count.',
+  'Multi-location packages are quoted separately.',
+  'Domain registration, developer-account fees, third-party booking subscriptions and payment-processing fees are additional.',
+  'Setup includes one template-based website, supporting policy pages and two revision rounds.',
+  'Proposed subscriptions are monthly rolling with 30 days’ cancellation notice.',
+  'Gym members pay no additional Metoni subscription for the service included in their gym’s package.',
+];
+const faq = [
+  [
+    'Will members download Metoni or our own app?',
+    'With Connected Gym, members download Metoni and access your gym’s branded area inside the shared app. Own Brand proposes a separate app name, icon and listings in the Apple App Store and Google Play. It requires gym-owned developer accounts and app-store approval.',
+  ],
+  [
+    'Does this replace our gym-management software?',
+    'Initially, these packages complement your existing booking and payment tools. Your gym can continue using those systems alongside its website and training app.',
+  ],
+  [
+    'What does booking integration include?',
+    'A supported link or embed for your existing booking provider. Deeper integrations require separate scoping.',
+  ],
+  [
+    'When will gym packages be available?',
+    'Pilot enquiries are open. The gym packages are in development, and delivery scope and timing will be agreed before you commit.',
+  ],
+  [
+    'Do these prices apply to individual Metoni users?',
+    'These are business packages for gyms. Individual users can continue with the existing consumer app offer through the App Store and Google Play links on this page.',
+  ],
+];
+---
+
+<section id="for-gyms" class="gym-packages" aria-labelledby="gym-title">
+  <div class="gym-intro">
+    <p class="kicker">For gyms &amp; studios</p>
+    <h2 id="gym-title">Your gym. Your website. <br /><em>Your training app.</em></h2>
+    <p class="gym-supporting">
+      Choose a managed website, a gym-branded experience inside Metoni, or an app with your own name
+      in the app stores.
+    </p>
+    <a class="template-link" href="https://fintaxtech.co.uk/templates/website/motion/gym-06/">
+      Preview the gym website template <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+  <div class="pilot-notice">
+    <p>
+      <strong>Gym packages are in development.</strong> We’re inviting pilot enquiries now. Features and
+      launch timing will be agreed before you commit.
+    </p>
+  </div>
+  <div class="package-grid">
+    {
+      packages.map((plan) => (
+        <article
+          class:list={['package-card', { 'own-brand': plan.name === 'Own Brand' }]}
+          aria-label={plan.name}
+        >
+          <div class="package-heading">
+            <h3>{plan.name}</h3>
+            {plan.name === 'Own Brand' && <span class="package-badge">Your own app</span>}
+          </div>
+          <div class="package-pricing">
+            <p class="monthly-price">
+              <>
+                <strong>£{plan.monthly}</strong>
+                <span>/month</span>
+              </>
+            </p>
+            <p class="setup-price">£{plan.setup} one-time setup</p>
+          </div>
+          <p class="package-description">{plan.description}</p>
+          <div class="package-inclusions">
+            <h4>{plan.name === 'Website' ? 'Includes' : 'Planned inclusions'}</h4>
+            <ul>
+              {plan.inclusions.map((inclusion) => (
+                <li>{inclusion}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="package-note">{plan.note && <p>{plan.note}</p>}</div>
+          <a
+            class:list={['package-enquiry', { cta: plan.name === 'Own Brand' }]}
+            href={`mailto:${company.email}?subject=${encodeURIComponent(`Metoni gym package enquiry — ${plan.name}`)}`}
+          >
+            {plan.cta}
+          </a>
+        </article>
+      ))
+    }
+  </div>
+  <p class="enquiry-help">
+    Enquiry buttons open an email draft with your chosen package. For other ways to get in touch,
+    {' '}<a href="/contact/">contact FinTaxTech</a>.
+  </p>
+  <div class="commercial-details">
+    <h3>Package details</h3>
+    <ul>{commercialDetails.map((detail) => <li>{detail}</li>)}</ul>
+  </div>
+  <div class="gym-faq">
+    <h3>Questions about gym packages</h3>
+    <div class="details-list">
+      {
+        faq.map(([question, answer]) => (
+          <details>
+            <>
+              <summary>{question}</summary>
+              <p>{answer}</p>
+            </>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .gym-packages {
+    padding-block: clamp(48px, 5vw, 80px);
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 24px;
+  }
+  .gym-intro {
+    max-width: 860px;
+  }
+  h2 {
+    margin-block: 16px 24px;
+  }
+  .gym-supporting {
+    max-width: 66ch;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .template-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding-block: 8px;
+    font-weight: 600;
+  }
+  .template-link span {
+    margin-left: 8px;
+  }
+  .pilot-notice {
+    margin-block: 24px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--blaze);
+    border-radius: 8px;
+  }
+  .package-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .package-card {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 6;
+    gap: 20px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .own-brand {
+    border: 2px solid var(--blaze);
+    padding: 23px;
+  }
+  .package-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h3 {
+    margin: 0;
+    font:
+      400 28px/1.2 Anton,
+      Impact,
+      sans-serif;
+    text-transform: uppercase;
+  }
+  .package-badge {
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 999px;
+    background: var(--blaze);
+    color: #20110b;
+  }
+  .monthly-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .monthly-price strong {
+    font:
+      400 56px/1.1 Anton,
+      Impact,
+      sans-serif;
+  }
+  .monthly-price span {
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .setup-price {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .package-description {
+    color: var(--muted);
+  }
+  h4 {
+    margin: 0 0 16px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .package-inclusions {
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+    font-size: 14px;
+  }
+  li + li {
+    margin-top: 12px;
+  }
+  li::marker {
+    color: var(--muted);
+  }
+  .package-note {
+    font-size: 13px;
+  }
+  .package-note p {
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .package-enquiry {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px;
+    border: 1px solid var(--muted);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+  }
+  .package-enquiry:hover {
+    border-color: var(--blaze);
+  }
+  .package-enquiry.cta {
+    border-color: var(--blaze);
+  }
+  .enquiry-help {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .commercial-details,
+  .gym-faq {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: clamp(32px, 7vw, 112px);
+    margin-top: 48px;
+  }
+  .commercial-details ul {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  @media (max-width: 1000px) {
+    .package-grid {
+      gap: 16px;
+    }
+    .package-card {
+      padding: 20px;
+    }
+    .own-brand {
+      padding: 19px;
+    }
+    .package-heading {
+      align-content: start;
+    }
+  }
+  @media (max-width: 800px) {
+    .package-grid,
+    .commercial-details,
+    .gym-faq {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .package-card {
+      grid-row: auto;
+      grid-template-rows: auto;
+    }
+    .package-note:empty {
+      display: none;
+    }
+    .commercial-details,
+    .gym-faq {
+      gap: 24px;
+    }
+  }
+</style>

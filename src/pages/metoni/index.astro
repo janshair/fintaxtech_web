@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import GymPackages from '../../components/metoni/GymPackages.astro';
 import StoreGallery from '../../components/metoni/StoreGallery.astro';
 import MetoniMedia from '../../components/metoni/MetoniMedia.astro';
 import GooglePlayBadge from '../../components/GooglePlayBadge.astro';
@@ -68,6 +69,7 @@ const canonical = absoluteURL(metoni.route);
         >
         <nav aria-label="Main navigation">
           <a class="nav-text" href="#screenshots">Screenshots</a>
+          <a class="gym-nav" href="#for-gyms">For gyms</a>
           <a class="nav-text" href={metoni.supportRoute} aria-label={metoni.supportLabel}>Support</a
           >
           <button
@@ -159,6 +161,7 @@ const canonical = absoluteURL(metoni.route);
           </div>
         </section>
         <MetoniMedia />
+        <GymPackages />
         <section id="download" aria-labelledby="download-title">
           <h2 id="download-title">Your next workout,<br /><em>ready to log.</em></h2>
           <div class="badges">

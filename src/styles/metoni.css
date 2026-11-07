@@ -617,3 +617,25 @@ footer .bar {
 [data-theme='light'] :focus-visible {
   outline-color: #a33512;
 }
+
+/* Keep the gym enquiry and app download destinations visible on small screens. */
+.gym-nav {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+@media (max-width: 760px) {
+  .masthead .bar {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-block: 12px;
+  }
+  .masthead nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .masthead .nav-text {
+    display: none;
+  }
+}
