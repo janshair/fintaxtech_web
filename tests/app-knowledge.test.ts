@@ -47,3 +47,30 @@ describe('app summaries and canonical answers', () => {
     expect(safos).toContain('Sharing a PDF sends it to the recipient or service you choose');
   });
 });
+
+it('keeps gym pilot packages, prices and limits consistent across both summaries', async () => {
+  const { metoniGym, gymSuitabilityQuestion } = await import('../src/content/metoni-gym');
+  const appText = appLLMSText(metoniKnowledge);
+  const rootText = await rootGET().text();
+  for (const text of [appText, rootText]) {
+    expect(text).toContain('Connected Gym');
+    expect(text).toContain('Own Brand');
+    expect(text).toContain('white-label');
+    expect(text).toContain(metoniGym.status);
+    expect(text).toContain('Prices exclude VAT where applicable.');
+    expect(text).toContain('https://fintaxtech.co.uk/metoni/#for-gyms');
+    for (const plan of metoniGym.packages) {
+      expect(text).toContain(`£${plan.monthly}/month plus £${plan.setup}`);
+      expect(text).toContain(plan.note);
+    }
+  }
+  expect(appText).toContain(gymSuitabilityQuestion[1]);
+  expect(appText).toContain(
+    'planned gym-package features, not features already available in the consumer app',
+  );
+  expect(appText).toContain('Coach dashboard and member invitations');
+  expect(appText).toContain('One location, up to 250 enrolled members and five staff accounts');
+  expect(appText).toContain('complement your existing booking and payment tools');
+  expect(appText).toContain('app-store approval');
+  expect(appLLMSText(safosKnowledge)).not.toContain('Connected Gym');
+});

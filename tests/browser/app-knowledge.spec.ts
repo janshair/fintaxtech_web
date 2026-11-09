@@ -43,3 +43,31 @@ for (const app of appKnowledge) {
     await context.close();
   });
 }
+
+test('gym-intent answers and proposed prices are discoverable in static Metoni HTML and summaries', async ({
+  browser,
+  request,
+}) => {
+  const { metoniGym } = await import('../../src/content/metoni-gym');
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto('/metoni/');
+  await expect(
+    page.locator('.hero-copy').getByRole('link', { name: metoniGym.heroLabel }),
+  ).toHaveAttribute('href', metoniGym.route);
+  const section = page.locator('#for-gyms');
+  await expect(section).toContainText(metoniGym.status);
+  await expect(section).toContainText(metoniGym.consumerScope);
+  for (const plan of metoniGym.packages) {
+    const card = section.getByRole('article', { name: plan.name, exact: true });
+    await expect(card.locator('.monthly-price')).toHaveText(`£${plan.monthly}/month`);
+    await expect(card.locator('.setup-price')).toHaveText(`£${plan.setup} one-time setup`);
+  }
+  for (const path of ['/llms.txt', '/metoni/llms.txt']) {
+    const text = await (await request.get(path)).text();
+    expect(text).toContain(metoniGym.summary);
+    expect(text).toContain(metoniGym.status);
+    expect(text).toContain('white-label');
+  }
+  await context.close();
+});

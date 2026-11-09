@@ -1,3 +1,4 @@
+import { metoniGym, gymSuitabilityQuestion, gymQuestions } from './metoni-gym';
 import { metoni, metoniSupport } from './metoni';
 import { safos } from './safos';
 
@@ -12,6 +13,7 @@ export interface AppKnowledge {
   supportRoute: string;
   privacyRoute: string;
   termsRoute?: string;
+  businessOffering?: typeof metoniGym;
   playStoreURL: string;
   appStoreURL: string;
 }
@@ -25,19 +27,27 @@ export const appKnowledgeCopy = {
 
 export const metoniKnowledge: AppKnowledge = {
   ...metoni,
+  businessOffering: metoniGym,
   llmsRoute: `${metoni.route}llms.txt`,
   questions: [
-    ['What is Metoni?', metoni.intro],
-    ...(metoniSupport.faq.filter(([question]) =>
-      [
-        'Do I need an account?',
-        'Can I use Metoni offline?',
-        'Where is my data stored?',
-        'How do weight suggestions work?',
-        'Can support recover my workout records?',
-        'Is Metoni available for iPhone?',
-      ].includes(question),
-    ) as [string, string][]),
+    ['What is Metoni?', `${metoni.intro} ${metoniGym.summary} ${metoniGym.status}`],
+    gymSuitabilityQuestion,
+    ...gymQuestions,
+    ...(metoniSupport.faq
+      .filter(([question]) =>
+        [
+          'Do I need an account?',
+          'Can I use Metoni offline?',
+          'Where is my data stored?',
+          'How do weight suggestions work?',
+          'Can support recover my workout records?',
+          'Is Metoni available for iPhone?',
+        ].includes(question),
+      )
+      .map(([question, answer]) => [
+        question,
+        `${answer} This answer describes the current consumer app; planned gym accounts and synchronisation are scoped separately.`,
+      ]) as [string, string][]),
   ],
 };
 

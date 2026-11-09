@@ -1,89 +1,13 @@
 ---
+import {
+  gymPackages as packages,
+  gymCommercialDetails as commercialDetails,
+  gymQuestions as faq,
+  metoniGym,
+  gymSuitabilityQuestion,
+  gymPricingQuestion,
+} from '../../content/metoni-gym';
 import { company } from '../../content/site';
-
-const packages = [
-  {
-    name: 'Website',
-    monthly: 79,
-    setup: 499,
-    description: 'A managed website that helps prospective members discover your gym and enquire.',
-    inclusions: [
-      'Website customised from our gym template',
-      'Your branding, photos, services and membership information',
-      'Hosting and maintenance',
-      'Working enquiry form',
-      'Link or supported embed for your existing booking provider',
-      'Basic search-engine setup',
-      'Up to 30 minutes of routine website edits each month',
-    ],
-    note: '',
-    cta: 'Enquire about a website',
-  },
-  {
-    name: 'Connected Gym',
-    monthly: 149,
-    setup: 749,
-    description: 'Your website and a gym-branded training experience inside Metoni.',
-    inclusions: [
-      'Everything in Website',
-      'Your gym’s branded area inside the shared Metoni app',
-      'Coach dashboard and member invitations',
-      'Workout programme assignment',
-      'Synchronised workout history and progress',
-      'Gym announcements',
-      'One location, up to 250 enrolled members and five staff accounts',
-    ],
-    note: 'Members download Metoni. This package does not include a separate app-store listing.',
-    cta: 'Enquire about the pilot',
-  },
-  {
-    name: 'Own Brand',
-    monthly: 249,
-    setup: 999,
-    description: 'Your website and training app, presented under your gym’s brand.',
-    inclusions: [
-      'Everything in Connected Gym',
-      'Your own app name and icon',
-      'Separate Apple App Store and Google Play listings',
-      'Assistance preparing your store listings',
-      'Ongoing app maintenance',
-      'One location, up to 250 enrolled members and five staff accounts',
-    ],
-    note: 'Requires gym-owned developer accounts and app-store approval.',
-    cta: 'Discuss your branded app',
-  },
-];
-const commercialDetails = [
-  'Prices exclude VAT where applicable.',
-  'Additional capacity: £50/month per extra 250 enrolled members. Archived members do not count.',
-  'Multi-location packages are quoted separately.',
-  'Domain registration, developer-account fees, third-party booking subscriptions and payment-processing fees are additional.',
-  'Setup includes one template-based website, supporting policy pages and two revision rounds.',
-  'Proposed subscriptions are monthly rolling with 30 days’ cancellation notice.',
-  'Gym members pay no additional Metoni subscription for the service included in their gym’s package.',
-];
-const faq = [
-  [
-    'Will members download Metoni or our own app?',
-    'With Connected Gym, members download Metoni and access your gym’s branded area inside the shared app. Own Brand proposes a separate app name, icon and listings in the Apple App Store and Google Play. It requires gym-owned developer accounts and app-store approval.',
-  ],
-  [
-    'Does this replace our gym-management software?',
-    'Initially, these packages complement your existing booking and payment tools. Your gym can continue using those systems alongside its website and training app.',
-  ],
-  [
-    'What does booking integration include?',
-    'A supported link or embed for your existing booking provider. Deeper integrations require separate scoping.',
-  ],
-  [
-    'When will gym packages be available?',
-    'Pilot enquiries are open. The gym packages are in development, and delivery scope and timing will be agreed before you commit.',
-  ],
-  [
-    'Do these prices apply to individual Metoni users?',
-    'These are business packages for gyms. Individual users can continue with the existing consumer app offer through the App Store and Google Play links on this page.',
-  ],
-];
 ---
 
 <section id="for-gyms" class="gym-packages" aria-labelledby="gym-title">
@@ -91,8 +15,7 @@ const faq = [
     <p class="kicker">For gyms &amp; studios</p>
     <h2 id="gym-title">Your gym. Your website. <br /><em>Your training app.</em></h2>
     <p class="gym-supporting">
-      Choose a managed website, a gym-branded experience inside Metoni, or an app with your own name
-      in the app stores.
+      {metoniGym.summary}
     </p>
     <a class="template-link" href="https://fintaxtech.co.uk/templates/website/motion/gym-06/">
       Preview the gym website template <span aria-hidden="true">↗</span>
@@ -100,10 +23,10 @@ const faq = [
   </div>
   <div class="pilot-notice">
     <p>
-      <strong>Gym packages are in development.</strong> We’re inviting pilot enquiries now. Features and
-      launch timing will be agreed before you commit.
+      <strong>{metoniGym.status}</strong>
     </p>
   </div>
+  <p class="gym-supporting">{metoniGym.consumerScope}</p>
   <div class="package-grid">
     {
       packages.map((plan) => (
@@ -156,7 +79,7 @@ const faq = [
     <h3>Questions about gym packages</h3>
     <div class="details-list">
       {
-        faq.map(([question, answer]) => (
+        [gymSuitabilityQuestion, gymPricingQuestion, ...faq].map(([question, answer]) => (
           <details>
             <>
               <summary>{question}</summary>

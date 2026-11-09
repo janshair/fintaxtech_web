@@ -24,7 +24,34 @@ export function appLLMSText(app: AppKnowledge) {
     '',
     ...resources,
     '',
-    '## Features',
+    ...(app.businessOffering
+      ? [
+          `## ${app.businessOffering.title}`,
+          '',
+          app.businessOffering.summary,
+          '',
+          app.businessOffering.status,
+          '',
+          app.businessOffering.consumerScope,
+          '',
+          `- [Gym packages and pilot enquiries](${absolute(app.businessOffering.route)})`,
+          '',
+          ...app.businessOffering.packages.flatMap((plan) => [
+            `### ${plan.name}`,
+            '',
+            `Proposed price: £${plan.monthly}/month plus £${plan.setup} one-time setup.`,
+            '',
+            plan.description,
+            '',
+            ...plan.inclusions.map((item) => `- ${item}`),
+            ...(plan.note ? ['', plan.note] : []),
+            '',
+          ]),
+          ...app.businessOffering.commercialDetails.map((detail) => `- ${detail}`),
+          '',
+        ]
+      : []),
+    app.businessOffering ? '## Current consumer app features' : '## Features',
     '',
     ...app.features.map(([title, description]) => `- ${title}: ${description}`),
     '',
@@ -35,7 +62,7 @@ export function appLLMSText(app: AppKnowledge) {
     '',
     `For support, contact ${company.email}. Do not send passwords or unnecessary personal, workout or client information.`,
     '',
-    'Store listings provide current pricing and compatibility. Features and third-party services can differ by platform; consult the linked support and privacy pages. This summary does not claim ratings, guaranteed outcomes or features not documented in the official sources.',
+    `Store listings provide current ${app.businessOffering ? 'consumer app ' : ''}pricing and compatibility. ${app.businessOffering ? 'Gym-package prices are a separate pilot offer. ' : ''}Features and third-party services can differ by platform; consult the linked support and privacy pages. This summary does not claim ratings, guaranteed outcomes or features not documented in the official sources.`,
     '',
     `- [Publisher](${company.url}/): ${company.legal}.`,
     `- [Site overview](${company.url}/llms.txt)`,
@@ -56,6 +83,16 @@ export function appIndexText() {
     ...appKnowledge.flatMap((app) => [
       `- [${app.name}](${absolute(app.route)}): ${app.description}`,
       `- [${app.name} facts and answers](${absolute(app.llmsRoute)}): features, FAQs and official sources.`,
+      ...(app.businessOffering
+        ? [
+            `- [${app.businessOffering.title}](${absolute(app.businessOffering.route)}): ${app.businessOffering.summary} ${app.businessOffering.status}`,
+            ...app.businessOffering.packages.map(
+              (plan) =>
+                `  - ${plan.name}: proposed £${plan.monthly}/month plus £${plan.setup} setup. ${plan.description}${plan.note ? ` ${plan.note}` : ''}`,
+            ),
+            `  - ${app.businessOffering.commercialDetails[0]}`,
+          ]
+        : []),
       `- [${app.name} support](${absolute(app.supportRoute)})`,
       `- [${app.name} on Google Play](${app.playStoreURL})`,
       `- [${app.name} on the App Store](${app.appStoreURL})`,

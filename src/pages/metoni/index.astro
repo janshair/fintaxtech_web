@@ -1,4 +1,5 @@
 ---
+import { metoniGym } from '../../content/metoni-gym';
 import AppQuestions from '../../components/AppQuestions.astro';
 import { metoniKnowledge } from '../../content/app-knowledge';
 import { Image } from 'astro:assets';
@@ -120,6 +121,7 @@ const canonical = absoluteURL(metoni.route);
               />
               <GooglePlayBadge href={metoni.playStoreURL} label={metoni.playLabel} />
             </div>
+            <p><a href={metoniGym.route}>{metoniGym.heroLabel}</a></p>
             <p class="offline">
               <i aria-hidden="true"></i> Works offline <span aria-hidden="true">/</span> No account required
             </p>

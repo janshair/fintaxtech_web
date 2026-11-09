@@ -8,7 +8,7 @@ export const metoni = {
   appStoreURL: 'https://apps.apple.com/gb/app/metoni-workout-tracker/id6819672803',
   seoTitle: 'Metoni: Workout Tracker',
   description:
-    'Log strength-training sets, use exercise rest timers, follow workout plans and review session history with Metoni. Available on Android and iOS, with no account required.',
+    'Metoni tracks strength workouts on Android and iOS. Gym websites and white-label training app packages are in development, with pilot enquiries open.',
   eyebrow: 'Built and published by FinTaxTech',
   headline: 'Plan your workout. Log it. Get back to training.',
   intro:
