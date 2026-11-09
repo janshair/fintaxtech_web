@@ -322,15 +322,22 @@ function question() {
         input.setAttribute('aria-describedby', description.id);
         label.append(image, title, description);
         const card = el('div', undefined, 'choice-card');
-        const credit = el('a', example.credit, 'choice-credit');
-        credit.href = example.source;
+        const credit = el(
+          'a',
+          example.guide ? `${option} design guide` : example.credit,
+          'choice-credit',
+        );
+        credit.href = example.guide ?? example.source;
         credit.target = '_blank';
         credit.rel = 'noopener noreferrer';
         credit.setAttribute(
           'aria-label',
-          `${option} reference: ${example.credit} (opens in a new tab)`,
+          example.guide
+            ? `${option} design guide (opens in a new tab)`
+            : `${option} reference: ${example.credit} (opens in a new tab)`,
         );
-        card.append(label, credit);
+        card.append(label);
+        card.append(credit);
         choices.append(card);
       } else {
         label.append(input, el('span', option));

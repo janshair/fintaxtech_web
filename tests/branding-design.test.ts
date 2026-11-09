@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest';
 import { readFile } from 'node:fs/promises';
 import { brandingDesignQuestion as question } from '../src/content/branding-design';
+import { logoStyles } from '../src/content/branding-gallery';
 import { visibleQuestions, visibleSummary, pruneHiddenAnswers } from '../src/lib/rules';
 import { validateQuestion } from '../src/lib/validation';
 import type { Journey } from '../src/lib/types';
@@ -55,6 +56,9 @@ it('replaces the redundant first question with the illustrated design choices an
     }
     expect(example.alt.length).toBeGreaterThan(15);
     expect(example.credit).toBeTruthy();
+    const guide = logoStyles.find(({ style }) => style === option);
+    expect(guide).toBeDefined();
+    expect(example.guide).toBe(`/templates/branding/logo/${guide!.slug}/`);
     const bytes = await readFile(`public${example.image}`);
     expect(bytes.byteLength).toBeGreaterThan(1000);
     if (example.image.endsWith('.webp')) {

@@ -403,13 +403,19 @@ function renderField(field: BriefField) {
         const card = el('div', undefined, 'choice-card');
         card.append(label);
         if (example.source && example.credit) {
-          const credit = el('a', example.credit, 'choice-credit');
-          credit.href = example.source;
+          const credit = el(
+            'a',
+            example.guide ? `${option} design guide` : example.credit,
+            'choice-credit',
+          );
+          credit.href = example.guide ?? example.source;
           credit.target = '_blank';
           credit.rel = 'noopener noreferrer';
           credit.setAttribute(
             'aria-label',
-            `${option} reference: ${example.credit} (opens in a new tab)`,
+            example.guide
+              ? `${option} design guide (opens in a new tab)`
+              : `${option} reference: ${example.credit} (opens in a new tab)`,
           );
           card.append(credit);
         }

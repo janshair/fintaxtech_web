@@ -127,6 +127,17 @@ test('shortened sections, exact name, Other, maximum and shared design cards pre
   await expect(designs.locator('.choice-illustrated img')).toHaveCount(17);
   await expect(designs.locator('input[type=radio]')).toHaveCount(19);
   await expect(designs.locator('.choice-credit')).toHaveCount(17);
+  expect(
+    await designs
+      .locator('.choice-credit')
+      .evaluateAll((links) =>
+        links.every(
+          (link) =>
+            link.getAttribute('href')?.startsWith('/templates/branding/logo/') &&
+            link.getAttribute('target') === '_blank',
+        ),
+      ),
+  ).toBe(true);
   await expect
     .poll(() =>
       designs

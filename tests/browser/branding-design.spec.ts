@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { logoStyles } from '../../src/content/branding-gallery';
 
 test('branding design image grid validates, preserves Back and review edits, and downloads a PDF', async ({
   page,
@@ -21,6 +22,23 @@ test('branding design image grid validates, preserves Back and review edits, and
   await expect(page.getByRole('progressbar')).toHaveAttribute('value', '2');
   await expect(page.locator('.choice-illustrated')).toHaveCount(17);
   await expect(page.locator('.choice-credit')).toHaveCount(17);
+  for (const style of logoStyles) {
+    const guide = page.getByRole('link', {
+      name: `${style.style} design guide (opens in a new tab)`,
+      exact: true,
+    });
+    await expect(guide).toHaveAttribute('href', `/templates/branding/logo/${style.slug}/`);
+    await expect(guide).toHaveAttribute('target', '_blank');
+    expect((await page.request.get(`/templates/branding/logo/${style.slug}/`)).status()).toBe(200);
+  }
+  const opened = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'Skeuomorphism design guide (opens in a new tab)' }).click();
+  const guidePage = await opened;
+  await expect(guidePage).toHaveURL(/\/templates\/branding\/logo\/skeuomorphism\/$/);
+  await expect(guidePage.locator('h1')).toHaveText('Skeuomorphism');
+  await guidePage.close();
+  await expect(heading).toHaveText('Choose desired design');
+  await expect(page.locator('#active-question input:checked')).toHaveCount(0);
   await expect(page.locator('#active-question input[type=radio]')).toHaveCount(19);
   await expect(page.locator('.choices-followup .choice')).toHaveCount(2);
   await expect

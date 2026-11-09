@@ -97,6 +97,7 @@ export interface BriefField {
       description?: string;
       credit?: string;
       source?: string;
+      guide?: string;
     }
   >;
 }

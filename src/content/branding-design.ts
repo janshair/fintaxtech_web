@@ -31,6 +31,7 @@ export const brandingDesignQuestion: Question = {
   ],
   examples: {
     Skeuomorphism: {
+      guide: '/templates/branding/logo/skeuomorphism/',
       image: '/images/branding-styles/skeuomorphism.webp',
       alt: 'Apple iOS drawing tools with realistic pen, pencil and eraser details.',
       description: 'Familiar objects, realistic materials and tactile details.',
@@ -38,6 +39,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://hype4.academy/articles/design/neumorphism-in-user-interfaces',
     },
     Neomorphism: {
+      guide: '/templates/branding/logo/neomorphism/',
       image: '/images/branding-styles/neomorphism.webp',
       alt: 'Samsung promotional design with softly raised shapes and subtle shadows.',
       description: 'Soft surfaces with gently raised or inset shapes.',
@@ -45,6 +47,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://hype4.academy/articles/design/neumorphism-in-user-interfaces',
     },
     Glassmorphism: {
+      guide: '/templates/branding/logo/glassmorphism/',
       image: '/images/branding-styles/glassmorphism.webp',
       alt: 'Apple macOS Big Sur Control Center with frosted translucent panels.',
       description: 'Frosted glass, blurred backgrounds and translucent layers.',
@@ -53,6 +56,7 @@ export const brandingDesignQuestion: Question = {
         'https://www.apple.com/newsroom/2020/06/apple-introduces-macos-big-sur-with-a-beautiful-new-design/',
     },
     Claymorphism: {
+      guide: '/templates/branding/logo/claymorphism/',
       image: '/images/branding-styles/claymorphism.webp',
       alt: 'Rounded three-dimensional clay-like shapes in a published claymorphism example.',
       description: 'Playful, rounded forms with a soft clay-like feel.',
@@ -60,6 +64,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://hype4.academy/articles/design/claymorphism-in-user-interfaces',
     },
     Minimalism: {
+      guide: '/templates/branding/logo/minimalism/',
       image: '/ftt_logo.png',
       alt: 'The existing FinTaxTech logo with simple shapes and restrained colour.',
       description: 'Simple shapes, clear space and only the essentials.',
@@ -67,6 +72,7 @@ export const brandingDesignQuestion: Question = {
       source: '/ftt_logo.png',
     },
     Maximalism: {
+      guide: '/templates/branding/logo/maximalism/',
       image: '/images/branding-styles/maximalism.webp',
       alt: 'Nickelodeon website with bright colours, cartoon characters and layered content.',
       description: 'Bold colour, expressive imagery and rich layers of detail.',
@@ -74,6 +80,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://noddydog.com/work/nickelodeon/',
     },
     Brutalism: {
+      guide: '/templates/branding/logo/brutalism/',
       image: '/images/branding-styles/brutalism.webp',
       alt: 'Joshua Garcia portfolio showing large underlined project names and stark dividers.',
       description: 'Raw typography, strong contrast and direct layouts.',
@@ -81,6 +88,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://webflow.com/blog/layout-design',
     },
     'Liquid Glass': {
+      guide: '/templates/branding/logo/liquid-glass/',
       image: '/images/branding-styles/liquid-glass.webp',
       alt: 'Apple Liquid Glass interfaces across iPhone, iPad, Mac, Apple Watch and Apple TV.',
       description: 'Glossy glass with reflections and a fluid, polished feel.',
@@ -89,6 +97,7 @@ export const brandingDesignQuestion: Question = {
         'https://www.apple.com/newsroom/2025/06/apple-introduces-a-delightful-and-elegant-new-software-design/',
     },
     'Spatial UI': {
+      guide: '/templates/branding/logo/spatial-ui/',
       image: '/images/branding-styles/spatial-ui.webp',
       alt: 'Apple Vision Pro App Store interface floating in a physical room.',
       description: 'Floating panels, depth and interfaces arranged in space.',
@@ -96,6 +105,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://www.apple.com/newsroom/2023/06/introducing-apple-vision-pro/',
     },
     'Flat design': {
+      guide: '/templates/branding/logo/flat-design/',
       image: '/images/branding-styles/flat-design.webp',
       alt: 'Floral Chemistry identity using solid white shapes on a dark green background.',
       description: 'Solid colours and simple shapes with little shading.',
@@ -103,6 +113,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://99designs.co.uk/designer-resource-center/visual-design-styles',
     },
     Geometric: {
+      guide: '/templates/branding/logo/geometric/',
       image: '/images/branding-styles/geometric.webp',
       alt: 'Ashbury Construction Company identity with a precise interlocking geometric pattern.',
       description: 'Circles, grids and precise, structured shapes.',
@@ -110,6 +121,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://99designs.co.uk/designer-resource-center/visual-design-styles',
     },
     'Retro / Vintage': {
+      guide: '/templates/branding/logo/retro-vintage/',
       image: '/images/branding-styles/retro-vintage.webp',
       alt: 'Hummingbird identity with a vintage bird illustration and traditional lettering.',
       description: 'Nostalgic colours, lettering and decorative details.',
@@ -117,6 +129,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://99designs.co.uk/designer-resource-center/visual-design-styles',
     },
     'Hand-drawn / Organic': {
+      guide: '/templates/branding/logo/hand-drawn-organic/',
       image: '/images/branding-styles/hand-drawn-organic.webp',
       alt: 'CRMB packaging with botanical illustrations, natural textures and hand-drawn details.',
       description: 'Natural shapes, sketches and a handcrafted feel.',
@@ -124,6 +137,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://99designs.co.uk/designer-resource-center/visual-design-styles',
     },
     Typographic: {
+      guide: '/templates/branding/logo/typographic/',
       image: '/images/branding-styles/typographic.webp',
       alt: 'TFLO Cafe identity with distinctive black lettering on a bright yellow background.',
       description: 'Distinctive lettering that gives the brand its personality.',
@@ -131,6 +145,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://99designs.co.uk/designer-resource-center/visual-design-styles',
     },
     'Illustrative / Mascot': {
+      guide: '/templates/branding/logo/illustrative-mascot/',
       image: '/images/branding-styles/illustrative-mascot.webp',
       alt: 'Jolitiques identity with an illustrated woodland scene and expressive lettering.',
       description: 'Characters or illustrations that make the brand recognisable.',
@@ -138,6 +153,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://99designs.co.uk/designer-resource-center/visual-design-styles',
     },
     'Luxury / Elegant': {
+      guide: '/templates/branding/logo/luxury-elegant/',
       image: '/images/branding-styles/luxury-elegant.webp',
       alt: 'Oaem identity with an ornamental gold emblem on a dark circular background.',
       description: 'Refined typography, restrained colours and delicate details.',
@@ -145,6 +161,7 @@ export const brandingDesignQuestion: Question = {
       source: 'https://99designs.co.uk/designer-resource-center/visual-design-styles',
     },
     Abstract: {
+      guide: '/templates/branding/logo/abstract/',
       image: '/images/branding-styles/abstract.webp',
       alt: 'Fetasy identity with an abstract pink line symbol above a simple wordmark.',
       description: 'Expressive symbols and shapes rather than literal objects.',

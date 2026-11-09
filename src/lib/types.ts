@@ -16,6 +16,7 @@ export interface Question {
       description: string;
       credit: string;
       source: string;
+      guide?: string;
     }
   >;
   max?: number;

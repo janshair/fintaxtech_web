@@ -7,17 +7,16 @@ import { seoPages } from '../content/seo';
 
 <SiteLayout title={seoPages['/start/'].title} description={seoPages['/start/'].description}>
   <div id="start-selection">
-    <div class="container selector-intro">
-      <p class="lead">{c.intro}</p>
-      <p>{c.process}</p>
-      <p class="notice">{c.privacy}</p>
-    </div>
     <ServiceSelector
       id="start-choose"
       mode="questionnaire"
       headingLevel="h1"
       headingId="start-title"
     />
+    <div class="container start-notes">
+      <p>{c.process}</p>
+      <p class="notice">{c.privacy}</p>
+    </div>
   </div>
   <script>
     import { locationFromSlug } from '../content/locations';
@@ -33,3 +32,9 @@ import { seoPages } from '../content/seo';
     }
   </script>
 </SiteLayout>
+
+<style>
+  .start-notes {
+    padding-bottom: var(--space-8);
+  }
+</style>
