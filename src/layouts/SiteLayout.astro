@@ -1,4 +1,5 @@
 ---
+import { appKnowledge } from '../content/app-knowledge';
 import { locationFromPath, locationStartURL } from '../content/locations';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { seoPages, seoCopy } from '../content/seo';
@@ -42,6 +43,7 @@ const socialImage = Astro.props.socialImage ?? {
   alt: seoCopy.imageAlt,
 };
 const imageURL = absoluteURL(socialImage.url);
+const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route));
 ---
 
 <!doctype html>
@@ -53,11 +55,11 @@ const imageURL = absoluteURL(socialImage.url);
     /><title>{title} | {company.name}</title><meta name="description" content={description} /><meta
       name="color-scheme"
       content="light dark"
-    /><link rel="canonical" href={canonical} /><link
-      rel="icon"
-      type="image/svg+xml"
-      href="/favicon.svg"
-    />{
+    /><link rel="canonical" href={canonical} />{
+      appInformation && (
+        <link rel="describedby" type="text/plain" href={absoluteURL(appInformation.llmsRoute)} />
+      )
+    }<link rel="icon" type="image/svg+xml" href="/favicon.svg" />{
       noindex && (
         <meta
           name="robots"

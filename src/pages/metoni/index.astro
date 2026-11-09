@@ -1,4 +1,6 @@
 ---
+import AppQuestions from '../../components/AppQuestions.astro';
+import { metoniKnowledge } from '../../content/app-knowledge';
 import { Image } from 'astro:assets';
 import GymPackages from '../../components/metoni/GymPackages.astro';
 import StoreGallery from '../../components/metoni/StoreGallery.astro';
@@ -36,6 +38,7 @@ const canonical = absoluteURL(metoni.route);
     <meta name="description" content={metoni.description} />
     <link rel="icon" href={icon.src} type="image/webp" />
     <link rel="canonical" href={canonical} />
+    <link rel="describedby" type="text/plain" href={absoluteURL(metoniKnowledge.llmsRoute)} />
     <meta property="og:title" content={metoni.seoTitle} />
     <meta property="og:description" content={metoni.description} />
     <meta property="og:url" content={canonical} />
@@ -162,6 +165,7 @@ const canonical = absoluteURL(metoni.route);
         </section>
         <MetoniMedia />
         <GymPackages />
+        <AppQuestions app={metoniKnowledge} />
         <section id="download" aria-labelledby="download-title">
           <h2 id="download-title">Your next workout,<br /><em>ready to log.</em></h2>
           <div class="badges">

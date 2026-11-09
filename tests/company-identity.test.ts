@@ -1,3 +1,4 @@
+import { appKnowledge } from '../src/content/app-knowledge';
 import { describe, expect, it } from 'vitest';
 import { company } from '../src/content/site';
 import { pages } from '../src/content/pages';
@@ -38,7 +39,11 @@ describe('company identity and discovery', () => {
     for (const profile of publicProfiles) expect(summary).toContain(profile.url);
     const links = [...summary.matchAll(/\]\((https:[^)]+)\)/g)].map((match) => new URL(match[1]));
     for (const url of links.filter((url) => url.origin === company.url)) {
-      if (url.pathname === '/sitemap.xml') continue;
+      if (
+        url.pathname === '/sitemap.xml' ||
+        appKnowledge.some((app) => app.llmsRoute === url.pathname)
+      )
+        continue;
       expect(indexablePaths).toContain(url.pathname);
       expect(seoPages[url.pathname]?.noindex).not.toBe(true);
     }

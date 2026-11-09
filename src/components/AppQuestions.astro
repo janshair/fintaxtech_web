@@ -1,0 +1,48 @@
+---
+import { appKnowledgeCopy, type AppKnowledge } from '../content/app-knowledge';
+interface Props {
+  app: AppKnowledge;
+}
+const { app } = Astro.props;
+const id = `${app.route.split('/').filter(Boolean).join('-')}-questions`;
+---
+
+<section class="app-questions" aria-labelledby={id}>
+  <h2 id={id}>{appKnowledgeCopy.faqTitle}</h2>
+  {
+    app.questions.map(([question, answer]) => (
+      <details>
+        <>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </>
+      </details>
+    ))
+  }
+  <p>
+    <a href={app.supportRoute}>{appKnowledgeCopy.supportLabel}</a>{' · '}<a href={app.privacyRoute}
+      >{appKnowledgeCopy.privacyLabel}</a>
+  </p>
+</section>
+<style>
+  .app-questions {
+    padding-block: 3rem;
+  }
+  details {
+    border-bottom: 1px solid currentColor;
+    padding-block: 1rem;
+  }
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  p {
+    line-height: 1.65;
+    max-width: 75ch;
+  }
+  summary:focus-visible,
+  a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+</style>

@@ -1,3 +1,4 @@
+import { appIndexText } from '../lib/app-llms';
 import summary from '../content/llms.txt?raw';
 import { locations } from '../content/locations';
 
@@ -12,7 +13,10 @@ export function GET() {
     ),
   ].join('\n');
 
-  return new Response(`${summary.trimEnd()}\n\n${areas}\n`, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-  });
+  return new Response(
+    `${summary.replace('{{PUBLISHED_APPS}}', appIndexText()).trimEnd()}\n\n${areas}\n`,
+    {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    },
+  );
 }

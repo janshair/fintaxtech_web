@@ -1,4 +1,6 @@
 ---
+import AppQuestions from '../../components/AppQuestions.astro';
+import { safosKnowledge } from '../../content/app-knowledge';
 import { Image } from 'astro:assets';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import SafosDownloads from '../../components/safos/SafosDownloads.astro';
@@ -194,6 +196,7 @@ const screenshots = [
         }
       </div>
     </section>
+    <div class="s-wrap"><AppQuestions app={safosKnowledge} /></div>
     <section id="download">
       <div class="s-wrap download-row">
         <h2>Your next invoice,<br />ready to send.</h2><SafosDownloads compact />
