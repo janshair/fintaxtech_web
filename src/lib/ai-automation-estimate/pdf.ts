@@ -1,3 +1,4 @@
+import { type EstimateCurrency } from '../estimate-currency';
 import { jsPDF } from 'jspdf';
 import { loadPDFFont, preparePDFText } from '../pdf-font';
 import { pdfTokens as t } from '../../design/pdf-tokens';
@@ -5,7 +6,7 @@ import { company, ui } from '../../content/site';
 import { aiEstimateCopy as c } from '../../content/ai-automation-estimate';
 import { estimateText } from './presentation';
 import type { Estimate } from './calculate';
-export async function createAIEstimatePDF(e: Estimate) {
+export async function createAIEstimatePDF(e: Estimate, currency: EstimateCurrency = 'GBP') {
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
   await loadPDFFont(doc);
   doc.setProperties({ title: c.pdfTitle, author: company.legal, subject: e.reference });
@@ -33,7 +34,7 @@ export async function createAIEstimatePDF(e: Estimate) {
   text(`${company.legal} | ${company.email} | ${company.phone}`);
   text(ui.registration);
   text(c.pdfTitle, t.type.heading, true);
-  for (const line of estimateText(e)) {
+  for (const line of estimateText(e, currency)) {
     const prominent =
       line === c.disclaimer ||
       line === c.status ||

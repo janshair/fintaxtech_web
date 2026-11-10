@@ -1,3 +1,4 @@
+import { estimateKinds, estimateCurrencyPaths } from './estimate-currency';
 import { mobileConcepts, mobileConceptRoute } from './mobile-concepts';
 import { mobileAppGallery, bookingConcept } from './mobile-app-templates';
 import { industryDirectory, retailGuide, industryGuides } from './automation-industries';
@@ -288,6 +289,16 @@ export const seoPages: Record<string, PageSEO> = {
     description: 'Read the terms governing use of Metoni, a workout tracker by Fintaxtech Ltd.',
   },
 };
+for (const kind of estimateKinds)
+  for (const currency of estimateCurrencyPaths) {
+    const base = `/estimate/${kind}/`;
+    seoPages[`${base}${currency}/`] = {
+      ...seoPages[base],
+      canonical: `${base}${currency}/`,
+      noindex: true,
+      nofollow: true,
+    };
+  }
 export const indexablePaths = Object.keys(seoPages).filter((path) => !seoPages[path].noindex);
 
 export const appPolicyPaths = indexablePaths.filter(

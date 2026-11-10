@@ -1,12 +1,17 @@
+import { formatMoney, type EstimateCurrency } from '../estimate-currency';
 import { jsPDF } from 'jspdf';
 import { company, ui } from '../../content/site';
 import { brandingEstimateCopy as c } from '../../content/branding-estimate';
 import { pdfTokens as t } from '../../design/pdf-tokens';
 import { loadPDFFont, preparePDFText, pdfEmojiNotice } from '../pdf-font';
-import { catalogItems, money, tax } from './calculate';
+import { catalogItems, tax } from './calculate';
 import type { EstimateDocument } from './types';
 
-export async function createEstimatePDF(data: EstimateDocument): Promise<Blob> {
+export async function createEstimatePDF(
+  data: EstimateDocument,
+  currency: EstimateCurrency = 'GBP',
+): Promise<Blob> {
+  const money = (v: number) => formatMoney(v, currency);
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   await loadPDFFont(doc);
   doc.setProperties({ title: c.documentTitle, author: company.legal, subject: data.reference });
@@ -70,7 +75,7 @@ export async function createEstimatePDF(data: EstimateDocument): Promise<Blob> {
     textColor();
     doc.text(c.table[0], margin + 2, y);
     doc.text(c.table[1], margin + 112, y);
-    doc.text(c.table[2], margin + width - 2, y, { align: 'right' });
+    doc.text(c.table[2].replace('GBP', currency), margin + width - 2, y, { align: 'right' });
     y += 13;
   };
   tableHeader();

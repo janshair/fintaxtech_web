@@ -40,6 +40,7 @@ test('six-step local journey, per-page controls, back navigation, canonical and 
     })
     .fill('1');
   await expect(page.locator('[data-result]')).toContainText('£1,098.00');
+
   const [download] = await Promise.all([
     page.waitForEvent('download'),
     page.getByRole('button', { name: 'Download PDF Estimate' }).click(),

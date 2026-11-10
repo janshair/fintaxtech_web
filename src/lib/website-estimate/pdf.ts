@@ -1,3 +1,4 @@
+import { type EstimateCurrency } from '../estimate-currency';
 import { jsPDF } from 'jspdf';
 import { loadPDFFont, preparePDFText } from '../pdf-font';
 import { pdfTokens as t } from '../../design/pdf-tokens';
@@ -7,7 +8,7 @@ import { services } from './config';
 import { estimateText } from './presentation';
 import { answerSummary } from './answers';
 import type { Estimate } from './calculate';
-export async function createWebsitePDF(e: Estimate) {
+export async function createWebsitePDF(e: Estimate, currency: EstimateCurrency = 'GBP') {
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
   await loadPDFFont(doc);
   doc.setProperties({ title: c.pdfTitle, author: company.legal });
@@ -37,7 +38,7 @@ export async function createWebsitePDF(e: Estimate) {
   );
   text(`${c.version}: ${services.schemaVersion}`);
   if (e.fullTotalMinor === null) text(services.pdf.pendingReviewHeader, t.type.heading);
-  for (const line of estimateText(e)) text(line);
+  for (const line of estimateText(e, currency)) text(line);
   text(c.requirements, t.type.heading);
   for (const line of answerSummary(e.answers)) text(line);
   text(c.brandingTitle, t.type.heading);

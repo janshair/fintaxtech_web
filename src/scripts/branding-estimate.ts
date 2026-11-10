@@ -1,3 +1,4 @@
+import { formatMoney, currencyFromPath } from '../lib/estimate-currency';
 import { brandingEstimateCopy as c } from '../content/branding-estimate';
 import {
   OTHER,
@@ -24,6 +25,7 @@ function init(root: HTMLElement) {
   const begin = root.querySelector<HTMLButtonElement>('[data-estimate-begin]')!;
   const answers: EstimateAnswers = {};
   const customer: EstimateCustomer = { name: '', business: '', email: '', phone: '' };
+  const currency = currencyFromPath(location.pathname);
   let step = 0;
   let consent = false;
   let busy = false;
@@ -290,7 +292,7 @@ function init(root: HTMLElement) {
       submit.textContent = c.busy;
       try {
         // Pricing and PDF code are loaded only after a valid, explicit submission.
-        const { calculateEstimate, money } = await import('../lib/branding-estimate/calculate');
+        const { calculateEstimate } = await import('../lib/branding-estimate/calculate');
         const { createEstimatePDF } = await import('../lib/branding-estimate/pdf');
         const document: EstimateDocument = {
           estimate: calculateEstimate(structuredClone(answers)),
@@ -298,10 +300,10 @@ function init(root: HTMLElement) {
           reference: `FTT-BR-${crypto.randomUUID().toUpperCase()}`,
           issued: new Date().toISOString(),
         };
-        const pdf = await createEstimatePDF(document);
+        const pdf = await createEstimatePDF(document, currency);
         result = document;
         file = pdf;
-        renderComplete(money);
+        renderComplete();
       } catch {
         form.removeAttribute('aria-busy');
         host
@@ -316,7 +318,8 @@ function init(root: HTMLElement) {
       }
     });
   }
-  function renderComplete(money: (amount: number) => string) {
+  function renderComplete() {
+    const money = (v: number) => formatMoney(v, currency);
     host.replaceChildren(
       el('h2', c.thanks),
       el('p', c.ready),
@@ -351,12 +354,32 @@ function init(root: HTMLElement) {
       el('dd', money(e.knownTotalMinor)),
     );
     host.append(summary, el('p', c.indicative));
+    const error = errorBox();
+    host.append(error);
     const actions = el('div', '', 'actions');
     actions.append(
       button(
         c.download,
-        () => {
-          download(file!, `${result!.reference}.pdf`);
+        async () => {
+          const current = result!;
+          const selectedCurrency = currency;
+          const saveButton = actions.querySelector<HTMLButtonElement>('button')!;
+          saveButton.disabled = true;
+          try {
+            if (!file) {
+              const { createEstimatePDF } = await import('../lib/branding-estimate/pdf');
+              const generated = await createEstimatePDF(current, selectedCurrency);
+              if (currency === selectedCurrency) file = generated;
+              download(
+                generated,
+                `${current.reference}${selectedCurrency === 'GBP' ? '' : `-${selectedCurrency}`}.pdf`,
+              );
+            } else download(file, `${current.reference}.pdf`);
+          } catch {
+            showError(error, c.errorGenerate);
+          } finally {
+            saveButton.disabled = false;
+          }
         },
         true,
       ),

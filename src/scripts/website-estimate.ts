@@ -1,3 +1,4 @@
+import { currencyFromPath } from '../lib/estimate-currency';
 import {
   services,
   pricing,
@@ -7,7 +8,7 @@ import {
   isFixedScope,
 } from '../lib/website-estimate/config';
 import { initialAnswers, calculate, type Answers } from '../lib/website-estimate/calculate';
-import { money, estimateText } from '../lib/website-estimate/presentation';
+import { money as baseMoney, estimateText } from '../lib/website-estimate/presentation';
 import { websiteEstimateCopy as c } from '../content/website-estimate';
 import { answerSummary } from '../lib/website-estimate/answers';
 import { download } from '../lib/sharing';
@@ -22,6 +23,8 @@ if (root) {
     n.className = cls;
     return n;
   };
+  const currency = currencyFromPath(location.pathname);
+  const money = (v: number | null) => baseMoney(v, currency);
   const set = (obj: any, path: string, v: any) => {
     const parts = path.split('.');
     const last = parts.pop()!;
@@ -51,7 +54,7 @@ if (root) {
     const box = el('section');
     box.dataset.result = '';
     const e = calculate(a);
-    const sections = estimateText(e);
+    const sections = estimateText(e, currency);
     box.append(el('h3', c.pdfTitle), el('p', services.steps[5].notice!, 'notice'));
     const breakdown = el('section', '', 'estimate-summary');
     breakdown.append(el('h4', c.known));
@@ -407,7 +410,7 @@ if (root) {
         try {
           const { createWebsitePDF } = await import('../lib/website-estimate/pdf');
           download(
-            await createWebsitePDF(calculate(a)),
+            await createWebsitePDF(calculate(a), currency),
             `FinTaxTech-Website-Estimate-${crypto.randomUUID()}.pdf`,
           );
         } catch {

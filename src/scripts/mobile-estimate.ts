@@ -1,3 +1,4 @@
+import { currencyFromPath } from '../lib/estimate-currency';
 import { mobileServices as services, mobileEstimateCopy as c } from '../content/mobile-estimate';
 import {
   initialAnswers,
@@ -17,13 +18,15 @@ import {
   issueDate,
   lineAmount,
   monthlyAmount,
-  money,
+  money as baseMoney,
   pendingMessages,
   maintenanceDescription,
 } from '../lib/mobile-estimate/presentation';
 const root = document.querySelector<HTMLElement>('[data-mobile-estimate]');
 if (root) initialize(root);
 function initialize(root: HTMLElement) {
+  const currency = currencyFromPath(location.pathname);
+  const money = (v: number) => baseMoney(v, currency);
   let answers: Answers = initialAnswers();
   let step = 0,
     busy = false,
@@ -334,14 +337,14 @@ function initialize(root: HTMLElement) {
       for (const line of e.lines.filter((line) => line.charge_type === type)) {
         const row = el('div', '', 'estimate-line');
         row.dataset.line = line.id;
-        row.append(el('p', line.label), el('p', lineAmount(line)));
+        row.append(el('p', line.label), el('p', lineAmount(line, currency)));
         group.append(row);
       }
       group.append(
         el('p', type === 'one_time' ? c.subtotal : c.monthlySubtotal),
         el(
           'p',
-          type === 'one_time' ? money(e.one_time_subtotal_pence) : monthlyAmount(e),
+          type === 'one_time' ? money(e.one_time_subtotal_pence) : monthlyAmount(e, currency),
           'estimate-total',
         ),
       );
@@ -385,7 +388,13 @@ function initialize(root: HTMLElement) {
         error.textContent = '';
         try {
           const { createMobileEstimatePDF } = await import('../lib/mobile-estimate/pdf');
-          const blob = await createMobileEstimatePDF(e, cleanCustomer(customer), reference, issued);
+          const blob = await createMobileEstimatePDF(
+            e,
+            cleanCustomer(customer),
+            reference,
+            issued,
+            currency,
+          );
           download(blob, `${c.pdfFilename}-${reference}.pdf`);
         } catch {
           showError(error, c.downloadError);

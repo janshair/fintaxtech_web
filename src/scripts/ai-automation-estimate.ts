@@ -1,10 +1,11 @@
+import { currencyFromPath } from '../lib/estimate-currency';
 import { aiEstimateCopy as c, questions, type Question } from '../content/ai-automation-estimate';
 import { services, pricing } from '../lib/ai-automation-estimate/config';
 import { initialAnswers, questionError, type Answers } from '../lib/ai-automation-estimate/answers';
 import { calculate, type Estimate } from '../lib/ai-automation-estimate/calculate';
 import {
   estimateText,
-  money,
+  money as baseMoney,
   supportDescription,
 } from '../lib/ai-automation-estimate/presentation';
 import { download } from '../lib/sharing';
@@ -13,6 +14,8 @@ if (root) {
   let a = initialAnswers(),
     step = 0,
     result: Estimate | undefined;
+  const currency = currencyFromPath(location.pathname);
+  const money = (v: number | null) => baseMoney(v, currency);
   const host = root.querySelector<HTMLElement>('[data-estimate-form]')!;
   const el = <K extends keyof HTMLElementTagNameMap>(tag: K, text = '', cls = '') => {
     const n = document.createElement(tag);
@@ -151,8 +154,9 @@ if (root) {
       );
       form.append(box);
       form.append(el('p', c.disclaimer, 'notice'));
-      for (const line of estimateText(e).slice(1, 5)) form.append(el('p', line));
-      for (const line of estimateText(e).slice(5 + e.lines.length + 2)) form.append(el('p', line));
+      for (const line of estimateText(e, currency).slice(1, 5)) form.append(el('p', line));
+      for (const line of estimateText(e, currency).slice(5 + e.lines.length + 2))
+        form.append(el('p', line));
       const save = button(
         c.download,
         async () => {
@@ -160,7 +164,7 @@ if (root) {
           try {
             const { createAIEstimatePDF } = await import('../lib/ai-automation-estimate/pdf');
             download(
-              await createAIEstimatePDF(e),
+              await createAIEstimatePDF(e, currency),
               `FinTaxTech-AI-Automation-Estimate-${e.preparedAt.slice(0, 10)}.pdf`,
             );
           } catch {

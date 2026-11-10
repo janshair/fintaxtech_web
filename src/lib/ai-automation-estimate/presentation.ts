@@ -1,15 +1,15 @@
+import { formatMoney, type EstimateCurrency } from '../estimate-currency';
 import { aiEstimateCopy as c } from '../../content/ai-automation-estimate';
 import { pricing as p } from './config';
 import type { Estimate } from './calculate';
 import { summary } from './answers';
-export const money = (n: number | null) =>
-  n === null
-    ? c.pending
-    : new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(n / 100);
+export const money = (n: number | null, currency: EstimateCurrency = 'GBP') =>
+  n === null ? c.pending : formatMoney(n, currency);
 export function supportDescription(plan: Estimate['plan']) {
   return `${c.supportDescriptions[plan.id]}${plan.minorChangesMinutesPerMonth ? ' ' + c.minutes(plan.minorChangesMinutesPerMonth) : ''}`;
 }
-export function estimateText(e: Estimate): string[] {
+export function estimateText(e: Estimate, currency: EstimateCurrency = 'GBP'): string[] {
+  const money = (v: number | null) => (v === null ? c.pending : formatMoney(v, currency));
   return [
     c.disclaimer,
     `${c.reference}: ${e.reference}`,

@@ -1,15 +1,16 @@
+import { formatMoney, type EstimateCurrency } from '../estimate-currency';
 import { mobileEstimateCopy as c, mobileServices } from '../../content/mobile-estimate';
 import type { Line, MobileEstimate } from './types';
-export const money = (pence: number) =>
-  new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
+export const money = (pence: number, currency: EstimateCurrency = 'GBP') =>
+  formatMoney(pence, currency);
 export const issueDate = (iso: string) =>
   new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'Europe/London' }).format(
     new Date(iso),
   );
-export function lineAmount(line: Line): string {
+export function lineAmount(line: Line, currency: EstimateCurrency = 'GBP'): string {
   if (line.amount_pence === null) return line.price_mode === 'manual_quote' ? c.manual : c.pending;
   if (line.price_mode === 'included') return c.included;
-  let value = money(line.amount_pence);
+  let value = money(line.amount_pence, currency);
   if (line.price_mode === 'from') value = c.from(value);
   if (line.price_mode === 'provisional') value += ` — ${c.provisional}`;
   return line.charge_type === 'monthly' ? c.perMonth(value) : value;
@@ -32,8 +33,8 @@ export function maintenanceDescription(e: MobileEstimate): string {
   return question.options!.find((o) => o.id === e.answers.maintenance)?.description ?? '';
 }
 
-export function monthlyAmount(e: MobileEstimate): string {
+export function monthlyAmount(e: MobileEstimate, currency: EstimateCurrency = 'GBP'): string {
   return e.lines.some((line) => line.charge_type === 'monthly' && line.amount_pence === null)
     ? c.pending
-    : c.perMonth(money(e.monthly_subtotal_pence));
+    : c.perMonth(money(e.monthly_subtotal_pence, currency));
 }

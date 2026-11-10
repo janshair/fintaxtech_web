@@ -48,6 +48,7 @@ test('complete catalogue journey hides prices until submission, downloads PDF an
   await expect(host(page)).toContainText('£211.60');
   await expect(host(page)).toContainText('£1,269.60');
   await expect(host(page)).toContainText('It has not been emailed');
+
   const [download] = await Promise.all([
     page.waitForEvent('download'),
     page.getByRole('button', { name: c.download }).click(),

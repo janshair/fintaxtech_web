@@ -1,0 +1,16 @@
+---
+import Branding from '../branding.astro';
+import Mobile from '../mobile.astro';
+import Website from '../website.astro';
+import Automation from '../ai-automation.astro';
+import { estimateKinds, estimateCurrencyPaths } from '../../../content/estimate-currency';
+export function getStaticPaths() {
+  return estimateKinds.flatMap((kind) =>
+    estimateCurrencyPaths.map((currency) => ({ params: { kind, currency } })),
+  );
+}
+const pages = { branding: Branding, mobile: Mobile, website: Website, 'ai-automation': Automation };
+const Page = pages[Astro.params.kind as keyof typeof pages];
+---
+
+<Page />

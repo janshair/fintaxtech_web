@@ -68,6 +68,7 @@ for (const service of [
     await expect(page.locator('[data-estimate-form]')).toContainText(
       'VAT has not been calculated or added',
     );
+
     const [download] = await Promise.all([
       page.waitForEvent('download'),
       page.getByRole('button', { name: 'Download PDF Estimate' }).click(),

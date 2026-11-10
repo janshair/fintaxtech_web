@@ -1,3 +1,4 @@
+import { formatMoney, type EstimateCurrency } from '../estimate-currency';
 import { jsPDF } from 'jspdf';
 import { pdfTokens as t } from '../../design/pdf-tokens';
 import { loadPDFFont, preparePDFText, pdfEmojiNotice } from '../pdf-font';
@@ -10,7 +11,6 @@ import {
   issueDate,
   lineAmount,
   monthlyAmount,
-  money,
   pendingMessages,
   maintenanceDescription,
 } from './presentation';
@@ -19,7 +19,9 @@ export async function createMobileEstimatePDF(
   customer: EstimateCustomer,
   reference: string,
   issued: string,
+  currency: EstimateCurrency = 'GBP',
 ): Promise<Blob> {
+  const money = (v: number) => formatMoney(v, currency);
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
   await loadPDFFont(doc);
   doc.setProperties({ title: c.pdfTitle, author: company.legal, subject: reference });
@@ -77,12 +79,12 @@ export async function createMobileEstimatePDF(
     for (const line of e.lines.filter((line) => line.charge_type === type)) {
       reserve(15);
       text(line.label, t.type.small);
-      text(lineAmount(line));
+      text(lineAmount(line, currency));
     }
     reserve(22);
     text(type === 'one_time' ? c.subtotal : c.monthlySubtotal, t.type.small);
     text(
-      type === 'one_time' ? money(e.one_time_subtotal_pence) : monthlyAmount(e),
+      type === 'one_time' ? money(e.one_time_subtotal_pence) : monthlyAmount(e, currency),
       t.type.heading,
       true,
     );

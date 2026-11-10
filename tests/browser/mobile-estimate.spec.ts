@@ -80,6 +80,7 @@ test('five-step regression, local-only data, price gate, pending scope, download
   await expect(form(page)).toContainText('VAT has not been added');
   await expect(form(page)).toContainText('Needs review');
   await expect(page.getByRole('button', { name: /Approve|Issue fixed/i })).toHaveCount(0);
+
   const [download] = await Promise.all([
     page.waitForEvent('download'),
     page.getByRole('button', { name: c.download }).click(),
