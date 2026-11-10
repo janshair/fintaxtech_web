@@ -25,7 +25,7 @@ designing-for-print-without-owning-a-press,
 rebrand-or-refresh-your-business-brand,
 giving-useful-design-feedback, organising-your-brand-files-and-assets
 
-AI Automation (11): prepare-documents-for-ai-assisted-work, ai-business-documents-to-website-content, ai-content-services-six-examples,
+AI Automation (12): ai-summaries-of-long-documents, prepare-documents-for-ai-assisted-work, ai-business-documents-to-website-content, ai-content-services-six-examples,
 ai-confidential-business-documents, how-to-review-ai-assisted-content,
 brand-voice-with-ai-assisted-content, who-owns-ai-assisted-content,
 which-business-tasks-to-hand-to-ai-first,
@@ -51,6 +51,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-10-19: choosing-photography-and-imagery-for-your-brand — pushed to main, awaiting owner review
 - 2026-10-27: does-your-app-need-an-admin-panel — pushed to main, awaiting owner review
 - 2026-11-03: website-analytics-what-to-measure — pushed to main, awaiting owner review
+- 2026-11-10: ai-summaries-of-long-documents — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -77,6 +78,7 @@ repeatable-ai-workflows-for-your-business
 18. ~~Choosing Photography and Imagery for Your Brand: How to Keep Pictures Consistent and Safe to Use (Branding and Graphic Design; branding)~~ added 2026-10-19 as queue was exhausted (Branding had fewest, 10; brand imagery not yet covered); published 2026-10-19
 19. ~~Does Your App Need an Admin Panel? How to Manage Content and Users Without a Developer (Mobile App Development; mobile-apps)~~ added 2026-10-27 as queue was exhausted (all categories at 11; mobile longest since last post; admin tooling not yet covered); published 2026-10-27
 20. ~~Website Analytics Without the Jargon: What to Measure and What to Ignore (Website Design and Development; websites)~~ added 2026-11-03 as queue was exhausted (websites, branding and AI tied at 11 and websites longest since last post; analytics not yet covered); published 2026-11-03
+21. ~~AI Summaries of Long Documents: How to Ask for One You Can Actually Use (AI Automation; ai-automation)~~ added 2026-11-10 as queue was exhausted (AI and Branding tied at 11 and AI longest since last post; summarising not yet covered); published 2026-11-10
 
 ## Conventions reminder
 
