@@ -20,6 +20,7 @@ import {
   toggleChoice,
 } from '../lib/client-brief/rules';
 import { prepareReference } from '../lib/logo-brief/images';
+import { logoBriefDownloadCopy } from '../content/logo-brief';
 import { download } from '../lib/sharing';
 import type { BriefField } from '../lib/client-brief/types';
 import { createWebsiteDelivery } from '../lib/client-brief/website-delivery';
@@ -42,6 +43,7 @@ const logoDelivery = kind === 'logo' ? createLogoDelivery() : undefined;
 const logoSnapshots = new Map<string, LogoSubmission>();
 const submittedLogos = new Set<string>();
 const logoStatuses = new Map<string, string>();
+const logoFiles = new Map<string, File>();
 const delivery = isWebsiteBrief(kind) ? createWebsiteDelivery(kind) : undefined;
 const { briefSummary, invalidSection, pruneBrief, validateField, visibleSections } =
   createBriefRules(definition.sections);
@@ -730,13 +732,19 @@ function imagePicker(
       if (operationLifetime !== lifetime) return;
       if (replaceId) {
         const index = state.images.findIndex((image) => image.id === replaceId);
-        if (index !== -1)
+        if (index !== -1) {
           state.images[index] = {
             ...prepared[0],
             id: replaceId,
             explanation: state.images[index].explanation,
           };
-      } else state.images.push(...prepared);
+          if (logoDelivery) logoFiles.set(replaceId, files[0]);
+        }
+      } else {
+        state.images.push(...prepared);
+        if (logoDelivery)
+          prepared.forEach((reference, index) => logoFiles.set(reference.id, files[index]));
+      }
       dirty = true;
       imageMessage = c.imageReady;
     } catch (error) {
@@ -760,6 +768,10 @@ function imagePicker(
   return wrap;
 }
 function render(focus = true, focusId?: string) {
+  if (logoDelivery) {
+    const retained = new Set(state.images.map((image) => image.id));
+    for (const id of logoFiles.keys()) if (!retained.has(id)) logoFiles.delete(id);
+  }
   sections = visibleSections(state.answers);
   root.hidden = false;
   intro.hidden = true;
@@ -822,6 +834,7 @@ function render(focus = true, focusId?: string) {
   else if (focus) focusHeading();
 }
 function review() {
+  if (logoDelivery) pruneBrief(state);
   const invalid = invalidSection(state);
   if (invalid !== -1) {
     position = invalid;
@@ -832,6 +845,7 @@ function review() {
   const logoKey = reviewed ? JSON.stringify(reviewed.state) : '';
   if (reviewed && !logoSnapshots.has(logoKey)) logoSnapshots.set(logoKey, reviewed);
   const logoSubmission = logoSnapshots.get(logoKey);
+  const logoOriginals = logoSubmission ? state.images.map((image) => logoFiles.get(image.id)) : [];
   let submitted = submittedLogos.has(logoKey);
   root.replaceChildren();
   const heading = el('h2', c.reviewTitle);
@@ -954,6 +968,43 @@ function review() {
     );
   }
   actions.append(save);
+  if (logoSubmission) {
+    actions.append(
+      button(
+        logoSubmission.state.images.length
+          ? logoBriefDownloadCopy.archive
+          : logoBriefDownloadCopy.text,
+        async () => {
+          if (busy) return;
+          const operationLifetime = lifetime;
+          busy = true;
+          pdfStatus = logoBriefDownloadCopy.preparing;
+          updateStatus();
+          root.querySelectorAll('button').forEach((control) => (control.disabled = true));
+          try {
+            const { createLogoBriefDownload } = await import('../lib/logo-brief/download');
+            const result = await createLogoBriefDownload(logoSubmission, logoOriginals);
+            if (operationLifetime !== lifetime) return;
+            download(result.blob, result.filename);
+            pdfStatus = logoBriefDownloadCopy.downloaded;
+            updateStatus();
+          } catch {
+            pdfStatus = logoBriefDownloadCopy.error;
+            updateStatus();
+          } finally {
+            if (operationLifetime === lifetime) {
+              busy = false;
+              root
+                .querySelectorAll<HTMLButtonElement>('button')
+                .forEach(
+                  (control) => (control.disabled = control.textContent === 'Brief submitted'),
+                );
+            }
+          }
+        },
+      ),
+    );
+  }
   if (logoDelivery && logoSubmission) {
     const submit = button(
       submitted ? 'Brief submitted' : 'Submit brief',
@@ -1036,6 +1087,7 @@ window.addEventListener('pagehide', () => {
   logoSnapshots.clear();
   submittedLogos.clear();
   logoStatuses.clear();
+  logoFiles.clear();
   dirty = false;
 });
 window.addEventListener('pageshow', (event) => {

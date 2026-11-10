@@ -12,7 +12,7 @@ export const logoBriefCopy = {
   intro:
     'This brief is for clients whose advance payment has been confirmed by FinTaxTech. It helps us understand your business and design direction; it is not a quote request.',
   privacy:
-    'Your answers stay in this page’s memory until you click Submit brief after review. This securely sends your answers, image filenames and explanations to FinTaxTech. Images stay in your browser and your PDF; share the PDF with us to provide the images. Refreshing or closing clears your local copy, but does not delete a submitted brief. Download your PDF for your records.',
+    'Your answers stay in this page’s memory until you click Submit brief after review. This securely sends your answers, image filenames and explanations to FinTaxTech. Images stay in your browser and local downloads; share the PDF or ZIP with us to provide the images. Refreshing or closing clears your local copy, but does not delete a submitted brief. Download a copy for your records.',
   workflow:
     'Complete the questionnaire, review your answers, then click Submit brief to securely send them to FinTaxTech. We will use the brief to develop logo concepts and coherent visual branding guidelines, with human refinement and appropriate originality and trade-mark checks. You can download a PDF copy, including your images.',
   begin: 'Begin logo brief',
@@ -23,12 +23,22 @@ export const logoBriefCopy = {
     'This is a design brief, not a finished logo or a guarantee of originality or trade-mark availability.',
   explanation: 'What specifically do you like about this reference?',
   imageHelp:
-    'Choose up to five PNG, JPEG or WebP images, maximum 5 MB each. Images are resized in your browser for your PDF. Filenames and explanations are submitted; share the PDF with FinTaxTech to provide the images.',
+    'Choose up to five PNG, JPEG or WebP images, maximum 5 MB each. Images are resized in your browser for your PDF; original files are included in your ZIP download. Filenames and explanations are submitted; share the PDF or ZIP with FinTaxTech to provide the images.',
   shareHelp:
-    'Submit brief securely sends your reviewed answers to FinTaxTech. Download PDF creates a copy for your records without submitting. To share the images, attach the PDF yourself using email or WhatsApp.',
+    'Submit brief securely sends your reviewed answers to FinTaxTech. Downloads do not submit your brief. Download TXT saves your answers as text. If you have attached images, Download ZIP includes the text and original images instead. Filenames use your trading name. To share images, attach the PDF or ZIP yourself using email or WhatsApp.',
   downloaded:
     'Your PDF download has been requested. Downloading does not submit your brief. Use Submit brief to send your answers to FinTaxTech.',
   pdfFilename: 'FinTaxTech-logo-design-brief.pdf',
+};
+
+export const logoBriefDownloadCopy = {
+  text: 'Download TXT',
+  archive: 'Download ZIP (TXT + attachments)',
+  preparing: 'Preparing your download locally…',
+  downloaded:
+    'Your download has been requested. Downloading does not submit your brief. Use Submit brief to send your answers to FinTaxTech.',
+  error:
+    'The download could not be created. Your answers and attachments are still here. Please try again.',
 };
 
 const formatExamples = {
@@ -99,7 +109,7 @@ export const logoBriefSections: BriefSection[] = [
           id: 'project',
           values: ['Complete redesign'],
         },
-        help: 'Optionally choose one PNG, JPEG or WebP image, maximum 5 MB. It will appear in your PDF. Its filename is submitted; share the PDF with FinTaxTech to provide the image.',
+        help: 'Optionally choose one PNG, JPEG or WebP image, maximum 5 MB. It will appear in your PDF and its original file will be included in your ZIP download. Its filename is submitted; share the PDF or ZIP with FinTaxTech to provide the image.',
       },
       tradingNameField,
       {
@@ -311,7 +321,7 @@ export const logoBriefSections: BriefSection[] = [
           id: 'references',
           values: ['Yes'],
         },
-        help: 'Choose up to five PNG, JPEG or WebP images, maximum 5 MB each. Images are resized in your browser for your PDF. Filenames and explanations are submitted; share the PDF with FinTaxTech to provide the images.',
+        help: 'Choose up to five PNG, JPEG or WebP images, maximum 5 MB each. Images are resized in your browser for your PDF; original files are included in your ZIP download. Filenames and explanations are submitted; share the PDF or ZIP with FinTaxTech to provide the images.',
         imageExplanationMin: 10,
         imageExplanationHelp:
           'For example: simplicity, typography, symbol shape, spacing, layout, colours, badge style or overall feel. We use references to understand your taste, not to copy another brand.',

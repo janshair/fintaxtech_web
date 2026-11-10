@@ -1,6 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import sharp from 'sharp';
+import { readFile } from 'node:fs/promises';
+import { strFromU8, unzipSync } from 'fflate';
 import { createWebsiteBriefAPI } from '../../src/server/website-brief-api';
 import { logoBriefSections as sections } from '../../src/content/logo-brief';
 
@@ -445,5 +447,153 @@ test('emoji answers download locally unchanged and repeated PDF failures show on
   await page.getByRole('button', { name: 'Submit brief', exact: true }).click();
   await expect(page.getByRole('status')).toHaveText(error);
   await expect(page.locator('.brief-review')).toContainText(story);
+  expect(submissions).toBe(0);
+});
+
+test('TXT download uses the trading name and preserves Unicode independently of PDF and submission', async ({
+  page,
+}, info) => {
+  let submissions = 0;
+  await page.route('**/api/logo-brief/**', (route) => {
+    submissions++;
+    return route.abort();
+  });
+  await begin(page);
+  await page.locator('#trading').fill('Café & Co / Dundee');
+  await advanceTo(page, sectionIndex('references'));
+  await page.locator('#field-references').getByLabel('No', { exact: true }).check();
+  const note = 'Keep my notes exactly 🙂\n你好 — balanced lettering.';
+  await page.locator('#anything').fill(note);
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Download TXT', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Download ZIP', exact: false })).toHaveCount(0);
+  await page.route('**/fonts/DejaVuSans.ttf', (route) => route.fulfill({ status: 503, body: '' }));
+  await page.getByRole('button', { name: 'Download PDF', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('The PDF could not be created.');
+  const downloading = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download TXT', exact: true }).click();
+  const file = await downloading;
+  expect(file.suggestedFilename()).toBe('cafe-and-co-dundee-fintaxtech-logo-brief.txt');
+  await file.saveAs(info.outputPath(file.suggestedFilename()));
+  const text = await readFile((await file.path())!, 'utf8');
+  expect(text).toContain('Trading name:\n  Café & Co / Dundee');
+  expect(text).toContain(note.replaceAll('\n', '\n  '));
+  expect(text).toContain('fintaxtech-logo-brief-v4');
+  await expect(page.getByRole('status')).toContainText('Downloading does not submit');
+  await expect(page.locator('.brief-review')).toContainText('Keep my notes exactly 🙂');
+  expect(submissions).toBe(0);
+});
+
+test('ZIP download preserves original attachments through replacement, removal and conditional edits', async ({
+  page,
+}, info) => {
+  test.setTimeout(120000);
+  let submissions = 0;
+  await page.route('**/api/logo-brief/**', (route) => {
+    submissions++;
+    return route.abort();
+  });
+  const current = { ...(await image()), name: 'same.png' };
+  const duplicate = {
+    name: 'same.png',
+    mimeType: 'image/png',
+    buffer: await sharp({
+      create: { width: 1800, height: 900, channels: 3, background: '#284baa' },
+    })
+      .png()
+      .toBuffer(),
+  };
+  const replacement = {
+    name: 'replacement.jpg',
+    mimeType: 'image/jpeg',
+    buffer: await sharp(current.buffer).jpeg().toBuffer(),
+  };
+  const removed = { ...duplicate, name: 'removed.png' };
+  await begin(page);
+  await page.getByLabel('Complete redesign', { exact: true }).check();
+  await page.locator('#trading').fill('Acme Studio');
+  await page.locator('#current-logo-upload').setInputFiles(current);
+  await expect(page.getByRole('status')).toContainText('updated');
+  await advanceTo(page, sectionIndex('references'));
+  await page.locator('#field-references').getByLabel('Yes', { exact: true }).check();
+  await page.locator('#reference-upload').setInputFiles([current, duplicate, removed]);
+  await expect(page.locator('#field-images .brief-reference')).toHaveCount(3);
+  for (const input of await page.locator('#field-images [id^="explanation-"]').all())
+    await input.fill('Clear lettering with generous spacing.');
+  await page.getByLabel('Replace reference image 1', { exact: true }).setInputFiles(replacement);
+  await expect(page.locator('#field-images .brief-reference').first()).toContainText(
+    'replacement.jpg',
+  );
+  await page.getByRole('button', { name: 'Remove reference image 3', exact: true }).click();
+  await page.locator('#anything').fill('Archive export 🙂');
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+
+  const saveArchive = async (filename: string) => {
+    const downloading = page.waitForEvent('download');
+    await page
+      .getByRole('button', { name: 'Download ZIP (TXT + attachments)', exact: true })
+      .click();
+    const file = await downloading;
+    expect(file.suggestedFilename()).toBe('acme-studio-fintaxtech-logo-brief.zip');
+    await file.saveAs(info.outputPath(filename));
+    await expect(page.getByRole('status')).toContainText('Downloading does not submit');
+    return unzipSync(new Uint8Array(await readFile((await file.path())!)));
+  };
+  const entries = await saveArchive('with-originals.zip');
+  expect(Object.keys(entries).sort()).toEqual([
+    'acme-studio-fintaxtech-logo-brief.txt',
+    'attachments/1-current-logo-same.png',
+    'attachments/2-reference-replacement.jpg',
+    'attachments/3-reference-same.png',
+  ]);
+  expect(Buffer.from(entries['attachments/1-current-logo-same.png'])).toEqual(current.buffer);
+  expect(Buffer.from(entries['attachments/2-reference-replacement.jpg'])).toEqual(
+    replacement.buffer,
+  );
+  expect(Buffer.from(entries['attachments/3-reference-same.png'])).toEqual(duplicate.buffer);
+  expect((await sharp(entries['attachments/1-current-logo-same.png']).metadata()).width).toBe(1800);
+  const text = strFromU8(entries['acme-studio-fintaxtech-logo-brief.txt']);
+  expect(text).toContain('Archive export 🙂');
+  expect(text).not.toContain('removed.png');
+
+  await page.setViewportSize({ width: 320, height: 844 });
+  for (const theme of ['light', 'dark']) {
+    await page.evaluate((theme) => (document.documentElement.dataset.theme = theme), theme);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await page.screenshot({ path: info.outputPath(`zip-review-${theme}.png`), fullPage: true });
+  }
+
+  await page
+    .getByRole('button', { name: 'Edit answers: References and inspiration', exact: true })
+    .click();
+  await page.locator('#field-references').getByLabel('No', { exact: true }).check();
+  await page.getByRole('button', { name: 'Review brief', exact: true }).click();
+  const currentOnly = await saveArchive('current-logo-only.zip');
+  expect(Object.keys(currentOnly).sort()).toEqual([
+    'acme-studio-fintaxtech-logo-brief.txt',
+    'attachments/1-current-logo-same.png',
+  ]);
+  await page
+    .getByRole('button', { name: 'Edit answers: Your project and name', exact: true })
+    .click();
+  await page.getByLabel('New brand', { exact: true }).check();
+  await page.locator('#trading').fill('New Customer');
+  await page.locator('#field-nameConfirmed input').check();
+  for (let step = 0; step < sections.length; step++) {
+    if (await page.getByRole('heading', { name: 'Review your logo brief' }).isVisible()) break;
+    const next = page.getByRole('button', { name: /^(Next|Review brief)$/ });
+    await next.click();
+  }
+  await expect(page.getByRole('button', { name: 'Download ZIP', exact: false })).toHaveCount(0);
+  const downloading = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download TXT', exact: true }).click();
+  const file = await downloading;
+  expect(file.suggestedFilename()).toBe('new-customer-fintaxtech-logo-brief.txt');
+  const editedText = await readFile((await file.path())!, 'utf8');
+  expect(editedText).toContain('Current logo supplied:\n  Not applicable');
+  expect(editedText).not.toContain('same.png');
   expect(submissions).toBe(0);
 });
