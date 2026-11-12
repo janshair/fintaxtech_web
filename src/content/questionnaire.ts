@@ -103,7 +103,7 @@ export const quizCopy = {
   pdfNext: 'Next steps',
   pdfPartial: 'Unfinished summary — some questions have not been answered.',
   pdfNextText:
-    'Share this PDF with ask@fintaxtech.co.uk or +44 7884 594929. We aim to reply within two UK business days. Scope and any quotation are confirmed manually. This PDF does not create a contract or reserve capacity.',
+    'Share this PDF with ask@fintaxtech.co.uk or +44 7442 906018. We aim to reply within two UK business days. Scope and any quotation are confirmed manually. This PDF does not create a contract or reserve capacity.',
   pdfFooter: 'Fintaxtech Ltd · SC807896 · fintaxtech.co.uk/terms/',
   pdfFilename: 'FinTaxTech-project-enquiry.pdf',
   shareSubject: 'Project enquiry',
@@ -116,7 +116,7 @@ export const quizCopy = {
   complete: 'Review and create PDF',
   newProject: 'Start another enquiry',
   noScript:
-    'Enable JavaScript to use the questionnaire and create a PDF locally. Alternatively, email ask@fintaxtech.co.uk or call +44 7884 594929.',
+    'Enable JavaScript to use the questionnaire and create a PDF locally. Alternatively, email ask@fintaxtech.co.uk or call +44 7442 906018.',
   storageUnavailable:
     'Local campaign preferences are unavailable in this browser. Contact us directly if you are enquiring about a campaign.',
 };

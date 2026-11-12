@@ -284,7 +284,7 @@ export const pages: Record<string, InfoPage> = {
       ],
       [
         'Report a barrier',
-        'Email ask@fintaxtech.co.uk with the page and difficulty encountered. You can also call +44 7884 594929. We aim to reply within two UK business days.',
+        'Email ask@fintaxtech.co.uk with the page and difficulty encountered. You can also call +44 7442 906018. We aim to reply within two UK business days.',
       ],
     ],
   },

@@ -25,6 +25,8 @@ interface Props {
   article?: ArticleSEO;
   job?: JobSEO;
   socialImage?: SocialImage;
+  /** Open Graph / Twitter description, when it should differ from the meta description. */
+  socialDescription?: string;
 }
 const pathname = Astro.url.pathname.replace(/(\.html)\/$/, '$1').replace(/^\/404\/$/, '/404.html');
 const locationPage = locationFromPath(pathname);
@@ -35,6 +37,7 @@ const description = configured?.description ?? Astro.props.description ?? home.i
 const noindex = Astro.props.noindex || configured?.noindex || false;
 const canonical = new URL(configured?.canonical ?? pathname, company.url);
 const { article, job, standalone = false } = Astro.props;
+const socialDescription = Astro.props.socialDescription ?? description;
 const socialImage = Astro.props.socialImage ?? {
   url: '/social.png',
   width: 1200,
@@ -68,7 +71,7 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
       )
     }<meta property="og:title" content={`${title} | ${company.name}`} /><meta
       property="og:description"
-      content={description}
+      content={socialDescription}
     /><meta property="og:type" content={article ? 'article' : 'website'} /><meta
       property="og:url"
       content={canonical}
@@ -83,7 +86,7 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
     <meta property="og:image:alt" content={socialImage.alt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} | ${company.name}`} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={socialDescription} />
     <meta name="twitter:image" content={imageURL} />
     <meta name="twitter:image:alt" content={socialImage.alt} />
     <link
