@@ -787,6 +787,12 @@ textarea {
     padding-inline: var(--space-5);
   }
 }
+/* Eight nav links need a slightly tighter gap just above the desktop breakpoint. */
+@media (--desktop) and (max-width: 72rem) {
+  .main-nav {
+    gap: var(--space-4);
+  }
+}
 @media (--compact) {
   .brand {
     font-size: var(--body);

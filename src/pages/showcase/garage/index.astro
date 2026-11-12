@@ -1,0 +1,473 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ShowcaseImage from '../../../components/ShowcaseImage.astro';
+import { showcase } from '../../../data/showcase';
+import { services } from '../../../content/services';
+const kit = showcase.find((entry) => entry.id === 'garage')!;
+const img = (name: string) => `/showcase/garage/${name}`;
+const liveSite = '/templates/website/motion/automotive-03/';
+const wide = '(max-width: 1180px) calc(100vw - 44px), 1136px';
+---
+
+<SiteLayout
+  title={kit.title}
+  description={kit.description}
+  socialImage={{
+    url: kit.image.src,
+    width: kit.image.width,
+    height: kit.image.height,
+    type: 'image/png',
+    alt: kit.image.alt,
+  }}
+>
+  <div class="gk">
+    <section class="gk-hero">
+      <div class="wrap">
+        <div class="eyebrow">Growth kit · Garages &amp; mechanics</div>
+        <h1>Everything a garage needs to look sharp online and stay booked</h1>
+        <p class="lead">
+          One joined-up kit: an animated website, a brand that looks the part, a customer app and AI
+          that books MOTs and services while you're under a bonnet. Pick the pieces your garage
+          would actually use.
+        </p>
+        <span class="note"
+          >Sample work for an invented business, Vector Motorworks. Not a real garage.</span
+        >
+        <div class="chips">
+          <a href="#website">Website</a><a href="#brand">Logo &amp; brand</a><a href="#app"
+            >Mobile app</a
+          ><a href="#automation">AI automation</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="website">
+      <div class="wrap grid">
+        <div>
+          <div class="eyebrow">01 · Website</div>
+          <h2>A website that turns visits into bookings</h2>
+          <p class="lead">
+            Built for phones first, with MOT booking, free quote requests, opening hours and
+            directions where customers expect them.
+          </p>
+          <ul class="ticks">
+            <li>Book an MOT or ask for a quote in a few taps</li>
+            <li>Free MOT reminder sign-up</li>
+            <li>Call, WhatsApp and directions buttons</li>
+            <li>Clear "we call before any work starts" promise</li>
+          </ul>
+          <a class="btn" href={liveSite}>See the live website</a>
+          <p class="aside">
+            Want to see it with your garage's name on it? Ask and I'll send you a personalised
+            preview.
+          </p>
+        </div>
+        <div class="card shot">
+          <a href={liveSite}
+            ><ShowcaseImage
+              src={img('website-showcase.png')}
+              alt="The Vector Motorworks sample website on a laptop and a phone"
+              width={2400}
+              height={1500}
+              sizes="(max-width: 820px) calc(100vw - 80px), 540px"
+            /></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="brand">
+      <div class="wrap">
+        <div class="eyebrow">02 · Logo &amp; brand</div>
+        <h2>A brand customers remember</h2>
+        <p class="lead">
+          The mark joins a wheel-nut hexagon with a V that turns into a forward arrow: dependable,
+          and moving you on. You get every version you need for your website, social media, app and
+          anywhere else you need it.
+        </p>
+        <ShowcaseImage
+          class="wide"
+          src={img('brand-board.png')}
+          alt="Vector Motorworks brand identity board: logo, colours, type, app icon and social profile picture"
+          width={3200}
+          height={2002}
+          sizes={wide}
+        />
+        <div class="logos">
+          <div>
+            <ShowcaseImage
+              src={img('logo-primary.png')}
+              alt="Vector Motorworks primary logo"
+              width={752}
+              height={280}
+              responsive={false}
+            />
+          </div>
+          <div class="dark">
+            <ShowcaseImage
+              src={img('logo-primary-dark.png')}
+              alt="Vector Motorworks logo on a dark background"
+              width={752}
+              height={280}
+              responsive={false}
+            />
+          </div>
+          <div>
+            <ShowcaseImage
+              src={img('logo-stacked.png')}
+              alt="Vector Motorworks stacked logo"
+              width={498}
+              height={480}
+              responsive={false}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="app">
+      <div class="wrap">
+        <div class="eyebrow">03 · Mobile app</div>
+        <h2>Book, track and approve work from a phone</h2>
+        <p class="lead">
+          Customers see when their MOT is due, book a slot, watch their car's progress and approve
+          extra work with photos, so there are fewer "is it ready yet?" calls.
+        </p>
+        <ShowcaseImage
+          class="wide"
+          src={img('app-showcase.png')}
+          alt="Four app screens: home, booking, job progress and car history"
+          width={3600}
+          height={2020}
+          sizes={wide}
+        />
+      </div>
+    </section>
+
+    <section id="automation">
+      <div class="wrap">
+        <div class="eyebrow">04 · AI automation</div>
+        <h2>Reminders that book themselves in</h2>
+        <p class="lead">
+          AI automation that can save you 10 hours or more a week. It sends personal MOT and service
+          reminders, texts back missed calls, nudges people who haven't replied and sends you a
+          short summary each morning.
+        </p>
+        <ShowcaseImage
+          class="wide"
+          src={img('automation-showcase.png')}
+          alt="Diagram of the MOT reminder automation with an example WhatsApp conversation"
+          width={3600}
+          height={2160}
+          sizes={wide}
+        />
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="cta">
+          <h2>Want to see this for your garage?</h2>
+          <p class="lead center">
+            Tell me what's working and what isn't. I'll suggest only the pieces that would genuinely
+            help, starting with a free preview of your website with your name on it.
+          </p>
+          <div class="cta-buttons">
+            <a class="btn" href="tel:07884594929">Call 07884 594929</a>
+            <a
+              class="btn ghost"
+              href="https://wa.me/447884594929?text=Hi%20Jan%2C%20I%20saw%20the%20garage%20growth%20kit"
+              >WhatsApp me</a
+            >
+            <a class="btn ghost" href="mailto:ask@fintaxtech.co.uk?subject=Garage%20growth%20kit"
+              >ask@fintaxtech.co.uk</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="related wrap" aria-labelledby="related-title">
+      <h2 id="related-title">Related services</h2>
+      <ul>
+        {
+          services.map((service) => (
+            <li>
+              <a href={`/services/${service.id}/`}>{service.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p class="foot">
+      FinTaxTech Ltd · Websites, branding, apps and AI automation for small businesses<br />Vector
+      Motorworks is an invented business used to show sample work. Design services only.
+    </p>
+  </div>
+</SiteLayout>
+
+<style>
+  /* Sample-brand palette, scoped to this page's content only. Site header/footer keep FinTaxTech styling. */
+  .gk {
+    --navy: #111e26;
+    --navy2: #1b2c37;
+    --ink: #0b1419;
+    --amber: #f5a524;
+    --chalk: #f4f1ea;
+    --steel: #8a99a6;
+    --soft: #b9c3cb;
+    --line: #2a3a45;
+    background: var(--ink);
+    color: var(--chalk);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    margin-top: var(--space-5);
+    overflow-x: clip;
+  }
+  .gk a {
+    color: var(--amber);
+  }
+  .gk :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+  .eyebrow {
+    font: 600 13px/1.4 var(--font-body);
+    letter-spacing: 3px;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .gk h1,
+  .gk h2 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin: 0.3em 0 0.4em;
+    color: var(--chalk);
+  }
+  .gk h1 {
+    font-size: clamp(34px, 6vw, 60px);
+  }
+  .gk h2 {
+    font-size: clamp(26px, 4vw, 40px);
+  }
+  .lead {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--soft);
+    max-width: 720px;
+    margin: 0 0 1em;
+  }
+  .lead.center {
+    margin: 0 auto 18px;
+  }
+  .gk-hero {
+    padding: 70px 0 40px;
+    background: radial-gradient(ellipse at 70% 0%, #1d3442, var(--ink) 65%);
+  }
+  .note {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--steel);
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 6px 14px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .gk .chips a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+    color: var(--chalk);
+    background: var(--navy2);
+    padding: 10px 16px;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  section {
+    padding: 56px 0;
+    border-top: 1px solid #1a2832;
+    scroll-margin-top: var(--space-6);
+  }
+  .gk-hero {
+    border-top: 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 34px;
+    align-items: center;
+  }
+  .card {
+    background: var(--navy);
+    border-radius: 22px;
+    padding: 26px;
+  }
+  .card.shot {
+    padding: 18px;
+  }
+  .gk :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 18px;
+  }
+  .gk :global(img.wide) {
+    width: 100%;
+    margin-top: 26px;
+  }
+  .shot :global(img) {
+    width: 100%;
+  }
+  .gk :global(picture) {
+    display: block;
+  }
+  .related {
+    padding-top: 8px;
+    text-align: center;
+  }
+  .gk .related h2 {
+    font-size: 18px;
+    margin: 0 0 12px;
+    color: var(--steel);
+  }
+  .related ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 22px;
+  }
+  .related li {
+    margin: 0;
+  }
+  .gk .related a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--chalk);
+    text-decoration-color: var(--amber);
+    text-underline-offset: 4px;
+  }
+  ul.ticks {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  ul.ticks li {
+    padding-left: 30px;
+    position: relative;
+    margin: 8px 0;
+    color: var(--soft);
+  }
+  ul.ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+    background: var(--amber);
+  }
+  .gk .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    background: var(--amber);
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 22px;
+    border-radius: 14px;
+    margin: 6px 8px 6px 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .gk .btn.ghost {
+    background: transparent;
+    color: var(--chalk);
+    border: 1.5px solid var(--line);
+  }
+  .aside {
+    color: var(--steel);
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .logos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+  }
+  .logos div {
+    background: var(--chalk);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    min-height: 150px;
+  }
+  .logos div.dark {
+    background: var(--navy);
+  }
+  .gk .logos :global(img) {
+    border-radius: 0;
+    max-height: 120px;
+    width: auto;
+  }
+  .cta {
+    background: linear-gradient(135deg, #1d3442, var(--navy));
+    border-radius: 28px;
+    padding: 40px;
+    text-align: center;
+  }
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .foot {
+    padding: 40px 22px 60px;
+    margin: 0;
+    color: var(--steel);
+    font-size: 14px;
+    text-align: center;
+  }
+  @media (max-width: 820px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .logos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .cta {
+      padding: 28px 18px;
+    }
+    .cta-buttons .btn {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+</style>

@@ -1,6 +1,8 @@
 import { appIndexText } from '../lib/app-llms';
+import { absoluteURL } from '../lib/seo';
 import summary from '../content/llms.txt?raw';
 import { locations } from '../content/locations';
+import { showcase, showcaseIndex } from '../data/showcase';
 
 export function GET() {
   const areas = [
@@ -13,8 +15,19 @@ export function GET() {
     ),
   ].join('\n');
 
+  const work = [
+    '## Our work: growth kits',
+    '',
+    `[${showcaseIndex.title}](${absoluteURL(showcaseIndex.route)}): ${showcaseIndex.description} Each kit uses an invented business; it is sample work, not a client project.`,
+    '',
+    ...showcase.map(
+      (kit) =>
+        `- [${kit.trade}](${absoluteURL(kit.url)}): ${kit.description} Sample business: ${kit.sampleBusiness} (invented).`,
+    ),
+  ].join('\n');
+
   return new Response(
-    `${summary.replace('{{PUBLISHED_APPS}}', appIndexText()).trimEnd()}\n\n${areas}\n`,
+    `${summary.replace('{{PUBLISHED_APPS}}', appIndexText()).trimEnd()}\n\n${work}\n\n${areas}\n`,
     {
       headers: { 'Content-Type': 'text/plain; charset=utf-8' },
     },

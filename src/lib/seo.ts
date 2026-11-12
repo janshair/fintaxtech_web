@@ -12,6 +12,7 @@ import { safos } from '../content/safos';
 import { careersCopy } from '../content/careers';
 import { templateDirectory, websiteGallery } from '../content/templates';
 import { jobStructuredData, type JobSEO } from './job-seo';
+import { showcase, showcaseIndex } from '../data/showcase';
 export interface ArticleSEO {
   title: string;
   pubDate: Date;
@@ -50,6 +51,8 @@ export function breadcrumbs(path: string, title?: string) {
     items.push({ name: metoni.name, url: absoluteURL(metoni.route) });
   if (path.startsWith('/services/') && path !== '/services/')
     items.push({ name: ui.services, url: absoluteURL('/services/') });
+  if (path.startsWith(showcaseIndex.route) && path !== showcaseIndex.route)
+    items.push({ name: showcaseIndex.navLabel, url: absoluteURL(showcaseIndex.route) });
   if (path.startsWith('/blog/') && path !== '/blog/')
     items.push({ name: blogCopy.label, url: absoluteURL('/blog/') });
   if (path.startsWith(careersCopy.route) && path !== careersCopy.route)
@@ -75,6 +78,8 @@ export function structuredData(
   const jobPosting = jobStructuredData(path, job);
   const location = locationFromPath(path);
   const service = services.find((s) => path === `/services/${s.id}/`);
+  const kit = showcase.find((entry) => entry.url === path);
+  const isShowcaseIndex = path === showcaseIndex.route;
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -117,7 +122,7 @@ export function structuredData(
         inLanguage: 'en',
       },
       {
-        '@type': path === '/about/' ? 'AboutPage' : 'WebPage',
+        '@type': path === '/about/' ? 'AboutPage' : isShowcaseIndex ? 'CollectionPage' : 'WebPage',
         '@id': url + '#webpage',
         url,
         name: title,
@@ -129,6 +134,14 @@ export function structuredData(
         ...(service || location ? { mainEntity: { '@id': url + '#service' } } : {}),
         ...(article ? { mainEntity: { '@id': url + '#article' } } : {}),
         ...(jobPosting ? { mainEntity: { '@id': jobPosting['@id'] } } : {}),
+        ...(kit
+          ? {
+              mainEntity: { '@id': url + '#kit' },
+              primaryImageOfPage: { '@id': url + '#primaryimage' },
+              datePublished: kit.datePublished,
+            }
+          : {}),
+        ...(isShowcaseIndex ? { mainEntity: { '@id': url + '#kits' } } : {}),
       },
       ...(location
         ? [
@@ -145,6 +158,60 @@ export function structuredData(
           ]
         : []),
       ...(jobPosting ? [jobPosting] : []),
+      ...(kit
+        ? [
+            {
+              '@type': 'ImageObject',
+              '@id': url + '#primaryimage',
+              url: absoluteURL(kit.image.src),
+              contentUrl: absoluteURL(kit.image.src),
+              width: kit.image.width,
+              height: kit.image.height,
+              caption: kit.image.alt,
+            },
+            {
+              '@type': 'CreativeWork',
+              '@id': url + '#kit',
+              name: kit.title,
+              headline: kit.title,
+              description: `${kit.description} ${kit.sampleBusiness} is an invented business used to show sample work.`,
+              url,
+              image: { '@id': url + '#primaryimage' },
+              genre: 'Sample work',
+              audience: { '@type': 'BusinessAudience', audienceType: kit.trade },
+              creator: { '@id': organization },
+              publisher: { '@id': organization },
+              datePublished: kit.datePublished,
+              inLanguage: 'en-GB',
+              isPartOf: { '@id': absoluteURL(showcaseIndex.route) + '#webpage' },
+              mainEntityOfPage: { '@id': url + '#webpage' },
+              hasPart: kit.parts.map((part) => ({
+                '@type': 'CreativeWork',
+                name: part.name,
+                url: `${url}#${part.anchor}`,
+                image: absoluteURL(part.image),
+                about: { '@id': absoluteURL(`/services/${part.service}/`) + '#service' },
+              })),
+            },
+          ]
+        : []),
+      ...(isShowcaseIndex
+        ? [
+            {
+              '@type': 'ItemList',
+              '@id': url + '#kits',
+              name: showcaseIndex.title,
+              numberOfItems: showcase.length,
+              itemListElement: showcase.map((entry, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: entry.trade,
+                url: absoluteURL(entry.url),
+                image: absoluteURL(entry.image.src),
+              })),
+            },
+          ]
+        : []),
       ...(path === metoni.route
         ? [
             {

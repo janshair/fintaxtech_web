@@ -1,0 +1,55 @@
+---
+/**
+ * A showcase image: WebP at 800w/1600w/2400w (generated next to the PNG) with the PNG as fallback.
+ * Pass `responsive={false}` for small images that have no WebP versions.
+ */
+interface Props {
+  src: string; // e.g. /showcase/garage/brand-board.png
+  alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  responsive?: boolean;
+}
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes = '100vw',
+  loading = 'lazy',
+  class: className,
+  responsive = true,
+} = Astro.props;
+const base = src.replace(/\.png$/, '');
+const srcset = [800, 1600, 2400].map((w) => `${base}-${w}.webp ${w}w`).join(', ');
+---
+
+{
+  responsive ? (
+    <picture>
+      <source type="image/webp" srcset={srcset} sizes={sizes} />
+      <img
+        class={className}
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding="async"
+      />
+    </picture>
+  ) : (
+    <img
+      class={className}
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+    />
+  )
+}

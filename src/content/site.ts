@@ -63,6 +63,7 @@ export const contactRedirect = {
 export const navigation = [
   ['/', 'Home'],
   ['/services/', 'Services'],
+  ['/showcase/', 'Our work'],
   ['/how-it-works/', 'How It Works'],
   ['/pricing/', 'Pricing'],
   ['/about/', 'About'],
