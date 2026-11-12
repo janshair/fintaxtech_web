@@ -132,7 +132,7 @@ export const pages: Record<string, InfoPage> = {
       ['Working hours', `${company.hours}. ${company.response}`],
       [
         'Sharing your requirements',
-        'Download your enquiry PDF and attach it in your email or WhatsApp app. The website cannot confirm that a message was sent.',
+        'Download your enquiry PDF and attach it in your email or WhatsApp app; the PDF is never sent automatically. The contact form on this page confirms on screen when your message has been delivered.',
       ],
     ],
   },
