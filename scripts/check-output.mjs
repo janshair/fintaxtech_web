@@ -48,7 +48,9 @@ for (const file of all.filter((f) => f.endsWith('.html'))) {
     file === 'dist/metoni/index.html'
       ? html.replace(/<section id="for-gyms"[\s\S]*?<\/section>/, '')
       : html;
-  if (!file.includes('/promo/')) assert(!outsideGymPackages.includes('£999'), file);
+  // The pricing page publishes catalogue packages, two of which cost £999.
+  if (!file.includes('/promo/') && file !== 'dist/pricing/index.html')
+    assert(!outsideGymPackages.includes('£999'), file);
   assert.match(html, /<h1[\s>]/, file);
   for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)/g)) {
     const url = match[1];

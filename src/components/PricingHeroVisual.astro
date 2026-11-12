@@ -1,0 +1,105 @@
+---
+import { money, pricingCopy as c, pricingGroups, vatSuffix } from '../content/pricing';
+import ServiceGlyph from './ServiceGlyph.astro';
+import '../styles/home-motion.css';
+const rowTop = (i: number) => 86 + i * 46;
+---
+
+<svg
+  class="pricing-hero-visual home-motion"
+  data-home-motion
+  viewBox="0 0 400 340"
+  width="400"
+  height="340"
+  role="img"
+  aria-label={c.heroLabel}
+  focusable="false"
+>
+  <rect class="backdrop" width="400" height="340" rx="8"></rect>
+  <g class="motion-part" style="--motion-order:0;--motion-y:14px">
+    <rect class="sheet" x="40" y="28" width="320" height="284" rx="8"></rect>
+    <text class="caption" x="64" y="62">{c.heroCaption}</text>
+    <path class="rule" d="M64 74h272"></path>
+  </g>
+  {
+    pricingGroups.map((group, i) => (
+      <g class="motion-part" style={`--motion-order:${i + 1};--motion-x:-10px;--motion-y:0px`}>
+        <rect class="tile" x="64" y={rowTop(i)} width="32" height="32" rx="4" />
+        <g class="glyph" transform={`translate(69 ${rowTop(i) + 5}) scale(0.6875)`}>
+          <ServiceGlyph service={group.id} />
+        </g>
+        <text class="label" x="110" y={rowTop(i) + 21}>
+          {group.name.replace(' packages', '')}
+        </text>
+        <text class="amount" x="336" y={rowTop(i) + 21} text-anchor="end">
+          {money(group.startingPrice)}
+        </text>
+      </g>
+    ))
+  }
+  <path class="rule motion-stroke" style="--motion-order:5" pathLength="1" d="M64 266h272"></path>
+  <g class="motion-part" style="--motion-order:6" data-motion-end>
+    <rect class="pill" x="64" y="276" width="124" height="24" rx="4"></rect>
+    <text class="on-pill" x="126" y="292" text-anchor="middle">{c.estimateTitle}</text>
+    <circle class="pill" cx="323" cy="288" r="12"></circle>
+    <path class="check" d="m317 288 4 4 8-8"></path>
+  </g>
+  <g class="motion-part" style="--motion-order:7;--motion-y:-8px">
+    <rect class="pill" x="292" y="14" width="84" height="28" rx="14"></rect>
+    <text class="on-pill" x="334" y="33" text-anchor="middle">{vatSuffix}</text>
+  </g>
+</svg>
+
+<style>
+  .pricing-hero-visual {
+    display: block;
+    width: 100%;
+    max-width: 26rem;
+    height: auto;
+  }
+  .backdrop,
+  .tile {
+    fill: var(--soft);
+  }
+  .sheet {
+    fill: var(--surface);
+    stroke: var(--border);
+  }
+  .rule {
+    fill: none;
+    stroke: var(--border);
+  }
+  .glyph {
+    color: var(--accent);
+  }
+  .pill {
+    fill: var(--accent);
+  }
+  .check {
+    fill: none;
+    stroke: var(--on-accent);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  text {
+    font-family: var(--font-body);
+    font-size: 15px;
+    fill: var(--text);
+  }
+  .caption {
+    font: var(--weight-medium) 10px var(--font-mono);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    fill: var(--muted);
+  }
+  .amount {
+    font-weight: var(--weight-strong);
+    font-variant-numeric: tabular-nums;
+  }
+  .on-pill {
+    font-size: 12px;
+    font-weight: var(--weight-strong);
+    fill: var(--on-accent);
+  }
+</style>

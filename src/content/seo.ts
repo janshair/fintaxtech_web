@@ -29,6 +29,7 @@ import { formsDirectory } from './forms';
 import { logoBriefCopy } from './logo-brief';
 import { templateBriefCopy, templateBriefRedirect, templateChoices } from './template-brief';
 import { pages } from './pages';
+import { pricingCopy } from './pricing';
 import { blogCopy } from './blog';
 import { services } from './services';
 import { contactRedirect, ui } from './site';
@@ -253,6 +254,7 @@ export const seoPages: Record<string, PageSEO> = {
     canonical: contactRedirect.destination,
     noindex: true,
   },
+  '/pricing/': { title: pricingCopy.seoTitle, description: pricingCopy.seoDescription },
   '/how-it-works/': {
     title: 'How Our Project Process Works',
     description:

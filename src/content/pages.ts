@@ -1,4 +1,5 @@
 import { company } from './site';
+import { pricingCopy } from './pricing';
 
 export interface InfoPage {
   title: string;
@@ -50,8 +51,8 @@ export const pages: Record<string, InfoPage> = {
     ],
   },
   pricing: {
-    title: 'How project pricing works',
-    intro: 'Every standard project receives a manual quote after we review the requirements.',
+    title: pricingCopy.title,
+    intro: pricingCopy.intro,
     sections: [
       [
         'What determines the price of a website?',
@@ -71,7 +72,7 @@ export const pages: Record<string, InfoPage> = {
       ],
       [
         'Is a pricing-calculator estimate a final quote?',
-        'No. Branding and mobile app calculators provide indicative estimates. They do not commission work or replace technical review. Final deliverables, exclusions, timing and charges are confirmed in an agreed written proposal.',
+        'No. The website, branding, mobile app and AI automation calculators provide indicative estimates. They do not commission work or replace technical review. Final deliverables, exclusions, timing and charges are confirmed in an agreed written proposal.',
       ],
       [
         'A proposal built around your requirements',

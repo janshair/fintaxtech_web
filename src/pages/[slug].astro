@@ -7,25 +7,30 @@ import FinalCTA from '../components/FinalCTA.astro';
 import WorkShowcase from '../components/WorkShowcase.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { pages } from '../content/pages';
+import PricingPackages from '../components/PricingPackages.astro';
+import PricingHeroVisual from '../components/PricingHeroVisual.astro';
+import { pricingCopy, pricingGroups } from '../content/pricing';
 import { company, ui } from '../content/site';
 export function getStaticPaths() {
   return Object.entries(pages).map(([slug, page]) => ({ params: { slug }, props: { page } }));
 }
 const { page } = Astro.props;
+const isPricing = Astro.params.slug === 'pricing';
 ---
 
 <SiteLayout title={page.title} description={page.intro}
   ><div class="container">
-    <header class="page-head">
-      <p class="eyebrow">{company.name}</p><h1>{page.title}</h1><p class="lead">{page.intro}</p>
-    </header><div class="prose">
+    <header class:list={['page-head', { 'pricing-hero': isPricing }]}>
+      <div>
+        <p class="eyebrow">{company.name}</p><h1>{page.title}</h1><p class="lead">{page.intro}</p>
+      </div>{isPricing && <PricingHeroVisual />}
+    </header>{isPricing && <PricingPackages />}<div class="prose">
+      {isPricing && <h2 class="pricing-how">{pricingCopy.howTitle}</h2>}
       {page.legal && <p class="notice">{ui.draftLegal}</p>}{
         page.sections.map(([title, text]) => (
           <section>
-            <>
-              <h2>{title}</h2>
-              <p>{text}</p>
-            </>
+            {isPricing ? <h3>{title}</h3> : <h2>{title}</h2>}
+            <p>{text}</p>
           </section>
         ))
       }
@@ -33,7 +38,7 @@ const { page } = Astro.props;
     {
       Astro.params.slug === 'pricing' && (
         <p>
-          <a href="/promo/">{promoCopy.linkLabel}</a>
+          {pricingCopy.promoLead} <a href="/promo/">{promoCopy.linkLabel}</a>
         </p>
       )
     }
@@ -74,5 +79,58 @@ const { page } = Astro.props;
         </p>
       )
     }
-  </div>{!page.legal && <FinalCTA />}</SiteLayout
+  </div>{
+    isPricing ? (
+      <section class="final-cta" id="get-estimate">
+        <div class="container">
+          <h2>{pricingCopy.estimateTitle}</h2>
+          <p>{pricingCopy.estimateText}</p>
+          <div class="actions">
+            {pricingGroups.map((group) => (
+              <a class="button primary" href={group.estimate.href}>
+                {group.estimate.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    ) : (
+      !page.legal && <FinalCTA />
+    )
+  }</SiteLayout
 >
+
+<style>
+  .pricing-hero {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+    max-width: none;
+  }
+  .pricing-hero h1 {
+    font-size: clamp(2.5rem, 4.6vw, 4rem);
+  }
+  /* Same proportions as the homepage hero: text left, artwork in the right column. */
+  .pricing-hero :global(.pricing-hero-visual) {
+    justify-self: center;
+  }
+  @media (min-width: 900px) {
+    .pricing-hero {
+      grid-template-columns: 1.35fr 1fr;
+      gap: var(--space-8);
+    }
+    .pricing-hero :global(.pricing-hero-visual) {
+      justify-self: end;
+      max-width: none;
+    }
+  }
+  .pricing-how {
+    margin-top: var(--space-9);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    margin-bottom: var(--space-6);
+  }
+  .prose section h3 {
+    font-size: var(--h3);
+  }
+</style>

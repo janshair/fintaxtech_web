@@ -1,0 +1,319 @@
+---
+import {
+  pricingCopy as c,
+  pricingFaqs,
+  pricingGroups,
+  priceLabel,
+  startingLabel,
+} from '../content/pricing';
+import ServiceGlyph from './ServiceGlyph.astro';
+import '../styles/home-motion.css';
+---
+
+<nav class="price-summary home-motion" data-home-motion aria-label={c.summaryLabel}>
+  {
+    pricingGroups.map((group, i) => (
+      <a
+        class="motion-part"
+        style={`--motion-order:${i}`}
+        href={`#${group.id}`}
+        data-motion-end={i === pricingGroups.length - 1 ? '' : undefined}
+      >
+        <span>{group.name.replace(' packages', '')}</span>
+        <strong data-count-price={group.startingPrice}>{startingLabel(group)}</strong>
+        <i aria-hidden="true">↓</i>
+      </a>
+    ))
+  }
+</nav>
+<p class="price-basis">{c.basis}</p>
+{
+  pricingGroups.map((group) => (
+    <section class="price-group" id={group.id} aria-labelledby={`${group.id}-title`}>
+      <div class="price-head">
+        <span class="price-icon" aria-hidden="true">
+          <ServiceGlyph service={group.id} />
+        </span>
+        <h2 id={`${group.id}-title`}>
+          {group.name} <span>{startingLabel(group)}</span>
+        </h2>
+      </div>
+      <p class="price-intro">{group.intro}</p>
+      <ul class="price-grid home-motion" data-home-motion>
+        {group.packages.map((pkg, i) => (
+          <li
+            class="price-card motion-part"
+            style={`--motion-order:${i}`}
+            data-motion-end={i === group.packages.length - 1 ? '' : undefined}
+          >
+            <h3>{pkg.name}</h3>
+            <p class="price">{priceLabel(pkg)}</p>
+            <p>{pkg.summary}</p>
+            <ul>
+              {pkg.includes.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      {group.notes.map((note) => (
+        <p class="price-note">{note}</p>
+      ))}
+      <div class="price-actions">
+        <p>
+          <strong>{group.examples.text}</strong>
+        </p>
+        <a class="button" href={group.examples.href}>
+          {group.examples.label}
+        </a>
+        <a class="button primary" href={group.estimate.href}>
+          {group.estimate.label}
+        </a>
+        <a href={group.service}>
+          {c.serviceLink}: {group.name.replace(' packages', '').toLowerCase()}
+        </a>
+      </div>
+    </section>
+  ))
+}
+<section class="price-faq" aria-labelledby="pricing-questions">
+  <h2 id="pricing-questions">{c.faqTitle}</h2>
+  {
+    pricingFaqs.map(([question, answer]) => (
+      <div>
+        <h3>{question}</h3>
+        <p>{answer}</p>
+      </div>
+    ))
+  }
+</section>
+
+<script>
+  import '../scripts/home-motion';
+  // Count each starting price up once, when its tile first scrolls into view.
+  const format = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 });
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  const counters = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      counters.unobserve(entry.target);
+      const node = entry.target as HTMLElement;
+      const target = Number(node.dataset.countPrice);
+      const final = node.textContent ?? '';
+      if (still.matches || !target) continue;
+      const started = performance.now();
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - started) / 900);
+        const eased = 1 - (1 - progress) ** 3;
+        node.textContent =
+          progress === 1
+            ? final
+            : final.replace(/£[\d,]+/, `£${format.format(Math.round(target * eased))}`);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  });
+  document.querySelectorAll('[data-count-price]').forEach((node) => counters.observe(node));
+</script>
+
+<style>
+  .price-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: var(--space-4);
+  }
+  .price-summary a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .price-summary a {
+    position: relative;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      background-color 200ms ease;
+  }
+  .price-summary a:hover {
+    border-color: var(--accent);
+    background: var(--soft);
+  }
+  .price-summary i {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    font-style: normal;
+    color: var(--accent);
+    transition: transform 200ms ease;
+  }
+  .price-summary strong {
+    font-variant-numeric: tabular-nums;
+  }
+  .price-head {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .price-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--soft);
+    color: var(--accent);
+  }
+  .price-card {
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .price-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms ease;
+  }
+  .price-card:hover {
+    border-color: var(--accent);
+  }
+  .price-card:hover::before {
+    transform: scaleX(1);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .price-summary a:hover,
+    .price-card:hover {
+      transform: translateY(-4px);
+    }
+    .price-summary a:hover i {
+      transform: translateY(3px);
+    }
+    .price-card:hover {
+      box-shadow: 0 12px 28px -18px var(--accent);
+    }
+    .price-grid.home-motion {
+      --motion-stagger: 90ms;
+      --motion-y: 18px;
+    }
+  }
+  .price-summary span {
+    font: var(--weight-medium) var(--caption) / var(--line) var(--font-mono);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .price-summary strong {
+    font: var(--weight-strong) var(--h3) / var(--line-heading) var(--font-heading);
+  }
+  .price-basis,
+  .price-note,
+  .price-intro {
+    color: var(--muted);
+    max-width: var(--reading);
+  }
+  .price-basis {
+    margin-top: var(--space-5);
+    font-size: var(--small);
+  }
+  .price-group {
+    margin-top: var(--space-9);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    scroll-margin-top: var(--space-9);
+  }
+  .price-group h2 span {
+    display: block;
+    margin-top: var(--space-2);
+    font: var(--weight-medium) var(--body) / var(--line) var(--font-mono);
+    letter-spacing: 0;
+    color: var(--accent);
+  }
+  .price-intro {
+    margin-top: var(--space-4);
+  }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    padding: 0;
+    list-style: none;
+  }
+  .price-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .price-card h3 {
+    font-size: var(--h3);
+  }
+  .price-card p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .price-card .price {
+    font: var(--weight-strong) var(--prose-heading) / var(--line-heading) var(--font-heading);
+    color: var(--text);
+  }
+  .price-card ul {
+    margin: var(--space-2) 0 0;
+    padding-left: var(--space-5);
+    color: var(--muted);
+    font-size: var(--small);
+  }
+  .price-card li + li {
+    margin-top: var(--space-2);
+  }
+  .price-note {
+    font-size: var(--small);
+    margin-top: var(--space-3);
+  }
+  .price-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .price-actions p {
+    flex-basis: 100%;
+    margin: 0;
+  }
+  .price-faq {
+    margin-top: var(--space-9);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    max-width: var(--reading);
+  }
+  .price-faq div {
+    margin-top: var(--space-6);
+  }
+  .price-faq h3 {
+    font-size: var(--h3);
+  }
+  .price-faq p {
+    margin-top: var(--space-2);
+    color: var(--muted);
+  }
+</style>

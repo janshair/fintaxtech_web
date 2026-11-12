@@ -1,3 +1,4 @@
+import { pricingCopy, pricingFaqs, pricingGroups } from '../content/pricing';
 import { mobileAppGallery } from '../content/mobile-app-templates';
 import { industryDirectory } from '../content/automation-industries';
 import { brandingGallery, logoGallery } from '../content/branding-gallery';
@@ -80,6 +81,7 @@ export function structuredData(
   const service = services.find((s) => path === `/services/${s.id}/`);
   const kit = showcase.find((entry) => entry.url === path);
   const isShowcaseIndex = path === showcaseIndex.route;
+  const isPricing = path === '/pricing/';
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -122,7 +124,14 @@ export function structuredData(
         inLanguage: 'en',
       },
       {
-        '@type': path === '/about/' ? 'AboutPage' : isShowcaseIndex ? 'CollectionPage' : 'WebPage',
+        '@type':
+          path === '/about/'
+            ? 'AboutPage'
+            : isShowcaseIndex
+              ? 'CollectionPage'
+              : isPricing
+                ? ['WebPage', 'FAQPage']
+                : 'WebPage',
         '@id': url + '#webpage',
         url,
         name: title,
@@ -142,7 +151,56 @@ export function structuredData(
             }
           : {}),
         ...(isShowcaseIndex ? { mainEntity: { '@id': url + '#kits' } } : {}),
+        ...(isPricing
+          ? {
+              about: { '@id': url + '#packages' },
+              mainEntity: pricingFaqs.map(([name, text]) => ({
+                '@type': 'Question',
+                name,
+                acceptedAnswer: { '@type': 'Answer', text },
+              })),
+            }
+          : {}),
       },
+      ...(isPricing
+        ? [
+            {
+              '@type': 'OfferCatalog',
+              '@id': url + '#packages',
+              name: pricingCopy.title,
+              url,
+              itemListElement: pricingGroups.map((group) => ({
+                '@type': 'OfferCatalog',
+                name: group.name,
+                url: `${url}#${group.id}`,
+                itemListElement: group.packages
+                  .filter((pkg) => pkg.price !== undefined)
+                  .map((pkg) => ({
+                    '@type': 'Offer',
+                    name: pkg.name,
+                    description: pkg.summary,
+                    url: `${url}#${group.id}`,
+                    priceCurrency: 'GBP',
+                    price: pkg.price,
+                    priceSpecification: {
+                      '@type': 'PriceSpecification',
+                      priceCurrency: 'GBP',
+                      ...(pkg.from ? { minPrice: pkg.price } : { price: pkg.price }),
+                      valueAddedTaxIncluded: false,
+                    },
+                    seller: { '@id': organization },
+                    itemOffered: {
+                      '@type': 'Service',
+                      name: pkg.name,
+                      description: pkg.includes.join('. ') + '.',
+                      provider: { '@id': organization },
+                      url: absoluteURL(group.service),
+                    },
+                  })),
+              })),
+            },
+          ]
+        : []),
       ...(location
         ? [
             {

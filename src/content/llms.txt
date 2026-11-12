@@ -19,6 +19,8 @@ FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, 
 
 {{PUBLISHED_APPS}}
 
+{{PRICING}}
+
 ## Start a project
 
 - [Prepare project requirements](https://fintaxtech.co.uk/start/): choose a service and complete a local questionnaire to generate a PDF you can download and share manually. Nothing is sent automatically. No account required.
