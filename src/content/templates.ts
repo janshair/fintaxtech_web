@@ -245,7 +245,7 @@ export const placeholderGallery = {
   description:
     'Explore placeholder website templates by FinTaxTech: a single responsive page with your logo, business name, tagline, email and WhatsApp button.',
   backLabel: 'Browse placeholder templates',
-  note: 'This is a demonstration with an invented business. The example email address and WhatsApp button do not contact anyone.',
+  note: 'This is a demonstration with an invented business. The email address is an example; the WhatsApp button opens a chat with FinTaxTech.',
 };
 export const placeholderTemplates: readonly MotionTemplate[] = [
   {

@@ -429,7 +429,8 @@ describe('placeholder website template', () => {
     expect(templatePalettes['placeholder-10']).toMatchObject(THEME);
     expect(c.email).toMatch(/@example\.com$/);
     expect(c.footnote).toContain('Example business');
-    expect(c.whatsappNote).toContain('Example button');
+    expect(c.whatsappNumber).toBe('447442906018');
+    expect(c.footnote).toContain('messages FinTaxTech');
     const page = readFileSync(`src/pages${c.route}index.astro`, 'utf8');
     for (const hook of [
       'data-business',
@@ -439,6 +440,7 @@ describe('placeholder website template', () => {
       'data-edit',
     ])
       expect(page).toContain(hook);
+    expect(page).toContain('https://wa.me/${c.whatsappNumber}');
     expect(page).toContain('noindex,nofollow');
     expect(page.match(/<h1/g)).toHaveLength(1);
     const text = JSON.stringify(c) + JSON.stringify(placeholderTemplates);

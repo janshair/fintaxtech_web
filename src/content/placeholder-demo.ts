@@ -5,13 +5,16 @@ export const THEME = {
 };
 
 // A single-screen placeholder site: logo, name, tagline, email and WhatsApp.
-// The business is invented and the contact details are examples.
+// The business is invented and the email address is an example. The WhatsApp
+// button opens a chat with FinTaxTech unless the link carries ?phone=.
 export const placeholderDemo = {
   id: 'placeholder-10',
   name: 'Alder & Rook',
   tagline: 'Fitted furniture, made to measure.',
   // example.com is reserved for documentation, so this can never reach a real inbox.
   email: 'hello@example.com',
+  // International format, digits only: +44 7442 906018.
+  whatsappNumber: '447442906018',
   route: '/templates/website/placeholder/placeholder-10/',
   titleSuffix: ' — Placeholder website demo by FinTaxTech',
   agency: 'FinTaxTech',
@@ -29,8 +32,10 @@ export const placeholderDemo = {
   copyLabel: 'Copy email address',
   copyFailed: 'Copying is not available here. Select the address to copy it.',
   whatsapp: 'Message on WhatsApp',
-  whatsappNote: 'Example button. On your website this opens a WhatsApp chat with you.',
-  footnote: 'Example business and contact details. Website by FinTaxTech.',
+  footnote:
+    'Example business and email address. The WhatsApp button messages FinTaxTech, who built this page.',
+  // Shown instead once the link carries its own ?phone= number.
+  footnoteOwnNumber: 'Example business and email address. Website by FinTaxTech.',
   nameDialog: {
     eyebrow: 'YOUR NAME, YOUR WEBSITE',
     title: 'See it with your business name',

@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const c = JSON.parse(document.querySelector('#template-copy').textContent);
-  const { clean, read, initials, links, size, stop } = window.placeholderIdentity;
+  const { clean, read, initials, size, stop } = window.placeholderIdentity;
   stop();
   const $ = (selector) => document.querySelector(selector);
   const dialog = $('#name-dialog');
@@ -39,10 +39,14 @@
     document.querySelectorAll('[data-email-link]').forEach((node) => {
       node.href = 'mailto:' + (current.email || c.email);
     });
-    links(current);
+    document.querySelectorAll('[data-whatsapp]').forEach((node) => {
+      node.href =
+        'https://wa.me/' + (current.phone ? current.phone.international : c.whatsappNumber);
+    });
     size(name);
     // The footnote stays until every example detail has been replaced.
     document.querySelectorAll('[data-example-note]').forEach((node) => {
+      node.textContent = current.phone ? c.footnoteOwnNumber : c.footnote;
       node.hidden = Boolean(current.name && current.email && current.phone);
     });
     document.title = current.name
@@ -69,14 +73,6 @@
     } catch {
       announce(c.copyFailed);
     }
-  });
-  // WhatsApp: without a number in the link, explain what the button will do.
-  document.querySelectorAll('[data-whatsapp]').forEach((node) => {
-    node.addEventListener('click', (event) => {
-      if (current.phone) return;
-      event.preventDefault();
-      announce(c.whatsappNote);
-    });
   });
 
   // Details: edits replace the URL (keeping email, phone and ref) so the link can be shared.

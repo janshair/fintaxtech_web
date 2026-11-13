@@ -83,7 +83,7 @@ const theme = templateTheme('placeholder-10', THEME);
             <span data-copy-state>{c.copy}</span>
           </button>
         </div>
-        <a class="whatsapp" href="#whatsapp-note" data-whatsapp>
+        <a class="whatsapp" href={`https://wa.me/${c.whatsappNumber}`} rel="noopener" data-whatsapp>
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"
             ><path
               d="M4 20l1.4-4.2A8 8 0 1 1 8.6 18.8L4 20Z"
@@ -99,7 +99,7 @@ const theme = templateTheme('placeholder-10', THEME);
           {c.whatsapp}
         </a>
       </div>
-      <p class="footnote" id="whatsapp-note">
+      <p class="footnote">
         <span data-example-note>{c.footnote}</span>
       </p>
     </main>

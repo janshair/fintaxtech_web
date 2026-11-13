@@ -57,10 +57,9 @@
     document.querySelectorAll('[data-email-link]').forEach((node) => {
       if (values.email) node.href = 'mailto:' + values.email;
     });
+    // Without ?phone= the button keeps the number rendered into the page.
     document.querySelectorAll('[data-whatsapp]').forEach((node) => {
-      node.href = values.phone ? 'https://wa.me/' + values.phone.international : '#whatsapp-note';
-      if (values.phone) node.rel = 'noopener';
-      else node.removeAttribute('rel');
+      if (values.phone) node.href = 'https://wa.me/' + values.phone.international;
     });
   }
   const values = read();
