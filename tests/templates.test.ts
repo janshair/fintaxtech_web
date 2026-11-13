@@ -405,7 +405,7 @@ describe('placeholder website template', () => {
     const { placeholderTemplates, placeholderGallery, galleryTemplates, websiteCategories } =
       await import('../src/content/templates');
     const [template] = placeholderTemplates;
-    expect(template.id).toBe('placeholder-10');
+    expect(template.id).toBe('placeholder-11');
     // Suffixes stay unique across every category.
     const suffixes = galleryTemplates.map((t) => Number(t.id.split('-').at(-1)));
     expect(new Set(suffixes).size).toBe(galleryTemplates.length);
@@ -427,21 +427,26 @@ describe('placeholder website template', () => {
     const { placeholderDemo: c, THEME } = await import('../src/content/placeholder-demo');
     const { placeholderTemplates } = await import('../src/content/templates');
     const { templatePalettes } = await import('../src/content/template-palettes');
-    expect(templatePalettes['placeholder-10']).toMatchObject(THEME);
-    expect(c.email).toMatch(/@example\.com$/);
+    expect(templatePalettes['placeholder-11']).toMatchObject(THEME);
+    const { company } = await import('../src/content/site');
+    expect(c.email).toBe(company.email);
+    expect(c.phone.international).toBe('447442906018');
     expect(c.footnote).toContain('Example business');
-    expect(c.whatsappNumber).toBe('447442906018');
-    expect(c.footnote).toContain('messages FinTaxTech');
+    expect(c.footnote).toContain('reach FinTaxTech');
     const page = readFileSync(`src/pages${c.route}index.astro`, 'utf8');
     for (const hook of [
       'data-business',
       'data-tagline',
       'data-email',
       'data-whatsapp',
+      'data-call',
+      'data-phone',
       'data-edit',
     ])
       expect(page).toContain(hook);
-    expect(page).toContain('https://wa.me/${c.whatsappNumber}');
+    expect(page).toContain('https://wa.me/${c.phone.international}');
+    expect(page).toContain('tel:+${c.phone.international}');
+    expect(page).toContain('mailto:${c.email}');
     expect(page).toContain('noindex,nofollow');
     expect(page.match(/<h1/g)).toHaveLength(1);
     const text = JSON.stringify(c) + JSON.stringify(placeholderTemplates);
@@ -449,6 +454,63 @@ describe('placeholder website template', () => {
     // Link previews are read before ?name= applies, so they name no business.
     for (const value of [placeholderTemplates[0].seoTitle, placeholderTemplates[0].seoDescription])
       expect(value).not.toContain(c.name);
+    const identity = readFileSync(`public${c.route}identity.js`, 'utf8');
+    expect(identity).not.toMatch(/innerHTML|localStorage|sessionStorage|fetch\(/);
+  });
+});
+
+describe('landing page website template', () => {
+  it('registers a tracked, noindex demo with its own gallery and category card', async () => {
+    const {
+      landingTemplates,
+      landingGallery,
+      galleryTemplates,
+      websiteCategories,
+      placeholderRedirect,
+    } = await import('../src/content/templates');
+    const [template] = landingTemplates;
+    expect(template.id).toBe('landing-12');
+    const suffixes = galleryTemplates.map((t) => Number(t.id.split('-').at(-1)));
+    expect(new Set(suffixes).size).toBe(galleryTemplates.length);
+    expect(template.route).toBe(`${landingGallery.route}${template.id}/`);
+    for (const file of ['app.js', 'identity.js', 'styles.css', 'preview.webp'])
+      expect(existsSync(`public${template.route}${file}`)).toBe(true);
+    expect(statSync(`public${template.preview.src}`).size).toBeLessThan(200_000);
+    expect(indexablePaths.filter((p) => p === landingGallery.route)).toHaveLength(1);
+    expect(seoPages[template.route]).toMatchObject({ noindex: true, nofollow: true });
+    expect(websiteCategories.map((c) => c.featuredId)).toContain(template.id);
+    expect(allTemplates.map((t) => t.id)).not.toContain(template.id);
+    // The placeholder's first address still leads to it.
+    expect(seoPages[placeholderRedirect.route]).toMatchObject({
+      canonical: placeholderRedirect.destination,
+      noindex: true,
+    });
+  });
+
+  it('covers the package scope, contacts FinTaxTech and marks the business as an example', async () => {
+    const { landingDemo: c, THEME } = await import('../src/content/landing-demo');
+    const { placeholderDemo } = await import('../src/content/placeholder-demo');
+    const { templatePalettes } = await import('../src/content/template-palettes');
+    expect(templatePalettes['landing-12']).toMatchObject(THEME);
+    expect(c.phone).toEqual(placeholderDemo.phone);
+    expect(c.footer.note).toContain('Example business');
+    expect(c.services.note).toContain('Example services');
+    const page = readFileSync(`src/pages${c.route}index.astro`, 'utf8');
+    // Headline and call to action, introduction, services, and contact.
+    for (const hook of ['hero-title', 'id="about"', 'id="services"', 'id="contact"'])
+      expect(page).toContain(hook);
+    for (const link of [
+      'tel:+${c.phone.international}',
+      'mailto:${c.email}',
+      'https://wa.me/${c.phone.international}',
+    ])
+      expect(page).toContain(link);
+    expect(page).toContain('noindex,nofollow');
+    expect(page.match(/<h1/g)).toHaveLength(1);
+    const text = JSON.stringify(c);
+    expect(text).not.toMatch(
+      /£|award|trusted by|years of experience|\d+\s?reviews|NICEIC|accredited/i,
+    );
     const identity = readFileSync(`public${c.route}identity.js`, 'utf8');
     expect(identity).not.toMatch(/innerHTML|localStorage|sessionStorage|fetch\(/);
   });

@@ -15,7 +15,9 @@ import {
   threeDGallery,
   galleryTemplates,
   placeholderGallery,
+  landingGallery,
   barberRedirect,
+  placeholderRedirect,
 } from './templates';
 import { legacyRedirects } from './legacy-redirects';
 import { careersCopy } from './careers';
@@ -112,6 +114,10 @@ export const seoPages: Record<string, PageSEO> = {
   [websiteGallery.route]: { title: websiteGallery.title, description: websiteGallery.description },
   [threeDGallery.route]: { title: threeDGallery.title, description: threeDGallery.description },
   [motionGallery.route]: { title: motionGallery.title, description: motionGallery.description },
+  [landingGallery.route]: {
+    title: landingGallery.title,
+    description: landingGallery.description,
+  },
   [placeholderGallery.route]: {
     title: placeholderGallery.title,
     description: placeholderGallery.description,
@@ -131,6 +137,13 @@ export const seoPages: Record<string, PageSEO> = {
     title: barberRedirect.title,
     description: barberRedirect.message,
     canonical: barberRedirect.destination,
+    noindex: true,
+    nofollow: true,
+  },
+  [placeholderRedirect.route]: {
+    title: placeholderRedirect.title,
+    description: placeholderRedirect.message,
+    canonical: placeholderRedirect.destination,
     noindex: true,
     nofollow: true,
   },

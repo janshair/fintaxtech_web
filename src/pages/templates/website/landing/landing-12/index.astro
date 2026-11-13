@@ -1,0 +1,270 @@
+---
+import '@fontsource/archivo/latin-500.css';
+import '@fontsource/archivo/latin-700.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import { templateTheme } from '../../../../../lib/template-theme';
+import { THEME, landingDemo as c } from '../../../../../content/landing-demo';
+import { landingGallery, landingTemplates } from '../../../../../content/templates';
+import { seoPages } from '../../../../../content/seo';
+import { absoluteURL, structuredData } from '../../../../../lib/seo';
+import LandingArtwork from '../../../../../components/templates/LandingArtwork.astro';
+const template = landingTemplates.find((item) => item.id === c.id)!;
+const { title, description } = seoPages[c.route];
+const canonical = absoluteURL(c.route);
+const image = absoluteURL(template.preview.src);
+const theme = templateTheme('landing-12', THEME);
+const year = new Date().getFullYear();
+// Words are wrapped so the statement can light up one word at a time as it scrolls.
+const words = c.statement.text.split(' ');
+const icon = {
+  call: 'M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z',
+  email: 'M3.5 6.5h17v11h-17Zm0 0 8.5 6.5 8.5-6.5',
+  whatsapp: 'M4 20l1.4-4.2A8 8 0 1 1 8.6 18.8L4 20ZM9 10.5h6M9 13.5h4',
+};
+---
+
+<!doctype html>
+<html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content={theme.pageBackground} />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta
+      property="og:image:alt"
+      content={template.preview.alt}
+    />
+    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+      property="og:image:height"
+      content={String(template.preview.height)}
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta name="twitter:description" content={description} /><meta
+      name="twitter:image"
+      content={image}
+    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        structuredData(c.route, title, description, undefined, image),
+      ).replace(/</g, '\\u003c')}
+    />
+    <link rel="stylesheet" href="/templates/website/landing/landing-12/styles.css" />
+    <!-- The blocking script observes streamed identity nodes before their first paint.
+         Values are assigned only as text, or as tel:/mailto:/wa.me links built from a
+         validated address or digits. No query data enters requests or storage. -->
+    <script is:inline src="/templates/website/landing/landing-12/identity.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">{c.skip}</a>
+    <aside class="demo-strip" aria-label="Demonstration controls">
+      <a href="/" class="agency">{c.agency} <span aria-hidden="true">↗</span></a>
+      <span class="demo-id">{c.demoLabel}</span>
+      <a class="gallery-link" href={landingGallery.route}>{c.gallery}</a>
+      <a class="agency-contact" href={c.contact} data-agency-link>{c.enquire}</a>
+      <button type="button" data-edit>{c.edit}</button>
+    </aside>
+    <header class="site-header wrap">
+      <a class="logo" href="#main" data-business>{c.name}</a>
+      <nav aria-label={c.navLabel}>
+        {c.nav.map(([href, label]) => <a href={href}>{label}</a>)}
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">{c.hero.eyebrow} · <span data-area>{c.area}</span></p>
+          <h1 id="hero-title">{c.hero.title}</h1>
+          <p class="hero-intro">
+            <strong><span data-business>{c.name}</span> {c.hero.lead}</strong>
+            {c.hero.intro}
+          </p>
+          <a class="button" href="#contact">{c.hero.cta}</a>
+        </div>
+        <div class="hero-art">
+          <LandingArtwork kind="hero" label={c.hero.artLabel} />
+        </div>
+      </section>
+      <section class="statement" id="about" aria-labelledby="statement-title">
+        <div class="wrap statement-inner">
+          <h2 id="statement-title">{c.statement.title}</h2>
+          <p class="reveal" data-reveal>
+            {
+              words.map((word, i) => (
+                <>
+                  <span class="word">{word}</span>
+                  {i < words.length - 1 ? ' ' : ''}
+                </>
+              ))
+            }
+          </p>
+        </div>
+      </section>
+      <section
+        class="services"
+        id="services"
+        aria-labelledby="services-title"
+        style={`--count:${c.services.items.length}`}
+      >
+        <div class="services-sticky wrap">
+          <div class="services-head">
+            <h2 id="services-title">{c.services.title}</h2>
+            <p class="services-note">{c.services.note}</p>
+          </div>
+          <ol class="service-list">
+            {
+              c.services.items.map((service, i) => (
+                <li
+                  class:list={['service', { active: i === 0 }]}
+                  data-service={service.code}
+                  data-index={i}
+                >
+                  <h3>{service.name}</h3>
+                  <p>{service.text}</p>
+                  <div class="service-art-inline">
+                    <LandingArtwork kind={service.code as 'rewire'} />
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+          <div class="service-art" aria-hidden="true">
+            {
+              c.services.items.map((service, i) => (
+                <div class:list={['art-frame', { active: i === 0 }]} data-art={service.code}>
+                  <LandingArtwork kind={service.code as 'rewire'} />
+                </div>
+              ))
+            }
+            <a class="button art-cta" href="#contact" tabindex="-1">{c.hero.cta}</a>
+          </div>
+        </div>
+      </section>
+      <section class="contact-band" id="contact" aria-labelledby="contact-title">
+        <div class="wrap contact-grid">
+          <div class="contact-copy">
+            <h2 id="contact-title">{c.contactSection.title}</h2>
+            <p>{c.contactSection.text}</p>
+            <div class="actions">
+              <a class="action" href={`tel:+${c.phone.international}`} data-call>
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"
+                  ><path d={icon.call}></path></svg
+                >{c.contactSection.call}
+              </a>
+              <a class="action" href={`mailto:${c.email}`} data-email-link>
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"
+                  ><path d={icon.email}></path></svg
+                >{c.contactSection.emailUs}
+              </a>
+              <a
+                class="action primary"
+                href={`https://wa.me/${c.phone.international}`}
+                rel="noopener"
+                data-whatsapp
+              >
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"
+                  ><path d={icon.whatsapp}></path></svg
+                >{c.contactSection.whatsapp}
+              </a>
+            </div>
+            <dl class="facts">
+              <div>
+                <dt>{c.contactSection.hoursLabel}</dt>
+                <dd>{c.contactSection.hours}</dd>
+              </div>
+              <div>
+                <dt>{c.contactSection.areaLabel}</dt>
+                <dd><span data-area>{c.area}</span>{c.contactSection.areaSuffix}</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="phone" aria-label={c.contactSection.chatLabel}>
+            <div class="phone-top">
+              <span class="phone-avatar" data-monogram aria-hidden="true">B</span>
+              <span data-business>{c.name}</span>
+            </div>
+            <div class="chat">
+              {
+                c.contactSection.chat.map(([side, text]) => (
+                  <p class:list={['bubble', side]}>{text}</p>
+                ))
+              }
+            </div>
+            <a
+              class="phone-cta"
+              href={`https://wa.me/${c.phone.international}`}
+              rel="noopener"
+              data-whatsapp
+              tabindex="-1"
+              aria-hidden="true">{c.contactSection.whatsapp}</a
+            >
+          </figure>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <p><strong data-business>{c.name}</strong><br />{c.footer.tagline}</p>
+        <p>
+          <a href={`mailto:${c.email}`} data-email-link><span data-email>{c.email}</span></a><br
+          /><a href={`tel:+${c.phone.international}`} data-call
+            ><span data-phone>{c.phone.display}</span></a
+          >
+        </p>
+        <p class="copyright">© {year} <span data-business>{c.name}</span></p>
+      </div>
+      <p class="giant wrap" aria-hidden="true"><span data-business data-fit>{c.name}</span></p>
+      <p class="footnote wrap"><span data-example-note>{c.footer.note}</span></p>
+    </footer>
+    <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
+      <button class="close" data-close type="button" aria-label={c.nameDialog.close}>×</button>
+      <p class="dialog-eyebrow">{c.nameDialog.eyebrow}</p>
+      <h2 id="name-title">{c.nameDialog.title}</h2>
+      <p id="name-description">{c.nameDialog.description}</p>
+      <form id="name-form" novalidate>
+        <label for="business-name">{c.nameDialog.nameLabel}</label><input
+          id="business-name"
+          name="business"
+          maxlength="100"
+          placeholder={c.nameDialog.namePlaceholder}
+          autocomplete="off"
+          aria-describedby="name-hint name-error"
+        />
+        <p id="name-error" class="form-error" role="alert"></p>
+        <label for="business-area">{c.nameDialog.areaLabel}</label><input
+          id="business-area"
+          name="area"
+          maxlength="100"
+          placeholder={c.nameDialog.areaPlaceholder}
+          autocomplete="off"
+          aria-describedby="name-hint"
+        />
+        <p id="name-hint" class="small-note">{c.nameDialog.hint}</p>
+        <button class="button dialog-submit" type="submit"
+          >{c.nameDialog.submit} <span aria-hidden="true">→</span></button
+        >
+      </form>
+      <button id="restore-name" class="text-button" type="button">{c.nameDialog.restore}</button>
+    </dialog>
+    <p class="toast" id="announcement" role="status" aria-live="polite"></p>
+    <script
+      is:inline
+      type="application/json"
+      id="template-copy"
+      set:html={JSON.stringify(c).replace(/</g, '\\u003c')}
+    />
+    <script is:inline src="/templates/website/landing/landing-12/app.js"></script>
+  </body>
+</html>

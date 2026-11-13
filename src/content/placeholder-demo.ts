@@ -1,24 +1,25 @@
+import { company } from './site';
+
 // Change these hex codes, save, and the whole template recolours.
 export const THEME = {
   brand: '#101014', // page colour: the dark stage behind the name
   accent: '#ff6b3d', // highlight colour: logo badge and WhatsApp button
 };
 
-// A single-screen placeholder site: logo, name, tagline, email and WhatsApp.
-// The business is invented and the email address is an example. The WhatsApp
-// button opens a chat with FinTaxTech unless the link carries ?phone=.
+// A single-screen placeholder site: logo, name, tagline, and call, email and
+// WhatsApp buttons. The business is invented; the buttons reach FinTaxTech unless
+// the link carries its own ?phone= or ?email=.
 export const placeholderDemo = {
-  id: 'placeholder-10',
+  id: 'placeholder-11',
   name: 'Alder & Rook',
   tagline: 'Fitted furniture, made to measure.',
-  // example.com is reserved for documentation, so this can never reach a real inbox.
-  email: 'hello@example.com',
-  // International format, digits only: +44 7442 906018.
-  whatsappNumber: '447442906018',
-  route: '/templates/website/placeholder/placeholder-10/',
+  email: company.email,
+  // Used by Call me and WhatsApp. international: digits only, for tel: and wa.me links.
+  phone: { display: '+44 7442 906018', international: '447442906018' },
+  route: '/templates/website/placeholder/placeholder-11/',
   titleSuffix: ' — Placeholder website demo by FinTaxTech',
   agency: 'FinTaxTech',
-  demoLabel: 'PLACEHOLDER / 10 · WEBSITE DEMO',
+  demoLabel: 'PLACEHOLDER / 11 · WEBSITE DEMO',
   gallery: 'All templates',
   contact: '/contact/',
   enquire: 'Discuss this website',
@@ -27,15 +28,12 @@ export const placeholderDemo = {
   status: 'Full website on its way',
   counter: '01 / 01',
   contactLabel: 'Get in touch',
-  copy: 'Copy',
-  copied: 'Copied',
-  copyLabel: 'Copy email address',
-  copyFailed: 'Copying is not available here. Select the address to copy it.',
+  call: 'Call me',
+  emailMe: 'Email me',
   whatsapp: 'Message on WhatsApp',
-  footnote:
-    'Example business and email address. The WhatsApp button messages FinTaxTech, who built this page.',
-  // Shown instead once the link carries its own ?phone= number.
-  footnoteOwnNumber: 'Example business and email address. Website by FinTaxTech.',
+  footnote: 'Example business. Call, email and WhatsApp reach FinTaxTech, who built this page.',
+  // Shown instead once the link carries its own ?phone= and ?email=.
+  footnoteOwnDetails: 'Example business. Website by FinTaxTech.',
   nameDialog: {
     eyebrow: 'YOUR NAME, YOUR WEBSITE',
     title: 'See it with your business name',

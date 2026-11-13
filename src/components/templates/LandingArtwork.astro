@@ -1,0 +1,168 @@
+---
+// Original line-and-block illustrations for the landing-12 electrician demo.
+// Colours come from the template's CSS classes, so a THEME change recolours them.
+interface Props {
+  kind: 'hero' | 'rewire' | 'board' | 'ev' | 'lighting' | 'fault' | 'report';
+  label?: string;
+}
+const { kind, label } = Astro.props;
+const hero = kind === 'hero';
+const breakers = Array.from({ length: 8 }, (_, i) => i);
+---
+
+<svg
+  class:list={['landing-art', `art-${kind}`]}
+  viewBox={hero ? '0 0 560 420' : '0 0 400 300'}
+  width={hero ? 560 : 400}
+  height={hero ? 420 : 300}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+>
+  {
+    hero && (
+      <>
+        <rect class="ink" width="560" height="420" />
+        <path
+          class="grid"
+          d="M0 70h560M0 140h560M0 210h560M0 280h560M0 350h560M93 0v420M186 0v420M280 0v420M373 0v420M466 0v420"
+        />
+        <rect class="paper" x="64" y="88" width="190" height="244" rx="6" />
+        <rect class="ink" x="84" y="112" width="150" height="34" rx="3" />
+        <rect class="accent" x="92" y="119" width="30" height="20" rx="2" />
+        {breakers.map((i) => (
+          <rect
+            class="ink"
+            x={92 + (i % 4) * 34}
+            y={168 + Math.floor(i / 4) * 64}
+            width="22"
+            height="44"
+            rx="2"
+          />
+        ))}
+        {breakers.map((i) => (
+          <rect
+            class="accent"
+            x={97 + (i % 4) * 34}
+            y={176 + Math.floor(i / 4) * 64}
+            width="12"
+            height="14"
+            rx="1"
+          />
+        ))}
+        <path class="cable" pathLength="1" d="M254 140H330V40" />
+        <path class="cable" pathLength="1" d="M254 210H420V288" />
+        <path class="cable thin" pathLength="1" d="M254 270H470V170" />
+        <path class="line-paper" d="M330 40v58" />
+        <path class="accent" d="M300 98h60l-12 34h-36Z" />
+        <path class="glow" d="M312 132h36l50 110H262Z" />
+        <rect class="paper" x="384" y="288" width="72" height="72" rx="8" />
+        <rect class="ink" x="406" y="306" width="8" height="18" rx="2" />
+        <rect class="ink" x="426" y="306" width="8" height="18" rx="2" />
+        <rect class="ink" x="414" y="334" width="12" height="12" rx="2" />
+        <circle class="accent" cx="470" cy="170" r="16" />
+        <path class="ink-line" d="M463 170h14M470 163v14" />
+      </>
+    )
+  }
+  {!hero && <rect class="soft" width="400" height="300" />}
+  {
+    kind === 'rewire' && (
+      <>
+        <path class="line" d="M40 40h320v220H40Z" />
+        <path class="cable" d="M80 80h90v60h120v80" />
+        <path class="cable thin" d="M80 80v140h90" />
+        {[
+          [80, 80],
+          [170, 140],
+          [290, 220],
+          [170, 220],
+        ].map(([x, y]) => (
+          <rect class="paper-box" x={x - 18} y={y - 18} width="36" height="36" rx="4" />
+        ))}
+      </>
+    )
+  }
+  {
+    kind === 'board' && (
+      <>
+        <rect class="paper-box" x="70" y="50" width="260" height="200" rx="8" />
+        <rect class="ink" x="92" y="74" width="216" height="36" rx="3" />
+        <rect class="accent" x="100" y="81" width="44" height="22" rx="2" />
+        {breakers.map((i) => (
+          <>
+            <rect class="ink" x={98 + i * 26} y="138" width="18" height="80" rx="2" />
+            <rect
+              class="accent"
+              x={102 + i * 26}
+              y={i % 3 ? 148 : 190}
+              width="10"
+              height="18"
+              rx="1"
+            />
+          </>
+        ))}
+      </>
+    )
+  }
+  {
+    kind === 'ev' && (
+      <>
+        <path class="line" d="M20 250h360" />
+        <rect class="paper-box" x="300" y="70" width="56" height="86" rx="8" />
+        <circle class="accent" cx="328" cy="100" r="12" />
+        <path class="cable" d="M328 156c0 70-60 40-104 70" />
+        <path
+          class="ink"
+          d="M48 236v-34c0-14 10-22 24-26l34-10 34-36c8-8 18-12 30-12h60c14 0 24 6 30 18l18 34c10 4 16 12 16 24v42Z"
+        />
+        <path class="paper" d="M150 158l22-24h46l14 24Z" />
+        <circle class="paper-box" cx="98" cy="240" r="24" />
+        <circle class="paper-box" cx="236" cy="240" r="24" />
+      </>
+    )
+  }
+  {
+    kind === 'lighting' && (
+      <>
+        <path class="line" d="M20 40h360" />
+        {[100, 200, 300].map((x, i) => (
+          <>
+            <path class="line" d={`M${x} 40v${50 + i * 20}`} />
+            <path class="glow" d={`M${x - 22} ${110 + i * 20}h44l60 ${150 - i * 20}H${x - 82}Z`} />
+            <path class="accent" d={`M${x - 24} ${90 + i * 20}h48l-10 22h-28Z`} />
+          </>
+        ))}
+      </>
+    )
+  }
+  {
+    kind === 'fault' && (
+      <>
+        <rect class="paper-box" x="90" y="60" width="180" height="180" rx="14" />
+        <rect class="ink" x="140" y="104" width="14" height="36" rx="3" />
+        <rect class="ink" x="206" y="104" width="14" height="36" rx="3" />
+        <rect class="ink" x="170" y="166" width="20" height="20" rx="3" />
+        <circle class="lens" cx="286" cy="190" r="50" />
+        <path class="cable" d="M322 226l46 46" />
+        <path class="accent" d="M292 160l-24 34h18l-8 28 26-38h-18Z" />
+      </>
+    )
+  }
+  {
+    kind === 'report' && (
+      <>
+        <rect class="paper-box" x="110" y="40" width="180" height="230" rx="10" />
+        <rect class="ink" x="160" y="28" width="80" height="26" rx="6" />
+        {[0, 1, 2, 3].map((i) => (
+          <>
+            <rect class="accent" x="134" y={84 + i * 44} width="24" height="24" rx="4" />
+            <path class="tick" d={`M139 ${96 + i * 44}l5 6 9-12`} />
+            <path class="line" d={`M174 ${96 + i * 44}h${i % 2 ? 70 : 92}`} />
+          </>
+        ))}
+      </>
+    )
+  }
+</svg>

@@ -5,6 +5,7 @@ import { join } from 'node:path';
 const origin = 'https://fintaxtech.co.uk';
 const redirectDestinations = {
   '/website/motion/templates/barber-01/': '/templates/website/motion/barber-01/',
+  '/templates/website/placeholder/placeholder-10/': '/templates/website/placeholder/placeholder-11/',
   '/privacy.html': '/privacy/',
   '/portfolio.html': '/selected-work/',
   '/services.html': '/services/',

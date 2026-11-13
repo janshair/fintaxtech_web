@@ -10,7 +10,6 @@
   const nameError = $('#name-error');
   const edit = $('[data-edit]');
   const status = $('#announcement');
-  const copyState = $('[data-copy-state]');
   let current;
   let toastTimer;
 
@@ -39,14 +38,20 @@
     document.querySelectorAll('[data-email-link]').forEach((node) => {
       node.href = 'mailto:' + (current.email || c.email);
     });
+    const phone = current.phone || c.phone;
+    document.querySelectorAll('[data-phone]').forEach((node) => {
+      node.textContent = phone.display;
+    });
+    document.querySelectorAll('[data-call]').forEach((node) => {
+      node.href = 'tel:+' + phone.international;
+    });
     document.querySelectorAll('[data-whatsapp]').forEach((node) => {
-      node.href =
-        'https://wa.me/' + (current.phone ? current.phone.international : c.whatsappNumber);
+      node.href = 'https://wa.me/' + phone.international;
     });
     size(name);
     // The footnote stays until every example detail has been replaced.
     document.querySelectorAll('[data-example-note]').forEach((node) => {
-      node.textContent = current.phone ? c.footnoteOwnNumber : c.footnote;
+      node.textContent = current.phone && current.email ? c.footnoteOwnDetails : c.footnote;
       node.hidden = Boolean(current.name && current.email && current.phone);
     });
     document.title = current.name
@@ -59,21 +64,6 @@
     });
   }
   update();
-
-  // Email: copy the address shown, with a visible and announced confirmation.
-  $('[data-copy-email]').addEventListener('click', async () => {
-    const address = current.email || c.email;
-    try {
-      await navigator.clipboard.writeText(address);
-      copyState.textContent = c.copied;
-      announce(c.copied + ': ' + address);
-      setTimeout(() => {
-        copyState.textContent = c.copy;
-      }, 2000);
-    } catch {
-      announce(c.copyFailed);
-    }
-  });
 
   // Details: edits replace the URL (keeping email, phone and ref) so the link can be shared.
   function showError(message) {

@@ -57,9 +57,16 @@
     document.querySelectorAll('[data-email-link]').forEach((node) => {
       if (values.email) node.href = 'mailto:' + values.email;
     });
-    // Without ?phone= the button keeps the number rendered into the page.
+    // Without ?phone= the buttons keep the number rendered into the page.
+    if (!values.phone) return;
     document.querySelectorAll('[data-whatsapp]').forEach((node) => {
-      if (values.phone) node.href = 'https://wa.me/' + values.phone.international;
+      node.href = 'https://wa.me/' + values.phone.international;
+    });
+    document.querySelectorAll('[data-call]').forEach((node) => {
+      node.href = 'tel:+' + values.phone.international;
+    });
+    document.querySelectorAll('[data-phone]').forEach((node) => {
+      setText(node, values.phone.display);
     });
   }
   const values = read();

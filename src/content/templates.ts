@@ -3,7 +3,7 @@ export interface MotionTemplate {
   name: string;
   industry: string;
   description: string;
-  route: `/templates/website/${'motion' | '3d' | 'placeholder'}/${string}/`;
+  route: `/templates/website/${'motion' | '3d' | 'placeholder' | 'landing'}/${string}/`;
   preview: { src: string; alt: string; width: number; height: number };
   seoTitle: string;
   seoDescription: string;
@@ -268,14 +268,14 @@ export const placeholderGallery = {
 };
 export const placeholderTemplates: readonly MotionTemplate[] = [
   {
-    id: 'placeholder-10',
+    id: 'placeholder-11',
     name: 'Lights On',
     industry: 'Any new business',
     description:
       'A bold single-screen page in near-black with your name set large, a scan-line reveal, your tagline, and email and WhatsApp buttons.',
-    route: '/templates/website/placeholder/placeholder-10/',
+    route: '/templates/website/placeholder/placeholder-11/',
     preview: {
-      src: '/templates/website/placeholder/placeholder-10/preview.webp',
+      src: '/templates/website/placeholder/placeholder-11/preview.webp',
       alt: 'Lights On placeholder demo: Alder & Rook in large white type on a near-black page, with a tagline, an example email address and an orange WhatsApp button.',
       width: 1200,
       height: 900,
@@ -285,8 +285,50 @@ export const placeholderTemplates: readonly MotionTemplate[] = [
       'Explore a personalised single-page placeholder website demonstration by FinTaxTech, with a business name, tagline, email address and WhatsApp button.',
   },
 ];
+// Single scrolling landing pages: the fixed-scope Single Landing Page package.
+export const landingGallery = {
+  ...motionGallery,
+  route: '/templates/website/landing/',
+  title: 'Landing Page Templates',
+  intro:
+    'One scrolling page built around your business: a headline and call to action, a short introduction, your services, and call, email and WhatsApp buttons. Preview it with your own business name.',
+  description:
+    'Explore landing page templates by FinTaxTech: one responsive scrolling page with a headline, introduction, services and a clear contact section.',
+  backLabel: 'Browse landing page templates',
+  note: 'This is a demonstration with an invented business. Its call, email and WhatsApp buttons reach FinTaxTech.',
+};
+export const landingTemplates: readonly MotionTemplate[] = [
+  {
+    id: 'landing-12',
+    name: 'Live Wire',
+    industry: 'Trades & local services',
+    description:
+      'A bold trade landing page in navy and electric yellow: a split hero, a statement that lights up as you scroll, a sticky services list and a WhatsApp-ready contact section.',
+    route: '/templates/website/landing/landing-12/',
+    preview: {
+      src: '/templates/website/landing/landing-12/preview.webp',
+      alt: 'Live Wire landing page demo: Brightwire in a large navy wordmark above “Safe power, neatly finished.” beside an illustrated fuse board with yellow cables.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Landing page website demo – by FinTaxTech',
+    seoDescription:
+      'Explore a personalised single landing page demonstration by FinTaxTech for trades and local services, with a hero, introduction, services and call, email and WhatsApp buttons.',
+  },
+];
+
+// The placeholder demo was first published as placeholder-10, before plumbing-10 took
+// that number. The old address stays as a redirect for links already shared.
+export const placeholderRedirect = {
+  route: '/templates/website/placeholder/placeholder-10/',
+  destination: '/templates/website/placeholder/placeholder-11/',
+  title: 'The placeholder template has moved',
+  message:
+    'Continue to Lights On at its new address. Use the link below if you are not redirected automatically.',
+  label: 'Preview Lights On',
+};
 // Every demo with a gallery card and a noindex page.
-export const galleryTemplates = [...allTemplates, ...placeholderTemplates];
+export const galleryTemplates = [...allTemplates, ...placeholderTemplates, ...landingTemplates];
 
 export const websiteGallery = {
   route: '/templates/website/',
@@ -317,7 +359,15 @@ export const websiteCategories = [
     description:
       'Get online quickly with one page: your logo, name and tagline, plus email and WhatsApp buttons.',
     linkLabel: 'Explore placeholder templates',
-    featuredId: 'placeholder-10',
+    featuredId: 'placeholder-11',
+  },
+  {
+    route: landingGallery.route,
+    title: 'Landing page templates',
+    description:
+      'One scrolling page with a headline, your services and a clear way to get in touch.',
+    linkLabel: 'Explore landing page templates',
+    featuredId: 'landing-12',
   },
 ];
 

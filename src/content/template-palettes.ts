@@ -325,7 +325,7 @@ export const templatePalettes = {
       '--on-brand-soft-dfe6dc': ['brand', '#dfe6dc'],
     },
   },
-  'placeholder-10': {
+  'placeholder-11': {
     brand: '#101014',
     accent: '#ff6b3d',
     paper: '#f5f3ee',
@@ -334,6 +334,18 @@ export const templatePalettes = {
     tones: {
       '#101014': 'brand',
       '#ff6b3d': 'accent',
+    },
+    foregrounds: {},
+  },
+  'landing-12': {
+    brand: '#15233b',
+    accent: '#f4b71a',
+    paper: '#f7f6f2',
+    dark: false,
+    // Tints are mixed in CSS with color-mix(), so only the primaries are authored.
+    tones: {
+      '#15233b': 'brand',
+      '#f4b71a': 'accent',
     },
     foregrounds: {},
   },
