@@ -13,7 +13,8 @@ import {
   websiteGallery,
   motionGallery,
   threeDGallery,
-  allTemplates,
+  galleryTemplates,
+  placeholderGallery,
   barberRedirect,
 } from './templates';
 import { legacyRedirects } from './legacy-redirects';
@@ -111,8 +112,12 @@ export const seoPages: Record<string, PageSEO> = {
   [websiteGallery.route]: { title: websiteGallery.title, description: websiteGallery.description },
   [threeDGallery.route]: { title: threeDGallery.title, description: threeDGallery.description },
   [motionGallery.route]: { title: motionGallery.title, description: motionGallery.description },
+  [placeholderGallery.route]: {
+    title: placeholderGallery.title,
+    description: placeholderGallery.description,
+  },
   ...Object.fromEntries(
-    allTemplates.map((template) => [
+    galleryTemplates.map((template) => [
       template.route,
       {
         title: template.seoTitle,

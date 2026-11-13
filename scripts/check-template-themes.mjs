@@ -16,6 +16,7 @@ const files = {
   'consultant-07': 'consultant',
   'beauty-08': 'beauty',
   'wedding-09': 'wedding',
+  'placeholder-10': 'placeholder',
 };
 const originals = new Map();
 await mkdir(out, { recursive: true });
@@ -60,7 +61,7 @@ try {
       await page.goto(
         origin +
           '/templates/website/' +
-          (id === 'juice-bar-05' ? '3d' : 'motion') +
+          (id === 'juice-bar-05' ? '3d' : id === 'placeholder-10' ? 'placeholder' : 'motion') +
           '/' +
           id +
           '/?name=SeJuice&area=Dundee&ref=L-TEST',

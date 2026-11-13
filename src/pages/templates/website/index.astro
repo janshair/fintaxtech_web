@@ -1,9 +1,9 @@
 ---
 import SiteLayout from '../../../layouts/SiteLayout.astro';
-import { allTemplates, websiteCategories, websiteGallery } from '../../../content/templates';
+import { galleryTemplates, websiteCategories, websiteGallery } from '../../../content/templates';
 
 const cards = websiteCategories.map((category) => {
-  const featured = allTemplates.find((template) => template.id === category.featuredId);
+  const featured = galleryTemplates.find((template) => template.id === category.featuredId);
   if (!featured) throw new Error(`Missing category preview: ${category.featuredId}`);
   return { ...category, preview: featured.preview };
 });
@@ -88,6 +88,11 @@ const cards = websiteCategories.map((category) => {
   @media (--tablet) {
     .categories {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 64rem) {
+    .categories {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

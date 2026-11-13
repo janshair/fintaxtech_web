@@ -398,3 +398,55 @@ describe('motion template link previews', () => {
     }
   });
 });
+
+describe('placeholder website template', () => {
+  it('registers a tracked, noindex demo with its own gallery and category card', async () => {
+    const { placeholderTemplates, placeholderGallery, galleryTemplates, websiteCategories } =
+      await import('../src/content/templates');
+    const [template] = placeholderTemplates;
+    expect(template.id).toBe('placeholder-10');
+    // Suffixes stay unique across every category.
+    const suffixes = galleryTemplates.map((t) => Number(t.id.split('-').at(-1)));
+    expect(new Set(suffixes).size).toBe(galleryTemplates.length);
+    expect(template.route).toBe(`${placeholderGallery.route}${template.id}/`);
+    expect(existsSync(`src/pages${template.route}index.astro`)).toBe(true);
+    expect(existsSync(`src/pages${placeholderGallery.route}index.astro`)).toBe(true);
+    for (const file of ['app.js', 'identity.js', 'styles.css', 'preview.webp'])
+      expect(existsSync(`public${template.route}${file}`)).toBe(true);
+    expect(statSync(`public${template.preview.src}`).size).toBeLessThan(200_000);
+    expect(indexablePaths.filter((p) => p === placeholderGallery.route)).toHaveLength(1);
+    expect(indexablePaths).not.toContain(template.route);
+    expect(seoPages[template.route]).toMatchObject({ noindex: true, nofollow: true });
+    expect(websiteCategories.map((c) => c.featuredId)).toContain(template.id);
+    // The template website brief still offers only the full-site designs.
+    expect(allTemplates.map((t) => t.id)).not.toContain(template.id);
+  });
+
+  it('shows the package scope with example contact details and no invented claims', async () => {
+    const { placeholderDemo: c, THEME } = await import('../src/content/placeholder-demo');
+    const { placeholderTemplates } = await import('../src/content/templates');
+    const { templatePalettes } = await import('../src/content/template-palettes');
+    expect(templatePalettes['placeholder-10']).toMatchObject(THEME);
+    expect(c.email).toMatch(/@example\.com$/);
+    expect(c.footnote).toContain('Example business');
+    expect(c.whatsappNote).toContain('Example button');
+    const page = readFileSync(`src/pages${c.route}index.astro`, 'utf8');
+    for (const hook of [
+      'data-business',
+      'data-tagline',
+      'data-email',
+      'data-whatsapp',
+      'data-edit',
+    ])
+      expect(page).toContain(hook);
+    expect(page).toContain('noindex,nofollow');
+    expect(page.match(/<h1/g)).toHaveLength(1);
+    const text = JSON.stringify(c) + JSON.stringify(placeholderTemplates);
+    expect(text).not.toMatch(/£|award|trusted by|years of experience|\d+\s?reviews/i);
+    // Link previews are read before ?name= applies, so they name no business.
+    for (const value of [placeholderTemplates[0].seoTitle, placeholderTemplates[0].seoDescription])
+      expect(value).not.toContain(c.name);
+    const identity = readFileSync(`public${c.route}identity.js`, 'utf8');
+    expect(identity).not.toMatch(/innerHTML|localStorage|sessionStorage|fetch\(/);
+  });
+});

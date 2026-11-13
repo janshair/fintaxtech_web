@@ -3,7 +3,7 @@ export interface MotionTemplate {
   name: string;
   industry: string;
   description: string;
-  route: `/templates/website/${'motion' | '3d'}/${string}/`;
+  route: `/templates/website/${'motion' | '3d' | 'placeholder'}/${string}/`;
   preview: { src: string; alt: string; width: number; height: number };
   seoTitle: string;
   seoDescription: string;
@@ -234,6 +234,41 @@ export const threeDTemplates: readonly MotionTemplate[] = [
 ];
 export const allTemplates = [...motionTemplates, ...threeDTemplates];
 
+// Single-screen placeholder sites: the fixed-scope Placeholder Website package.
+// Kept out of allTemplates, which also feeds the template website brief.
+export const placeholderGallery = {
+  ...motionGallery,
+  route: '/templates/website/placeholder/',
+  title: 'Placeholder Website Templates',
+  intro:
+    'One page that puts your business online quickly: your logo, name and tagline, with an email address and a WhatsApp button. Preview it with your own business name.',
+  description:
+    'Explore placeholder website templates by FinTaxTech: a single responsive page with your logo, business name, tagline, email and WhatsApp button.',
+  backLabel: 'Browse placeholder templates',
+  note: 'This is a demonstration with an invented business. The example email address and WhatsApp button do not contact anyone.',
+};
+export const placeholderTemplates: readonly MotionTemplate[] = [
+  {
+    id: 'placeholder-10',
+    name: 'Lights On',
+    industry: 'Any new business',
+    description:
+      'A bold single-screen page in near-black with your name set large, a scan-line reveal, your tagline, and email and WhatsApp buttons.',
+    route: '/templates/website/placeholder/placeholder-10/',
+    preview: {
+      src: '/templates/website/placeholder/placeholder-10/preview.webp',
+      alt: 'Lights On placeholder demo: Alder & Rook in large white type on a near-black page, with a tagline, an example email address and an orange WhatsApp button.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Placeholder website demo – by FinTaxTech',
+    seoDescription:
+      'Explore a personalised single-page placeholder website demonstration by FinTaxTech, with a business name, tagline, email address and WhatsApp button.',
+  },
+];
+// Every demo with a gallery card and a noindex page.
+export const galleryTemplates = [...allTemplates, ...placeholderTemplates];
+
 export const websiteGallery = {
   route: '/templates/website/',
   title: 'Website Templates',
@@ -256,6 +291,14 @@ export const websiteCategories = [
       'Guide visitors through your site with scroll animations, smooth transitions and subtle hover effects.',
     linkLabel: 'Explore motion templates',
     featuredId: 'gym-06',
+  },
+  {
+    route: placeholderGallery.route,
+    title: 'Placeholder website templates',
+    description:
+      'Get online quickly with one page: your logo, name and tagline, plus email and WhatsApp buttons.',
+    linkLabel: 'Explore placeholder templates',
+    featuredId: 'placeholder-10',
   },
 ];
 
