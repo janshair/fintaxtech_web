@@ -13,6 +13,7 @@ import { gym06 } from './gym-06';
 import { consultant07 } from './consultant-07';
 import { beauty08 } from './beauty-08';
 import { wedding09 } from './wedding-09';
+import { plumbing10 } from './plumbing-10';
 
 // One schema per template. Field ids must be unique across all schemas
 // (prefix them with the template, like barberServices), because answers are flat.
@@ -41,5 +42,6 @@ export const templateBriefSchemas: Record<string, TemplateBriefSchema> = Object.
     consultant07,
     beauty08,
     wedding09,
+    plumbing10,
   ].map((schema) => [schema.id, schema]),
 );
