@@ -4,6 +4,23 @@
   // reminder demo and scroll reveals. Personalisation lives in identity.js.
   window.plumbingIdentity?.hydrate();
   window.plumbingIdentity?.stop();
+  // The final offer opens the template brief with this preview's values.
+  const identity = window.plumbingIdentity?.values || {};
+  const brief = new URL('/client/website-brief/templates/?template=plumbing-10', location.origin);
+  if (identity.name) brief.searchParams.set('name', identity.name);
+  if (identity.area) brief.searchParams.set('area', identity.area);
+  if (identity.phone) brief.searchParams.set('phone', identity.phone.display);
+  if (identity.ref) brief.searchParams.set('ref', identity.ref);
+  document.querySelectorAll('[data-brief-link]').forEach((node) => {
+    node.href = brief.pathname + brief.search;
+  });
+  if (identity.ref) {
+    const contact = new URL('/contact/', location.origin);
+    contact.searchParams.set('ref', identity.ref);
+    document.querySelectorAll('[data-agency-link]').forEach((node) => {
+      node.href = contact.pathname + contact.search;
+    });
+  }
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // falling drops
   const drops = document.querySelector('.drops');

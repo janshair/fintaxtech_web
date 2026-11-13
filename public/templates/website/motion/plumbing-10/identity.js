@@ -40,6 +40,8 @@
     name: clean(query.get('name'), 100),
     area: clean(query.get('area'), 100),
     phone: phone(query.get('phone')),
+    // A letter reference is carried to the brief and contact links only.
+    ref: /^[A-Za-z0-9_-]{1,32}$/.test(query.get('ref') || '') ? query.get('ref') : '',
   };
   const setText = (node, value) => {
     if (node.textContent !== value) node.textContent = value;

@@ -484,6 +484,30 @@ const fixtures: Record<
     },
     files: ['Portfolio photos (up to 6)'],
   },
+  'plumbing-10': {
+    name: 'Tayside Pipe & Boiler',
+    answers: {
+      plumbingServicesSource: ownWords,
+      plumbingGasSafe: 'Yes — our engineers are Gas Safe registered',
+      plumbingProcessSource: writeSteps,
+      plumbingReminders: 'Yes — we’ll message customers when their service is due',
+      plumbingFaqSource: useSample,
+    },
+    rows: {
+      plumbingServices: [
+        { name: 'Boiler repairs', description: 'No heat or hot water, fixed  fast' },
+        { name: 'Boiler servicing', description: 'A yearly safety check' },
+        { name: 'Leaks & bursts', description: 'From drips to ceilings' },
+        { name: 'Bathrooms', description: 'Showers, toilets and full fits' },
+      ],
+      plumbingProcess: [
+        { title: 'Send a photo', line: 'Snap the problem and add your postcode.' },
+        { title: 'Get a fixed quote', line: 'You know the price before we start.' },
+        { title: 'We fix it', line: 'Dust sheets down and tidied up after.' },
+      ],
+    },
+    files: ['Photos of your work (up to 6)', 'Van photos'],
+  },
 };
 export const templateIds = Object.keys(fixtures);
 

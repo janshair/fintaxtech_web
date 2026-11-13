@@ -39,6 +39,7 @@ import { gymDemo } from '../src/content/gym-demo';
 import { consultantDemo } from '../src/content/consultant-demo';
 import { beautyDemo, treatments } from '../src/content/beauty-demo';
 import { allergenLine, presets, weddingDemo } from '../src/content/wedding-demo';
+import { plumbingDemo } from '../src/content/plumbing-demo';
 import {
   barberReview,
   barberServices,
@@ -97,6 +98,11 @@ const contentFiles: Record<string, { file: unknown; extras: string[]; samples: s
     file: { ...weddingDemo, presets, allergenLine },
     extras: ['fairDates'],
     samples: ['badge'],
+  },
+  'plumbing-10': {
+    file: plumbingDemo,
+    extras: ['gasSafe', 'reminders'],
+    samples: ['services', 'process', 'questions'],
   },
 };
 // Every key the brief writes exists in the content file with the same type, item by item.
@@ -260,6 +266,7 @@ const requiredFacts: Record<string, string> = {
   beautyVouchers: 'whether vouchers are sold',
   weddingType: 'picks the supplier preset',
   weddingFairs: 'real fairs or none',
+  plumbingGasSafe: 'gas work only when Gas Safe registered',
 };
 describe('every required content group can use the template’s sample', () => {
   it.each(templateIds)('%s', (id) => {
@@ -509,6 +516,25 @@ describe('template content details', () => {
     const state = completeTemplateBrief('wedding-09');
     state.answers.weddingType = 'Cake maker';
     expect(error(state, 'weddingAllergens')).toBe(templateBriefCopy.missing);
+  });
+  it('plumbing-10: icons come from the template; gas work and reminders need Gas Safe', () => {
+    const data = content('plumbing-10');
+    expect(data.services).toEqual([
+      { icon: '🔥', name: 'Boiler repairs', description: 'No heat or hot water, fixed fast' },
+      { icon: '🛠️', name: 'Boiler servicing', description: 'A yearly safety check' },
+      { icon: '💧', name: 'Leaks & bursts', description: 'From drips to ceilings' },
+      { icon: '♨️', name: 'Bathrooms', description: 'Showers, toilets and full fits' },
+    ]);
+    expect(data.process[1]).toEqual(['Get a fixed quote', 'You know the price before we start.']);
+    expect(data.questions).toBeNull();
+    expect([data.gasSafe, data.reminders]).toEqual([true, true]);
+    const state = completeTemplateBrief('plumbing-10');
+    state.answers.plumbingGasSafe = 'No — we don’t do gas work';
+    rules.pruneBrief(state);
+    expect(state.answers.plumbingReminders).toBeUndefined();
+    expect(rules.invalidSection(state)).toBe(-1);
+    const data2 = toTemplateBriefData(state).content as any;
+    expect([data2.gasSafe, data2.reminders]).toEqual([false, false]);
   });
   it('juice-bar-05: tones come from the template, and the allergen wording is confirmed', () => {
     const data = content('juice-bar-05');
