@@ -115,7 +115,7 @@ it('resolves all nonempty service combinations without duplicated guidelines or 
 it('validates name and email, allows optional business/phone, and checks supplied phone', () => {
   expect(validateCustomer(estimateCustomer)).toBeNull();
   expect(
-    validateCustomer({ ...estimateCustomer, business: '', phone: '+44 7884 594929' }),
+    validateCustomer({ ...estimateCustomer, business: '', phone: '+44 7442 906018' }),
   ).toBeNull();
   for (const patch of [
     { name: '' },

@@ -109,7 +109,7 @@ test('Metoni routes, store destinations and static metadata', async ({
     'href',
     /ask@fintaxtech.co.uk/,
   );
-  await expect(page.locator('main a[href^="tel:"]')).toHaveAttribute('href', 'tel:+447884594929');
+  await expect(page.locator('main a[href^="tel:"]')).toHaveAttribute('href', 'tel:+447442906018');
   await expect(page.locator('main form')).toHaveCount(0);
 });
 

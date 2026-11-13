@@ -372,6 +372,7 @@ describe('motion template link previews', () => {
       'consultant-07': (await import('../src/content/consultant-demo')).consultantDemo.name,
       'beauty-08': (await import('../src/content/beauty-demo')).beautyDemo.name,
       'wedding-09': (await import('../src/content/wedding-demo')).weddingDemo.name,
+      'plumbing-10': (await import('../src/content/plumbing-demo')).plumbingDemo.name,
     };
     expect(motionTemplates.map((t) => t.id)).toEqual(Object.keys(demoNames));
     for (const template of motionTemplates) {

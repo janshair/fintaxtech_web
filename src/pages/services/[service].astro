@@ -15,7 +15,7 @@ export function getStaticPaths() {
   return services.map((service) => ({ params: { service: service.id }, props: { service } }));
 }
 const { service: s } = Astro.props;
-const example = serviceExamples[s.id];
+const examples = serviceExamples[s.id] ?? [];
 ---
 
 <SiteLayout title={s.name} description={s.description}
@@ -27,11 +27,13 @@ const example = serviceExamples[s.id];
         </p>
         {s.serviceArea && <p>{s.serviceArea}</p>}
         {
-          example && (
+          examples.map((example) => (
             <p class="service-example">
-              <a href={example.href}>{example.label} <span aria-hidden="true">→</span></a>
+              <a href={example.href}>
+                {example.label} <span aria-hidden="true">→</span>
+              </a>
             </p>
-          )
+          ))
         }
         <div class="actions">
           <a class="button primary" href={`/enquiry/?service=${s.id}`}>{c.lead}</a>

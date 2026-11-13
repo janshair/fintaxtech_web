@@ -1,0 +1,525 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ShowcaseImage from '../../../components/ShowcaseImage.astro';
+import { showcase } from '../../../data/showcase';
+import { services } from '../../../content/services';
+const kit = showcase.find((entry) => entry.id === 'plumbing')!;
+const img = (name: string) => `/showcase/plumbing/${name}`;
+const liveSite = '/templates/website/motion/plumbing-10/';
+const wide = '(max-width: 1180px) calc(100vw - 44px), 1136px';
+---
+
+<SiteLayout
+  title={kit.title}
+  description={kit.description}
+  socialDescription={kit.socialDescription}
+  socialImage={{
+    url: kit.image.src,
+    width: kit.image.width,
+    height: kit.image.height,
+    type: 'image/png',
+    alt: kit.image.alt,
+  }}
+>
+  <div class="pk">
+    <section class="pk-hero">
+      <div class="wrap">
+        <div class="eyebrow">Growth kit · Plumbers &amp; heating engineers</div>
+        <h1>Everything a plumbing and heating business needs to win more jobs</h1>
+        <p class="lead">
+          A website that turns searches into calls, a brand that looks trustworthy, a customer app,
+          AI that answers missed calls, and the groundwork that helps Google and AI assistants find
+          you. Pick only the pieces you'd use.
+        </p>
+        <span class="note"
+          >Sample work for an invented business, Copperwell Plumbing &amp; Heating. Not a real
+          company.</span
+        >
+        <div class="chips">
+          <a href="#website">Website</a><a href="#brand">Logo &amp; brand</a><a href="#app"
+            >Mobile app</a
+          ><a href="#automation">AI automation</a><a href="#get-found">SEO · AEO · GEO</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="website">
+      <div class="wrap grid">
+        <div>
+          <div class="eyebrow">01 · Website</div>
+          <h2>A website that turns searches into calls</h2>
+          <p class="lead">
+            Built for phones first, because that's where people search when the boiler stops.
+          </p>
+          <ul class="ticks">
+            <li>Call and "send a photo" buttons always in reach</li>
+            <li>Quote form with problem type, urgency and photo</li>
+            <li>Free boiler service reminder sign-up</li>
+            <li>Emergency tip and FAQ that answer real questions</li>
+          </ul>
+          <a class="btn" href={liveSite}>See the live website</a>
+          <p class="aside">
+            Want to see it with your business name on it? Ask and I'll send you a personalised
+            preview.
+          </p>
+        </div>
+        <div class="card">
+          <a href={liveSite}
+            ><ShowcaseImage
+              src={img('website-showcase.png')}
+              alt="The Copperwell sample website on a laptop and a phone"
+              width={2400}
+              height={1500}
+              sizes="(max-width: 820px) calc(100vw - 80px), 540px"
+            /></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="brand">
+      <div class="wrap">
+        <div class="eyebrow">02 · Logo &amp; brand</div>
+        <h2>A brand that says "you can trust us in your home"</h2>
+        <p class="lead">
+          A water drop holding a flame: plumbing and heating in one simple mark. Deep blue for
+          trust, copper for the trade. Every version you need for your website, van livery design,
+          social media and app.
+        </p>
+        <ShowcaseImage
+          class="wide"
+          src={img('brand-board.png')}
+          alt="Copperwell brand identity board: logo versions, colours, type, app icon and social profile picture"
+          width={3200}
+          height={2002}
+          sizes={wide}
+        />
+        <div class="logos">
+          <div>
+            <ShowcaseImage
+              src={img('logo-primary.webp')}
+              alt="Copperwell primary logo"
+              width={786}
+              height={272}
+              responsive={false}
+            />
+          </div>
+          <div class="dark">
+            <ShowcaseImage
+              src={img('logo-primary-dark.webp')}
+              alt="Copperwell logo on a dark background"
+              width={786}
+              height={272}
+              responsive={false}
+            />
+          </div>
+          <div>
+            <ShowcaseImage
+              src={img('logo-stacked.webp')}
+              alt="Copperwell stacked logo"
+              width={542}
+              height={466}
+              responsive={false}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="app">
+      <div class="wrap">
+        <div class="eyebrow">03 · Mobile app</div>
+        <h2>Report it, track it, keep every record</h2>
+        <p class="lead">
+          Customers report a problem with photos, see when the engineer is on the way, and keep
+          their boiler service records in one place.
+        </p>
+        <ShowcaseImage
+          class="wide"
+          src={img('app-showcase.png')}
+          alt="Four app screens: home with boiler service due, report a problem, engineer on the way, and home records"
+          width={3600}
+          height={2020}
+          sizes={wide}
+        />
+      </div>
+    </section>
+
+    <section id="automation">
+      <div class="wrap">
+        <div class="eyebrow">04 · AI automation</div>
+        <h2>Stop losing jobs to missed calls</h2>
+        <p class="lead">
+          AI automation that can save you 10 hours or more a week. It replies to missed calls,
+          sorts emergencies from routine jobs, books slots into your diary and brings boiler
+          services back every year.
+        </p>
+        <ShowcaseImage
+          class="wide"
+          src={img('automation-showcase.png')}
+          alt="Five-step missed-call automation with an example WhatsApp conversation"
+          width={3600}
+          height={2160}
+          sizes={wide}
+        />
+      </div>
+    </section>
+
+    <section id="get-found">
+      <div class="wrap">
+        <div class="eyebrow">05 · SEO · AEO · GEO</div>
+        <h2>Easier to find on Google. Described right by AI.</h2>
+        <p class="lead">
+          People now find trades three ways: they search Google, they ask a question, or they ask
+          an AI assistant. We set the business up for all three.
+        </p>
+        <ShowcaseImage
+          class="wide"
+          src={img('getfound-showcase.png')}
+          alt="Example local search result, AI assistant answer and FAQ answer for the sample business, with SEO, AEO and GEO checklists"
+          width={3600}
+          height={2000}
+          sizes={wide}
+        />
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap narrow">
+        <div class="eyebrow">Questions</div>
+        <h2>Quick answers</h2>
+        {
+          kit.faqs!.map((faq, i) => (
+            <details open={i === 0}>
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="cta">
+          <h2>Want to see this for your business?</h2>
+          <p class="lead center">
+            Tell me what's working and what isn't. I'll suggest only what would genuinely help,
+            starting with a free preview of your website with your name on it.
+          </p>
+          <div class="cta-buttons">
+            <a class="btn" href="tel:07442906018">Call 07442 906018</a>
+            <a
+              class="btn ghost"
+              href="https://wa.me/447442906018?text=Hi%20Jan%2C%20I%20saw%20the%20plumbing%20growth%20kit"
+              >WhatsApp me</a
+            >
+            <a class="btn ghost" href="mailto:ask@fintaxtech.co.uk?subject=Plumbing%20growth%20kit"
+              >ask@fintaxtech.co.uk</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="related wrap" aria-labelledby="related-title">
+      <h2 id="related-title">Related services</h2>
+      <ul>
+        {
+          services.map((service) => (
+            <li>
+              <a href={`/services/${service.id}/`}>{service.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p class="foot">
+      FinTaxTech Ltd · Websites, branding, apps, AI automation and SEO for small businesses<br
+      />Copperwell Plumbing &amp; Heating is an invented business used to show sample work. Design
+      services only.
+    </p>
+  </div>
+</SiteLayout>
+
+<style>
+  /* Sample-brand palette, scoped to this page's content only. Site header/footer keep FinTaxTech styling. */
+  .pk {
+    --navy: #0f2b3c;
+    --navy2: #16384c;
+    --ink: #0a1d29;
+    --copper: #c8743a;
+    --aqua: #39b6c4;
+    --mist: #eef4f6;
+    --steel: #86a0ae;
+    --soft: #b7c8d1;
+    --line: #1f4a63;
+    background: var(--ink);
+    color: var(--mist);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    margin-top: var(--space-5);
+    overflow-x: clip;
+  }
+  .pk a {
+    color: var(--copper);
+  }
+  .pk :focus-visible {
+    outline: 2px solid var(--aqua);
+    outline-offset: 3px;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+  .wrap.narrow {
+    max-width: 860px;
+  }
+  .eyebrow {
+    font: 600 13px/1.4 var(--font-body);
+    letter-spacing: 3px;
+    color: var(--copper);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .pk h1,
+  .pk h2 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin: 0.3em 0 0.4em;
+    color: var(--mist);
+  }
+  .pk h1 {
+    font-size: clamp(34px, 6vw, 60px);
+  }
+  .pk h2 {
+    font-size: clamp(26px, 4vw, 40px);
+  }
+  .lead {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--soft);
+    max-width: 740px;
+    margin: 0 0 1em;
+  }
+  .lead.center {
+    margin: 0 auto 18px;
+  }
+  .pk-hero {
+    padding: 70px 0 40px;
+    background: radial-gradient(ellipse at 70% 0%, #1d4a63, var(--ink) 65%);
+  }
+  .note {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--steel);
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 6px 14px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .pk .chips a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+    color: var(--mist);
+    background: var(--navy2);
+    padding: 10px 16px;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  section {
+    padding: 56px 0;
+    border-top: 1px solid #12324a;
+    scroll-margin-top: var(--space-6);
+  }
+  .pk-hero {
+    border-top: 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 34px;
+    align-items: center;
+  }
+  .card {
+    background: var(--navy);
+    border-radius: 22px;
+    padding: 18px;
+  }
+  .pk :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 18px;
+  }
+  .pk :global(picture) {
+    display: block;
+  }
+  .pk :global(img.wide) {
+    width: 100%;
+    margin-top: 26px;
+  }
+  .card :global(img) {
+    width: 100%;
+  }
+  ul.ticks {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  ul.ticks li {
+    padding-left: 30px;
+    position: relative;
+    margin: 8px 0;
+    color: var(--soft);
+  }
+  ul.ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+    background: var(--copper);
+  }
+  .pk .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    background: var(--copper);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 22px;
+    border-radius: 14px;
+    margin: 6px 8px 6px 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .pk .btn.ghost {
+    background: transparent;
+    color: var(--mist);
+    border: 1.5px solid var(--line);
+  }
+  .aside {
+    color: var(--steel);
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .logos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+  }
+  .logos div {
+    background: var(--mist);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    min-height: 150px;
+  }
+  .logos div.dark {
+    background: var(--navy);
+  }
+  .pk .logos :global(img) {
+    border-radius: 0;
+    max-height: 120px;
+    width: auto;
+  }
+  details {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+  }
+  summary {
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 28px;
+  }
+  details p {
+    color: var(--soft);
+    margin: 10px 0 0;
+  }
+  .cta {
+    background: linear-gradient(135deg, #1d4a63, var(--navy));
+    border-radius: 28px;
+    padding: 40px;
+    text-align: center;
+  }
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .related {
+    padding-top: 8px;
+    text-align: center;
+  }
+  .pk .related h2 {
+    font-size: 18px;
+    margin: 0 0 12px;
+    color: var(--steel);
+  }
+  .related ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 22px;
+  }
+  .related li {
+    margin: 0;
+  }
+  .pk .related a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--mist);
+    text-decoration-color: var(--copper);
+    text-underline-offset: 4px;
+  }
+  .foot {
+    padding: 40px 22px 60px;
+    margin: 0;
+    color: var(--steel);
+    font-size: 14px;
+    text-align: center;
+  }
+  @media (max-width: 820px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .logos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .cta {
+      padding: 28px 18px;
+    }
+    .cta-buttons .btn {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+</style>

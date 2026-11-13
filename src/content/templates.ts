@@ -190,6 +190,25 @@ export const motionTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Explore a personalised website demonstration for wedding photographers, florists and cake makers by FinTaxTech, with example packages, scroll-driven motion and a sample date checker.',
   },
+  {
+    id: 'plumbing-10',
+    name: 'Copperwell',
+    industry: 'Plumbers & heating engineers',
+    description:
+      'A phone-first plumbing and heating website in deep blue and copper, with falling water drops, a flickering flame mark, a photo quote demo and a boiler service reminder. Try it with your own business name.',
+    route: '/templates/website/motion/plumbing-10/',
+    preview: {
+      src: '/templates/website/motion/plumbing-10/preview.webp',
+      alt: 'Copperwell plumbing and heating demo: a deep blue hero reading “No heat? A leak? Sorted, properly.” beside a water drop holding a copper flame.',
+      width: 1200,
+      height: 900,
+    },
+    trade: 'Plumbing',
+    // No demo business name: link previews are read before ?name= applies.
+    seoTitle: 'Plumbing website demo – by FinTaxTech',
+    seoDescription:
+      'Explore a personalised plumbing and heating website demo by FinTaxTech, with a photo quote demo, boiler service reminders and answers to common questions.',
+  },
 ];
 
 export const barberRedirect = {

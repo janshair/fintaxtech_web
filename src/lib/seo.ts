@@ -145,7 +145,7 @@ export function structuredData(
         ...(jobPosting ? { mainEntity: { '@id': jobPosting['@id'] } } : {}),
         ...(kit
           ? {
-              mainEntity: { '@id': url + '#kit' },
+              mainEntity: { '@id': url + '#parts' },
               primaryImageOfPage: { '@id': url + '#primaryimage' },
               datePublished: kit.datePublished,
             }
@@ -228,29 +228,38 @@ export function structuredData(
               caption: kit.image.alt,
             },
             {
-              '@type': 'CreativeWork',
-              '@id': url + '#kit',
-              name: kit.title,
-              headline: kit.title,
-              description: `${kit.description} ${kit.sampleBusiness} is an invented business used to show sample work.`,
-              url,
-              image: { '@id': url + '#primaryimage' },
-              genre: 'Sample work',
-              audience: { '@type': 'BusinessAudience', audienceType: kit.trade },
-              creator: { '@id': organization },
-              publisher: { '@id': organization },
-              datePublished: kit.datePublished,
-              inLanguage: 'en-GB',
-              isPartOf: { '@id': absoluteURL(showcaseIndex.route) + '#webpage' },
-              mainEntityOfPage: { '@id': url + '#webpage' },
-              hasPart: kit.parts.map((part) => ({
-                '@type': 'CreativeWork',
-                name: part.name,
-                url: `${url}#${part.anchor}`,
-                image: absoluteURL(part.image),
-                about: { '@id': absoluteURL(`/services/${part.service}/`) + '#service' },
+              '@type': 'ItemList',
+              '@id': url + '#parts',
+              name: `${kit.title}: sample work for ${kit.sampleBusiness}, an invented business`,
+              numberOfItems: kit.parts.length,
+              itemListElement: kit.parts.map((part, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                item: {
+                  '@type': 'CreativeWork',
+                  name: part.name,
+                  url: absoluteURL(part.url ?? `${kit.url}#${part.anchor}`),
+                  ...(part.image ? { image: absoluteURL(part.image) } : {}),
+                  creator: { '@id': organization },
+                  ...(part.service
+                    ? { about: { '@id': absoluteURL(`/services/${part.service}/`) + '#service' } }
+                    : {}),
+                },
               })),
             },
+            ...(kit.faqs?.length
+              ? [
+                  {
+                    '@type': 'FAQPage',
+                    '@id': url + '#faq',
+                    mainEntity: kit.faqs.map((faq) => ({
+                      '@type': 'Question',
+                      name: faq.question,
+                      acceptedAnswer: { '@type': 'Answer', text: faq.schemaAnswer ?? faq.answer },
+                    })),
+                  },
+                ]
+              : []),
           ]
         : []),
       ...(isShowcaseIndex

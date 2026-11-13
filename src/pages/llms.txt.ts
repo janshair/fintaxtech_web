@@ -17,13 +17,15 @@ export function GET() {
   ].join('\n');
 
   const work = [
-    '## Our work: growth kits',
+    showcaseIndex.llmsHeading,
     '',
     `[${showcaseIndex.title}](${absoluteURL(showcaseIndex.route)}): ${showcaseIndex.description} Each kit uses an invented business; it is sample work, not a client project.`,
     '',
-    ...showcase.map(
+    ...showcase.flatMap(
       (kit) =>
-        `- [${kit.trade}](${absoluteURL(kit.url)}): ${kit.description} Sample business: ${kit.sampleBusiness} (invented).`,
+        kit.llms ?? [
+          `- [${kit.trade}](${absoluteURL(kit.url)}): ${kit.description} Sample business: ${kit.sampleBusiness} (invented).`,
+        ],
     ),
   ].join('\n');
 

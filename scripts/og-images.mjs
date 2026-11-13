@@ -96,6 +96,14 @@ const styles = {
        <circle cx="250" cy="210" r="100" fill="none" stroke="${t}" stroke-width="18" opacity=".85"/>
        <path d="M250 90l14 -26h-28z" fill="${a}"/>`,
   },
+  'plumbing-10': {
+    theme: 'plumbing-demo',
+    display: "Archivo, 'Arial Black', Arial, sans-serif",
+    motif: (a, t) =>
+      `<path d="M200 30C200 30 70 175 70 255a130 130 0 0 0 260 0C330 175 200 30 200 30z" fill="${t}" opacity=".92"/>
+       <path d="M200 155c3 40 53 60 53 120a53 53 0 0 1-106 0c0-33 17-50 27-73 7 20 13 30 23 33-7-27-7-53 3-80z" fill="${a}"/>
+       <path d="M200 240c7 17 23 23 23 47a23 23 0 0 1-46 0c0-17 13-27 23-47z" fill="#39b6c4"/>`,
+  },
 };
 
 // Readable text on the chosen background: the palette's paper or the brand colour.
