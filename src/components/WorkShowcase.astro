@@ -8,11 +8,12 @@ import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
 import { featuredWork as work, publishedApps, workCopy } from '../content/work';
 ---
 
-<section class="section work-showcase" aria-labelledby="featured-work-title">
+<!-- Finished client work, shown under the "Client projects" heading on /work/. -->
+<article class="work-showcase" aria-labelledby="featured-work-title">
   <div class="work-showcase-head">
     <div class="work-showcase-intro">
       <p class="eyebrow">{work.category}</p>
-      <h2 id="featured-work-title">{work.name}</h2>
+      <h3 id="featured-work-title">{work.name}</h3>
       <p>{work.summary}</p>
       <a
         class="button"
@@ -30,7 +31,7 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
     {
       work.projectDetails.map(([question, answer]) => (
         <section>
-          <h3>{question}</h3>
+          <h4>{question}</h4>
           <p>{answer}</p>
         </section>
       ))
@@ -50,19 +51,19 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
       <figcaption>{work.mobileCaption}</figcaption>
     </figure>
   </div>
-</section>
+</article>
 
-<section class="section" aria-labelledby="published-apps-title">
+<section class="published-apps" aria-labelledby="published-apps-title">
   <p class="eyebrow">{workCopy.appsEyebrow}</p>
-  <h2 id="published-apps-title">{workCopy.appsTitle}</h2>
+  <h3 id="published-apps-title">{workCopy.appsTitle}</h3>
   <ul class="app-list">
     {
       publishedApps.map((app) => (
         <li class="app-card">
           <div>
-            <h3>
+            <h4>
               <a href={app.pageURL}>{app.name}</a>
-            </h3>
+            </h4>
             <p>{app.summary}</p>
           </div>
           {'pageURL' in app && (
@@ -81,6 +82,18 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
 </section>
 
 <style>
+  .work-showcase h3 {
+    font-size: var(--h2);
+  }
+  .work-showcase h4 {
+    font-size: var(--h3);
+    margin: 0 0 var(--space-3);
+  }
+  .published-apps {
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+  }
   .app-list {
     list-style: none;
     padding: 0;
@@ -99,7 +112,8 @@ import { featuredWork as work, publishedApps, workCopy } from '../content/work';
     flex-direction: column;
     gap: 1.25rem;
   }
-  .app-card h3 {
+  .app-card h4 {
+    font-size: var(--h3);
     margin: 0 0 0.5rem;
   }
   .app-card p {

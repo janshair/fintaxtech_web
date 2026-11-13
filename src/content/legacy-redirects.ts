@@ -12,11 +12,11 @@ export const legacyRedirects = [
   {
     slug: 'portfolio',
     route: '/portfolio.html',
-    destination: '/selected-work/',
-    title: 'Continue to Selected Work',
+    destination: '/work/',
+    title: 'Continue to Our Work',
     message:
-      'Our portfolio is now in Selected Work. Follow the link below if you are not redirected automatically.',
-    label: 'Explore Selected Work',
+      'Our portfolio is now on Our work. Follow the link below if you are not redirected automatically.',
+    label: 'See our work',
   },
   {
     slug: 'services',

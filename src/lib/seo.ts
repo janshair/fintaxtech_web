@@ -14,6 +14,7 @@ import { careersCopy } from '../content/careers';
 import { templateDirectory, websiteGallery } from '../content/templates';
 import { jobStructuredData, type JobSEO } from './job-seo';
 import { showcase, showcaseIndex } from '../data/showcase';
+import { featuredWork, publishedApps } from '../content/work';
 export interface ArticleSEO {
   title: string;
   pubDate: Date;
@@ -150,7 +151,9 @@ export function structuredData(
               datePublished: kit.datePublished,
             }
           : {}),
-        ...(isShowcaseIndex ? { mainEntity: { '@id': url + '#kits' } } : {}),
+        ...(isShowcaseIndex
+          ? { mainEntity: [{ '@id': url + '#client-projects' }, { '@id': url + '#kits' }] }
+          : {}),
         ...(isPricing
           ? {
               about: { '@id': url + '#packages' },
@@ -266,8 +269,18 @@ export function structuredData(
         ? [
             {
               '@type': 'ItemList',
+              '@id': url + '#client-projects',
+              name: `${showcaseIndex.live.title}: finished and live`,
+              numberOfItems: 1 + publishedApps.length,
+              itemListElement: [
+                { name: featuredWork.name, url: featuredWork.url },
+                ...publishedApps.map((app) => ({ name: app.name, url: absoluteURL(app.pageURL) })),
+              ].map((item, i) => ({ '@type': 'ListItem', position: i + 1, ...item })),
+            },
+            {
+              '@type': 'ItemList',
               '@id': url + '#kits',
-              name: showcaseIndex.title,
+              name: `${showcaseIndex.concepts.title}: concept work for invented businesses`,
               numberOfItems: showcase.length,
               itemListElement: showcase.map((entry, i) => ({
                 '@type': 'ListItem',

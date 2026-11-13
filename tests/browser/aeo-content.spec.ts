@@ -43,7 +43,7 @@ test('published project evidence and the article answer are available without Ja
 }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto('/selected-work/');
+  await page.goto('/work/');
   await expect(page.getByRole('heading', { name: 'What did FinTaxTech deliver?' })).toBeVisible();
   await expect(page.locator('main')).toContainText('not a measurement of enquiry growth or sales');
   await page.goto('/blog/does-your-app-need-to-work-offline/');

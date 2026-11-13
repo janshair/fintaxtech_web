@@ -1,0 +1,247 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ShowcaseImage from '../../components/ShowcaseImage.astro';
+import WorkShowcase from '../../components/WorkShowcase.astro';
+import { showcase, showcaseIndex as c } from '../../data/showcase';
+import { featuredWork, publishedApps } from '../../content/work';
+const first = showcase[0];
+// The two kinds of work, summarised at the top so the difference is clear before scrolling.
+const groups = [
+  {
+    ...c.live,
+    kind: 'live',
+    items: [featuredWork.name, ...publishedApps.map((app) => app.name)],
+  },
+  {
+    ...c.concepts,
+    kind: 'concept',
+    items: showcase.map((kit) => kit.trade),
+  },
+];
+---
+
+<SiteLayout
+  title={c.title}
+  description={c.description}
+  socialImage={{
+    url: first.image.src,
+    width: first.image.width,
+    height: first.image.height,
+    type: 'image/png',
+    alt: first.image.alt,
+  }}
+>
+  <div class="container directory">
+    <h1>{c.title}</h1>
+    <p class="lead">{c.intro}</p>
+    <nav class="work-key" aria-label={c.jumpLabel}>
+      {
+        groups.map((group) => (
+          <a class:list={['key-card', group.kind]} href={`#${group.id}`}>
+            <span class:list={['badge', group.kind]}>{group.badge}</span>
+            <strong>{group.title}</strong>
+            <span class="muted">{group.intro}</span>
+            <span class="key-items">{group.items.join(' · ')}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <section class="work-group" id={c.live.id} aria-labelledby="client-projects-title">
+      <header class="group-head">
+        <p class="eyebrow">
+          <span class="badge live">{c.live.badge}</span>
+          {c.live.eyebrow}
+        </p>
+        <h2 id="client-projects-title">{c.live.title}</h2>
+        <p class="muted">{c.live.intro}</p>
+      </header>
+      <WorkShowcase />
+    </section>
+
+    <section class="work-group" id={c.concepts.id} aria-labelledby="concept-kits-title">
+      <header class="group-head">
+        <p class="eyebrow">
+          <span class="badge concept">{c.concepts.badge}</span>
+          {c.concepts.eyebrow}
+        </p>
+        <h2 id="concept-kits-title">{c.concepts.title}</h2>
+        <p class="muted">{c.concepts.intro}</p>
+      </header>
+      <ul class="kits">
+        {
+          showcase.map((kit) => (
+            <li>
+              <a class="service-card kit" href={kit.url} aria-labelledby={`kit-${kit.id}`}>
+                <ShowcaseImage
+                  src={kit.image.src}
+                  alt={kit.image.alt}
+                  width={kit.image.width}
+                  height={kit.image.height}
+                  sizes="(min-width: 48rem) 50vw, 100vw"
+                  loading="lazy"
+                />
+                <span class="kit-tags">
+                  <span class="badge concept">{c.concepts.badge}</span>
+                  <span>
+                    {c.concepts.sampleLabel} {kit.sampleBusiness}
+                  </span>
+                </span>
+                <h3 id={`kit-${kit.id}`}>
+                  {kit.trade}
+                  <span aria-hidden="true">→</span>
+                </h3>
+                <p class="muted">{kit.description}</p>
+                <span class="more">{c.cardLink}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</SiteLayout>
+
+<style>
+  .directory {
+    padding-block: var(--space-6) var(--space-9);
+  }
+  .lead {
+    max-width: var(--reading);
+  }
+  .work-key {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  @media (--tablet) {
+    .work-key {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .key-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .key-card.live {
+    border-left: 4px solid var(--accent);
+  }
+  .key-card.concept {
+    border-left: 4px dashed var(--muted);
+  }
+  .key-card:hover strong,
+  .key-card:focus-visible strong {
+    text-decoration: underline;
+  }
+  .key-card strong {
+    font-size: var(--h3);
+  }
+  .key-items {
+    font: var(--small) var(--font-mono);
+    color: var(--muted);
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+    font: var(--weight-strong) var(--caption) / 1.4 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badge.live {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .badge.live::before {
+    content: '';
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .badge.concept {
+    border: 1px dashed currentColor;
+    color: var(--muted);
+  }
+  .work-group {
+    margin-top: var(--space-9);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+    scroll-margin-top: var(--space-6);
+  }
+  .group-head {
+    max-width: var(--reading);
+    margin-bottom: var(--space-7);
+  }
+  .group-head .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .kits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .kits li {
+    margin: 0;
+  }
+  @media (--tablet) {
+    .kits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .kit {
+    display: block;
+    padding: var(--space-4);
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+  }
+  .kit :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+  .kit-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    font-size: var(--small);
+    color: var(--muted);
+  }
+  h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin: var(--space-3) 0 var(--space-2);
+    font-size: var(--h3);
+  }
+  h3 span,
+  .more {
+    color: var(--accent);
+  }
+  .kit p {
+    margin-bottom: var(--space-3);
+  }
+  .more {
+    font-weight: var(--weight-strong);
+  }
+</style>

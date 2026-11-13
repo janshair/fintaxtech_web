@@ -1,0 +1,17 @@
+---
+// Selected Work is now the top of /work/. This page keeps old links working.
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import StaticRedirect from '../../components/StaticRedirect.astro';
+import { workRedirects } from '../../data/showcase';
+const r = workRedirects.find((item) => item.route === '/selected-work/')!;
+---
+
+<SiteLayout title={r.title}>
+  <StaticRedirect
+    title={r.title}
+    message={r.message}
+    destination={r.destination}
+    label={r.label}
+    id="work-redirect-link"
+  />
+</SiteLayout>

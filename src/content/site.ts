@@ -45,7 +45,7 @@ export const ui = {
   backHome: 'Back to home',
   notFound: 'This page could not be found',
   notFoundText: 'The address may have changed. Choose a service or return to the homepage.',
-  work: 'Selected Work',
+  work: 'Our work',
   draftLegal:
     'This policy reflects our intended operating practices. Final legal review is pending before public launch.',
   process: 'How It Works',
@@ -63,7 +63,7 @@ export const contactRedirect = {
 export const navigation = [
   ['/', 'Home'],
   // ['/services/', 'Services'],
-  ['/showcase/', 'Our work'],
+  ['/work/', 'Our work'],
   // ['/how-it-works/', 'How It Works'],
   ['/pricing/', 'Pricing'],
   // ['/about/', 'About'],

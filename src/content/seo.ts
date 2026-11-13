@@ -36,7 +36,7 @@ import { pricingCopy } from './pricing';
 import { blogCopy } from './blog';
 import { services } from './services';
 import { contactRedirect, ui } from './site';
-import { showcase, showcaseIndex } from '../data/showcase';
+import { showcase, showcaseIndex, workRedirects } from '../data/showcase';
 export const seoCopy = {
   imageAlt: 'FinTaxTech — Complexity made clear.',
   breadcrumbs: 'Breadcrumb',
@@ -215,6 +215,19 @@ export const seoPages: Record<string, PageSEO> = {
   [showcaseIndex.route]: { title: showcaseIndex.title, description: showcaseIndex.description },
   ...Object.fromEntries(
     showcase.map(({ url, title, description }) => [url, { title, description }]),
+  ),
+  // /showcase/ and /selected-work/ moved to /work/; the old addresses are redirect pages.
+  ...Object.fromEntries(
+    workRedirects.map((r) => [
+      r.route,
+      {
+        title: r.title,
+        description: r.message,
+        canonical: r.destination,
+        noindex: true,
+        nofollow: true,
+      },
+    ]),
   ),
   '/blog/': { title: blogCopy.seoTitle, description: blogCopy.description },
   ...Object.fromEntries(

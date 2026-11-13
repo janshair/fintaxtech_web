@@ -137,11 +137,6 @@ export const pages: Record<string, InfoPage> = {
       ],
     ],
   },
-  'selected-work': {
-    title: 'Selected Work',
-    intro: 'A sample of websites and apps built by FinTaxTech.',
-    sections: [],
-  },
   privacy: {
     title: 'Privacy notice',
     intro: 'How Fintaxtech Ltd handles website use and project enquiries.',

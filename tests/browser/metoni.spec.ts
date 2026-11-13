@@ -12,7 +12,7 @@ test('shared Google Play badges retain app destinations, keyboard access and res
     await page.addInitScript((theme) => localStorage.setItem('ftt:theme', theme), theme);
     for (const width of [320, 390, 1280]) {
       await page.setViewportSize({ width, height: 900 });
-      for (const route of ['/selected-work/', metoni.route]) {
+      for (const route of ['/work/', metoni.route]) {
         await page.goto(route);
         const badges = page.locator('.google-play-badge');
         await expect(badges).toHaveCount(2);
@@ -96,7 +96,7 @@ test('Metoni routes, store destinations and static metadata', async ({
   for (const route of [metoni.route, metoni.supportRoute])
     expect(sitemap.split(`<loc>https://fintaxtech.co.uk${route}</loc>`)).toHaveLength(2);
   await context.close();
-  await page.goto('/selected-work/');
+  await page.goto('/work/');
   await page.getByRole('link', { name: metoni.exploreLabel, exact: true }).click();
   await expect(page).toHaveURL(/\/metoni\/$/);
   await expect(page.getByRole('link', { name: metoni.playLabel }).first()).toHaveAttribute(

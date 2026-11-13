@@ -8,7 +8,7 @@ FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, 
 
 - [About FinTaxTech](https://fintaxtech.co.uk/about/): company background and current services. Finance, accountancy and tax services are not currently available.
 - [Fintaxtech Ltd at Companies House](https://find-and-update.company-information.service.gov.uk/company/SC807896): Scottish registered company SC807896, incorporated 22 April 2024.
-- [Selected work](https://fintaxtech.co.uk/selected-work/): project examples and attributed client feedback.
+- [Our work](https://fintaxtech.co.uk/work/): finished, live client projects with attributed client feedback, followed by concept growth kits made for invented businesses.
 
 ## Services
 

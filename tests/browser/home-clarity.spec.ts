@@ -39,7 +39,8 @@ test('homepage explains all services, keeps the CTAs and presents genuine work',
   await expect(work.locator('blockquote')).toHaveText(featuredWork.feedback.quote);
   await expect(work.locator('figcaption')).toContainText(featuredWork.feedback.attribution);
   await expect(work.locator('a[href="/metoni/"]')).toHaveCount(1);
-  await expect(work.locator('a[href="/selected-work/"]')).toHaveCount(2);
+  await expect(work.locator('a[href="/work/#client-projects"]')).toHaveCount(1);
+  await expect(work.locator('a[href="/work/"]')).toHaveCount(1);
   for (const img of await work.locator('img').all()) {
     await img.scrollIntoViewIfNeeded();
     await expect(img).toHaveAttribute('alt', /\S/);

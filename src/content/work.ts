@@ -62,5 +62,5 @@ export const featuredWork = {
 export const homeWorkCopy = {
   title: 'See what we have created.',
   websiteLink: 'Explore Ask Appliance Repairs',
-  allWorkLink: 'View selected work',
+  allWorkLink: 'See all our work',
 };

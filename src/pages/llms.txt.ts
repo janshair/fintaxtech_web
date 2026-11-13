@@ -19,7 +19,7 @@ export function GET() {
   const work = [
     showcaseIndex.llmsHeading,
     '',
-    `[${showcaseIndex.title}](${absoluteURL(showcaseIndex.route)}): ${showcaseIndex.description} Each kit uses an invented business; it is sample work, not a client project.`,
+    `[${showcaseIndex.concepts.title}](${absoluteURL(showcaseIndex.route)}): ${showcaseIndex.concepts.intro} Finished client projects are listed first on the same page.`,
     '',
     ...showcase.flatMap(
       (kit) =>

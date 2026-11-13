@@ -1,0 +1,25 @@
+---
+// /showcase/ moved to /work/. These pages keep old links and shares working.
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import StaticRedirect from '../../components/StaticRedirect.astro';
+import { workRedirects } from '../../data/showcase';
+export function getStaticPaths() {
+  return workRedirects
+    .filter((r) => r.route.startsWith('/showcase/'))
+    .map((r) => ({
+      params: { path: r.route.slice('/showcase/'.length, -1) || undefined },
+      props: { r },
+    }));
+}
+const { r } = Astro.props;
+---
+
+<SiteLayout title={r.title}>
+  <StaticRedirect
+    title={r.title}
+    message={r.message}
+    destination={r.destination}
+    label={r.label}
+    id="work-redirect-link"
+  />
+</SiteLayout>

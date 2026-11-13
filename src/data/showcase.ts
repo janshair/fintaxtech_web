@@ -2,7 +2,7 @@ import type { ServiceId } from '../lib/types';
 
 /** One part of a kit, listed in the page's structured data (an ItemList). */
 export interface ShowcasePart {
-  /** Section id on the kit page, e.g. "brand" for /showcase/garage/#brand. */
+  /** Section id on the kit page, e.g. "brand" for /work/garage/#brand. */
   anchor: string;
   name: string;
   /** Where the part lives, when not its section on the kit page (e.g. a live template). */
@@ -18,7 +18,7 @@ export interface ShowcaseEntry {
   trade: string;
   /** Page title, without the " | FinTaxTech" suffix (keep the total under 60 characters). */
   title: string;
-  /** Card text on /showcase/ and the page's meta description (under 160 characters). */
+  /** Card text on /work/ and the page's meta description (under 160 characters). */
   description: string;
   /** Open Graph / Twitter description, when it should differ from the meta description. */
   socialDescription?: string;
@@ -35,17 +35,56 @@ export interface ShowcaseEntry {
   llms?: string[];
 }
 
+/**
+ * /work/ shows two kinds of work, kept apart so nobody mistakes one for the other:
+ * live client projects (finished, built for real businesses and live today) first,
+ * then concept growth kits (skill demonstrations made for invented businesses).
+ */
 export const showcaseIndex = {
-  route: '/showcase/',
-  title: 'Our work: growth kits for small businesses',
+  route: '/work/',
+  title: 'Our work: client projects and concept kits',
   description:
-    'Sample growth kits from FinTaxTech: a website, brand identity, customer app and AI automation designed together for one kind of small business.',
+    'Live websites and apps FinTaxTech has built for real clients, plus concept growth kits that show what we can design for a small business.',
   intro:
-    'Each kit shows a website, a brand, a mobile app and AI automation designed together for one trade, using an invented business.',
+    'Two kinds of work, kept separate. Client projects are finished and live for real businesses. Concept kits are not client work: they use invented businesses to show what we can design.',
   navLabel: 'Our work',
+  jumpLabel: 'On this page',
+  live: {
+    id: 'client-projects',
+    eyebrow: 'Finished and live',
+    title: 'Client projects',
+    intro:
+      'Websites and apps we have built for real businesses. Each one is finished, launched and in use today.',
+    badge: 'Live',
+  },
+  concepts: {
+    id: 'concept-kits',
+    eyebrow: 'What we can do',
+    title: 'Concept kits',
+    intro:
+      'These are not client projects. Each kit uses an invented business to show how we would design a website, brand, customer app and AI automation together for one trade.',
+    badge: 'Concept',
+    sampleLabel: 'Invented business:',
+  },
   cardLink: 'See the kit',
-  llmsHeading: '## Showcase: growth kits',
+  llmsHeading: '## Our work: concept growth kits',
 };
+
+const redirect = (route: string, destination: string, name: string) => ({
+  route,
+  destination,
+  title: `Continue to ${name}`,
+  message: `This page has moved to ${name}. Follow the link below if you are not redirected automatically.`,
+  label: `Go to ${name}`,
+});
+
+/** Old addresses that now live under /work/. Each is a noindex redirect page. */
+export const workRedirects = [
+  redirect('/showcase/', '/work/', 'Our work'),
+  redirect('/showcase/garage/', '/work/garage/', 'the garage concept kit'),
+  redirect('/showcase/plumbing/', '/work/plumbing/', 'the plumbing concept kit'),
+  redirect('/selected-work/', '/work/', 'Our work'),
+];
 
 export const showcase: ShowcaseEntry[] = [
   {
@@ -60,7 +99,7 @@ export const showcase: ShowcaseEntry[] = [
       width: 3200,
       height: 2002,
     },
-    url: '/showcase/garage/',
+    url: '/work/garage/',
     datePublished: '2026-11-12',
     sampleBusiness: 'Vector Motorworks',
     parts: [
@@ -104,7 +143,7 @@ export const showcase: ShowcaseEntry[] = [
       width: 3200,
       height: 2002,
     },
-    url: '/showcase/plumbing/',
+    url: '/work/plumbing/',
     datePublished: '2026-11-12',
     sampleBusiness: 'Copperwell Plumbing & Heating',
     parts: [
@@ -164,28 +203,28 @@ export const showcase: ShowcaseEntry[] = [
       },
     ],
     llms: [
-      '- [Growth kit for plumbers and heating engineers](https://fintaxtech.co.uk/showcase/plumbing/): sample website, brand identity, customer app, missed-call AI automation and SEO/AEO/GEO, made for an invented business (Copperwell Plumbing & Heating).',
+      '- [Concept growth kit for plumbers and heating engineers](https://fintaxtech.co.uk/work/plumbing/): sample website, brand identity, customer app, missed-call AI automation and SEO/AEO/GEO, made for an invented business (Copperwell Plumbing & Heating).',
       // The snippet's template line is held back: llms.txt links only to indexable pages
       // (tests/company-identity.test.ts), and every template demo is noindex,nofollow.
     ],
   },
 ];
 
-/** "See a full example" lines on the service pages, one per kit. */
+/** "See a concept kit" lines on the service pages, one per kit. */
 export const serviceExamples: Partial<Record<ServiceId, { label: string; href: string }[]>> = {
   branding: [
-    { label: 'See a full example for a garage', href: '/showcase/garage/#brand' },
-    { label: 'See a full example for a plumbing business', href: '/showcase/plumbing/#brand' },
+    { label: 'See a concept kit for a garage', href: '/work/garage/#brand' },
+    { label: 'See a concept kit for a plumbing business', href: '/work/plumbing/#brand' },
   ],
   'mobile-apps': [
-    { label: 'See a full example for a garage', href: '/showcase/garage/#app' },
-    { label: 'See a full example for a plumbing business', href: '/showcase/plumbing/#app' },
+    { label: 'See a concept kit for a garage', href: '/work/garage/#app' },
+    { label: 'See a concept kit for a plumbing business', href: '/work/plumbing/#app' },
   ],
   'ai-automation': [
-    { label: 'See a full example for a garage', href: '/showcase/garage/#automation' },
+    { label: 'See a concept kit for a garage', href: '/work/garage/#automation' },
     {
-      label: 'See a full example for a plumbing business',
-      href: '/showcase/plumbing/#automation',
+      label: 'See a concept kit for a plumbing business',
+      href: '/work/plumbing/#automation',
     },
   ],
 };
