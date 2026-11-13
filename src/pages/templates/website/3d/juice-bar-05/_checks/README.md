@@ -1,5 +1,17 @@
 # juice-bar-05 labels and all-template theme handover
 
+## Graphics refresh (latest)
+
+Only `_runtime/scene.ts`, `_checks/capture.mjs`, the poster sizes in `index.astro` and the regenerated WebP posters/masks changed. The scene's public functions, `data-*` diagnostics, sleeve geometry, label texture and wall radii are unchanged, so the label and sleeve checks below still apply.
+
+- **Lighting and materials:** hemisphere light plus one key and one rim light, with neutral tone mapping so fruit and brand colours stay true. Glossy surfaces (glass wall, lid, ceramic, ice, droplets) use two small locally drawn "studio reflection" textures (matcaps): one texture lookup per pixel, no environment map or download. A prefiltered environment map was tried and rejected: it stalled SwiftShader for over a second and tripped the low-frame-rate fallback.
+- **Juice cup:** thicker base and rolled lip, a clip-on lid with a raised ring, a straw that reaches into the drink, rounded translucent ice, clear condensation droplets (one merged buffer) and a lighter frothy surface. The story cup now uses one uniform scale, so the cup, fruit and lettering are no longer stretched sideways.
+- **Fruit:** orange slices have a drawn cut face (rind, pith, ten segments, juice sacs); strawberries are a tapered body with seeds, six leaves and a stem. The hero is a composed still life of four resting pieces with their own contact shadows; the drink builder rests six pieces beside the cup instead of floating them through it.
+- **Coffee:** glazed cup with a rounded lip, saucer with a raised rim and well, a crema ring, varied bean roasts, softer steam and a contact shadow.
+- **Posters:** hero 1200×1200, stages 1260×980, coffee 1200×975 at WebP quality 90 (previously 900×900, 900×700, 800×650 at 85). All 25 WebP files total about 358 KB against the 1.5 MB budget; the largest poster is about 50 KB against 120 KB.
+- **Cost:** scene chunk 139,213 bytes gzip against 250,000. In SwiftShader at 1250×1250 the hero costs about 16 ms a frame (12 ms before) and the story about 15 ms (16 ms before); the live page holds about 45 fps at 1440×900 and 39 fps at device pixel ratio 2.
+- **Checks:** `three-d-templates.spec.ts` 30/30 in Chromium, Firefox and WebKit, all on the live renderer; Astro check, unit tests, build, output and SEO checks pass. The `_checks/labels.mjs`, `sleeve-names.mjs` and `verify.mjs` runners were not re-run.
+
 ## Latest sleeve-name follow-up
 
 This follow-up changes only this `juice-bar-05` page folder and its public assets. All prior work outside those folders was preserved byte-for-byte; changes remain uncommitted.
