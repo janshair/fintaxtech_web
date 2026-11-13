@@ -13,6 +13,8 @@ draft: false
 cta: general
 ---
 
+**In short:** review AI-assisted content in a fixed order. Decide how risky the piece is, check every fact, figure and name against a trusted source, remove any claim you cannot stand behind, take out confidential details, then fix the tone. One named person signs it off, and you keep a short record of what was published.
+
 AI tools can produce a readable first draft of a service page, a customer email or a set of product descriptions very quickly. What they cannot do is decide whether that draft is true, whether your business can stand behind it, and whether it sounds like you. Those judgements stay with a person, and in a small business that person is usually the owner.
 
 The good news is that reviewing an AI-assisted draft is a skill, not a talent. It follows a repeatable order, most of the common problems show up in the same few places, and once you have a routine you can work through a page steadily rather than rewriting it from scratch. This article sets out that routine in plain terms, with a risk table and a checklist you can reuse.
@@ -38,6 +40,21 @@ Not everything deserves the same scrutiny. Trying to check an internal meeting s
 | Anything in a regulated field | Wording that breaches sector rules | Do not publish without qualified sign-off |
 
 The bottom two rows are the ones worth being firm about. A draft that reads well can still contain a sentence that commits you to something, and a persuasive paragraph is not the same thing as a compliant one.
+
+## Higher-risk content: financial commentary and other regulated topics
+
+Some content needs more than the standard read. Financial commentary is a good example: market updates, explanations of tax changes, comments on interest rates or investments, and newsletters for clients. AI drafts in this area can sound authoritative while getting a figure, a date or a rule slightly wrong, and a small error matters more when readers may act on it.
+
+For that kind of content, add these steps to the review:
+
+1. **Check every figure against the primary source on the day.** Use the official publisher (HMRC, the Bank of England, the Office for National Statistics, or the company's own filings), not a summary of it. State the date the figures were correct.
+2. **Separate fact from opinion.** Label views as views. A forecast written in the same voice as a fact will be read as one.
+3. **Look for anything that reads as personal advice.** Phrases like "you should" or "now is the time to" can turn general commentary into a recommendation. Rewrite them, or make sure the right person is allowed to give that advice.
+4. **Apply your sector's rules.** In the UK, the Financial Conduct Authority expects [financial promotions](https://www.fca.org.uk/firms/financial-promotions-adverts) to be clear, fair and not misleading, and some products carry specific rules on top. If a piece promotes a financial product or service, check whether it is a financial promotion before it goes out.
+5. **Get sign-off from someone qualified.** The final approver should be a person with the knowledge, and where required the authorisation, to stand behind the content. A general editor checking tone is not enough on its own.
+6. **Keep the approved version.** Save the exact text that was published, with the date and the approver's name.
+
+The same pattern works for legal, health and safety, and employment content: primary sources, no implied personal advice, sector rules checked, qualified sign-off. This is general information, not legal or regulatory advice, so take advice on the rules that apply to your business.
 
 ## Five checks that catch most problems
 
@@ -91,6 +108,16 @@ A review process only helps if it survives a busy week. Keep it to a small numbe
 
 ![Diagram of a six-step review routine: brief, draft, check, fix, sign off and publish, with a record kept at the end](../../assets/blog/how-to-review-ai-assisted-content/how-to-review-ai-assisted-content-routine.png)
 
+Here is the whole process in order:
+
+1. **Brief.** Tell the tool who the reader is, what the piece must achieve, what you do not offer and which words you never use.
+2. **Draft.** Produce the first version from your own source material.
+3. **Sort by risk.** Decide how deep the check needs to be, using the table above.
+4. **Check.** Work through the five checks in order: facts and names, claims, voice and length, confidential information, anything dated. Add the higher-risk steps if the topic needs them.
+5. **Fix.** Correct, cut and rewrite. If a fact cannot be sourced, remove it or make it general.
+6. **Sign off.** One named person approves the final text.
+7. **Publish and record.** Publish it, then note what went out, when, and what changed from the draft.
+
 The brief at the start does more work than people expect. If you tell the tool who the reader is, what the page must achieve, what you do not offer and which words you never use, you get a draft that needs less correcting. Our guide to [turning business documents into website content](https://fintaxtech.co.uk/blog/ai-business-documents-to-website-content/) covers how to assemble that source material.
 
 One person should sign off, and it should be clear who. Two people each half-reading a page is how errors get through.
@@ -127,5 +154,23 @@ If the content is going onto a new site, the same discipline belongs in your wid
 - [ ] A short record kept of what was published and what changed
 
 If you would like help setting up an AI-assisted drafting and review process for your own business — or you would rather hand the drafting and checking to someone else — we are happy to talk it through and tell you honestly where it would and would not help.
+
+## Common questions
+
+### What is a good review process for AI-assisted content?
+
+Sort the piece by risk, then check facts and names, claims, tone and length, confidential information and anything dated, in that order. Fix what you find, have one named person sign it off, and keep a short record of what was published and what changed.
+
+### How should AI-drafted financial commentary be reviewed before publication?
+
+Check every figure against the primary source on the day, label opinion as opinion, and remove anything that reads like personal advice. Check whether sector rules such as the FCA's financial promotion rules apply, and have someone qualified approve the final text.
+
+### Who should sign off AI-assisted content?
+
+One named person who understands the subject and can stand behind what it says. For regulated topics, that should be someone with the right knowledge and, where needed, authorisation. Two people each half-reading a page is how errors get through.
+
+### What mistakes should I look for in AI-assisted drafts?
+
+The usual five are confident filler that says nothing checkable, invented specifics such as numbers or sources, an averaged tone that could belong to any business, repetition across sections, and tidy structure wrapped around very little content. Cut or verify rather than polish.
 
 **[Talk to us about AI-assisted content →](/enquiry/?service=ai-automation)**

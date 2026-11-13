@@ -13,6 +13,8 @@ draft: false
 cta: general
 ---
 
+**In short:** in the UK, the first owner of copyright is usually whoever created the work, and AI-generated material has no settled special rule yet. In practice, what your business ends up owning depends on three things: whether there is human authorship in the content, what the AI tool's terms allow, and what your supplier agrees in writing to transfer to you.
+
 If your business uses AI to help draft web copy, product descriptions, service pages or social posts, a fair question follows: who actually owns the result? It matters once that content sits on your own website, goes into a printed brochure, or forms part of work you have paid someone else to produce.
 
 The honest answer is that "who owns it" is not one question but three, and they have different answers. This article separates them, points to what current UK guidance says, and sets out what to get written down before work starts. It is general information, not legal advice — for anything with money or risk attached, take your own professional advice and confirm the terms in writing.
@@ -75,6 +77,36 @@ If someone else is producing the content, the written proposal should answer the
 
 This mirrors the position for your website as a whole, where domains, hosting, repositories and content each need to be accounted for separately. We set that out in [who owns your business website after launch](https://fintaxtech.co.uk/blog/who-owns-your-business-website/). As a general principle, your business should hold its own domain, repository, app store and cloud accounts in its own name, whoever builds on top of them.
 
+## Handing over an AI product: what a studio should document and transfer
+
+Content is only part of the picture. If a studio builds you an AI assistant, an automated workflow or an app with AI features, there are more pieces to account for, and some of them are easy to miss because they never appear on screen.
+
+A complete handover usually covers:
+
+- **The code**, in a repository your business owns, with the studio given access rather than the other way round.
+- **The instructions the AI follows**: prompts, system instructions, rules and examples, as readable files rather than settings buried in someone else's account.
+- **Configuration and connections**: which AI model and provider are used, which services are connected, and where each setting lives.
+- **Accounts and keys in your name**: the AI provider account, cloud hosting and any connected services, so billing and access stay with you if the supplier relationship ends.
+- **Your data**: the documents, knowledge base content and any examples the system was given, plus a note of what was excluded or redacted.
+- **Third-party terms**: a list of every tool, model and licence involved, because each comes with its own terms of use.
+- **A short runbook**: how to run it, how to change the instructions, what to check when something goes wrong, and who to call.
+
+The ownership terms should say which of those items transfer to you and when, in the same written proposal as the price. As with content, the supplier's general methods and internal templates usually stay with the supplier; what matters is that the handover list lets you keep running what you paid for.
+
+When you are comparing studios, ask to see an example handover list before you sign. A supplier that documents and transfers this as standard can show you one straight away. If the answer is vague, treat that as information about what the end of the project will look like.
+
+## Who should sign off content rights before it is used to train an AI model?
+
+Sometimes the question runs the other way: your own material is going into an AI system, either to train or fine-tune a model or to act as its knowledge base. Before that happens, someone should confirm the business actually has the right to use each item for that purpose.
+
+In a small business that is usually a director or the person responsible for the content, with three checks along the way:
+
+- **Third-party material**: stock images, supplier documents, licensed reports and anything written by an outside agency may carry terms that do not allow this use.
+- **Personal information**: customer emails, CVs or case notes raise data protection questions. If the business has a data protection lead, they should agree before anything is shared.
+- **The AI provider's terms**: check what the provider may do with the material you supply, including whether it is retained or used to improve their own models.
+
+Keep the decision with the content record described below, so you can show later what was used and who agreed to it.
+
 ## Ownership is not the same as exclusivity
 
 This is the distinction that causes the most disappointment, so it is worth stating plainly.
@@ -111,5 +143,23 @@ The point is not bureaucracy. It is that two years from now, if anyone asks wher
 - [ ] Treat exclusivity as a separate question, and take proper advice if it matters
 
 Most of this takes an afternoon to set up and then looks after itself. If you would rather the ownership position were clear from the outset — stated in the proposal, with a handover list you can check — that is how we prefer to work, and we are happy to talk it through before anything starts.
+
+## Common questions
+
+### Who owns AI-generated content in the UK?
+
+There is no settled special rule yet. The usual starting point is that the creator is the first owner, and content a person has directed, edited and shaped sits on firmer ground than untouched output. The Government has proposed changes for wholly computer-generated works, but they are not in force.
+
+### Who owns text created with a free AI writing tool?
+
+Start with the tool's terms of use, which decide what you may do with the output, including commercial use. Free plans can have different terms from paid ones, and may allow your inputs to be used for training. Separately, copyright may only exist where there is real human authorship.
+
+### Does paying a supplier mean we own the content?
+
+Not by itself. GOV.UK guidance says the creator of commissioned work is the first owner unless you agree otherwise in writing. Make sure the proposal or contract says which final deliverables transfer to your business, and when.
+
+### Can we stop a competitor publishing something similar?
+
+Usually not through copyright. Owning your files does not prevent someone else producing similar content. For names, logos and straplines, exclusivity comes from trade mark registration, which is a separate process best discussed with a trade mark attorney.
 
 **[Talk to us about AI-assisted content →](/enquiry/?service=ai-automation)**

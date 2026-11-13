@@ -13,6 +13,8 @@ draft: false
 cta: general
 ---
 
+**In short:** to keep AI-assisted content in your brand voice, write a one-page voice reference before anyone drafts anything. It should cover who the reader is, how you address them, how formal you are, the words you use and avoid, and two or three real examples of your own writing. Give it to every tool and writer, and have a person check each draft against it.
+
 A logo can be copied exactly. A colour has a code you can hand to a printer. Your writing has neither, which is why it is usually the first thing to slip once somebody else starts producing content on your behalf. AI tools make that slip easy to miss, because the draft is rarely bad. It simply is not yours.
 
 If you are using AI to help write service pages, customer emails or product descriptions, the useful question is not whether a tool can match your voice. It is what you can hand it so that it has something to match. This article covers how to work out what your voice actually is, what to write down, and how to keep it steady when more than one person is producing content.
@@ -74,6 +76,21 @@ If you already have brand guidelines, voice belongs in them, which keeps one doc
 
 The practical test is whether a new member of staff, a freelancer or a tool would find it without asking. A voice reference saved in one person's email is not a reference.
 
+## Turning it into instructions for an AI writing assistant
+
+Most AI writing tools let you save standing instructions that apply to every draft, whether they are called custom instructions, a project, a saved style or a system prompt. That is where the voice reference should go, rewritten as direct rules rather than description.
+
+A workable set of instructions follows the same order as the reference:
+
+1. **Who you are writing for**: "Write for a small business owner in the UK who is busy and not technical."
+2. **How to address them**: "Use 'you' for the reader and 'we' for the business. Use contractions."
+3. **Shape**: "Put the main point in the first sentence. Keep paragraphs to three sentences or fewer."
+4. **Words to use and avoid**: paste the word pairs as a list, such as "Say 'use', never 'utilise'".
+5. **Examples**: paste one or two short extracts of your own writing, labelled as examples of the voice to match.
+6. **What not to do**: "Do not invent figures, prices, client names or results. If something is unknown, say so."
+
+The tool you use matters less than the quality of these instructions. A clear page given to an ordinary tool will beat a vague page given to an expensive one. Keep the instructions and the voice reference as one document, so a change to one is a change to both.
+
 ## Keeping it consistent when several people write
 
 Consistency breaks at the edges — the channels nobody thought of as content.
@@ -88,6 +105,32 @@ Consistency breaks at the edges — the channels nobody thought of as content.
 ### An invented example, for illustration only
 
 Imagine a Dundee joinery firm — not a real client — whose owner writes short, direct emails and always says "fit" rather than "install". Its first AI-assisted service page arrived describing "bespoke installation solutions tailored to your requirements". Nothing in it was untrue. It simply read like a national chain. Adding six lines to a voice reference — say "fit", never "solutions", address the reader as "you", two sentences per paragraph — changed the next draft enough that editing it took minutes rather than a rewrite.
+
+## One voice across email, social, chat and voice assistants
+
+If AI is answering customer chats or phone calls as well as drafting web pages, the same reference has to cover those channels too. What changes between channels is length and format. What stays the same is who you are talking to, how you address them and the words you use.
+
+| Channel | What changes | What stays the same |
+| --- | --- | --- |
+| Website pages | Longer, with headings and room to explain | Reader, address, word lists |
+| Email | Shorter, one clear request or answer per message | Reader, address, word lists |
+| Social posts | Very short, often an opening question, no jargon | Address and the words you avoid |
+| Website chat assistant | Short answers, offers the next step, hands over to a person when unsure | Address, word lists, what you never promise |
+| Voice or phone assistant | Short spoken sentences, no lists or symbols, spells out anything awkward to hear | Address, how you name your services |
+
+Give each channel's assistant or writer the same core reference, plus two or three lines on that channel's format. That is simpler to maintain than separate style guides that slowly drift apart.
+
+## Translating content without losing your voice
+
+AI translation is fast, but it tends to produce the most common phrasing in the target language, which flattens your voice in the same way an untrained draft does. A few rules keep translations on brand:
+
+- **Translate from the approved original**, never from a draft, so you are not translating mistakes.
+- **Give the translator or tool your voice reference**, plus a short glossary: your service names, terms that stay in English and terms with an agreed translation.
+- **Decide the level of formality once.** Many languages have a formal and an informal "you". Choose one per language and record it.
+- **Have a fluent speaker review every customer-facing page.** They are checking that it sounds natural and that nothing has changed meaning, especially prices, promises and legal wording.
+- **Keep the translation with the original** in your content record, so updates to one prompt an update to the other.
+
+Translations count as separate pieces of work, so if a supplier produces them, confirm in writing that they transfer to you along with the original. Our guide to [who owns AI-assisted content](https://fintaxtech.co.uk/blog/who-owns-ai-assisted-content/) covers what to agree.
 
 ## What a voice reference cannot do
 
@@ -113,5 +156,23 @@ Where a supplier produces content for you, put ownership in writing rather than 
 If most of those are in place, AI-assisted drafting becomes a much smaller risk to how your business sounds.
 
 If you would rather not build the reference yourself, send us the writing you already like and we will tell you honestly what is there to work from — and where a voice reference would make little difference.
+
+## Common questions
+
+### How do I adapt AI-written text to my brand voice?
+
+Give the tool a one-page voice reference before it drafts: who the reader is, how you address them, how formal you are, the words you use and avoid, and two or three examples of your own writing. Then edit the draft against the same page, starting with the word lists.
+
+### What style guidelines should I give an AI writing assistant?
+
+Direct rules in a fixed order: the reader, how to address them, sentence and paragraph shape, word pairs to use and avoid, short examples of your writing, and what never to do, such as inventing figures. Save them as standing instructions so every draft starts from them.
+
+### How can I keep one brand voice across email, chat, social media and voice assistants?
+
+Use one core voice reference for every channel and change only length and format. A social post is shorter and a phone assistant speaks in short sentences, but the reader, the way you address them and the words you use stay the same everywhere.
+
+### How do I keep my brand voice when AI translates content?
+
+Translate from the approved original, give the tool your voice reference and a glossary of terms, decide the formality level for each language, and have a fluent speaker review every customer-facing page before it is published.
 
 **[Talk to us about AI-assisted content →](/enquiry/?service=ai-automation)**
