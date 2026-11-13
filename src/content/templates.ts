@@ -339,35 +339,35 @@ export const websiteGallery = {
 
 export const websiteCategories = [
   {
-    route: threeDGallery.route,
-    title: '3D website templates',
-    description: 'Let visitors explore your products from every angle with interactive 3D models.',
-    linkLabel: 'Explore 3D templates',
-    featuredId: 'juice-bar-05',
-  },
-  {
-    route: motionGallery.route,
-    title: 'Motion website templates',
-    description:
-      'Guide visitors through your site with scroll animations, smooth transitions and subtle hover effects.',
-    linkLabel: 'Explore motion templates',
-    featuredId: 'gym-06',
-  },
-  {
     route: placeholderGallery.route,
-    title: 'Placeholder website templates',
+    title: 'Placement Website',
     description:
       'Get online quickly with one page: your logo, name and tagline, plus email and WhatsApp buttons.',
-    linkLabel: 'Explore placeholder templates',
+    linkLabel: 'Explore placement websites',
     featuredId: 'placeholder-11',
   },
   {
     route: landingGallery.route,
-    title: 'Landing page templates',
+    title: 'Landing Page',
     description:
       'One scrolling page with a headline, your services and a clear way to get in touch.',
-    linkLabel: 'Explore landing page templates',
+    linkLabel: 'Explore landing pages',
     featuredId: 'landing-12',
+  },
+  {
+    route: motionGallery.route,
+    title: 'Motion Website',
+    description:
+      'Guide visitors through your site with scroll animations, smooth transitions and subtle hover effects.',
+    linkLabel: 'Explore motion websites',
+    featuredId: 'gym-06',
+  },
+  {
+    route: threeDGallery.route,
+    title: '3d Website',
+    description: 'Let visitors explore your products from every angle with interactive 3D models.',
+    linkLabel: 'Explore 3D websites',
+    featuredId: 'juice-bar-05',
   },
 ];
 

@@ -76,6 +76,7 @@ const cards = websiteCategories.map((category) => {
   }
   h2 {
     margin: 0 0 var(--space-2);
+    font-size: clamp(var(--h3), 5vw, var(--h2));
   }
   .explore {
     margin-top: auto;
@@ -88,11 +89,6 @@ const cards = websiteCategories.map((category) => {
   @media (--tablet) {
     .categories {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  @media (min-width: 80rem) {
-    .categories {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 </style>

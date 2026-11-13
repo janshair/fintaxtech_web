@@ -16,12 +16,15 @@ import '../styles/home-motion.css';
       <a
         class="motion-part"
         style={`--motion-order:${i}`}
-        href={`#${group.id}`}
+        href={group.examples.href}
+        target="_blank"
+        rel="noopener"
         data-motion-end={i === pricingGroups.length - 1 ? '' : undefined}
       >
         <span>{group.name.replace(' packages', '')}</span>
         <strong data-count-price={group.startingPrice}>{startingLabel(group)}</strong>
-        <i aria-hidden="true">↓</i>
+        <i aria-hidden="true">↗</i>
+        <span class="sr-only">(opens in a new tab)</span>
       </a>
     ))
   }
@@ -46,7 +49,11 @@ import '../styles/home-motion.css';
             style={`--motion-order:${i}`}
             data-motion-end={i === group.packages.length - 1 ? '' : undefined}
           >
-            <h3>{pkg.name}</h3>
+            <h3>
+              <a class="price-card-link" href={group.examples.href} target="_blank" rel="noopener">
+                {pkg.name} <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </h3>
             <p class="price">{priceLabel(pkg)}</p>
             <p>{pkg.summary}</p>
             <ul>
@@ -64,8 +71,8 @@ import '../styles/home-motion.css';
         <p>
           <strong>{group.examples.text}</strong>
         </p>
-        <a class="button" href={group.examples.href}>
-          {group.examples.label}
+        <a class="button" href={group.examples.href} target="_blank" rel="noopener">
+          {group.examples.label} <span class="sr-only">(opens in a new tab)</span>
         </a>
         <a class="button primary" href={group.estimate.href}>
           {group.estimate.label}
@@ -191,10 +198,12 @@ import '../styles/home-motion.css';
     transform-origin: left;
     transition: transform 300ms ease;
   }
-  .price-card:hover {
+  .price-card:hover,
+  .price-card:focus-within {
     border-color: var(--accent);
   }
-  .price-card:hover::before {
+  .price-card:hover::before,
+  .price-card:focus-within::before {
     transform: scaleX(1);
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -203,7 +212,7 @@ import '../styles/home-motion.css';
       transform: translateY(-4px);
     }
     .price-summary a:hover i {
-      transform: translateY(3px);
+      transform: translate(2px, -2px);
     }
     .price-card:hover {
       box-shadow: 0 12px 28px -18px var(--accent);
@@ -267,6 +276,19 @@ import '../styles/home-motion.css';
   }
   .price-card h3 {
     font-size: var(--h3);
+  }
+  .price-card-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .price-card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .price-card:hover .price-card-link,
+  .price-card-link:focus-visible {
+    text-decoration: underline;
   }
   .price-card p {
     margin: 0;
