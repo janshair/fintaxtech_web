@@ -1,0 +1,71 @@
+---
+import GooglePlayBadge from './GooglePlayBadge.astro';
+import AppStoreBadge from './AppStoreBadge.astro';
+import { publishedApps, workCopy } from '../content/work';
+---
+
+<!-- Published mobile apps, listed under "Client projects" on /work/. -->
+<section class="published-apps" aria-labelledby="published-apps-title">
+  <p class="eyebrow">{workCopy.appsEyebrow}</p>
+  <h3 id="published-apps-title">{workCopy.appsTitle}</h3>
+  <ul class="app-list">
+    {
+      publishedApps.map((app) => (
+        <li class="app-card">
+          <div>
+            <h4>
+              <a href={app.pageURL}>{app.name}</a>
+            </h4>
+            <p>{app.summary}</p>
+          </div>
+          {'pageURL' in app && (
+            <a class="button primary" href={app.pageURL}>
+              {app.pageLabel}
+            </a>
+          )}
+          <GooglePlayBadge href={app.playStoreUrl} label={app.visitLabel} />
+          {'appStoreUrl' in app && (
+            <AppStoreBadge href={app.appStoreUrl} label={app.appStoreLabel} />
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .published-apps {
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+  .app-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .app-card {
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .app-card h4 {
+    font-size: var(--h3);
+    margin: 0 0 0.5rem;
+  }
+  .app-card p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .app-card .button {
+    align-self: flex-start;
+  }
+</style>

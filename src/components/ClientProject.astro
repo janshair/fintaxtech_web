@@ -1,0 +1,324 @@
+---
+import { Image } from 'astro:assets';
+import ClientFeedback from './ClientFeedback.astro';
+import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
+import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
+import logo from '../assets/work/ask-appliance-repairs-logo.webp';
+import maps from '../assets/work/ask-appliance-repairs-maps-promo.webp';
+import card from '../assets/work/ask-appliance-repairs-business-card.webp';
+import guideCover from '../assets/work/ask-appliance-repairs-guidelines-cover.webp';
+import guideColour from '../assets/work/ask-appliance-repairs-guidelines-colour.webp';
+import guideType from '../assets/work/ask-appliance-repairs-guidelines-type.webp';
+import jobPhoto from '../assets/work/ask-appliance-repairs-job-photo.webp';
+import article from '../assets/work/ask-appliance-repairs-blog-article.webp';
+import { featuredWork as work } from '../content/work';
+const { brand, automation } = work;
+const guidePages = { cover: guideCover, colour: guideColour, type: guideType };
+const pageSizes = '(min-width: 760px) 30vw, 90vw';
+---
+
+<!-- The full write-up of a finished client project, shown on its own page under /work/. -->
+<article class="work-showcase" aria-labelledby="featured-work-title">
+  <div class="work-showcase-head">
+    <div class="work-showcase-intro">
+      <p class="eyebrow">
+        <span class="badge">{work.statusBadge}</span>
+        {work.category}
+      </p>
+      <h1 id="featured-work-title">{work.name}</h1>
+      <p>{work.summary}</p>
+      <a
+        class="button"
+        href={work.url}
+        data-external-project
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {work.visitLabel} ↗
+      </a>
+    </div>
+    <ClientFeedback />
+  </div>
+  <div class="project-details">
+    {
+      work.projectDetails.map(([question, answer]) => (
+        <section>
+          <h2>{question}</h2>
+          <p>{answer}</p>
+        </section>
+      ))
+    }
+  </div>
+  <section class="brand-work" id="ask-appliance-brand" aria-labelledby="brand-work-title">
+    <h2 id="brand-work-title">{brand.title}</h2>
+    <p class="brand-intro">{brand.intro}</p>
+    <div class="brand-pair">
+      <figure>
+        <a class="work-preview brand-logo" href={logo.src}>
+          <Image src={logo} alt={brand.logoAlt} sizes="(min-width: 760px) 45vw, 90vw" />
+        </a>
+        <figcaption>{brand.logoCaption}</figcaption>
+      </figure>
+      <figure>
+        <a class="work-preview" href={maps.src}>
+          <Image src={maps} alt={brand.mapsAlt} sizes="(min-width: 760px) 45vw, 90vw" />
+        </a>
+        <figcaption>{brand.mapsCaption}</figcaption>
+      </figure>
+    </div>
+    <p class="brand-subhead">{brand.guideTitle}</p>
+    <div class="guide-pages">
+      {
+        brand.guide.map(([key, alt, caption]) => {
+          const page = guidePages[key as keyof typeof guidePages];
+          return (
+            <figure>
+              <a class="work-preview" href={page.src}>
+                <Image src={page} alt={alt} sizes={pageSizes} />
+              </a>
+              <figcaption>{caption}</figcaption>
+            </figure>
+          );
+        })
+      }
+    </div>
+    <figure class="brand-card">
+      <a class="work-preview" href={card.src}>
+        <Image src={card} alt={brand.cardAlt} sizes="(min-width: 1184px) 1100px, 92vw" />
+      </a>
+      <figcaption>{brand.cardCaption}</figcaption>
+    </figure>
+  </section>
+  <h2 class="website-title">{work.websiteTitle}</h2>
+  <div class="work-previews">
+    <figure>
+      <a class="work-preview work-preview-desktop" href={desktop.src}>
+        <Image src={desktop} alt={work.desktopAlt} loading="eager" decoding="async" />
+      </a>
+      <figcaption>{work.desktopCaption}</figcaption>
+    </figure>
+    <figure>
+      <a class="work-preview work-preview-mobile" href={mobile.src}>
+        <Image src={mobile} alt={work.mobileAlt} loading="eager" decoding="async" />
+      </a>
+      <figcaption>{work.mobileCaption}</figcaption>
+    </figure>
+  </div>
+  <section class="automation" id="ask-appliance-automation" aria-labelledby="automation-title">
+    <h2 id="automation-title">{automation.title}</h2>
+    <p class="brand-intro">{automation.intro}</p>
+    <h3 class="steps-label">{automation.stepsLabel}</h3>
+    <ol class="steps">
+      {
+        automation.steps.map(([title, text]) => (
+          <li>
+            <strong>{title}</strong>
+            <span>{text}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="in-out">
+      <figure>
+        <figcaption class="flow-label">{automation.inputLabel}</figcaption>
+        <a class="work-preview" href={jobPhoto.src}>
+          <Image src={jobPhoto} alt={automation.inputAlt} sizes="(min-width: 760px) 30vw, 90vw" />
+        </a>
+      </figure>
+      <span class="flow-arrow" aria-hidden="true">→</span>
+      <figure>
+        <figcaption class="flow-label">{automation.outputLabel}</figcaption>
+        <a
+          class="work-preview"
+          href={automation.articleURL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image src={article} alt={automation.outputAlt} sizes="(min-width: 760px) 55vw, 90vw" />
+        </a>
+      </figure>
+    </div>
+    <p class="automation-links">
+      <a href={automation.articleURL} target="_blank" rel="noopener noreferrer"
+        >{automation.articleLabel} ↗</a
+      >
+      <a href={automation.blogURL} target="_blank" rel="noopener noreferrer"
+        >{automation.blogLabel} ↗</a
+      >
+    </p>
+  </section>
+</article>
+
+<style>
+  .work-showcase-intro .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: var(--weight-strong);
+  }
+  .badge::before {
+    content: '';
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .project-details {
+    display: grid;
+    gap: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+  .project-details h2 {
+    font-size: var(--h3);
+    margin: 0 0 var(--space-3);
+  }
+  .project-details p {
+    color: var(--muted);
+    max-width: var(--reading);
+  }
+  @media (--tablet) {
+    .project-details {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .brand-work {
+    margin-bottom: var(--space-8);
+  }
+  .brand-intro {
+    max-width: var(--reading);
+    color: var(--muted);
+  }
+  .brand-pair,
+  .guide-pages {
+    display: grid;
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .brand-work figure {
+    min-width: 0;
+    margin: 0;
+  }
+  .brand-work figcaption {
+    margin-top: var(--space-3);
+    color: var(--muted);
+    font-size: var(--small);
+    text-align: center;
+  }
+  .brand-work :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* The logo PNG has a white holding panel; keep it white in dark mode too. */
+  .brand-logo {
+    background: #fff;
+    aspect-ratio: 3 / 2;
+    display: grid;
+    place-items: center;
+    padding: var(--space-5);
+  }
+  .brand-subhead {
+    margin: var(--space-7) 0 var(--space-4);
+    font-weight: var(--weight-strong);
+  }
+  .brand-card {
+    margin-top: var(--space-6) !important;
+  }
+  .automation {
+    margin-top: var(--space-9);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+  .steps-label {
+    margin-top: var(--space-6);
+  }
+  .steps {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+    margin: 0 0 var(--space-7);
+    display: grid;
+    gap: var(--space-4);
+  }
+  .steps li {
+    counter-increment: step;
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .steps li::before {
+    content: counter(step, decimal-leading-zero);
+    font: var(--weight-strong) var(--small) var(--font-mono);
+    color: var(--accent);
+  }
+  .steps span {
+    color: var(--muted);
+  }
+  .in-out {
+    display: grid;
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .in-out figure {
+    min-width: 0;
+    margin: 0;
+  }
+  .in-out :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .flow-label {
+    margin-bottom: var(--space-3);
+    font: var(--weight-strong) var(--small) var(--font-mono);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .flow-arrow {
+    justify-self: center;
+    align-self: center;
+    font-size: var(--h2);
+    color: var(--accent);
+    transform: rotate(90deg);
+  }
+  .automation-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+    margin-top: var(--space-6);
+    font-weight: var(--weight-strong);
+  }
+  .website-title {
+    margin-top: var(--space-2);
+  }
+  @media (--tablet) {
+    .steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .in-out {
+      grid-template-columns: minmax(0, 2fr) auto minmax(0, 3fr);
+    }
+    .flow-arrow {
+      transform: none;
+    }
+    .brand-pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .guide-pages {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

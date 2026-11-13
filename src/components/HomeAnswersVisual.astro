@@ -1,0 +1,148 @@
+---
+// "A little clarity, before you start": two FAQ answers as a short message thread.
+// Plays once via home-motion; without JS it shows the final state.
+import { answersVisual as c } from '../content/home-motion';
+const last = c.thread.length - 1;
+---
+
+<figure class="answers-visual home-motion" data-home-motion role="img" aria-label={c.label}>
+  {
+    c.thread.map(([question, answer], i) => (
+      <div class="pair">
+        <p class="bubble ask motion-pop" style={`--motion-order:${i * 3}`}>
+          <span class="mark" aria-hidden="true">
+            ?
+          </span>
+          {question}
+        </p>
+        <p class="typing motion-pop" style={`--motion-order:${i * 3 + 1}`} aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </p>
+        <p
+          class="bubble reply motion-pop"
+          style={`--motion-order:${i * 3 + 2}`}
+          data-motion-end={i === last ? '' : undefined}
+        >
+          {answer}
+          <svg
+            class="read"
+            viewBox="0 0 24 16"
+            width="24"
+            height="16"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="m2 8 4 4 8-9M10 12l1 0 8-9" />
+          </svg>
+        </p>
+      </div>
+    ))
+  }
+</figure>
+
+<style>
+  .answers-visual {
+    margin: var(--space-7) 0 0;
+    max-width: 26rem;
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    box-shadow: -6px 6px 0 var(--soft);
+  }
+  .pair {
+    position: relative;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .bubble {
+    position: relative;
+    max-width: 85%;
+    margin: 0;
+    padding: var(--space-2) var(--space-3);
+    border-radius: 1rem;
+    font-size: var(--small);
+    line-height: var(--line-control);
+  }
+  .ask {
+    justify-self: start;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: var(--radius);
+    transform-origin: left bottom;
+  }
+  .mark {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--soft);
+    color: var(--accent);
+    font: var(--weight-strong) var(--caption) / 1 var(--font-heading);
+  }
+  .reply {
+    justify-self: end;
+    background: var(--accent);
+    color: var(--on-accent);
+    border-bottom-right-radius: var(--radius);
+    transform-origin: right bottom;
+  }
+  .read {
+    display: inline-block;
+    width: 1rem;
+    height: 0.7rem;
+    margin-left: var(--space-2);
+    vertical-align: middle;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* The typing indicator sits where the reply will appear, so it never changes the layout. */
+  .typing {
+    display: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .answers-visual:is([data-motion-state='running'], [data-motion-state='paused']) .typing {
+      position: absolute;
+      right: var(--space-3);
+      bottom: var(--space-3);
+      display: flex;
+      gap: 4px;
+      margin: 0;
+      transform-origin: right center;
+      animation-name: typing-blip;
+    }
+    .typing i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+  }
+  @keyframes typing-blip {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    30%,
+    70% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+</style>

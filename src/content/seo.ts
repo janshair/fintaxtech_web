@@ -37,6 +37,7 @@ import { blogCopy } from './blog';
 import { services } from './services';
 import { contactRedirect, ui } from './site';
 import { showcase, showcaseIndex, workRedirects } from '../data/showcase';
+import { featuredWork } from './work';
 export const seoCopy = {
   imageAlt: 'FinTaxTech — Complexity made clear.',
   breadcrumbs: 'Breadcrumb',
@@ -213,6 +214,7 @@ export const seoPages: Record<string, PageSEO> = {
     nofollow: true,
   },
   [showcaseIndex.route]: { title: showcaseIndex.title, description: showcaseIndex.description },
+  [featuredWork.route]: { title: featuredWork.title, description: featuredWork.description },
   ...Object.fromEntries(
     showcase.map(({ url, title, description }) => [url, { title, description }]),
   ),

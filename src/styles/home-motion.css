@@ -30,6 +30,25 @@
   .home-motion[data-motion-state='paused'] .motion-link {
     animation-play-state: paused;
   }
+  /* Grows from its own corner; opacity stays 1 so text never drops below contrast. */
+  .home-motion:is([data-motion-state='running'], [data-motion-state='paused']) .motion-pop {
+    animation: motion-pop var(--motion-duration) var(--motion-easing) both;
+    animation-delay: calc(var(--motion-order, 0) * var(--motion-stagger));
+  }
+  .home-motion[data-motion-state='paused'] .motion-pop {
+    animation-play-state: paused;
+  }
+}
+@keyframes motion-pop {
+  from {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  to {
+    transform: none;
+  }
 }
 @keyframes motion-link {
   from {
@@ -58,7 +77,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-motion :is(.motion-part, .motion-stroke, .motion-link) {
+  .home-motion :is(.motion-part, .motion-stroke, .motion-link, .motion-pop) {
     animation: none !important;
     opacity: 1;
     transform: none;

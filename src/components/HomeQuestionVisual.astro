@@ -1,0 +1,189 @@
+---
+// "A capable partner asking clear questions": a guided question is answered by choosing,
+// then checked by a person. Plays once via home-motion; without JS it shows the final state.
+import { questionVisual as c } from '../content/home-motion';
+---
+
+<figure class="question-visual home-motion" data-home-motion role="img" aria-label={c.label}>
+  <div class="question-card motion-part" style="--motion-order:0">
+    <div class="question-head">
+      <span>{c.progress}</span>
+      <span class="progress" aria-hidden="true">
+        <i class="motion-link" style="--motion-order:1"></i>
+      </span>
+    </div>
+    <p class="question motion-part" style="--motion-order:2">{c.question}</p>
+    <ul class="options">
+      {
+        c.options.map((option, i) => (
+          <li
+            class:list={['option', 'motion-part', { selected: i === c.selected }]}
+            style={`--motion-order:${3 + i};--motion-x:-12px;--motion-y:0px`}
+          >
+            <span class="radio">
+              {i === c.selected && (
+                <i class="motion-pop" style="--motion-order:8" aria-hidden="true" />
+              )}
+            </span>
+            <span>{option}</span>
+            {i === c.selected && (
+              <span
+                class="option-ring motion-part"
+                style="--motion-order:7;--motion-opacity:0"
+                aria-hidden="true"
+              />
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    <svg
+      class="pointer motion-part"
+      style="--motion-order:6;--motion-x:-70px;--motion-y:-90px;--motion-opacity:0"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      aria-hidden="true"
+      focusable="false"><path d="M5 3l14 8-6 1.5L10 19Z"></path></svg
+    >
+  </div>
+  <div class="review motion-pop" style="--motion-order:9" data-motion-end>
+    <span class="tick" aria-hidden="true"
+      ><svg viewBox="0 0 24 24" width="24" height="24" focusable="false"
+        ><path d="m6 12 4 4 8-9"></path></svg
+      ></span
+    >
+    <span>{c.review}</span>
+  </div>
+</figure>
+
+<style>
+  .question-visual {
+    position: relative;
+    margin: var(--space-7) 0 0;
+    max-width: 24rem;
+    padding: 0 var(--space-4) var(--space-6) 0;
+  }
+  .question-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+    box-shadow: -6px 6px 0 var(--soft);
+  }
+  .question-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font: var(--weight-strong) var(--caption) / var(--line-control) var(--font-mono);
+    color: var(--muted);
+  }
+  .progress {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    overflow: hidden;
+  }
+  .progress i {
+    display: block;
+    width: 33%;
+    height: 100%;
+    background: var(--accent);
+    transform-origin: left;
+  }
+  .question {
+    margin: var(--space-3) 0;
+    font: var(--weight-strong) var(--body) / var(--line-control) var(--font-heading);
+  }
+  .options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    font-size: var(--small);
+  }
+  .option.selected {
+    background: var(--soft);
+  }
+  .option-ring {
+    position: absolute;
+    inset: -1px;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+  }
+  .radio {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1rem;
+    height: 1rem;
+    border: 1.5px solid var(--muted);
+    border-radius: 50%;
+  }
+  .selected .radio {
+    border-color: var(--accent);
+  }
+  .radio i {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .pointer {
+    position: absolute;
+    right: 18%;
+    bottom: 0.4rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: var(--text);
+    stroke: var(--surface);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+  .review {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    font: var(--weight-strong) var(--caption) / var(--line-control) var(--font-body);
+    transform-origin: right center;
+  }
+  .tick {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .tick svg {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>

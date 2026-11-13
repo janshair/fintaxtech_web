@@ -1,0 +1,17 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ClientProject from '../../../components/ClientProject.astro';
+import { featuredWork as work } from '../../../content/work';
+---
+
+<SiteLayout title={work.title} description={work.description}>
+  <div class="container project-page">
+    <ClientProject />
+  </div>
+</SiteLayout>
+
+<style>
+  .project-page {
+    padding-block: var(--space-6) var(--space-9);
+  }
+</style>

@@ -1,8 +1,10 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import ShowcaseImage from '../../components/ShowcaseImage.astro';
-import WorkShowcase from '../../components/WorkShowcase.astro';
-import { showcase, showcaseIndex as c } from '../../data/showcase';
+import PublishedApps from '../../components/PublishedApps.astro';
+import { Image } from 'astro:assets';
+import desktop from '../../assets/work/ask-appliance-repairs-desktop.webp';
+import { listedShowcase as showcase, showcaseIndex as c } from '../../data/showcase';
 import { featuredWork, publishedApps } from '../../content/work';
 const first = showcase[0];
 // The two kinds of work, summarised at the top so the difference is clear before scrolling.
@@ -56,7 +58,35 @@ const groups = [
         <h2 id="client-projects-title">{c.live.title}</h2>
         <p class="muted">{c.live.intro}</p>
       </header>
-      <WorkShowcase />
+      <ul class="kits">
+        <li>
+          <a
+            class="service-card kit"
+            href={featuredWork.route}
+            aria-labelledby={`project-${featuredWork.id}`}
+          >
+            <Image
+              src={desktop}
+              alt={featuredWork.desktopAlt}
+              widths={[480, 800, 1120]}
+              sizes="(min-width: 48rem) 50vw, 100vw"
+              loading="eager"
+              class="project-shot"
+            />
+            <span class="kit-tags">
+              <span class="badge live">{featuredWork.statusBadge}</span>
+              <span>{featuredWork.category}</span>
+            </span>
+            <h3 id={`project-${featuredWork.id}`}>
+              {featuredWork.name}
+              <span aria-hidden="true">→</span>
+            </h3>
+            <p class="muted">{featuredWork.summary}</p>
+            <span class="more">{featuredWork.cardLink}</span>
+          </a>
+        </li>
+      </ul>
+      <PublishedApps />
     </section>
 
     <section class="work-group" id={c.concepts.id} aria-labelledby="concept-kits-title">
@@ -216,6 +246,13 @@ const groups = [
     width: 100%;
     height: auto;
     border-radius: var(--radius);
+  }
+  /* A full-length page screenshot, cropped to its top to match the 16:10 kit images. */
+  .kit :global(img.project-shot) {
+    aspect-ratio: 3200 / 2002;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid var(--border);
   }
   .kit-tags {
     display: flex;

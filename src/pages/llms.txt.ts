@@ -3,7 +3,7 @@ import { absoluteURL } from '../lib/seo';
 import summary from '../content/llms.txt?raw';
 import { locations } from '../content/locations';
 import { pricingSummaryText } from '../content/pricing';
-import { showcase, showcaseIndex } from '../data/showcase';
+import { listedShowcase, showcaseIndex } from '../data/showcase';
 
 export function GET() {
   const areas = [
@@ -21,7 +21,7 @@ export function GET() {
     '',
     `[${showcaseIndex.concepts.title}](${absoluteURL(showcaseIndex.route)}): ${showcaseIndex.concepts.intro} Finished client projects are listed first on the same page.`,
     '',
-    ...showcase.flatMap(
+    ...listedShowcase.flatMap(
       (kit) =>
         kit.llms ?? [
           `- [${kit.trade}](${absoluteURL(kit.url)}): ${kit.description} Sample business: ${kit.sampleBusiness} (invented).`,

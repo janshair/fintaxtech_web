@@ -1,0 +1,156 @@
+---
+// "Pricing follows the scope": each part of the written proposal is ticked off, signed and agreed.
+// Plays once via home-motion; without JS it shows the final state.
+import { scopeVisual as c } from '../content/home-motion';
+---
+
+<figure class="scope-visual home-motion" data-home-motion role="img" aria-label={c.label}>
+  <div class="sheet-trail" aria-hidden="true"></div>
+  <div class="sheet motion-part" style="--motion-order:0">
+    <span class="sheet-title">{c.title}</span>
+    <ul class="scope-rows">
+      {
+        c.rows.map((row, i) => (
+          <li class="scope-row">
+            <span class="row-label motion-part" style={`--motion-order:${1 + i * 1.5}`}>
+              {row}
+            </span>
+            <span class="leader" aria-hidden="true">
+              <i class="motion-link" style={`--motion-order:${1.5 + i * 1.5}`} />
+            </span>
+            <span
+              class="check motion-pop"
+              style={`--motion-order:${2 + i * 1.5}`}
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 24 24" width="24" height="24" focusable="false">
+                <path d="m6 12 4 4 8-9" />
+              </svg>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="sign-off">
+      <svg
+        class="signature"
+        viewBox="0 0 120 36"
+        width="120"
+        height="36"
+        aria-hidden="true"
+        focusable="false"
+        ><path
+          class="motion-stroke"
+          style="--motion-order:8"
+          pathLength="1"
+          d="M4 26c8-14 14-20 18-14s-6 16 2 12 10-18 16-14-4 14 4 12 8-10 14-8 4 8 10 6 12-8 20-6 14 4 24 2"
+        ></path></svg
+      >
+      <span class="stamp motion-pop" style="--motion-order:9.5" data-motion-end>{c.agreed}</span>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .scope-visual {
+    position: relative;
+    isolation: isolate;
+    margin: var(--space-7) 0 0;
+    max-width: 26rem;
+  }
+  .sheet-trail {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    opacity: 0.25;
+    transform: translate(8px, -8px);
+    z-index: -1;
+  }
+  .sheet {
+    background: var(--surface);
+    border: 1px solid var(--muted);
+    border-radius: var(--radius);
+    padding: var(--space-5);
+  }
+  .sheet-title {
+    display: block;
+    margin-bottom: var(--space-4);
+    font: var(--weight-strong) var(--small) / var(--line-control) var(--font-heading);
+  }
+  .scope-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .scope-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0;
+    font-size: var(--small);
+  }
+  .leader {
+    flex: 1;
+    min-width: var(--space-4);
+    border-bottom: 1px dashed var(--border);
+    align-self: center;
+  }
+  .leader i {
+    display: block;
+    height: 1px;
+    margin-bottom: -1px;
+    background: var(--accent);
+    transform-origin: left;
+  }
+  .check {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .check svg {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .sign-off {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+  }
+  .signature {
+    width: 7.5rem;
+    height: auto;
+    fill: none;
+    stroke: var(--text);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .stamp {
+    padding: var(--space-1) var(--space-3);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--accent);
+    font: var(--weight-strong) var(--caption) / var(--line-control) var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    rotate: -4deg;
+  }
+</style>

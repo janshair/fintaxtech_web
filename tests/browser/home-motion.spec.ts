@@ -14,7 +14,7 @@ test('scenes play once, pause offscreen, resume and settle without changing layo
   await page.goto('/');
   const hero = page.locator('.hero-process');
   await expect(hero).toHaveAccessibleName(heroProcess.label);
-  await expect(page.locator('[data-home-motion]')).toHaveCount(6);
+  await expect(page.locator('[data-home-motion]')).toHaveCount(9);
   await expect(hero).toHaveAttribute('data-motion-state', 'running');
   await page.evaluate(() =>
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }),
@@ -86,7 +86,14 @@ for (const width of [320, 390, 768, 1024, 1440]) {
     await page.evaluate(() => document.fonts.ready);
     for (const theme of ['light', 'dark']) {
       await page.evaluate((theme) => (document.documentElement.dataset.theme = theme), theme);
-      for (const selector of ['.hero-process', '.service-grid', '.home-process-steps']) {
+      for (const selector of [
+        '.hero-process',
+        '.service-grid',
+        '.home-process-steps',
+        '.question-visual',
+        '.scope-visual',
+        '.answers-visual',
+      ]) {
         const section = page.locator(selector);
         await section.scrollIntoViewIfNeeded();
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(

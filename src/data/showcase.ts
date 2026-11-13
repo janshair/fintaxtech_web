@@ -33,6 +33,11 @@ export interface ShowcaseEntry {
   faqs?: { question: string; answer: string; schemaAnswer?: string }[];
   /** Lines for /llms.txt; defaults to one generated line. */
   llms?: string[];
+  /**
+   * Keeps the kit page live at its URL but leaves it out of /work/, its structured data,
+   * /llms.txt and the service-page links. Remove the flag to list the kit again.
+   */
+  hidden?: boolean;
 }
 
 /**
@@ -89,6 +94,9 @@ export const workRedirects = [
 export const showcase: ShowcaseEntry[] = [
   {
     id: 'garage',
+    // Hidden for now: it looks too like the plumbing kit side by side. List it again
+    // once there are more concept kits to place between them.
+    hidden: true,
     trade: 'Garages & mechanics',
     title: 'Garage Growth Kit: website, logo, app and AI automation',
     description:
@@ -210,9 +218,16 @@ export const showcase: ShowcaseEntry[] = [
   },
 ];
 
+/** Kits shown on /work/ and linked from other pages; hidden kits keep only their own page. */
+export const listedShowcase = showcase.filter((kit) => !kit.hidden);
+
 /** "See a concept kit" lines on the service pages, one per kit. */
-export const serviceExamples: Partial<Record<ServiceId, { label: string; href: string }[]>> = {
+const allServiceExamples: Partial<Record<ServiceId, { label: string; href: string }[]>> = {
   branding: [
+    {
+      label: 'See the brand identity we made for Ask Appliance Repairs',
+      href: '/work/client-01/#ask-appliance-brand',
+    },
     { label: 'See a concept kit for a garage', href: '/work/garage/#brand' },
     { label: 'See a concept kit for a plumbing business', href: '/work/plumbing/#brand' },
   ],
@@ -221,6 +236,10 @@ export const serviceExamples: Partial<Record<ServiceId, { label: string; href: s
     { label: 'See a concept kit for a plumbing business', href: '/work/plumbing/#app' },
   ],
   'ai-automation': [
+    {
+      label: 'See the AI blog writing we set up for Ask Appliance Repairs',
+      href: '/work/client-01/#ask-appliance-automation',
+    },
     { label: 'See a concept kit for a garage', href: '/work/garage/#automation' },
     {
       label: 'See a concept kit for a plumbing business',
@@ -228,3 +247,11 @@ export const serviceExamples: Partial<Record<ServiceId, { label: string; href: s
     },
   ],
 };
+
+const hiddenKitURLs = showcase.filter((kit) => kit.hidden).map((kit) => kit.url);
+export const serviceExamples = Object.fromEntries(
+  Object.entries(allServiceExamples).map(([service, links]) => [
+    service,
+    links.filter((link) => !hiddenKitURLs.some((url) => link.href.startsWith(url))),
+  ]),
+) as typeof allServiceExamples;
