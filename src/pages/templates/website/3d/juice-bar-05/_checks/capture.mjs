@@ -12,14 +12,14 @@ try {
   // Finish the hero entry before slow, capture-only mask readbacks.
   await page.waitForTimeout(2800);
   for (const [file, mode, progress, width, height] of [
-    ['hero', 'hero', 1, 900, 900],
-    ['stage-1', 'story', 0.18, 900, 700],
-    ['stage-2', 'story', 0.53, 900, 700],
-    ['stage-3', 'story', 1, 900, 700],
-    ['coffee-stage-1', 'coffee', 0.19, 900, 700],
-    ['coffee-stage-2', 'coffee', 0.53, 900, 700],
-    ['coffee-stage-3', 'coffee', 1, 900, 700],
-    ['coffee', 'coffee', 1, 800, 650],
+    ['hero', 'hero', 1, 1200, 1200],
+    ['stage-1', 'story', 0.18, 1260, 980],
+    ['stage-2', 'story', 0.53, 1260, 980],
+    ['stage-3', 'story', 1, 1260, 980],
+    ['coffee-stage-1', 'coffee', 0.19, 1260, 980],
+    ['coffee-stage-2', 'coffee', 0.53, 1260, 980],
+    ['coffee-stage-3', 'coffee', 1, 1260, 980],
+    ['coffee', 'coffee', 1, 1200, 975],
   ]) {
     const png = await page.evaluate(
       (detail) => {
@@ -28,7 +28,7 @@ try {
       },
       { mode, progress, width, height },
     );
-    const buffer = await sharp(Buffer.from(png, 'base64')).webp({ quality: 85 }).toBuffer();
+    const buffer = await sharp(Buffer.from(png, 'base64')).webp({ quality: 90 }).toBuffer();
     if (buffer.length > 120_000) throw Error(file + ' poster exceeds 120 KB');
     await writeFile(assets + file + '.webp', buffer);
     console.log(file, buffer.length);
@@ -58,7 +58,7 @@ try {
   await page.waitForSelector('[data-live=true] canvas');
   await page.waitForTimeout(2400);
   const preview = await sharp(await page.screenshot())
-    .webp({ quality: 85 })
+    .webp({ quality: 90 })
     .toBuffer();
   if (preview.length >= 200_000) throw Error('Preview exceeds 200 KB');
   await writeFile(assets + 'preview.webp', preview);
