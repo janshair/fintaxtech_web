@@ -9,20 +9,20 @@ const last = c.thread.length - 1;
   {
     c.thread.map(([question, answer], i) => (
       <div class="pair">
-        <p class="bubble ask motion-pop" style={`--motion-order:${i * 3}`}>
+        <p class="bubble ask motion-pop" style={`--motion-order:${i * 4}`}>
           <span class="mark" aria-hidden="true">
             ?
           </span>
           {question}
         </p>
-        <p class="typing motion-pop" style={`--motion-order:${i * 3 + 1}`} aria-hidden="true">
+        <p class="typing motion-pop" style={`--motion-order:${i * 4 + 1}`} aria-hidden="true">
           <i />
           <i />
           <i />
         </p>
         <p
           class="bubble reply motion-pop"
-          style={`--motion-order:${i * 3 + 2}`}
+          style={`--motion-order:${i * 4 + 3}`}
           data-motion-end={i === last ? '' : undefined}
         >
           {answer}
@@ -43,7 +43,9 @@ const last = c.thread.length - 1;
 </figure>
 
 <style>
+  /* Slower than the other scenes, so the thread reads like a conversation. */
   .answers-visual {
+    --motion-stagger: 300ms;
     margin: var(--space-7) 0 0;
     max-width: 26rem;
     display: grid;
@@ -91,17 +93,19 @@ const last = c.thread.length - 1;
   }
   .reply {
     justify-self: end;
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-2);
     background: var(--accent);
     color: var(--on-accent);
     border-bottom-right-radius: var(--radius);
     transform-origin: right bottom;
   }
   .read {
-    display: inline-block;
+    flex: none;
     width: 1rem;
     height: 0.7rem;
-    margin-left: var(--space-2);
-    vertical-align: middle;
+    margin-bottom: 0.2rem;
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
