@@ -123,8 +123,15 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     assert.equal(crumbs.itemListElement[1].item, origin + '/careers/');
     const main = elements(doc, 'main')[0];
     const application = elements(main, 'p').find((n) => attr(n, 'class') === 'job-application');
-    assert.equal(text(application), 'If you want to apply, send your CV to ask@fintaxtech.co.uk.');
-    assert.equal(attr(elements(application, 'a')[0], 'href'), 'mailto:ask@fintaxtech.co.uk');
+    const subject = `CV[Fintaxtech-Web]: ${posting.title}`;
+    assert.equal(
+      text(application).replace(/\s+/g, ' ').trim(),
+      `Send your CV to ask@fintaxtech.co.uk using the subject line below. ${subject} CVs with a different subject line will be discarded.`,
+    );
+    assert.equal(
+      attr(elements(application, 'a')[0], 'href'),
+      `mailto:ask@fintaxtech.co.uk?subject=${encodeURIComponent(subject)}`,
+    );
     assert.equal(elements(main, 'form').length, 0);
     assert.equal(elements(main, 'button').length, 0);
     const body = elements(main, 'div').find((n) => attr(n, 'class') === 'article-body');

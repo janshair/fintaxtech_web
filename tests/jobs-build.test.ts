@@ -58,12 +58,19 @@ it('generates only active job pages and sitemap entries, then removes them and r
       listing.indexOf('Older fixture vacancy'),
     );
     expect(listing).not.toContain('Inactive fixture vacancy');
-    for (const slug of ['fixture-older', 'fixture-newer']) {
+    for (const [slug, title] of [
+      ['fixture-older', 'Older fixture vacancy'],
+      ['fixture-newer', 'Newer fixture vacancy'],
+    ]) {
       expect(sitemap).toContain(`/careers/${slug}/</loc>`);
       const detail = await readFile(join(output, `careers/${slug}/index.html`), 'utf8');
       expect(detail).toContain('"@type":"JobPosting"');
-      expect(detail).toContain('If you want to apply, send your CV to');
-      expect(detail).toContain('href="mailto:ask@fintaxtech.co.uk"');
+      const subject = `CV[Fintaxtech-Web]: ${title}`;
+      expect(detail).toContain('Send your CV to');
+      expect(detail).toContain(`<strong>${subject}</strong>`);
+      expect(detail).toContain(
+        `href="mailto:ask@fintaxtech.co.uk?subject=${encodeURIComponent(subject)}"`,
+      );
     }
     expect(sitemap).not.toContain('/careers/fixture-inactive/');
     expect(await readdir(join(output, 'careers'))).toEqual(

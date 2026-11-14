@@ -1,4 +1,5 @@
 import { z } from 'astro/zod';
+import { jobCategories } from '../content/careers';
 
 const requiredText = z.string().trim().min(1);
 const date = z.union([requiredText, z.date()]).pipe(z.coerce.date());
@@ -9,6 +10,7 @@ export const jobFields = z
     location: requiredText,
     active: z.boolean(),
     publishedDate: date,
+    category: z.enum(jobCategories).optional(),
     department: requiredText.optional(),
     employmentType: z
       .enum([

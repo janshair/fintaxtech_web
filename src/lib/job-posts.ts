@@ -1,4 +1,5 @@
 import { careersCopy } from '../content/careers';
+import { company } from '../content/site';
 
 interface JobSummary {
   id: string;
@@ -9,6 +10,11 @@ export function jobSlug(job: { id: string }) {
   return job.id;
 }
 export const jobURL = (job: { id: string }) => `${careersCopy.route}${jobSlug(job)}/`;
+
+export function jobApplication(title: string) {
+  const subject = `CV[Fintaxtech-Web]: ${title}`;
+  return { subject, href: `mailto:${company.email}?subject=${encodeURIComponent(subject)}` };
+}
 
 // Listing, static routes and sitemap must all use this exact selection.
 export function activeJobs<T extends JobSummary>(jobs: T[]): T[] {

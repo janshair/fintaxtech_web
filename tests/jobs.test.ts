@@ -68,7 +68,11 @@ describe('careers publishing', () => {
       jobLocation: { address: { addressLocality: 'Dundee', addressCountry: 'GB' } },
     });
     expect(schema.description).toContain(job.descriptionHTML);
-    expect(schema.description).toContain('mailto:ask@fintaxtech.co.uk');
+    const subject = `CV[Fintaxtech-Web]: ${fields.title}`;
+    expect(schema.description).toContain(
+      `mailto:ask@fintaxtech.co.uk?subject=${encodeURIComponent(subject)}`,
+    );
+    expect(schema.description).toContain(`<strong>${subject}</strong>`);
     for (const key of [
       'baseSalary',
       'employmentType',

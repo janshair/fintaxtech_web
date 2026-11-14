@@ -1,3 +1,5 @@
+export const jobCategories = ['ai-automation', 'branding', 'mobile', 'web'] as const;
+
 export const careersCopy = {
   route: '/careers/',
   label: 'Careers',
@@ -8,13 +10,23 @@ export const careersCopy = {
     'We build websites, mobile apps, brand identities and AI-assisted workflows. Explore our current opportunities below.',
   vacancies: 'Current vacancies',
   empty: 'There are currently no active vacancies',
+  emptyCategory: 'There are no active vacancies in this category.',
+  categoryFilter: 'Filter vacancies by category',
+  allJobs: 'All jobs',
+  categories: {
+    'ai-automation': 'AI Automation',
+    branding: 'Branding',
+    mobile: 'Mobile',
+    web: 'Web',
+  },
   back: 'View all vacancies',
   location: 'Location',
-  published: 'Published',
   department: 'Department',
   employmentType: 'Employment type',
   closing: 'Closing date',
-  application: 'If you want to apply, send your CV to ',
+  application: 'Send your CV to ',
+  applicationSubjectLine: ' using the subject line below.',
+  applicationWarning: 'CVs with a different subject line will be discarded.',
   employmentTypes: {
     FULL_TIME: 'Full time',
     PART_TIME: 'Part time',
