@@ -66,9 +66,12 @@ it('generates only active job pages and sitemap entries, then removes them and r
       const detail = await readFile(join(output, `careers/${slug}/index.html`), 'utf8');
       expect(detail).toContain('"@type":"JobPosting"');
       const subject = `CV[Fintaxtech-Web]: ${title}`;
-      expect(detail).toContain('Send your CV to');
-      expect(detail).toContain(`<strong>${subject}</strong>`);
-      expect(detail).toContain(
+      const application = detail.match(
+        /<p\b[^>]*\bclass="job-application"[^>]*>([\s\S]*?)<\/p>/,
+      )?.[1];
+      expect(application).toContain('Send your CV to');
+      expect(application?.match(/<strong\b[^>]*>([^<]*)<\/strong>/)?.[1]).toBe(subject);
+      expect(application).toContain(
         `href="mailto:ask@fintaxtech.co.uk?subject=${encodeURIComponent(subject)}"`,
       );
     }
