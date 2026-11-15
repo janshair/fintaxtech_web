@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { blogFields, validUpdatedDate } from '../src/lib/blog-schema';
+import { blogFields, validSearchTitle, validUpdatedDate } from '../src/lib/blog-schema';
 import {
   publishedPosts,
   postURL,
@@ -56,6 +56,10 @@ describe('blog publishing', () => {
       { slug: '../private' },
     ])
       expect(blogFields.safeParse({ ...fields, ...override }).success).toBe(false);
+    expect(blogFields.safeParse({ ...fields, description: 'x'.repeat(156) }).success).toBe(false);
+    expect(blogFields.safeParse({ ...fields, description: 'x'.repeat(155) }).success).toBe(true);
+    expect(validSearchTitle({ title: 'x'.repeat(61) })).toBe(false);
+    expect(validSearchTitle({ title: 'x'.repeat(61), seoTitle: 'x'.repeat(60) })).toBe(true);
     expect(validUpdatedDate({ ...fields, updatedDate: new Date('2026-09-08') })).toBe(false);
     expect(validUpdatedDate({ ...fields, updatedDate: new Date('2026-09-10') })).toBe(true);
   });

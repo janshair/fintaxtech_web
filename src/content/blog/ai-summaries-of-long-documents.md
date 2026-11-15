@@ -2,6 +2,7 @@
 title: 'AI Summaries of Long Documents: How to Ask for One You Can Actually Use'
 seoTitle: 'AI Summaries of Long Documents: A Practical Brief'
 description: 'Need a long report or contract summarised? Learn how to say who the summary is for, what it must include and how to check it before relying on it.'
+summary: 'To get an AI summary you can use, say what decision it supports, who will read it and what must always appear, such as dates, amounts and notice periods. Ask for exact items to be quoted with a page reference and for gaps to be flagged, then check those items against the original before relying on it.'
 slug: ai-summaries-of-long-documents
 pubDate: 2026-11-10
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: AI Automation
 tags: [ai summaries, documents, ai automation]
 featuredImage: ../../assets/blog/ai-summaries-of-long-documents/ai-summaries-of-long-documents-hero.png
 imageAlt: Flat illustration of a tall stack of document pages on the left narrowing through a blue line into one short summary card on the right
+faqs:
+  - question: 'Can I trust an AI summary of a contract?'
+    answer: 'Use it to prepare, not to decide. A summary can drop a deadline or condition, or slightly change the wording. Contracts with significant obligations, regulatory notices and anything with legal or financial weight should still be read in full by a person, with professional advice where it matters.'
+  - question: 'What should I write when asking AI to summarise a document?'
+    answer: 'Give the purpose, the reader and a must-include list. For example: summarise this supplier contract so I can decide whether to renew, covering the term, notice period, price-change rules and anything that restricts us. Then add the length and format you want.'
+  - question: 'What mistakes do AI summaries usually make?'
+    answer: 'Two main ones. They leave out a detail that looked minor in a long document, such as an exception or a deadline, and they produce smooth wording that slightly changes what the original says. Omissions are harder to spot than errors, so compare the summary with the original''s headings.'
+  - question: 'How long should a summary of a long report be?'
+    answer: 'As long as the reader''s purpose needs. A short overview of a paragraph or a few bullet points helps someone decide whether to read further, while a section-by-section summary suits a long report. Agree the length before the first run, for example one page or five bullet points.'
+  - question: 'What is the best way to summarise meeting minutes with AI?'
+    answer: 'Ask for actions and decisions instead of a general overview: who agreed to do what, and by when. Have names and dates quoted from the original, ask for anything unclear to be flagged rather than guessed, and have a named person check the result against the minutes.'
 draft: false
 cta: general
 ---

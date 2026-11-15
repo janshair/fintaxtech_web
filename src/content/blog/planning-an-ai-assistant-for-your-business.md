@@ -2,6 +2,7 @@
 title: 'Planning an AI Assistant for Your Business: What to Decide Before Anything Is Built'
 seoTitle: 'Planning an AI Assistant for Your Business'
 description: 'Thinking about an AI assistant for your business? Decide its job, its sources, its limits and who checks it before any work begins.'
+summary: 'Before an AI assistant is built, decide five things: the one narrow job it will do, the approved sources it may draw on, what it must never do, how sensitive information is handled, and who checks its output. Start with a low-risk task where a poor answer would be noticed quickly and do little harm.'
 slug: planning-an-ai-assistant-for-your-business
 pubDate: 2026-10-10
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: AI Automation
 tags: [ai assistants, planning, ai automation]
 featuredImage: ../../assets/blog/planning-an-ai-assistant-for-your-business/planning-an-ai-assistant-for-your-business-hero.png
 imageAlt: Flat illustration of a speech bubble connected to a stack of documents and a checklist card, with a blue accent line linking them
+faqs:
+  - question: 'Can an AI assistant give wrong answers?'
+    answer: 'Yes. An assistant can be wrong while sounding confident, and it does not understand your business the way an employee does. A good plan assumes it will sometimes make mistakes, so a named person reads its output before it reaches a customer or is published.'
+  - question: 'What is a good first job for an AI assistant in a small business?'
+    answer: 'Something repeatable, low-risk and easy to judge: drafting first replies to common, non-sensitive questions, summarising long internal documents into a standard layout, turning meeting notes into an action list, or preparing consistent service descriptions from approved facts.'
+  - question: 'Should staff or customers use an AI assistant first?'
+    answer: 'Staff and customers need different safeguards, and starting with staff is often the lower-risk route, because mistakes are caught internally before anything reaches a customer. Once the instructions, sources and review process are working, you can decide whether to widen who uses it.'
+  - question: 'Can an AI assistant answer questions about prices or legal matters?'
+    answer: 'It is safer to rule this out. Write the limits down before work starts: no legal, tax, medical or financial advice, no promises about prices, timescales or outcomes, nothing that commits your business, and a handover to a person when a question falls outside its scope.'
+  - question: 'Who keeps an AI assistant up to date?'
+    answer: 'A named person in your business. Sources and instructions go stale, and an assistant will use an old price list or a superseded policy without any sign that it is old. Someone should own the question of whether each source is still true, and review it regularly.'
 draft: false
 cta: general
 ---

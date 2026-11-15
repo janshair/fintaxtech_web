@@ -1,6 +1,6 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { blogFields, validUpdatedDate } from './lib/blog-schema';
+import { blogFields, validSearchTitle, validUpdatedDate } from './lib/blog-schema';
 import { jobFields } from './lib/job-schema';
 
 const blog = defineCollection({
@@ -16,6 +16,10 @@ const blog = defineCollection({
       .refine(validUpdatedDate, {
         message: 'updatedDate must not precede pubDate',
         path: ['updatedDate'],
+      })
+      .refine(validSearchTitle, {
+        message: 'seoTitle (or title, when there is no seoTitle) must be 60 characters or fewer',
+        path: ['seoTitle'],
       })
       .refine((data) => Boolean(data.featuredImage) === Boolean(data.imageAlt), {
         message: 'Supply both featuredImage and descriptive imageAlt, or omit both',

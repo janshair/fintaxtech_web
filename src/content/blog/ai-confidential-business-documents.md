@@ -2,6 +2,7 @@
 title: 'Using AI with Confidential Business Documents: What to Share, What to Redact and How to Transfer Safely'
 seoTitle: 'Using AI with Confidential Documents'
 description: 'A practical guide for business owners on which documents are safe to use with AI tools, what to redact first, and how to transfer files securely.'
+summary: 'Sort your documents into three groups before using any AI tool: share as-is, redact first, and do not share. Anything that belongs to a client or supplier needs their permission. Remove names, contact details and identifiers, read the tool''s current data terms for your plan, and send files by an expiring link limited to named people.'
 slug: ai-confidential-business-documents
 pubDate: 2026-09-27
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: AI Automation
 tags: [AI-assisted content, Confidentiality, Data protection]
 featuredImage: ../../assets/blog/ai-confidential-business-documents/ai-confidential-business-documents-hero.png
 imageAlt: A flat illustration of a document being sorted into three trays, with one page partly covered by a blue redaction bar
+faqs:
+  - question: 'Is it safe to put client documents into an AI tool like ChatGPT or Claude?'
+    answer: 'Not without the client''s permission and a check of the tool''s terms. Information that belongs to someone else stays with you unless you are allowed to share it. Terms also differ between free consumer plans and business plans, so read the current data terms for the plan you actually use.'
+  - question: 'Do AI tools train on the documents I upload?'
+    answer: 'It depends on the provider and the plan. At the time of writing, Anthropic and OpenAI both publish that business customer content is not used to train their models by default, while free consumer tiers often work differently. Check the current terms for your own plan rather than relying on a headline.'
+  - question: 'Does blacking out text in a PDF count as redaction?'
+    answer: 'Often not. A black box drawn over text in a word processor or PDF editor can leave the words underneath, where anyone can select or copy them. Replace or delete the details instead, then save a clean copy and check it by opening the file fresh.'
+  - question: 'What is document metadata and why does it matter?'
+    answer: 'Metadata is information a file carries beyond the visible words, such as the author''s name, tracked changes, comments, earlier revisions and hidden columns. Before a document leaves your business, export a flattened PDF or paste the text into a new file, then check the document properties.'
+  - question: 'Which documents should never go into an AI tool?'
+    answer: 'Client financial records, health information, children''s data, payment details, passwords, staff HR files and anything under a confidentiality agreement you have not cleared. If you need help with that kind of document, describe its structure in general terms and work from that instead.'
 draft: false
 cta: general
 ---

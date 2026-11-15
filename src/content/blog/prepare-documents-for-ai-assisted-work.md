@@ -2,6 +2,7 @@
 title: 'Preparing Your Documents for AI-Assisted Work: A Practical Tidy-Up Checklist'
 seoTitle: 'Prepare Your Documents for AI-Assisted Work'
 description: 'Tidy documents give AI-assisted work a better start. Learn what to check on readability, naming, versions and sensitive content before handing files over.'
+summary: 'Before handing documents over for AI-assisted work, check four things: each file is readable, sensibly named and grouped, the current version, and safe to share. Remove duplicates and old drafts, flag anything unclear or missing, and add a short covering note saying what the batch contains and what you want done with it.'
 slug: prepare-documents-for-ai-assisted-work
 pubDate: 2026-10-18
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: AI Automation
 tags: [document preparation, ai automation, business documents]
 featuredImage: ../../assets/blog/prepare-documents-for-ai-assisted-work/prepare-documents-for-ai-assisted-work-hero.png
 imageAlt: Flat illustration of scattered, skewed paper sheets passing through a checklist frame with blue ticks and emerging as a neat aligned stack of pages
+faqs:
+  - question: 'Can AI read scanned documents and handwriting?'
+    answer: 'Often, but only as well as the scan allows. Scans need to be straight, complete and sharp enough to read the small print. Handwriting is a useful test: if you struggle to read it, a tool is likely to struggle too. Flag anything unclear rather than hoping it works out.'
+  - question: 'How should I name files before sending them for AI work?'
+    answer: 'A simple convention is enough: a date, a document type and a short description, such as 2026-03-12 supplier-contract acme-cleaning. Group files of the same type together and keep one folder per batch, so a supplier can tell what each file is.'
+  - question: 'Should I rewrite or tidy documents before using AI on them?'
+    answer: 'Tidy the batch, not the wording. Remove duplicates, label old versions and rename unclear files, but hand over the originals so the work reflects what they really say. Preparing a copy for handover is also different from deleting records you may need to keep.'
+  - question: 'Is it better to send every document I have?'
+    answer: 'No. More files mean more to check and more chances for something sensitive to slip through. Send the current versions that are relevant to the task, leave out anything nobody can explain, and say what is missing or out of date in a short covering note.'
+  - question: 'What happens if a page is missing from a document?'
+    answer: 'Find it if you can, or note exactly what is missing before you hand the batch over. Gaps in the input can otherwise be filled with something that only sounds plausible. A clear note lets the supplier flag the gap in the result instead of guessing.'
 draft: false
 cta: general
 ---
