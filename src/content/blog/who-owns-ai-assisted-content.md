@@ -2,6 +2,7 @@
 title: 'Who Owns AI-Assisted Content? What Your Business Should Confirm in Writing'
 seoTitle: 'Who Owns AI-Assisted Content? A UK Business Owner Guide'
 description: 'A practical guide for UK business owners to ownership of AI-assisted content: what UK guidance says, what tool terms cover and what to agree in writing.'
+summary: 'In the UK, the first owner of copyright is usually whoever created the work, and AI-generated material has no settled special rule yet. In practice, what your business ends up owning depends on three things: whether there is human authorship in the content, what the AI tool''s terms allow, and what your supplier agrees in writing to transfer to you.'
 slug: who-owns-ai-assisted-content
 pubDate: 2026-10-02
 author: FinTaxTech Ltd.
@@ -9,11 +10,18 @@ category: AI Automation
 tags: [AI content, ownership, contracts]
 featuredImage: ../../assets/blog/who-owns-ai-assisted-content/who-owns-ai-assisted-content-hero.png
 imageAlt: Flat vector illustration of a locked stack of draft documents with an arrow and a key pointing to a signed agreement bearing an approval seal
+faqs:
+  - question: 'Who owns AI-generated content in the UK?'
+    answer: 'There is no settled special rule yet. The usual starting point is that the creator is the first owner, and content a person has directed, edited and shaped sits on firmer ground than untouched output. The Government has proposed changes for wholly computer-generated works, but they are not in force.'
+  - question: 'Who owns text created with a free AI writing tool?'
+    answer: 'Start with the tool''s terms of use, which decide what you may do with the output, including commercial use. Free plans can have different terms from paid ones, and may allow your inputs to be used for training. Separately, copyright may only exist where there is real human authorship.'
+  - question: 'Does paying a supplier mean we own the content?'
+    answer: 'Not by itself. GOV.UK guidance says the creator of commissioned work is the first owner unless you agree otherwise in writing. Make sure the proposal or contract says which final deliverables transfer to your business, and when.'
+  - question: 'Can we stop a competitor publishing something similar?'
+    answer: 'Usually not through copyright. Owning your files does not prevent someone else producing similar content. For names, logos and straplines, exclusivity comes from trade mark registration, which is a separate process best discussed with a trade mark attorney.'
 draft: false
 cta: general
 ---
-
-**In short:** in the UK, the first owner of copyright is usually whoever created the work, and AI-generated material has no settled special rule yet. In practice, what your business ends up owning depends on three things: whether there is human authorship in the content, what the AI tool's terms allow, and what your supplier agrees in writing to transfer to you.
 
 If your business uses AI to help draft web copy, product descriptions, service pages or social posts, a fair question follows: who actually owns the result? It matters once that content sits on your own website, goes into a printed brochure, or forms part of work you have paid someone else to produce.
 
@@ -143,23 +151,5 @@ The point is not bureaucracy. It is that two years from now, if anyone asks wher
 - [ ] Treat exclusivity as a separate question, and take proper advice if it matters
 
 Most of this takes an afternoon to set up and then looks after itself. If you would rather the ownership position were clear from the outset — stated in the proposal, with a handover list you can check — that is how we prefer to work, and we are happy to talk it through before anything starts.
-
-## Common questions
-
-### Who owns AI-generated content in the UK?
-
-There is no settled special rule yet. The usual starting point is that the creator is the first owner, and content a person has directed, edited and shaped sits on firmer ground than untouched output. The Government has proposed changes for wholly computer-generated works, but they are not in force.
-
-### Who owns text created with a free AI writing tool?
-
-Start with the tool's terms of use, which decide what you may do with the output, including commercial use. Free plans can have different terms from paid ones, and may allow your inputs to be used for training. Separately, copyright may only exist where there is real human authorship.
-
-### Does paying a supplier mean we own the content?
-
-Not by itself. GOV.UK guidance says the creator of commissioned work is the first owner unless you agree otherwise in writing. Make sure the proposal or contract says which final deliverables transfer to your business, and when.
-
-### Can we stop a competitor publishing something similar?
-
-Usually not through copyright. Owning your files does not prevent someone else producing similar content. For names, logos and straplines, exclusivity comes from trade mark registration, which is a separate process best discussed with a trade mark attorney.
 
 **[Talk to us about AI-assisted content →](/enquiry/?service=ai-automation)**

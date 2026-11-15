@@ -10,6 +10,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Consent from '../components/Consent.astro';
 import { company, home } from '../content/site';
+import { searchTitle } from '../lib/blog-posts';
 import '@fontsource/archivo/latin-600.css';
 import '@fontsource/ibm-plex-sans/latin-400.css';
 import '@fontsource/ibm-plex-sans/latin-600.css';
@@ -37,6 +38,8 @@ const description = configured?.description ?? Astro.props.description ?? home.i
 const noindex = Astro.props.noindex || configured?.noindex || false;
 const canonical = new URL(configured?.canonical ?? pathname, company.url);
 const { article, job, standalone = false } = Astro.props;
+// Articles drop the brand when it would push the title past what search results show.
+const pageTitle = article ? searchTitle(title, company.name) : `${title} | ${company.name}`;
 const socialDescription = Astro.props.socialDescription ?? description;
 const socialImage = Astro.props.socialImage ?? {
   url: '/social.png',
@@ -55,7 +58,7 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
     ><meta charset="UTF-8" /><meta
       name="viewport"
       content="width=device-width,initial-scale=1"
-    /><title>{title} | {company.name}</title><meta name="description" content={description} /><meta
+    /><title>{pageTitle}</title><meta name="description" content={description} /><meta
       name="color-scheme"
       content="light dark"
     /><link rel="canonical" href={canonical} />{
@@ -69,7 +72,7 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
           content={configured?.nofollow ? 'noindex,nofollow' : 'noindex,follow'}
         />
       )
-    }<meta property="og:title" content={`${title} | ${company.name}`} /><meta
+    }<meta property="og:title" content={pageTitle} /><meta
       property="og:description"
       content={socialDescription}
     /><meta property="og:type" content={article ? 'article' : 'website'} /><meta
@@ -85,7 +88,7 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
     <meta property="og:image:type" content={socialImage.type} />
     <meta property="og:image:alt" content={socialImage.alt} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | ${company.name}`} />
+    <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={socialDescription} />
     <meta name="twitter:image" content={imageURL} />
     <meta name="twitter:image:alt" content={socialImage.alt} />
@@ -134,7 +137,7 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
       is:inline
       type="application/ld+json"
       set:html={JSON.stringify(
-        structuredData(pathname, `${title} | ${company.name}`, description, article, imageURL, job),
+        structuredData(pathname, pageTitle, description, article, imageURL, job),
       ).replace(/</g, '\\u003c')}
     />
     <noscript

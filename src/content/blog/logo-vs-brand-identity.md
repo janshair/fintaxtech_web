@@ -1,7 +1,7 @@
 ---
 title: 'Logo vs Brand Identity: What Does a New Business Actually Need?'
 seoTitle: 'Logo vs Brand Identity: What Does a New UK Business Need?'
-description: 'Logo or full brand identity? Learn what a new UK business needs at launch, what can wait, and which practical and rights checks to make before committing to a designer.'
+description: 'Logo or full brand identity? Learn what a new UK business needs at launch, what can wait, and the rights checks to make before committing to a designer.'
 slug: logo-vs-brand-identity
 pubDate: 2026-09-14
 author: FinTaxTech Ltd.

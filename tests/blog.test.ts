@@ -1,6 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { blogFields, validUpdatedDate } from '../src/lib/blog-schema';
-import { publishedPosts, postURL, formatPostDate } from '../src/lib/blog-posts';
+import {
+  publishedPosts,
+  postURL,
+  formatPostDate,
+  relatedPosts,
+  searchTitle,
+} from '../src/lib/blog-posts';
 import { structuredData } from '../src/lib/seo';
 
 const fields = {
@@ -81,5 +87,56 @@ describe('blog publishing', () => {
         { position: 3, name: fields.title, item: 'https://fintaxtech.co.uk/blog/example/' },
       ],
     });
+  });
+  it('publishes the short answer and questions as structured data', () => {
+    expect(blogFields.parse(fields).faqs).toEqual([]);
+    expect(blogFields.safeParse({ ...fields, summary: 'Too short' }).success).toBe(false);
+    const article = {
+      ...fields,
+      summary: 'A direct answer to the question in the title.',
+      faqs: [{ question: 'What does it cost?', answer: 'It depends on the scope of the project.' }],
+    };
+    const graph = structuredData('/blog/example/', fields.title, fields.description, article)[
+      '@graph'
+    ];
+    expect(graph.find((node) => node['@type'] === 'BlogPosting')).toMatchObject({
+      abstract: article.summary,
+    });
+    expect(graph.find((node) => node['@type'] === 'FAQPage')).toMatchObject({
+      '@id': 'https://fintaxtech.co.uk/blog/example/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What does it cost?',
+          acceptedAnswer: { '@type': 'Answer', text: 'It depends on the scope of the project.' },
+        },
+      ],
+    });
+    const plain = structuredData('/blog/example/', fields.title, fields.description, fields)[
+      '@graph'
+    ];
+    expect(plain.some((node) => node['@type'] === 'FAQPage')).toBe(false);
+  });
+  it('suggests same-category articles first and brands only the titles that fit', () => {
+    const post = (id: string, category: string, date: string) => ({
+      id,
+      data: { ...fields, category, pubDate: new Date(date) },
+    });
+    const posts = publishedPosts([
+      post('current', 'Branding', '2026-09-01'),
+      post('newest-other', 'Websites', '2026-09-05'),
+      post('same-old', 'Branding', '2026-08-01'),
+      post('same-new', 'Branding', '2026-08-20'),
+    ]);
+    const current = posts.find((entry) => entry.id === 'current')!;
+    expect(relatedPosts(current, posts, 3).map((entry) => entry.id)).toEqual([
+      'same-new',
+      'same-old',
+      'newest-other',
+    ]);
+    expect(relatedPosts(current, posts)).toHaveLength(2);
+    expect(searchTitle('Short title', 'FinTaxTech')).toBe('Short title | FinTaxTech');
+    const long = 'A search title that is already close to the sixty limit';
+    expect(searchTitle(long, 'FinTaxTech')).toBe(long);
   });
 });

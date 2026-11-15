@@ -2,6 +2,7 @@
 title: 'AI Document Extraction Explained: Turning Forms, Letters and PDFs into Organised Information'
 seoTitle: 'AI Document Extraction Explained for Businesses'
 description: 'What AI document extraction does, where it works well, where it needs a human check, and how to prepare your paperwork before you start.'
+summary: 'AI document extraction reads forms, letters, PDFs and scans, finds the specific details you ask for, such as names, dates, totals or actions, and puts them into a consistent format like a spreadsheet row. It works best on documents that look broadly alike, and a person should check the output against the originals before anyone relies on it.'
 slug: ai-document-extraction-explained
 pubDate: 2026-10-09
 author: FinTaxTech Ltd.
@@ -9,11 +10,18 @@ category: AI Automation
 tags: [document extraction, ai automation, workflows]
 featuredImage: ../../assets/blog/ai-document-extraction-explained/ai-document-extraction-explained-hero.png
 imageAlt: Flat illustration of a stack of white paper pages on the left, an arrow, and a tidy blue-accented grid of organised cells on the right
+faqs:
+  - question: 'How does AI document technology work?'
+    answer: 'It reads the document, using OCR to turn scanned pages into text, works out the layout, finds the specific items you asked for, and puts them into a fixed format such as a table. Simple checks flag anything uncertain, and a person reviews the output before it is used.'
+  - question: 'What tools can extract information from business documents using AI?'
+    answer: 'General AI assistants that accept file uploads, receipt and invoice capture in accounting software, cloud document-processing services that developers build on, and custom workflows that combine these. One-off jobs suit a general assistant; regular, similar documents suit a repeatable workflow.'
+  - question: 'How do companies use AI for document processing?'
+    answer: 'Typical uses are pulling invoice and receipt details into bookkeeping, copying enquiry and booking forms into customer records, listing key dates from contracts, and extracting decisions and actions from long reports. In each case a person checks the output before anyone relies on it.'
+  - question: 'Is AI document extraction accurate?'
+    answer: 'It is generally reliable on clear, consistent documents and less reliable on faint scans, handwriting, unusual layouts and ambiguous wording. Treat the output as a first pass, check figures against the original, and start with a low-risk document type.'
 draft: false
 cta: general
 ---
-
-**In short:** AI document extraction reads forms, letters, PDFs and scans, finds the specific details you ask for, such as names, dates, totals or actions, and puts them into a consistent format like a spreadsheet row. It works best on documents that look broadly alike, and a person should check the output against the originals before anyone relies on it.
 
 Most businesses hold a surprising amount of useful information in places that are awkward to use. It sits in PDFs, scanned letters, email attachments, forms and long reports. Someone has to read each one and copy the important parts somewhere else.
 
@@ -153,23 +161,5 @@ If a single mistake would be costly or hard to spot, it is usually better to sta
 - [ ] Confirm in writing who owns the deliverables and when ownership transfers
 
 If you have a pile of paperwork and are not sure where to begin, we are happy to talk it through. There is no pressure to proceed, and an honest "not yet" is a perfectly reasonable answer.
-
-## Common questions
-
-### How does AI document technology work?
-
-It reads the document, using OCR to turn scanned pages into text, works out the layout, finds the specific items you asked for, and puts them into a fixed format such as a table. Simple checks flag anything uncertain, and a person reviews the output before it is used.
-
-### What tools can extract information from business documents using AI?
-
-General AI assistants that accept file uploads, receipt and invoice capture in accounting software, cloud document-processing services that developers build on, and custom workflows that combine these. One-off jobs suit a general assistant; regular, similar documents suit a repeatable workflow.
-
-### How do companies use AI for document processing?
-
-Typical uses are pulling invoice and receipt details into bookkeeping, copying enquiry and booking forms into customer records, listing key dates from contracts, and extracting decisions and actions from long reports. In each case a person checks the output before anyone relies on it.
-
-### Is AI document extraction accurate?
-
-It is generally reliable on clear, consistent documents and less reliable on faint scans, handwriting, unusual layouts and ambiguous wording. Treat the output as a first pass, check figures against the original, and start with a low-risk document type.
 
 **[Talk to us about AI Automation →](/enquiry/?service=ai-automation)**

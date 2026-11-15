@@ -19,6 +19,23 @@ export function publishedPosts<T extends PostSummary>(posts: T[]): T[] {
   );
 }
 
+// Posts to suggest under an article: the same category first, then the newest of the rest.
+export function relatedPosts<T extends PostSummary & { data: { category: string } }>(
+  current: T,
+  published: T[],
+  limit = 2,
+): T[] {
+  const others = published.filter((post) => post.id !== current.id);
+  return [
+    ...others.filter((post) => post.data.category === current.data.category),
+    ...others.filter((post) => post.data.category !== current.data.category),
+  ].slice(0, limit);
+}
+
+// Search results cut titles off at about 60 characters, so the brand is only added when it fits.
+export const searchTitle = (title: string, brand: string) =>
+  `${title} | ${brand}`.length <= 60 ? `${title} | ${brand}` : title;
+
 export const formatPostDate = (date: Date) =>
   new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',

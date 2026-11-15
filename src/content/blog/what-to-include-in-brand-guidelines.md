@@ -2,6 +2,7 @@
 title: 'What Should Brand Guidelines Include? Compact and Extended Guides Explained'
 seoTitle: 'What Should Brand Guidelines Include? A Practical Guide'
 description: 'What brand guidelines cover, what belongs in a compact guide versus an extended one, and how to judge which is right for your business.'
+summary: 'Brand guidelines should include logo use (approved versions, clear space, minimum size and backgrounds), exact colour values for screen and print, typefaces with fallbacks and licence notes, imagery direction, examples of incorrect use, and where the master files live. Larger teams add tone of voice, layout rules, real application examples and a version history.'
 slug: what-to-include-in-brand-guidelines
 pubDate: 2026-09-23
 author: FinTaxTech Ltd.
@@ -9,11 +10,18 @@ category: Branding and Graphic Design
 tags: [brand guidelines, brand identity, small business]
 featuredImage: ../../assets/blog/what-to-include-in-brand-guidelines/what-to-include-in-brand-guidelines-hero.png
 imageAlt: Flat illustration of an open brand guidelines document beside colour swatch cards, a type sample sheet and a logo spacing diagram
+faqs:
+  - question: 'What should be included in brand guidelines?'
+    answer: 'At minimum: approved logo versions with clear space and minimum size, exact colour values for screen and print, typefaces with fallbacks, imagery direction, examples of incorrect use, and where the master files are kept. Growing businesses add tone of voice, layout rules, application examples and a version history.'
+  - question: 'How long should brand guidelines be?'
+    answer: 'As long as the people using them need. A sole trader can work well with a short compact guide covering logo, colour, type and what not to do. Businesses with several staff, locations or agencies usually need an extended guide with examples, because more people are making decisions without you.'
+  - question: 'What is the difference between a brand guide and a style guide?'
+    answer: 'The terms are often used for the same thing. Where they differ, a brand guide covers the whole identity (logo, colour, type, imagery and tone), while a style guide may focus on one area, such as writing style or the visual rules for a website.'
+  - question: 'Do brand guidelines protect my logo legally?'
+    answer: 'No. Guidelines are an internal standard that keeps your brand consistent. Legal protection for a name or logo comes from trade mark registration with the UK Intellectual Property Office, which is a separate process. Take proper advice before relying on a name commercially.'
 draft: false
 cta: general
 ---
-
-**In short:** brand guidelines should include logo use (approved versions, clear space, minimum size and backgrounds), exact colour values for screen and print, typefaces with fallbacks and licence notes, imagery direction, examples of incorrect use, and where the master files live. Larger teams add tone of voice, layout rules, real application examples and a version history.
 
 A logo arrives as a folder of files, and for a while that feels like enough. Then a printer asks which blue to use, a new member of staff builds a poster in whatever typeface was already installed, and the mark on your van no longer quite matches the one on your invoices. None of that is carelessness. It is what happens when the decisions live in one person's head instead of on paper.
 
@@ -146,23 +154,5 @@ The measure of a good guide is not how impressive it looks. It is how rarely peo
 - [ ] Someone is responsible for keeping it current
 
 Whether a compact guide covers you, or the extended version is the better use of the budget, depends mostly on who else will be applying the brand. We are happy to talk it through, and to say plainly when the compact version is enough. If it helps to write the logo work down first, our guide to [writing a logo design brief](https://fintaxtech.co.uk/blog/how-to-write-a-logo-design-brief/) is a sensible starting point.
-
-## Common questions
-
-### What should be included in brand guidelines?
-
-At minimum: approved logo versions with clear space and minimum size, exact colour values for screen and print, typefaces with fallbacks, imagery direction, examples of incorrect use, and where the master files are kept. Growing businesses add tone of voice, layout rules, application examples and a version history.
-
-### How long should brand guidelines be?
-
-As long as the people using them need. A sole trader can work well with a short compact guide covering logo, colour, type and what not to do. Businesses with several staff, locations or agencies usually need an extended guide with examples, because more people are making decisions without you.
-
-### What is the difference between a brand guide and a style guide?
-
-The terms are often used for the same thing. Where they differ, a brand guide covers the whole identity (logo, colour, type, imagery and tone), while a style guide may focus on one area, such as writing style or the visual rules for a website.
-
-### Do brand guidelines protect my logo legally?
-
-No. Guidelines are an internal standard that keeps your brand consistent. Legal protection for a name or logo comes from trade mark registration with the UK Intellectual Property Office, which is a separate process. Take proper advice before relying on a name commercially.
 
 **[Talk to us about brand guidelines →](/enquiry/?service=branding)**

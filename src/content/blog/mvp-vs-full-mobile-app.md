@@ -1,7 +1,7 @@
 ---
 title: 'MVP vs Full Mobile App: What Should Your Business Build First?'
-seoTitle: 'MVP vs Full Mobile App: What Should UK Businesses Build First?'
-description: Learn whether your business should begin with an MVP or a fuller mobile app, what the first release must include, and which features can wait. Guidance from a Dundee-based app developer.
+seoTitle: 'MVP vs Full Mobile App: What to Build First (UK Guide)'
+description: 'Learn whether to begin with an MVP or a fuller mobile app, what the first release must include and which features can wait. From a Dundee app developer.'
 slug: mvp-vs-full-mobile-app
 pubDate: 2026-09-10
 author: FinTaxTech Ltd.

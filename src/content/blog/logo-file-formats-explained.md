@@ -1,7 +1,7 @@
 ---
 title: 'Which Logo File Formats Does Your Business Need? SVG, PNG, PDF and More Explained'
 seoTitle: 'Logo File Formats Explained: SVG, PNG, PDF, EPS and More'
-description: 'A plain-English guide to logo file formats: which ones your business needs, what each is for, why colours shift between screen and print, and what a proper logo handover includes.'
+description: 'A plain-English guide to logo file formats: which ones your business needs, what each is for, and what a proper logo handover should include.'
 slug: logo-file-formats-explained
 pubDate: 2026-09-21
 author: FinTaxTech Ltd.

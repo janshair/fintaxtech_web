@@ -4,6 +4,9 @@ import { Image, getImage } from 'astro:assets';
 import SiteLayout from './SiteLayout.astro';
 import ArticleMetadata from '../components/blog/ArticleMetadata.astro';
 import BlogCTA from '../components/blog/BlogCTA.astro';
+import ArticleList from '../components/blog/ArticleList.astro';
+import { getPublishedPosts } from '../lib/blog';
+import { relatedPosts } from '../lib/blog-posts';
 import { blogCopy } from '../content/blog';
 import { services } from '../content/services';
 import '../styles/blog.css';
@@ -13,6 +16,9 @@ interface Props {
 const { post } = Astro.props;
 const { data } = post;
 const related = services.find((service) => service.name === data.category);
+const relatedArticles = relatedPosts(post, await getPublishedPosts());
+// Entries read from an Astro content cache written before the schema gained faqs have no default.
+const faqs = data.faqs ?? [];
 const featured = data.featuredImage;
 const social = featured
   ? await getImage({ src: featured, width: Math.min(featured.width, 1200), format: 'webp' })
@@ -37,7 +43,10 @@ const socialImage = social
   <article class="container blog-article">
     <header class="article-heading">
       <h1>{data.title}</h1>
-      <p class="lead">{data.description}</p>
+      {
+        /* The short answer below does the lead's job, so the description is only shown without one. */
+      }
+      {!data.summary && <p class="lead">{data.description}</p>}
       <ArticleMetadata data={data} />
       {
         featured && (
@@ -53,7 +62,28 @@ const socialImage = social
         )
       }
     </header>
+    {
+      data.summary && (
+        <aside class="article-summary" aria-labelledby="article-summary-title">
+          <h2 id="article-summary-title">{blogCopy.summary}</h2>
+          <p>{data.summary}</p>
+        </aside>
+      )
+    }
     <div class="article-body"><slot /></div>
+    {
+      faqs.length > 0 && (
+        <section class="article-faqs" aria-labelledby="article-faqs-title">
+          <h2 id="article-faqs-title">{blogCopy.faqs}</h2>
+          {faqs.map((faq) => (
+            <div class="article-faq">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))}
+        </section>
+      )
+    }
     <footer class="article-footer">
       {
         data.tags.length > 0 && (
@@ -68,6 +98,14 @@ const socialImage = social
         <a href="/rss.xml">{blogCopy.rss}</a>
       </nav>
     </footer>
+    {
+      relatedArticles.length > 0 && (
+        <section class="article-related" aria-labelledby="article-related-title">
+          <h2 id="article-related-title">{blogCopy.related}</h2>
+          <ArticleList posts={relatedArticles} heading="h3" />
+        </section>
+      )
+    }
   </article>
   <BlogCTA cta={data.cta} />
 </SiteLayout>

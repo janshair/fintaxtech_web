@@ -1,7 +1,7 @@
 ---
 title: 'Giving Design Feedback That Gets You to the Final Version Sooner'
 seoTitle: 'How to Give Useful Design Feedback'
-description: 'Vague feedback like "make it pop" slows every design project. Learn how to give clear, consolidated feedback that gets your logo or brand work finished sooner.'
+description: 'Vague feedback like "make it pop" slows every design project. Learn how to give clear, consolidated feedback that gets your brand work finished sooner.'
 slug: giving-useful-design-feedback
 pubDate: 2026-10-11
 author: FinTaxTech Ltd.

@@ -1,5 +1,5 @@
 import { appKnowledge } from '../src/content/app-knowledge';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { company } from '../src/content/site';
 import { pages } from '../src/content/pages';
 import { publicProfiles } from '../src/content/social';
@@ -7,6 +7,8 @@ import { indexablePaths, seoPages } from '../src/content/seo';
 import { structuredData } from '../src/lib/seo';
 import { GET as getLLMS } from '../src/pages/llms.txt';
 import { locations } from '../src/content/locations';
+// The article list comes from Astro's content collection, which only exists inside a build.
+vi.mock('../src/lib/blog', () => ({ getPublishedPosts: async () => [] }));
 
 describe('company identity and discovery', () => {
   it('connects the visible company identity to the registered entity and official profiles', () => {
@@ -31,7 +33,7 @@ describe('company identity and discovery', () => {
   });
 
   it('keeps the optional agent summary aligned with identity and canonical public routes', async () => {
-    const summary = await getLLMS().text();
+    const summary = await (await getLLMS()).text();
     for (const location of locations)
       expect(summary).toContain(`[${location.name}](${location.canonical})`);
     for (const value of [company.name, company.legal, company.number, company.registryURL])

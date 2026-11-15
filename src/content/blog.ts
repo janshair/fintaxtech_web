@@ -14,6 +14,9 @@ export const blogCopy = {
   updated: 'Updated',
   by: 'By',
   tags: 'Topics',
+  summary: 'In short',
+  faqs: 'Common questions',
+  related: 'Related articles',
   table: 'Comparison table — scroll horizontally to read all columns',
   tableRowHeading: 'Comparison item',
   mobileCTA: {

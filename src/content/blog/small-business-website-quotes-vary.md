@@ -1,7 +1,7 @@
 ---
 title: 'Why Do Small Business Website Quotes Vary So Much?'
 seoTitle: 'Why Do Small Business Website Quotes Vary? UK Guide'
-description: 'Why two website quotes for the same UK business can differ so widely, what each one should include, and how to compare proposals fairly before you choose a web developer.'
+description: 'Why two website quotes for the same UK business can differ so widely, what each should include, and how to compare proposals fairly before you choose.'
 slug: small-business-website-quotes-vary
 pubDate: 2026-09-20
 author: FinTaxTech Ltd.

@@ -1,9 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { appKnowledge, metoniKnowledge, safosKnowledge } from '../src/content/app-knowledge';
 import { appLLMSText } from '../src/lib/app-llms';
 import { GET as metoniGET } from '../src/pages/metoni/llms.txt';
 import { GET as safosGET } from '../src/pages/safos/llms.txt';
 import { GET as rootGET } from '../src/pages/llms.txt';
+// The article list comes from Astro's content collection, which only exists inside a build.
+vi.mock('../src/lib/blog', () => ({ getPublishedPosts: async () => [] }));
 
 describe('app summaries and canonical answers', () => {
   for (const [app, get] of [
@@ -28,7 +30,7 @@ describe('app summaries and canonical answers', () => {
     });
   }
   it('root overview discovers both summaries without stale duplicated product facts', async () => {
-    const text = await rootGET().text();
+    const text = await (await rootGET()).text();
     for (const app of appKnowledge) {
       expect(text).toContain(app.description);
       expect(text).toContain(`https://fintaxtech.co.uk${app.llmsRoute}`);
@@ -51,7 +53,7 @@ describe('app summaries and canonical answers', () => {
 it('keeps gym pilot packages, prices and limits consistent across both summaries', async () => {
   const { metoniGym, gymSuitabilityQuestion } = await import('../src/content/metoni-gym');
   const appText = appLLMSText(metoniKnowledge);
-  const rootText = await rootGET().text();
+  const rootText = await (await rootGET()).text();
   for (const text of [appText, rootText]) {
     expect(text).toContain('Connected Gym');
     expect(text).toContain('Own Brand');

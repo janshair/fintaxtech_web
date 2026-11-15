@@ -2,6 +2,7 @@
 title: 'How to Keep Your Brand Voice Consistent When AI Helps Write Your Content'
 seoTitle: 'Keeping Brand Voice Consistent in AI Content'
 description: 'How to work out what your brand voice actually is, write a one-page voice reference for AI-assisted drafting, and keep content sounding like you.'
+summary: 'To keep AI-assisted content in your brand voice, write a one-page voice reference before anyone drafts anything. It should cover who the reader is, how you address them, how formal you are, the words you use and avoid, and two or three real examples of your own writing. Give it to every tool and writer, and have a person check each draft against it.'
 slug: brand-voice-with-ai-assisted-content
 pubDate: 2026-09-30
 author: FinTaxTech Ltd.
@@ -9,11 +10,18 @@ category: AI Automation
 tags: [brand voice, AI content, tone of voice]
 featuredImage: ../../assets/blog/brand-voice-with-ai-assisted-content/brand-voice-with-ai-assisted-content-hero.png
 imageAlt: A flat vector illustration of a single page of written guidance beside three sample documents, with a magnifying glass comparing their wording
+faqs:
+  - question: 'How do I adapt AI-written text to my brand voice?'
+    answer: 'Give the tool a one-page voice reference before it drafts: who the reader is, how you address them, how formal you are, the words you use and avoid, and two or three examples of your own writing. Then edit the draft against the same page, starting with the word lists.'
+  - question: 'What style guidelines should I give an AI writing assistant?'
+    answer: 'Direct rules in a fixed order: the reader, how to address them, sentence and paragraph shape, word pairs to use and avoid, short examples of your writing, and what never to do, such as inventing figures. Save them as standing instructions so every draft starts from them.'
+  - question: 'How can I keep one brand voice across email, chat, social media and voice assistants?'
+    answer: 'Use one core voice reference for every channel and change only length and format. A social post is shorter and a phone assistant speaks in short sentences, but the reader, the way you address them and the words you use stay the same everywhere.'
+  - question: 'How do I keep my brand voice when AI translates content?'
+    answer: 'Translate from the approved original, give the tool your voice reference and a glossary of terms, decide the formality level for each language, and have a fluent speaker review every customer-facing page before it is published.'
 draft: false
 cta: general
 ---
-
-**In short:** to keep AI-assisted content in your brand voice, write a one-page voice reference before anyone drafts anything. It should cover who the reader is, how you address them, how formal you are, the words you use and avoid, and two or three real examples of your own writing. Give it to every tool and writer, and have a person check each draft against it.
 
 A logo can be copied exactly. A colour has a code you can hand to a printer. Your writing has neither, which is why it is usually the first thing to slip once somebody else starts producing content on your behalf. AI tools make that slip easy to miss, because the draft is rarely bad. It simply is not yours.
 
@@ -156,23 +164,5 @@ Where a supplier produces content for you, put ownership in writing rather than 
 If most of those are in place, AI-assisted drafting becomes a much smaller risk to how your business sounds.
 
 If you would rather not build the reference yourself, send us the writing you already like and we will tell you honestly what is there to work from — and where a voice reference would make little difference.
-
-## Common questions
-
-### How do I adapt AI-written text to my brand voice?
-
-Give the tool a one-page voice reference before it drafts: who the reader is, how you address them, how formal you are, the words you use and avoid, and two or three examples of your own writing. Then edit the draft against the same page, starting with the word lists.
-
-### What style guidelines should I give an AI writing assistant?
-
-Direct rules in a fixed order: the reader, how to address them, sentence and paragraph shape, word pairs to use and avoid, short examples of your writing, and what never to do, such as inventing figures. Save them as standing instructions so every draft starts from them.
-
-### How can I keep one brand voice across email, chat, social media and voice assistants?
-
-Use one core voice reference for every channel and change only length and format. A social post is shorter and a phone assistant speaks in short sentences, but the reader, the way you address them and the words you use stay the same everywhere.
-
-### How do I keep my brand voice when AI translates content?
-
-Translate from the approved original, give the tool your voice reference and a glossary of terms, decide the formality level for each language, and have a fluent speaker review every customer-facing page before it is published.
 
 **[Talk to us about AI-assisted content →](/enquiry/?service=ai-automation)**

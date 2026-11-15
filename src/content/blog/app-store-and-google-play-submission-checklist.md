@@ -1,6 +1,6 @@
 ---
 title: 'Preparing for App Store and Google Play Submission: What to Have Ready Before Launch'
-seoTitle: 'App Store and Google Play Submission Checklist for UK Businesses'
+seoTitle: 'App Store and Google Play Submission Checklist (UK)'
 description: 'A practical guide for UK business owners: the accounts, declarations, listing assets and review materials to have ready before you submit a mobile app.'
 slug: app-store-and-google-play-submission-checklist
 pubDate: 2026-09-26

@@ -1,7 +1,7 @@
 ---
 title: 'What Happens After Your Mobile App Launch? Maintenance, Updates and Ongoing Responsibilities Explained'
 seoTitle: 'Mobile App Maintenance After Launch: UK Business Owner Guide'
-description: 'Launching an app starts its operating life. Learn what post-launch maintenance involves in the UK, who is usually responsible and what to agree before development begins.'
+description: 'Launching an app starts its operating life. Learn what maintenance involves in the UK, who is usually responsible and what to agree before you build.'
 slug: mobile-app-maintenance-after-launch
 pubDate: 2026-09-22
 author: FinTaxTech Ltd.

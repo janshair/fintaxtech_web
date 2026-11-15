@@ -22,6 +22,8 @@ export interface ArticleSEO {
   author: string;
   category: string;
   tags: string[];
+  summary?: string;
+  faqs?: { question: string; answer: string }[];
 }
 export interface SocialImage {
   url: string;
@@ -323,6 +325,7 @@ export function structuredData(
               url,
               headline: article.title,
               description,
+              ...(article.summary ? { abstract: article.summary } : {}),
               datePublished: article.pubDate.toISOString(),
               ...(article.updatedDate ? { dateModified: article.updatedDate.toISOString() } : {}),
               author: organizationNames.includes(normalizeAuthor(article.author))
@@ -336,6 +339,19 @@ export function structuredData(
               image,
               inLanguage: 'en',
             },
+            ...(article.faqs?.length
+              ? [
+                  {
+                    '@type': 'FAQPage',
+                    '@id': url + '#faq',
+                    mainEntity: article.faqs.map((faq) => ({
+                      '@type': 'Question',
+                      name: faq.question,
+                      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+                    })),
+                  },
+                ]
+              : []),
           ]
         : []),
       ...(crumbs.length

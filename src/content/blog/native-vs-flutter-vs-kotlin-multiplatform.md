@@ -1,7 +1,8 @@
 ---
 title: 'Native vs Flutter vs Kotlin Multiplatform for Business Apps'
-seoTitle: 'Native vs Flutter vs Kotlin Multiplatform for UK Business Apps'
-description: Compare native Android and iOS, Flutter and Kotlin Multiplatform for business apps, including user experience, device features, cost and maintenance. Written by a mobile app developer in Scotland.
+seoTitle: 'Native vs Flutter vs Kotlin Multiplatform: UK Business Apps'
+description: 'Compare native Android and iOS, Flutter and Kotlin Multiplatform for business apps: user experience, device features, cost and upkeep.'
+summary: 'Native means building separate apps for Android (in Kotlin) and iOS (in Swift). Flutter builds one app for both from a single codebase. Kotlin Multiplatform shares the business logic but keeps each platform''s own interface. Native gives the most control at the highest cost, Flutter is usually the cheapest to build and maintain, and Kotlin Multiplatform sits between the two.'
 slug: native-vs-flutter-vs-kotlin-multiplatform
 pubDate: 2026-09-09
 author: FinTaxTech Ltd.
@@ -9,11 +10,18 @@ category: Mobile App Development
 tags: [Android, iOS, Flutter, Kotlin Multiplatform, App planning]
 featuredImage: ../../assets/blog/native-vs-flutter-vs-kotlin-multiplatform/mobile-platforms.webp
 imageAlt: Three phones displaying Android and Apple, Flutter, and Kotlin logos
+faqs:
+  - question: 'What does native app mean?'
+    answer: 'A native app is built specifically for one platform, such as iPhone or Android, using that platform''s own language and tools: Swift for iOS and Kotlin for Android. It is installed from the platform''s app store and uses the platform''s own interface components.'
+  - question: 'Should my business app be built for iOS, Android or both?'
+    answer: 'For an app your customers download, usually both, because customers own a mix of devices. An internal app on company phones only needs the platform you supply. If budget is tight, launch on the platform most of your customers use and choose a cross-platform approach so the second is cheaper to add.'
+  - question: 'Is Flutter cheaper than native development?'
+    answer: 'Usually, for typical business apps. Flutter uses one codebase for both platforms, so features are built once and maintained once. Native means two codebases, which costs more to build and more every year after. The gap narrows when an app relies heavily on unusual device features.'
+  - question: 'What is Kotlin Multiplatform?'
+    answer: 'An approach where the business logic, such as calculations, validation and data handling, is written once in Kotlin and shared by both apps, while each platform keeps its own native interface. It suits apps where rules must be identical on both platforms but the interface should feel native.'
 draft: false
 cta: mobile-apps
 ---
-
-**In short:** native means building separate apps for Android (in Kotlin) and iOS (in Swift). Flutter builds one app for both from a single codebase. Kotlin Multiplatform shares the business logic but keeps each platform's own interface. Native gives the most control at the highest cost, Flutter is usually the cheapest to build and maintain, and Kotlin Multiplatform sits between the two.
 
 ## The decision in plain English
 
@@ -166,24 +174,6 @@ From there the sequence is straightforward. We map what the app must do, and spe
 Only then do we recommend an approach, in writing, with the trade-offs stated plainly. If native is the honest answer, we say so, even though it's the more expensive one.
 
 ---
-
-## Common questions
-
-### What does native app mean?
-
-A native app is built specifically for one platform, such as iPhone or Android, using that platform's own language and tools: Swift for iOS and Kotlin for Android. It is installed from the platform's app store and uses the platform's own interface components.
-
-### Should my business app be built for iOS, Android or both?
-
-For an app your customers download, usually both, because customers own a mix of devices. An internal app on company phones only needs the platform you supply. If budget is tight, launch on the platform most of your customers use and choose a cross-platform approach so the second is cheaper to add.
-
-### Is Flutter cheaper than native development?
-
-Usually, for typical business apps. Flutter uses one codebase for both platforms, so features are built once and maintained once. Native means two codebases, which costs more to build and more every year after. The gap narrows when an app relies heavily on unusual device features.
-
-### What is Kotlin Multiplatform?
-
-An approach where the business logic, such as calculations, validation and data handling, is written once in Kotlin and shared by both apps, while each platform keeps its own native interface. It suits apps where rules must be identical on both platforms but the interface should feel native.
 
 ---
 

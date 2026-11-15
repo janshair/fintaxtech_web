@@ -1,6 +1,6 @@
 ---
 title: 'Can AI Turn Your Business Documents into Useful Website Content? A Practical Guide'
-seoTitle: 'Turn Business Documents into Website Content: A Practical Guide'
+seoTitle: 'Turn Business Documents into Website Content: A Guide'
 description: 'Learn which business documents can become website content, what human review must check, and how to prepare source material for a clear brief.'
 slug: ai-business-documents-to-website-content
 pubDate: 2026-09-14

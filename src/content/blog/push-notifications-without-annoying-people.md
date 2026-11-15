@@ -1,7 +1,7 @@
 ---
 title: 'Push Notifications Without Annoying People: What to Plan Before You Build'
 seoTitle: 'Push Notifications Without Annoying Customers'
-description: 'A practical guide for business owners to planning app push notifications: which messages earn their place, when to ask permission, and how to give people control.'
+description: 'How to plan app push notifications as a business owner: which messages earn their place, when to ask permission, and how to give people control.'
 slug: push-notifications-without-annoying-people
 pubDate: 2026-10-07
 author: FinTaxTech Ltd.
