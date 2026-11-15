@@ -2,6 +2,7 @@
 title: 'How to Write a Logo Design Brief: A Practical Checklist for New Businesses'
 seoTitle: 'How to Write a Logo Design Brief | UK Business Checklist'
 description: 'What to include in a logo design brief for a UK business: your audience, brand personality, practical uses, file requirements and who approves the work.'
+summary: 'A logo design brief should state your exact business name, what you sell, who your customers are, the personality you want, styles you like and dislike, your competitors, colour constraints, everywhere the logo will appear, the files you need and the one person who approves the work. Describe the problem and leave the solution to the designer.'
 slug: how-to-write-a-logo-design-brief
 pubDate: 2026-09-16
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [Logo design, Design briefs, Branding]
 featuredImage: ../../assets/blog/how-to-write-a-logo-design-brief/how-to-write-a-logo-design-brief-hero.png
 imageAlt: A completed design brief leading to a group of possible abstract logo directions
+faqs:
+  - question: 'How long should a logo design brief be?'
+    answer: 'It does not need to be long. It should contain the things only you know: what your business does, who you are trying to reach, where the logo will appear and who decides when it is finished. Honest gaps are more useful than padded guesses, because a designer can ask about a gap.'
+  - question: 'Should my tagline be part of my logo?'
+    answer: 'Often not. Taglines lock up badly at small sizes and date faster than the mark. If you have one, include it in the brief and say whether it must appear; a designer may offer versions with and without it. If you do not have one, say so plainly.'
+  - question: 'Can I show a designer logos I like from other companies?'
+    answer: 'Yes, and it helps, provided you say why you like each one. Collect five to ten examples and write a sentence on the quality you respond to, such as simplicity at small sizes. Ask for qualities, not copies, because work that is too close to another identity creates risks.'
+  - question: 'Do I own the logo once I have paid for it?'
+    answer: 'Not automatically. In the UK the creator is generally the first owner of copyright unless ownership is agreed otherwise in writing, and a transfer needs a written, signed assignment. Make sure your agreement says whether you receive ownership or a licence. This is not legal advice.'
+  - question: 'Should I tell the designer exactly what symbol I want?'
+    answer: 'It usually restricts the result. Asking for a shield with a key in it removes the exploration you are paying for. Describe what the logo should convey instead. Constraints from the real world are different and useful, such as needing the logo to work embroidered in one colour.'
 draft: false
 cta: general
 ---

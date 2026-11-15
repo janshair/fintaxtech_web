@@ -2,6 +2,7 @@
 title: 'Logo vs Brand Identity: What Does a New Business Actually Need?'
 seoTitle: 'Logo vs Brand Identity: What Does a New UK Business Need?'
 description: 'Logo or full brand identity? Learn what a new UK business needs at launch, what can wait, and the rights checks to make before committing to a designer.'
+summary: 'A logo is an identifier. A brand identity is the system around it: colours, typefaces, imagery, voice and usage rules. Most new businesses can launch with a primary logo in the right file formats, a small colour palette, one or two licensed typefaces and a one-page usage note, and leave a full brand manual until later.'
 slug: logo-vs-brand-identity
 pubDate: 2026-09-14
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [Branding, Logo design, Brand identity]
 featuredImage: ../../assets/blog/logo-vs-brand-identity/logo-vs-brand-identity-hero.png
 imageAlt: One simple mark used consistently across colours, typography, stationery and a website
+faqs:
+  - question: 'Is a logo the same as a brand?'
+    answer: 'No. A logo is one component that identifies you. The brand identity is the wider system that makes everything look like it belongs to the same business: colours, typography, imagery, the way you write and the rules for using them.'
+  - question: 'Does registering a company name protect my brand?'
+    answer: 'No. Registering a company at Companies House is not the same as registering a trade mark. Before settling on a name, search the UK Intellectual Property Office''s trade mark register and Companies House for similar names. Searches are a first screen, not legal clearance, and this is not legal advice.'
+  - question: 'Do I need brand guidelines when I start a business?'
+    answer: 'A full brand manual can wait. A one-page usage note is enough at launch: your colours, fonts, the minimum logo size, the clear space around it and the things nobody should do, such as stretching or recolouring it. Expand it when more people are producing material.'
+  - question: 'Can I use an AI-generated logo for my business?'
+    answer: 'A generated concept is not automatically a finished or usable mark. It still needs refining, preparing as proper files and testing at real sizes. It is also not automatically unique, registrable as a trade mark or free of third-party rights, so similarity checks matter whatever tool produced it.'
+  - question: 'How do I check whether my logo works?'
+    answer: 'Test it as a small social avatar or favicon, on light and dark backgrounds, and in one colour. If workwear or signage is part of your business, test those uses too. A simplified version may be needed for the smallest spaces.'
 draft: false
 cta: general
 ---

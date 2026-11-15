@@ -2,6 +2,7 @@
 title: 'Choosing Photography and Imagery for Your Brand: How to Keep Pictures Consistent and Safe to Use'
 seoTitle: 'Brand Photography and Imagery: A Practical Guide'
 description: 'Mismatched photos weaken a good brand. Learn how to choose a consistent image style, check permissions and brief a designer without overspending.'
+summary: 'Decide your image style before choosing individual pictures: what you show, the mood, the light and colour, the framing and whether real people appear. Give each type of image a job, check every picture''s licence and the permission of anyone shown, and keep a simple record of where each image came from.'
 slug: choosing-photography-and-imagery-for-your-brand
 pubDate: 2026-10-19
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [brand imagery, photography, branding]
 featuredImage: ../../assets/blog/choosing-photography-and-imagery-for-your-brand/choosing-photography-and-imagery-for-your-brand-hero.png
 imageAlt: Flat illustration of three framed picture cards in a row on a wall, with a blue circle sun in the first, a hill shape in the second and a checkmark tag hanging from the third
+faqs:
+  - question: 'Can I use images I found on Google on my website?'
+    answer: 'Not without checking. A picture being easy to find online does not make it free to use. Photographs are normally protected by copyright, and the owner''s permission is generally needed. Find out who made the image and what its licence allows first. This is general information, not legal advice.'
+  - question: 'Are stock photos bad for a brand?'
+    answer: 'Not necessarily. Stock images are useful for subjects you cannot photograph yourself, but they can feel generic, and other businesses may be using the same picture. Give them a clear job, and make sure they match the mood and colour of your other images.'
+  - question: 'Do I need permission to use photos of staff or customers?'
+    answer: 'Ask. If you took the photo yourself, check that the people shown are happy for it to be used for your business, and keep a record of their answer. For a planned shoot, collect agreement from everyone who will appear before the day.'
+  - question: 'Is a phone good enough for business photos?'
+    answer: 'It can be for informal brands, with good daylight and the same style rules as any other shoot. Keep the original files, because print generally needs larger, higher-quality images than screens, and copies sent through a messaging app are usually compressed.'
+  - question: 'Who owns the photos when I hire a photographer?'
+    answer: 'That depends on what you agree. Before the shoot, confirm in writing where and for how long you can use the pictures and who owns the final files. A commissioned set is consistent and planned, but usage and ownership should never be assumed.'
 draft: false
 cta: general
 ---

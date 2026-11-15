@@ -2,6 +2,7 @@
 title: 'Choosing Brand Colours and Fonts: What Works on Screen, in Print and in Real Use'
 seoTitle: 'Choosing Brand Colours and Fonts for Your Business'
 description: 'A practical guide to picking brand colours and typefaces that stay readable on screen, print predictably and are licensed for business use.'
+summary: 'Choose brand colours and fonts by where they will be used, not by taste alone. Most small businesses need four to six colours, each with a job, and one or two typefaces. Test text contrast before you commit, get screen and print values for every colour, and check each font''s licence covers your website, documents and app.'
 slug: choosing-brand-colours-and-fonts
 pubDate: 2026-10-01
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [branding, colour, typography]
 featuredImage: ../../assets/blog/choosing-brand-colours-and-fonts/choosing-brand-colours-and-fonts-hero.png
 imageAlt: Flat illustration of a colour palette with swatch cards beside a type specimen sheet and a contrast checker dial
+faqs:
+  - question: 'How many colours should a brand have?'
+    answer: 'Four to six is enough for most small businesses: one primary colour, two to four neutrals for text and backgrounds, and one accent. Add three functional colours for success, warning and error states if you have forms or an app. A larger palette just needs more rules to keep it consistent.'
+  - question: 'How many fonts should a business use?'
+    answer: 'Two is usually enough: one typeface for headings and one for body text, each in two or three weights. A single family used throughout can work just as well. Add a third only for a specific job, such as a monospaced face for reference numbers.'
+  - question: 'What contrast ratio does website text need?'
+    answer: 'The Web Content Accessibility Guidelines, at Level AA, ask for a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text, meaning at least 18 point, or 14 point if bold. Text that is part of a logo is excluded. Test your combinations with a contrast checker before you commit.'
+  - question: 'Why do my brand colours look different in print?'
+    answer: 'Screens mix light and print mixes ink, so the same colour needs separate definitions, and some bright screen colours cannot be reproduced exactly in standard printing. Ask for HEX or RGB values for screens and CMYK values for print, and use a physical proof where an exact match matters.'
+  - question: 'Do I need a licence to use a font for my business?'
+    answer: 'Usually, yes. Fonts are licensed software, and the licence depends on where the font is used: desktop use, a website, a mobile app and logo artwork are often licensed separately. Open-source fonts under the SIL Open Font License are simpler, but still read the terms for the specific family.'
 draft: false
 cta: general
 ---
