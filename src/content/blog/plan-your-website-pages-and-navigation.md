@@ -2,6 +2,7 @@
 title: 'Planning Your Website Pages and Menu: How to Decide What Goes Where'
 seoTitle: 'How to Plan Website Pages and Navigation'
 description: 'A plain-English guide to planning your website structure: which pages you need, how to name them, and how to keep the menu simple for visitors.'
+summary: 'Plan your website structure from the questions customers ask, not from your organisation chart. Give each page one job, keep the main menu to a handful of plain labels, group related pages under a section, and note the next step for the visitor on every page. Agree the page list before design starts.'
 slug: plan-your-website-pages-and-navigation
 pubDate: 2026-10-17
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Site structure, Navigation, Website planning]
 featuredImage: ../../assets/blog/plan-your-website-pages-and-navigation/plan-your-website-pages-and-navigation-hero.png
 imageAlt: Illustration of a home page connected to four main page cards, with smaller supporting pages beneath some of them, representing a website structure
+faqs:
+  - question: 'What pages should a small business website have?'
+    answer: 'Most rely on a similar core: a home page saying what you do and for whom, services or products, an about page, a contact or enquiry page, and supporting pages such as pricing guidance, frequently asked questions and policies. A sole trader with one service may need far fewer.'
+  - question: 'How many items should a website menu have?'
+    answer: 'A handful. The more items a menu offers, the harder each one is to notice, especially on a phone. Put the most important routes first, group related pages under a section such as Services, and move policies and rarely needed pages to the footer.'
+  - question: 'What should I call the pages in my website menu?'
+    answer: 'Use words that make sense to someone who has never heard of you. Services, About us and Prices are plain; Solutions, Our ethos and Offerings are vague. Ask someone outside the business what they would expect behind each label, and rewrite any that make them hesitate.'
+  - question: 'Should my website be one long page or several pages?'
+    answer: 'Either can work. A long page needs clear divisions, with a purpose for each section. A useful test is whether a page has one job: if describing it needs the word "and" more than once, it may work better as two pages.'
+  - question: 'What happens to my old page links when I rebuild my website?'
+    answer: 'If page addresses are changing, ask your builder how the old ones will be handled, so visitors and bookmarks do not hit error pages. Nobody can promise a particular effect on search visibility, and you should be wary of anyone who does.'
 draft: false
 cta: general
 ---

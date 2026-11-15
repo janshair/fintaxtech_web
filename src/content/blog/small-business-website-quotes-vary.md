@@ -2,6 +2,7 @@
 title: 'Why Do Small Business Website Quotes Vary So Much?'
 seoTitle: 'Why Do Small Business Website Quotes Vary? UK Guide'
 description: 'Why two website quotes for the same UK business can differ so widely, what each should include, and how to compare proposals fairly before you choose.'
+summary: 'Website quotes vary because each supplier fills the gaps in your brief with different assumptions: how many pages, who writes the content, template or custom design, integrations, a CMS, testing and what happens after launch. Send every supplier the same brief, compare deliverables and exclusions line by line, and look at running costs over several years.'
 slug: small-business-website-quotes-vary
 pubDate: 2026-09-20
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Website pricing, Project scope, Small business websites]
 featuredImage: ../../assets/blog/small-business-website-quotes-vary/small-business-website-quotes-vary-hero.png
 imageAlt: Two website proposals of different lengths side by side, one listing far more deliverables than the other
+faqs:
+  - question: 'How much does a small business website cost in the UK?'
+    answer: 'It depends on what is included, which is why quotes differ so widely. Pages and layouts, copywriting, custom design, integrations, a CMS and aftercare all change the figure. A written brief sent to every supplier is the only way to get prices you can compare.'
+  - question: 'Is a cheap website quote a false economy?'
+    answer: 'Not necessarily. A lower quote can suit a business that already has strong copy, good photos and a working booking system, and rarely changes its site. The risk is in what is not mentioned, such as testing, accessibility or aftercare. Ask for the missing items to be priced.'
+  - question: 'Is a website template good enough for a small business?'
+    answer: 'Often, yes. A template adapted to your brand is quick, reliable and entirely reasonable for many small businesses. Custom design costs more, and is worth it when you need to stand apart in a crowded market or a template would force your content into the wrong shape.'
+  - question: 'What does a website cost to run each year?'
+    answer: 'Expect domain renewal, hosting, email, any CMS or plugin subscriptions, booking or payment tools, and maintenance such as updates, security patches and backups. Many are charged by third parties rather than your developer. A low build price with a high monthly fee can cost more over three years.'
+  - question: 'Does the price of a website include writing the content?'
+    answer: 'Not always. Many quotes assume you will supply finished text, a logo and good photographs, while many clients assume the supplier will write the words. Copywriting, photography and logo design are real work, so check each quote: that alone can explain a large difference.'
 draft: false
 cta: general
 ---

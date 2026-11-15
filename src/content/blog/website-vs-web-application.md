@@ -2,6 +2,7 @@
 title: 'Website vs Web Application: What Does Your Business Actually Need?'
 seoTitle: 'Website vs Web Application: Which Do UK Businesses Need?'
 description: 'The difference between a business website and a web application, when you need each, and how to choose. From a web development agency in Scotland.'
+summary: 'A website explains what you do, builds trust and brings in enquiries; visitors read and get in touch. A web application lets people sign in and complete tasks with their own data, such as booking, uploading or tracking. Choose by what users must accomplish. Many growing businesses need both: a public website and a private application.'
 slug: website-vs-web-application
 pubDate: 2026-09-11
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Websites, Web applications, Project planning]
 featuredImage: ../../assets/blog/website-vs-web-application/website-vs-web-application-hero.webp
 imageAlt: A content-led business website beside a task-led web application dashboard
+faqs:
+  - question: 'Is a website with a login a web application?'
+    answer: 'Not automatically. A login alone does not define a web application, but ongoing tasks tied to each user are a strong signal. If people return to manage their own data, bookings or documents, you are describing an application, with the security and upkeep that implies.'
+  - question: 'What is a static website?'
+    answer: 'A static website has pages generated ahead of time and served as files. The term describes how pages are produced, not how they look: a static site can still have sophisticated design, interactive components and connections to external services, and it can be managed through a CMS.'
+  - question: 'Is a web application more expensive to run than a website?'
+    answer: 'Usually, because it carries more ongoing responsibility. A database needs backups and tested recovery, accounts need password resets and access controls, personal data may bring privacy obligations, and servers and dependencies need maintaining. Those costs are reasonable when users genuinely need the functionality.'
+  - question: 'Do I need a custom web application for online booking?'
+    answer: 'Often not. A website with booking functionality, using a suitable third-party booking system, covers many clinics, salons and garages. Custom booking becomes a web application, and should be justified by requirements an existing service cannot meet well.'
+  - question: 'Can Google find pages that are behind a login?'
+    answer: 'No. Google does not crawl pages that require a login, according to its technical requirements for Search. If you need to be found in search, the important public content must sit outside the login, which is one reason businesses pair a public website with a private application.'
 draft: false
 cta: general
 ---

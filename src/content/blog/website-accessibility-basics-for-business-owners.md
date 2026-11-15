@@ -2,6 +2,7 @@
 title: 'Website Accessibility Basics: What to Ask For Before Your Site Is Built'
 seoTitle: 'Website Accessibility Basics for Business Owners'
 description: 'A plain-English guide to website accessibility for business owners: what it covers, what to ask for in a new build, and a checklist you can use.'
+summary: 'An accessible website can be used by as many people as possible, including those with low vision, limited hand movement or dyslexia. Before a build, ask for a named standard such as WCAG 2.2 level AA, readable colour contrast, clear wording and link text, descriptions for images, properly labelled forms and full keyboard use.'
 slug: website-accessibility-basics-for-business-owners
 pubDate: 2026-10-13
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Accessibility, Website planning, Usability]
 featuredImage: ../../assets/blog/website-accessibility-basics-for-business-owners/website-accessibility-basics-for-business-owners-hero.png
 imageAlt: Illustration of a browser window with a keyboard, a magnifier and a contrast swatch around it, showing different ways people use a website
+faqs:
+  - question: 'What is WCAG?'
+    answer: 'WCAG stands for the Web Content Accessibility Guidelines, published by the World Wide Web Consortium. It sets out testable success criteria at three levels: A, AA and AAA. You do not need to read it, but naming a level gives you a clear way to write down what you want.'
+  - question: 'Is website accessibility a legal requirement in the UK?'
+    answer: 'In the UK, the Equality Act 2010 is relevant to how services are provided to disabled people. What it means for your business depends on your circumstances, so start with the government''s guidance and take advice if you are unsure. This is not legal advice.'
+  - question: 'What is alt text on a website?'
+    answer: 'Alt text is a short text description of a meaningful image, so that people who cannot see it still get the point. Decorative images should be marked so they are skipped. Writing alt text is a content job, so decide who will do it before launch.'
+  - question: 'How do I check whether my website works with a keyboard?'
+    answer: 'Put the mouse aside and press the Tab key to move through a page. You should be able to reach every link, button and form field in a sensible order, and always see where you are on the page.'
+  - question: 'Can a website be made fully accessible?'
+    answer: 'Be wary of anyone who promises a site is fully compliant. Accessibility is a matter of degree and of ongoing care, and no build can guarantee an outcome. A site that is accessible at launch can also lose that through ordinary editing, such as an image uploaded without a description.'
 draft: false
 cta: general
 ---

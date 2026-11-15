@@ -2,6 +2,7 @@
 title: 'What Slows a Website Build Down? The Client-Side Decisions That Hold Up Launch'
 seoTitle: 'What Delays a Website Launch? Client Decisions'
 description: 'The decisions, content and approvals that most often hold up a website launch, and how to settle them early. From a web studio in Dundee, Scotland.'
+summary: 'Website launches are most often delayed by things only the client can supply: content that is not finished, undecided scope, slow or conflicting feedback, lost logins for the domain and hosting, and third-party approvals. Settle the page list, name one person to approve, gather content in one place and check your account access before work starts.'
 slug: what-slows-a-website-build-down
 pubDate: 2026-10-03
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Website planning, Launch timing, Content readiness]
 featuredImage: ../../assets/blog/what-slows-a-website-build-down/what-slows-a-website-build-down-hero.png
 imageAlt: Illustration of a website page layout with a path of stepping stones, one of them blocked by a pending item
+faqs:
+  - question: 'How long does it take to build a website?'
+    answer: 'It depends on the size of the site, how quickly decisions are made and how ready your content is, so a fixed number of weeks would be misleading. A ten-page brochure site and a booking system are very different jobs. Your written proposal should set out the stages.'
+  - question: 'What do I need to give a web designer before they start?'
+    answer: 'An agreed page list and scope, plus your logo and brand colours. Core page text, photographs, domain and hosting access, the contact form recipient and legal pages are needed before launch. Blog articles and extra service pages can usually follow afterwards.'
+  - question: 'Can I change what I want after the website build has started?'
+    answer: 'Yes, but it means revisiting the design, the quote and the schedule. Adding booking or customer logins partway through can turn a simple site into a larger project. It is far cheaper to decide before work starts.'
+  - question: 'Who should give feedback on a website design?'
+    answer: 'One named person with authority to approve. Others can advise, but they should send their comments to that person, who gives a single, consolidated reply. Separate reviewers sending conflicting comments is one of the commonest ways a project loses weeks.'
+  - question: 'Can I launch my website before all the content is ready?'
+    answer: 'Partly. Core page text, key photographs and legal pages need to be ready for launch, but replacement images, blog articles and additional service pages can follow. A smaller site launched sooner can be extended once it is live.'
 draft: false
 cta: general
 ---

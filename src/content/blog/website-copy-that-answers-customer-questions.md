@@ -2,6 +2,7 @@
 title: 'Writing Website Copy That Answers the Questions Customers Actually Ask'
 seoTitle: 'Website Copy That Answers Customer Questions'
 description: 'How to plan website copy around the questions customers really ask, with a simple page-by-page method and checklist. From a web studio in Dundee, Scotland.'
+summary: 'Write website copy by collecting the questions customers really ask, in their own words, from emails, calls, quotes and reviews. Sort them by stage, give each page one job, and answer each question in the first sentence under a plain heading. Be specific, say what you do not do, and end every page with one clear next step.'
 slug: website-copy-that-answers-customer-questions
 pubDate: 2026-10-04
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Website copy, Content planning, Customer questions]
 featuredImage: ../../assets/blog/website-copy-that-answers-customer-questions/website-copy-that-answers-customer-questions-hero.png
 imageAlt: Illustration of a web page layout with speech bubbles on one side being matched to content blocks on the other
+faqs:
+  - question: 'What should I write on my website home page?'
+    answer: 'Start with what you do and who it is for, in plain words a stranger would understand. The heading and the first sentence do most of the work, because visitors skim. Then point people towards your main services and one clear next step.'
+  - question: 'Should I write my own website content or hire a writer?'
+    answer: 'Either can work. You can write it yourself, ask a colleague or work with a writer. You know your customers best, so even if someone else does the polishing, your list of real customer questions is the most valuable input.'
+  - question: 'What makes website copy sound vague?'
+    answer: 'Phrases such as "tailored solutions" and "end-to-end service", which could describe any business and so tell the visitor nothing. Replace them with specifics: what you do, who it is for and what the customer receives. Leave out any claim you cannot support.'
+  - question: 'When should website content be written during a build?'
+    answer: 'Before the build needs it. Copy is one of the most common reasons a launch slips, and designs built around placeholder text often need reworking when the real words arrive. Agree the page list, then write the home, main service, about and contact pages first.'
+  - question: 'Can I use AI to write my website copy?'
+    answer: 'You can use AI tools to help draft or tidy text, but set your voice rules first and review the output carefully. Check that every claim is something you can support, and that names, contact details and services are correct before anything is published.'
 draft: false
 cta: general
 ---

@@ -2,6 +2,7 @@
 title: 'Redesign or Rebuild? How to Tell When Your Business Website Needs Replacing'
 seoTitle: 'Redesign or Rebuild Your Website? A UK Business Guide'
 description: 'Does your business website need new content, a redesign or a full rebuild? The signs, the trade-offs and the questions to answer first.'
+summary: 'A redesign changes how your website looks while keeping the content and platform. A rebuild replaces the structure, code and often the platform. Rebuild when the platform is unsupported, the business has outgrown the site or it needs functions it was never built for. If only the content is out of date, improving what you have may be enough.'
 slug: redesign-or-rebuild-business-website
 pubDate: 2026-09-25
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [website redesign, rebuild, planning]
 featuredImage: ../../assets/blog/redesign-or-rebuild-business-website/redesign-or-rebuild-business-website-hero.png
 imageAlt: Flat vector illustration of an old browser window beside a partly assembled new one, with blocks moving across to a fresh layout grid
+faqs:
+  - question: 'How often should you rebuild your website?'
+    answer: 'There is no set interval. A site built sensibly a few years ago, on a platform that is still supported, often needs only a content update and routine maintenance. Rebuild when the foundations fail: an unsupported platform, a structure that no longer matches the business, or functions it cannot carry.'
+  - question: 'Will a new website bring in more enquiries?'
+    answer: 'Nobody can promise that. Look at where your enquiries actually come from before assuming the website is the weak link. If most of your work has always arrived by referral, a rebuild may still be worthwhile, but it will not necessarily change your enquiry numbers.'
+  - question: 'Will rebuilding my website affect my search rankings?'
+    answer: 'It can if page addresses change without care. If a page currently ranks or is linked to, keep its address or redirect the old one to the new page. No one can promise that a new site will rank better, and you should be cautious of anyone who does.'
+  - question: 'How do I know if my website platform is out of date?'
+    answer: 'Check whether the software your site runs on still receives updates from whoever maintains it. Security warnings or an unsupported version are the clearest single argument for a rebuild, because the risk grows quietly and no amount of design work reduces it.'
+  - question: 'Can I keep my existing content when my website is rebuilt?'
+    answer: 'Yes. Existing text and images can be carried across into the new site. Protect what took effort to write, such as case studies, detailed service pages and answers to common questions. Review them, but do not discard them simply because they are old.'
 draft: false
 cta: general
 ---

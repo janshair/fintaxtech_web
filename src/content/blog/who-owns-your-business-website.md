@@ -2,6 +2,7 @@
 title: 'Who Owns Your Business Website After Launch? Domains, Hosting, Code and Content Explained'
 seoTitle: 'Who Owns Your Business Website After Launch? UK Guide'
 description: 'Domains, hosting, code, content and licensed assets each have separate owners. What UK businesses should check and agree before their website launches.'
+summary: 'A website is several things with separate ownership: the domain, hosting and email accounts, the code and design files, your content, licensed assets such as fonts and stock images, and connected services. Paying the invoice does not settle all of them. Get it in writing which accounts are in your business''s name and which files and rights you receive.'
 slug: who-owns-your-business-website
 pubDate: 2026-09-17
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Website ownership, Domains, Website planning]
 featuredImage: ../../assets/blog/who-owns-your-business-website/who-owns-your-business-website-hero.png
 imageAlt: Five panels representing a domain, hosting, website code, content and an access key
+faqs:
+  - question: 'Who owns a domain name, me or my web designer?'
+    answer: 'It depends whose name is on the registration and who controls the account. For a business website, the registrant should normally be your business, not the supplier, and you should have administrator access. If an agency registered it in its own name, transferring control later may take extra work.'
+  - question: 'Do I own my website code if a developer built it?'
+    answer: 'Not automatically. Paying for work and acquiring every right to it are not the same thing. What you receive depends on the agreement, so it should name the deliverables, whether the source code and design files are handed over, and whether any parts are licensed rather than transferred.'
+  - question: 'Can I move my website to another developer?'
+    answer: 'You should be able to, if it was agreed. Ask before work starts what comes with you and how: the files, the repository, the accounts and any licensed components. Check too that another developer is permitted to maintain and modify the site.'
+  - question: 'Do I buy a domain name outright?'
+    answer: 'No. Domain names are registered for a defined term and must be renewed to stay registered. Know when yours renews, who pays, and whether you will be told beforehand. The exact rules depend on the domain extension and the registrar.'
+  - question: 'What happens to my business email if I change web supplier?'
+    answer: 'If your email runs through an account your supplier controls, it is at risk when you part ways, and it is the thing people most regret leaving behind. Make sure the email account is in your business''s name, and resolve it early and separately from the website.'
 draft: false
 cta: general
 ---
