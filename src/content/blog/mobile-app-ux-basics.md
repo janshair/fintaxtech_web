@@ -2,6 +2,7 @@
 title: 'Mobile App UX Basics: Designing Screens Your Customers Can Use First Time'
 seoTitle: 'Mobile App UX Basics for UK Business Owners'
 description: 'Mobile app UX for UK business owners: screen purpose, navigation, tap targets, forms, empty states and testing designs before development begins.'
+summary: 'Good mobile app UX means each screen has one job, navigation stays the same throughout, buttons are large enough to tap, forms ask for as little as possible, and people can always see what is happening. You can judge all of this from the screen designs, and test it with a clickable prototype before development starts.'
 slug: mobile-app-ux-basics
 pubDate: 2026-09-28
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Mobile App Development
 tags: [mobile apps, ux design, accessibility]
 featuredImage: ../../assets/blog/mobile-app-ux-basics/mobile-app-ux-basics-hero.png
 imageAlt: Flat vector illustration of a phone screen broken into simple interface blocks, with a hand tapping a button and arrows showing the path between screens
+faqs:
+  - question: 'Is UX the same as how an app looks?'
+    answer: 'No. UX is the whole path a person takes through your app: what they see first, what they tap, what happens next and how they feel about it. Visual design is how it looks. An app can look polished and still be exhausting to use.'
+  - question: 'How big should buttons be in a mobile app?'
+    answer: 'Apple''s guidance is controls of at least 44 by 44 points, and Google''s Android accessibility guidance suggests touch targets of at least 48 by 48dp with 8dp between them. The tappable area can be larger than the icon inside it, so watch for small icons crowded together.'
+  - question: 'How many tabs should an app have at the bottom?'
+    answer: 'A bottom tab bar suits three to five equally important sections. Beyond five, labels get squeezed and the pattern breaks down. Settings, help and legal pages can go in a side menu, but never the main task, because anything hidden there gets used far less.'
+  - question: 'What is an empty state in an app?'
+    answer: 'It is what a screen shows when there is no data yet, for a first-time user or an emptied list. It is often the first screen people see, so it should say what will appear there and how to start, rather than sitting blank.'
+  - question: 'How can I test an app design before it is built?'
+    answer: 'Show a clickable prototype of the main journey to a handful of people who resemble your customers. Give them a task, such as booking a slot for next Tuesday, then stay quiet and watch. Wherever they hesitate is your list of things to fix.'
 draft: false
 cta: general
 ---

@@ -2,6 +2,7 @@
 title: 'Does Your Business Need a Mobile App or a Mobile-Friendly Website?'
 seoTitle: 'Mobile App or Mobile-Friendly Website? A UK Business Guide'
 description: 'Should your idea start as a mobile-friendly website, a web application or a mobile app? A practical checklist for UK businesses, with worked examples.'
+summary: 'Start with a mobile-friendly website if customers need to find you through search, use you occasionally and mainly want information or to get in touch. Consider an app when use is frequent, or the product depends on device features, notifications or offline working. A web application that people sign in to often sits sensibly between the two.'
 slug: mobile-app-or-mobile-friendly-website
 pubDate: 2026-09-15
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Mobile App Development
 tags: [Mobile apps, Mobile websites, Product planning]
 featuredImage: ../../assets/blog/mobile-app-or-mobile-friendly-website/mobile-app-or-mobile-friendly-website-hero.png
 imageAlt: A website and an app shown as equally valid paths to a mobile experience
+faqs:
+  - question: 'Do I need an app for my business?'
+    answer: 'Only if customers will use it often, or it needs something a website cannot do well, such as offline working, timely notifications or particular device features. If people find you by searching and contact you occasionally, a mobile-friendly website is usually the better first step.'
+  - question: 'What is a progressive web app?'
+    answer: 'A progressive web app, or PWA, is a web application that, depending on its setup and the browser, can be added to the home screen, open like an app and support some offline tasks. It is a real option to evaluate, not a universal substitute for an app.'
+  - question: 'Can a website send push notifications to phones?'
+    answer: 'In some cases. WebKit''s guidance says web push on iPhone and iPad is supported for web apps added to the Home Screen from version 16.4, and the permission request must follow a direct action such as tapping a subscribe button. Users have to take that Home Screen step first.'
+  - question: 'Can my business have both a website and an app?'
+    answer: 'Yes, and many do: a public website that brings people in, and an app for the customers or staff who use the service constantly. Building the website first does not rule out the app, and usually makes it better, because by then you know who it is for.'
+  - question: 'Is an app better than a website for a local service business?'
+    answer: 'Usually not at the start. If customers look for you when something goes wrong, which is rare and urgent, and the next step is a phone call, an app adds little. A fast mobile-friendly website with a tappable phone number and a clear coverage area serves that journey better.'
 draft: false
 cta: general
 ---
