@@ -2,6 +2,7 @@
 title: 'Mobile App Requirements Checklist: What to Prepare Before Development'
 seoTitle: Mobile App Requirements Checklist | App Developer Scotland
 description: 'Define your app''s users, platforms, features, data, integrations, ownership and support before you request a mobile app development quote in the UK.'
+summary: 'Before asking for an app quote, write down the problem the app solves, who will use it and on which devices, the smallest complete journey for version one, features that can wait, any accounts and roles, the personal data collected, integrations, admin needs, who supplies content, who owns the accounts and who maintains the app after launch.'
 slug: mobile-app-requirements-checklist
 pubDate: 2026-09-09
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Mobile App Development
 tags: [App planning, Requirements, Project scope]
 featuredImage: ../../assets/blog/mobile-app-requirements-checklist/mobile-app-requirements-hero.webp
 imageAlt: A mobile phone beside a completed project-planning checklist
+faqs:
+  - question: 'What should I prepare before talking to an app developer?'
+    answer: 'A one-sentence description of the problem, the groups of people who will use the app and their devices, the essential launch features, a list of what can wait, the data you will collect, the services it must connect to, and who will supply the content and own the accounts.'
+  - question: 'How do I decide what goes into the first version of an app?'
+    answer: 'Use one test: can one user complete the core job from start to finish? For a booking app that means finding a slot, booking it and seeing the confirmation. Cross out everything outside that loop and keep it on a written list for later. Version one should feel uncomfortably small.'
+  - question: 'Should the app developer own the App Store account?'
+    answer: 'No, in almost every case. Your organisation should control the Apple Developer and Google Play accounts, the cloud project, the domain and analytics, with your development partner added to them. Accounts in someone else''s name can be very hard to recover if the relationship ends.'
+  - question: 'What content do I need to supply for an app?'
+    answer: 'Your logo in vector format, brand colours, fonts with licences that cover use in an app, and photography you have the rights to. You also need the words for every screen, error message and empty state, plus the store listing: name, description, screenshots and a support address.'
+  - question: 'Do I need to tell the app stores what data my app collects?'
+    answer: 'Yes. Apple requires app privacy information for new apps and updates, and Google Play requires developers to complete its Data safety form. Before development starts, list what you collect and why, how long you keep it and who else receives it. Higher-risk data needs legal advice.'
 draft: false
 cta: general
 ---

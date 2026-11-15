@@ -2,6 +2,7 @@
 title: 'Organising Your Brand Files: A Simple Folder System Your Team, Printer and Developer Can Use'
 seoTitle: 'How to Organise Your Brand Files and Assets'
 description: 'Final logo files, fonts and guidelines scatter fast. Learn a simple folder system for brand assets that your team, printer and web developer can all use.'
+summary: 'Keep approved brand files in one shared folder the business controls, with numbered sections for guidelines, logos, colours and fonts, templates, images and an archive. Name files so they explain themselves, keep drafts separate from finals, give most people view-only access and put one person in charge of keeping the folder tidy.'
 slug: organising-your-brand-files-and-assets
 pubDate: 2026-10-15
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [brand assets, file organisation, branding]
 featuredImage: ../../assets/blog/organising-your-brand-files-and-assets/organising-your-brand-files-and-assets-hero.png
 imageAlt: Flat illustration of a folder opening to reveal a tidy stack of file cards, with a smaller folder and a checklist card beside it
+faqs:
+  - question: 'Where should a small business store its logo and brand files?'
+    answer: 'In shared cloud storage, in an account the business controls rather than a personal one that disappears when someone leaves. Let most people view and download, limit editing to one or two people, and make sure the folder is covered by your existing backups.'
+  - question: 'What should I send a web developer from my brand files?'
+    answer: 'Logo files in screen formats, colour values, the font files or details of where the fonts come from, and approved images. Send only what the job needs: sending the whole folder is slower for them and riskier for you.'
+  - question: 'Should I delete old versions of my logo?'
+    answer: 'Move them to an archive folder instead. An archive gives people somewhere to put retired logos and superseded guidelines, and it keeps the live folders free of confusing near-duplicates without losing files you may want to refer back to.'
+  - question: 'Why should a file name not include the word "final"?'
+    answer: 'Because it stops being true. Words such as final, new and latest describe how you felt on the day, and soon there are several of them. Say what the file is instead, for example business-name_logo_primary_colour.svg, using lowercase letters and hyphens or underscores.'
+  - question: 'Do I need to keep the editable source files for my logo?'
+    answer: 'Yes. Editable source files are what allow a designer to make changes later, and forgetting them is a common mistake. Keep them in the brand folder, and make sure the final files from any design project are delivered in a form you can keep.'
 draft: false
 cta: general
 ---

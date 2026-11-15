@@ -2,6 +2,7 @@
 title: 'Which Business Tasks Are Worth Handing to AI First? A Practical Way to Choose'
 seoTitle: 'Which Business Tasks Should You Hand to AI First?'
 description: 'A practical way for business owners to choose the first tasks to hand to AI: score each by repetition, risk and review effort, then start small.'
+summary: 'Start with a task that repeats often, has a clear picture of a good result, costs little if it goes wrong and is quick to check. Summaries of documents you already have, extraction of key details and first drafts that follow a template usually fit. Leave advice with legal, medical or financial consequences until later.'
 slug: which-business-tasks-to-hand-to-ai-first
 pubDate: 2026-10-02
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: AI Automation
 tags: [AI automation, workflow, getting started]
 featuredImage: ../../assets/blog/which-business-tasks-to-hand-to-ai-first/which-business-tasks-to-hand-to-ai-first-hero.png
 imageAlt: Flat vector illustration of a stack of papers being sorted into three trays, with one tray highlighted in blue and a checkmark card beside it
+faqs:
+  - question: 'What is AI actually good at for a small business?'
+    answer: 'Producing a first version quickly from material you already have: summaries, lists of key details, draft descriptions and documents that follow a template. It is not a substitute for knowing your business and cannot confirm that a claim is true, so someone on your side still reads and approves the result.'
+  - question: 'Can AI check current prices, stock or opening hours?'
+    answer: 'No. It works from the material it is given and cannot check live facts for you. Tasks that depend on fresh information, such as today''s prices, stock levels or opening hours, make poor first experiments unless that information is supplied and checked by a person.'
+  - question: 'How do I know whether an AI trial worked?'
+    answer: 'Compare the output with your source material and note what was right, what needed correcting and how long checking took. If the review took almost as long as writing it yourself, the task was a poor fit. Deciding to stop is a perfectly valid result of a trial.'
+  - question: 'Do I need technical skills or new software to start using AI?'
+    answer: 'Not to choose a first task: the four questions need no technical knowledge. With a managed service such as FinTaxTech''s AI Automation, the workflow is run for you and the finished content handed over, so there are no tools to build or learn. You still review the result.'
+  - question: 'Is it worth using AI for a one-off task?'
+    answer: 'Usually not as a first experiment. Tasks that come round weekly or monthly teach you more, and save more, than one-off jobs. Writing the same type of summary from each new supplier document is a better candidate than drafting a single announcement.'
 draft: false
 cta: general
 ---

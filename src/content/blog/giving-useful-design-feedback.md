@@ -2,6 +2,7 @@
 title: 'Giving Design Feedback That Gets You to the Final Version Sooner'
 seoTitle: 'How to Give Useful Design Feedback'
 description: 'Vague feedback like "make it pop" slows every design project. Learn how to give clear, consolidated feedback that gets your brand work finished sooner.'
+summary: 'Useful design feedback describes the problem, not the fix. Judge each concept against the brief, say what you notice and why it worries you, and end with an open question. View the design at real sizes first, gather everyone''s comments into one reply, and match the detail of your feedback to the stage of the project.'
 slug: giving-useful-design-feedback
 pubDate: 2026-10-11
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [design feedback, logo design, branding]
 featuredImage: ../../assets/blog/giving-useful-design-feedback/giving-useful-design-feedback-hero.png
 imageAlt: Flat illustration of a design page on the left with three blue numbered markers pointing to different parts of it, and a checklist card on the right with ticked and unticked lines
+faqs:
+  - question: 'How do I tell a designer I do not like the design?'
+    answer: 'Say it, then give a reason. Follow the feeling with what you notice and why it worries you, such as the symbol and the name seeming to belong to different brands. Honest reactions matter because you will live with the result, but a reason gives the designer something to act on.'
+  - question: 'What does "make it pop" mean to a designer?'
+    answer: 'Nothing specific, which is the problem. It could mean brighter colour, larger type, more contrast or more space, and each wrong guess uses up a round of revisions. Say what you notice instead, for example that the logo gets lost on your white website header.'
+  - question: 'Should I ask friends and family what they think of my logo?'
+    answer: 'You can, but weigh the answers. Views are most useful when the person represents your customers; others simply reflect personal taste. Ask whether a comment helps your customers or only pleases the person who made it, and if opinions clash, let the brief decide.'
+  - question: 'How many rounds of design revisions should I expect?'
+    answer: 'That is set by your agreement, not by a standard. The number of revision rounds included, and how extra changes are handled, should be written into the proposal before work begins. Clear, consolidated feedback is the best way to avoid needing more rounds than you have.'
+  - question: 'Is it too late to change direction when a design is nearly finished?'
+    answer: 'It is possible, but it is the quickest way to extend a project. At the final stage, feedback should be about errors only, such as spelling and contact details. If your business has genuinely changed, say so openly and discuss it rather than hinting through small tweaks.'
 draft: false
 cta: general
 ---

@@ -2,6 +2,7 @@
 title: 'Preparing for App Store and Google Play Submission: What to Have Ready Before Launch'
 seoTitle: 'App Store and Google Play Submission Checklist (UK)'
 description: 'A practical guide for UK business owners: the accounts, declarations, listing assets and review materials to have ready before you submit a mobile app.'
+summary: 'Before you submit an app, have the developer accounts registered in your business''s name, a live privacy policy, accurate data declarations for both stores, your listing text and screenshots, and a working test login for reviewers. Start with the accounts, because identity checks take longest, and leave time for a first rejection. Approval is never guaranteed.'
 slug: app-store-and-google-play-submission-checklist
 pubDate: 2026-09-26
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Mobile App Development
 tags: [App launch, App Store, Google Play]
 featuredImage: ../../assets/blog/app-store-and-google-play-submission-checklist/app-store-and-google-play-submission-checklist-hero.png
 imageAlt: Flat vector illustration of a mobile phone beside a checklist and two review gates, representing app store submission preparation
+faqs:
+  - question: 'How much does it cost to publish an app on the App Store and Google Play?'
+    answer: 'At the time of writing, Apple lists its Developer Program at 99 US dollars per membership year, with prices varying by region, and Google lists a one-time registration fee of 25 US dollars for a Play Console account. Fees change, so check Apple''s and Google''s own pages before budgeting.'
+  - question: 'How long does app review take?'
+    answer: 'Neither store publishes a guaranteed turnaround, and neither guarantees approval. Apple says only that review happens as soon as it can manage. Assume your first submission may come back with questions, and book any launch campaign after approval, not before.'
+  - question: 'Do I need a privacy policy to publish an app?'
+    answer: 'Yes. Both stores require a live, publicly reachable privacy policy address. Google states one is needed to complete its Data safety form even for apps that collect no data. It should sit somewhere you control, usually your website, before you submit.'
+  - question: 'What is a D-U-N-S Number and do I need one?'
+    answer: 'It is a business identifier that Apple uses to verify a legal entity when a company enrols as an organisation in the Apple Developer Program. If you do not already have one, it is the item most likely to hold up enrolment, so check early.'
+  - question: 'Why do apps get rejected by the App Store?'
+    answer: 'Usually for specific, fixable reasons: a missing declaration, screenshots that do not show the app in use, placeholder content, a backend switched off during review, or a reviewer who could not get past the login screen. Supplying a working demo account removes one of the commonest causes.'
 draft: false
 cta: general
 ---

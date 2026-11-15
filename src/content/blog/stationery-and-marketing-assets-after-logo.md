@@ -2,6 +2,7 @@
 title: 'After the Logo: Which Stationery and Marketing Assets Does a New Business Need First?'
 seoTitle: 'Stationery and Marketing Assets a New Business Needs'
 description: 'Your logo is signed off — so what should you order first? A plain-English guide to the stationery and marketing assets new businesses actually use.'
+summary: 'After the logo, most new businesses need four things first: a business card, an email signature, a quote and invoice template and a letterhead. What comes next depends on how you trade, such as vehicle graphics, signage, social media images or proposal templates. Order short runs, and check what the law requires on your documents before printing.'
 slug: stationery-and-marketing-assets-after-logo
 pubDate: 2026-09-24
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [branding, stationery, print]
 featuredImage: ../../assets/blog/stationery-and-marketing-assets-after-logo/stationery-and-marketing-assets-after-logo-hero.png
 imageAlt: Flat illustration of branded business assets arranged in a grid - a letterhead, an invoice, a laptop showing an email signature, an envelope, two business cards and a pen
+faqs:
+  - question: 'Do I still need business cards?'
+    answer: 'For most businesses, yes. A business card is still useful for handing over contact details in person, and it is usually the cheapest branded item you will buy. Keep it to the details you genuinely want someone to use, because a crowded card gets ignored.'
+  - question: 'What details must a limited company show on its letterhead?'
+    answer: 'Gov.uk says a limited company must show its name on all company documents, publicity and letters. Business letters, order forms and websites must also show the registered number, the registered office address, where the company is registered and that it is a limited company. Check the current guidance; this is not legal advice.'
+  - question: 'What should a sole trader put on invoices and letters?'
+    answer: 'Gov.uk says a sole trader must include their own name and their business name, if they have one, on official paperwork such as invoices and letters. Invoices have separate requirements, particularly if you are VAT registered. Check the official pages for your own circumstances.'
+  - question: 'How many business cards or leaflets should I order first?'
+    answer: 'A short run. Short runs cost more per item, but far less than reprinting a thousand of the wrong thing. A small first order is easier to correct if a phone number or address changes, or once you see what customers actually ask for.'
+  - question: 'Why does the logo in my email signature show up as an attachment?'
+    answer: 'Large images in a signature often appear as broken attachments, or are stripped out by the recipient''s mail software. Ask for a simple, well-structured signature that still works in plain text, and avoid large images.'
 draft: false
 cta: general
 ---

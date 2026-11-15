@@ -2,6 +2,7 @@
 title: 'What Happens After Your Mobile App Launch? Maintenance, Updates and Ongoing Responsibilities Explained'
 seoTitle: 'Mobile App Maintenance After Launch: UK Business Owner Guide'
 description: 'Launching an app starts its operating life. Learn what maintenance involves in the UK, who is usually responsible and what to agree before you build.'
+summary: 'After launch, a mobile app needs ongoing work: fixing defects, keeping up with new iOS and Android versions, updating libraries, applying security patches, meeting changing store rules, looking after any backend and renewing accounts. Agree before the build who does each job, what the warranty covers and how routine maintenance and urgent problems will be paid for.'
 slug: mobile-app-maintenance-after-launch
 pubDate: 2026-09-22
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Mobile App Development
 tags: [App maintenance, Post-launch support, Mobile apps]
 featuredImage: ../../assets/blog/mobile-app-maintenance-after-launch/mobile-app-maintenance-after-launch-hero.png
 imageAlt: A smartphone at the centre of a loop of small maintenance tasks, with a calendar, a shield and a gear around it
+faqs:
+  - question: 'How much does it cost to maintain a mobile app?'
+    answer: 'There is no universal figure worth quoting. The effort depends on the platforms you support, whether there is a backend, how many third-party services are involved, how often you release and the response times you need. A simple offline staff app needs far less than a customer app with accounts and payments.'
+  - question: 'What happens if I do not update my app?'
+    answer: 'It rarely fails all at once. It becomes less reliable on newer devices, may stop being available to some new users as store requirements move on, and collects unpatched vulnerabilities. Bringing a neglected app back up to date can cost considerably more than keeping it current would have.'
+  - question: 'How often does a mobile app need updating?'
+    answer: 'Apple and Google release a major operating system version every year, with smaller updates in between, and the app should be tested against each one. Libraries are typically reviewed monthly or quarterly, and security patches applied as vulnerabilities are announced. The right rhythm depends on how the app is built and used.'
+  - question: 'What is the difference between a bug fix and a new feature?'
+    answer: 'A defect is something that does not work as agreed in the original scope, and it may be covered by a warranty period. An improvement works as agreed but could be better, or is something users now want. That is normally new work, scoped and priced separately.'
+  - question: 'Who pays for hosting and store accounts after an app launches?'
+    answer: 'Usually the business. Store developer accounts, hosting, databases, messaging services, maps and analytics are charged by those providers rather than by your developer. Keep a list of what renews and when, because a lapsed account or expired certificate can take an app or its backend offline.'
 draft: false
 cta: general
 ---

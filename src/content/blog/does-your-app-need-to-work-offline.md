@@ -2,6 +2,7 @@
 title: 'Does Your App Need to Work Offline? What to Decide Before You Build'
 seoTitle: 'Does Your App Need to Work Offline? A Planning Guide'
 description: 'Should your mobile app work without a signal? A plain-English guide to offline needs, trade-offs and the questions to settle before development starts.'
+summary: 'Your app needs offline support when users must complete essential tasks without a reliable internet connection. Decide which tasks must work offline: viewing saved information, recording work or both. If users can change data offline, agree how it will synchronise and how conflicting changes will be handled when the connection returns.'
 slug: does-your-app-need-to-work-offline
 pubDate: 2026-10-16
 updatedDate: 2026-10-30
@@ -10,11 +11,20 @@ category: Mobile App Development
 tags: [Offline apps, App planning, Mobile experience]
 featuredImage: ../../assets/blog/does-your-app-need-to-work-offline/does-your-app-need-to-work-offline-hero.png
 imageAlt: Illustration of a phone showing a broken signal symbol beside a stack of saved items and a cloud connected by a dotted line
+faqs:
+  - question: 'Does an app work without an internet connection?'
+    answer: 'Only the parts designed to. Most apps need a connection for live information, payments and bookings. An app can be built to show saved content, or to let people record work and send it later, but that has to be decided and built deliberately.'
+  - question: 'What is an offline-first app?'
+    answer: 'Android''s developer documentation describes it as an app that can perform all, or a critical subset, of its core functions without internet access. Very few apps need everything to work offline, so the useful step is naming the specific tasks that must.'
+  - question: 'What does syncing mean in an app?'
+    answer: 'Syncing is the catching up that happens when the connection returns: the app sends any changes made offline to your system and fetches anything new. If two people changed the same record, a rule you have agreed decides which version is kept.'
+  - question: 'Does offline support make an app more expensive?'
+    answer: 'Usually, yes, though the amount depends on the app. It adds more states to design, local storage and sync logic to build, more situations to test on real devices, and more to support afterwards. A brief that only says the app should work offline will be quoted differently by each developer.'
+  - question: 'Should the first version of my app work offline?'
+    answer: 'Not necessarily. For a first version that is still testing the idea, a clear message that the person is offline, with nothing they typed lost, may be enough. Fuller offline support can be added in a later release if customers show they need it.'
 draft: false
 cta: general
 ---
-
-Your app needs offline support when users must complete essential tasks without a reliable internet connection. Decide which tasks must work offline: viewing saved information, recording work or both. If users can change data offline, agree how it will synchronise and how conflicting changes will be handled when the connection returns.
 
 Most apps are planned by people sitting at a desk with fast Wi-Fi. Most apps are used on trains, in car parks, in basements, in rural areas and in buildings where the signal comes and goes. The gap between those two situations is where the question of offline working lives.
 

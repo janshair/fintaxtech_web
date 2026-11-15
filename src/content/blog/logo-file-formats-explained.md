@@ -2,6 +2,7 @@
 title: 'Which Logo File Formats Does Your Business Need? SVG, PNG, PDF and More Explained'
 seoTitle: 'Logo File Formats Explained: SVG, PNG, PDF, EPS and More'
 description: 'A plain-English guide to logo file formats: which ones your business needs, what each is for, and what a proper logo handover should include.'
+summary: 'Most businesses need their logo as vector files (SVG, PDF and EPS) and as PNG files with transparent backgrounds in several sizes. Use SVG on websites, PNG for documents and social media, and vector PDF or EPS for print and signage. Ask for full colour, reversed, black, white and icon-only versions, plus screen and print colour codes.'
 slug: logo-file-formats-explained
 pubDate: 2026-09-21
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [Logo files, Brand handover, File formats]
 featuredImage: ../../assets/blog/logo-file-formats-explained/logo-file-formats-explained-hero.png
 imageAlt: One simple mark shown as several files of different sizes and colour treatments, fanned out from a single source
+faqs:
+  - question: 'What is the best file format for a logo?'
+    answer: 'There is no single best format. A logo should originate as vector artwork, with SVG for websites, PNG with a transparent background for everyday use, and vector PDF or EPS for printers and signmakers. Which one to use depends on where the logo is going.'
+  - question: 'What is a PNG file used for?'
+    answer: 'PNG is an image format made of pixels that supports transparent backgrounds, so a logo sits cleanly on a coloured or photographic background without a white box. It suits social media profiles, documents, email signatures and anywhere that will not accept SVG. Ask for it in several sizes.'
+  - question: 'Why does my logo have a white box around it?'
+    answer: 'The file is probably a JPG, or an image saved without a transparent background. JPG has no transparency, so the logo always arrives on a solid background. Ask your designer for PNG files with transparent backgrounds, or an SVG for your website.'
+  - question: 'Why does my logo look blurry when I make it bigger?'
+    answer: 'It is a raster file, such as a PNG or JPG, being enlarged beyond its original size. Raster images are a fixed grid of pixels, so the edges turn soft or jagged. Use a vector file such as SVG, EPS or a vector PDF, which stays sharp at any size.'
+  - question: 'What should I send when a printer asks for a vector file?'
+    answer: 'An EPS, an AI file or a PDF exported directly from the vector artwork. Check that it is genuinely vector: a photo or PNG of a logo saved inside a PDF is still a raster image. Printers'' requirements differ, so confirm the format with yours first.'
 draft: false
 cta: general
 ---
