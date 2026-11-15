@@ -3,6 +3,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      submit_all:
+        description: After deploying, tell search engines about every page in the sitemap (IndexNow)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -45,3 +50,23 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Tell IndexNow (Bing and the engines that share its index) which articles this deploy changed, so
+  # they are picked up without waiting for a crawl. It never fails the workflow; problems show as warnings.
+  notify-search:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # The full commit list without file contents is enough to see which articles the push touched.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/indexnow.mjs ${{ inputs.submit_all && '--all' || '' }}
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}

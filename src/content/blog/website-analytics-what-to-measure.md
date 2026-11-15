@@ -2,6 +2,7 @@
 title: 'Website Analytics Without the Jargon: What to Measure and What to Ignore'
 seoTitle: 'Website Analytics for Business Owners: What to Measure'
 description: 'A plain-English guide to website analytics: which numbers help a small business, which to ignore, and what to agree before your site is built.'
+summary: 'Measure a few things that answer real questions: how many visitors arrive and from where, which pages they view, whether they send an enquiry or take another action you want, and what device they use. Ignore total page views, bounce rate and daily ups and downs. Decide what to record, and who owns the account, before launch.'
 slug: website-analytics-what-to-measure
 pubDate: 2026-11-03
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Analytics, Website planning, Measurement]
 featuredImage: ../../assets/blog/website-analytics-what-to-measure/website-analytics-what-to-measure-hero.png
 imageAlt: Illustration of a browser window containing a simple bar chart and a rising line, with a magnifier highlighting one bar
+faqs:
+  - question: 'What is a conversion on a website?'
+    answer: 'A conversion, or goal, is an action you want a visitor to take: a form sent, a booking made, a phone number tapped or a brochure downloaded. It is usually the most valuable thing to measure. Decide which two or three count, and make sure each can be recorded.'
+  - question: 'Is bounce rate important for a small business website?'
+    answer: 'Usually not. Definitions vary between tools, and a quick visit by someone who finds your phone number and calls is a success, not a failure. Look at whether visits end in an action instead.'
+  - question: 'Do I need a cookie banner for website analytics?'
+    answer: 'It depends on the tool and how it is set up. In the UK, rules on cookies sit alongside data protection law. Ask your developer what the proposed tool records, check whether that setup needs a consent notice using the ICO''s guidance, and confirm it in writing. This is not legal advice.'
+  - question: 'How often should I check my website analytics?'
+    answer: 'A short monthly look is usually enough. Open the dashboard with your questions in front of you, note two or three observations and decide on at most one change. Single days are noisy on a small site, so watch month-by-month trends.'
+  - question: 'Why are my website visitor numbers lower than I expected?'
+    answer: 'Any analytics tool undercounts to some degree. Browser privacy settings, consent choices and blocking tools all hide some visits, and visitors who decline consent are not counted. Treat the figures as approximate, and compare trends over months rather than exact totals.'
 draft: false
 cta: general
 ---

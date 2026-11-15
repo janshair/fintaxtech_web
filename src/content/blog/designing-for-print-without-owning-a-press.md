@@ -2,6 +2,7 @@
 title: 'Designing for Print Without Owning a Press: What to Hand Your Printer'
 seoTitle: 'Designing for Print: What to Hand Your Printer'
 description: 'Your designer does not print, and your printer does not design. Here is what to agree, ask and supply so the printed result matches the screen.'
+summary: 'Your designer supplies print-ready files and your chosen printer prints them, so the hand-off is yours to manage. Before the artwork is finished, get the printer''s file requirements: trim size, bleed, safe area, file type and colour mode. Then check the proof slowly, because once you approve it, errors are usually yours to bear.'
 slug: designing-for-print-without-owning-a-press
 pubDate: 2026-10-06
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [print, artwork, branding]
 featuredImage: ../../assets/blog/designing-for-print-without-owning-a-press/designing-for-print-without-owning-a-press-hero.png
 imageAlt: Flat illustration of a sheet of artwork with crop marks and a ruler beside a stack of trimmed cards and a magnifying loupe
+faqs:
+  - question: 'What does print-ready mean?'
+    answer: 'It means ready for a particular printer''s process, not a universal standard. A print-ready file is usually built to the trim size with bleed added, keeps key content inside the safe area, uses the colour mode the printer asks for, and has fonts embedded or converted to shapes.'
+  - question: 'What is bleed in printing?'
+    answer: 'Bleed is the extra background colour or image that extends beyond the trim line, so a slightly off cut does not leave a white sliver at the edge. The amount varies between printers, so use the measurement given by the printer you are actually using.'
+  - question: 'Why do printed colours look duller than on screen?'
+    answer: 'Screens mix light and most printing mixes inks, so bright screen colours, especially strong blues and greens, can look duller on paper. That is physics, not a mistake. If your brand colours matter, accept a close match or ask the printer about spot colour or a printed colour reference.'
+  - question: 'Is a digital proof enough before printing?'
+    answer: 'For layout and text, yes. A digital proof does not reliably show colour, because every screen differs, and it cannot show how the paper feels. If exact colour or finish matters, ask whether a printed proof or a physical sample is possible, even at extra cost.'
+  - question: 'Can I use a PNG logo for printing?'
+    answer: 'It is better not to. Logos should be supplied as vector artwork so they stay sharp at any size, and a PNG taken from a website can look soft when enlarged. Ask your designer for the vector versions before the artwork is prepared.'
 draft: false
 cta: general
 ---

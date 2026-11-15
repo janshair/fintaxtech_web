@@ -2,6 +2,7 @@
 title: 'Why Do Mobile App Quotes Vary So Much? Features, Platforms and Ongoing Costs Explained'
 seoTitle: 'Why Do Mobile App Quotes Vary So Much? UK Pricing Explained'
 description: 'What drives mobile app pricing in the UK: platforms, features, backend work and ongoing costs, and what to prepare before you request a quote.'
+summary: 'Mobile app quotes vary because each supplier is pricing a different product. The biggest drivers are the platforms, user accounts and roles, backend and data, integrations, device features and offline use, quality requirements and an admin panel. Send every supplier the same written brief, and compare assumptions and exclusions as carefully as the price.'
 slug: why-mobile-app-quotes-vary
 pubDate: 2026-09-18
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Mobile App Development
 tags: [App pricing, Project scope, Mobile apps]
 featuredImage: ../../assets/blog/why-mobile-app-quotes-vary/why-mobile-app-quotes-vary-hero.png
 imageAlt: Three mobile phones showing progressively more complex app layouts
+faqs:
+  - question: 'How much does it cost to build a mobile app in the UK?'
+    answer: 'There is no meaningful figure without a scope. A single-screen tool for a few staff and a customer app with accounts, payments and an admin dashboard are both apps, but they are not the same job. A written brief is what turns a guess into a quote you can compare.'
+  - question: 'Why is one app quote so much cheaper than another?'
+    answer: 'Often because it leaves something out. The most commonly omitted item is an admin panel for your staff, and backend work can be the single biggest difference between two quotes. Read each quote''s assumptions and exclusions: they show what has been taken as given and what you will pay for separately.'
+  - question: 'What does an app cost to run after it is built?'
+    answer: 'Depending on the app: store accounts, hosting and backend services, third-party services such as payments, maps and messaging, maintenance for new operating system versions, and new features. A simple offline staff tool may have almost none of these, while an app with a backend, payments and notifications will have several.'
+  - question: 'Is it cheaper to build an app for Android only?'
+    answer: 'It can be. One platform is one build instead of two, and it suits cases such as staff who all carry company Android phones. If customers bring their own phones you usually need both, and a cross-platform framework can share much of the work.'
+  - question: 'How can I reduce the cost of an app without cutting quality?'
+    answer: 'Build less, not worse. Define the problem in one sentence, find the essential journey and consider a smaller first release with fewer screens and integrations. Avoid false economies such as cutting testing or hard-coding values, which look like savings on the first invoice and cost more on the second.'
 draft: false
 cta: general
 ---

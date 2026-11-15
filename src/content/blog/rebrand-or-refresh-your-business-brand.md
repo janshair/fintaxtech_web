@@ -2,6 +2,7 @@
 title: 'Rebrand or Refresh? How to Tell What Your Existing Brand Actually Needs'
 seoTitle: 'Rebrand or Refresh? What Your Brand Needs'
 description: 'Not every tired-looking brand needs starting again. Learn how to tell a refresh from a full rebrand, and what to decide before you brief a designer.'
+summary: 'A refresh keeps your name and recognisable logo and improves how they are presented: colours, typography, file quality and consistency. A rebrand changes the idea itself, such as the name, logo or market position. Refresh when the business is sound but the presentation has drifted; rebrand when the business has changed and the brand has not.'
 slug: rebrand-or-refresh-your-business-brand
 pubDate: 2026-10-08
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Branding and Graphic Design
 tags: [rebrand, brand refresh, branding]
 featuredImage: ../../assets/blog/rebrand-or-refresh-your-business-brand/rebrand-or-refresh-your-business-brand-hero.png
 imageAlt: Flat illustration of a dashed rough sketch of a shape on the left and a clean solid blue version on the right, with a pencil and four colour swatches below
+faqs:
+  - question: 'Do we need a type refresh or a full rebrand?'
+    answer: 'If the idea behind the brand is still right and only the typeface, colours or layout look dated, a refresh is usually enough. A full rebrand is worth considering when your customers, services, name or market position have changed and the brand no longer describes the business.'
+  - question: 'Does a startup need a logo refresh?'
+    answer: 'Sometimes. If the logo is unreadable at small sizes, appears in several slightly different versions or exists only as a low-resolution file, tidying it up is worthwhile. If the brand was assembled quickly and there is nothing solid to refresh, or the business has changed direction, a rebrand may fit better.'
+  - question: 'Is being bored of our logo a good reason to rebrand?'
+    answer: 'No. The people who see a brand every day are usually the first to tire of it and the last to be affected by it. Look for a real trigger instead, such as a change in what you sell or who you serve. Without one, consider a refresh.'
+  - question: 'Will a rebrand confuse our existing customers?'
+    answer: 'It can, because familiarity has value that a complete change throws away. Decide what is worth keeping, such as a colour or a shape people associate with you, and send customers a short note explaining the change, especially if the name or logo is noticeably different.'
+  - question: 'Do we have to replace everything at once after a rebrand?'
+    answer: 'No. Many businesses stage it: update the website, email signatures and social profiles first, use up printed stock that is still usable, then replace signage, vehicles and packaging as they come up for renewal. The real cost often lies in replacing things rather than designing them.'
 draft: false
 cta: general
 ---

@@ -2,6 +2,7 @@
 title: 'Push Notifications Without Annoying People: What to Plan Before You Build'
 seoTitle: 'Push Notifications Without Annoying Customers'
 description: 'How to plan app push notifications as a business owner: which messages earn their place, when to ask permission, and how to give people control.'
+summary: 'Plan push notifications before the app is built. List each message and what it helps the customer do, sort them into essential, useful and promotional, ask for permission at a moment that gives a reason, set limits on frequency and hours, and give customers a settings screen to choose what they receive.'
 slug: push-notifications-without-annoying-people
 pubDate: 2026-10-07
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Mobile App Development
 tags: [push notifications, mobile apps, app planning]
 featuredImage: ../../assets/blog/push-notifications-without-annoying-people/push-notifications-without-annoying-people-hero.png
 imageAlt: Flat vector illustration of a phone with a few calm notification cards above it, one marked with a blue dot, beside a small bell and a toggle switch turned on
+faqs:
+  - question: 'Why do people turn off app notifications?'
+    answer: 'Usually because messages arrive too often or are about nothing in particular. Promotional messages cause most of the annoyance. Essential ones, such as a booking confirmation or a dispatched order, are rarely resented, which is why it helps to separate the types and let people switch promotions off.'
+  - question: 'Do Android apps need permission to send notifications?'
+    answer: 'Yes. On Android 13 and later, apps must request a runtime permission before sending most notifications, and notifications are off by default for new installs. Platform rules change, so your developer should check Google''s and Apple''s current guidance.'
+  - question: 'What happens if a user declines notifications on an iPhone?'
+    answer: 'They have to go into the device settings to change their mind, so a refusal is hard to undo. Show a short screen in your own words first, explaining what they will receive. If they decline that screen, you have not used up the system prompt.'
+  - question: 'How many push notifications are too many?'
+    answer: 'There is no fixed number, so set your own ceiling in writing: how many promotional messages per week or month, and during which hours. Pick a number you would be comfortable receiving yourself, group several updates into one message, and work to the customer''s local time.'
+  - question: 'Do I need consent to send marketing push notifications in the UK?'
+    answer: 'UK rules on electronic marketing and data protection may apply when notifications are used for marketing. Which rules apply depends on the content, who receives the messages and how you obtained consent. Agree the approach with a suitably qualified adviser. This is not legal advice.'
 draft: false
 cta: general
 ---

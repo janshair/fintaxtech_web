@@ -2,6 +2,7 @@
 title: 'Do You Need a Booking System, or Just a Contact Form?'
 seoTitle: 'Booking System or Contact Form for Your Website?'
 description: 'A plain-English way to decide between a booking system and a contact form for your business website, with a comparison table and checklist.'
+summary: 'Choose a booking system when customers can pick a slot without talking to you first: standard appointments, repeatable services and availability you can describe in rules. Choose a contact form when each job is different, quotes are bespoke or you want a conversation first. If you are unsure, start with a good form and add booking later.'
 slug: do-you-need-a-booking-system-or-a-contact-form
 pubDate: 2026-10-05
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Booking systems, Contact forms, Website planning]
 featuredImage: ../../assets/blog/do-you-need-a-booking-system-or-a-contact-form/do-you-need-a-booking-system-or-a-contact-form-hero.png
 imageAlt: Illustration of a simple message form on the left and a calendar with time slots on the right, joined by a line to a single browser window
+faqs:
+  - question: 'Should my website have a booking calendar or a contact form?'
+    answer: 'A booking calendar suits repeatable, time-based services where customers can choose without a conversation. A contact form suits varied or bespoke work where you need to understand the request first. If your answers are mixed, start with the form and revisit booking later.'
+  - question: 'What questions should a contact form ask?'
+    answer: 'More than name, email and message, but not much more. Two or three focused questions, such as what the visitor needs, roughly when, and how best to reach them, save a round of back-and-forth without putting people off.'
+  - question: 'Can I add online booking to my website later?'
+    answer: 'Yes. Many businesses start with a contact form and add booking once they know which services are repeatable and which rules actually hold. Tell your designer at the start if booking may come later, because a structure planned to grow is easier than reworking a site afterwards.'
+  - question: 'What do I need to decide before setting up online booking?'
+    answer: 'Your working hours and days off, how much notice you need, any gaps between appointments, how many bookings you can take at once, and what happens with rescheduling and cancellations. You also need to decide where bookings land and who is notified.'
+  - question: 'Who can set up forms, bookings and emails for my business website?'
+    answer: 'The web designer or developer who builds the site can set these up as part of the project. FinTaxTech designs and builds new websites and complete rebuilds, including booking experiences. Any third-party booking account should be in your business''s name, with what is included set out in the written proposal.'
 draft: false
 cta: general
 ---

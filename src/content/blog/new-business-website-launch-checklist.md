@@ -2,6 +2,7 @@
 title: 'What Should a New Business Website Include? A Practical Launch Checklist'
 seoTitle: 'New Business Website Checklist | Web Designer Scotland'
 description: 'What a new business website needs at launch: the essentials, trust signals, mobile and accessibility checks, and what can wait. From a Dundee web agency.'
+summary: 'A new business website should say plainly what you do and for whom, describe your services, show contact details that work on a phone, and offer an enquiry route you have tested. Add real business information and photographs, then check it on mobile, for accessibility and for speed. A blog, CMS, booking system and logins can wait.'
 slug: new-business-website-launch-checklist
 pubDate: 2026-09-13
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Website planning, Launch checklist, New businesses]
 featuredImage: ../../assets/blog/new-business-website-launch-checklist/new-business-website-launch-checklist-hero.png
 imageAlt: Illustration of a website layout, mobile preview and completed launch checklist
+faqs:
+  - question: 'What information must a UK limited company show on its website?'
+    answer: 'The full company name, including Limited or Ltd, the registered number, the registered office address and where the company is registered. VAT-registered businesses must show their VAT number on VAT invoices; whether it belongs on the website depends on the business. Check the gov.uk guidance for your own case.'
+  - question: 'How many pages does a new business website need?'
+    answer: 'Fewer than most people expect. One page listing your services can be enough at the beginning, with separate service pages added when each offer needs its own explanation. Five good pages beat fifteen half-finished ones.'
+  - question: 'Should I put prices on my website?'
+    answer: 'If you can publish fixed or starting prices accurately, they help visitors judge whether you are a fit. When work is scoped individually, explain how quoting works and what information you need first. Do not invent a price range just to fill the space.'
+  - question: 'Does a new website need a blog?'
+    answer: 'Not at launch. Start one when you have useful questions to answer and someone who can maintain it. An older article can still help readers if it stays accurate, so freshness for its own sake is not the goal.'
+  - question: 'Will a new website appear on Google straight away?'
+    answer: 'Nothing guarantees that, or any ranking. Search results depend on competition, your market and much that is outside anyone''s control. Unique page titles, readable addresses, a sitemap, HTTPS and Search Console give a new site a sound starting position, but they do not guarantee indexing.'
 draft: false
 cta: general
 ---

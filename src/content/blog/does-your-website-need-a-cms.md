@@ -2,6 +2,7 @@
 title: 'Does Your Business Website Need a CMS? Static, Headless and Managed Options Explained'
 seoTitle: Does Your Business Website Need a CMS? UK Guide
 description: Compare static websites, traditional CMS platforms and headless CMS options to choose the right content-management approach for your UK business.
+summary: 'A business website needs a CMS when non-technical staff publish regularly, several editors need access, or you need drafts, approvals or scheduled publishing. If content changes a few times a year and one technical person or an agreed update service handles it, a simpler file-based site may be enough. Choose the smallest process your team can run.'
 slug: does-your-website-need-a-cms
 pubDate: 2026-09-12
 author: FinTaxTech Ltd.
@@ -9,6 +10,17 @@ category: Website Design and Development
 tags: [Content management, Websites, Publishing]
 featuredImage: ../../assets/blog/does-your-website-need-a-cms/does-your-website-need-a-cms-hero.png
 imageAlt: Three structured content documents flowing into a finished business website
+faqs:
+  - question: 'What is a headless CMS?'
+    answer: 'A headless CMS manages content separately from the public website. Editors use a friendly interface, and a separate website fetches that content, often during its build, and turns it into finished pages. A site can therefore have an editor and still be delivered as pre-built static pages.'
+  - question: 'Is WordPress a good choice for a small business website?'
+    answer: 'It is a reasonable choice when its editing features are genuinely used and someone is named to maintain it. The platform, themes and plugins need regular updates. It is a poor default when nobody plans to manage either the content or the platform after launch.'
+  - question: 'Can I update my website myself without a CMS?'
+    answer: 'Only if you are comfortable editing files and using the publishing workflow. Otherwise changes go through whoever is, such as a developer or an agreed update service. That works well for infrequent changes, and becomes restrictive when several non-technical people need to publish.'
+  - question: 'Is a static website more secure than a CMS website?'
+    answer: 'A static site can expose less to the public, because there may be no content database, admin login or application server for visitors to reach. It is not maintenance-free: build tools, forms, third-party services and deployment settings still need looking after.'
+  - question: 'Can I move my website content to another platform later?'
+    answer: 'Ask before you choose. Markdown files in a repository are highly portable, and a suitable headless CMS should export structured data. Moving away from a proprietary page builder can take extra work when content and layout are tightly coupled. Keep every account in your company''s name.'
 draft: false
 cta: general
 ---
