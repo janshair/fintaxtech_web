@@ -7,7 +7,8 @@
 // images, as one image or as a swipeable carousel when "images" lists several. Facebook text never
 // contains links, because the Page has a monthly limit on link posts.
 // Duplicate posts are avoided by checking the Page feed and Instagram media before publishing,
-// so re-running is safe.
+// so re-running is safe. A post file with "reelAfterCarousel": true (and "music") posts a Reel even
+// though the article's carousel is already up: for that post only an existing Reel counts as a duplicate.
 //
 // Env: META_SYSTEM_TOKEN, META_PAGE_ID, MUSIC_KEY (GitHub secrets), DRY_RUN, SLUG, SOURCE_SHA,
 //      MAX_AGE_DAYS (default 2), GRAPH_VERSION (default v23.0), and TEST_MUSIC, which renders a
@@ -137,17 +138,25 @@ async function postReel(post, musicId, { pageToken, ig }) {
     return;
   }
 
-  // Facebook Reel, skipped if a recent Reel or post starts with the same text.
+  const reelOnly = post.reelAfterCarousel === true;
+
+  // Facebook Reel, skipped if a recent Reel or post starts with the same text. When the carousel is
+  // already up, only Reels count, and the Reel list must load so a re-run cannot post a second Reel.
   try {
     const marker = norm(post.facebook.message).slice(0, 80);
     const reels = await graph(`${env.META_PAGE_ID}/video_reels`, {
       token: pageToken,
       params: { fields: 'description', limit: '25' },
-    }).catch(() => ({ data: [] }));
-    const feed = await graph(`${env.META_PAGE_ID}/posts`, { token: pageToken, params: { fields: 'message', limit: '50' } });
+    }).catch((err) => {
+      if (reelOnly) throw err;
+      return { data: [] };
+    });
+    const feed = reelOnly
+      ? { data: [] }
+      : await graph(`${env.META_PAGE_ID}/posts`, { token: pageToken, params: { fields: 'message', limit: '50' } });
     const existing = [...reels.data.map((r) => r.description), ...feed.data.map((p) => p.message)];
     if (existing.some((m) => norm(m).startsWith(marker))) {
-      log('Facebook: already posted, skipping');
+      log(`Facebook: ${reelOnly ? 'Reel ' : ''}already posted, skipping`);
     } else if (DRY_RUN) {
       log(`Facebook: would post the Reel with ${norm(post.facebook.message).length} characters of text`);
     } else {
@@ -171,10 +180,16 @@ async function postReel(post, musicId, { pageToken, ig }) {
   // Instagram Reel, skipped if recent media already has this caption.
   if (!ig) return;
   try {
-    const media = await graph(`${ig.id}/media`, { token: pageToken, params: { fields: 'caption', limit: '50' } });
+    const media = await graph(`${ig.id}/media`, {
+      token: pageToken,
+      params: { fields: 'caption,media_type,media_product_type', limit: '50' },
+    });
     const marker = norm(post.instagram.caption).slice(0, 80);
-    if (media.data.some((m) => norm(m.caption).startsWith(marker))) {
-      log('Instagram: already posted, skipping');
+    const earlier = reelOnly
+      ? media.data.filter((m) => m.media_product_type === 'REELS' || m.media_type === 'VIDEO')
+      : media.data;
+    if (earlier.some((m) => norm(m.caption).startsWith(marker))) {
+      log(`Instagram: ${reelOnly ? 'Reel ' : ''}already posted, skipping`);
       return;
     }
     if (DRY_RUN) {
@@ -227,6 +242,9 @@ async function loadPosts() {
     if (post.title && !fbMessage.includes(norm(post.title))) problems.push('facebook.message must name the article title');
     if (!norm(post.instagram?.caption)) problems.push('instagram.caption is required');
     if (post.music && !TRACKS.some((t) => t.id === post.music)) problems.push(`music "${post.music}" is not in social/music/tracks.json`);
+    if (post.reelAfterCarousel !== undefined && (post.reelAfterCarousel !== true || !post.music)) {
+      problems.push('reelAfterCarousel must be true and needs "music"');
+    }
     if (problems.length) {
       log(`- ❌ \`${file}\`: ${problems.join('; ')}`);
       failed = true;
