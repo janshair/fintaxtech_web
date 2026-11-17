@@ -1,0 +1,45 @@
+{
+  "slug": "brand-templates-your-team-can-reuse",
+  "url": "https://fintaxtech.co.uk/blog/brand-templates-your-team-can-reuse/",
+  "date": "2026-11-17",
+  "title": "Brand Templates Your Team Can Reuse: How to Keep Your Brand Consistent Without a Designer on Call",
+  "category": "Branding and Graphic Design",
+  "cards": [
+    {
+      "heading": "Start with what you make most",
+      "text": "Slides, quotes, social posts. If the request has come up three times, it needs a template."
+    },
+    {
+      "heading": "Build in software your team uses",
+      "text": "A template nobody can edit comfortably will be ignored. Test it on another computer."
+    },
+    {
+      "heading": "Lock the logo, colours and fonts",
+      "text": "Leave words and images open. Locking prevents accidents, not determined changes."
+    },
+    {
+      "heading": "Hand over editable files",
+      "text": "A PDF is not a template. Add a one-page guide and confirm what you own in writing."
+    },
+    {
+      "heading": "Name one owner",
+      "text": "One master copy and one person responsible stop old versions spreading."
+    }
+  ],
+  "facebook": {
+    "message": "Does every slide deck in your business look slightly different?\nMost people do not read brand guidelines before building a slide. They open the last file and change it. Good templates make the on-brand option the quick one. Our latest guide covers which templates are worth having, what to lock, and how to hand them over. Swipe through for the key points.\n\nTo read the full article, visit the FinTaxTech website and find \"Brand Templates Your Team Can Reuse: How to Keep Your Brand Consistent Without a Designer on Call\" in our Blog section.\n#Branding #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "Your brand slips when the quickest option is a blank page. Templates make the on-brand option the easy one.\nSwipe through for what to ask for:\n→ Start with the things your team makes most\n→ Build in software your team already uses\n→ Lock the logo, colours and fonts\n→ Hand over editable files with a one-page guide\n→ Name one person to own the master copies\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#Branding #BrandTemplates #BrandConsistency #SmallBusiness #GraphicDesign #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social.jpg",
+  "images": [
+    "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social.jpg",
+    "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social-2.jpg",
+    "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social-3.jpg",
+    "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social-4.jpg",
+    "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social-5.jpg",
+    "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social-6.jpg",
+    "src/assets/blog/brand-templates-your-team-can-reuse/brand-templates-your-team-can-reuse-social-7.jpg"
+  ]
+}
