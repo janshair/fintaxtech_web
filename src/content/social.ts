@@ -6,6 +6,7 @@ export const socialCopy = {
 export const socialProfiles = [
   { id: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/fintaxtechuk' },
   { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/fintaxtechuk' },
+  { id: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@fintaxtechuk' },
   { id: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/company/fintaxtechuk' },
   { id: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/@fintaxtechuk' },
   { id: 'github', label: 'GitHub', url: 'https://github.com/Fintaxtech-Ltd' },
