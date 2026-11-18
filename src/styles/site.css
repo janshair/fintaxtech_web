@@ -508,14 +508,24 @@ details p {
 .prose h2 {
   font-size: var(--prose-heading);
 }
-.consent-banner {
-  position: fixed;
-  bottom: var(--space-4);
-  left: var(--space-4);
-  right: var(--space-4);
-  max-width: 40rem;
-  margin-left: auto;
+.site-notices {
+  position: sticky;
+  bottom: 0;
   z-index: 20;
+  display: grid;
+  justify-items: end;
+  gap: var(--space-3);
+  padding-inline: var(--space-4);
+  pointer-events: none;
+}
+.site-notices:has(> aside:not([hidden])) {
+  padding-block: var(--space-3) max(var(--space-4), env(safe-area-inset-bottom));
+}
+.site-notices > * {
+  pointer-events: auto;
+}
+.consent-banner {
+  max-width: 40rem;
   border: 1px solid var(--border);
   background: var(--surface);
   padding: var(--space-5);

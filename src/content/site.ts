@@ -141,7 +141,7 @@ export const consentCopy = {
   save: 'Save preferences',
   essential: 'Essential preferences',
   essentialDetail:
-    'Theme and consent preferences stay on this device. Your answers are kept only in memory while this page is open.',
+    'Theme, consent and Project Assistant display preferences stay on this device. Your answers are kept only in memory while this page is open.',
   analytics: 'Optional analytics',
   analyticsDetail: 'Anonymous journey events only. No answers, contact details, or PDF contents.',
   close: 'Close preferences',

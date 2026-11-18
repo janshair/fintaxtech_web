@@ -179,7 +179,7 @@ export const pages: Record<string, InfoPage> = {
     sections: [
       [
         'Essential preferences',
-        'We save your theme and consent choices locally where your browser permits it. Questionnaire answers are kept in page memory, not persistent browser storage.',
+        'We save your theme and consent choices locally where your browser permits it. The Project Assistant remembers whether it has offered help in this tab and pauses automatic invitations for seven days if you dismiss one. Questionnaire answers are kept in page memory, not persistent browser storage.',
       ],
       [
         'Optional analytics',

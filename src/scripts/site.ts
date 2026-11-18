@@ -30,7 +30,11 @@ menu?.addEventListener('click', () => {
   nav?.setAttribute('data-open', String(open));
 });
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && menu?.getAttribute('aria-expanded') === 'true') {
+  if (
+    event.key === 'Escape' &&
+    !document.querySelector('dialog[open]') &&
+    menu?.getAttribute('aria-expanded') === 'true'
+  ) {
     menu.setAttribute('aria-expanded', 'false');
     nav?.setAttribute('data-open', 'false');
     menu.focus();

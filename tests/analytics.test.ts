@@ -69,4 +69,32 @@ describe('analytics privacy boundary', () => {
     expect(window.dataLayer).toHaveLength(count);
     expect(count).toBeGreaterThan(before);
   });
+  it('records assistant interactions only after consent and without choice or destination data', async () => {
+    browser();
+    const analytics = await import('../src/lib/analytics');
+    const events = [
+      'project_assistant_invitation_shown',
+      'project_assistant_opened',
+      'project_assistant_option_selected',
+      'project_assistant_destination_clicked',
+      'project_assistant_dismissed',
+    ] as const;
+    events.forEach(analytics.track);
+    expect(window.dataLayer).toBeUndefined();
+    analytics.setAnalyticsConsent(true);
+    events.forEach(analytics.track);
+    const dispatched = window.dataLayer.map((x) => Array.from(x as ArrayLike<unknown>));
+    expect(dispatched.filter(([command]) => command === 'event')).toEqual(
+      events.map((event) => [
+        'event',
+        event,
+        {
+          page_location: 'https://fintaxtech.co.uk/start/',
+          page_referrer: '',
+          page_title: 'FinTaxTech',
+          send_to: 'G-TEST123',
+        },
+      ]),
+    );
+  });
 });

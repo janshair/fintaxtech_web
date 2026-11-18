@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets';
+import { assistantCopy as c } from '../../content/project-assistant';
+import { assistantScreens } from '../../lib/project-assistant-flow';
+---
+
+<dialog id="project-assistant" aria-labelledby="project-assistant-title" aria-modal="true">
+  <header class="assistant-header">
+    <h2 id="project-assistant-title">{c.title}</h2>
+    <button class="button" type="button" data-assistant-close>{c.close}</button>
+  </header>
+  {
+    assistantScreens.map(({ id, heading, description, back, choices }) => (
+      <div data-assistant-screen={id} data-assistant-parent={back} hidden={id !== 'home'}>
+        <h3 tabindex="-1" autofocus={id === 'home'}>
+          {heading}
+        </h3>
+        {description && <p>{description}</p>}
+        <div class="assistant-choices">
+          {choices.map((choice) =>
+            'next' in choice ? (
+              <button
+                class="button assistant-choice"
+                type="button"
+                data-assistant-next={choice.next}
+              >
+                {choice.label}
+                <span aria-hidden="true">→</span>
+              </button>
+            ) : (
+              <a class="button assistant-choice" href={choice.href}>
+                {choice.image && (
+                  <Image
+                    src={choice.image}
+                    alt=""
+                    width={96}
+                    height={96}
+                    fit="cover"
+                    position="top"
+                    loading="lazy"
+                  />
+                )}
+                <span>
+                  {choice.label}
+                  {choice.description && <small>{choice.description}</small>}
+                </span>
+                <span aria-hidden="true">→</span>
+              </a>
+            ),
+          )}
+        </div>
+      </div>
+    ))
+  }
+  <div class="assistant-controls" data-assistant-controls hidden>
+    <button class="button" type="button" data-assistant-back>{c.back}</button>
+    <button class="button" type="button" data-assistant-restart>{c.restart}</button>
+  </div>
+</dialog>
+
+<style>
+  dialog {
+    position: fixed;
+    inset: auto 0 0;
+    margin: 0 auto;
+    padding: var(--space-4);
+    padding-block-end: max(var(--space-4), env(safe-area-inset-bottom));
+    inline-size: min(100%, 30rem);
+    max-inline-size: none;
+    max-block-size: 85dvh;
+    overscroll-behavior: contain;
+    border-radius: var(--radius) var(--radius) 0 0;
+    border-block-start: 3px solid var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .assistant-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block-end: var(--space-3);
+    margin-block-end: var(--space-4);
+    border-block-end: 1px solid var(--border);
+  }
+  .assistant-header h2 {
+    font-size: var(--h3);
+    margin: 0;
+  }
+  h3 {
+    font-size: var(--lead);
+  }
+  p {
+    margin-block-end: var(--space-4);
+    color: var(--muted);
+  }
+  .assistant-choices {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .assistant-choice {
+    justify-content: space-between;
+    padding-inline: var(--space-3);
+    text-align: start;
+  }
+  .assistant-choice:hover {
+    border-color: var(--accent);
+  }
+  .assistant-choice small {
+    display: block;
+    margin-block-start: var(--space-1);
+    color: var(--muted);
+    font-size: var(--small);
+    font-weight: 400;
+  }
+  .assistant-choice img {
+    inline-size: 48px;
+    block-size: 48px;
+    flex: none;
+    border-radius: var(--radius);
+  }
+  .assistant-choice span:has(small) {
+    flex: 1;
+  }
+  .assistant-choice span[aria-hidden] {
+    color: var(--accent);
+  }
+  .assistant-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-block-start: var(--space-4);
+  }
+  @media (--tablet) {
+    dialog {
+      inset: auto var(--gutter) var(--space-5) auto;
+      margin: 0;
+      padding: var(--space-5);
+      inline-size: 29rem;
+      border-radius: var(--radius);
+    }
+  }
+</style>

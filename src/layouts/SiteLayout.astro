@@ -9,6 +9,8 @@ import { blogCopy } from '../content/blog';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Consent from '../components/Consent.astro';
+import AssistantInvitation from '../components/project-assistant/AssistantInvitation.astro';
+import AssistantPanel from '../components/project-assistant/AssistantPanel.astro';
 import { company, home } from '../content/site';
 import { searchTitle } from '../lib/blog-posts';
 import '@fontsource/archivo/latin-600.css';
@@ -30,6 +32,7 @@ interface Props {
   socialDescription?: string;
 }
 const pathname = Astro.url.pathname.replace(/(\.html)\/$/, '$1').replace(/^\/404\/$/, '/404.html');
+const allowAssistantInvitation = !/^\/(?:start|enquiry|client|estimate)(?:\/|$)/.test(pathname);
 const locationPage = locationFromPath(pathname);
 const startHref = locationPage ? locationStartURL(locationPage) : '/start/';
 const configured = seoPages[pathname];
@@ -158,8 +161,19 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
     ><slot name="header">{!standalone && <Header startHref={startHref} />}</slot><main id="main">
       {!standalone && <Breadcrumbs title={article?.title ?? title} />}<slot />
     </main><slot name="footer">{!standalone && <Footer startHref={startHref} />}</slot>
-    {!standalone && <Consent />}<script>
+    {
+      !standalone && (
+        <>
+          <div class="site-notices">
+            {allowAssistantInvitation && <AssistantInvitation />}
+            <Consent />
+          </div>
+          <AssistantPanel />
+        </>
+      )
+    }<script>
       import '../scripts/site';
+      import '../scripts/project-assistant';
     </script></body
   >
 </html>

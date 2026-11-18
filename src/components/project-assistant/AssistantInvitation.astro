@@ -1,0 +1,66 @@
+---
+import { assistantCopy as c } from '../../content/project-assistant';
+---
+
+<aside class="assistant-invitation" data-assistant-invitation hidden>
+  <button
+    class="invitation-open"
+    type="button"
+    data-assistant-open
+    aria-haspopup="dialog"
+    aria-controls="project-assistant"
+    aria-labelledby="assistant-invitation-title"
+    aria-describedby="assistant-invitation-detail"
+  >
+    <strong id="assistant-invitation-title">{c.invitationTitle}</strong>
+    <span id="assistant-invitation-detail">{c.invitationDetail}</span>
+  </button>
+  <button
+    class="button invitation-dismiss"
+    type="button"
+    data-assistant-dismiss
+    aria-label={c.dismissInvitation}><span aria-hidden="true">×</span></button
+  >
+</aside>
+<div
+  class="sr-only"
+  role="status"
+  data-assistant-announcement={`${c.invitationTitle} ${c.invitationDetail}`}
+>
+</div>
+
+<style>
+  .assistant-invitation {
+    display: flex;
+    align-items: start;
+    max-inline-size: 25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-inline-start: 3px solid var(--accent);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .invitation-open {
+    padding: var(--space-3);
+    min-block-size: 46px;
+    border: 0;
+    text-align: start;
+    background: transparent;
+    line-height: var(--line-control);
+  }
+  .invitation-open:hover strong {
+    text-decoration: underline;
+  }
+  .invitation-open span {
+    display: block;
+    margin-block-start: var(--space-1);
+    color: var(--muted);
+    font-size: var(--small);
+  }
+  .invitation-dismiss {
+    min-inline-size: 44px;
+    padding: 0;
+    border: 0;
+    font-size: var(--icon-size);
+  }
+</style>

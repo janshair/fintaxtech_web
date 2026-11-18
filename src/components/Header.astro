@@ -5,6 +5,7 @@ interface Props {
 const { startHref = '/start/' } = Astro.props;
 import Mark from './Mark.astro';
 import { company, ui, navigation } from '../content/site';
+import { assistantCopy } from '../content/project-assistant';
 ---
 
 <a class="skip" href="#main">{ui.skip}</a>
@@ -29,6 +30,16 @@ import { company, ui, navigation } from '../content/site';
       aria-expanded="false"
       aria-controls="main-navigation">{ui.menu}</button
     >
-    <a class="button primary header-cta" href={startHref}>{ui.start}</a>
+    <button
+      class="button primary header-cta"
+      type="button"
+      data-assistant-open
+      aria-haspopup="dialog"
+      aria-controls="project-assistant"
+      hidden>{assistantCopy.launcher}</button
+    >
+    <noscript
+      ><a class="button primary header-cta" href={startHref}>{assistantCopy.launcher}</a></noscript
+    >
   </div>
 </header>

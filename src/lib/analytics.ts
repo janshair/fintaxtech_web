@@ -15,6 +15,11 @@ const events = [
   'promo_viewed',
   'promo_application_started',
   'external_project_viewed',
+  'project_assistant_invitation_shown',
+  'project_assistant_opened',
+  'project_assistant_option_selected',
+  'project_assistant_destination_clicked',
+  'project_assistant_dismissed',
 ] as const;
 export type EventName = (typeof events)[number];
 const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID as string | undefined;

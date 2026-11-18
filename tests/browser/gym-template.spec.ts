@@ -181,7 +181,7 @@ test('the name offer appears once per visit, even after scrolling and returning'
   await scrollThrough();
   await expect(page.locator('#name-dialog')).not.toBeVisible();
   // A back/forward return re-runs the page without a deliberate reload: no second offer.
-  await page.goto('/');
+  await page.goto('/start/');
   await page.goBack();
   await scrollThrough();
   await page.waitForTimeout(5500);

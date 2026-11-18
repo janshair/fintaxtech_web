@@ -1,9 +1,9 @@
 // Published packages for /pricing/. Every amount is read from the same catalogue the
 // matching estimate calculator uses, so a catalogue change updates this page too.
-import brandingCatalogue from './branding-estimate/pricing.json';
-import websiteCatalogue from './website-estimate/pricing.json';
-import mobileCatalogue from './mobile-estimate/pricing.json';
-import automationCatalogue from './ai-automation-estimate/pricing.json';
+import brandingCatalogue from './branding-estimate/pricing.json' with { type: 'json' };
+import websiteCatalogue from './website-estimate/pricing.json' with { type: 'json' };
+import mobileCatalogue from './mobile-estimate/pricing.json' with { type: 'json' };
+import automationCatalogue from './ai-automation-estimate/pricing.json' with { type: 'json' };
 
 /** Shown after every price. Change here if the VAT treatment changes. */
 export const vatSuffix = '+ VAT';
