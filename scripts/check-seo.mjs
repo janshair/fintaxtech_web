@@ -88,8 +88,8 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     .filter((n) => attr(n, 'type') === 'application/ld+json')
     .flatMap((n) => JSON.parse(text(n))['@graph']);
   const org = graph.find((n) => n['@type'] === 'Organization');
-  assert.equal(org.sameAs.length, 7, path);
-  assert.equal(new Set(org.sameAs).size, 7, path);
+  assert.equal(org.sameAs.length, 8, path);
+  assert.equal(new Set(org.sameAs).size, org.sameAs.length, path);
   assert.equal(org.identifier.value, 'SC807896', path);
   assert.equal(org.identifier.propertyID, 'Companies House', path);
   assert.equal(
