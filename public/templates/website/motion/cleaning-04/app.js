@@ -107,12 +107,8 @@
   ];
   const service = document.querySelector('#quote-service');
   const frequency = document.querySelector('#quote-frequency');
-  const defaultFrequency = {
-    regular: 'Weekly',
-    deep: 'One-off',
-    moving: 'One-off',
-    office: 'Weekly',
-  };
+  // Each service's starting frequency comes from the content file.
+  const defaultFrequency = Object.fromEntries(c.services.map((s) => [s.id, s.frequency]));
   function syncFrequency(reset = false) {
     const regular = service.value === 'regular';
     // A regular reset is recurring: never offer or summarise it as a one-off.

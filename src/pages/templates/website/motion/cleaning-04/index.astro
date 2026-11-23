@@ -136,7 +136,7 @@ const theme = templateTheme('cleaning-04', THEME);
                       <span class="service-icon" aria-hidden="true">
                         {s.icon}
                       </span>
-                      <span class="count">0{i + 1}</span>
+                      <span class="count">{String(i + 1).padStart(2, '0')}</span>
                     </>
                   </div>
                   <p class="eyebrow">{s.type}</p>
@@ -157,8 +157,8 @@ const theme = templateTheme('cleaning-04', THEME);
           }
         </div>
         <p class="small-note service-note">
-          Illustrative prices only. A real quote would confirm the property, checklist, access and
-          any extras.
+          Example services, each priced by free quote. A real quote would confirm the property,
+          checklist, access and any extras.
         </p>
       </section>
       <section class="approach section" id="approach" aria-labelledby="approach-title">
