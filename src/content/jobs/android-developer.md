@@ -2,7 +2,7 @@
 title: Android Developer
 summary: Build and ship native Android apps in Kotlin and Jetpack Compose, including offline-first tools for everyday business and productivity tasks.
 location: Remote or Dundee, Scotland
-active: true
+active: false
 category: mobile
 publishedDate: 2026-11-14
 jobLocation:

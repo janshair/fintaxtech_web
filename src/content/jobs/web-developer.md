@@ -2,7 +2,7 @@
 title: Web Developer
 summary: Deliver client websites and build the enquiry forms, booking integrations and document workflows that support them.
 location: Remote or Dundee, Scotland
-active: true
+active: false
 category: web
 publishedDate: 2026-11-14
 jobLocation:

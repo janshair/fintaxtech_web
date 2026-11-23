@@ -2,7 +2,7 @@
 title: AI Automation Engineer
 summary: Build reliable AI workflows that research leads, process documents and publish content, with validation and human review where needed.
 location: Remote or Dundee, Scotland
-active: true
+active: false
 category: ai-automation
 publishedDate: 2026-11-14
 jobLocation:

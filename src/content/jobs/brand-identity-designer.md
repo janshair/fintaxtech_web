@@ -2,7 +2,7 @@
 title: Brand Identity Designer
 summary: Create logo systems, brand guidelines and coordinated print and digital artwork for small businesses and creators.
 location: Remote or Dundee, Scotland
-active: true
+active: false
 category: branding
 publishedDate: 2026-11-14
 jobLocation:

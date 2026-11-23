@@ -2,7 +2,7 @@
 title: Kotlin Multiplatform Developer
 summary: Build shared Kotlin features for Android and iOS apps with native Jetpack Compose and SwiftUI interfaces.
 location: Remote or Dundee, Scotland
-active: true
+active: false
 category: mobile
 publishedDate: 2026-11-14
 jobLocation:

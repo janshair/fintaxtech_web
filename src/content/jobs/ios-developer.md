@@ -2,7 +2,7 @@
 title: iOS Developer
 summary: Build native SwiftUI apps for iPhone and iPad, with local data storage, document export and a clear path from testing to App Store release.
 location: Remote or Dundee, Scotland
-active: true
+active: false
 category: mobile
 publishedDate: 2026-11-14
 jobLocation:
