@@ -175,7 +175,7 @@ test('marketing navigation works without JavaScript', async ({ browser }) => {
   const page = await context.newPage();
   await page.goto('http://localhost:4323/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText(
-    'Branding, websites, mobile apps and AI automation—made clear.',
+    'Branding, websites, mobile apps and AI automation.',
   );
   await page.goto('http://localhost:4323/start/');
   await expect(page.locator('.service-card')).toHaveCount(4);

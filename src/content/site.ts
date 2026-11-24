@@ -71,7 +71,7 @@ export const navigation = [
   ['/contact/', 'Contact'],
 ];
 export const home = {
-  title: 'Branding, websites, mobile apps and AI automation—made clear.',
+  title: 'Branding, websites, mobile apps and AI automation.',
   intro:
     'We design brands and graphics, build websites and mobile apps, and automate business tasks with AI. Tell us what you need. We’ll help you define the brief and check the finished work against it.',
   serviceArea: 'Based in Dundee, Scotland. Working with businesses across the UK and worldwide.',
