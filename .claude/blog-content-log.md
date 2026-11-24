@@ -5,7 +5,7 @@ working record for the daily article task.
 
 ## Published (as at 2026-10-19)
 
-Mobile App Development (12): does-your-app-need-an-admin-panel, mobile-app-requirements-checklist,
+Mobile App Development (13): app-wireframes-before-you-build, does-your-app-need-an-admin-panel, mobile-app-requirements-checklist,
 native-vs-flutter-vs-kotlin-multiplatform, mvp-vs-full-mobile-app,
 mobile-app-or-mobile-friendly-website, why-mobile-app-quotes-vary,
 mobile-app-maintenance-after-launch, app-store-and-google-play-submission-checklist,
@@ -53,6 +53,7 @@ repeatable-ai-workflows-for-your-business
 - 2026-11-03: website-analytics-what-to-measure — pushed to main, awaiting owner review
 - 2026-11-10: ai-summaries-of-long-documents — pushed to main, awaiting owner review
 - 2026-11-17: brand-templates-your-team-can-reuse — pushed to main, awaiting owner review
+- 2026-11-24: app-wireframes-before-you-build — pushed to main, awaiting owner review
 
 ## Drafted, not yet published
 
@@ -81,6 +82,8 @@ repeatable-ai-workflows-for-your-business
 20. ~~Website Analytics Without the Jargon: What to Measure and What to Ignore (Website Design and Development; websites)~~ added 2026-11-03 as queue was exhausted (websites, branding and AI tied at 11 and websites longest since last post; analytics not yet covered); published 2026-11-03
 21. ~~AI Summaries of Long Documents: How to Ask for One You Can Actually Use (AI Automation; ai-automation)~~ added 2026-11-10 as queue was exhausted (AI and Branding tied at 11 and AI longest since last post; summarising not yet covered); published 2026-11-10
 22. ~~Brand Templates Your Team Can Reuse: How to Keep Your Brand Consistent Without a Designer on Call (Branding and Graphic Design; branding)~~ added 2026-11-17 as queue was exhausted (Branding had fewest, 11; reusable templates not yet covered); published 2026-11-17
+
+23. ~~App Wireframes Explained: How to Sketch Your App Before It Is Built (Mobile App Development; mobile-apps)~~ added 2026-11-24 as queue was exhausted (all categories tied at 12; mobile longest since last post; wireframes not yet covered); published 2026-11-24
 
 ## Conventions reminder
 

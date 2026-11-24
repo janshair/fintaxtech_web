@@ -1,0 +1,45 @@
+{
+  "slug": "app-wireframes-before-you-build",
+  "url": "https://fintaxtech.co.uk/blog/app-wireframes-before-you-build/",
+  "date": "2026-11-24",
+  "title": "App Wireframes Explained: How to Sketch Your App Before It Is Built",
+  "category": "Mobile App Development",
+  "cards": [
+    {
+      "heading": "Sketch screens before any code",
+      "text": "Plain boxes and labels show what goes where while changes are still quick."
+    },
+    {
+      "heading": "Start with the customer's task",
+      "text": "Work out which screens a task needs, then build the home screen around them."
+    },
+    {
+      "heading": "Include the unglamorous screens",
+      "text": "Sign-in, settings, empty states and errors are all part of the app."
+    },
+    {
+      "heading": "Walk through it like a customer",
+      "text": "Follow three real tasks screen by screen and note where you get stuck."
+    },
+    {
+      "heading": "Mark what can wait",
+      "text": "Anything beyond your must-have list is a candidate for a later release."
+    }
+  ],
+  "facebook": {
+    "message": "Can you picture your app's screens before anyone builds them?\nA wireframe is a plain sketch of each screen and the steps between them. It helps you spot missing steps and extra features while changes are still quick and cheap. Swipe through for the key points.\n\nTo read the full article, visit the FinTaxTech website and find \"App Wireframes Explained: How to Sketch Your App Before It Is Built\" in our Blog section.\n#AppDevelopment #SmallBusiness"
+  },
+  "instagram": {
+    "caption": "Boxes on paper are the cheapest way to test an app idea. A wireframe shows what goes where and how people move between screens, before any code or visual design.\nSwipe through the essentials:\n→ Sketch screens before any code is written\n→ Start with the customer's task, not the home screen\n→ Include sign-in, settings, empty and error screens\n→ Walk through three real tasks as a customer\n→ Mark what can wait for a later release\nFull guide: link in bio, or visit fintaxtech.co.uk/blog\n#AppDevelopment #AppDesign #Wireframes #MobileApps #SmallBusiness #DundeeBusiness #ComplexityMadeClear"
+  },
+  "image": "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social.jpg",
+  "images": [
+    "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social.jpg",
+    "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social-2.jpg",
+    "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social-3.jpg",
+    "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social-4.jpg",
+    "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social-5.jpg",
+    "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social-6.jpg",
+    "src/assets/blog/app-wireframes-before-you-build/app-wireframes-before-you-build-social-7.jpg"
+  ]
+}
