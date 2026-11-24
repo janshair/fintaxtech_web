@@ -19,6 +19,7 @@ describe('company identity and discovery', () => {
       name: company.name,
       legalName: company.legal,
       description: pages.about.intro,
+      slogan: company.tagline,
       identifier: {
         '@type': 'PropertyValue',
         propertyID: 'Companies House',
@@ -36,7 +37,13 @@ describe('company identity and discovery', () => {
     const summary = await (await getLLMS()).text();
     for (const location of locations)
       expect(summary).toContain(`[${location.name}](${location.canonical})`);
-    for (const value of [company.name, company.legal, company.number, company.registryURL])
+    for (const value of [
+      company.description,
+      company.tagline,
+      company.legal,
+      company.number,
+      company.registryURL,
+    ])
       expect(summary).toContain(value);
     for (const profile of publicProfiles) expect(summary).toContain(profile.url);
     const links = [...summary.matchAll(/\]\((https:[^)]+)\)/g)].map((match) => new URL(match[1]));

@@ -3,7 +3,7 @@ import { mobileAppGallery } from '../content/mobile-app-templates';
 import { industryDirectory } from '../content/automation-industries';
 import { brandingGallery, logoGallery } from '../content/branding-gallery';
 import { locationFromPath } from '../content/locations';
-import { company, ui } from '../content/site';
+import { company, home, ui } from '../content/site';
 import { seoPages } from '../content/seo';
 import { publicProfiles } from '../content/social';
 import { services } from '../content/services';
@@ -85,6 +85,7 @@ export function structuredData(
   const kit = showcase.find((entry) => entry.url === path);
   const isShowcaseIndex = path === showcaseIndex.route;
   const isPricing = path === '/pricing/';
+  const pageFaqs = isPricing ? pricingFaqs : path === '/' ? home.faqs : undefined;
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -93,6 +94,7 @@ export function structuredData(
         '@id': organization,
         name: company.name,
         legalName: company.legal,
+        slogan: company.tagline,
         description: company.description,
         identifier: {
           '@type': 'PropertyValue',
@@ -123,6 +125,7 @@ export function structuredData(
         '@id': website,
         url: absoluteURL('/'),
         name: company.name,
+        description: company.description,
         publisher: { '@id': organization },
         inLanguage: 'en',
       },
@@ -132,7 +135,7 @@ export function structuredData(
             ? 'AboutPage'
             : isShowcaseIndex
               ? 'CollectionPage'
-              : isPricing
+              : pageFaqs
                 ? ['WebPage', 'FAQPage']
                 : 'WebPage',
         '@id': url + '#webpage',
@@ -156,10 +159,10 @@ export function structuredData(
         ...(isShowcaseIndex
           ? { mainEntity: [{ '@id': url + '#client-projects' }, { '@id': url + '#kits' }] }
           : {}),
-        ...(isPricing
+        ...(isPricing ? { about: { '@id': url + '#packages' } } : {}),
+        ...(pageFaqs
           ? {
-              about: { '@id': url + '#packages' },
-              mainEntity: pricingFaqs.map(([name, text]) => ({
+              mainEntity: pageFaqs.map(([name, text]) => ({
                 '@type': 'Question',
                 name,
                 acceptedAnswer: { '@type': 'Answer', text },

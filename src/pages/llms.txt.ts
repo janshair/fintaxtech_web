@@ -1,5 +1,6 @@
 import { appIndexText } from '../lib/app-llms';
 import { absoluteURL } from '../lib/seo';
+import { company } from '../content/site';
 import summary from '../content/llms.txt?raw';
 import { locations } from '../content/locations';
 import { pricingSummaryText } from '../content/pricing';
@@ -43,6 +44,8 @@ export async function GET() {
 
   return new Response(
     `${summary
+      .replace('{{COMPANY_DESCRIPTION}}', company.description)
+      .replace('{{COMPANY_TAGLINE}}', company.tagline)
       .replace('{{PUBLISHED_APPS}}', appIndexText())
       .replace('{{PRICING}}', pricingSummaryText())
       .trimEnd()}\n\n${work}\n\n${areas}\n\n${articles}\n`,

@@ -88,9 +88,6 @@ export const featuredWork = {
         'Typography',
       ],
     ],
-    cardAlt:
-      'Ask Appliance Repairs business card: the logo on the front, and the founder’s name, phone number, website, Facebook page and a QR code on the back.',
-    cardCaption: 'Business card, front and back',
   },
   automation: {
     title: 'AI automation: blog articles from reviews and job photos',

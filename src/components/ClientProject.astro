@@ -5,7 +5,6 @@ import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
 import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
 import logo from '../assets/work/ask-appliance-repairs-logo.webp';
 import maps from '../assets/work/ask-appliance-repairs-maps-promo.webp';
-import card from '../assets/work/ask-appliance-repairs-business-card.webp';
 import guideCover from '../assets/work/ask-appliance-repairs-guidelines-cover.webp';
 import guideColour from '../assets/work/ask-appliance-repairs-guidelines-colour.webp';
 import guideType from '../assets/work/ask-appliance-repairs-guidelines-type.webp';
@@ -82,12 +81,6 @@ const pageSizes = '(min-width: 760px) 30vw, 90vw';
         })
       }
     </div>
-    <figure class="brand-card">
-      <a class="work-preview" href={card.src}>
-        <Image src={card} alt={brand.cardAlt} sizes="(min-width: 1184px) 1100px, 92vw" />
-      </a>
-      <figcaption>{brand.cardCaption}</figcaption>
-    </figure>
   </section>
   <h2 class="website-title">{work.websiteTitle}</h2>
   <div class="work-previews">
@@ -229,9 +222,6 @@ const pageSizes = '(min-width: 760px) 30vw, 90vw';
   .brand-subhead {
     margin: var(--space-7) 0 var(--space-4);
     font-weight: var(--weight-strong);
-  }
-  .brand-card {
-    margin-top: var(--space-6) !important;
   }
   .automation {
     margin-top: var(--space-9);

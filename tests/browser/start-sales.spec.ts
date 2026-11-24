@@ -51,7 +51,9 @@ for (const theme of ['light', 'dark'] as const) {
     await expect(staticPage.locator('h1')).toHaveText(selectorCopy.title);
     await expect(staticPage.locator('.service-card')).toHaveCount(4);
     await expect(
-      staticPage.getByText(/Review your answers and generate a private enquiry PDF/),
+      staticPage.getByText(
+        /Generating your enquiry PDF can also send FinTaxTech your contact details and answers/,
+      ),
     ).toBeVisible();
     await expect(staticPage.locator('#questionnaire')).toHaveCount(0);
     await context.close();

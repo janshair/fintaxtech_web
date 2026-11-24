@@ -13,6 +13,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { chromium } from '@playwright/test';
 
+import { company } from '../src/content/site.ts';
+
 const [slug, outFile] = process.argv.slice(2);
 if (!slug || !outFile) throw new Error('Usage: node scripts/social-reel.mjs <slug> <out.mp4>');
 const FPS = 30;
@@ -35,6 +37,7 @@ try {
   const font = (pkg, file) => b64(`node_modules/@fontsource/${pkg}/files/${file}`);
   const data = {
     title: post.title,
+    tagline: company.tagline,
     category: post.category,
     cards: post.cards,
     hook: post.facebook.message.split('\n')[0],
@@ -248,7 +251,7 @@ async function setUpScenes(d) {
       text('fintaxtech.co.uk/blog', '600 64px A', C.blue, by + 156, k3 * fade, (1 - k3) * 30, 'left', L + 48);
       x.globalAlpha = k3 * fade; x.drawImage(logo, L, by + 260, 104, 104); x.globalAlpha = 1;
       text('FinTaxTech', '600 40px A', C.ink, by + 304, k3 * fade, 0, 'left', L + 132);
-      text('Complexity made clear', '500 32px P', C.grey, by + 346, k3 * fade, 0, 'left', L + 132);
+      text(d.tagline, '500 32px P', C.grey, by + 346, k3 * fade, 0, 'left', L + 132);
     }
     progress(si, t, s.dur, false);
   };

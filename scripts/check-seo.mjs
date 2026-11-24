@@ -265,8 +265,8 @@ assert.equal(text(elements(start, 'h1')[0]), 'What would you like FinTaxTech to 
 assert.equal(elements(start, 'a').filter((n) => attr(n, 'class') === 'service-card').length, 4);
 for (const phrase of [
   'structured questions',
-  'private enquiry PDF',
-  'Nothing is sent automatically',
+  'Generating your enquiry PDF',
+  'send FinTaxTech your contact details and answers',
 ])
   assert(text(start).includes(phrase));
 const broken = [];

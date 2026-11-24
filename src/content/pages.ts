@@ -109,16 +109,16 @@ export const pages: Record<string, InfoPage> = {
         'Our mark brings an F and two T forms together as π: precision, continuity, and making complex problems clear.',
       ],
       [
-        'AI-first. Human judgement throughout.',
-        'We use AI to support the process, then review and refine the work. A clear brief, deliberate decisions, and human accountability guide delivery.',
+        `What does “${company.tagline}” mean?`,
+        'We agree the requirements and quality standards with you. Structured processes and AI tools help us do the work. A person reviews the decisions, refines the results and checks the final delivery against your brief.',
       ],
       [
         'Your project, your business accounts',
         'We work remotely with customers worldwide. Your repository, domain, email, analytics, store, and cloud accounts stay in your name.',
       ],
       [
-        'Fintaxtech Ltd',
-        'Company SC807896. Incorporated 22 April 2024. Registered office: 79 Yarrow Terrace, Dundee, Scotland, DD2 4DX. Information technology consultancy activities.',
+        company.legal,
+        'FinTaxTech is the trading name of Fintaxtech Ltd, company SC807896. Incorporated 22 April 2024. Registered office: 79 Yarrow Terrace, Dundee, Scotland, DD2 4DX. Information technology consultancy activities.',
       ],
     ],
   },

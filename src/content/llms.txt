@@ -2,7 +2,9 @@
 
 > FinTaxTech is the trading name of Fintaxtech Ltd (SC807896), based in Dundee, Scotland. Official website: https://fintaxtech.co.uk/.
 
-FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, branding, and AI automation tools for businesses and organisations worldwide. Work is delivered fully remotely, serving clients across the UK and internationally. All client work is done directly — no outsourcing.
+{{COMPANY_DESCRIPTION}} Work is delivered remotely and directly, with no outsourcing.
+
+{{COMPANY_TAGLINE}}
 
 ## Company identity
 
@@ -23,7 +25,7 @@ FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, 
 
 ## Start a project
 
-- [Prepare project requirements](https://fintaxtech.co.uk/start/): choose a service and complete a local questionnaire to generate a PDF you can download and share manually. Nothing is sent automatically. No account required.
+- [Prepare project requirements](https://fintaxtech.co.uk/start/): choose a service and complete a local questionnaire to generate a PDF you can download and share manually. No account required.
 - [Contact FinTaxTech](https://fintaxtech.co.uk/contact/): email and WhatsApp contact options.
 
 ## Contact
@@ -50,7 +52,7 @@ FinTaxTech (Fintaxtech Ltd, SC807896) designs and builds websites, mobile apps, 
 
 ## Project boundaries and privacy
 
-Client briefs and enquiry forms are noindex utility pages. The Forms directory links to the questionnaires. Search indexing settings are not access control. Initial enquiry questionnaires and pricing estimates keep answers in the browser; generating a PDF does not submit those answers. Share these PDFs manually when you choose.
+Client briefs and enquiry forms are noindex utility pages. The Forms directory links to the questionnaires. Search indexing settings are not access control. Generating an initial enquiry PDF can also send the contact details and questionnaire answers to FinTaxTech for review. The PDF is generated in the browser and can be downloaded and shared separately.
 
 Client briefs have separate submission actions. On the logo brief, reviewing sends nothing; Submit brief sends reviewed answers, image filenames and explanations to FinTaxTech through Slack. Image files remain in the browser and PDF until the customer shares the PDF. On the website production brief, Download PDF, Open email and Open WhatsApp send the reviewed text to FinTaxTech through Slack. The PDF is generated locally and is not uploaded to Slack. Refreshing or closing clears local answers, not messages already delivered. Slack retains received messages under workspace settings. Source documents are shared separately by arrangement. See the [privacy notice](https://fintaxtech.co.uk/privacy/).
 

@@ -1,8 +1,8 @@
-import { blogCopy } from './blog';
+import { blogCopy } from './blog.ts';
 export const company = {
   name: 'FinTaxTech',
   legal: 'Fintaxtech Ltd',
-  tagline: 'Complexity made clear.',
+  tagline: 'Smarter systems. Human standards.',
   email: 'ask@fintaxtech.co.uk',
   phone: '+44 7442 906018',
   whatsapp: '447442906018',
@@ -12,7 +12,7 @@ export const company = {
   response: 'We aim to reply within two UK business days.',
   url: 'https://fintaxtech.co.uk',
   description:
-    'FinTaxTech is the trading name of Fintaxtech Ltd (SC807896), a website, mobile app, branding and AI automation business based in Dundee, Scotland, working remotely with clients across the UK and worldwide.',
+    'FinTaxTech is a digital agency based in Dundee, Scotland. It provides branding and graphic design, website development, mobile app development and AI automation to clients across the UK and internationally. People set project requirements and review AI-assisted work before delivery.',
   registryName: 'Companies House',
   registryURL: 'https://find-and-update.company-information.service.gov.uk/company/SC807896',
 };
@@ -73,7 +73,7 @@ export const navigation = [
 export const home = {
   title: 'Branding, websites, mobile apps and AI automation—made clear.',
   intro:
-    'Tell us what you want to achieve. Our guided questions help you explain your project—even if you do not know the technical terms.',
+    'We design brands and graphics, build websites and mobile apps, and automate business tasks with AI. Tell us what you need. We’ll help you define the brief and check the finished work against it.',
   serviceArea: 'Based in Dundee, Scotland. Working with businesses across the UK and worldwide.',
   why: 'Why FinTaxTech',
   whyTitle: 'A capable partner asking clear questions.',
@@ -123,11 +123,11 @@ export const home = {
     ],
     [
       'How do you use AI?',
-      'AI supports our work, with human review and refinement. We do not sell our internal prompts or promise trademark exclusivity.',
+      'We use AI to help draft, design and build from an agreed brief. A person reviews the output, makes revisions and checks the final work against your requirements. FinTaxTech takes responsibility for delivery.',
     ],
     [
       'What happens after I create the PDF?',
-      'Download it and attach it to an email or WhatsApp message. Nothing is sent automatically. We aim to respond within two UK business days.',
+      'You can download the PDF for your records or attach it to an email or WhatsApp message. When you generate a project enquiry PDF, the site can also send FinTaxTech your contact details and enquiry answers.',
     ],
   ],
 };

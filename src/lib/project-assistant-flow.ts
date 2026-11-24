@@ -27,6 +27,7 @@ export const assistantScreens: AssistantScreen[] = [
   {
     id: 'home',
     heading: c.welcome,
+    description: c.introduction,
     choices: [
       { label: c.pricing, next: 'pricing' },
       { label: c.work, next: 'work' },

@@ -8,6 +8,8 @@ export const assistantCopy = {
   dismissInvitation: 'Dismiss Project Assistant invitation',
   title: `${company.name} Project Assistant`,
   welcome: 'What would you like help with?',
+  introduction:
+    'Find a service, explore prices or send your project requirements to FinTaxTech for a personal review.',
   pricing: 'Get a price estimate',
   work: 'View previous work',
   project: 'Discuss a project',

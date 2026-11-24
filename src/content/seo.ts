@@ -35,11 +35,11 @@ import { pages } from './pages';
 import { pricingCopy } from './pricing';
 import { blogCopy } from './blog';
 import { services } from './services';
-import { contactRedirect, ui } from './site';
+import { company, contactRedirect, ui } from './site';
 import { showcase, showcaseIndex, workRedirects } from '../data/showcase';
 import { featuredWork } from './work';
 export const seoCopy = {
-  imageAlt: 'FinTaxTech — Complexity made clear.',
+  imageAlt: `${company.name} — ${company.tagline}`,
   breadcrumbs: 'Breadcrumb',
   related: 'Explore our services',
   appPolicies: 'App privacy and terms',
@@ -248,9 +248,8 @@ export const seoPages: Record<string, PageSEO> = {
     ]),
   ),
   '/': {
-    title: 'Branding, Websites, Mobile Apps & AI Automation | Dundee, Scotland',
-    description:
-      'FinTaxTech is a Dundee, Scotland agency creating branding, websites, mobile apps and AI automations for businesses across Scotland, the UK and worldwide, with a clear written proposal.',
+    title: 'Branding, Web & Mobile App Development and AI Automation in Dundee',
+    description: `Dundee digital agency for branding, websites, mobile apps and AI automation. Human-reviewed work for UK and international clients. ${company.tagline}`,
   },
   '/services/': {
     title: 'Branding, Websites, Mobile Apps & AI Automation | Dundee',
@@ -296,7 +295,7 @@ export const seoPages: Record<string, PageSEO> = {
   '/start/': {
     title: 'Start Your Brand, Website, App or Automation Project',
     description:
-      'Choose a FinTaxTech service, answer structured questions and create a private enquiry PDF to download and share manually by email or WhatsApp.',
+      'Choose a FinTaxTech service and answer structured questions about your project. Prepare an enquiry for personal review and download a PDF for your records.',
   },
   '/enquiry/': {
     title: 'Prepare Your Private Project Enquiry',
