@@ -46,7 +46,8 @@ On Linux CI use `pnpm exec playwright install --with-deps chromium firefox webki
 | `src/content/questions.ts`     | Both stages of all four approved questionnaires.                                      |
 | `src/content/questionnaire.ts` | Form controls, errors, contact labels, PDF wording and extra conditional questions.   |
 | `src/content/promo.ts`         | Manual promotion status and campaign wording.                                         |
-| `src/styles/tokens.css`        | Light/dark colours, typefaces, type sizes, spacing and dimensions.                    |
+| `src/styles/tokens.css`        | Shared type, spacing, dimensions and the original light and dark palette.             |
+| `src/styles/brand-theme.css`   | Main-site light and dark brand colours and interactive shades.                        |
 | `postcss.config.cjs`           | Named mobile/tablet/desktop breakpoints used by the CSS.                              |
 | `src/styles/site.css`          | Layout and reusable visual styles, using the tokens.                                  |
 | `src/design/`                  | Shared logo path and PDF design tokens.                                               |
@@ -87,7 +88,7 @@ Check public enquiries with `pnpm exec playwright test tests/browser/enquiry-mot
 
 ## Change colours, type or spacing
 
-Edit the custom properties in `src/styles/tokens.css`. The `:root` block is light mode and `[data-theme=dark]` supplies dark values. Both use the BRD palette. `--space-*` values are the spacing scale, and `--h1`, `--h2`, `--lead` and font tokens control type. Fonts are installed locally with Fontsource; visitors do not contact Google Fonts.
+Edit the main-site palette in `src/styles/brand-theme.css`. The shared layout activates it for the main site, and the shared pages under `/templates/` inherit their original light and dark palette from `src/styles/tokens.css`. Standalone demos load their own styles. The `--space-*` values in `tokens.css` form the spacing scale, and `--h1`, `--h2`, `--lead` and font tokens control type. Fonts are installed locally with Fontsource.
 
 Responsive thresholds live in `postcss.config.cjs`. CSS uses names such as `@media (--tablet)`, which the build turns into real browser media queries. PDF dimensions and its fixed light colours are in `src/design/pdf-tokens.ts`.
 

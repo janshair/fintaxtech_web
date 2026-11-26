@@ -135,7 +135,7 @@ import ServiceGlyph from './ServiceGlyph.astro';
   .input-dot {
     width: 5px;
     height: 5px;
-    background: var(--accent);
+    background: var(--accent-secondary, var(--accent));
     border-radius: 50%;
     margin-left: auto;
     flex: none;
@@ -164,7 +164,7 @@ import ServiceGlyph from './ServiceGlyph.astro';
   .document-trail {
     position: absolute;
     inset: 0;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent-secondary, var(--accent));
     border-radius: var(--radius);
     opacity: 0.25;
     z-index: -1;

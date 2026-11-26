@@ -1,0 +1,16 @@
+:root[data-site-theme='brand'] {
+  --bg: #f6f4ef;
+  --accent: #176b72;
+  --accent-secondary: #7a4e70;
+  --on-accent: #fff;
+  --soft: color-mix(in srgb, var(--accent) 9%, var(--surface));
+  --accent-hover: color-mix(in srgb, var(--accent) 84%, var(--text));
+  --accent-active: color-mix(in srgb, var(--accent) 72%, var(--text));
+}
+
+:root[data-site-theme='brand'][data-theme='dark'] {
+  --bg: #0b1012;
+  --accent: #65c5c7;
+  --accent-secondary: #d4a8cc;
+  --on-accent: var(--bg);
+}
