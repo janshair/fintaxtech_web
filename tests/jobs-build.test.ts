@@ -2,10 +2,8 @@ import { it, expect } from 'vitest';
 import { cp, mkdtemp, readFile, readdir, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { promisify } from 'node:util';
-import { execFile } from 'node:child_process';
+import { buildFixtureSite } from './fixtures/astro-build';
 
-const exec = promisify(execFile);
 // Build an isolated copy: never toggle real vacancies or overwrite the normal production output.
 it('generates only active job pages and sitemap entries, then removes them and renders the empty state', async () => {
   const root = process.cwd();
@@ -44,12 +42,7 @@ it('generates only active job pages and sitemap entries, then removes them and r
       join(jobs, 'fixture-inactive.md'),
       fixture('Inactive fixture vacancy', false, '2026-10-03'),
     );
-    const build = () =>
-      exec(process.execPath, [join(root, 'node_modules/astro/bin/astro.mjs'), 'build'], {
-        cwd: sandbox,
-        maxBuffer: 10 * 1024 * 1024,
-      });
-    await build();
+    await buildFixtureSite(sandbox);
     const output = join(sandbox, 'dist');
     const listing = await readFile(join(output, 'careers/index.html'), 'utf8');
     const sitemap = await readFile(join(output, 'sitemap.xml'), 'utf8');
@@ -86,7 +79,7 @@ it('generates only active job pages and sitemap entries, then removes them and r
         (await readFile(path, 'utf8')).replace(/^active: true$/m, 'active: false'),
       );
     }
-    await build();
+    await buildFixtureSite(sandbox);
     expect(await readdir(join(output, 'careers'))).toEqual(['index.html']);
     const empty = await readFile(join(output, 'careers/index.html'), 'utf8');
     expect(empty).toContain('There are currently no active vacancies');

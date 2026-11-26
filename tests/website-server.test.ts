@@ -3,17 +3,16 @@ import { build } from 'esbuild';
 import { mkdtemp, readFile, readdir, rm, writeFile, cp, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { spawn, execFile } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
-import { promisify } from 'node:util';
 import { once } from 'node:events';
 import {
   reviewedWebsiteSubmission,
   websitePayloadLimit,
 } from '../src/lib/client-brief/website-submission';
 import { detailedWebsiteBrief } from './fixtures/website-brief';
+import { buildFixtureSite } from './fixtures/astro-build';
 
-const exec = promisify(execFile);
 const root = process.cwd();
 
 it('runs the actual Node endpoint with a mock-only webhook, validates the proxy and resumes duplicates', async () => {
@@ -126,23 +125,15 @@ it('keeps server-only canary secrets out of static output and rejects the retire
       ].map((name) => cp(join(root, name), join(sandbox, name), { recursive: true })),
     );
     await symlink(join(root, 'node_modules'), join(sandbox, 'node_modules'), 'dir');
-    const args = [join(root, 'node_modules/astro/bin/astro.mjs'), 'build'];
     let rejection = '';
     try {
-      await exec(process.execPath, args, {
-        cwd: sandbox,
-        env: { ...env, PUBLIC_SLACK_WEBHOOK: canary },
-      });
+      await buildFixtureSite(sandbox, { ...env, PUBLIC_SLACK_WEBHOOK: canary });
     } catch (error) {
       rejection = String((error as { stderr: string }).stderr);
     }
     expect(rejection).toContain('Remove PUBLIC_SLACK_WEBHOOK');
     expect(rejection).not.toContain(canary);
-    await exec(process.execPath, args, {
-      cwd: sandbox,
-      env: { ...env, SLACK_WEBHOOK: canary },
-      maxBuffer: 10 * 1024 * 1024,
-    });
+    await buildFixtureSite(sandbox, { ...env, SLACK_WEBHOOK: canary });
     async function inspect(directory: string): Promise<void> {
       for (const entry of await readdir(directory, { withFileTypes: true })) {
         const file = join(directory, entry.name);
