@@ -1,39 +1,51 @@
 ---
 import { socialCopy, publicProfiles } from '../content/social';
+import { socialIcons } from '../design/social-icons';
 interface Props {
   location?: 'footer' | 'contact';
+  brandIcons?: boolean;
 }
-const { location = 'contact' } = Astro.props;
+const { location = 'contact', brandIcons = false } = Astro.props;
 ---
 
 <nav
   class="social-links"
   aria-label={location === 'footer' ? socialCopy.footerNavigation : socialCopy.navigation}
 >
+  {
+    brandIcons && (
+      <Fragment set:html="<!-- Social marks adapted from Font Awesome Free 6.7.2 by Fonticons, Inc. (2024), CC BY 4.0: https://fontawesome.com/license/free. Storefront mark from Simple Icons 11.0.0: https://simpleicons.org. -->" />
+    )
+  }
   <ul>
     {
-      publicProfiles.map((profile) => (
-        <li>
-          <a href={profile.url} target="_blank" rel="noopener noreferrer">
-            <>
+      publicProfiles.map((profile) => {
+        const icon = brandIcons ? socialIcons[profile.id] : undefined;
+        return (
+          <li>
+            <a href={profile.url} target="_blank" rel="noopener noreferrer">
               <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.7"
+                viewBox={icon?.viewBox ?? '0 0 24 24'}
+                fill={icon ? 'currentColor' : 'none'}
+                stroke={icon ? undefined : 'currentColor'}
+                stroke-width={icon ? undefined : '1.7'}
                 aria-hidden="true"
                 focusable="false"
               >
-                <>
-                  <rect x="3" y="3" width="18" height="18" rx="4" />
-                  <path d="M8 16 16 8M8 8h8v8" />
-                </>
+                {icon ? (
+                  <path d={icon.path} />
+                ) : (
+                  <>
+                    <rect x="3" y="3" width="18" height="18" rx="4" />
+                    <path d="M8 16 16 8M8 8h8v8" />
+                  </>
+                )}
               </svg>
               <span>{profile.label}</span>
-            </>
-          </a>
-        </li>
-      ))
+            </a>
+          </li>
+        );
+      })
     }
   </ul>
 </nav>

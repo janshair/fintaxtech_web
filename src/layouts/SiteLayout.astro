@@ -12,6 +12,8 @@ import Consent from '../components/Consent.astro';
 import AssistantInvitation from '../components/project-assistant/AssistantInvitation.astro';
 import AssistantPanel from '../components/project-assistant/AssistantPanel.astro';
 import { company } from '../content/site';
+import { logoGallery } from '../content/branding-gallery';
+import { templateCategories, templateDirectory, websiteCategories } from '../content/templates';
 import { searchTitle } from '../lib/blog-posts';
 import '@fontsource/archivo/latin-600.css';
 import '@fontsource/ibm-plex-sans/latin-400.css';
@@ -41,7 +43,16 @@ const description = configured?.description ?? Astro.props.description ?? compan
 const noindex = Astro.props.noindex || configured?.noindex || false;
 const canonical = new URL(configured?.canonical ?? pathname, company.url);
 const { article, job, standalone = false } = Astro.props;
-const useBrandTheme = !standalone && !/^\/templates(?:\/|$)/.test(pathname);
+const catalogueRoutes = new Set([
+  templateDirectory.route,
+  logoGallery.route,
+  ...templateCategories.map(({ route }) => route),
+  ...websiteCategories.map(({ route }) => route),
+]);
+const isTemplateDetail =
+  pathname.startsWith(templateDirectory.route) &&
+  !catalogueRoutes.has(pathname.replace(/\/?$/, '/'));
+const useBrandTheme = !standalone && !isTemplateDetail;
 const themeColors = useBrandTheme ? brandTheme : tokens;
 const [lightBackground, darkBackground] = [...themeColors.matchAll(/--bg:\s*([^;]+);/g)].map(
   (match) => match[1],
@@ -165,7 +176,9 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
   ><body
     ><slot name="header">{!standalone && <Header startHref={startHref} />}</slot><main id="main">
       {!standalone && <Breadcrumbs title={article?.title ?? title} />}<slot />
-    </main><slot name="footer">{!standalone && <Footer startHref={startHref} />}</slot>
+    </main><slot name="footer"
+      >{!standalone && <Footer startHref={startHref} brandIcons={useBrandTheme} />}</slot
+    >
     {
       !standalone && (
         <>

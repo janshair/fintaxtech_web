@@ -88,7 +88,7 @@ Check public enquiries with `pnpm exec playwright test tests/browser/enquiry-mot
 
 ## Change colours, type or spacing
 
-Edit the main-site palette in `src/styles/brand-theme.css`. The shared layout activates it for the main site, and the shared pages under `/templates/` inherit their original light and dark palette from `src/styles/tokens.css`. Standalone demos load their own styles. The `--space-*` values in `tokens.css` form the spacing scale, and `--h1`, `--h2`, `--lead` and font tokens control type. Fonts are installed locally with Fontsource.
+Edit the main-site palette in `src/styles/brand-theme.css`. The shared layout activates it for the main site and the template catalogues. Template detail pages that use the shared layout inherit their original light and dark palette from `src/styles/tokens.css`. Standalone demos load their own styles. The `--space-*` values in `tokens.css` form the spacing scale, and `--h1`, `--h2`, `--lead` and font tokens control type. Fonts are installed locally with Fontsource.
 
 Responsive thresholds live in `postcss.config.cjs`. CSS uses names such as `@media (--tablet)`, which the build turns into real browser media queries. PDF dimensions and its fixed light colours are in `src/design/pdf-tokens.ts`.
 

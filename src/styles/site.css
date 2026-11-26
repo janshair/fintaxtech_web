@@ -512,13 +512,7 @@ details p {
   font-size: var(--small);
 }
 :where([data-site-theme='brand']) .footer-links a {
-  color: var(--accent);
-}
-:where([data-site-theme='brand']) .footer-links a:hover {
-  color: var(--accent-hover);
-}
-:where([data-site-theme='brand']) .footer-links a:active {
-  color: var(--accent-active);
+  color: var(--text);
 }
 .footer-bottom {
   margin-top: var(--space-8);

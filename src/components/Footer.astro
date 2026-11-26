@@ -1,8 +1,9 @@
 ---
 interface Props {
   startHref?: string;
+  brandIcons?: boolean;
 }
-const { startHref = '/start/' } = Astro.props;
+const { startHref = '/start/', brandIcons } = Astro.props;
 import { formsDirectory } from '../content/forms';
 import { templateDirectory } from '../content/templates';
 import SocialLinks from './SocialLinks.astro';
@@ -34,7 +35,7 @@ import { careersCopy } from '../content/careers';
           legalLinks.map(([href, label]) => <a href={href}>{label}</a>)
         }<button class="button" data-consent-manage>{consentCopy.manage}</button>
       </div>
-    </div><SocialLinks location="footer" /><div class="footer-bottom">
+    </div><SocialLinks location="footer" brandIcons={brandIcons} /><div class="footer-bottom">
       <p><a href={company.registryURL}>{ui.registration}</a></p><p>{company.address}</p><p>
         {ui.copyright}
       </p>
