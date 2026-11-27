@@ -15,7 +15,7 @@ const tallDoors = [
   { x: 341, y: 82, w: 58, h: 44 },
 ];
 const wallDoors = [40, 100].map((x) => ({ x, y: 102, w: 59, h: 65 }));
-const vanityDoors = [140, 200].map((x) => ({ x, y: 222, w: 59, h: 48 }));
+const vanityDoors = [35, 110].map((x) => ({ x, y: 239, w: 74, h: 58 }));
 ---
 
 <svg
@@ -27,7 +27,8 @@ const vanityDoors = [140, 200].map((x) => ({ x, y: 222, w: 59, h: 48 }));
   data-room="kitchen"
   data-handle="cup"
   data-door-style="shaker"
-  style={`--door:#8fa58c;--top:url(#oak-${id});--tap:#c9a45c`}
+  data-layout="shower"
+  style={`--door:#8fa58c;--top:url(#oak-${id});--tap:#c9a45c;--tiles:url(#tiles-stone-${id})`}
 >
   <defs>
     <pattern id={'oak-' + id} width="40" height="8" patternUnits="userSpaceOnUse"
@@ -48,11 +49,24 @@ const vanityDoors = [140, 200].map((x) => ({ x, y: 222, w: 59, h: 48 }));
         r="1"
         fill="#8fa58c"></circle></pattern
     >
-    <pattern id={'tiles-' + id} width="24" height="24" patternUnits="userSpaceOnUse"
+    <pattern id={'tiles-stone-' + id} width="24" height="24" patternUnits="userSpaceOnUse"
       ><rect width="24" height="24" fill="#e9ebe8"></rect><path
         d="M24 0V24H0"
         fill="none"
-        stroke="#1c212426"></path></pattern
+        stroke="#1c212433"></path></pattern
+    >
+    <pattern id={'tiles-metro-' + id} width="24" height="12" patternUnits="userSpaceOnUse"
+      ><rect width="24" height="12" fill="#f6f5f1"></rect><path
+        d="M0 6h24M0 12h24M12 0v6M0 6v6M24 6v6"
+        fill="none"
+        stroke="#1c212433"></path></pattern
+    >
+    <pattern id={'tiles-sage-' + id} width="16" height="16" patternUnits="userSpaceOnUse"
+      ><rect width="16" height="16" fill="#9fb79c"></rect><rect width="8" height="8" fill="#93ad90"
+      ></rect><rect x="8" y="8" width="8" height="8" fill="#a9c0a6"></rect><path
+        d="M16 0V16H0"
+        fill="none"
+        stroke="#f5f5ee"></path></pattern
     >
   </defs>
   <rect class="el-wall" x="10" y="20" width="460" height={floorY - 20}></rect>
@@ -95,8 +109,9 @@ const vanityDoors = [140, 200].map((x) => ({ x, y: 222, w: 59, h: 48 }));
     <rect class="el-plinth" x="341" y="320" width="58" height="10"></rect>
   </g>
   <g class="el-bathroom">
-    <rect x="10" y="205" width="460" height={floorY - 205} fill={`url(#tiles-${id})`}></rect>
-    <circle class="el-mirror" cx="200" cy="130" r="36"></circle>
+    <rect class="el-tiles" x="20" y="205" width="245" height={floorY - 205}></rect>
+    <rect class="el-tiles" x="265" y="110" width="185" height={floorY - 110}></rect>
+    <circle class="el-mirror" cx="110" cy="158" r="36"></circle>
     {
       vanityDoors.map((d) => (
         <g class="el-door">
@@ -110,12 +125,25 @@ const vanityDoors = [140, 200].map((x) => ({ x, y: 222, w: 59, h: 48 }));
         </g>
       ))
     }
-    <rect class="el-top" x="136" y="216" width="128" height="6"></rect>
-    <path class="el-bowl" d="M178 216a22 12 0 0044 0z"></path>
-    <path class="el-tap" d="M200 204v-18h10v5"></path>
-    <rect class="el-tray" x="320" y="324" width="130" height="6"></rect>
-    <path class="el-screen" d="M324 324V130"></path>
-    <path class="el-tap" d="M420 100v14h-20M392 114h24"></path>
+    <rect class="el-top" x="33" y="234" width="154" height="5"></rect>
+    <path class="el-bowl" d="M88 234a22 12 0 0044 0z"></path>
+    <path class="el-tap" d="M110 222v-16h10v5"></path>
+    <g class="el-radiator">
+      <path d="M201 185v120M249 185v120"></path>
+      {Array.from({ length: 8 }, (_, i) => <path d={`M201 ${298 - i * 15}h48`} />)}
+    </g>
+    <rect class="el-towel" x="207" y="200" width="36" height="42"></rect>
+    <path class="el-toilet" d="M20 250h14v40h22a12 12 0 0112 12v4H48l-6 24H34v-40H20z"></path>
+    <g class="el-shower">
+      <rect class="el-tray" x="320" y="325" width="130" height="5"></rect>
+      <path class="el-screen" d="M316 325V140"></path>
+      <path class="el-tap" d="M380 105v10M362 117h36M374 215h12"></path>
+    </g>
+    <g class="el-bath">
+      <rect class="el-tub" x="275" y="275" width="170" height="55" rx="6"></rect>
+      <rect class="el-glass" x="370" y="135" width="70" height="140"></rect>
+      <path class="el-tap" d="M415 105v10M397 117h36M420 255h14"></path>
+    </g>
   </g>
   <path class="el-floor" d={`M0 ${floorY}h480`}></path>
 </svg>

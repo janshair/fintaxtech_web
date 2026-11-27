@@ -36,7 +36,7 @@ import {
   type Material,
 } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { doors, taps, type Spec } from '../../../../../../content/kitchens-demo';
+import { doors, taps, type Bath, type Spec } from '../../../../../../content/kitchens-demo';
 
 export type Room = 'kitchen' | 'bathroom';
 const METAL: Record<Spec['tap'], { metalness: number; roughness: number }> = {
@@ -156,8 +156,6 @@ export async function createKitchenScene(
     );
   const floorMap = tiles('#cfc8bb', 'rgba(80,70,60,0.22)', 4);
   floorMap.repeat.set(2.2, 1.7);
-  const wallTiles = tiles('#e9ebe8', 'rgba(70,80,85,0.2)', 8);
-  wallTiles.repeat.set(3, 1);
   const WORKTOP: Record<Spec['top'], { color: string; roughness: number; map?: CanvasTexture }> = {
     oak: { color: '#ffffff', roughness: 0.55, map: oakMap },
     quartz: { color: '#f1efea', roughness: 0.2 },
@@ -168,7 +166,6 @@ export async function createKitchenScene(
   const mats = {
     floor: std({ map: floorMap, roughness: 0.75 }),
     wall: std({ color: '#e6e3dc', roughness: 0.95 }),
-    tiles: std({ map: wallTiles, roughness: 0.4 }),
     cut: std({ color: inkColour, roughness: 0.9 }),
     carcass: std({ color: '#ece8e1' }),
     plinth: std({ color: '#3a3f43' }),
@@ -237,7 +234,7 @@ export async function createKitchenScene(
   const doorSlots: Group[] = [];
   function slot(parent: Group, w: number, h: number, x: number, y: number, z: number, ry = 0) {
     const g = new Group();
-    g.userData = { w, h };
+    g.userData = { w, h, x, y, z, ry };
     g.position.set(x, y, z);
     g.rotation.y = ry;
     parent.add(g);
@@ -257,6 +254,10 @@ export async function createKitchenScene(
       box(w - 2 * f, h - 2 * f, t * 0.5, mats.door, 0, 0, -t * 0.25, g);
     } else box(w, h, t, mats.door, 0, 0, 0, g);
     const hy = h / 2 - 0.08;
+    const grip = new Group();
+    grip.name = 'handle';
+    grip.position.y = hy;
+    g.add(grip);
     if (handle === 'bar') {
       const length = Math.min(0.28, w * 0.6);
       const bar = new Mesh(
@@ -264,26 +265,26 @@ export async function createKitchenScene(
         mats.metal,
       );
       bar.rotation.z = Math.PI / 2;
-      bar.position.set(0, hy, 0.045);
-      g.add(bar);
+      bar.position.set(0, 0, 0.045);
+      grip.add(bar);
       for (const s of [-1, 1])
-        box(0.012, 0.012, 0.035, mats.metal, s * Math.min(0.12, w * 0.26), hy, 0.025, g, false);
+        box(0.012, 0.012, 0.035, mats.metal, s * Math.min(0.12, w * 0.26), 0, 0.025, grip, false);
     } else if (handle === 'cup') {
       const cup = new Mesh(
         cached('cup', () => new CylinderGeometry(0.035, 0.035, 0.03, 14, 1, false, 0, Math.PI)),
         mats.metal,
       );
       cup.rotation.set(Math.PI / 2, 0, Math.PI / 2);
-      cup.position.set(0, hy, 0.02);
-      g.add(cup);
+      cup.position.set(0, 0, 0.02);
+      grip.add(cup);
     } else if (handle === 'knob') {
       const knob = new Mesh(
         cached('knob', () => new SphereGeometry(0.022, 14, 10)),
         mats.metal,
       );
-      knob.position.set(0, hy, 0.04);
-      g.add(knob);
-    } else box(w * 0.98, 0.018, 0.01, mats.plinth, 0, h / 2 + 0.005, 0, g, false);
+      knob.position.set(0, 0, 0.04);
+      grip.add(knob);
+    } else box(w * 0.98, 0.018, 0.01, mats.plinth, 0, h / 2 + 0.005 - hy, 0, grip, false);
   }
   function tapMesh() {
     const curve = new CatmullRomCurve3([
@@ -394,18 +395,100 @@ export async function createKitchenScene(
     kp.fittings.add(g);
   }
 
-  // BATHROOM: a wall-hung vanity, mirror, walk-in shower and towel rail.
+  // BATHROOM: a wall-hung vanity and mirror, a toilet, a towel radiator, and
+  // either a walk-in shower or a bath with a screen. Tiles are a choice.
   const bathroom = new Group();
   model.add(bathroom);
   const bp = makeParts();
   Object.values(bp).forEach((g) => bathroom.add(g));
-  box(W - T - 0.02, 1.25, 0.02, mats.tiles, T / 2, 0.625, -D / 2 + T + 0.011, bp.fittings, false);
-  const vx = -0.35,
-    vz = -D / 2 + T + 0.25,
+  const wallZ = -D / 2 + T;
+  // Tiles: half height behind the vanity, full height in the wet zone.
+  const tileArt = {
+    stone: (g: CanvasRenderingContext2D, s: number) => {
+      g.fillStyle = '#e9ebe8';
+      g.fillRect(0, 0, s, s);
+      g.strokeStyle = 'rgba(70,80,85,0.22)';
+      g.lineWidth = 3;
+      for (let i = 0; i <= 4; i++) {
+        g.beginPath();
+        g.moveTo((i * s) / 4, 0);
+        g.lineTo((i * s) / 4, s);
+        g.moveTo(0, (i * s) / 4);
+        g.lineTo(s, (i * s) / 4);
+        g.stroke();
+      }
+    },
+    metro: (g: CanvasRenderingContext2D, s: number) => {
+      g.fillStyle = '#f6f5f1';
+      g.fillRect(0, 0, s, s);
+      g.strokeStyle = 'rgba(70,80,85,0.28)';
+      g.lineWidth = 3;
+      const rows = 8;
+      for (let r = 0; r <= rows; r++) {
+        const y = (r * s) / rows;
+        g.beginPath();
+        g.moveTo(0, y);
+        g.lineTo(s, y);
+        g.stroke();
+        for (let c = 0; c < 4; c++) {
+          const x = ((c + (r % 2) * 0.5) * s) / 4;
+          g.beginPath();
+          g.moveTo(x, y);
+          g.lineTo(x, y + s / rows);
+          g.stroke();
+        }
+      }
+    },
+    sage: (g: CanvasRenderingContext2D, s: number) => {
+      const r = seeded(5);
+      const n = 6;
+      for (let i = 0; i < n; i++)
+        for (let j = 0; j < n; j++) {
+          const k = r();
+          g.fillStyle = `rgb(${142 + k * 26},${170 + k * 22},${140 + k * 20})`;
+          g.fillRect((i * s) / n, (j * s) / n, s / n, s / n);
+        }
+      g.strokeStyle = 'rgba(245,245,238,0.9)';
+      g.lineWidth = 3;
+      for (let i = 0; i <= n; i++) {
+        g.beginPath();
+        g.moveTo((i * s) / n, 0);
+        g.lineTo((i * s) / n, s);
+        g.moveTo(0, (i * s) / n);
+        g.lineTo(s, (i * s) / n);
+        g.stroke();
+      }
+    },
+  };
+  const tileMats = (repeatX: number, repeatY: number) =>
+    Object.fromEntries(
+      Object.entries(tileArt).map(([id, art]) => {
+        const map = keep(drawn(art, 256));
+        map.repeat.set(repeatX, repeatY);
+        return [id, std({ map, roughness: 0.35 })];
+      }),
+    ) as Record<Bath['tiles'], MeshStandardMaterial>;
+  const halfTiles = tileMats(2.6, 1.3);
+  const fullTiles = tileMats(2, 2.4);
+  const lowWall = box(
+    2.45,
+    1.25,
+    0.02,
+    halfTiles.stone,
+    -0.875,
+    0.625,
+    wallZ + 0.011,
+    bathroom,
+    false,
+  );
+  const wetWall = box(1.85, 2.2, 0.02, fullTiles.stone, 1.275, 1.1, wallZ + 0.011, bathroom, false);
+  // Vanity, a little larger than a standard unit.
+  const vx = -1.2,
+    vz = wallZ + 0.25,
     vy = 0.62;
-  box(1.2, 0.5, 0.46, mats.carcass, vx, vy, vz - 0.01, bp.carcass);
-  for (const x of [-0.3, 0.3]) slot(bp.doors, 0.592, 0.48, vx + x, vy, vz + 0.23);
-  box(1.24, 0.04, 0.5, mats.top, vx, vy + 0.27, vz, bp.tops);
+  box(1.5, 0.6, 0.46, mats.carcass, vx, vy, vz - 0.01, bp.carcass);
+  for (const x of [-0.375, 0.375]) slot(bp.doors, 0.742, 0.58, vx + x, vy, vz + 0.23);
+  box(1.54, 0.04, 0.5, mats.top, vx, vy + 0.32, vz, bp.tops);
   const bowlPoints = [0, 0.4, 0.8, 1].map(
     (t) => new Vector2(0.06 + Math.sin((t * Math.PI) / 2) * 0.16, t * 0.13),
   );
@@ -414,80 +497,144 @@ export async function createKitchenScene(
     cached('bowl', () => new LatheGeometry(bowlPoints, seg * 2)),
     mats.ceramic,
   );
-  bowl.position.set(vx, vy + 0.29, vz + 0.02);
+  bowl.position.set(vx, vy + 0.34, vz + 0.02);
   bowl.castShadow = !mobile;
   bp.fittings.add(bowl);
   const bTap = tapMesh();
   bTap.scale.setScalar(0.9);
-  bTap.position.set(vx, vy + 0.29, vz - 0.17);
+  bTap.position.set(vx, vy + 0.34, vz - 0.17);
   bp.fittings.add(bTap);
   // Round mirror with a metal rim in the tap finish.
   const mirror = new Mesh(
-    cached('mirror', () => new CylinderGeometry(0.34, 0.34, 0.02, seg * 2)),
+    cached('mirror', () => new CylinderGeometry(0.36, 0.36, 0.02, seg * 2)),
     mats.mirror,
   );
   mirror.rotation.x = Math.PI / 2;
-  mirror.position.set(vx, 1.65, -D / 2 + T + 0.03);
+  mirror.position.set(vx, 1.72, wallZ + 0.03);
   const rim = new Mesh(
-    cached('rim', () => new TorusGeometry(0.345, 0.018, 8, seg * 2)),
+    cached('rim', () => new TorusGeometry(0.365, 0.018, 8, seg * 2)),
     mats.metal,
   );
   rim.position.copy(mirror.position).add(new Vector3(0, 0, 0.01));
   bp.fittings.add(mirror, rim);
-  // Shower: tray, glass screen with a metal top bar, overhead rose.
-  const sx = 1.35;
-  box(1.2, 0.05, 1.0, mats.ceramic, sx, 0.025, -D / 2 + T + 0.5, bp.carcass);
+  // Towel radiator: a ladder of rails in the tap finish, with a folded towel.
+  const rx = -0.05;
+  for (const x of [-0.24, 0.24])
+    box(0.03, 1.2, 0.03, mats.metal, rx + x, 0.85, wallZ + 0.06, bp.fittings);
+  for (let i = 0; i < 8; i++)
+    box(0.5, 0.022, 0.022, mats.metal, rx, 0.32 + i * 0.15, wallZ + 0.06, bp.fittings, false);
+  box(
+    0.36,
+    0.42,
+    0.05,
+    std({ color: '#d9826b', roughness: 0.9 }),
+    rx,
+    1.1,
+    wallZ + 0.1,
+    bp.fittings,
+  );
+  // Toilet against the side wall, under the window, facing into the room.
+  const tz = -0.65,
+    tx = -W / 2 + T;
+  box(0.18, 0.4, 0.42, mats.ceramic, tx + 0.09, 0.62, tz, bp.carcass);
+  const pan = new Mesh(
+    cached('pan', () => new CylinderGeometry(0.17, 0.13, 0.4, seg)),
+    mats.ceramic,
+  );
+  pan.scale.set(1.35, 1, 1);
+  pan.position.set(tx + 0.4, 0.2, tz);
+  const seat = new Mesh(
+    cached('seat-ring', () => new CylinderGeometry(0.19, 0.19, 0.04, seg)),
+    mats.ceramic,
+  );
+  seat.scale.set(1.3, 1, 1);
+  seat.position.set(tx + 0.42, 0.42, tz);
+  const flush = new Mesh(
+    cached('flush', () => new CylinderGeometry(0.03, 0.03, 0.012, 12)),
+    mats.metal,
+  );
+  flush.position.set(tx + 0.09, 0.826, tz);
+  pan.castShadow = seat.castShadow = !mobile;
+  bp.carcass.add(pan, seat);
+  bp.fittings.add(flush);
+  // Wet zone: a walk-in shower or a bath, swapped by the layout choice.
+  const shower = new Group(),
+    bath = new Group();
+  bp.fittings.add(shower, bath);
+  box(1.3, 0.05, 0.95, mats.ceramic, 1.5, 0.025, wallZ + 0.475, shower);
   const screen = new Mesh(boxGeo(0.012, 1.9, 0.9), mats.screen);
-  screen.position.set(sx - 0.6, 1.0, -D / 2 + T + 0.55);
-  bp.fittings.add(screen);
-  box(0.02, 0.02, 0.9, mats.metal, sx - 0.6, 1.95, -D / 2 + T + 0.55, bp.fittings);
-  box(0.02, 1.9, 0.02, mats.metal, sx - 0.6, 1.0, -D / 2 + T + 1.0, bp.fittings);
-  const arm = box(0.02, 0.02, 0.35, mats.metal, sx, 2.05, -D / 2 + T + 0.18, bp.fittings);
-  arm.castShadow = false;
+  screen.position.set(0.86, 1.0, wallZ + 0.5);
+  shower.add(screen);
+  box(0.02, 0.02, 0.9, mats.metal, 0.86, 1.95, wallZ + 0.5, shower);
+  box(0.02, 1.9, 0.02, mats.metal, 0.86, 1.0, wallZ + 0.95, shower);
+  box(0.02, 0.02, 0.35, mats.metal, 1.5, 2.05, wallZ + 0.18, shower, false);
   const rose = new Mesh(
     cached('rose', () => new CylinderGeometry(0.13, 0.13, 0.02, seg * 2)),
     mats.metal,
   );
-  rose.position.set(sx, 2.03, -D / 2 + T + 0.36);
-  bp.fittings.add(rose);
-  // Towel rail on the side wall, a folded towel and a plant.
-  for (const y of [1.0, 1.2])
-    box(0.02, 0.02, 0.6, mats.metal, -W / 2 + T + 0.07, y, 0.4, bp.fittings, false);
+  rose.position.set(1.5, 2.03, wallZ + 0.36);
+  shower.add(rose);
+  box(0.12, 0.12, 0.03, mats.metal, 1.5, 1.15, wallZ + 0.02, shower, false);
+  // Bath: a white tub with a darker inner well, a screen on the rim and a rose.
+  box(1.7, 0.55, 0.76, mats.ceramic, 1.3, 0.275, wallZ + 0.38, bath);
   box(
-    0.04,
-    0.32,
-    0.4,
-    std({ color: '#d9826b', roughness: 0.9 }),
-    -W / 2 + T + 0.09,
-    1.08,
-    0.4,
-    bp.fittings,
+    1.5,
+    0.02,
+    0.58,
+    std({ color: '#dfe3e2', roughness: 0.3 }),
+    1.3,
+    0.552,
+    wallZ + 0.38,
+    bath,
+    false,
   );
+  const bathScreen = new Mesh(boxGeo(0.7, 1.4, 0.012), mats.screen);
+  bathScreen.position.set(1.75, 1.27, wallZ + 0.75);
+  bath.add(bathScreen);
+  box(0.7, 0.02, 0.02, mats.metal, 1.75, 1.96, wallZ + 0.75, bath, false);
+  const bathRose = new Mesh(
+    cached('rose', () => new CylinderGeometry(0.13, 0.13, 0.02, seg * 2)),
+    mats.metal,
+  );
+  bathRose.position.set(1.85, 2.03, wallZ + 0.3);
+  bath.add(bathRose);
+  box(0.02, 0.02, 0.28, mats.metal, 1.85, 2.05, wallZ + 0.14, bath, false);
+  box(0.1, 0.03, 0.12, mats.metal, 1.95, 0.7, wallZ + 0.06, bath, false);
+  // A plant to make it lived in.
   const pot = new Mesh(
     cached('pot', () => new CylinderGeometry(0.12, 0.09, 0.24, seg)),
     mats.ceramic,
   );
-  pot.position.set(-1.6, 0.12, 0.9);
+  pot.position.set(-1.6, 0.12, 1.0);
   const leaves = new Mesh(
     cached('leaves', () => new SphereGeometry(0.22, seg, 10)),
     std({ color: '#6f8f69', roughness: 0.8 }),
   );
-  leaves.position.set(-1.6, 0.42, 0.9);
+  leaves.position.set(-1.6, 0.42, 1.0);
   leaves.scale.set(1, 1.2, 1);
   pot.castShadow = leaves.castShadow = !mobile;
   bp.fittings.add(pot, leaves);
+  let bathSpec: Bath = { layout: 'shower', tiles: 'stone' };
+  let wetMix = 0;
+  function applyBath(next: Bath) {
+    lowWall.material = halfTiles[next.tiles];
+    wetWall.material = fullTiles[next.tiles];
+    bathSpec = next;
+  }
 
   // State
   let spec: Spec = { door: 'sage', doorStyle: 'shaker', top: 'oak', handle: 'cup', tap: 'brass' };
   let built = '';
   const doorTarget = new Color('#8fa58c');
   const metalTarget = new Color('#c9a45c');
+  const topTarget = new Color('#f1efea');
   const metalFeel = { ...METAL.brass };
   let room: Room = 'kitchen',
     roomMix = 0,
-    explode = 0,
-    pop = 1;
-  const view = { azimuth: 0.62, elevation: 0.42, zoom: 1 };
+    explode = 0;
+  const view = { azimuth: 0.62, elevation: 0.42, zoom: 1, lift: 0 };
+  // Short, purposeful motion when a choice changes (seconds since the change).
+  const since = { style: 9, handle: 9, top: 9 };
   const rect = { left: 0, top: 0, width: 1, height: 1 };
   let vw = 1,
     vh = 1;
@@ -496,9 +643,11 @@ export async function createKitchenScene(
     const shape = next.doorStyle + next.handle;
     if (shape !== built) {
       doorSlots.forEach((g) => buildDoor(g, next.doorStyle, next.handle));
+      if (!instant && next.doorStyle !== spec.doorStyle) since.style = 0;
+      if (!instant && next.handle !== spec.handle) since.handle = 0;
       built = shape;
-      pop = instant ? 1 : 0.94;
     }
+    if (!instant && next.top !== spec.top) since.top = 0;
     doorTarget.set(doors.find((d) => d.id === next.door)!.hex);
     metalTarget.set(taps.find((t) => t.id === next.tap)!.hex);
     Object.assign(metalFeel, METAL[next.tap]);
@@ -507,7 +656,8 @@ export async function createKitchenScene(
       mats.top.map = top.map || null;
       mats.top.needsUpdate = true;
     }
-    mats.top.color.set(top.color);
+    topTarget.set(top.color);
+    if (instant || top.map) mats.top.color.copy(topTarget);
     mats.top.roughness = top.roughness;
     if (instant) {
       mats.door.color.copy(doorTarget);
@@ -539,26 +689,51 @@ export async function createKitchenScene(
     const fit = 0.8 / view.zoom;
     const distance = (RADIUS * fit) / (tan * Math.min(1, aspect));
     const { azimuth: a, elevation: e } = view;
+    const target = tmpTarget.copy(CENTRE).setY(CENTRE.y + view.lift);
     camera.position.set(
-      CENTRE.x + Math.sin(a) * Math.cos(e) * distance,
-      CENTRE.y + Math.sin(e) * distance,
-      CENTRE.z + Math.cos(a) * Math.cos(e) * distance,
+      target.x + Math.sin(a) * Math.cos(e) * distance,
+      target.y + Math.sin(e) * distance,
+      target.z + Math.cos(a) * Math.cos(e) * distance,
     );
-    camera.lookAt(CENTRE);
+    camera.lookAt(target);
     camera.aspect = aspect;
     camera.setViewOffset(rect.width, rect.height, -rect.left, -rect.top, vw, vh);
     camera.updateProjectionMatrix();
   }
 
+  const tmpTarget = new Vector3();
+  const ease = (t: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
   function setGroup(parts: Record<Part, Group>, amount: number, visible: number) {
-    // Doors swing forward, worktops lift, fittings lift higher; carcasses stay.
-    parts.doors.position.set(0, amount * -0.05, amount * 1.05);
-    parts.tops.position.set(0, amount * 0.42, 0);
-    parts.fittings.position.set(0, amount * 0.82, amount * 0.1);
+    // Exploded view: fittings lift highest, then worktops; doors swing open on
+    // their hinges; carcasses stay on the floor.
+    const settle = Math.sin(Math.PI * Math.min(1, since.top / 0.38)) * 0.05;
+    parts.tops.position.set(0, amount * 0.72 + settle, 0);
+    parts.fittings.position.set(0, amount * 1.35, 0);
     parts.carcass.position.set(0, 0, 0);
     const group = parts.doors.parent!;
     group.visible = visible > 0.01;
     group.scale.set(1, Math.max(0.001, visible), 1);
+  }
+  // Each door turns about its left-hand hinge: for the explode, and with a
+  // small swing when the door style changes.
+  function placeDoors() {
+    const swing = Math.sin(Math.PI * Math.min(1, since.style / 0.45)) * 0.5;
+    // Handles pop in with a small overshoot.
+    const t = since.handle / 0.32;
+    const grow = t >= 1 ? 1 : 1 + 2.70158 * Math.pow(t - 1, 3) + 1.70158 * Math.pow(t - 1, 2);
+    for (const g of doorSlots) {
+      const { w, x, y, z, ry } = g.userData as Record<string, number>;
+      const theta = explode * 0.95 + swing;
+      const dx = -w / 2 + (w / 2) * Math.cos(theta);
+      const dz = (w / 2) * Math.sin(theta) + explode * 0.12;
+      g.position.set(
+        x + dx * Math.cos(ry) + dz * Math.sin(ry),
+        y,
+        z - dx * Math.sin(ry) + dz * Math.cos(ry),
+      );
+      g.rotation.y = ry - theta;
+      g.getObjectByName('handle')?.scale.setScalar(Math.max(0.001, grow));
+    }
   }
 
   let time = 0;
@@ -576,16 +751,28 @@ export async function createKitchenScene(
     roomMix = damp(roomMix, roomTarget, 6, dt);
     if (Math.abs(roomMix - roomTarget) < 0.002) roomMix = roomTarget;
     else busy = true;
-    pop = damp(pop, 1, 10, dt);
-    if (1 - pop > 0.002) busy = true;
-    else pop = 1;
+    for (const key of ['style', 'handle', 'top'] as const) {
+      since[key] += dt;
+      if (since[key] < 0.5) busy = true;
+    }
+    const topBefore = mats.top.color.getHex();
+    mats.top.color.lerp(topTarget, lerp);
+    if (mats.top.color.getHex() !== topBefore) busy = true;
     // The outgoing room sinks into the floor while the other rises.
     const kitchenShow = Math.min(1, Math.max(0, 1 - roomMix * 2));
     const bathShow = Math.min(1, Math.max(0, roomMix * 2 - 1));
     setGroup(kp, explode, kitchenShow);
     setGroup(bp, explode, bathShow);
-    kp.doors.scale.setScalar(pop);
-    bp.doors.scale.setScalar(pop);
+    placeDoors();
+    // Shower and bath swap with a short drop-in.
+    const wetTarget = bathSpec.layout === 'bath' ? 1 : 0;
+    wetMix = damp(wetMix, wetTarget, 9, dt);
+    if (Math.abs(wetMix - wetTarget) < 0.002) wetMix = wetTarget;
+    else busy = true;
+    shower.visible = wetMix < 0.5;
+    bath.visible = wetMix >= 0.5;
+    const drop = wetMix < 0.5 ? wetMix * 2 : (1 - wetMix) * 2;
+    shower.position.y = bath.position.y = drop * 0.35;
     placeCamera();
     return busy;
   }
@@ -599,7 +786,6 @@ export async function createKitchenScene(
     return (['fittings', 'tops', 'doors', 'carcass'] as Part[]).map((name) => {
       bounds.setFromObject(parts[name]);
       bounds.getCenter(tmp);
-      tmp.x = bounds.max.x;
       tmp.project(camera);
       return { x: ((tmp.x + 1) / 2) * vw, y: ((1 - tmp.y) / 2) * vh };
     });
@@ -642,6 +828,10 @@ export async function createKitchenScene(
     layerPoints,
     drawing,
     setSpec: (next: Spec, instant = false) => applySpec(next, instant),
+    setBath(next: Bath, instant = false) {
+      applyBath(next);
+      if (instant) wetMix = next.layout === 'bath' ? 1 : 0;
+    },
     setRoom(next: Room, instant = false) {
       room = next;
       if (instant) roomMix = next === 'bathroom' ? 1 : 0;

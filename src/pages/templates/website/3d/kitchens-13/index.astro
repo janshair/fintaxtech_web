@@ -12,7 +12,9 @@ import {
   doorStyles,
   handles,
   kitchensDemo as c,
+  layouts,
   taps,
+  wallTiles,
   worktops,
 } from '../../../../../content/kitchens-demo';
 import { threeDTemplates, threeDGallery } from '../../../../../content/templates';
@@ -130,7 +132,7 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
           data-wipe>Visit</a
         ><a href="#find">Find us</a>
       </nav>
-      <a class="button small" href="#design" data-order>Book a visit</a>
+      <a class="button small" href="#design" data-order>Start your design</a>
     </header>
     <div class="stage" data-stage aria-hidden="true"></div>
     <main id="main">
@@ -164,7 +166,7 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
               src={`${assets}style-${slug(first.name)}.webp`}
               width="960"
               height="760"
-              alt=""
+              alt={`A model kitchen in the ${first.name} style.`}
               fetchpriority="high"
             />
             <p class="orbit-hint" aria-hidden="true">
@@ -264,12 +266,18 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
               {
                 c.layers.map(([name, text], i) => (
                   <li data-layer={i}>
+                    <span class="layer-no" aria-hidden="true">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                     <strong>{name}</strong>
-                    <span>{text}</span>
+                    <span class="layer-text">{text}</span>
                   </li>
                 ))
               }
             </ol>
+            <svg class="leaders" aria-hidden="true">
+              {c.layers.map(() => <path data-leader />)}
+            </svg>
           </div>
         </section>
       </section>
@@ -310,7 +318,10 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
               >
             </div>
             <fieldset class="row">
-              <legend>Doors <span data-picked="door">Sage, shaker</span></legend>
+              <legend
+                ><span data-label="door">Doors</span>
+                <span data-picked="door">Sage, shaker</span></legend
+              >
               <div class="swatches">
                 {
                   doors.map((d) => (
@@ -344,7 +355,10 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
               </div>
             </fieldset>
             <fieldset class="row">
-              <legend>Worktop <span data-picked="top">Oiled oak</span></legend>
+              <legend
+                ><span data-label="top">Worktop</span>
+                <span data-picked="top">Oiled oak</span></legend
+              >
               <div class="chips">
                 {
                   worktops.map((t) => (
@@ -365,7 +379,10 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
               </div>
             </fieldset>
             <fieldset class="row">
-              <legend>Handles <span data-picked="handle">Cup</span></legend>
+              <legend
+                ><span data-label="handle">Handles</span>
+                <span data-picked="handle">Cup</span></legend
+              >
               <div class="chips">
                 {
                   handles.map((h) => (
@@ -388,7 +405,10 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
               </div>
             </fieldset>
             <fieldset class="row">
-              <legend>Tap <span data-picked="tap">Brushed brass</span></legend>
+              <legend
+                ><span data-label="tap">Tap</span>
+                <span data-picked="tap">Brushed brass</span></legend
+              >
               <div class="swatches">
                 {
                   taps.map((t) => (
@@ -401,6 +421,35 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
                         aria-label={t.label}
                       />
                       <span style={`background:${t.hex}`} />
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="row" data-bathroom-only hidden>
+              <legend>Layout <span data-picked="layout">Walk-in shower</span></legend>
+              <div class="chips">
+                {
+                  layouts.map((l, i) => (
+                    <label>
+                      <input type="radio" name="layout" value={l.id} checked={i === 0} />
+                      <span>{l.label}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="row" data-bathroom-only hidden>
+              <legend>Wall tiles <span data-picked="tiles">Stone grid</span></legend>
+              <div class="chips">
+                {
+                  wallTiles.map((t, i) => (
+                    <label>
+                      <input type="radio" name="tiles" value={t.id} checked={i === 0} />
+                      <span>
+                        <i class={'tile-' + t.id} style={`background:${t.hex}`} />
+                        {t.label}
+                      </span>
                     </label>
                   ))
                 }
@@ -461,19 +510,26 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
             <div class="model-slot visit-slot" data-anchor="visit">
               <Elevation id="el-visit" label="A front drawing of the design we’ll bring." />
             </div>
-            <article class="visit-card" data-card hidden tabindex="-1" aria-labelledby="card-title">
+            <p class="sr-only" data-visit-status role="status" aria-live="polite"></p>
+            <article class="visit-card" data-card hidden aria-labelledby="card-title">
               <header>
                 <span class="card-brand" data-business>{c.name}</span>
                 <span data-card-ref>Ref. PP-1042</span>
               </header>
-              <h3 id="card-title">Design visit</h3>
+              <h3 id="card-title" tabindex="-1">Design visit</h3>
               <p class="card-when" data-card-when>Monday, morning</p>
               <dl>
                 <div><dt>Room</dt><dd data-card-room>Kitchen</dd></div>
-                <div><dt>Doors</dt><dd data-card-door>Sage shaker</dd></div>
-                <div><dt>Worktop</dt><dd data-card-top>Oiled oak</dd></div>
-                <div><dt>Handles</dt><dd data-card-handle>Cup</dd></div>
-                <div><dt>Tap</dt><dd data-card-tap>Brushed brass</dd></div>
+                <div><dt data-label="door">Doors</dt><dd data-card-door>Sage shaker</dd></div>
+                <div><dt data-label="top">Worktop</dt><dd data-card-top>Oiled oak</dd></div>
+                <div><dt data-label="handle">Handles</dt><dd data-card-handle>Cup</dd></div>
+                <div><dt data-label="tap">Tap</dt><dd data-card-tap>Brushed brass</dd></div>
+                <div data-bathroom-only hidden>
+                  <dt>Layout</dt><dd data-card-layout>Walk-in shower</dd>
+                </div>
+                <div data-bathroom-only hidden>
+                  <dt>Wall tiles</dt><dd data-card-tiles>Stone grid</dd>
+                </div>
               </dl>
               <p class="card-demo"><strong>Demo: nothing is ordered, booked or paid.</strong></p>
             </article>
@@ -535,7 +591,9 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 
       <section class="agency" aria-labelledby="agency-title">
         <div class="wrap">
-          <p class="agency-kicker">Plinth &amp; Plumb · kitchens-13 · by FinTaxTech</p>
+          <p class="agency-kicker">
+            <span data-business>{c.name}</span> · a FinTaxTech website demo
+          </p>
           <h2 id="agency-title">Want this for <span data-business>{c.name}</span>?</h2>
           <p>Your name, your kitchens and your hours, in a website people actually play with.</p>
           <div class="agency-actions">
@@ -571,10 +629,9 @@ const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
     <NameDialog
       title="Put your name above the door"
       placeholder="e.g. Ouse Valley Kitchens"
-      restoreLabel="Back to Plinth & Plumb"
+      restoreLabel="Back to the demo"
     />
-    <script is:inline src="/templates/website/3d/_shared/name-dialog.js" data-busy="#design"
-    ></script>
+    <script is:inline src="/templates/website/3d/_shared/name-dialog.js"></script>
     <script>
       import './_runtime/page';
     </script>

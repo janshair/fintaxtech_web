@@ -32,9 +32,11 @@ const W = 960,
   scene.setSpec(c.styles[0].spec, true);
   scene.view.azimuth = 0.48;
   scene.view.elevation = 0.5;
-  scene.view.zoom = 0.84;
+  scene.view.zoom = 0.8;
+  scene.view.lift = 0.55;
   out['layers'] = shot(1);
   scene.view.zoom = 1;
+  scene.view.lift = 0;
   // Loader drawing from the hero angle, drawn floor first.
   scene.view.azimuth = 0.62;
   scene.view.elevation = 0.42;

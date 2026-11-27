@@ -26,8 +26,18 @@ test('letter: name everywhere, privacy, designer to visit card on a phone', asyn
   await page.locator('input[name="door"][value="cobalt"]').check({ force: true });
   await page.locator('input[name="top"][value="terrazzo"]').check({ force: true });
   await expect(page.locator('[data-room-name]')).toHaveText('Your bathroom so far');
-  await expect(page.locator('[data-spec-summary]')).toContainText('Cobalt shaker doors · Terrazzo');
-  await expect(page.locator('[data-builder-status]')).toHaveText('Worktop changed to Terrazzo.');
+  await expect(page.locator('[data-spec-summary]')).toContainText(
+    'Cobalt shaker vanity doors · Terrazzo vanity top',
+  );
+  await expect(page.locator('[data-builder-status]')).toHaveText('Vanity top changed to Terrazzo.');
+  await expect(page.locator('[data-label="door"]').first()).toHaveText('Vanity doors');
+  await page.locator('label', { hasText: 'Bath and shower' }).click();
+  await page.locator('label', { hasText: 'Sage zellige' }).click();
+  await expect(page.locator('[data-spec-summary]')).toContainText(
+    'Bath and shower · Sage zellige tiles',
+  );
+  await page.locator('[data-undo]').click();
+  await page.locator('[data-undo]').click();
   await page.locator('[data-undo]').click();
   await expect(page.locator('input[name="top"][value="oak"]')).toBeChecked();
   await expect(page.locator('[data-builder-status]')).toContainText('Undone.');
@@ -41,10 +51,44 @@ test('letter: name everywhere, privacy, designer to visit card on a phone', asyn
   await expect(card).toContainText('Bathroom');
   await expect(card).toContainText('Cobalt shaker');
   await expect(card).toContainText('afternoon');
+  await expect(card).toContainText('Vanity doors');
+  await expect(page.locator('#card-title')).toBeFocused();
+  await expect(page.locator('[data-visit-status]')).toContainText('Design visit booked for');
   await expect(card).toContainText('Demo: nothing is ordered, booked or paid.');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(requests.filter((r) => /Test%20Business|Leeds|07526|K-TEST/.test(r))).toEqual([]);
   expect(errors).toEqual([]);
+});
+
+test('the name dialog opens only when asked', async ({ page }) => {
+  await page.goto(route);
+  await page.waitForTimeout(1600);
+  for (let i = 0; i < 30; i++) await page.mouse.wheel(0, 400);
+  await page.waitForTimeout(7000);
+  await expect(page.locator('#name-dialog')).not.toBeVisible();
+  await page.locator('[data-edit]').click();
+  await expect(page.locator('#name-dialog')).toBeVisible();
+  await expect(page.locator('#restore-name')).toHaveText('Back to the demo');
+  await page.goto(route + '?name=Link%20Test#change-name');
+  await expect(page.locator('#name-dialog')).toBeVisible();
+  await expect(page.locator('#business-name')).toHaveValue('Link Test');
+});
+
+test('a personalised link leaves no sample name on show', async ({ page }) => {
+  await page.goto(route + '?name=Test%20Kitchen%20Co&area=Leeds');
+  await expect(page.locator('.agency-kicker')).toHaveText(
+    'Test Kitchen Co · a FinTaxTech website demo',
+  );
+  const text = await page.evaluate(
+    () =>
+      document.body.innerText +
+      [...document.querySelectorAll('[alt],[aria-label]')]
+        .map((n) => (n.getAttribute('alt') || '') + (n.getAttribute('aria-label') || ''))
+        .join(' ') +
+      document.title,
+  );
+  expect(text).not.toContain('Plinth & Plumb');
+  expect(text).not.toContain('kitchens-13');
 });
 
 test('every booking button opens the same designer', async ({ page }) => {

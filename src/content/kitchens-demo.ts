@@ -37,6 +37,26 @@ export const taps = [
   { id: 'black', label: 'Matt black', hex: '#202224' },
 ] as const;
 
+// Bathroom only: the layout and the wall tiles.
+export const layouts = [
+  { id: 'shower', label: 'Walk-in shower' },
+  { id: 'bath', label: 'Bath and shower' },
+] as const;
+export const wallTiles = [
+  { id: 'stone', label: 'Stone grid', hex: '#e9ebe8' },
+  { id: 'metro', label: 'White metro', hex: '#f6f5f1' },
+  { id: 'sage', label: 'Sage zellige', hex: '#9fb79c' },
+] as const;
+export type Bath = {
+  layout: (typeof layouts)[number]['id'];
+  tiles: (typeof wallTiles)[number]['id'];
+};
+// What each control is called in each room.
+export const roomLabels = {
+  kitchen: { door: 'Doors', top: 'Worktop', handle: 'Handles', tap: 'Tap' },
+  bathroom: { door: 'Vanity doors', top: 'Vanity top', handle: 'Handles', tap: 'Taps & shower' },
+} as const;
+
 export type Spec = {
   door: (typeof doors)[number]['id'];
   doorStyle: (typeof doorStyles)[number]['id'];

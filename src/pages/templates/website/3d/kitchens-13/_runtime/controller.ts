@@ -2,7 +2,7 @@
 // [data-anchor] box is most in view, so HTML layout decides where the 3D goes.
 // Posters and the flat elevation stay in the page until 3D is live.
 import type { KitchenScene, Room } from './scene';
-import type { Spec } from '../../../../../../content/kitchens-demo';
+import type { Bath, Spec } from '../../../../../../content/kitchens-demo';
 import {
   createRenderLoop,
   explodeAt,
@@ -25,10 +25,11 @@ const layersTrack = document.querySelector<HTMLElement>('[data-layers]')!;
 const layersPin = layersTrack.querySelector<HTMLElement>('.layers-pin')!;
 const labels = [...document.querySelectorAll<HTMLElement>('[data-layer]')];
 
-const model: { style: Spec; build: Spec; room: Room } = {
+const model: { style: Spec; build: Spec; room: Room; bath: Bath } = {
   style: { door: 'sage', doorStyle: 'shaker', top: 'oak', handle: 'cup', tap: 'brass' },
   build: { door: 'sage', doorStyle: 'shaker', top: 'oak', handle: 'cup', tap: 'brass' },
   room: 'kitchen',
+  bath: { layout: 'shower', tiles: 'stone' },
 };
 let scene: KitchenScene | undefined;
 let canvas: HTMLCanvasElement | undefined;
@@ -58,9 +59,11 @@ export const stage = {
     if (scene && (mode === 'hero' || mode === 'styles' || mode === 'layers')) scene.setSpec(spec);
     kick(1200);
   },
-  setBuild(spec: Spec, room: Room) {
+  setBuild(spec: Spec, room: Room, bath: Bath) {
     model.build = spec;
     model.room = room;
+    model.bath = bath;
+    scene?.setBath(bath);
     if (scene && (mode === 'design' || mode === 'visit')) {
       scene.setSpec(spec);
       scene.setRoom(room);
@@ -87,6 +90,9 @@ const angles: Record<Mode, [number, number]> = {
 
 function target(now: number, dt: number) {
   const best = pickAnchor(anchors);
+  // Only the box hosting the live model hides its picture; every other box
+  // keeps its poster or drawing, so no box is ever left empty.
+  for (const anchor of anchors) anchor.toggleAttribute('data-live', anchor === best);
   const next = (best?.dataset.anchor as Mode) || '';
   if (next && next !== mode) {
     mode = next;
@@ -111,32 +117,42 @@ function target(now: number, dt: number) {
   scene.view.azimuth = view.azimuth;
   scene.view.elevation = Math.min(0.9, Math.max(0.15, view.elevation));
   // Pull back a little for the exploded view so every part stays in frame.
-  scene.view.zoom = mode === 'layers' ? 0.84 : 1;
-  explode = mode === 'layers' ? explodeAt(trackProgress(layersTrack)) : 0;
+  // Pull back as the layers part; and a little in the narrow designer boxes.
+  const narrowBox = (mode === 'design' || mode === 'visit') && innerWidth < 980;
+  scene.view.zoom = mode === 'layers' ? 1 - explode * 0.2 : narrowBox ? 0.88 : 1;
+  layersProgress = trackProgress(layersTrack);
+  explode = mode === 'layers' ? explodeAt(layersProgress) : 0;
   scene.setExplode(explode);
+  // Rise and pull back as it comes apart, so every layer stays in frame.
+  scene.view.lift = explode * 0.55;
 }
 
+// Labels sit in their own column; on wide screens a leader line joins each one
+// to its layer. The label for the layer in focus is highlighted.
+const leaders = [...document.querySelectorAll<SVGPathElement>('[data-leader]')];
+let layersProgress = 0;
 function placeLabels() {
-  if (!scene) return;
-  const wide = innerWidth >= 700 && mode === 'layers';
+  const live = mode === 'layers';
+  const active =
+    live && explode > 0.6
+      ? Math.min(3, Math.max(0, Math.floor((layersProgress - 0.36) / 0.08)))
+      : -1;
+  labels.forEach((li, i) => li.toggleAttribute('data-active', i === active));
+  if (!scene || !live || innerWidth < 900) {
+    leaders.forEach((path) => path.removeAttribute('d'));
+    return;
+  }
   const pin = layersPin.getBoundingClientRect();
-  const points = wide ? scene.layerPoints() : [];
-  let floor = -Infinity;
-  // One tidy column just right of the whole model.
-  const column = points.length ? Math.max(...points.map((p) => p.x)) - pin.left + 28 : 0;
+  const points = scene.layerPoints();
   labels.forEach((li, i) => {
-    li.style.setProperty('--o', String(mode === 'layers' ? explode : 0));
-    if (!wide) {
-      li.style.removeProperty('--x');
-      li.style.removeProperty('--y');
-      return;
-    }
-    const x = Math.min(column, pin.width - li.offsetWidth - 16);
-    li.style.setProperty('--x', Math.round(x) + 'px');
-    // Top to bottom: never let a label overlap the one above it.
-    const y = Math.max(floor, points[i].y - pin.top - li.offsetHeight / 2);
-    floor = y + li.offsetHeight + 10;
-    li.style.setProperty('--y', Math.round(y) + 'px');
+    const r = li.getBoundingClientRect();
+    const x1 = r.left - pin.left - 10,
+      y1 = r.top + r.height / 2 - pin.top;
+    const x2 = points[i].x - pin.left,
+      y2 = points[i].y - pin.top;
+    const elbow = Math.max(x2 + 12, x1 - 36);
+    leaders[i].setAttribute('d', `M${x1} ${y1}H${elbow}L${x2} ${y2}`);
+    leaders[i].style.setProperty('--o', String(Math.max(0, explode * 1.4 - 0.4)));
   });
 }
 
@@ -156,11 +172,13 @@ function tick(now: number, dt: number) {
 
 function fallback(reason: string) {
   loop.stop();
+  for (const anchor of anchors) anchor.removeAttribute('data-live');
   ready = false;
   root.dataset.three = 'fallback';
   root.dataset.fallback = reason;
   root.dataset.rendering = 'paused';
-  labels.forEach((li) => li.removeAttribute('style'));
+  labels.forEach((li) => li.removeAttribute('data-active'));
+  leaders.forEach((path) => path.removeAttribute('d'));
   scene?.dispose();
   scene = undefined;
   canvas?.remove();
@@ -186,6 +204,7 @@ async function start() {
     });
     scene.resize(innerWidth, innerHeight, pixelRatio());
     target(performance.now(), 1);
+    scene.setBath(model.bath, true);
     applyMode((mode || 'hero') as Mode);
     scene.update(1);
     await scene.prepare();

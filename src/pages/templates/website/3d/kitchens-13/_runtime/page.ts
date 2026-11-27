@@ -7,12 +7,17 @@ import {
   doorStyles,
   handles,
   kitchensDemo as c,
+  layouts,
+  roomLabels,
   taps,
+  wallTiles,
   worktops,
+  type Bath,
   type Spec,
 } from '../../../../../../content/kitchens-demo';
 import {
   bindSceneLinks,
+  reducedMotion,
   root,
   runLoader,
   toggleInView,
@@ -42,23 +47,15 @@ const hex = {
 };
 const handlePhrase = (id: Spec['handle']) =>
   id === 'none' ? 'Handleless' : `${label.handle(id)} handles`;
-const doorPhrase = (spec: Spec) =>
-  `${label.door(spec.door)} ${label.doorStyle(spec.doorStyle).toLowerCase()} doors`;
-const summary = (spec: Spec) =>
-  [
-    doorPhrase(spec),
-    label.top(spec.top),
-    handlePhrase(spec.handle),
-    `${label.tap(spec.tap)} tap`,
-  ].join(' · ');
-
 runLoader(1500);
 
 // Flat elevations follow the same spec as the 3D model.
-function drawElevations(spec: Spec, room: Room) {
+function drawElevations(spec: Spec, room: Room, bath: Bath) {
   for (const svg of $$<SVGSVGElement>('[data-elevation]')) {
     const id = svg.querySelector('pattern')!.id.replace(/^oak-/, '');
     svg.dataset.room = room;
+    svg.dataset.layout = bath.layout;
+    svg.style.setProperty('--tiles', `url(#tiles-${bath.tiles}-${id})`);
     svg.dataset.handle = spec.handle;
     svg.dataset.doorStyle = spec.doorStyle;
     svg.style.setProperty('--door', hex.door(spec.door));
@@ -88,7 +85,7 @@ function selectStyle(index: number) {
   $('[data-style-name]').textContent = style.name;
   $$<HTMLImageElement>('[data-style-poster]').forEach((img) => {
     img.src = `${c.route}style-${slug(style.name)}.webp`;
-    if (img.alt) img.alt = `A model kitchen in the ${style.name} style.`;
+    img.alt = `A model kitchen in the ${style.name} style.`;
   });
   heroSlot.setAttribute(
     'aria-label',
@@ -100,19 +97,33 @@ styleButtons.forEach((button, i) => {
   button.addEventListener('click', () => selectStyle(i));
   button.addEventListener('focus', () => selectStyle(i));
 });
-const rowWatcher = new IntersectionObserver(
-  (entries) => {
-    for (const entry of entries)
-      if (entry.isIntersecting) selectStyle(Number((entry.target as HTMLElement).dataset.style));
+// The active row is the last one whose top has passed 55% of the screen, so
+// every row (the last one included) takes over as it reaches the middle.
+const styleList = $('.style-list');
+let styleFrame = 0;
+function followScroll() {
+  styleFrame = 0;
+  const list = styleList.getBoundingClientRect();
+  if (list.bottom < 0 || list.top > innerHeight) return;
+  const line = innerHeight * 0.55;
+  let index = 0;
+  styleButtons.forEach((button, i) => {
+    if (button.getBoundingClientRect().top < line) index = i;
+  });
+  selectStyle(index);
+}
+addEventListener(
+  'scroll',
+  () => {
+    if (!styleFrame) styleFrame = requestAnimationFrame(followScroll);
   },
-  { rootMargin: '-48% 0px -48% 0px' },
+  { passive: true },
 );
-styleButtons.forEach((button) => rowWatcher.observe(button));
 
 // DESIGN: every control is a radio group; Undo walks back through changes.
 const form = $<HTMLFormElement>('[data-builder]');
 const undo = $<HTMLButtonElement>('[data-undo]');
-type State = { room: Room; spec: Spec };
+type State = { room: Room; spec: Spec; bath: Bath };
 const read = (): State => {
   const value = (name: string) =>
     form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)!.value;
@@ -125,6 +136,7 @@ const read = (): State => {
       handle: value('handle') as Spec['handle'],
       tap: value('tap') as Spec['tap'],
     },
+    bath: { layout: value('layout') as Bath['layout'], tiles: value('tiles') as Bath['tiles'] },
   };
 };
 const write = (state: State) => {
@@ -132,37 +144,64 @@ const write = (state: State) => {
     (form.querySelector<HTMLInputElement>(`input[name="${name}"][value="${value}"]`)!.checked =
       true);
   set('room', state.room);
-  for (const [key, value] of Object.entries(state.spec)) set(key, value);
+  for (const [key, value] of Object.entries({ ...state.spec, ...state.bath })) set(key, value);
 };
 let current = read();
 const history: State[] = [];
+// Room-aware words: "Vanity doors" in a bathroom, "Doors" in a kitchen.
+const words = (room: Room) => roomLabels[room];
+const layoutLabel = (id: Bath['layout']) => layouts.find((l) => l.id === id)!.label;
+const tilesLabel = (id: Bath['tiles']) => wallTiles.find((t) => t.id === id)!.label;
+function summary({ room, spec, bath }: State) {
+  const w = words(room);
+  const parts = [
+    `${label.door(spec.door)} ${label.doorStyle(spec.doorStyle).toLowerCase()} ${w.door.toLowerCase()}`,
+    room === 'kitchen' ? label.top(spec.top) : `${label.top(spec.top)} vanity top`,
+    handlePhrase(spec.handle),
+    room === 'kitchen' ? `${label.tap(spec.tap)} tap` : `${label.tap(spec.tap)} taps and shower`,
+  ];
+  if (room === 'bathroom') parts.push(layoutLabel(bath.layout), `${tilesLabel(bath.tiles)} tiles`);
+  return parts.join(' · ');
+}
 function changeMessage(before: State, after: State) {
   if (before.room !== after.room)
-    return `Switched to the ${after.room}. Same doors, worktop, handles and tap.`;
+    return after.room === 'bathroom'
+      ? 'Switched to the bathroom. Your doors, top, handles and tap finish carry across.'
+      : 'Switched to the kitchen. Your doors, worktop, handles and tap finish carry across.';
+  const w = words(after.room);
+  if (before.bath.layout !== after.bath.layout)
+    return `Layout changed to ${layoutLabel(after.bath.layout)}.`;
+  if (before.bath.tiles !== after.bath.tiles)
+    return `Wall tiles changed to ${tilesLabel(after.bath.tiles)}.`;
   const key = (Object.keys(after.spec) as (keyof Spec)[]).find(
     (k) => before.spec[k] !== after.spec[k],
   );
   if (!key) return '';
-  if (key === 'door') return `Doors changed to ${label.door(after.spec.door)}.`;
+  if (key === 'door') return `${w.door} changed to ${label.door(after.spec.door)}.`;
   if (key === 'doorStyle') return `Door style changed to ${label.doorStyle(after.spec.doorStyle)}.`;
-  if (key === 'top') return `Worktop changed to ${label.top(after.spec.top)}.`;
+  if (key === 'top') return `${w.top} changed to ${label.top(after.spec.top)}.`;
   if (key === 'handle') return `${handlePhrase(after.spec.handle)} chosen.`;
-  return `Tap changed to ${label.tap(after.spec.tap)}.`;
+  return `${w.tap} changed to ${label.tap(after.spec.tap)}.`;
 }
 function render() {
-  const { room, spec } = current;
+  const { room, spec, bath } = current;
+  const w = words(room);
   $('[data-room-name]').textContent =
     room === 'kitchen' ? 'Your kitchen so far' : 'Your bathroom so far';
-  $('[data-spec-summary]').textContent = summary(spec);
+  $('[data-spec-summary]').textContent = summary(current);
+  for (const node of $$('[data-label]')) node.textContent = w[node.dataset.label as keyof typeof w];
+  for (const node of $$('[data-bathroom-only]')) node.hidden = room !== 'bathroom';
   $('[data-picked="door"]').textContent =
     `${label.door(spec.door)}, ${label.doorStyle(spec.doorStyle).toLowerCase()}`;
   $('[data-picked="top"]').textContent = label.top(spec.top);
   $('[data-picked="handle"]').textContent = label.handle(spec.handle);
   $('[data-picked="tap"]').textContent = label.tap(spec.tap);
+  $('[data-picked="layout"]').textContent = layoutLabel(bath.layout);
+  $('[data-picked="tiles"]').textContent = tilesLabel(bath.tiles);
   undo.setAttribute('aria-disabled', String(!history.length));
   root.style.setProperty('--door-colour', hex.door(spec.door));
-  drawElevations(spec, room);
-  stage.setBuild(spec, room);
+  drawElevations(spec, room, bath);
+  stage.setBuild(spec, room, bath);
 }
 form.addEventListener('change', () => {
   const next = read();
@@ -207,25 +246,37 @@ const dayInputs = $$<HTMLInputElement>('input[name="day"]');
   }
 }
 const card = $('[data-card]');
+const visitStatus = $('[data-visit-status]');
 $<HTMLFormElement>('[data-visit]').addEventListener('submit', (event) => {
   event.preventDefault();
-  const { room, spec } = current;
+  const { room, spec, bath } = current;
   const day = $<HTMLInputElement>('input[name="day"]:checked').value;
   const slot = $<HTMLInputElement>('input[name="slot"]:checked').value;
-  $('[data-card-when]').textContent = `${day}, ${slot.toLowerCase()}`;
+  const when = `${day}, ${slot.toLowerCase()}`;
+  $('[data-card-when]').textContent = when;
   $('[data-card-room]').textContent = room === 'kitchen' ? 'Kitchen' : 'Bathroom';
   $('[data-card-door]').textContent =
     `${label.door(spec.door)} ${label.doorStyle(spec.doorStyle).toLowerCase()}`;
   $('[data-card-top]').textContent = label.top(spec.top);
   $('[data-card-handle]').textContent = label.handle(spec.handle);
   $('[data-card-tap]').textContent = label.tap(spec.tap);
+  $('[data-card-layout]').textContent = layoutLabel(bath.layout);
+  $('[data-card-tiles]').textContent = tilesLabel(bath.tiles);
   $('[data-card-ref]').textContent = 'Ref. PP-' + String(1000 + Math.floor(Math.random() * 9000));
   card.hidden = false;
   $('[data-card-actions]').hidden = false;
-  card.style.animation = 'none';
+  // Place the card: restart its animation, bring it into view, focus its
+  // heading and announce it.
+  card.classList.remove('is-placed');
   void card.offsetWidth;
-  card.style.animation = '';
-  card.focus();
+  card.classList.add('is-placed');
+  card.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center' });
+  $('#card-title').focus({ preventScroll: true });
+  visitStatus.textContent = '';
+  requestAnimationFrame(
+    () =>
+      (visitStatus.textContent = `Design visit booked for ${when}. This is a demo: nothing is ordered, booked or paid.`),
+  );
 });
 
 // A cabinet door swings across between PROJECTS, DESIGN and VISIT.
