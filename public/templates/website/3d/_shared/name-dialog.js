@@ -1,7 +1,9 @@
 (() => {
   'use strict';
-  // Business name dialog: the same behaviour as the other FinTaxTech templates.
-  const identity = window.juiceIdentity;
+  // Shared business name dialog for 3D template demos. data-busy names the area
+  // (usually the builder) where the automatic offer must never interrupt.
+  const identity = window.templateIdentity;
+  const busySelector = document.currentScript.dataset.busy;
   identity.stop();
   identity.hydrate();
   const dialog = document.querySelector('#name-dialog');
@@ -25,7 +27,7 @@
     const busy =
       document.querySelector('dialog[open]') ||
       document.querySelector('.loader:not(.is-done)')?.offsetParent ||
-      document.querySelector('#build')?.contains(document.activeElement);
+      (busySelector && document.querySelector(busySelector)?.contains(document.activeElement));
     if (!offered && !busy) open();
   }
   dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
@@ -40,7 +42,7 @@
     dialog.close();
     document.querySelector('#announcement').textContent =
       'Preview updated for ' + (identity.read().name || identity.sample);
-    dispatchEvent(new Event('juice-identity-change'));
+    dispatchEvent(new Event('template-identity-change'));
   }
   document.querySelector('#name-form').addEventListener('submit', (event) => {
     event.preventDefault();
