@@ -13,6 +13,8 @@ export const company = {
   hours: 'Monday to Friday, 09:00–18:00 UK time',
   response: 'We aim to reply within two UK business days.',
   url: 'https://fintaxtech.co.uk',
+  bookingURL:
+    'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1bPB3zkV37qZYkX-F8pplsZjHiMOCKoPVz9rT_ZNEqtD2aHW0t-ga3Iaj2ClvE0LZzpZhvpcgA?gv=true',
   description:
     'FinTaxTech is a digital agency based in Dundee, Scotland. It provides branding and graphic design, website development, mobile app development and AI automation to clients across the UK and internationally. People set project requirements and review AI-assisted work before delivery.',
   registryName: 'Companies House',
@@ -24,7 +26,7 @@ export const ui = {
   footerNav: 'Footer navigation',
   start: 'Start Your Project',
   choose: 'Choose a service',
-  how: 'See how it works',
+  bookAppointment: 'Book an appointment',
   explore: 'View service',
   requirements: 'Start requirements',
   menu: 'Menu',

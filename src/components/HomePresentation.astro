@@ -26,9 +26,14 @@ const startHref = location ? locationStartURL(location) : '/start/';
     </p><p class="muted hero-location">
       {location?.availability ?? c.serviceArea}
     </p><div class="actions">
-      <a class="button primary" href={location ? startHref : '#choose'}
-        >{location ? ui.start : ui.choose}</a
-      ><a class="button" href="/how-it-works/">{ui.how}</a>
+      <a class="button primary" href={company.bookingURL}>{ui.bookAppointment}</a>
+      {
+        location && (
+          <a class="button" href={startHref}>
+            {ui.start}
+          </a>
+        )
+      }
     </div>
   </div><div class="hero-art">
     <HeroProcessVisual />

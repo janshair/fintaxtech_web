@@ -8,20 +8,18 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('ftt:consent', 'rejected'));
 });
 
-test('homepage explains all services, keeps the CTAs and presents genuine work', async ({
+test('homepage explains all services, links to appointment booking and presents genuine work', async ({
   page,
 }) => {
   await page.goto('/');
   await expect(page.locator('h1')).toHaveText(home.title);
   await expect(page.locator('.hero .eyebrow')).toHaveText(company.tagline);
   await expect(page.locator('.hero .lead')).toHaveText(home.intro);
-  await expect(page.locator('.hero').getByRole('link', { name: ui.choose })).toHaveAttribute(
+  const heroActions = page.locator('.hero .actions');
+  await expect(heroActions.getByRole('link')).toHaveCount(1);
+  await expect(heroActions.getByRole('link', { name: ui.bookAppointment })).toHaveAttribute(
     'href',
-    '#choose',
-  );
-  await expect(page.locator('.hero').getByRole('link', { name: ui.how })).toHaveAttribute(
-    'href',
-    '/how-it-works/',
+    company.bookingURL,
   );
   await expect(page.locator('.steps li')).toHaveText([
     'Choose what you need',
