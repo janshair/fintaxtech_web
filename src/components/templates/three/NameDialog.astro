@@ -1,0 +1,28 @@
+---
+// Shared "Change business name" dialog for 3D template demos. Behaviour lives in
+// public/templates/website/3d/_shared/name-dialog.js.
+interface Props {
+  title: string;
+  placeholder: string;
+  restoreLabel: string;
+}
+const { title, placeholder, restoreLabel } = Astro.props;
+---
+
+<dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
+  <button class="close" data-close type="button" aria-label="Close business name dialog">×</button
+  ><h2 id="name-title">{title}</h2><p id="name-description">
+    See your business name across this demo. It stays in this page and its shareable link.
+  </p><form id="name-form" novalidate>
+    <label for="business-name">Business name</label><input
+      id="business-name"
+      maxlength="100"
+      placeholder={placeholder}
+      autocomplete="off"
+      aria-describedby="name-error"
+    /><p id="name-error" class="error" role="status"></p><button class="button" type="submit"
+      >Preview my website</button
+    >
+  </form><button id="restore-name" class="text-link" type="button">{restoreLabel}</button>
+</dialog>
+<p class="sr-only" id="announcement" role="status"></p>

@@ -13,6 +13,7 @@ import { THEME as tailoring } from '../src/content/tailoring-demo';
 import { THEME as automotive } from '../src/content/automotive-demo';
 import { THEME as cleaning } from '../src/content/cleaning-demo';
 import { THEME as juice } from '../src/content/juice-bar-demo';
+import { THEME as kitchens } from '../src/content/kitchens-demo';
 import { THEME as gym } from '../src/content/gym-demo';
 import { THEME as consultant } from '../src/content/consultant-demo';
 import { THEME as beauty } from '../src/content/beauty-demo';
@@ -23,6 +24,7 @@ const themes = {
   'automotive-03': automotive,
   'cleaning-04': cleaning,
   'juice-bar-05': juice,
+  'kitchens-13': kitchens,
   'gym-06': gym,
   'consultant-07': consultant,
   'beauty-08': beauty,
@@ -37,7 +39,7 @@ describe('build-time template colours', () => {
       expect(result.accent).toBe(templatePalettes[id as TemplateID].accent);
       for (const original of Object.keys(templatePalettes[id as TemplateID].tones))
         expect(result.variables['--tone-' + original.slice(1)]).toBe(original);
-      const route = id === 'juice-bar-05' ? '3d' : 'motion';
+      const route = ['juice-bar-05', 'kitchens-13'].includes(id) ? '3d' : 'motion';
       const page = readFileSync(`src/pages/templates/website/${route}/${id}/index.astro`, 'utf8');
       expect(page).toContain(`templateTheme('${id}', THEME)`);
       expect(page).toContain('style={theme.style}');

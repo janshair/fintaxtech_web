@@ -2,6 +2,8 @@
 import GoogleTag from '../../../../../components/GoogleTag.astro';
 import Icons from './_parts/Icons.astro';
 import FlatCup from './_parts/FlatCup.astro';
+import DemoStrip from '../../../../../components/templates/three/DemoStrip.astro';
+import NameDialog from '../../../../../components/templates/three/NameDialog.astro';
 import { templateTheme } from '../../../../../lib/template-theme';
 import { THEME, fruits, juiceBarDemo as c } from '../../../../../content/juice-bar-demo';
 import { threeDTemplates, threeDGallery } from '../../../../../content/templates';
@@ -72,7 +74,18 @@ const theme = templateTheme('juice-bar-05', THEME);
     <link rel="stylesheet" href={assets + 'styles.css'} />
     <!-- The blocking script observes streamed identity nodes before their first paint.
          Values are assigned only as text. No query data enters requests or storage. -->
-    <script is:inline src="/templates/website/3d/juice-bar-05/identity.js"></script>
+    <script
+      is:inline
+      src="/templates/website/3d/_shared/identity.js"
+      data-sample-name={c.name}
+      data-sample-area={c.area}
+      data-sample-initials={c.monogram}
+      data-template-id={c.id}
+      data-title-suffix="Juice bar website demo by FinTaxTech"
+      data-sample-phone={c.phone.display}
+      data-sample-tel={c.phone.tel}
+      data-sample-intl={c.phone.international}
+      data-loader-key="tumble-cup-loader"></script>
   </head>
   <body>
     <Icons />
@@ -96,12 +109,7 @@ const theme = templateTheme('juice-bar-05', THEME);
       <button class="loader-skip" type="button" data-loader-skip>Skip</button>
     </div>
     <a class="skip" href="#main">Skip to content</a>
-    <aside class="demo-strip" aria-label="Demonstration controls">
-      <a href="/">FinTaxTech ↗</a><span>3D WEBSITE DEMO · 05</span>
-      <a href={threeDGallery.route}>All 3D templates</a>
-      <a href="/contact/" data-agency-link>Discuss this website ↗</a>
-      <button type="button" data-edit>Change business name</button>
-    </aside>
+    <DemoStrip number="05" />
     <header class="bar">
       <a class="brand" href="#menu" data-wipe
         ><svg aria-hidden="true"><use href="#i-cup"></use></svg><span data-business>{c.name}</span
@@ -125,8 +133,7 @@ const theme = templateTheme('juice-bar-05', THEME);
               <span class="pop">{c.hero.title[1]}</span>
             </h1>
             <p class="lead">
-              {c.hero.lead[0]}
-              <span data-area>{c.area}</span>. {c.hero.lead[1]}
+              {c.hero.lead[0]}{' '}<span data-area>{c.area}</span>. {c.hero.lead[1]}
             </p>
             <a class="button big" href="#build" data-order
               >Build your cup <svg aria-hidden="true"><use href="#i-blend"></use></svg></a
@@ -467,25 +474,13 @@ const theme = templateTheme('juice-bar-05', THEME);
         ></path></svg
       >
     </div>
-    <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
-      <button class="close" data-close type="button" aria-label="Close business name dialog"
-        >×</button
-      ><h2 id="name-title">Put your name on the cup</h2><p id="name-description">
-        See your business name across this demo. It stays in this page and its shareable link.
-      </p><form id="name-form" novalidate>
-        <label for="business-name">Business name</label><input
-          id="business-name"
-          maxlength="100"
-          placeholder="e.g. Tayside Juice Co"
-          autocomplete="off"
-          aria-describedby="name-error"
-        /><p id="name-error" class="error" role="status"></p><button class="button" type="submit"
-          >Preview my website</button
-        >
-      </form><button id="restore-name" class="text-link" type="button">Back to Tumble Cup</button>
-    </dialog>
-    <p class="sr-only" id="announcement" role="status"></p>
-    <script is:inline src="/templates/website/3d/juice-bar-05/app.js"></script>
+    <NameDialog
+      title="Put your name on the cup"
+      placeholder="e.g. Tayside Juice Co"
+      restoreLabel="Back to Tumble Cup"
+    />
+    <script is:inline src="/templates/website/3d/_shared/name-dialog.js" data-busy="#build"
+    ></script>
     <script>
       import './_runtime/page';
     </script>

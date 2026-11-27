@@ -250,6 +250,23 @@ export const threeDTemplates: readonly MotionTemplate[] = [
     seoDescription:
       'Explore a personalised 3D juice and smoothie bar website demo with a drink builder and order-ahead ticket. Nothing is ordered or paid.',
   },
+  {
+    id: 'kitchens-13',
+    name: 'Plinth & Plumb',
+    industry: 'Kitchen and bathroom fitters',
+    description:
+      'Stone, slate, oak and one bold cobalt. Walk round a 3D kitchen, restyle it in six looks, design your own and book a design visit.',
+    route: '/templates/website/3d/kitchens-13/',
+    preview: {
+      src: '/templates/website/3d/kitchens-13/preview.webp',
+      alt: 'Plinth & Plumb kitchen fitter demo: “Measured twice. Fitted once.” beside a 3D model kitchen with sage shaker doors and an oak island.',
+      width: 1200,
+      height: 900,
+    },
+    seoTitle: 'Plinth & Plumb — Kitchen and bathroom website demo by FinTaxTech',
+    seoDescription:
+      'Explore a personalised 3D kitchen and bathroom fitter website demo with a live kitchen designer and design visit booking. Nothing is ordered, booked or paid.',
+  },
 ];
 export const allTemplates = [...motionTemplates, ...threeDTemplates];
 

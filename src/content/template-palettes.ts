@@ -239,6 +239,23 @@ export const templatePalettes = {
       '--on-accent-fffdf6': ['accent', '#fffdf6'],
     },
   },
+  'kitchens-13': {
+    brand: '#1c2124',
+    accent: '#2b48d8',
+    paper: '#e7e7e2',
+    dark: false,
+    tones: {
+      '#1c2124': 'brand',
+      '#1c212426': 'brand',
+      '#1c212440': 'brand',
+      '#4b5257': 'brand',
+      '#2b48d8': 'accent',
+    },
+    foregrounds: {
+      '--on-brand-f7f6f2': ['brand', '#f7f6f2'],
+      '--on-accent-ffffff': ['accent', '#ffffff'],
+    },
+  },
   'gym-06': {
     brand: '#2b1f4f',
     accent: '#c8f04b',

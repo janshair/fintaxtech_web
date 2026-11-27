@@ -35,6 +35,7 @@ import { tailoringDemo } from '../src/content/tailoring-demo';
 import { automotiveDemo } from '../src/content/automotive-demo';
 import { cleaningDemo } from '../src/content/cleaning-demo';
 import { juiceBarDemo } from '../src/content/juice-bar-demo';
+import { kitchensDemo } from '../src/content/kitchens-demo';
 import { gymDemo } from '../src/content/gym-demo';
 import { consultantDemo } from '../src/content/consultant-demo';
 import { beautyDemo, treatments } from '../src/content/beauty-demo';
@@ -98,6 +99,11 @@ const contentFiles: Record<string, { file: unknown; extras: string[]; samples: s
     file: { ...weddingDemo, presets, allergenLine },
     extras: ['fairDates'],
     samples: ['badge'],
+  },
+  'kitchens-13': {
+    file: kitchensDemo,
+    extras: ['rooms', 'visits'],
+    samples: ['styles'],
   },
   'plumbing-10': {
     file: plumbingDemo,
@@ -267,6 +273,8 @@ const requiredFacts: Record<string, string> = {
   weddingType: 'picks the supplier preset',
   weddingFairs: 'real fairs or none',
   plumbingGasSafe: 'gas work only when Gas Safe registered',
+  kitchensRooms: 'which rooms they really fit',
+  kitchensVisits: 'how design visits really work',
 };
 describe('every required content group can use the template’s sample', () => {
   it.each(templateIds)('%s', (id) => {

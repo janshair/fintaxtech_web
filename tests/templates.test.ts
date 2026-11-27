@@ -22,8 +22,13 @@ describe('website template registry and discovery', () => {
       expect(template.preview.alt.length).toBeGreaterThan(20);
       expect(template.preview.width).toBeGreaterThan(0);
       expect(template.preview.height).toBeGreaterThan(0);
-      for (const file of ['app.js', 'styles.css'])
+      // 3D demos share their personalisation and name dialog scripts.
+      const shared = template.route.startsWith('/templates/website/3d/');
+      for (const file of shared ? ['styles.css'] : ['app.js', 'styles.css'])
         expect(existsSync(`public${template.route}${file}`)).toBe(true);
+      if (shared)
+        for (const file of ['identity.js', 'name-dialog.js'])
+          expect(existsSync(`public/templates/website/3d/_shared/${file}`)).toBe(true);
       expect(template.route).toMatch(/^\/templates\/website\/(?:motion|3d)\/[^/]+\/$/);
     }
   });
@@ -275,6 +280,53 @@ describe('3D juice bar demonstration content and budgets', () => {
     );
     expect(content).not.toMatch(
       /detox|boost immunity|burn fat|aid recovery|increase energy|superfood|cleanse|guilt.free|allergen.free|healthy/i,
+    );
+  });
+});
+
+describe('3D kitchen and bathroom fitter demonstration', () => {
+  const kitchens = threeDTemplates.find((t) => t.id === 'kitchens-13')!;
+  it('takes the next globally unique number and joins the 3D gallery', () => {
+    const suffixes = allTemplates.map((t) => Number(t.id.split('-').at(-1)));
+    expect(new Set(suffixes).size).toBe(suffixes.length);
+    expect(Math.max(...suffixes)).toBe(13);
+    expect(kitchens.route).toBe('/templates/website/3d/kitchens-13/');
+  });
+  it('ships lightweight posters for every style, the exploded view and the gallery', async () => {
+    const { kitchensDemo } = await import('../src/content/kitchens-demo');
+    const slug = (name: string) =>
+      name
+        .toLowerCase()
+        .replace(/&/g, 'and')
+        .replace(/[^a-z]+/g, '-');
+    const files = [
+      'preview.webp',
+      'layers.webp',
+      ...kitchensDemo.styles.map((s) => `style-${slug(s.name)}.webp`),
+    ];
+    for (const file of files) {
+      expect(statSync(`public${kitchens.route}${file}`).size).toBeGreaterThan(1000);
+      expect(statSync(`public${kitchens.route}${file}`).size).toBeLessThanOrEqual(120_000);
+    }
+  });
+  it('has honest demo content: no prices, claims, reviews or placeholders', async () => {
+    const { kitchensDemo } = await import('../src/content/kitchens-demo');
+    expect(kitchensDemo.styles).toHaveLength(6);
+    expect(kitchensDemo.phone.tel).toBe('01632960123');
+    const page = readFileSync(`src/pages${kitchens.route}index.astro`, 'utf8');
+    for (const anchor of ['hero', 'styles', 'layers', 'design', 'visit'])
+      expect(page).toContain(`data-anchor="${anchor}"`);
+    expect(page).toContain('Demo: nothing is ordered, booked or paid.');
+    expect(page).toContain('Website template by FinTaxTech. Fictional business for demonstration.');
+    expect(page).toContain('name="robots" content="noindex,nofollow"');
+    expect(page).toContain('<DemoStrip number="13" />');
+    // Every order and booking button opens the one designer.
+    expect(page.match(/data-order/g)!.length).toBeGreaterThanOrEqual(3);
+    expect(page).not.toMatch(/data-order[^>]*href="#(?!design)/);
+    const content = page + JSON.stringify(kitchensDemo);
+    expect(content).not.toMatch(/£|\bprice|calorie|kcal|allergen|guarantee|your \w+ here|example/i);
+    expect(content).not.toMatch(
+      /elevate|unleash|seamless|journey|curated|crafted with love|next level/i,
     );
   });
 });
