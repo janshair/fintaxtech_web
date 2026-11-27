@@ -14,11 +14,13 @@ import { assistantCopy } from '../content/project-assistant';
     <a class="brand" href="/"><span class="brand-mark"><Mark /></span>{company.name}</a>
     <nav id="main-navigation" class="main-nav" aria-label={ui.nav}>
       {
-        navigation.map(([href, label]) => (
-          <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>
-            {label}
-          </a>
-        ))
+        navigation
+          .filter(([href]) => href !== '/templates/website/motion/')
+          .map(([href, label]) => (
+            <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>
+              {label}
+            </a>
+          ))
       }
     </nav>
     <button class="button theme-button" id="theme-toggle" aria-label={ui.theme} title={ui.theme}
