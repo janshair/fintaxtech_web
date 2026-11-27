@@ -76,8 +76,8 @@ const contentFiles: Record<string, { file: unknown; extras: string[]; samples: s
   },
   'juice-bar-05': {
     file: juiceBarDemo,
-    extras: ['ordering'],
-    samples: ['menu', 'stages', 'loyalty'],
+    extras: ['ordering', 'menu[].price'],
+    samples: ['menu'],
   },
   'gym-06': {
     file: gymDemo,
@@ -538,14 +538,14 @@ describe('template content details', () => {
   });
   it('juice-bar-05: tones come from the template, and the allergen wording is confirmed', () => {
     const data = content('juice-bar-05');
-    expect(data.menu.map((item: any) => [item.mark, item.tone, item.price])).toEqual([
-      ['01', 'berry', '£5'],
-      ['02', 'orange', '£4.50'],
-      ['03', 'coffee', '£3.20'],
-      ['04', 'green', '£6'],
+    expect(data.menu.map((item: any) => [item.name, item.tone, item.price])).toEqual([
+      ['Berry start', 'berry', '£5'],
+      ['Sunrise', 'mango', '£4.50'],
+      ['Big green', 'green', '£5.20'],
+      ['Purple patch', 'purple', '£6'],
     ]);
     expect(data.allergens).toContain('Ask us about allergens');
-    expect(data.loyalty).toEqual({ offer: 'Every 8th coffee is on us.', note: null });
+    expect(data).not.toHaveProperty('loyalty');
   });
 });
 

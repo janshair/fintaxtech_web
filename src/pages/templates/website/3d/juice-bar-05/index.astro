@@ -1,8 +1,9 @@
 ---
 import GoogleTag from '../../../../../components/GoogleTag.astro';
-import JuicePoster from '../../../../../components/templates/JuicePoster.astro';
+import Icons from './_parts/Icons.astro';
+import FlatCup from './_parts/FlatCup.astro';
 import { templateTheme } from '../../../../../lib/template-theme';
-import { THEME, juiceBarDemo as c } from '../../../../../content/juice-bar-demo';
+import { THEME, fruits, juiceBarDemo as c } from '../../../../../content/juice-bar-demo';
 import { threeDTemplates, threeDGallery } from '../../../../../content/templates';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
@@ -11,20 +12,18 @@ const { title, description } = seoPages[c.route];
 const canonical = absoluteURL(c.route);
 const image = absoluteURL(template.preview.src);
 const assets = c.route;
-const coffeeStages = [
-  ['Start with the beans.', 'A little shower of coffee beans tumbles into an empty cup.'],
-  ['Pour a little warmth.', 'Dark espresso fills the cup, turning a softer latte brown.'],
-  ['Finish with a flourish.', 'A swirl of milk, a little leaf and your name on the cup.'],
-];
 const theme = templateTheme('juice-bar-05', THEME);
 ---
 
 <!doctype html>
-<html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
+<html lang="en-GB" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
+    <!-- Charset and referrer policy come first, so no request (analytics
+         included) can carry the personalised preview URL as its referrer. -->
+    <meta charset="utf-8" /><meta name="referrer" content="no-referrer" />
     <GoogleTag />
-    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
     <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
@@ -56,12 +55,46 @@ const theme = templateTheme('juice-bar-05', THEME);
         structuredData(c.route, title, description, undefined, image),
       ).replace(/</g, '\\u003c')}
     />
-    <link rel="stylesheet" href="/templates/website/3d/juice-bar-05/styles.css" />
+    <link
+      rel="preload"
+      href={assets + 'fonts/bagel-fat-one-400.woff2'}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={assets + 'fonts/figtree-500.woff2'}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href={assets + 'styles.css'} />
     <!-- The blocking script observes streamed identity nodes before their first paint.
          Values are assigned only as text. No query data enters requests or storage. -->
     <script is:inline src="/templates/website/3d/juice-bar-05/identity.js"></script>
   </head>
   <body>
+    <Icons />
+    <div class="loader" data-loader>
+      <svg class="loader-cup" viewBox="0 0 220 300" aria-hidden="true">
+        <defs><clipPath id="loader-clip"><path d="M40 70h140l-16 196H56z"></path></clipPath></defs>
+        <g class="loader-fruit">
+          <use href="#i-strawberry" x="66" y="-60" width="46" height="46"></use>
+          <use href="#i-mango" x="112" y="-60" width="46" height="46"></use>
+          <use href="#i-pineapple" x="88" y="-60" width="46" height="46"></use>
+        </g>
+        <g clip-path="url(#loader-clip)"
+          ><rect class="loader-fill" x="30" y="70" width="160" height="210"></rect><path
+            class="loader-surface"
+            d="M20 0c20-8 40-8 60 0s40 8 60 0 40-8 60 0v20H20z"></path></g
+        >
+        <path class="loader-glass" d="M40 70h140l-16 196H56z"></path>
+        <path class="loader-rim" d="M32 62h156v10H32z"></path>
+      </svg>
+      <p class="loader-word" aria-hidden="true" data-business>{c.name}</p>
+      <button class="loader-skip" type="button" data-loader-skip>Skip</button>
+    </div>
     <a class="skip" href="#main">Skip to content</a>
     <aside class="demo-strip" aria-label="Demonstration controls">
       <a href="/">FinTaxTech ↗</a><span>3D WEBSITE DEMO · 05</span>
@@ -69,416 +102,375 @@ const theme = templateTheme('juice-bar-05', THEME);
       <a href="/contact/" data-agency-link>Discuss this website ↗</a>
       <button type="button" data-edit>Change business name</button>
     </aside>
-    <header class="business-header wrap">
-      <a class="brand" href="#home"
-        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
-          data-business>{c.name}</span
+    <header class="bar">
+      <a class="brand" href="#menu" data-wipe
+        ><svg aria-hidden="true"><use href="#i-cup"></use></svg><span data-business>{c.name}</span
         ></a
       >
-      <nav aria-label="Café navigation">
-        <a href="#menu">The menu</a><a href="#story">Our mix</a><a href="#contact">Find us</a>
+      <nav aria-label="Juice bar">
+        <a href="#menu" data-wipe>Menu</a><a href="#build" data-wipe>Build</a><a
+          href="#collect"
+          data-wipe>Collect</a
+        ><a href="#find">Find us</a>
       </nav>
-      <a class="button small" href="#build" data-order>Order ahead ↗</a>
+      <a class="button small" href="#build" data-order>Order ahead</a>
     </header>
+    <div class="stage" data-stage aria-hidden="true"></div>
     <main id="main">
-      <section class="hero wrap" id="home" data-capture="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">
-            <span class="sun" aria-hidden="true">✳</span> JUICE. COFFEE. GOOD MORNINGS.
-          </p>
-          <p class="location">
-            Your neighbourhood stop · <span data-area-prefix>near</span>{' '}<span data-area
-              >Dundee & Tayside</span
+      <section class="scene" id="menu" data-scene-name="menu" aria-label="Menu">
+        <div class="hero wrap" data-capture="hero">
+          <div class="hero-copy">
+            <h1>
+              <span>{c.hero.title[0]}</span>
+              <span class="pop">{c.hero.title[1]}</span>
+            </h1>
+            <p class="lead">
+              {c.hero.lead[0]}
+              <span data-area>{c.area}</span>. {c.hero.lead[1]}
+            </p>
+            <a class="button big" href="#build" data-order
+              >Build your cup <svg aria-hidden="true"><use href="#i-blend"></use></svg></a
             >
-          </p>
-          <h1>Your morning.<br />Made <em>brighter.</em></h1>
-          <p class="lead">
-            Fresh fruit in your cup. Coffee just how you like it. A little place to pause, before
-            the gym or whatever’s next.
-          </p>
-          <a class="button orange" href="#build" data-order
-            >Build your drink <span aria-hidden="true">↗</span></a
+          </div>
+          <div
+            class="cup-slot hero-slot"
+            data-anchor="hero"
+            tabindex="0"
+            role="img"
+            aria-label="A 3D cup of Mango Marge with a stripy straw. Drag, swipe or use the arrow keys to spin it."
+            data-drag
           >
-          <p class="note">Try our order-ahead demo. Nothing is ordered or paid.</p>
-        </div>
-        <div class="hero-visual">
-          <span class="orbit-label">A LITTLE SUNSHINE, TO GO.</span>
-          <div class="scene-frame hero-scene" data-scene="hero">
-            <JuicePoster
-              src={assets + 'hero.webp'}
-              width="1200"
-              height="1200"
-              alt="An original 3D orange smoothie cup with a green straw, orange slices and a café sleeve."
+            <img
+              class="poster"
+              data-drink-poster
+              src={assets + 'cup-marge.webp'}
+              width="720"
+              height="900"
+              alt=""
               fetchpriority="high"
             />
-          </div>
-          <div class="round-stamp">
-            <span>BLENDED<br />YOUR WAY</span><span aria-hidden="true">↗</span>
-          </div>
-          <p class="scene-caption">
-            <span class="dot"></span><span data-render-status
-              >Original 3D illustration · a taste of your website</span
-            >
-          </p>
-        </div>
-      </section>
-      <div class="ticker" aria-label="Café highlights">
-        <span>Early starts</span><span aria-hidden="true">✳</span><span>Fruit-first favourites</span
-        ><span aria-hidden="true">✳</span><span>Good coffee, too</span><span aria-hidden="true"
-          >✳</span
-        ><span>Your kind of morning</span>
-      </div>
-      <section class="section wrap" id="menu" data-capture="menu" aria-labelledby="menu-title">
-        <header class="section-heading">
-          <div>
-            <p class="eyebrow">01 / FIND YOUR USUAL</p><h2 id="menu-title">
-              Small menu.<br /><em>Bright ideas.</em>
-            </h2>
-          </div><p>
-            A sip, a snack, a familiar face.<br />Example menu — ready for your own
-            favourites.
-          </p>
-        </header>
-        <div class="menu-grid">
-          {
-            c.menu.map((item) => (
-              <article class={'menu-card ' + item.tone}>
-                <>
-                  <div class="menu-mark" aria-hidden="true">
-                    {item.mark}
-                    <span>↗</span>
-                  </div>
-                  <p class="eyebrow">{item.category}</p>
-                  <h3>{item.name}</h3>
-                  <p>{item.ingredients}</p>
-                  <div class="menu-bottom">
-                    <>
-                      <strong data-sample-price>{item.price}</strong>
-                      <span>Menu example</span>
-                    </>
-                  </div>
-                </>
-              </article>
-            ))
-          }
-        </div>
-        <p class="allergens">{c.allergens}</p>
-      </section>
-      <section class="story section" id="story" aria-labelledby="story-title">
-        <div class="wrap">
-          <header class="section-heading">
-            <div>
-              <p class="eyebrow">02 / FROM FRUIT TO FRESH</p><h2 id="story-title">
-                A good mix.<br /><em>Just like you.</em>
-              </h2>
-            </div><p>
-              A little fruit. A little imagination.<br />Scroll to see your morning take shape.
+            <p class="spin" aria-hidden="true">
+              <svg viewBox="0 0 70 54"><use href="#i-arrow"></use></svg>Go on, give it a spin
             </p>
-          </header>
-          <div class="story-track" data-story-track>
-            <div class="story-pin">
-              <div class="scene-frame story-scene" data-scene="story" data-capture="story">
-                <JuicePoster
-                  src={assets + 'stage-1.webp'}
-                  width="1260"
-                  height="980"
-                  alt="Stage one: orange and berry pieces falling towards an empty smoothie cup."
-                />
-                <span class="stage-badge" data-stage-badge>01 / PICK</span>
-              </div>
-              <ol class="story-steps">
+          </div>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"
+          ><path d="M0 46C160 10 300 10 460 40s300 36 470 4 330-32 510 8V90H0z"></path><path
+            class="wave-line"
+            d="M0 46C160 10 300 10 460 40s300 36 470 4 330-32 510 8"></path></svg
+        >
+        <section class="menu" aria-labelledby="menu-title" data-capture="menu">
+          <div class="wrap menu-layout">
+            <div class="menu-copy">
+              <h2 id="menu-title">Six regulars.<br />Say hello.</h2>
+              <p class="intro">
+                Ask for them by first name. Everything’s blended when you order, so nothing’s been
+                sitting about.
+              </p>
+              <ol class="drinks" data-drinks>
                 {
-                  c.stages.map(([heading, text], i) => (
-                    <li data-story-step>
-                      <>
-                        <span>0{i + 1}</span>
-                        <div>
-                          <>
-                            <h3>{heading}</h3>
-                            <p>{text}</p>
-                          </>
-                        </div>
-                      </>
+                  c.menu.map((drink, i) => (
+                    <li style={`--drink:${drink.colour}`}>
+                      <button
+                        type="button"
+                        class="drink"
+                        data-drink={i}
+                        aria-pressed={i === 0 ? 'true' : 'false'}
+                      >
+                        <span class="drink-name">{drink.name}</span>
+                        <span class="drink-what">{drink.ingredients}</span>
+                        <span class="drink-line">{drink.line}</span>
+                      </button>
                     </li>
                   ))
                 }
               </ol>
-              <div class="story-progress" aria-hidden="true"><span></span></div>
+              <p class="allergens">{c.allergens}</p>
             </div>
-          </div>
-          <div class="poster-sequence" aria-label="The three drink-making stages">
-            {
-              c.stages.map(([heading, text], i) => (
-                <figure>
-                  <>
-                    <JuicePoster
-                      src={assets + `stage-${i + 1}.webp`}
-                      width="1260"
-                      height="980"
-                      alt={`Original 3D illustration: ${heading}`}
-                      loading="lazy"
-                    />
-                    <figcaption>
-                      <>
-                        <h3>{heading}</h3>
-                        <p>{text}</p>
-                      </>
-                    </figcaption>
-                  </>
-                </figure>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-      <section class="build section wrap" id="build" aria-labelledby="build-title">
-        <div>
-          <p class="eyebrow">03 / A CUP WITH YOUR NAME ON IT</p><h2 id="build-title">
-            You pick.<br /><em>We’ll mix.</em>
-          </h2><p>
-            Choose your base, fruit and a little extra. Pick an example collection time, then see
-            how ordering ahead could work on your website.
-          </p><a class="button orange" href="#contact" data-order data-capture="build"
-            >Try the drink builder ↗</a
-          ><p class="note">Three simple steps. No details, no payment, no real order.</p>
-        </div>
-        <aside class="loyalty">
-          <p class="eyebrow">A LITTLE THANK YOU · EXAMPLE OFFER</p><h3>
-            Same time<br />tomorrow?
-          </h3><div class="stamps" aria-hidden="true">
-            {
-              Array.from({ length: 10 }, (_, i) => (
-                <span style={`--stamp-delay:${i * 90}ms`}>{i === 9 ? '♡' : '✳'}</span>
-              ))
-            }
-          </div><p>{c.loyalty.offer}</p><small>{c.loyalty.note}</small>
-        </aside>
-      </section>
-      <section class="coffee-section section" id="coffee" aria-labelledby="coffee-title">
-        <div class="wrap">
-          <header class="section-heading">
-            <div>
-              <p class="eyebrow">AND FOR THE COFFEE PEOPLE</p><h2 id="coffee-title">
-                Bean to cup.<br /><em>A little ritual.</em>
-              </h2>
-            </div><p>
-              From the first bean to the last little swirl. Scroll to see your coffee take shape,
-              one detail at a time.
-            </p>
-          </header>
-          <div class="story-track coffee-track" data-coffee-track>
-            <div class="story-pin">
-              <div
-                class="scene-frame story-scene coffee-scene"
-                data-scene="coffee"
-                data-capture="coffee-story"
-              >
-                <JuicePoster
-                  src={assets + 'coffee-stage-1.webp'}
-                  width="1260"
-                  height="980"
-                  alt="Coffee beans falling into an empty cream cup: an original 3D illustration."
+            <div class="menu-cup">
+              <div class="cup-slot" data-anchor="menu">
+                <img
+                  class="poster"
+                  data-drink-poster
+                  src={assets + 'cup-marge.webp'}
+                  width="720"
+                  height="900"
+                  alt="Mango Marge in a cup with a stripy straw."
                   loading="lazy"
                 />
-                <span class="stage-badge" data-stage-badge>01 / BEANS</span>
               </div>
-              <ol class="story-steps">
-                {
-                  coffeeStages.map(([heading, text], i) => (
-                    <li data-story-step>
-                      <>
-                        <span>0{i + 1}</span>
-                        <div>
-                          <>
-                            <h3>{heading}</h3>
-                            <p>{text}</p>
-                          </>
-                        </div>
-                      </>
-                    </li>
-                  ))
-                }
-              </ol>
-              <div class="story-progress" aria-hidden="true"><span></span></div>
+              <p class="now" aria-live="polite">
+                In the cup: <strong data-drink-name>{c.menu[0].name}</strong>
+              </p>
             </div>
           </div>
-          <div class="coffee-posters" aria-label="The three bean-to-cup stages">
-            {
-              coffeeStages.map(([heading, text], i) => (
-                <figure>
-                  <>
-                    <JuicePoster
-                      src={assets + `coffee-stage-${i + 1}.webp`}
-                      width="1260"
-                      height="980"
-                      alt={`Original coffee illustration: ${heading}`}
-                      loading="lazy"
-                    />
-                    <figcaption>
-                      <>
-                        <h3>{heading}</h3>
-                        <p>{text}</p>
-                      </>
-                    </figcaption>
-                  </>
-                </figure>
-              ))
-            }
+        </section>
+        <section class="layers" aria-labelledby="layers-title" data-layers>
+          <div class="layers-pin">
+            <h2 id="layers-title">What’s in the cup</h2>
+            <div class="cup-slot layers-slot" data-anchor="layers">
+              <img
+                class="poster"
+                src={assets + 'cup-layers.webp'}
+                width="720"
+                height="900"
+                alt="A cup pulled apart into four layers: fruit, base, boost and topping."
+                loading="lazy"
+              />
+            </div>
+            <ol class="layer-labels">
+              {
+                c.layers.map(([name, text], i) => (
+                  <li data-layer={i}>
+                    <strong>{name}</strong>
+                    <span>{text}</span>
+                  </li>
+                ))
+              }
+            </ol>
           </div>
-          <p class="note">
-            A playful illustration of your coffee ritual. Your real menu and preparation details go
-            here.
-          </p>
-        </div>
-      </section>
-      <section
-        class="section wrap"
-        id="gallery"
-        data-capture="gallery"
-        aria-labelledby="gallery-title"
-      >
-        <header class="section-heading">
-          <div>
-            <p class="eyebrow">04 / LITTLE MOMENTS, LATELY</p><h2 id="gallery-title">
-              Around<br /><em>our table.</em>
-            </h2>
-          </div><p>
-            Your own photos and Instagram posts go here.<br />These are original illustration
-            placeholders.
-          </p>
-        </header><div class="photo-grid">
-          <figure>
-            <JuicePoster
-              src={assets + 'stage-3.webp'}
-              width="1260"
-              height="980"
-              alt="Illustration placeholder: a bright orange smoothie."
-              loading="lazy"
-            /><figcaption>The morning mix · example</figcaption>
-          </figure><figure>
-            <JuicePoster
-              src={assets + 'coffee.webp'}
-              width="1200"
-              height="975"
-              alt="Illustration placeholder: your daily coffee."
-              loading="lazy"
-            /><figcaption>A moment for coffee · example</figcaption>
-          </figure><figure>
-            <JuicePoster
-              src={assets + 'stage-1.webp'}
-              width="1260"
-              height="980"
-              alt="Illustration placeholder: colourful fruit and a cup."
-              loading="lazy"
-            /><figcaption>Colour on the counter · example</figcaption>
-          </figure>
-        </div><section class="reviews" aria-labelledby="reviews-title">
-          <h3 id="reviews-title">Customer feedback</h3>
-          <p>Your own customer feedback can appear here.</p>
         </section>
       </section>
-      <section
-        class="contact section"
-        id="contact"
-        data-capture="contact"
-        aria-labelledby="contact-title"
-      >
-        <div class="wrap">
-          <header class="section-heading">
-            <div>
-              <p class="eyebrow">05 / SEE YOU BRIGHT & EARLY</p><h2 id="contact-title">
-                Just around<br /><em>the corner.</em>
-              </h2>
-            </div><p>
-              <span data-business>{c.name}</span><br /><span data-area-prefix>Near</span>{' '}<span
-                data-area>Dundee & Tayside</span
-              > · example location near a gym.
+
+      <section class="scene build" id="build" data-scene-name="build" aria-labelledby="build-title">
+        <div class="wrap build-layout" data-capture="build">
+          <div class="build-cup">
+            <div class="cup-slot" data-anchor="build">
+              <FlatCup id="flat-build" />
+            </div>
+            <p class="cup-name" aria-live="polite">
+              <small>Your cup is called</small>
+              <strong data-cup-name>Pick some fruit</strong>
             </p>
-          </header><div class="contact-grid">
-            <div>
-              <h3>Make a little pit stop.</h3><p>
-                Order ahead, collect at the counter. This is a demonstration of click-and-collect;
-                the shop would confirm real availability.
-              </p><a class="button orange" href="#build" data-order>Order ahead · demo ↗</a><div
-                class="contact-actions"
+          </div>
+          <form class="panel" data-builder novalidate>
+            <h2 id="build-title" tabindex="-1">Build your cup</h2>
+            <p class="panel-intro">Tap up to four. We’ll blend it into one colour at the end.</p>
+            <fieldset class="step">
+              <legend>
+                Fruit and veg <span class="count" data-fruit-count>· 0 of 4</span>
+              </legend>
+              <button class="undo" type="button" data-undo aria-disabled="true"
+                ><svg aria-hidden="true"><use href="#i-undo"></use></svg>Undo</button
               >
-                <a href="#contact" data-call>Call <span data-phone>Your number here</span></a><a
-                  href="#contact"
-                  data-whatsapp>WhatsApp <span data-phone>Your number here</span></a
-                >
-              </div>
-            </div><div>
-              <h3>Up before the rush.</h3><p class="note">Example opening hours</p><dl>
+              <div class="fruits">
                 {
-                  c.hours.map(([day, hours]) => (
-                    <div>
-                      <>
-                        <dt>{day}</dt>
-                        <dd>{hours}</dd>
-                      </>
-                    </div>
+                  fruits.map((fruit) => (
+                    <button
+                      type="button"
+                      class="fruit"
+                      data-fruit={fruit.id}
+                      aria-label={`Add ${fruit.label.toLowerCase()}`}
+                    >
+                      <svg aria-hidden="true">
+                        <use href={`#i-${fruit.id}`} />
+                      </svg>
+                      <span aria-hidden="true">{fruit.label}</span>
+                      <b class="badge" aria-hidden="true" />
+                    </button>
                   ))
                 }
-              </dl><p class="note">
-                Already on Deliveroo, Uber Eats or Just Eat? We’ll link your menu.
-              </p>
-            </div><div class="map-card" id="map">
-              <div class="map-art" aria-hidden="true"><span>✳</span></div><div>
-                <p class="eyebrow">YOUR PATCH OF THE MAP</p><h3 data-map-area>
-                  Your address here
-                </h3><p class="note">Map placeholder · no live location</p><a
-                  href="#map"
-                  class="text-link"
-                  data-directions>Directions preview ↗</a
-                >
               </div>
+            </fieldset>
+            <fieldset class="step">
+              <legend>Base</legend>
+              <div class="choices">
+                {
+                  c.bases.map((base, i) => (
+                    <label>
+                      <input type="radio" name="base" value={base} checked={i === 0} />
+                      <span>{base}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="step">
+              <legend>One boost <span class="count">· flavour, not magic</span></legend>
+              <div class="choices">
+                {
+                  c.boosts.map((boost, i) => (
+                    <label>
+                      <input type="radio" name="boost" value={boost} checked={i === 0} />
+                      <span>{boost}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <div class="go">
+              <button class="button" type="submit" data-blend disabled
+                >Blend it <svg aria-hidden="true"><use href="#i-blend"></use></svg></button
+              >
+              <a class="button ghost" href="#collect" data-to-collect data-wipe hidden
+                >Pick a collection time <svg aria-hidden="true"><use href="#i-next"></use></svg></a
+              >
+              <p class="small">Demo: nothing is ordered or paid.</p>
             </div>
+            <p class="sr-only" data-builder-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section
+        class="scene collect"
+        id="collect"
+        data-scene-name="collect"
+        aria-labelledby="collect-title"
+      >
+        <div class="wrap collect-layout" data-capture="collect">
+          <div class="collect-cup">
+            <div class="cup-slot" data-anchor="collect">
+              <FlatCup id="flat-collect" lid />
+            </div>
+          </div>
+          <div class="collect-copy">
+            <h2 id="collect-title" tabindex="-1">Pick it up</h2>
+            <p class="lead" data-collect-intro>
+              Choose a time and skip the queue. We’ll have it on the counter with your name on it.
+            </p>
+            <form class="times" data-times novalidate>
+              <fieldset>
+                <legend>Collection time</legend>
+                <div class="choices">
+                  {
+                    c.times.map((time, i) => (
+                      <label>
+                        <input type="radio" name="time" value={time} checked={i === 0} />
+                        <span>{time}</span>
+                      </label>
+                    ))
+                  }
+                </div>
+              </fieldset>
+              <button class="button" type="submit"
+                >Get my ticket <svg aria-hidden="true"><use href="#i-next"></use></svg></button
+              >
+            </form>
+            <article class="ticket" data-ticket hidden aria-labelledby="ticket-title" tabindex="-1">
+              <header>
+                <span data-business>{c.name}</span>
+                <span data-ticket-number>No. 042</span>
+              </header>
+              <h3 id="ticket-title" data-ticket-drink>Your cup</h3>
+              <dl>
+                <div><dt>In it</dt><dd data-ticket-fruit>Mango</dd></div>
+                <div><dt>Base</dt><dd data-ticket-base>Apple juice</dd></div>
+                <div><dt>Boost</dt><dd data-ticket-boost>Fresh mint</dd></div>
+                <div><dt>Collect</dt><dd data-ticket-time>In 10 minutes</dd></div>
+              </dl>
+              <p class="ticket-demo"><strong>Demo: nothing is ordered or paid.</strong></p>
+              <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true"
+                ><use href="#i-stamp"></use></svg
+              >
+            </article>
+            <p class="ticket-actions" data-ticket-actions hidden>
+              <a class="text-link" href="#build" data-order>Build another cup</a>
+            </p>
           </div>
         </div>
       </section>
-      <section class="agency-offer">
+
+      <section class="find" id="find" aria-labelledby="find-title" data-capture="contact">
+        <div class="wrap find-layout">
+          <div class="find-copy">
+            <h2 id="find-title">Come and find us</h2>
+            <p class="lead">
+              <span data-business>{c.name}</span>, {c.address[0]}, <span data-area>{c.area}</span>.{
+                ' '
+              }{c.address[1]}.
+            </p>
+            <div class="call">
+              <a class="button" href={'tel:' + c.phone.tel} data-call
+                ><svg aria-hidden="true"><use href="#i-phone"></use></svg>Call <span data-phone
+                  >{c.phone.display}</span
+                ></a
+              ><a
+                class="button ghost"
+                href={'https://wa.me/' + c.phone.international}
+                data-whatsapp
+                rel="noopener"
+                ><svg aria-hidden="true"><use href="#i-chat"></use></svg>WhatsApp us</a
+              >
+            </div>
+            <h3>Opening hours</h3>
+            <dl class="hours">
+              {
+                c.hours.map(([day, hours]) => (
+                  <div>
+                    <dt>{day}</dt>
+                    <dd>{hours}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+          <figure class="map">
+            <svg viewBox="0 0 560 420" role="img" aria-labelledby="map-title">
+              <title id="map-title">
+                Hand-drawn street map with a pin on Market Arcade, two doors down from the bakery.
+              </title>
+              <use href="#i-map"></use>
+            </svg>
+            <figcaption>
+              <strong>Market Arcade</strong>
+              <span>Look for the yellow door.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="agency" aria-labelledby="agency-title">
         <div class="wrap">
-          <p class="eyebrow">DAYBREAK BLEND / JUICE-BAR-05 · BY FINTAXTECH</p><h2>
-            Picture your business here?<br /><em>We’ll make it yours.</em>
-          </h2><p>Your name. Your menu. A website worth sharing.</p><a
-            class="button orange"
-            href="/contact/"
-            data-agency-link>Talk to FinTaxTech ↗</a
-          >
+          <p class="agency-kicker">Tumble Cup · juice-bar-05 · by FinTaxTech</p>
+          <h2 id="agency-title">Want this for <span data-business>{c.name}</span>?</h2>
+          <p>Your name, your drinks and your hours, in a website people actually play with.</p>
+          <div class="agency-actions">
+            <a
+              class="button"
+              href="/client/website-brief/templates/?template=juice-bar-05"
+              data-brief-link>Talk to FinTaxTech</a
+            ><a class="text-link" href="/contact/" data-agency-link>Ask a question first</a>
+          </div>
         </div>
       </section>
       <noscript
-        ><p class="wrap">
-          This demonstration is complete with static illustrations. Enable JavaScript to apply your
-          link’s business name and try the order demo. <a href="/contact/"
-            >Discuss your website with FinTaxTech.</a
+        ><p class="wrap noscript">
+          The drink builder needs JavaScript. Everything else on this page works without it. <a
+            href="/contact/">Discuss your website with FinTaxTech.</a
           >
         </p></noscript
       >
     </main>
-    <footer class="wrap site-footer">
-      <a class="brand" href="#home"
-        ><span class="monogram" data-monogram aria-hidden="true">{c.monogram}</span><span
-          data-business>{c.name}</span
-        ></a
-      ><p>
-        A fictional business demonstration by FinTaxTech.<br />Example menu, hours and offer. No
-        real orders or payments.
-      </p><a href={threeDGallery.route}>Browse 3D templates ↗</a>
+    <footer class="footer" data-footer>
+      <div class="splash" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none"
+          ><path d="M0 64C200 34 360 34 520 60s340 30 520 0 300-30 400-6V120H0z"></path><path
+            class="splash-line"
+            d="M0 64C200 34 360 34 520 60s340 30 520 0 300-30 400-6"></path></svg
+        >
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="wrap footer-inner">
+        <a class="brand" href="#menu"
+          ><svg aria-hidden="true"><use href="#i-cup"></use></svg><span data-business>{c.name}</span
+          ></a
+        >
+        <p>Website template by FinTaxTech. Fictional business for demonstration.</p>
+        <a href={threeDGallery.route}>Browse 3D templates ↗</a>
+      </div>
     </footer>
-    <nav class="mobile-contact" aria-label="Café actions">
-      <a href="#build" data-order>Order ahead · demo ↗</a><a href="#map" data-directions
-        >Directions ↗</a
+    <div class="wipe" data-wipe-layer aria-hidden="true">
+      <svg viewBox="0 0 100 120" preserveAspectRatio="none"
+        ><path d="M0 12C15 0 30 0 50 10s35 10 50 0V108C85 120 70 120 50 110S15 100 0 108z"
+        ></path></svg
       >
-    </nav>
+    </div>
     <dialog id="name-dialog" aria-labelledby="name-title" aria-describedby="name-description">
       <button class="close" data-close type="button" aria-label="Close business name dialog"
         >×</button
-      ><p class="eyebrow">YOUR NAME. YOUR MORNING.</p><h2 id="name-title">
-        Picture your<br /><em>business here.</em>
-      </h2><p id="name-description">
-        See your name across this café demonstration. It stays only in this page and its shareable
-        URL.
+      ><h2 id="name-title">Put your name on the cup</h2><p id="name-description">
+        See your business name across this demo. It stays in this page and its shareable link.
       </p><form id="name-form" novalidate>
         <label for="business-name">Business name</label><input
           id="business-name"
@@ -486,103 +478,15 @@ const theme = templateTheme('juice-bar-05', THEME);
           placeholder="e.g. Tayside Juice Co"
           autocomplete="off"
           aria-describedby="name-error"
-        /><p id="name-error" class="error" role="status"></p><button
-          class="button orange"
-          type="submit">Preview my website ↗</button
+        /><p id="name-error" class="error" role="status"></p><button class="button" type="submit"
+          >Preview my website</button
         >
-      </form><button id="restore-name" class="text-link" type="button"
-        >Explore the sample / restore default</button
-      >
-    </dialog>
-    <dialog id="order-dialog" aria-labelledby="order-title" aria-describedby="order-description">
-      <button class="close" data-close type="button" aria-label="Close order demo">×</button><p
-        class="eyebrow"
-      >
-        BUILD YOUR DRINK · DEMO ONLY
-      </p><h2 id="order-title">Your cup.<br /><em>Your call.</em></h2><p id="order-description">
-        A sample order for <span data-business>{c.name}</span>. Nothing is sent.
-      </p><ol class="order-progress" aria-label="Order steps">
-        <li data-order-indicator>1. Drink</li><li data-order-indicator>2. Mix</li><li
-          data-order-indicator
-        >
-          3. Preview
-        </li>
-      </ol><div class="order-preview">
-        <div class="scene-frame builder-scene" data-scene="builder">
-          <JuicePoster
-            src={assets + 'hero.webp'}
-            width="1200"
-            height="1200"
-            alt="Sample cup illustration for the drink builder."
-          /><span class="colour-swatch" aria-hidden="true"></span>
-        </div><p class="note" data-drink-description role="status">
-          Orange smoothie · orange & banana
-        </p>
-      </div><form id="type-form">
-        <h3 tabindex="-1">01 / Choose your drink</h3><label for="drink-type">Drink type</label
-        ><select id="drink-type"
-          ><option value="smoothie">Smoothie</option><option value="juice">Juice</option><option
-            value="shake">Protein shake</option
-          ><option value="coffee">Iced coffee</option></select
-        ><button class="button orange" type="submit">Next: your mix →</button>
-      </form><form id="mix-form" hidden novalidate>
-        <h3 tabindex="-1">02 / Make your mix</h3><label for="drink-base">Base</label><select
-          id="drink-base"
-          ><option>Oat drink</option><option>Apple juice</option><option>Milk</option><option
-            >Water</option
-          ></select
-        ><label for="drink-fruit">Fruit / veg</label><select id="drink-fruit"
-          ><option value="orange">Orange & banana</option><option value="berry"
-            >Strawberry & banana</option
-          ><option value="green">Apple & spinach</option></select
-        ><label for="drink-addon">A little extra</label><select id="drink-addon"
-          ><option>Ginger</option><option>Oats</option><option>Whey protein</option><option
-            >No add-on</option
-          ></select
-        ><label for="collection-time">Example collection time</label><select id="collection-time"
-          ><option>Today, 08:15 (example)</option><option>Today, 09:00 (example)</option><option
-            >Today, 12:30 (example)</option
-          ></select
-        ><p class="note">
-          Ingredient combinations are illustrative. Ask about allergens before a real order.
-        </p><p id="order-error" class="error" role="status"></p><button
-          class="button orange"
-          type="submit">See order preview →</button
-        ><button class="text-link" type="button" data-restart>Back to drinks</button>
-      </form><div id="order-final" hidden>
-        <h3 tabindex="-1">03 / A brighter morning, pictured.</h3><p id="order-summary"></p><p>
-          This is where your customers would order ahead on your finished website. <strong
-            >Demo only — nothing is ordered or paid.</strong
-          >
-        </p><a
-          class="button orange"
-          href="/client/website-brief/templates/?template=juice-bar-05"
-          data-brief-link
-          ><span>Want this for <span data-business>{c.name}</span>? Talk to FinTaxTech</span></a
-        ><a class="text-link brief-contact" href="/contact/" data-agency-link
-          >Or ask FinTaxTech a question first</a
-        ><button class="text-link" type="button" data-restart>Try another drink</button>
-      </div>
-    </dialog>
-    <dialog id="directions-dialog" aria-labelledby="directions-title">
-      <button class="close" data-close type="button" aria-label="Close directions preview">×</button
-      ><p class="eyebrow">MAP PLACEHOLDER</p><h2 id="directions-title">
-        Find your<br /><em>front door.</em>
-      </h2><p>
-        Directions to <span data-business>{c.name}</span>, <span data-area-prefix>near</span>{
-          ' '
-        }<span data-area>Dundee & Tayside</span>, would open your real address on the finished
-        website.
-      </p><p>No real café address is supplied in this demonstration.</p><a
-        class="button orange"
-        href="/contact/"
-        data-agency-link>Discuss your website ↗</a
-      >
+      </form><button id="restore-name" class="text-link" type="button">Back to Tumble Cup</button>
     </dialog>
     <p class="sr-only" id="announcement" role="status"></p>
     <script is:inline src="/templates/website/3d/juice-bar-05/app.js"></script>
     <script>
-      import './_runtime/controller';
+      import './_runtime/page';
     </script>
   </body>
 </html>

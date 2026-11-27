@@ -231,41 +231,50 @@ describe('beauty salon demonstration content', () => {
   });
 });
 
-describe('3D café demonstration content and budgets', () => {
+describe('3D juice bar demonstration content and budgets', () => {
   const route = threeDTemplates[0].route;
   it('reserves the next globally unique suffix', () => {
     expect(threeDTemplates[0].id).toBe('juice-bar-05');
     const suffixes = allTemplates.map((t) => Number(t.id.split('-').at(-1)));
     expect(new Set(suffixes).size).toBe(suffixes.length);
   });
-  it('ships actual lightweight posters for every stage and coffee', () => {
-    for (const file of [
-      'hero.webp',
-      'stage-1.webp',
-      'stage-2.webp',
-      'stage-3.webp',
-      'coffee.webp',
-    ]) {
+  it('ships lightweight static posters for every drink and the layers moment', async () => {
+    const { juiceBarDemo } = await import('../src/content/juice-bar-demo');
+    const files = [
+      'preview.webp',
+      'cup-layers.webp',
+      ...juiceBarDemo.menu.map((d) => `cup-${d.name.split(' ').at(-1)!.toLowerCase()}.webp`),
+    ];
+    for (const file of files) {
       expect(statSync(`public${route}${file}`).size).toBeGreaterThan(1000);
       expect(statSync(`public${route}${file}`).size).toBeLessThanOrEqual(120_000);
     }
   });
-  it('provides promotion hooks, a menu and honest placeholders', async () => {
+  it('has honest demo content: no prices, claims, reviews or placeholders', async () => {
     const { juiceBarDemo } = await import('../src/content/juice-bar-demo');
-    expect(juiceBarDemo.menu).toHaveLength(5);
+    expect(juiceBarDemo.menu).toHaveLength(6);
+    expect(juiceBarDemo.phone.tel).toBe('01632960123');
     const page = readFileSync(`src/pages${route}index.astro`, 'utf8');
-    for (const hook of ['hero', 'menu', 'build', 'story', 'gallery', 'contact'])
+    for (const hook of ['hero', 'menu', 'build', 'collect', 'contact'])
       expect(page).toContain(`data-capture="${hook}"`);
-    expect(page).toContain('data-sample-price');
-    // The allergen line and loyalty offer live in the content file the page renders from.
+    for (const anchor of ['hero', 'menu', 'layers', 'build', 'collect'])
+      expect(page).toContain(`data-anchor="${anchor}"`);
     expect(page).toContain('{c.allergens}');
-    expect(juiceBarDemo.allergens).toContain('Ask us about allergens');
-    expect(page).toContain('Customer feedback');
-    expect(page).toContain('Your own customer feedback can appear here.');
-    expect(page).toContain('nothing is ordered or paid');
+    expect(page).toContain('Demo: nothing is ordered or paid.');
+    expect(page).toContain('Website template by FinTaxTech. Fictional business for demonstration.');
+    expect(page).toContain('name="robots" content="noindex,nofollow"');
+    // Every order button opens the one builder.
+    expect(page.match(/data-order/g)!.length).toBeGreaterThanOrEqual(3);
+    expect(page).not.toMatch(/data-order[^>]*href="#(?!build)/);
     const content = page + JSON.stringify(juiceBarDemo);
     expect(content).not.toMatch(
-      /detox|boost immunity|burn fat|aid recovery|increase energy|superfood|cleanse|guilt.free|allergen.free/i,
+      /£|\bprice|calorie|kcal|guarantee|customer feedback|your \w+ here|example/i,
+    );
+    expect(content).not.toMatch(
+      /elevate|unleash|seamless|journey|curated|made brighter|crafted with love/i,
+    );
+    expect(content).not.toMatch(
+      /detox|boost immunity|burn fat|aid recovery|increase energy|superfood|cleanse|guilt.free|allergen.free|healthy/i,
     );
   });
 });
