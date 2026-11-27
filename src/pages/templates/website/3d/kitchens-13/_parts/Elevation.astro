@@ -1,0 +1,149 @@
+---
+// A flat front elevation of the design, like a fitter's drawing. Shown when
+// WebGL is unavailable or motion is reduced, and kept in step with the
+// builder by _runtime/page.ts through data attributes and CSS variables.
+interface Props {
+  id: string;
+  label: string;
+}
+const { id, label } = Astro.props;
+const floorY = 330;
+const baseDoors = [40, 100, 160, 220, 280].map((x) => ({ x, y: 242, w: 59, h: 78 }));
+const tallDoors = [
+  { x: 341, y: 230, w: 58, h: 90 },
+  { x: 341, y: 128, w: 58, h: 45 },
+  { x: 341, y: 82, w: 58, h: 44 },
+];
+const wallDoors = [40, 100].map((x) => ({ x, y: 102, w: 59, h: 65 }));
+const vanityDoors = [35, 110].map((x) => ({ x, y: 239, w: 74, h: 58 }));
+---
+
+<svg
+  class="elevation"
+  viewBox="0 0 480 360"
+  role="img"
+  aria-label={label}
+  data-elevation
+  data-room="kitchen"
+  data-handle="cup"
+  data-door-style="shaker"
+  data-layout="shower"
+  style={`--door:#8fa58c;--top:url(#oak-${id});--tap:#c9a45c;--tiles:url(#tiles-stone-${id})`}
+>
+  <defs>
+    <pattern id={'oak-' + id} width="40" height="8" patternUnits="userSpaceOnUse"
+      ><rect width="40" height="8" fill="#b98a5c"></rect><path
+        d="M0 3c10-2 20 2 40 0M0 6c14 1 24-2 40 0"
+        stroke="#8a6440"
+        stroke-width="0.8"
+        fill="none"></path></pattern
+    >
+    <pattern id={'terrazzo-' + id} width="18" height="10" patternUnits="userSpaceOnUse"
+      ><rect width="18" height="10" fill="#efe9e1"></rect><circle
+        cx="3"
+        cy="3"
+        r="1.2"
+        fill="#d9826b"></circle><circle cx="11" cy="6" r="1" fill="#2b48d8"></circle><circle
+        cx="15"
+        cy="2"
+        r="1"
+        fill="#8fa58c"></circle></pattern
+    >
+    <pattern id={'tiles-stone-' + id} width="24" height="24" patternUnits="userSpaceOnUse"
+      ><rect width="24" height="24" fill="#e9ebe8"></rect><path
+        d="M24 0V24H0"
+        fill="none"
+        stroke="#1c212433"></path></pattern
+    >
+    <pattern id={'tiles-metro-' + id} width="24" height="12" patternUnits="userSpaceOnUse"
+      ><rect width="24" height="12" fill="#f6f5f1"></rect><path
+        d="M0 6h24M0 12h24M12 0v6M0 6v6M24 6v6"
+        fill="none"
+        stroke="#1c212433"></path></pattern
+    >
+    <pattern id={'tiles-sage-' + id} width="16" height="16" patternUnits="userSpaceOnUse"
+      ><rect width="16" height="16" fill="#9fb79c"></rect><rect width="8" height="8" fill="#93ad90"
+      ></rect><rect x="8" y="8" width="8" height="8" fill="#a9c0a6"></rect><path
+        d="M16 0V16H0"
+        fill="none"
+        stroke="#f5f5ee"></path></pattern
+    >
+  </defs>
+  <rect class="el-wall" x="10" y="20" width="460" height={floorY - 20}></rect>
+  <g class="el-kitchen">
+    {
+      wallDoors.map((d) => (
+        <g class="el-door">
+          <rect x={d.x} y={d.y} width={d.w} height={d.h} />
+          <rect class="el-panel" x={d.x + 7} y={d.y + 7} width={d.w - 14} height={d.h - 14} />
+          <g class="el-handles" transform={`translate(${d.x + d.w / 2} ${d.y + d.h - 9})`}>
+            <path class="h-bar" d="M-12 0h24" />
+            <path class="h-cup" d="M-5 -2a5 5 0 0010 0z" />
+            <circle class="h-knob" r="2.6" />
+          </g>
+        </g>
+      ))
+    }
+    <rect class="el-shelf" x="168" y="150" width="112" height="5"></rect>
+    <rect class="el-jar" x="178" y="134" width="10" height="16" fill="#d9826b"></rect>
+    <rect class="el-jar" x="194" y="134" width="10" height="16" fill="#f7f6f2"></rect>
+    <rect class="el-jar" x="232" y="134" width="10" height="16" fill="#8fa58c"></rect>
+    <rect class="el-top" x="38" y="236" width="303" height="6"></rect>
+    <path class="el-tap" d="M95 236v-26h12v6"></path>
+    <rect class="el-hob" x="166" y="233" width="52" height="3"></rect>
+    {
+      [...baseDoors, ...tallDoors].map((d) => (
+        <g class="el-door">
+          <rect x={d.x} y={d.y} width={d.w} height={d.h} />
+          <rect class="el-panel" x={d.x + 7} y={d.y + 7} width={d.w - 14} height={d.h - 14} />
+          <g class="el-handles" transform={`translate(${d.x + d.w / 2} ${d.y + 9})`}>
+            <path class="h-bar" d="M-12 0h24" />
+            <path class="h-cup" d="M-5 -2a5 5 0 0010 0z" />
+            <circle class="h-knob" r="2.6" />
+          </g>
+        </g>
+      ))
+    }
+    <rect class="el-oven" x="347" y="176" width="46" height="46"></rect>
+    <rect class="el-plinth" x="40" y="320" width="300" height="10"></rect>
+    <rect class="el-plinth" x="341" y="320" width="58" height="10"></rect>
+  </g>
+  <g class="el-bathroom">
+    <rect class="el-tiles" x="20" y="205" width="245" height={floorY - 205}></rect>
+    <rect class="el-tiles" x="265" y="110" width="185" height={floorY - 110}></rect>
+    <circle class="el-mirror" cx="110" cy="158" r="36"></circle>
+    {
+      vanityDoors.map((d) => (
+        <g class="el-door">
+          <rect x={d.x} y={d.y} width={d.w} height={d.h} />
+          <rect class="el-panel" x={d.x + 6} y={d.y + 6} width={d.w - 12} height={d.h - 12} />
+          <g class="el-handles" transform={`translate(${d.x + d.w / 2} ${d.y + 8})`}>
+            <path class="h-bar" d="M-10 0h20" />
+            <path class="h-cup" d="M-5 -2a5 5 0 0010 0z" />
+            <circle class="h-knob" r="2.4" />
+          </g>
+        </g>
+      ))
+    }
+    <rect class="el-top" x="33" y="234" width="154" height="5"></rect>
+    <path class="el-bowl" d="M88 234a22 12 0 0044 0z"></path>
+    <path class="el-tap" d="M110 222v-16h10v5"></path>
+    <g class="el-radiator">
+      <path d="M201 185v120M249 185v120"></path>
+      {Array.from({ length: 8 }, (_, i) => <path d={`M201 ${298 - i * 15}h48`} />)}
+    </g>
+    <rect class="el-towel" x="207" y="200" width="36" height="42"></rect>
+    <path class="el-toilet" d="M20 250h14v40h22a12 12 0 0112 12v4H48l-6 24H34v-40H20z"></path>
+    <g class="el-shower">
+      <rect class="el-tray" x="320" y="325" width="130" height="5"></rect>
+      <path class="el-screen" d="M316 325V140"></path>
+      <path class="el-tap" d="M380 105v10M362 117h36M374 215h12"></path>
+    </g>
+    <g class="el-bath">
+      <rect class="el-tub" x="275" y="275" width="170" height="55" rx="6"></rect>
+      <rect class="el-glass" x="370" y="135" width="70" height="140"></rect>
+      <path class="el-tap" d="M415 105v10M397 117h36M420 255h14"></path>
+    </g>
+  </g>
+  <path class="el-floor" d={`M0 ${floorY}h480`}></path>
+</svg>

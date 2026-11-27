@@ -3,9 +3,15 @@
 import { stage } from './controller';
 import { fruits, juiceBarDemo as c } from '../../../../../../content/juice-bar-demo';
 import type { Band } from './scene';
+import {
+  bindSceneLinks,
+  reducedMotion,
+  root,
+  runLoader,
+  toggleInView,
+  watchNav,
+} from '../../../../../../lib/three-template/runtime';
 
-const root = document.documentElement;
-const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const $ = <T extends Element = HTMLElement>(selector: string) =>
   document.querySelector<T>(selector)!;
 const $$ = <T extends Element = HTMLElement>(selector: string) => [
@@ -17,18 +23,7 @@ const say = (text: string) => {
   requestAnimationFrame(() => (status.textContent = text));
 };
 
-// Loader: at most 1.5 s from navigation, skippable, once per session.
-const loader = $('[data-loader]');
-function endLoader() {
-  if (loader.classList.contains('is-done')) return;
-  loader.classList.add('is-done');
-  setTimeout(() => (root.dataset.loader = 'done'), 450);
-}
-if (root.dataset.loader === 'on') {
-  setTimeout(endLoader, Math.max(0, 1500 - performance.now()));
-  $('[data-loader-skip]').addEventListener('click', endLoader);
-  addEventListener('keydown', (event) => event.key === 'Escape' && endLoader(), { once: true });
-}
+runLoader(1500);
 
 // Colour maths in linear light, so mixes look like paint rather than mud.
 const toLinear = (hex: string) =>
@@ -290,59 +285,14 @@ $<HTMLFormElement>('[data-times]').addEventListener('submit', (event) => {
   ticket.focus();
 });
 
-// Juice wave between MENU, BUILD and COLLECT.
-const wipe = $('[data-wipe-layer]');
-const focusTarget: Record<string, string> = {
-  build: '#build-title',
-  collect: '#collect-title',
-};
-function go(id: string) {
-  const section = document.getElementById(id);
-  if (!section) return;
-  const jump = () => {
-    section.scrollIntoView({ block: 'start' });
-    const url = new URL(location.href);
-    url.hash = id;
-    history.replaceState(history.state, '', url);
-    if (focusTarget[id]) $(focusTarget[id]).focus({ preventScroll: true });
-  };
-  if (reduced.matches || wipe.classList.length > 1) return jump();
-  wipe.classList.add('is-covering');
-  setTimeout(() => {
-    jump();
-    wipe.classList.replace('is-covering', 'is-leaving');
-    setTimeout(() => wipe.classList.remove('is-leaving'), 460);
-  }, 380);
-}
-document.addEventListener('click', (event) => {
-  const link = (event.target as Element).closest<HTMLAnchorElement>('a[data-wipe], a[data-order]');
-  if (!link || event.defaultPrevented || event.metaKey || event.ctrlKey) return;
-  const id = link.hash.slice(1);
-  if (!['menu', 'build', 'collect'].includes(id)) return;
-  event.preventDefault();
-  go(id);
+// Juice wave between MENU, BUILD and COLLECT; nav state and the footer splash.
+bindSceneLinks({
+  layer: $('[data-wipe-layer]'),
+  scenes: ['menu', 'build', 'collect'],
+  focus: { build: '#build-title', collect: '#collect-title' },
 });
-
-// Navigation state and the footer splash.
-const navLinks = $$<HTMLAnchorElement>('.bar nav a');
-const sectionWatcher = new IntersectionObserver(
-  (entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      navLinks.forEach((link) => {
-        if (link.hash === '#' + entry.target.id) link.setAttribute('aria-current', 'true');
-        else link.removeAttribute('aria-current');
-      });
-    }
-  },
-  { rootMargin: '-50% 0px -50% 0px' },
-);
-for (const id of ['menu', 'build', 'collect', 'find'])
-  sectionWatcher.observe(document.getElementById(id)!);
-const footer = $('[data-footer]');
-new IntersectionObserver(([entry]) => footer.classList.toggle('is-in', entry.isIntersecting), {
-  threshold: 0.4,
-}).observe(footer);
+watchNav($$<HTMLAnchorElement>('.bar nav a'), ['menu', 'build', 'collect', 'find']);
+toggleInView($('[data-footer]'));
 
 selectDrink(0);
 refresh();

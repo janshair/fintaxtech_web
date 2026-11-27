@@ -1,17 +1,26 @@
+// Shared personalisation for 3D template demos. Configure it on the script tag
+// with data-sample-* attributes, data-template-id, data-title-suffix and
+// data-loader-key. (Never reuse the hooks this script fills in, such as
+// data-area or data-phone, on the script tag itself.)
 (() => {
   'use strict';
+  const config = document.currentScript.dataset;
   const root = document.documentElement;
   root.dataset.js = 'true';
-  const sample = 'Tumble Cup';
-  const sampleArea = 'Dundee';
-  // Ofcom drama-range number: safe to show, never connects to anyone.
-  const samplePhone = { display: '01632 960123', tel: '01632960123', international: '441632960123' };
+  const sample = config.sampleName;
+  const sampleArea = config.sampleArea;
+  // Ofcom drama-range numbers are safe to show and never connect to anyone.
+  const samplePhone = {
+    display: config.samplePhone,
+    tel: config.sampleTel,
+    international: config.sampleIntl,
+  };
   // The loader plays once per browser session and never under reduced motion.
   try {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduced && !sessionStorage.getItem('tumble-cup-loader')) {
+    if (config.loaderKey && !reduced && !sessionStorage.getItem(config.loaderKey)) {
       root.dataset.loader = 'on';
-      sessionStorage.setItem('tumble-cup-loader', '1');
+      sessionStorage.setItem(config.loaderKey, '1');
     }
   } catch {
     /* Storage blocked: skip the loader rather than replay it on every page. */
@@ -24,7 +33,7 @@
     (name.match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) || [])
       .slice(0, 2)
       .map((word) => Array.from(word.toUpperCase())[0])
-      .join('') || 'TC';
+      .join('') || config.sampleInitials;
   function read() {
     const q = new URL(location.href).searchParams;
     const raw = (q.get('phone') || '').trim();
@@ -58,11 +67,15 @@
     put('[data-monogram]', initials(name));
     put('[data-area]', v.area || sampleArea);
     put('[data-phone]', v.phone || samplePhone.display);
-    const title = name + ' — Juice bar website demo by FinTaxTech';
+    const title = name + ' — ' + config.titleSuffix;
     if (document.title !== title) document.title = title;
-    attr('[data-agency-link]', 'href', '/contact/' + (v.ref ? '?ref=' + encodeURIComponent(v.ref) : ''));
+    attr(
+      '[data-agency-link]',
+      'href',
+      '/contact/' + (v.ref ? '?ref=' + encodeURIComponent(v.ref) : ''),
+    );
     // The final offer opens the template brief with this preview's values.
-    const brief = new URLSearchParams({ template: 'juice-bar-05' });
+    const brief = new URLSearchParams({ template: config.templateId });
     for (const key of ['name', 'area', 'phone', 'ref']) if (v[key]) brief.set(key, v[key]);
     attr('[data-brief-link]', 'href', '/client/website-brief/templates/?' + brief);
     attr('[data-call]', 'href', 'tel:' + (v.international || samplePhone.tel));
@@ -76,7 +89,7 @@
   // Text nodes only: URL values never become markup, assets, telemetry or storage.
   const observer = new MutationObserver(hydrate);
   observer.observe(root, { childList: true, subtree: true });
-  window.juiceIdentity = {
+  window.templateIdentity = {
     sample,
     clean,
     initials,

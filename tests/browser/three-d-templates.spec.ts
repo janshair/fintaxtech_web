@@ -145,3 +145,13 @@ test('loader plays once per session and can be skipped', async ({ page }) => {
   await expect(page.locator('html')).not.toHaveAttribute('data-loader', 'on');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
+
+test('the shared name dialog never opens by itself', async ({ page }) => {
+  await page.goto(route);
+  await page.waitForTimeout(1600);
+  for (let i = 0; i < 30; i++) await page.mouse.wheel(0, 400);
+  await page.waitForTimeout(7000);
+  await expect(page.locator('#name-dialog')).not.toBeVisible();
+  await page.locator('[data-edit]').click();
+  await expect(page.locator('#name-dialog')).toBeVisible();
+});

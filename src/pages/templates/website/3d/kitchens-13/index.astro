@@ -1,0 +1,639 @@
+---
+import GoogleTag from '../../../../../components/GoogleTag.astro';
+import DemoStrip from '../../../../../components/templates/three/DemoStrip.astro';
+import NameDialog from '../../../../../components/templates/three/NameDialog.astro';
+import Icons from './_parts/Icons.astro';
+import Elevation from './_parts/Elevation.astro';
+import drawing from './_parts/drawing.json';
+import { templateTheme } from '../../../../../lib/template-theme';
+import {
+  THEME,
+  doors,
+  doorStyles,
+  handles,
+  kitchensDemo as c,
+  layouts,
+  taps,
+  wallTiles,
+  worktops,
+} from '../../../../../content/kitchens-demo';
+import { threeDTemplates, threeDGallery } from '../../../../../content/templates';
+import { seoPages } from '../../../../../content/seo';
+import { absoluteURL, structuredData } from '../../../../../lib/seo';
+const template = threeDTemplates.find((item) => item.id === c.id)!;
+const { title, description } = seoPages[c.route];
+const canonical = absoluteURL(c.route);
+const image = absoluteURL(template.preview.src);
+const assets = c.route;
+const theme = templateTheme('kitchens-13', THEME);
+const slug = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z]+/g, '-');
+const first = c.styles[0];
+// Days are rewritten to real dates on load; these keep the page whole without JavaScript.
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+---
+
+<!doctype html>
+<html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
+  <head>
+    <!-- Charset and referrer policy come first, so no request (analytics
+         included) can carry the personalised preview URL as its referrer. -->
+    <meta charset="utf-8" /><meta name="referrer" content="no-referrer" />
+    <GoogleTag />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content={theme.pageBackground} />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} /><meta
+      property="og:image:alt"
+      content={template.preview.alt}
+    />
+    <meta property="og:image:width" content={String(template.preview.width)} /><meta
+      property="og:image:height"
+      content={String(template.preview.height)}
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta
+      name="twitter:title"
+      content={title}
+    />
+    <meta name="twitter:description" content={description} /><meta
+      name="twitter:image"
+      content={image}
+    /><meta name="twitter:image:alt" content={template.preview.alt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(
+        structuredData(c.route, title, description, undefined, image),
+      ).replace(/</g, '\\u003c')}
+    />
+    <link
+      rel="preload"
+      href={assets + 'fonts/gloock-400.woff2'}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={assets + 'fonts/schibsted-grotesk-400.woff2'}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href={assets + 'styles.css'} />
+    <script
+      is:inline
+      src="/templates/website/3d/_shared/identity.js"
+      data-sample-name={c.name}
+      data-sample-area={c.area}
+      data-sample-initials={c.monogram}
+      data-template-id={c.id}
+      data-title-suffix="Kitchen and bathroom website demo by FinTaxTech"
+      data-sample-phone={c.phone.display}
+      data-sample-tel={c.phone.tel}
+      data-sample-intl={c.phone.international}
+      data-loader-key="plinth-plumb-loader"></script>
+  </head>
+  <body>
+    <Icons />
+    <div class="loader" data-loader>
+      <p class="loader-sheet" aria-hidden="true">DRG 01 · Kitchen, ground floor<br />Scale 1:20</p>
+      <svg
+        class="loader-drawing"
+        viewBox={`0 0 ${drawing.width} ${drawing.height}`}
+        aria-hidden="true"
+      >
+        {drawing.paths.map((d, i) => <path d={d} pathLength="1" style={`--i:${i}`} />)}
+      </svg>
+      <p class="loader-name" aria-hidden="true" data-business>{c.name}</p>
+      <p class="loader-note" aria-hidden="true">Drawing up your kitchen…</p>
+      <button class="loader-skip" type="button" data-loader-skip>Skip</button>
+    </div>
+    <a class="skip" href="#main">Skip to content</a>
+    <DemoStrip number="13" />
+    <header class="bar">
+      <a class="brand" href="#projects" data-wipe
+        ><svg aria-hidden="true"><use href="#i-mark"></use></svg><span data-business>{c.name}</span
+        ></a
+      >
+      <nav aria-label="Kitchen fitter">
+        <a href="#projects" data-wipe>Projects</a><a href="#design" data-wipe>Design</a><a
+          href="#visit"
+          data-wipe>Visit</a
+        ><a href="#find">Find us</a>
+      </nav>
+      <a class="button small" href="#design" data-order>Start your design</a>
+    </header>
+    <div class="stage" data-stage aria-hidden="true"></div>
+    <main id="main">
+      <section class="scene" id="projects" aria-label="Projects">
+        <div class="hero wrap" data-capture="hero">
+          <div class="hero-copy">
+            <p class="kicker">
+              <i></i><span
+                ><span data-business>{c.name}</span> · {c.hero.kicker.toLowerCase()}{' '}<span
+                  data-area>{c.area}</span
+                ></span
+              >
+            </p>
+            <h1><span>{c.hero.title[0]}</span> <em>{c.hero.title[1]}</em></h1>
+            <p class="lead">{c.hero.lead}</p>
+            <a class="button big" href="#design" data-order
+              >Design your kitchen <svg aria-hidden="true"><use href="#i-next"></use></svg></a
+            >
+          </div>
+          <div
+            class="model-slot hero-slot"
+            data-anchor="hero"
+            data-drag
+            tabindex="0"
+            role="img"
+            aria-label={`A 3D model kitchen in the ${first.name} style. Drag, swipe or use the arrow keys to walk round it.`}
+          >
+            <img
+              class="poster"
+              data-style-poster
+              src={`${assets}style-${slug(first.name)}.webp`}
+              width="960"
+              height="760"
+              alt={`A model kitchen in the ${first.name} style.`}
+              fetchpriority="high"
+            />
+            <p class="orbit-hint" aria-hidden="true">
+              <svg><use href="#i-orbit"></use></svg>Drag to walk round it
+            </p>
+          </div>
+        </div>
+
+        <section class="styles" aria-labelledby="styles-title" data-capture="menu">
+          <div class="wrap styles-layout">
+            <div class="styles-copy">
+              <h2 id="styles-title">Six we keep coming back to</h2>
+              <p class="intro">
+                Every kitchen we fit is drawn for its room, but these are the looks people ask for
+                again and again. Pick one and the kitchen changes to match.
+              </p>
+              <ol class="style-list">
+                {
+                  c.styles.map((style, i) => {
+                    const door = doors.find((d) => d.id === style.spec.door)!;
+                    const top = worktops.find((t) => t.id === style.spec.top)!;
+                    const tap = taps.find((t) => t.id === style.spec.tap)!;
+                    const handle = handles.find((h) => h.id === style.spec.handle)!;
+                    return (
+                      <li>
+                        <button
+                          type="button"
+                          class="style"
+                          data-style={i}
+                          aria-pressed={i === 0 ? 'true' : 'false'}
+                        >
+                          <span class="style-no" aria-hidden="true">
+                            {String(i + 1).padStart(2, '0')}
+                          </span>
+                          <span class="style-name">{style.name}</span>
+                          <span class="style-line">{style.line}</span>
+                          <span class="style-spec">
+                            <span>
+                              <i style={`background:${door.hex}`} />
+                              {door.label} {style.spec.doorStyle === 'shaker' ? 'shaker' : 'slab'}
+                            </span>
+                            <span>
+                              <i class={'top-' + top.id} style={`background:${top.hex}`} />
+                              {top.label}
+                            </span>
+                            <span>
+                              <svg aria-hidden="true">
+                                <use href={`#i-h-${handle.id}`} />
+                              </svg>
+                              {handle.label}
+                            </span>
+                            <span>
+                              <i class="metal" style={`background:${tap.hex}`} />
+                              {tap.label}
+                            </span>
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })
+                }
+              </ol>
+            </div>
+            <div class="styles-model">
+              <div class="model-slot" data-anchor="styles">
+                <img
+                  class="poster"
+                  data-style-poster
+                  src={`${assets}style-${slug(first.name)}.webp`}
+                  width="960"
+                  height="760"
+                  alt={`A model kitchen in the ${first.name} style.`}
+                  loading="lazy"
+                />
+              </div>
+              <p class="now" aria-live="polite">
+                Showing <strong data-style-name>{first.name}</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="layers" aria-labelledby="layers-title" data-layers>
+          <div class="layers-pin">
+            <h2 id="layers-title">What we actually fit</h2>
+            <div class="model-slot layers-slot" data-anchor="layers">
+              <img
+                class="poster"
+                src={assets + 'layers.webp'}
+                width="960"
+                height="760"
+                alt="The model kitchen pulled apart into carcasses, doors, worktops and fittings."
+                loading="lazy"
+              />
+            </div>
+            <ol class="layer-labels">
+              {
+                c.layers.map(([name, text], i) => (
+                  <li data-layer={i}>
+                    <span class="layer-no" aria-hidden="true">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <strong>{name}</strong>
+                    <span class="layer-text">{text}</span>
+                  </li>
+                ))
+              }
+            </ol>
+            <svg class="leaders" aria-hidden="true">
+              {c.layers.map(() => <path data-leader />)}
+            </svg>
+          </div>
+        </section>
+      </section>
+
+      <section class="scene design" id="design" aria-labelledby="design-title" data-capture="build">
+        <div class="wrap design-layout">
+          <div class="design-model">
+            <div class="model-slot" data-anchor="design" data-drag-design>
+              <Elevation id="el-design" label="A front drawing of your design." />
+            </div>
+            <p class="spec-line" aria-live="polite">
+              <strong data-room-name>Your kitchen so far</strong>
+              <span data-spec-summary
+                >Sage shaker doors · Oiled oak · Cup handles · Brushed brass tap</span
+              >
+            </p>
+          </div>
+          <form class="panel" data-builder novalidate>
+            <h2 id="design-title" tabindex="-1">Design it here</h2>
+            <p class="panel-intro">
+              Swap anything and watch it change. Then book a visit and we’ll measure up properly.
+            </p>
+            <div class="panel-head">
+              <fieldset class="rooms">
+                <legend class="sr-only">Room</legend>
+                <label
+                  ><input type="radio" name="room" value="kitchen" checked /><span
+                    ><svg aria-hidden="true"><use href="#i-kitchen"></use></svg>Kitchen</span
+                  ></label
+                ><label
+                  ><input type="radio" name="room" value="bathroom" /><span
+                    ><svg aria-hidden="true"><use href="#i-bathroom"></use></svg>Bathroom</span
+                  ></label
+                >
+              </fieldset>
+              <button class="undo" type="button" data-undo aria-disabled="true"
+                ><svg aria-hidden="true"><use href="#i-undo"></use></svg>Undo</button
+              >
+            </div>
+            <fieldset class="row">
+              <legend
+                ><span data-label="door">Doors</span>
+                <span data-picked="door">Sage, shaker</span></legend
+              >
+              <div class="swatches">
+                {
+                  doors.map((d) => (
+                    <label class="swatch">
+                      <input
+                        type="radio"
+                        name="door"
+                        value={d.id}
+                        checked={d.id === first.spec.door}
+                        aria-label={d.label}
+                      />
+                      <span style={`background:${d.hex}`} />
+                    </label>
+                  ))
+                }
+              </div>
+              <div class="chips compact">
+                {
+                  doorStyles.map((s) => (
+                    <label>
+                      <input
+                        type="radio"
+                        name="doorStyle"
+                        value={s.id}
+                        checked={s.id === first.spec.doorStyle}
+                      />
+                      <span>{s.label}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="row">
+              <legend
+                ><span data-label="top">Worktop</span>
+                <span data-picked="top">Oiled oak</span></legend
+              >
+              <div class="chips">
+                {
+                  worktops.map((t) => (
+                    <label>
+                      <input
+                        type="radio"
+                        name="top"
+                        value={t.id}
+                        checked={t.id === first.spec.top}
+                      />
+                      <span>
+                        <i class={'top-' + t.id} style={`background:${t.hex}`} />
+                        {t.label}
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="row">
+              <legend
+                ><span data-label="handle">Handles</span>
+                <span data-picked="handle">Cup</span></legend
+              >
+              <div class="chips">
+                {
+                  handles.map((h) => (
+                    <label>
+                      <input
+                        type="radio"
+                        name="handle"
+                        value={h.id}
+                        checked={h.id === first.spec.handle}
+                      />
+                      <span>
+                        <svg aria-hidden="true">
+                          <use href={`#i-h-${h.id}`} />
+                        </svg>
+                        {h.label}
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="row">
+              <legend
+                ><span data-label="tap">Tap</span>
+                <span data-picked="tap">Brushed brass</span></legend
+              >
+              <div class="swatches">
+                {
+                  taps.map((t) => (
+                    <label class="swatch metal">
+                      <input
+                        type="radio"
+                        name="tap"
+                        value={t.id}
+                        checked={t.id === first.spec.tap}
+                        aria-label={t.label}
+                      />
+                      <span style={`background:${t.hex}`} />
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="row" data-bathroom-only hidden>
+              <legend>Layout <span data-picked="layout">Walk-in shower</span></legend>
+              <div class="chips">
+                {
+                  layouts.map((l, i) => (
+                    <label>
+                      <input type="radio" name="layout" value={l.id} checked={i === 0} />
+                      <span>{l.label}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <fieldset class="row" data-bathroom-only hidden>
+              <legend>Wall tiles <span data-picked="tiles">Stone grid</span></legend>
+              <div class="chips">
+                {
+                  wallTiles.map((t, i) => (
+                    <label>
+                      <input type="radio" name="tiles" value={t.id} checked={i === 0} />
+                      <span>
+                        <i class={'tile-' + t.id} style={`background:${t.hex}`} />
+                        {t.label}
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <div class="go">
+              <a class="button" href="#visit" data-wipe
+                >Book a design visit <svg aria-hidden="true"><use href="#i-next"></use></svg></a
+              >
+              <p class="fine-print">Demo: nothing is ordered, booked or paid.</p>
+            </div>
+            <p class="sr-only" data-builder-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="scene visit" id="visit" aria-labelledby="visit-title" data-capture="collect">
+        <div class="wrap visit-layout">
+          <div class="visit-copy">
+            <h2 id="visit-title" tabindex="-1">Book a design visit</h2>
+            <p class="lead">
+              We come to you, measure every wall twice and draw it properly in your room. Pick a day
+              and a time; we’ll ring to confirm.
+            </p>
+            <form class="visit-form" data-visit novalidate>
+              <fieldset>
+                <legend>Day</legend>
+                <div class="days">
+                  {
+                    days.map((day, i) => (
+                      <label>
+                        <input type="radio" name="day" value={day} checked={i === 0} />
+                        <span data-day={i}>{day}</span>
+                      </label>
+                    ))
+                  }
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Time</legend>
+                <div class="chips">
+                  {
+                    c.slots.map((slot, i) => (
+                      <label>
+                        <input type="radio" name="slot" value={slot} checked={i === 0} />
+                        <span>{slot}</span>
+                      </label>
+                    ))
+                  }
+                </div>
+              </fieldset>
+              <button class="button" type="submit"
+                >Book my visit <svg aria-hidden="true"><use href="#i-next"></use></svg></button
+              >
+            </form>
+          </div>
+          <div class="visit-side">
+            <div class="model-slot visit-slot" data-anchor="visit">
+              <Elevation id="el-visit" label="A front drawing of the design we’ll bring." />
+            </div>
+            <p class="sr-only" data-visit-status role="status" aria-live="polite"></p>
+            <article class="visit-card" data-card hidden aria-labelledby="card-title">
+              <header>
+                <span class="card-brand" data-business>{c.name}</span>
+                <span data-card-ref>Ref. PP-1042</span>
+              </header>
+              <h3 id="card-title" tabindex="-1">Design visit</h3>
+              <p class="card-when" data-card-when>Monday, morning</p>
+              <dl>
+                <div><dt>Room</dt><dd data-card-room>Kitchen</dd></div>
+                <div><dt data-label="door">Doors</dt><dd data-card-door>Sage shaker</dd></div>
+                <div><dt data-label="top">Worktop</dt><dd data-card-top>Oiled oak</dd></div>
+                <div><dt data-label="handle">Handles</dt><dd data-card-handle>Cup</dd></div>
+                <div><dt data-label="tap">Tap</dt><dd data-card-tap>Brushed brass</dd></div>
+                <div data-bathroom-only hidden>
+                  <dt>Layout</dt><dd data-card-layout>Walk-in shower</dd>
+                </div>
+                <div data-bathroom-only hidden>
+                  <dt>Wall tiles</dt><dd data-card-tiles>Stone grid</dd>
+                </div>
+              </dl>
+              <p class="card-demo"><strong>Demo: nothing is ordered, booked or paid.</strong></p>
+            </article>
+            <p class="card-actions" data-card-actions hidden>
+              <a class="text-link" href="#design" data-order>Change the design</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="find" id="find" aria-labelledby="find-title" data-capture="contact">
+        <div class="wrap find-layout">
+          <div>
+            <h2 id="find-title">Come and see the workshop</h2>
+            <p class="lead">
+              <span data-business>{c.name}</span>, {c.address[0]}, <span data-area>{c.area}</span>. {
+                c.address[1]
+              }.
+            </p>
+            <div class="call">
+              <a class="button" href={'tel:' + c.phone.tel} data-call
+                ><svg aria-hidden="true"><use href="#i-phone"></use></svg>Call <span data-phone
+                  >{c.phone.display}</span
+                ></a
+              ><a
+                class="button ghost"
+                href={'https://wa.me/' + c.phone.international}
+                data-whatsapp
+                rel="noopener"
+                ><svg aria-hidden="true"><use href="#i-chat"></use></svg>WhatsApp us</a
+              >
+            </div>
+            <h3>Opening hours</h3>
+            <dl class="hours">
+              {
+                c.hours.map(([day, hours]) => (
+                  <div>
+                    <dt>{day}</dt>
+                    <dd>{hours}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+          <figure class="map">
+            <svg
+              viewBox="0 0 560 420"
+              role="img"
+              aria-label="Site plan of Canal Works with Unit 4 marked in blue, off Wharf Lane by the towpath."
+              ><use href="#i-plan"></use></svg
+            >
+            <figcaption>
+              <strong>Unit 4, Canal Works</strong>
+              <span>Off Wharf Lane. Park in the yard.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="agency" aria-labelledby="agency-title">
+        <div class="wrap">
+          <p class="agency-kicker">
+            <span data-business>{c.name}</span> · a FinTaxTech website demo
+          </p>
+          <h2 id="agency-title">Want this for <span data-business>{c.name}</span>?</h2>
+          <p>Your name, your kitchens and your hours, in a website people actually play with.</p>
+          <div class="agency-actions">
+            <a
+              class="button light"
+              href="/client/website-brief/templates/?template=kitchens-13"
+              data-brief-link>Talk to FinTaxTech</a
+            ><a class="text-link" href="/contact/" data-agency-link>Ask a question first</a>
+          </div>
+        </div>
+      </section>
+      <noscript
+        ><p class="wrap noscript">
+          The kitchen designer needs JavaScript. Everything else on this page works without it. <a
+            href="/contact/">Discuss your website with FinTaxTech.</a
+          >
+        </p></noscript
+      >
+    </main>
+    <footer class="footer" data-footer>
+      <div class="drawers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="wrap footer-inner">
+        <a class="brand" href="#projects"
+          ><svg aria-hidden="true"><use href="#i-mark"></use></svg><span data-business
+            >{c.name}</span
+          ></a
+        >
+        <p>Website template by FinTaxTech. Fictional business for demonstration.</p>
+        <a href={threeDGallery.route}>Browse 3D templates ↗</a>
+      </div>
+    </footer>
+    <div class="door-wipe" data-wipe-layer aria-hidden="true"><div class="door"><i></i></div></div>
+    <NameDialog
+      title="Put your name above the door"
+      placeholder="e.g. Ouse Valley Kitchens"
+      restoreLabel="Back to the demo"
+    />
+    <script is:inline src="/templates/website/3d/_shared/name-dialog.js"></script>
+    <script>
+      import './_runtime/page';
+    </script>
+  </body>
+</html>

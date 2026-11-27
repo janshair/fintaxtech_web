@@ -12,6 +12,7 @@ const files = {
   'automotive-03': 'automotive',
   'cleaning-04': 'cleaning',
   'juice-bar-05': 'juice-bar',
+  'kitchens-13': 'kitchens',
   'gym-06': 'gym',
   'consultant-07': 'consultant',
   'beauty-08': 'beauty',
@@ -62,7 +63,7 @@ try {
       await page.goto(
         origin +
           '/templates/website/' +
-          ({ 'juice-bar-05': '3d', 'placeholder-11': 'placeholder', 'landing-12': 'landing' }[id] ??
+          ({ 'juice-bar-05': '3d', 'kitchens-13': '3d', 'placeholder-11': 'placeholder', 'landing-12': 'landing' }[id] ??
             'motion') +
           '/' +
           id +

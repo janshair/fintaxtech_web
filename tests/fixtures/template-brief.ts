@@ -248,6 +248,22 @@ const fixtures: Record<
     },
     files: ['Menu or product photos (up to 8)'],
   },
+  'kitchens-13': {
+    name: 'Grain & Grout',
+    answers: {
+      kitchensRooms: 'Kitchens and bathrooms',
+      kitchensStylesSource: ownWords,
+      kitchensVisits: 'Both',
+    },
+    rows: {
+      kitchensStyles: [
+        { name: 'Painted shaker', line: 'Classic doors, painted any colour you like.' },
+        { name: 'Walnut slab', line: 'Plain walnut fronts with a stone top.' },
+        { name: 'Wet room', line: 'Walk-in shower, wall-hung vanity, no lip to trip on.' },
+      ],
+    },
+    files: ['Photos of finished kitchens or bathrooms (up to 8)'],
+  },
   'gym-06': {
     name: 'Iron & Oak Fitness',
     answers: {

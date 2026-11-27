@@ -1,0 +1,15 @@
+---
+// Shared top bar for every 3D template demo.
+import { threeDGallery } from '../../../content/templates';
+interface Props {
+  number: string;
+}
+const { number } = Astro.props;
+---
+
+<aside class="demo-strip" aria-label="Demonstration controls">
+  <a href="/">FinTaxTech ↗</a><span>3D WEBSITE DEMO · {number}</span>
+  <a href={threeDGallery.route}>All 3D templates</a>
+  <a href="/contact/" data-agency-link>Discuss this website ↗</a>
+  <button type="button" data-edit>Change business name</button>
+</aside>
