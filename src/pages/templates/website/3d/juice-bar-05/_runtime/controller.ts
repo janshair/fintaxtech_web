@@ -1,7 +1,7 @@
 // Runs the single WebGL canvas. The cup follows whichever [data-anchor] box is
 // most in view, so HTML layout decides where the 3D goes. Nothing here hides
 // content: posters and the flat SVG cup stay in the page until 3D is live.
-import type { Band, CupScene, FruitKind } from './scene';
+import type { Band, BoostKind, CupScene, FruitKind } from './scene';
 
 declare global {
   interface Window {
@@ -23,6 +23,7 @@ const model = {
   drink: { colour: '#ffb029', fruit: ['mango', 'pineapple'] as FruitKind[] },
   build: [] as Band[],
   finished: [] as Band[],
+  boost: '' as BoostKind | '',
 };
 let scene: CupScene | undefined;
 let canvas: HTMLCanvasElement | undefined;
@@ -77,6 +78,18 @@ export const stage = {
     scene.fly(kind as FruitKind, r.left + r.width / 2, r.top + r.height / 2, land);
     kick(1500);
   },
+  // A boost flies in from its button, like fruit, and stays on top.
+  setBoost(kind: string, from?: Element) {
+    model.boost = kind as BoostKind | '';
+    if (!scene || mode !== 'build') return;
+    if (!from || !kind) return scene.setTopping(model.boost);
+    const r = from.getBoundingClientRect();
+    scene.fly(kind as BoostKind, r.left + r.width / 2, r.top + r.height / 2, () => {
+      if (model.boost === kind) scene?.setTopping(kind as BoostKind);
+      kick(800);
+    });
+    kick(1500);
+  },
   blend(colour: string, done: () => void) {
     if (!scene || mode !== 'build') return done();
     scene.blend(colour);
@@ -95,6 +108,7 @@ function applyMode(next: Mode) {
     sleeve: next === 'hero' || next === 'menu' || next === 'collect',
     orbit: next === 'hero' || (next === 'menu' && !narrow),
   });
+  scene.setTopping(next === 'build' ? model.boost : '');
   if (next === 'build') scene.setBands(model.build);
   else if (next === 'collect')
     scene.setBands(

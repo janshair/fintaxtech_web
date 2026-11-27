@@ -220,10 +220,20 @@ undo.addEventListener('click', () => {
   }
   refresh();
 });
+const boostKind: Record<string, string> = {
+  'Fresh mint': 'mint',
+  'Squeeze of lime': 'lime',
+  Vanilla: 'vanilla',
+  Cinnamon: 'cinnamon',
+};
+stage.setBoost(boostKind[build.boost] ?? '');
 form.addEventListener('change', (event) => {
   const input = event.target as HTMLInputElement;
   if (input.name === 'base') build.base = input.value;
-  if (input.name === 'boost') build.boost = input.value;
+  if (input.name === 'boost') {
+    build.boost = input.value;
+    stage.setBoost(boostKind[input.value] ?? '', input.closest('label') ?? input);
+  }
   refresh();
 });
 form.addEventListener('submit', (event) => {

@@ -49,8 +49,9 @@ export type Look = {
   orbit: boolean;
   explode: number;
 };
+export type BoostKind = 'mint' | 'lime' | 'vanilla' | 'cinnamon';
 export type FruitKind =
-  'mango' | 'strawberry' | 'banana' | 'spinach' | 'ginger' | 'pineapple' | 'blueberry';
+  'mango' | 'strawberry' | 'banana' | 'spinach' | 'ginger' | 'pineapple' | 'blueberry' | BoostKind;
 
 // Cup units: the cup is H tall. The page converts units to pixels.
 export const H = 2.5;
@@ -417,6 +418,74 @@ export async function createCupScene(
       const core = new Mesh(keep(new BoxGeometry(0.06, 0.32, 0.31)), toon('#fff0a8'));
       core.position.y = 0.05;
       g.add(rind, core);
+    } else if (kind === 'mint') {
+      // A sprig: three leaves fanned out.
+      [
+        [-0.2, 0.05, 0.6, 0.9],
+        [0.2, 0.02, -0.55, 0.85],
+        [0, 0.12, 0.05, 1],
+      ].forEach(([x, z, roll, size]) => {
+        const leaf = makeFruit('spinach');
+        leaf.scale.setScalar(0.62 * size);
+        leaf.rotation.set(-1.05, 0, roll);
+        leaf.position.set(x, 0.1, z);
+        g.add(leaf);
+      });
+    } else if (kind === 'lime') {
+      // A lime wheel, face turned to the viewer.
+      const flesh = toon('#d6ef8f');
+      const wheel = outlined(
+        new CylinderGeometry(0.34, 0.34, 0.07, 28),
+        [toon('#4fa83a'), flesh, flesh],
+        0.03,
+      );
+      const spoke = keep(new BoxGeometry(0.018, 0.012, 0.56));
+      const pith = toon('#f3fbe0');
+      for (let i = 0; i < 4; i++) {
+        const m = new Mesh(spoke, pith);
+        m.position.y = 0.04;
+        m.rotation.y = (i / 4) * Math.PI;
+        wheel.add(m);
+      }
+      wheel.rotation.set(1.15, 0, 0.18);
+      wheel.position.y = 0.2;
+      g.add(wheel);
+    } else if (kind === 'vanilla') {
+      // Two curved pods, crossed.
+      const pod = new TubeGeometry(
+        new CatmullRomCurve3([
+          new Vector3(-0.42, 0, 0),
+          new Vector3(0, 0.07, 0),
+          new Vector3(0.42, 0, 0),
+        ]),
+        16,
+        0.045,
+        8,
+      );
+      const podMat = toon('#4a2b1b');
+      [
+        [0.4, 0.06],
+        [-0.45, -0.04],
+      ].forEach(([yaw, z]) => {
+        const m = outlined(pod, podMat, 0.025);
+        m.rotation.set(0.5, yaw, 0);
+        m.position.set(0, 0.08, z);
+        g.add(m);
+      });
+    } else if (kind === 'cinnamon') {
+      // Two rolled sticks, crossed.
+      const stickGeo = new CylinderGeometry(0.075, 0.075, 0.86, 12);
+      const face = toon('#c98a55');
+      const bark = toon('#97542a');
+      [
+        [0.35, 0.08, 0.06],
+        [-0.4, -0.06, 0.17],
+      ].forEach(([yaw, z, y]) => {
+        const stick = outlined(stickGeo, [bark, face, face], 0.025);
+        stick.rotation.set(0.45, yaw, Math.PI / 2);
+        stick.position.set(0, y, z);
+        g.add(stick);
+      });
     } else {
       g.add(outlined(new SphereGeometry(0.2, 16, 12), toon('#4f5fbf')));
       const crown = new Mesh(
@@ -491,6 +560,17 @@ export async function createCupScene(
     explodeRig.add(f);
     return f;
   });
+
+  // The chosen boost sits on the liquid surface once it has landed.
+  const topping = new Group();
+  topping.userData = { kind: '', pop: 0 };
+  cup.add(topping);
+  function setTopping(kind: BoostKind | '') {
+    if (topping.userData.kind === kind) return;
+    topping.clear();
+    if (kind) topping.add(makeFruit(kind));
+    topping.userData = { kind, pop: 0 };
+  }
 
   // State
   let width = 1,
@@ -670,6 +750,16 @@ export async function createCupScene(
     if (!bands.length) bandColours[0].set('#ffffff');
     liquidMat.uniforms.level.value = Math.max(FLOOR + 0.001, Math.min(H - 0.12, level));
     liquid.visible = level > FLOOR + 0.01 && look.explode < 0.02;
+    const pop = topping.userData;
+    pop.pop = damp(pop.pop, 1, 12, dt);
+    if (pop.pop < 0.998) busy = true;
+    else pop.pop = 1;
+    topping.visible = liquid.visible && topping.children.length > 0;
+    topping.position.y = level + 0.02 + Math.sin(time * 2.1) * wobble * 0.6;
+    topping.scale.setScalar(
+      Math.max(0.001, (0.4 + 0.6 * ease(pop.pop)) * Math.min(1, (radiusAt(level) - INSET) / 0.8)),
+    );
+    topping.rotation.y += swirl * dt * 9;
     explodeRig.visible = look.explode >= 0.02;
     wobble = damp(wobble, 0.018, 1.6, dt);
     swirl = damp(swirl, 0, 1.1, dt);
@@ -731,6 +821,7 @@ export async function createCupScene(
     render,
     prepare,
     setBands,
+    setTopping,
     setOrbit,
     setName: drawName,
     setExplodeColour: (colour: string) =>
