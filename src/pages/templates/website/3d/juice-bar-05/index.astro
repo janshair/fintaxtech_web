@@ -16,7 +16,7 @@ const theme = templateTheme('juice-bar-05', THEME);
 ---
 
 <!doctype html>
-<html lang="en-GB" style={theme.style} data-custom-theme={theme.custom || undefined}>
+<html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
     <!-- Charset and referrer policy come first, so no request (analytics
          included) can carry the personalised preview URL as its referrer. -->
@@ -406,10 +406,11 @@ const theme = templateTheme('juice-bar-05', THEME);
             </dl>
           </div>
           <figure class="map">
-            <svg viewBox="0 0 560 420" role="img" aria-labelledby="map-title">
-              <title id="map-title">
-                Hand-drawn street map with a pin on Market Arcade, two doors down from the bakery.
-              </title>
+            <svg
+              viewBox="0 0 560 420"
+              role="img"
+              aria-label="Hand-drawn street map with a pin on Market Arcade, two doors down from the bakery."
+            >
               <use href="#i-map"></use>
             </svg>
             <figcaption>
