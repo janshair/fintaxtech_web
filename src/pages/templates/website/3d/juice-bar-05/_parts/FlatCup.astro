@@ -1,0 +1,33 @@
+---
+// The 2D cup used when WebGL is unavailable or motion is reduced. Layers are
+// drawn by _runtime/page.ts as plain SVG rectangles inside the clip path.
+interface Props {
+  id: string;
+  lid?: boolean;
+}
+const { id, lid = false } = Astro.props;
+const glass = 'M52 96h136l-14 200H66z';
+---
+
+<svg
+  class={'flat-cup' + (lid ? ' has-lid' : '')}
+  viewBox="0 0 240 320"
+  role="img"
+  aria-label={lid ? 'Your finished cup with a lid and a straw.' : 'Your cup so far.'}
+  data-flat-cup
+>
+  <defs><clipPath id={id + '-clip'}><path d={glass}></path></clipPath></defs>
+  <g clip-path={`url(#${id}-clip)`}><g data-flat-layers></g></g>
+  <path class="fc-glass" d={glass}></path>
+  <path class="fc-shine" d="M74 118l8 150"></path>
+  {
+    lid && (
+      <g class="fc-lid">
+        <path class="fc-straw" d="M134 92l10-70 26-14" />
+        <path class="fc-straw-stripes" d="M134 92l10-70 26-14" />
+        <path class="fc-dome" d="M48 92c6-40 138-40 144 0z" />
+      </g>
+    )
+  }
+  <rect class="fc-rim" x="44" y="88" width="152" height="12" rx="6"></rect>
+</svg>

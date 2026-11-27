@@ -1,7 +1,21 @@
 (() => {
   'use strict';
-  document.documentElement.dataset.js = 'true';
-  const sample = 'Daybreak Juice Club';
+  const root = document.documentElement;
+  root.dataset.js = 'true';
+  const sample = 'Tumble Cup';
+  const sampleArea = 'Dundee';
+  // Ofcom drama-range number: safe to show, never connects to anyone.
+  const samplePhone = { display: '01632 960123', tel: '01632960123', international: '441632960123' };
+  // The loader plays once per browser session and never under reduced motion.
+  try {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced && !sessionStorage.getItem('tumble-cup-loader')) {
+      root.dataset.loader = 'on';
+      sessionStorage.setItem('tumble-cup-loader', '1');
+    }
+  } catch {
+    /* Storage blocked: skip the loader rather than replay it on every page. */
+  }
   const clean = (value, limit) =>
     Array.from((value || '').trim().replace(/\s+/gu, ' '))
       .slice(0, limit)
@@ -10,7 +24,7 @@
     (name.match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) || [])
       .slice(0, 2)
       .map((word) => Array.from(word.toUpperCase())[0])
-      .join('') || 'DJ';
+      .join('') || 'TC';
   function read() {
     const q = new URL(location.href).searchParams;
     const raw = (q.get('phone') || '').trim();
@@ -36,47 +50,32 @@
       document.querySelectorAll(selector).forEach((node) => {
         if (node.textContent !== value) node.textContent = value;
       });
+    const attr = (selector, key, value) =>
+      document.querySelectorAll(selector).forEach((node) => {
+        if (node.getAttribute(key) !== value) node.setAttribute(key, value);
+      });
     put('[data-business]', name);
     put('[data-monogram]', initials(name));
-    document.querySelectorAll('[data-area-prefix]').forEach((node) => {
-      const value = v.area ? 'in' : 'near';
-      if (node.textContent.toLowerCase() !== value) node.textContent = value;
-    });
-    put('[data-area]', v.area || 'Dundee & Tayside');
-    put('[data-map-area]', v.area || 'Your address here');
-    put('[data-phone]', v.phone || 'Your number here');
+    put('[data-area]', v.area || sampleArea);
+    put('[data-phone]', v.phone || samplePhone.display);
     const title = name + ' — Juice bar website demo by FinTaxTech';
     if (document.title !== title) document.title = title;
-    document
-      .querySelectorAll('[data-agency-link]')
-      .forEach((node) =>
-        node.setAttribute('href', '/contact/' + (v.ref ? '?ref=' + encodeURIComponent(v.ref) : '')),
-      );
+    attr('[data-agency-link]', 'href', '/contact/' + (v.ref ? '?ref=' + encodeURIComponent(v.ref) : ''));
     // The final offer opens the template brief with this preview's values.
     const brief = new URLSearchParams({ template: 'juice-bar-05' });
     for (const key of ['name', 'area', 'phone', 'ref']) if (v[key]) brief.set(key, v[key]);
-    const briefHref = '/client/website-brief/templates/?' + brief;
-    document.querySelectorAll('[data-brief-link]').forEach((node) => {
-      if (node.getAttribute('href') !== briefHref) node.setAttribute('href', briefHref);
-    });
-    document
-      .querySelectorAll('[data-call]')
-      .forEach((node) =>
-        node.setAttribute('href', v.international ? 'tel:' + v.international : '#contact'),
-      );
-    document
-      .querySelectorAll('[data-whatsapp]')
-      .forEach((node) =>
-        node.setAttribute(
-          'href',
-          v.international ? 'https://wa.me/' + v.international.slice(1) : '#contact',
-        ),
-      );
+    attr('[data-brief-link]', 'href', '/client/website-brief/templates/?' + brief);
+    attr('[data-call]', 'href', 'tel:' + (v.international || samplePhone.tel));
+    attr(
+      '[data-whatsapp]',
+      'href',
+      'https://wa.me/' + (v.international ? v.international.slice(1) : samplePhone.international),
+    );
   }
   // A blocking, local script plus mutation delivery before paint avoids sample-name flash.
   // Text nodes only: URL values never become markup, assets, telemetry or storage.
   const observer = new MutationObserver(hydrate);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  observer.observe(root, { childList: true, subtree: true });
   window.juiceIdentity = {
     sample,
     clean,

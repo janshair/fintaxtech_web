@@ -1,32 +1,19 @@
 import type { TemplateBriefSchema } from './index';
 import { juiceBarDemo } from '../juice-bar-demo';
-import {
-  optionKey,
-  price,
-  rowValues,
-  sampleChoice,
-  stepPairs,
-  stepRows,
-  stepsChoice,
-  whenOwn,
-} from './shared';
+import { optionKey, price, rowValues, sampleChoice, whenOwn } from './shared';
 
-// juice-bar-05 (Daybreak Blend, 3D). Content mirrors src/content/juice-bar-demo.ts:
-// menu, stages, allergens and loyalty. Each menu item picks one of the template's colour tones.
+// juice-bar-05 (Tumble Cup, 3D). Content mirrors src/content/juice-bar-demo.ts:
+// a menu of drinks with first names, opening hours and the allergen line.
+// Each drink picks one of the template's liquid colours for the 3D cup.
 const tones = [...new Set(juiceBarDemo.menu.map((item) => item.tone))];
 const toneLabel = (tone: string) => tone[0].toUpperCase() + tone.slice(1);
 export const juiceAllergens =
-  'Ask us about allergens — full allergen information is available in store.';
+  'Ask us about allergens. Full allergen information is kept behind the counter.';
 const ordering = {
   collection: 'Order ahead for collection',
   delivery: 'Delivery apps, like Deliveroo or Just Eat',
   both: 'Both',
   neither: 'Neither — walk in and order',
-};
-const loyalty = {
-  own: 'I’ll enter my own offer',
-  sample: 'Use the template’s sample for now',
-  none: 'No loyalty offer',
 };
 
 export const juiceBar05: TemplateBriefSchema = {
@@ -44,23 +31,28 @@ export const juiceBar05: TemplateBriefSchema = {
         sampleChoice(
           'juiceMenuSource',
           'Menu',
-          'List 4 to 8 items. Describe what is in each one; please don’t add health or nutrition claims.',
+          'List 4 to 8 drinks. Describe what is in each one; please don’t add health or nutrition claims.',
         ),
         {
           id: 'juiceMenu',
-          label: 'Your menu items',
+          label: 'Your drinks',
           type: 'rows',
           when: whenOwn('juiceMenuSource'),
           repeat: {
-            title: (n) => `Item ${n}`,
-            add: 'Add an item',
-            remove: (n) => `Remove item ${n}`,
+            title: (n) => `Drink ${n}`,
+            add: 'Add a drink',
+            remove: (n) => `Remove drink ${n}`,
             min: 4,
             max: 8,
             fields: [
-              { key: 'category', label: 'Category, like Smoothies', type: 'text', maxLength: 24 },
-              { key: 'name', label: 'Item name', type: 'text', maxLength: 24 },
-              { key: 'ingredients', label: 'Ingredients', type: 'text', maxLength: 80 },
+              { key: 'name', label: 'Drink name, like Mango Marge', type: 'text', maxLength: 24 },
+              { key: 'ingredients', label: 'What’s in it', type: 'text', maxLength: 80 },
+              {
+                key: 'line',
+                label: 'One line about it, like Loud, golden and everyone’s first order.',
+                type: 'text',
+                maxLength: 60,
+              },
               {
                 key: 'price',
                 label: 'Price',
@@ -70,7 +62,7 @@ export const juiceBar05: TemplateBriefSchema = {
               },
               {
                 key: 'tone',
-                label: 'Colour on the menu',
+                label: 'Colour in the cup',
                 type: 'single',
                 options: tones.map(toneLabel),
               },
@@ -91,53 +83,19 @@ export const juiceBar05: TemplateBriefSchema = {
         },
       ],
     },
-    {
-      title: 'Your story and loyalty offer',
-      fields: [
-        stepsChoice(
-          'juiceStagesSource',
-          'The three story stages',
-          'The 3D cup fills as you scroll past three short lines.',
-        ),
-        stepRows('juiceStages', 'juiceStagesSource', 3, { title: 26, line: 80 }),
-        {
-          id: 'juiceLoyaltySource',
-          label: 'Loyalty card',
-          type: 'single',
-          options: Object.values(loyalty),
-        },
-        {
-          id: 'juiceLoyalty',
-          label: 'Your offer, like Your 10th drink is on us.',
-          type: 'text',
-          maxLength: 40,
-          when: { id: 'juiceLoyaltySource', values: [loyalty.own] },
-        },
-      ],
-    },
   ],
   toTemplateData(answers, rows) {
     const menu = rowValues(answers, rows, 'juiceMenuSource', 'juiceMenu');
-    const offer = optionKey(loyalty, answers.juiceLoyaltySource);
     return {
       menu:
-        menu?.map(({ category, name, ingredients, price, tone }, index) => ({
-          category,
+        menu?.map(({ name, ingredients, line, price, tone }) => ({
           name,
           ingredients,
+          line,
           price,
-          mark: String(index + 1).padStart(2, '0'),
           tone: tone.toLowerCase(),
         })) ?? null,
-      stages: stepPairs(answers, rows, 'juiceStagesSource', 'juiceStages'),
       allergens: answers.juiceAllergens === true ? juiceAllergens : null,
-      // An offer of your own, false for none, or null to keep the sample.
-      loyalty:
-        offer === 'own'
-          ? { offer: answers.juiceLoyalty, note: null }
-          : offer === 'none'
-            ? false
-            : null,
       ordering: optionKey(ordering, answers.juiceOrdering),
     };
   },

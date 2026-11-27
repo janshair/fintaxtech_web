@@ -235,20 +235,20 @@ export const threeDGallery = {
 export const threeDTemplates: readonly MotionTemplate[] = [
   {
     id: 'juice-bar-05',
-    name: 'Daybreak Blend',
-    industry: 'Juice bars & coffee shops',
+    name: 'Tumble Cup',
+    industry: 'Juice and smoothie bars',
     description:
-      'Cream, citrus and forest green. A turning 3D smoothie cup, a fruit-to-finished scroll story and a playful order-ahead demonstration.',
+      'Lemon, berry and spinach green. Spin a 3D cup, meet six drinks with first names, then build your own cup and pick a collection time.',
     route: '/templates/website/3d/juice-bar-05/',
     preview: {
       src: '/templates/website/3d/juice-bar-05/preview.webp',
-      alt: 'Daybreak Blend café demo: Daybreak Juice Club, an orange smoothie cup beside “Your morning. Made brighter.” on a warm cream page.',
+      alt: 'Tumble Cup juice bar demo: “Pick the fruit. We’ll do the noisy bit.” beside a 3D mango smoothie cup with a stripy straw on a lemon-yellow page.',
       width: 1200,
       height: 900,
     },
-    seoTitle: 'Daybreak Blend — Juice bar & coffee shop demo by FinTaxTech',
+    seoTitle: 'Tumble Cup — Juice bar website demo by FinTaxTech',
     seoDescription:
-      'Explore a personalised juice bar and coffee shop demonstration with a real 3D smoothie cup, an example menu and a build-your-drink demo. Nothing is ordered.',
+      'Explore a personalised 3D juice and smoothie bar website demo with a drink builder and order-ahead ticket. Nothing is ordered or paid.',
   },
 ];
 export const allTemplates = [...motionTemplates, ...threeDTemplates];
