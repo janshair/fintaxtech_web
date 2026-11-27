@@ -50,7 +50,7 @@ describe('app summaries and canonical answers', () => {
   });
 });
 
-it('keeps gym pilot packages, prices and limits consistent across both summaries', async () => {
+it('keeps gym pilot packages and limits consistent across both summaries', async () => {
   const { metoniGym, gymSuitabilityQuestion } = await import('../src/content/metoni-gym');
   const appText = appLLMSText(metoniKnowledge);
   const rootText = await (await rootGET()).text();
@@ -59,10 +59,9 @@ it('keeps gym pilot packages, prices and limits consistent across both summaries
     expect(text).toContain('Own Brand');
     expect(text).toContain('white-label');
     expect(text).toContain(metoniGym.status);
-    expect(text).toContain('Prices exclude VAT where applicable.');
+    expect(text).not.toMatch(/[£€$]\s*\d/);
     expect(text).toContain('https://fintaxtech.co.uk/metoni/#for-gyms');
     for (const plan of metoniGym.packages) {
-      expect(text).toContain(`£${plan.monthly}/month plus £${plan.setup}`);
       expect(text).toContain(plan.note);
     }
   }

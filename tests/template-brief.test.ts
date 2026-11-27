@@ -557,7 +557,7 @@ describe('barber-01 validation rules', () => {
     state.rows.barberServices = Array.from({ length: 7 }, () => row(barberServices[0]));
     expect(error(state, 'barberServices')).toBe('Add no more than 6 entries.');
     state.rows.barberServices = [0, 1, 2].map(() => row({ ...barberServices[0], price: '30' }));
-    expect(error(state, 'barberServices')).toBe('Enter a price like £30 or From £30.');
+    expect(error(state, 'barberServices')).toBe('Enter a pound sterling amount.');
     state.rows.barberServices = [0, 1, 2].map(() => row({ ...barberServices[0], duration: '0' }));
     expect(error(state, 'barberServices')).toContain('Enter a length in minutes');
     state.rows.barberServices = [0, 1, 2].map(() =>

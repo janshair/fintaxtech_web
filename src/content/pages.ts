@@ -60,19 +60,19 @@ export const pages: Record<string, InfoPage> = {
       ],
       [
         'What determines the price of branding?',
-        'Branding pricing depends on the logo system, business materials, guidelines, concepts and revision rounds agreed for your project. Naming, extra concepts and editable source files need explicit agreement. An indicative estimate helps prepare the discussion; the written proposal confirms the final scope and charges.',
+        'Branding pricing depends on the logo system, business materials, guidelines, concepts and revision rounds agreed for your project. Naming, extra concepts and editable source files need explicit agreement. The written proposal confirms the final scope and charges.',
       ],
       [
         'What determines the price of a mobile app?',
-        'App pricing depends on the platforms, user journeys, device features, offline behaviour, back-end services, integrations and testing requirements. Store-submission support and long-term support needs should be scoped explicitly. An indicative estimate is provisional and needs technical review.',
+        'App pricing depends on the platforms, user journeys, device features, offline behaviour, back-end services, integrations and testing requirements. Store-submission support and long-term support needs should be scoped explicitly. We review technical requirements before we agree the scope.',
       ],
       [
         'What determines the price of AI automation?',
         'Automation pricing depends on the process, source quality, system access, integrations, human approvals and exception handling. Privacy and risk affect suitability as well as scope. Any ongoing platform or usage costs must be considered separately from the agreed implementation work.',
       ],
       [
-        'Is a pricing-calculator estimate a final quote?',
-        'No. The website, branding, mobile app and AI automation calculators provide indicative estimates. They do not commission work or replace technical review. Final deliverables, exclusions, timing and charges are confirmed in an agreed written proposal.',
+        'How do I get a written proposal?',
+        'Tell us what you need through Start Your Project so we can review your requirements. Final deliverables, exclusions, timing and charges are confirmed in an agreed written proposal.',
       ],
       [
         'A proposal built around your requirements',
@@ -148,7 +148,7 @@ export const pages: Record<string, InfoPage> = {
       ],
       [
         'Preferences and analytics',
-        'Theme and consent choices may be saved locally. Optional Google Analytics is loaded only after consent and when a measurement ID is configured. No names, answers, company details, passwords, filenames, prices, or PDF contents are sent as analytics events. Hosting providers may process technical request data.',
+        'Theme and consent choices may be saved locally. Optional Google Analytics and Google Ads tags load only after consent and when their IDs are configured. No names, answers, company details, passwords, filenames, prices, or PDF contents are sent as analytics events. Hosting providers may process technical request data.',
       ],
       [
         'When you contact us',
@@ -183,11 +183,11 @@ export const pages: Record<string, InfoPage> = {
       ],
       [
         'Optional analytics',
-        'Basic Consent Mode means no analytics library or analytics requests before you accept. When configured and enabled, Google Analytics uses its own cookies to measure anonymous journey behaviour. Manage your choices from the footer at any time.',
+        'Basic Consent Mode means no Google tag or requests before you accept. When configured and enabled, Google tags use cookies to measure site use and advertising, and can personalise ads. Manage your choices from the footer at any time.',
       ],
       [
         'Changing your choice',
-        'Rejecting analytics stops further event collection and removes accessible analytics cookies. You can also delete cookies and site data through your browser settings.',
+        'Rejecting optional cookies stops site analytics and advertising events and removes accessible Google measurement cookies. You can also delete cookies and site data through your browser settings.',
       ],
     ],
   },

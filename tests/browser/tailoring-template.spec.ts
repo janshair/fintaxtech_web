@@ -23,7 +23,7 @@ for (const template of motionTemplates) {
       'href',
       `https://fintaxtech.co.uk${template.route}`,
     );
-    await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,nofollow');
+    await expect(page.locator('meta[name=robots]')).toHaveCount(0);
     for (const file of ['styles.css', 'app.js', 'preview.webp'])
       expect((await request.get(template.route + file)).status()).toBe(200);
     const sitemap = await (await request.get('/sitemap.xml')).text();

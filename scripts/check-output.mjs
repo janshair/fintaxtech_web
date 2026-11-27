@@ -43,14 +43,14 @@ const broken = [];
 for (const file of all.filter((f) => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
   assert(!html.includes('x-dc') && !html.includes('support.js') && !html.includes('dc.html'), file);
-  // The gym pilot has a separately scoped £999 setup fee.
-  const outsideGymPackages =
-    file === 'dist/metoni/index.html'
-      ? html.replace(/<section id="for-gyms"[\s\S]*?<\/section>/, '')
-      : html;
-  // The pricing page publishes catalogue packages, two of which cost £999.
-  if (!file.includes('/promo/') && file !== 'dist/pricing/index.html')
-    assert(!outsideGymPackages.includes('£999'), file);
+  assert(
+    !/(?:[£€]|&pound;|&euro;|(?:US)?\$)\s*\d/.test(html),
+    `${file}: contains a monetary amount`,
+  );
+  assert(
+    !/\bprinting\b|\bSyncKey\b|AI calling agent/i.test(html),
+    `${file}: contains excluded wording`,
+  );
   assert.match(html, /<h1[\s>]/, file);
   for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)/g)) {
     const url = match[1];

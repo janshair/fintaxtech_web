@@ -76,7 +76,7 @@ JPG (or JPEG) is designed for photographs. It compresses images by discarding de
 
 For logos, both of those are problems. Compression can leave faint blotches around sharp edges and flat colours, and the logo always arrives on a solid background. A JPG of your logo is occasionally useful for a system that accepts nothing else, but it shouldn't be your main file.
 
-## PDF: printing, sharing and approval
+## PDF: print production, sharing and approval
 
 PDF is a format almost anyone can open, which makes it ideal for sharing and approving artwork. A PDF can also hold vector artwork, so a properly exported PDF logo scales cleanly.
 
@@ -100,7 +100,7 @@ Screens and printers create colour in different ways, so the same logo can look 
 - **CMYK** is how most printed material is produced, using cyan, magenta, yellow and black inks. Some bright screen colours, particularly vivid blues and greens, can't be reproduced exactly in CMYK and print slightly duller.
 - **Pantone** is a system of standardised ink colours. Specifying a Pantone reference helps a printer match a colour consistently across jobs and suppliers, which matters for signage, packaging and branded merchandise.
 
-Paper, fabric, screen settings and printing method all affect the result too. For anything important or expensive, ask for a printed proof before the full run. Embroidery and vinyl use their own thread and material colour ranges, so the supplier will match your colours as closely as their materials allow.
+Paper, fabric, screen settings and print production method all affect the result too. For anything important or expensive, ask for a printed proof before the full run. Embroidery and vinyl use their own thread and material colour ranges, so the supplier will match your colours as closely as their materials allow.
 
 ## Light, dark, monochrome and icon-only versions
 
@@ -110,7 +110,7 @@ A professional logo usually comes in several versions, because one version alone
 
 - **Full colour**, the primary version, for light backgrounds
 - **Reversed or light**, for dark backgrounds and photographs
-- **Monochrome**, in solid black and in solid white, for single-colour printing, stamps, engraving and embroidery
+- **Monochrome**, in solid black and in solid white, for single-colour print production, stamps, engraving and embroidery
 - **Icon-only** (sometimes called a mark or monogram), for small square spaces: favicons, app icons and social profile pictures
 - **Horizontal and stacked layouts**, where the logo has a name alongside the symbol, so it fits both wide and square spaces
 

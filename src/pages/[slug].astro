@@ -8,7 +8,7 @@ import ContactForm from '../components/ContactForm.astro';
 import { pages } from '../content/pages';
 import PricingPackages from '../components/PricingPackages.astro';
 import PricingHeroVisual from '../components/PricingHeroVisual.astro';
-import { pricingCopy, pricingGroups } from '../content/pricing';
+import { pricingCopy } from '../content/pricing';
 import { company, ui } from '../content/site';
 export function getStaticPaths() {
   return Object.entries(pages).map(([slug, page]) => ({ params: { slug }, props: { page } }));
@@ -22,6 +22,7 @@ const isPricing = Astro.params.slug === 'pricing';
     <header class:list={['page-head', { 'pricing-hero': isPricing }]}>
       <div>
         <p class="eyebrow">{company.name}</p><h1>{page.title}</h1><p class="lead">{page.intro}</p>
+        {Astro.params.slug === 'about' && <p>{company.scope}</p>}
       </div>{isPricing && <PricingHeroVisual />}
     </header>{isPricing && <PricingPackages />}<div class="prose">
       {isPricing && <h2 class="pricing-how">{pricingCopy.howTitle}</h2>}
@@ -83,13 +84,7 @@ const isPricing = Astro.params.slug === 'pricing';
         <div class="container">
           <h2>{pricingCopy.estimateTitle}</h2>
           <p>{pricingCopy.estimateText}</p>
-          <div class="actions">
-            {pricingGroups.map((group) => (
-              <a class="button primary" href={group.estimate.href}>
-                {group.estimate.label}
-              </a>
-            ))}
-          </div>
+          <div class="actions"><a class="button primary" href="/start/">{ui.start}</a></div>
         </div>
       </section>
     ) : (

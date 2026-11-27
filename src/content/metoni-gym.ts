@@ -52,7 +52,7 @@ export const gymPackages = [
 ];
 export const gymCommercialDetails = [
   'Prices exclude VAT where applicable.',
-  'Additional capacity: £50/month per extra 250 enrolled members. Archived members do not count.',
+  'Ask us about additional capacity. Archived members do not count towards enrolment.',
   'Multi-location packages are quoted separately.',
   'Domain registration, developer-account fees, third-party booking subscriptions and payment-processing fees are additional.',
   'Setup includes one template-based website, supporting policy pages and two revision rounds.',
@@ -103,5 +103,5 @@ export const gymSuitabilityQuestion: [string, string] = [
 
 export const gymPricingQuestion: [string, string] = [
   'What do the Metoni gym packages cost?',
-  `${gymPackages.map((plan) => `${plan.name}: £${plan.monthly}/month plus £${plan.setup} one-time setup`).join('; ')}. These are proposed gym-package prices, not consumer app-store prices. ${gymCommercialDetails[0]} ${metoniGym.status}`,
+  `Ask about the package that fits your gym’s enrolment and devices. ${metoniGym.status}`,
 ];

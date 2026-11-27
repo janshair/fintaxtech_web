@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import ArticleList from '../../components/blog/ArticleList.astro';
-import BlogCTA from '../../components/blog/BlogCTA.astro';
+import FinalCTA from '../../components/FinalCTA.astro';
 import { blogCopy } from '../../content/blog';
 import { getPublishedPosts } from '../../lib/blog';
 const posts = await getPublishedPosts();
@@ -15,7 +15,7 @@ const posts = await getPublishedPosts();
     <p><a href="/rss.xml">{blogCopy.rss}</a></p>
   </section>
   <div class="container blog-list"><ArticleList posts={posts} /></div>
-  <BlogCTA />
+  <FinalCTA />
 </SiteLayout>
 <style>
   .blog-intro {

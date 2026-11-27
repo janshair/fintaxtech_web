@@ -2,7 +2,7 @@
 title: 'After the Logo: Which Stationery and Marketing Assets Does a New Business Need First?'
 seoTitle: 'Stationery and Marketing Assets a New Business Needs'
 description: 'Your logo is signed off — so what should you order first? A plain-English guide to the stationery and marketing assets new businesses actually use.'
-summary: 'After the logo, most new businesses need four things first: a business card, an email signature, a quote and invoice template and a letterhead. What comes next depends on how you trade, such as vehicle graphics, signage, social media images or proposal templates. Order short runs, and check what the law requires on your documents before printing.'
+summary: 'After the logo, most new businesses need four things first: a business card, an email signature, a quote and invoice template and a letterhead. What comes next depends on how you trade, such as vehicle graphics, signage, social media images or proposal templates. Order short runs, and check what the law requires on your documents before print production.'
 slug: stationery-and-marketing-assets-after-logo
 pubDate: 2026-09-24
 author: FinTaxTech Ltd.
@@ -96,7 +96,7 @@ Print is less forgiving than screens. Three things cause most of the problems.
 
 **Resolution:** A logo pulled from a website is almost never good enough for print. Artwork should come from vector files wherever possible, and any photography should be supplied at print resolution rather than screen resolution.
 
-**Colour:** Screens use RGB, most printing uses CMYK, and some processes use spot colours. The same brand blue can look noticeably different across the three. If exact colour matching matters to you — and for some brands it genuinely does — say so early, and ask for a printed proof rather than approving on screen.
+**Colour:** Screens use RGB, most print production uses CMYK, and some processes use spot colours. The same brand blue can look noticeably different across the three. If exact colour matching matters to you — and for some brands it genuinely does — say so early, and ask for a printed proof rather than approving on screen.
 
 Having the right files to hand makes all of this straightforward. [Which Logo File Formats Does Your Business Need?](https://fintaxtech.co.uk/blog/logo-file-formats-explained/) explains what each format is for and which one your printer will ask for.
 

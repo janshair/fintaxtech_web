@@ -63,7 +63,7 @@ export const juiceBar05: TemplateBriefSchema = {
               { key: 'ingredients', label: 'Ingredients', type: 'text', maxLength: 80 },
               {
                 key: 'price',
-                label: 'Price, like £4.50',
+                label: 'Price',
                 type: 'text',
                 maxLength: 12,
                 format: price,

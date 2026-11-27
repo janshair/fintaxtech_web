@@ -12,7 +12,6 @@ const closed = promoStatus === 'closed';
       {
         !closed && (
           <>
-            <p class="price">{c.price}</p>
             <p>{promoStatus === 'final-place' ? c.final : c.available}</p>
             <p>{c.ongoing}</p>
             <p class="notice">{c.notice}</p>

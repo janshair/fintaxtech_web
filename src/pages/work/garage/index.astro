@@ -1,11 +1,11 @@
 ---
 import SiteLayout from '../../../layouts/SiteLayout.astro';
 import ShowcaseImage from '../../../components/ShowcaseImage.astro';
-import { showcase } from '../../../data/showcase';
+import { garageWebsite, showcase } from '../../../data/showcase';
 import { services } from '../../../content/services';
 const kit = showcase.find((entry) => entry.id === 'garage')!;
 const img = (name: string) => `/showcase/garage/${name}`;
-const liveSite = '/templates/website/motion/automotive-03/';
+const liveSite = garageWebsite.route;
 const wide = '(max-width: 1180px) calc(100vw - 44px), 1136px';
 ---
 
@@ -65,11 +65,8 @@ const wide = '(max-width: 1180px) calc(100vw - 44px), 1136px';
         <div class="card shot">
           <a href={liveSite}
             ><ShowcaseImage
-              src={img('website-showcase.png')}
-              alt="The Vector Motorworks sample website on a laptop and a phone"
-              width={2400}
-              height={1500}
-              sizes="(max-width: 820px) calc(100vw - 80px), 540px"
+              {...garageWebsite.preview}
+              responsive={false}
             /></a
           >
         </div>

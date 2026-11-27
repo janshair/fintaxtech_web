@@ -1,7 +1,9 @@
 ---
+import GoogleTag from '../../../../../components/GoogleTag.astro';
 import { templateTheme } from '../../../../../lib/template-theme';
 import { THEME, tailoringDemo as c } from '../../../../../content/tailoring-demo';
 import { motionTemplates, motionGallery, templateSocial } from '../../../../../content/templates';
+import { motionTrades } from '../../../../../content/motion-catalogue';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import TailoringArtwork from '../../../../../components/templates/TailoringArtwork.astro';
@@ -17,10 +19,10 @@ const theme = templateTheme('tailoring-02', THEME);
 <!doctype html>
 <html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
+    <GoogleTag />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="no-referrer" />
-    <meta name="robots" content="noindex,nofollow" />
     <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -98,6 +100,7 @@ const theme = templateTheme('tailoring-02', THEME);
               class="headline-mask"><em>{c.hero.second}</em></span
             >
           </h1>
+          <p>{motionTrades['tailoring-02'].intro}</p>
           <p class="lead">{c.hero.description}</p>
           <a href="#fitting" class="button" data-book>{c.book}<span aria-hidden="true">↗</span></a>
           <a href="#services" class="text-link"

@@ -229,15 +229,9 @@ test('gym pilot enquiries identify the package and preserve the app download rou
   await expect(page).toHaveURL(/#for-gyms$/);
   const section = page.locator('#for-gyms');
   await expect(section).toContainText('Gym packages are in development.');
-  const packages = [
-    ['Website', '79', '499'],
-    ['Connected Gym', '149', '749'],
-    ['Own Brand', '249', '999'],
-  ];
-  for (const [name, monthly, setup] of packages) {
+  for (const name of ['Website', 'Connected Gym', 'Own Brand']) {
     const card = section.getByRole('article', { name, exact: true });
-    await expect(card.locator('.monthly-price')).toHaveText(`£${monthly}/month`);
-    await expect(card.locator('.setup-price')).toHaveText(`£${setup} one-time setup`);
+    await expect(card).not.toContainText(/[£€$]\s*\d/);
     const enquiry = card.getByRole('link');
     await enquiry.focus();
     await expect(enquiry).toBeFocused();

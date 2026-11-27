@@ -21,13 +21,13 @@ test('gallery and demo have correct static metadata, assets and sitemap rules', 
   for (const template of motionTemplates) {
     expect(galleryHTML).toContain(template.name);
     expect(galleryHTML).toContain(template.preview.src);
-    expect(sitemap).not.toContain(template.route);
+    expect(sitemap).toContain(`<loc>https://fintaxtech.co.uk${template.route}</loc>`);
     for (const path of [template.route, template.route.slice(0, -1)]) {
       const response = await request.get(path);
       expect(response.status()).toBe(200);
       const html = await response.text();
       expect(html).toContain(`rel="canonical" href="https://fintaxtech.co.uk${template.route}"`);
-      expect(html).toContain('noindex,nofollow');
+      expect(html).not.toContain('name="robots"');
     }
     for (const file of ['styles.css', 'app.js', 'preview.webp']) {
       expect((await request.get(`${template.route}${file}`)).status()).toBe(200);
@@ -204,7 +204,7 @@ for (const template of motionTemplates)
     const head = html.split('</head>')[0];
     const meta = (key: string) =>
       head.match(new RegExp(`<meta (?:property|name)="${key}" content="([^"]*)"`))?.[1];
-    const title = `${template.trade} website demo – by FinTaxTech`;
+    const title = `${template.trade} Website Template, Animated | FinTaxTech`;
     expect(head).toContain(`<title>${title}</title>`);
     expect(meta('og:title')).toBe(title);
     expect(meta('twitter:title')).toBe(title);

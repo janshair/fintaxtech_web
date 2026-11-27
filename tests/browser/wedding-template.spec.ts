@@ -72,7 +72,7 @@ test('link values apply before first paint, stay local, and metadata remains can
     'content',
     `https://fintaxtech.co.uk${route}`,
   );
-  await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,nofollow');
+  await expect(page.locator('meta[name=robots]')).toHaveCount(0);
   await expect(page.locator('h1')).toHaveCount(1);
   for (const link of await page.locator('[data-agency-link]').all())
     expect(new URL((await link.getAttribute('href'))!, page.url()).searchParams.get('ref')).toBe(
@@ -82,9 +82,8 @@ test('link values apply before first paint, stay local, and metadata remains can
   for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
     await expect(page.locator(`[data-capture="${hook}"]`)).toHaveCount(1);
   await expect(page.locator('.badge')).toHaveText(w.badge);
-  expect(await visibleText(page, '[data-sample-review] .review-tag')).toEqual(
-    Array(3).fill('Example review'),
-  );
+  await expect(page.locator('[data-capture=reviews]')).toContainText('Your own customer feedback can appear here.');
+  await expect(page.locator('[data-sample-review]')).toHaveCount(0);
   expect(await visibleText(page, '.tile-tag')).toEqual(Array(6).fill('Example'));
   expect(await visibleText(page, '.tile figcaption')).toEqual(
     presets.florist.gallery.map((tile) => `Example ${tile.label}`),
@@ -129,11 +128,11 @@ for (const type of supplierTypes) {
     expect(await visibleText(page, '.timeline-step h3')).toEqual(p.process.map(([h]) => h));
     expect(await visibleText(page, '.package-card h3')).toEqual(p.packages.map((x) => x.name));
     expect(await visibleText(page, '.package-price')).toEqual(
-      p.packages.map((x) => `Example · from ${x.price}`),
+      p.packages.map((x) => `Example package · ${x.price}`),
     );
     expect(await visibleText(page, '.tile figcaption')).toHaveLength(6);
     expect(await visibleText(page, '.faq-list summary')).toEqual(p.faqs.map(([q]) => q));
-    expect(await visibleText(page, '.review-card h3')).toEqual(p.reviews.map((r) => r.name));
+    await expect(page.locator('.review-card')).toHaveCount(0);
     await expect(page.locator(`[data-story="${type}"]`)).toBeVisible();
     await expect(page.locator('[data-story]:visible')).toHaveCount(1);
     await expect(page.locator('.allergen-note')).toBeVisible({ visible: type === 'cakes' });
@@ -160,7 +159,7 @@ for (const type of supplierTypes) {
       await page.getByRole('button', { name: 'Next: your day' }).click();
       await expect(page.locator('[data-package-label]')).toHaveText(p.demo.packageLabel);
       await expect(page.locator('#day-package')).toHaveValue(item.id);
-      await expect(page.locator('#day-price')).toHaveText(`Example · from ${item.price}`);
+      await expect(page.locator('#day-price')).toHaveText(`Example · ${item.price}`);
       await page.keyboard.press('Escape');
       await expect(trigger).toBeFocused();
     }

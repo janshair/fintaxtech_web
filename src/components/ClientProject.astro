@@ -4,7 +4,6 @@ import ClientFeedback from './ClientFeedback.astro';
 import desktop from '../assets/work/ask-appliance-repairs-desktop.webp';
 import mobile from '../assets/work/ask-appliance-repairs-mobile.webp';
 import logo from '../assets/work/ask-appliance-repairs-logo.webp';
-import maps from '../assets/work/ask-appliance-repairs-maps-promo.webp';
 import guideCover from '../assets/work/ask-appliance-repairs-guidelines-cover.webp';
 import guideColour from '../assets/work/ask-appliance-repairs-guidelines-colour.webp';
 import guideType from '../assets/work/ask-appliance-repairs-guidelines-type.webp';
@@ -58,12 +57,7 @@ const pageSizes = '(min-width: 760px) 30vw, 90vw';
         </a>
         <figcaption>{brand.logoCaption}</figcaption>
       </figure>
-      <figure>
-        <a class="work-preview" href={maps.src}>
-          <Image src={maps} alt={brand.mapsAlt} sizes="(min-width: 760px) 45vw, 90vw" />
-        </a>
-        <figcaption>{brand.mapsCaption}</figcaption>
-      </figure>
+
     </div>
     <p class="brand-subhead">{brand.guideTitle}</p>
     <div class="guide-pages">

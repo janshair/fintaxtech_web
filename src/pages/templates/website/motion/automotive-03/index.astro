@@ -1,7 +1,9 @@
 ---
+import GoogleTag from '../../../../../components/GoogleTag.astro';
 import { templateTheme } from '../../../../../lib/template-theme';
 import { THEME, PRICES, automotiveDemo as c } from '../../../../../content/automotive-demo';
 import { motionTemplates, motionGallery, templateSocial } from '../../../../../content/templates';
+import { motionTrades } from '../../../../../content/motion-catalogue';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import AutomotiveArtwork from '../../../../../components/templates/AutomotiveArtwork.astro';
@@ -19,10 +21,10 @@ const examplePhone = '44' + c.visit.phone.replace(/\D/g, '').slice(1);
 <!doctype html>
 <html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
+    <GoogleTag />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="no-referrer" />
-    <meta name="robots" content="noindex,nofollow" />
     <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
@@ -89,6 +91,7 @@ const examplePhone = '44' + c.visit.phone.replace(/\D/g, '').slice(1);
           <h1 class="hero-identity">
             <span class="headline-mask"><span data-business>{c.name}</span></span>
           </h1>
+          <p>{motionTrades['automotive-03'].intro}</p>
           <p class="lead">{c.hero.before}<span data-town>{c.area}</span>{c.hero.after}</p>
           <div class="hero-actions">
             <a class="button" href="#mot" data-hero-mot
@@ -327,26 +330,10 @@ const examplePhone = '44' + c.visit.phone.replace(/\D/g, '').slice(1);
           }
         </div>
       </section>
-      <section class="reviews section wrap" aria-labelledby="reviews-title">
-        <h2 id="reviews-title">{c.reviews.title}</h2><p>{c.reviews.intro}</p><div
-          class="review-grid"
-        >
-          {
-            c.reviews.items.map((review) => (
-              <figure class="review">
-                <>
-                  <p class="review-label">{c.reviews.label}</p>
-                  <p class="review-stars" role="img" aria-label="5 out of 5 stars">
-                    ★★★★★
-                  </p>
-                  <blockquote>
-                    <p>{review.text}</p>
-                  </blockquote>
-                  <figcaption>{review.name}</figcaption>
-                </>
-              </figure>
-            ))
-          }
+      <section class="reviews section" aria-labelledby="reviews-title" data-capture="reviews">
+        <div class="wrap">
+          <h2 id="reviews-title">Customer feedback</h2>
+          <p>Your own customer feedback can appear here.</p>
         </div>
       </section>
       <section class="visit paper section" id="quote" aria-labelledby="quote-title">

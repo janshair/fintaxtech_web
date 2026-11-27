@@ -44,18 +44,18 @@ export const tailoringDemo = {
     intro:
       'From a trouser hem to the line of a jacket, start with what you would like to feel different.',
     priceNote:
-      'Illustrative starting prices only. Your tailor confirms the work, price and timing after seeing the garment.',
+      'Illustrative services. Your tailor confirms the work after seeing the garment.',
     items: [
       {
         name: 'Hems & lengths',
         description: 'Trousers, skirts and dresses, finished at the length that feels right.',
-        price: 'From £18',
+        price: 'Enquire',
         code: 'hems',
       },
       {
         name: 'Shape & silhouette',
         description: 'A considered adjustment at the waist, sleeve or side seam.',
-        price: 'From £30',
+        price: 'Enquire',
         code: 'shape',
       },
       {
@@ -67,7 +67,7 @@ export const tailoringDemo = {
       {
         name: 'Repairs & finishing',
         description: 'Buttons, linings and suitable zip repairs, assessed garment by garment.',
-        price: 'From £12',
+        price: 'Enquire',
         code: 'repairs',
       },
     ],
@@ -163,7 +163,7 @@ export const tailoringDemo = {
       ],
       [
         'Will I know the price first?',
-        'The work and price are agreed after assessment, before alterations begin. The prices shown here are examples.',
+        'The work and price are agreed after assessment, before alterations begin.',
       ],
     ],
   },

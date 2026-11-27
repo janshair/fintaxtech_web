@@ -54,7 +54,7 @@ test('link values apply before first paint, stay local, and metadata remains can
     'content',
     `https://fintaxtech.co.uk${route}`,
   );
-  await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,nofollow');
+  await expect(page.locator('meta[name=robots]')).toHaveCount(0);
   await expect(page.locator('h1')).toHaveCount(1);
   for (const link of await page.locator('[data-agency-link]').all())
     expect(new URL((await link.getAttribute('href'))!, page.url()).searchParams.get('ref')).toBe(
@@ -63,9 +63,8 @@ test('link values apply before first paint, stay local, and metadata remains can
   expect(await page.locator('body').innerText()).not.toContain('LETTER08');
   for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
     await expect(page.locator(`[data-capture="${hook}"]`)).toHaveCount(1);
-  await expect(page.locator('[data-sample-review] .review-tag')).toHaveText(
-    Array(3).fill('Example review'),
-  );
+  await expect(page.locator('[data-capture=reviews]')).toContainText('Your own customer feedback can appear here.');
+  await expect(page.locator('[data-sample-review]')).toHaveCount(0);
   await expect(page.locator('.tile-tag')).toHaveText(Array(b.gallery.length).fill('Example'));
   await expect(page.locator('.art-tag')).toHaveText(Array(2).fill('Illustrated example'));
   await expect(page.locator('.patch-note')).toContainText(b.patchTest);
@@ -225,7 +224,7 @@ test('treatment tabs switch by click and arrow keys, and every row books its tre
       await trigger.click();
       await expect(page.locator('#book-treatment')).toHaveValue(item.id);
       await expect(page.locator('#book-price')).toHaveText(
-        `${item.duration} · Example price: ${item.price}`,
+        `${item.duration} · ${item.price}`,
       );
       await page.keyboard.press('Escape');
       await expect(trigger).toBeFocused();
@@ -243,7 +242,7 @@ test('treatment tabs switch by click and arrow keys, and every row books its tre
   const lift = treatments.find((item) => item.id === 'lift')!;
   await page.locator('#book-treatment').selectOption(lift.id);
   await expect(page.locator('#book-price')).toHaveText(
-    `${lift.duration} · Example price: ${lift.price}`,
+    `${lift.duration} · ${lift.price}`,
   );
   await page.keyboard.press('Escape');
   // "See lash treatments" opens the Lashes tab.

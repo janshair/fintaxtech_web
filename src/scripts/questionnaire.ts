@@ -725,7 +725,11 @@ function sendNotifications() {
         email: replyEmail,
         message: `${contactLines}\n\n${answerLines}`,
       }),
-    }).catch(() => {});
+    })
+      .then(async (response) => {
+        if (response.ok && (await response.json()).success) track('generate_lead');
+      })
+      .catch(() => {});
   }
 }
 // URLs accept only non-personal routing values; no answers, campaign marker or customer fields.

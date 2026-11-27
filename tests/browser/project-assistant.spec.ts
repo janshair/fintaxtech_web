@@ -47,7 +47,7 @@ test('invites once after ten seconds across navigation and returns keyboard focu
   await page.keyboard.press(
     browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab',
   );
-  const pricing = panel(page).getByRole('button', { name: 'Get a price estimate' });
+  const pricing = panel(page).getByRole('button', { name: 'Request a proposal' });
   await expect(pricing).toBeFocused();
   expect(await pricing.evaluate((button) => getComputedStyle(button).outlineStyle)).toBe('solid');
   await page.keyboard.press('Enter');
@@ -151,7 +151,7 @@ test('routes each service and published project to an existing destination', asy
   };
   await page.goto('/');
   await launcher(page).click();
-  await open('Get a price estimate');
+  await open('Request a proposal');
   for (const [label, route] of services) {
     if (route) await destination(label, `/estimate/${route}/`);
   }

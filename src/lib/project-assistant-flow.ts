@@ -1,8 +1,8 @@
 import askImage from '../assets/work/ask-appliance-repairs-desktop.webp';
 import metoniIcon from '../assets/metoni/icon.webp';
 import safosIcon from '../assets/safos/icon.webp';
+import { estimateKinds, proposalServices } from '../content/estimate-currency';
 import { assistantCopy as c, assistantServices } from '../content/project-assistant';
-import { pricingGroups } from '../content/pricing';
 import { company, navigation, ui } from '../content/site';
 import { featuredWork, publishedApps } from '../content/work';
 import type { AssistantChoice, AssistantScreen, AssistantService } from './project-assistant-types';
@@ -19,8 +19,10 @@ const question = (service: AssistantService): AssistantChoice => ({
   href: service === 'unsure' ? '/enquiry/?route=help' : `/enquiry/?service=${service}`,
 });
 
-const estimateFor = (service: AssistantService) =>
-  pricingGroups.find(({ id }) => id === service)?.estimate.href;
+const proposalFor = (service: AssistantService) => {
+  const kind = estimateKinds.find((candidate) => proposalServices[candidate].service === service);
+  return kind && `/estimate/${kind}/`;
+};
 const [metoni, safos] = publishedApps;
 
 export const assistantScreens: AssistantScreen[] = [
@@ -40,7 +42,7 @@ export const assistantScreens: AssistantScreen[] = [
     heading: c.servicePrompt,
     back: 'home',
     choices: services.map((service) => {
-      const href = estimateFor(service);
+      const href = proposalFor(service);
       const label = assistantServices[service];
       return href ? { label, href } : { label, next: `price-help-${service}` };
     }),
@@ -82,7 +84,7 @@ export const assistantScreens: AssistantScreen[] = [
     ],
   },
   ...services
-    .filter((service) => !estimateFor(service))
+    .filter((service) => !proposalFor(service))
     .map((service): AssistantScreen => ({
       id: `price-help-${service}`,
       heading: c.priceHelp,

@@ -45,7 +45,7 @@ The D-U-N-S Number is the item most likely to hold you up if you do not already 
 
 ### Google
 
-Google's [Get started with Play Console](https://support.google.com/googleplay/android-developer/answer/6112435) page describes signing up with a Google Account, accepting the Developer Distribution Agreement, paying a registration fee, choosing a Personal or Organization account type, and verifying developer identity information. It notes you may be asked for a valid government ID and a credit card in your legal name, and that the fee is not refunded if the submission is invalid. At the time of writing the page states a "US$25 one-time registration fee".
+Google's [Get started with Play Console](https://support.google.com/googleplay/android-developer/answer/6112435) page describes signing up with a Google Account, accepting the Developer Distribution Agreement, paying a registration fee, choosing a Personal or Organization account type, and verifying developer identity information. It notes you may be asked for a valid government ID and a credit card in your legal name, and that the fee is not refunded if the submission is invalid.
 
 Google also applies extra testing requirements to personal developer accounts created after a cut-off date, which can add a real delay between finishing the app and publishing it. If you trade as a company, an Organization account usually avoids that path — but confirm the current rules on Google's page rather than on any summary, including this one.
 

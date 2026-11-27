@@ -1,9 +1,5 @@
 ---
-import SiteLayout from '../../layouts/SiteLayout.astro';
-import BrandingEstimateShell from '../../components/BrandingEstimateShell.astro';
-import { brandingEstimateCopy as c } from '../../content/branding-estimate';
+import EstimateEnquiry from '../../components/EstimateEnquiry.astro';
 ---
 
-<SiteLayout title={c.title} description={c.description} noindex>
-  <BrandingEstimateShell />
-</SiteLayout>
+<EstimateEnquiry kind="branding" />

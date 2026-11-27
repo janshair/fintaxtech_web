@@ -15,7 +15,7 @@ const prices = (id: string) =>
   Object.fromEntries(group(id).packages.map((pkg) => [pkg.name, pkg.price]));
 
 describe('pricing page packages', () => {
-  it('publishes the catalogue prices for each service', () => {
+  it('retains the internal catalogue prices for each service', () => {
     expect(prices('websites')).toEqual({
       'Placeholder Website': 399,
       'Single Landing Page': 699,
@@ -72,10 +72,10 @@ describe('pricing page packages', () => {
     });
   });
 
-  it('carries prices into search metadata, schema and llms.txt', () => {
+  it('keeps public metadata, schema and llms.txt free of prices', () => {
     const seo = seoPages['/pricing/'];
     expect(seo.title).toBe(pricingCopy.seoTitle);
-    expect(seo.description).toContain('websites from £399');
+    expect(seo.description).not.toMatch(/[£€$]\s*\d/);
     expect(seo.description.length).toBeLessThanOrEqual(200);
 
     const graph = structuredData('/pricing/', seo.title, seo.description)['@graph'] as Record<
@@ -86,14 +86,15 @@ describe('pricing page packages', () => {
     expect(page.mainEntity).toHaveLength(pricingFaqs.length);
     const catalogue = graph.find((node) => node['@id']?.endsWith('#packages'))!;
     const offers = catalogue.itemListElement.flatMap((g: any) => g.itemListElement);
-    expect(offers).toHaveLength(16);
-    expect(offers.every((o: any) => o.priceCurrency === 'GBP' && o.price > 0)).toBe(true);
-    expect(offers.every((o: any) => o.priceSpecification.valueAddedTaxIncluded === false)).toBe(
-      true,
-    );
+    expect(offers).toHaveLength(pricingGroups.flatMap((group) => group.packages).length);
+    for (const offer of offers) {
+      expect(offer).not.toHaveProperty('price');
+      expect(offer).not.toHaveProperty('priceSpecification');
+    }
 
     const text = pricingSummaryText();
-    expect(text).toContain('Website packages, from £399 + VAT');
-    expect(text).toContain('Starter Automation (£999 + VAT)');
+    expect(text).toContain('Website packages');
+    expect(text).toContain('Starter Automation');
+    expect(text).not.toMatch(/[£€$]\s*\d/);
   });
 });

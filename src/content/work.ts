@@ -67,9 +67,6 @@ export const featuredWork = {
     logoAlt:
       'Ask Appliance Repairs Ltd logo: a navy washing machine outline with a teal drum beside the word Ask and the full business name.',
     logoCaption: 'Primary logo',
-    mapsAlt:
-      'Google Maps promotion graphic for Ask Appliance Repairs Ltd: appliance repairs from £75, parts extra if required, London and Surrey, beside a washing machine, dryer, oven and teal toolbox.',
-    mapsCaption: 'Google Maps promotion',
     guideTitle: 'Brand guidelines (12 pages)',
     guide: [
       [

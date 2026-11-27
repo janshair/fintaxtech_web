@@ -18,7 +18,7 @@ faqs:
   - question: 'What contrast ratio does website text need?'
     answer: 'The Web Content Accessibility Guidelines, at Level AA, ask for a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text, meaning at least 18 point, or 14 point if bold. Text that is part of a logo is excluded. Test your combinations with a contrast checker before you commit.'
   - question: 'Why do my brand colours look different in print?'
-    answer: 'Screens mix light and print mixes ink, so the same colour needs separate definitions, and some bright screen colours cannot be reproduced exactly in standard printing. Ask for HEX or RGB values for screens and CMYK values for print, and use a physical proof where an exact match matters.'
+    answer: 'Screens mix light and print mixes ink, so the same colour needs separate definitions, and some bright screen colours cannot be reproduced exactly in standard print production. Ask for HEX or RGB values for screens and CMYK values for print, and use a physical proof where an exact match matters.'
   - question: 'Do I need a licence to use a font for my business?'
     answer: 'Usually, yes. Fonts are licensed software, and the licence depends on where the font is used: desktop use, a website, a mobile app and logo artwork are often licensed separately. Open-source fonts under the SIL Open Font License are simpler, but still read the terms for the specific family.'
 draft: false
@@ -68,9 +68,9 @@ The accessibility requirements that apply to your own organisation can depend on
 
 ### Screen and print are different systems
 
-Screens mix light; print mixes ink. The same colour therefore needs more than one definition, and some bright screen colours cannot be reproduced exactly in standard process printing at all.
+Screens mix light; print mixes ink. The same colour therefore needs more than one definition, and some bright screen colours cannot be reproduced exactly in standard process print production at all.
 
-You will usually want, for each colour: a HEX or RGB value for screens, a CMYK value for standard printing, and sometimes a spot-colour reference where consistency matters most, such as packaging or signage. Ask your designer for all the values you need up front and to flag any colour that will shift noticeably in print. Where a printed item must match exactly, a physical proof from the printer producing the job is the only reliable check — screens and desktop printers are not a substitute.
+You will usually want, for each colour: a HEX or RGB value for screens, a CMYK value for standard print production, and sometimes a spot-colour reference where consistency matters most, such as packaging or signage. Ask your designer for all the values you need up front and to flag any colour that will shift noticeably in print. Where a printed item must match exactly, a physical proof from the printer producing the job is the only reliable check — screens and desktop printers are not a substitute.
 
 ### A note on ownership and exclusivity
 

@@ -150,6 +150,6 @@ Work through this list with your designer before you sign them off.
 - [ ] One named person owns the master copies
 - [ ] We know when we will next review them
 
-If you would like templates designed alongside a new or refreshed brand, we can talk through which ones your team would really use. We design the templates and supply the files; you choose the printer for anything that needs printing, and we can supply print-ready files for it.
+If you would like templates designed alongside a new or refreshed brand, we can talk through which ones your team would really use. We design the templates and supply the files; you choose the printer for anything that needs print production, and we can supply print-ready files for it.
 
 **[Talk to us about branding →](/enquiry/?service=branding)**

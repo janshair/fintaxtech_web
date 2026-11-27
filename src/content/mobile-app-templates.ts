@@ -13,9 +13,9 @@ export const bookingConcept = {
 
 export const bookingSteps = ['Choose a treatment', 'Pick a time', 'Confirm booking', 'Reschedule'];
 export const treatments = [
-  { name: 'Cut & finish', details: '45 min · £45' },
-  { name: 'Blow-dry', details: '30 min · £30' },
-  { name: 'Restyle', details: '60 min · £60' },
+  { name: 'Cut & finish', details: '45 min' },
+  { name: 'Blow-dry', details: '30 min' },
+  { name: 'Restyle', details: '60 min' },
 ];
 export const bookingTimes = ['10:00', '11:30', '14:00'];
 export const bookingDate = 'Saturday 14 November';

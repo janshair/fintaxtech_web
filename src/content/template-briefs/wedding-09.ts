@@ -74,7 +74,7 @@ export const wedding09: TemplateBriefSchema = {
               { key: 'name', label: 'Package name', type: 'text', maxLength: 28 },
               {
                 key: 'price',
-                label: 'Price from, like £1,150',
+                label: 'Price from',
                 type: 'text',
                 maxLength: 12,
                 format: price,

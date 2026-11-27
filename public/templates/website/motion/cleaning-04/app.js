@@ -28,7 +28,7 @@
     document.querySelectorAll('[data-phone]').forEach((node) => {
       node.textContent = current.phone || 'Your number here';
     });
-    document.title = name + c.titleSuffix;
+    document.title = current.name ? name + c.titleSuffix : document.querySelector('meta[property="og:title"]').content;
     // The final offer opens the template brief with this preview's values.
     const brief = new URL('/client/website-brief/templates/?template=cleaning-04', location.origin);
     if (current.name) brief.searchParams.set('name', current.name);

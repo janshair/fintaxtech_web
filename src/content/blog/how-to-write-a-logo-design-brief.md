@@ -103,7 +103,7 @@ Then the practical limitations, which clients rarely think to mention:
 
 - The logo will sometimes appear on **one-colour print** — stamps, invoices, some signage, embroidery. It must work in solid black and solid white.
 - It will sit on **dark and light backgrounds**. Ask for versions for each.
-- **Production methods have different limits.** Embroidery, vinyl, screen printing and etched signage may restrict colours or fine detail. Ask the relevant supplier about its requirements.
+- **Production methods have different limits.** Embroidery, vinyl, screen print production and etched signage may restrict colours or fine detail. Ask the relevant supplier about its requirements.
 - **Screens differ.** A colour chosen on your laptop will look different on a phone in sunlight.
 
 If you already know the logo is going on workwear or a vehicle, say so here. It changes what a good answer looks like.

@@ -66,7 +66,7 @@ export const automotive03: TemplateBriefSchema = {
               },
               {
                 key: 'price',
-                label: 'Price, like £54.85, From £45 or Free quote',
+                label: 'Price',
                 type: 'text',
                 maxLength: 40,
                 format: { ...price, words: ['Free quote', 'Ask for prices', 'Quote on request'] },

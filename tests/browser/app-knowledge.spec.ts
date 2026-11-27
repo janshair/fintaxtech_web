@@ -44,7 +44,7 @@ for (const app of appKnowledge) {
   });
 }
 
-test('gym-intent answers and proposed prices are discoverable in static Metoni HTML and summaries', async ({
+test('gym-intent answers and package details are discoverable in static Metoni HTML and summaries', async ({
   browser,
   request,
 }) => {
@@ -60,8 +60,8 @@ test('gym-intent answers and proposed prices are discoverable in static Metoni H
   await expect(section).toContainText(metoniGym.consumerScope);
   for (const plan of metoniGym.packages) {
     const card = section.getByRole('article', { name: plan.name, exact: true });
-    await expect(card.locator('.monthly-price')).toHaveText(`£${plan.monthly}/month`);
-    await expect(card.locator('.setup-price')).toHaveText(`£${plan.setup} one-time setup`);
+    await expect(card).toContainText(plan.note);
+    await expect(card).not.toContainText(/[£€$]\s*\d/);
   }
   for (const path of ['/llms.txt', '/metoni/llms.txt']) {
     const text = await (await request.get(path)).text();

@@ -65,11 +65,11 @@ export const industries: Industry[] = [
       exampleTitle: 'One bill, two emails',
       input: [
         'Supplier’s email',
-        '“Could you confirm you received invoice P-271 for £288? I’ve attached it again.”',
+        '“Could you confirm you received invoice P-271? I’ve attached it again.”',
       ],
       evidence: [
-        ['Invoice details', 'Paper & Ink Supplies · P-271 · £240 net and £48 tax as printed'],
-        ['Earlier entry', 'Same supplier, reference and £288 total in Tuesday’s draft batch'],
+        ['Invoice details', 'Paper & Ink Supplies · P-271 · line items and totals as shown on the invoice'],
+        ['Earlier entry', 'Same supplier, reference and invoice total in Tuesday’s draft batch'],
       ],
       output: [
         'For the bookkeeper',

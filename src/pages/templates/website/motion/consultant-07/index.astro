@@ -1,9 +1,11 @@
 ---
+import GoogleTag from '../../../../../components/GoogleTag.astro';
 import '@fontsource/ibm-plex-sans/latin-400.css';
 import '@fontsource/ibm-plex-sans/latin-600.css';
 import { templateTheme } from '../../../../../lib/template-theme';
 import { THEME, consultantDemo as c, rolePresets } from '../../../../../content/consultant-demo';
 import { motionTemplates, motionGallery, templateSocial } from '../../../../../content/templates';
+import { motionTrades } from '../../../../../content/motion-catalogue';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import ConsultantArtwork from '../../../../../components/templates/ConsultantArtwork.astro';
@@ -19,8 +21,9 @@ const theme = templateTheme('consultant-07', THEME);
 <!doctype html>
 <html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
+    <GoogleTag />
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="no-referrer" />
     <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
@@ -93,6 +96,7 @@ const theme = templateTheme('consultant-07', THEME);
             <span data-role>{c.role}</span> · <span data-hero-area>{c.area}</span>
           </p>
           <h1><span data-business>{c.name}</span></h1>
+          <p>{motionTrades['consultant-07'].intro}</p>
           <p class="tagline" data-copy="promise">{c.hero.tagline}</p>
           <p class="lead">{c.hero.description}</p>
           <div class="hero-actions">
@@ -132,7 +136,7 @@ const theme = templateTheme('consultant-07', THEME);
         <header class="section-heading" data-reveal>
           <p class="eyebrow">01 · HOW I CAN HELP</p>
           <h2 id="services-title">Ways to work <em>together.</em></h2>
-          <p>Sample services and prices, ready to be replaced with your own.</p>
+          <p>Sample services, ready to be replaced with your own.</p>
         </header>
         <div class="service-grid">
           {
@@ -275,41 +279,10 @@ const theme = templateTheme('consultant-07', THEME);
           </div>
         </div>
       </section>
-      <section class="reviews section" data-capture="reviews" aria-labelledby="reviews-title">
+      <section class="reviews section" aria-labelledby="reviews-title" data-capture="reviews">
         <div class="wrap">
-          <header class="section-heading" data-reveal>
-            <p class="eyebrow">05 · KIND WORDS</p>
-            <h2 id="reviews-title">What clients <em>say.</em></h2>
-            <p>Example reviews — your real Google reviews appear here.</p>
-          </header>
-          <div class="review-grid">
-            {
-              c.reviews.map((r) => (
-                <article class="review-card" data-sample-review data-reveal>
-                  <>
-                    <div class="review-top">
-                      <>
-                        <span class="avatar" aria-hidden="true">
-                          {r.initials}
-                        </span>
-                        <div>
-                          <>
-                            <h3>{r.name}</h3>
-                            <p class="review-date">{r.date}</p>
-                          </>
-                        </div>
-                        <span class="review-tag">Example review</span>
-                      </>
-                    </div>
-                    <p class="stars" role="img" aria-label="5 out of 5 stars (example)">
-                      ★★★★★
-                    </p>
-                    <p>{r.text}</p>
-                  </>
-                </article>
-              ))
-            }
-          </div>
+          <h2 id="reviews-title">Customer feedback</h2>
+          <p>Your own customer feedback can appear here.</p>
         </div>
       </section>
       <section

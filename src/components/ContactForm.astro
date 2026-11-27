@@ -2,7 +2,7 @@
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 ---
 
-<form id="contact-form" novalidate>
+<form id="contact-form" data-web3forms-key={web3formsKey} novalidate>
   <div class="form-row">
     <label for="cf-name">Your name</label>
     <input id="cf-name" name="name" type="text" autocomplete="name" required />
@@ -41,11 +41,13 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
   <p><strong>Your message has been delivered.</strong> We aim to reply within two UK business days.</p>
 </div>
 
-<script define:vars={{ web3formsKey }}>
-  const form = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('cf-submit');
-  const errorBox = document.getElementById('cf-error');
-  const successBox = document.getElementById('cf-success');
+<script>
+  import { track } from '../lib/analytics';
+  const form = document.querySelector<HTMLFormElement>('#contact-form')!;
+  const web3formsKey = form.dataset.web3formsKey;
+  const submitBtn = document.querySelector<HTMLButtonElement>('#cf-submit')!;
+  const errorBox = document.querySelector<HTMLElement>('#cf-error')!;
+  const successBox = document.querySelector<HTMLElement>('#cf-success')!;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -65,22 +67,22 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
 
-    const [emailResult] = await Promise.allSettled([sendWeb3Forms(data, web3formsKey)]);
-
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Send message';
-
-    if (emailResult.status === 'rejected') {
-      errorBox.textContent =
-        'Something went wrong. Please email us directly at ask@fintaxtech.co.uk.';
-    } else {
+    try {
+      await sendWeb3Forms(data, web3formsKey);
+      track('generate_lead');
       form.hidden = true;
       successBox.hidden = false;
       successBox.focus();
+    } catch {
+      errorBox.textContent =
+        'Something went wrong. Please email us directly at ask@fintaxtech.co.uk.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
     }
   });
 
-  async function sendWeb3Forms(data, key) {
+  async function sendWeb3Forms(data: Record<string, FormDataEntryValue>, key: string) {
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -1,6 +1,5 @@
 import { readPreference, writePreference } from '../lib/storage';
-import { initAnalytics, setAnalyticsConsent, track } from '../lib/analytics';
-initAnalytics();
+import { hasAnalyticsConsent, setAnalyticsConsent, track } from '../lib/analytics';
 function syncThemeMetadata() {
   const color = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
   document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
@@ -43,9 +42,10 @@ document.addEventListener('keydown', (event) => {
 const banner = document.querySelector<HTMLElement>('#consent-banner');
 const dialog = document.querySelector<HTMLDialogElement>('#consent-dialog');
 const choice = document.querySelector<HTMLInputElement>('#analytics-choice');
-if (banner && !readPreference('consent')) banner.hidden = false;
+if (banner && !hasAnalyticsConsent() && readPreference('consent') !== 'rejected')
+  banner.hidden = false;
 function save(value: string) {
-  writePreference('consent', value);
+  writePreference('consent', value === 'accepted' ? 'accepted-v2' : 'rejected');
   setAnalyticsConsent(value === 'accepted');
   if (banner) banner.hidden = true;
   dialog?.close();
@@ -55,7 +55,7 @@ document
   .forEach((b) => b.addEventListener('click', () => save(b.dataset.consent!)));
 document.querySelectorAll('[data-consent-manage]').forEach((b) =>
   b.addEventListener('click', () => {
-    if (choice) choice.checked = readPreference('consent') === 'accepted';
+    if (choice) choice.checked = hasAnalyticsConsent();
     dialog?.showModal();
   }),
 );

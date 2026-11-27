@@ -49,7 +49,7 @@ export const consultant07: TemplateBriefSchema = {
               { key: 'description', label: 'Short description', type: 'text', maxLength: 100 },
               {
                 key: 'price',
-                label: 'Price, like From £350 / month or By quotation',
+                label: 'Price',
                 type: 'text',
                 maxLength: 24,
                 format: { ...price, per: true, words: ['By quotation'] },

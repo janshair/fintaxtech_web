@@ -1,0 +1,15 @@
+---
+import { deniedConsent } from '../content/google-tag';
+---
+
+<script is:inline define:vars={{ deniedConsent }}>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag('consent', 'default', deniedConsent);
+</script>
+<script>
+  import { initAnalytics } from '../lib/analytics';
+  initAnalytics();
+</script>

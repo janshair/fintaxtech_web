@@ -172,14 +172,14 @@ test('every service fills the free quote form, validates details and sends nothi
   ).toEqual([[], []]);
 });
 
-test('fixed jobs show prices, repairs only say free quote', async ({ page }) => {
+test('fixed jobs and repairs use enquiry and booking labels', async ({ page }) => {
   await page.goto(c.route);
   const names = c.services.items.map((item) => item.name);
   await expect(page.locator('.service-row h3')).toHaveText(names.slice(0, 6));
   await expect(page.locator('.repair-name')).toHaveText(names.slice(6));
   await expect(page.locator('#quote-service option')).toHaveText(names);
-  await expect(page.locator('#services [data-service=mot] .service-price')).toHaveText('£54.85');
-  await expect(page.locator('.mot-price strong')).toHaveText('£54.85');
+  await expect(page.locator('#services [data-service=mot] .service-price')).toHaveText('Book an MOT');
+  await expect(page.locator('.mot-price strong')).toHaveText('Book an MOT');
   await expect(page.locator('.service-badge')).toHaveCount(1);
   await expect(page.locator('[data-service=combo] .service-badge')).toHaveText('Best value');
   for (const code of ['brakes', 'clutch', 'exhausts', 'timing-belt']) {
@@ -420,7 +420,8 @@ test('accessible page, menu, keyboard quote and no-JavaScript content', async ({
     'href',
     'tel:+441632960123',
   );
-  await expect(staticPage.locator('.review-label')).toHaveText(Array(3).fill(c.reviews.label));
+  await expect(staticPage.locator('[data-capture=reviews]')).toContainText('Your own customer feedback can appear here.');
+  await expect(staticPage.locator('.review-label')).toHaveCount(0);
   for (const [title, body] of c.process.steps) {
     await expect(staticPage.locator('.steps')).toContainText(title);
     await expect(staticPage.locator('.steps')).toContainText(body);

@@ -19,10 +19,6 @@ const brand = (id: string) => {
 };
 const web = (id: keyof typeof websiteCatalogue.packages) =>
   (websiteCatalogue.packages[id].amountMinor ?? 0) / 100;
-const webItem = (id: keyof typeof websiteCatalogue.items) =>
-  (websiteCatalogue.items[id].amountMinor ?? 0) / 100;
-const webPlan = (id: keyof typeof websiteCatalogue.monthlyPlans) =>
-  websiteCatalogue.monthlyPlans[id].amountMinor / 100;
 const app = (id: keyof typeof mobileCatalogue.catalogue) =>
   (mobileCatalogue.catalogue[id].amount_pence ?? 0) / 100;
 const automation = automationCatalogue;
@@ -57,8 +53,6 @@ const logo = brand('branding.logo');
 const basicStyle = brand('branding.guidelines.basic');
 const fullGuidelines = brand('branding.guidelines.full');
 const designSet = brand('branding.stationery');
-const extraDesignItem =
-  brandingCatalogue.items['branding.stationery'].pricing.additionalItemAmountMinor / 100;
 const logoDays = brandingCatalogue.items['branding.logo'].estimatedDelivery;
 
 const onePlatform = app('architecture.ios');
@@ -69,7 +63,6 @@ const growthScreens = app('screens.6_10');
 
 const starter = automation.starter;
 const addOns = automation.addOns;
-const care = automation.supportPlans.find((plan) => plan.id === 'care')!.monthlyPrice;
 
 const weeks = (id: 'business' | 'corporate' | 'shopify') => {
   const { min, max } = websiteCatalogue.packages[id].timelineWeeks;
@@ -92,7 +85,7 @@ export const pricingGroups: PricingGroup[] = [
         summary: 'Stationery, marketing or social media designs for a brand you already have.',
         includes: [
           'Three items from one set, such as business card, letterhead and email signature',
-          `Further items ${money(extraDesignItem)} each`,
+          `Further items can be agreed to suit the project`,
           'Uses your existing logo and guidelines',
         ],
       },
@@ -142,7 +135,7 @@ export const pricingGroups: PricingGroup[] = [
       },
     ],
     notes: [
-      'Business naming, trademark searches and printing are not included. Extra concepts and revision rounds are agreed before any extra work starts.',
+      'FinTaxTech supplies design files. Business naming, trademark searches and supplier production are outside the scope. Extra concepts and revision rounds are agreed before any extra work starts.',
     ],
     estimate: { href: '/estimate/branding/', label: 'Get a branding estimate' },
     examples: {
@@ -229,8 +222,8 @@ export const pricingGroups: PricingGroup[] = [
       },
     ],
     notes: [
-      `Extra pages cost ${money(webItem('page_standard'))} each. A content management system can be added to the Business Website for ${money(webItem('cms'))}.`,
-      `Optional hosting and care plans start at ${money(webPlan('hosting_essentials'))} a month. The Placeholder Website and Single Landing Page are fixed-scope and do not include SEO services, forms beyond those listed, or hosting.`,
+      `We can agree extra pages or add a content management system to the Business Website.`,
+      `Optional hosting and care plans are discussed separately. The Placeholder Website and Single Landing Page are fixed-scope and do not include SEO services, forms beyond those listed, or hosting.`,
     ],
     estimate: { href: '/estimate/website/', label: 'Get a website estimate' },
     examples: {
@@ -286,8 +279,8 @@ export const pricingGroups: PricingGroup[] = [
       },
     ],
     notes: [
-      `Features are added to the package price, for example login ${money(app('feature.registration'))}, push notifications ${money(app('feature.push'))} and online payments ${money(app('feature.payments'))}. A back end starts at ${money(app('backend.basic'))}.`,
-      `App Store or Google Play publishing costs ${money(app('publishing.apple'))} for one store or ${money(app('publishing.both'))} for both. Optional maintenance starts at ${money(app('maintenance.basic'))} a month. Every app estimate is confirmed after a technical review.`,
+      `We scope features such as login, push notifications, payments and back-end services around your requirements.`,
+      `We can agree publishing support for the App Store and Google Play, as well as ongoing maintenance.`,
     ],
     estimate: { href: '/estimate/mobile/', label: 'Get a mobile app estimate' },
     examples: {
@@ -334,13 +327,13 @@ export const pricingGroups: PricingGroup[] = [
         summary: 'Two or more connected processes, scoped after review.',
         includes: [
           'Everything in Starter Automation',
-          `Each further workflow from ${money(addOns.additionalIndependentWorkflow.startingPrice)}`,
+          `Additional workflows can be agreed separately`,
           'Scope confirmed after a manual review',
         ],
       },
     ],
     notes: [
-      `Extra steps cost ${money(addOns.additionalStandardStep.price)} each and extra tool connections ${money(addOns.additionalSupportedConnection.price)} each. Optional monitoring starts at ${money(care)} a month.`,
+      `We discuss any extra steps, tool connections and ongoing monitoring before agreeing the scope.`,
       'AI platform and usage fees from third parties are paid by you and are not included. Sensitive or regulated processes may be declined.',
     ],
     estimate: { href: '/estimate/ai-automation/', label: 'Get an AI automation estimate' },
@@ -360,73 +353,38 @@ export const priceLabel = (pkg: PricingPackage) =>
 export const startingLabel = (group: PricingGroup) =>
   `from ${money(group.startingPrice)} ${vatSuffix}`;
 
-const group = (id: PricingGroup['id']) => pricingGroups.find((g) => g.id === id)!;
-const priceOf = (id: PricingGroup['id'], name: string) =>
-  money(group(id).packages.find((pkg) => pkg.name === name)!.price!);
-
 export const pricingCopy = {
-  title: 'Pricing: packages and starting prices',
-  intro: `Clear starting prices for every service. Branding ${startingLabel(group('branding'))}, websites ${startingLabel(group('websites'))}, mobile apps ${startingLabel(group('mobile-apps'))} and AI automation ${startingLabel(group('ai-automation'))}.`,
-  seoTitle: 'Website, App, Branding & AI Automation Prices UK',
-  seoDescription: `FinTaxTech prices: branding from ${money(group('branding').startingPrice)}, websites from ${money(group('websites').startingPrice)}, mobile apps from ${money(group('mobile-apps').startingPrice)} and AI automation from ${money(group('ai-automation').startingPrice)}, all ${vatSuffix}. Compare packages and get an instant estimate.`,
-  summaryLabel: 'Starting prices by service',
-  heroLabel:
-    'An estimate sheet listing starting prices for branding, websites, mobile apps and AI automation.',
-  heroCaption: 'Starting from',
-  basis:
-    'All prices are in pounds sterling and exclude VAT. They are one-off project prices unless marked monthly. Domains, hosting, app-store and third-party fees are separate.',
-  faqTitle: 'Common pricing questions',
-  howTitle: 'How pricing works',
+  title: 'Project packages and proposals',
+  intro: 'Compare what is included in our branding, website, mobile app and AI automation packages. We review your requirements before proposing a scope.',
+  seoTitle: 'Website, App, Branding & AI Automation Packages UK',
+  seoDescription: 'Compare FinTaxTech project packages for branding, websites, mobile apps and AI automation. Tell us what you need for a written proposal.',
+  summaryLabel: 'Packages by service',
+  heroLabel: 'Project packages for branding, websites, mobile apps and AI automation.',
+  heroCaption: 'Project packages',
+  basis: 'We confirm the agreed scope and any third-party costs in your written proposal.',
+  faqTitle: 'Common questions',
+  howTitle: 'How we prepare a proposal',
   serviceLink: 'About this service',
-  estimateTitle: 'Get your estimate',
-  estimateText:
-    'Answer a few questions and see a price for your own project. Estimates are free, stay in your browser and create no obligation.',
+  estimateTitle: 'Request a proposal',
+  estimateText: 'Tell us what you would like to create and the tools you already use. We review the details before sending a proposal.',
   promoLead: 'Starting a new UK company?',
 };
 
 export const pricingFaqs: [string, string][] = [
-  [
-    'How much does a website cost in the UK?',
-    `A FinTaxTech website costs from ${priceOf('websites', 'Placeholder Website')} ${vatSuffix} for a one-page placeholder site. A five-page Business Website is ${priceOf('websites', 'Business Website')}, a ten-page Corporate Website with a content management system is ${priceOf('websites', 'Corporate Website')} and a Shopify online shop is ${priceOf('websites', 'Shopify E-commerce')}, all ${vatSuffix}. Custom web applications are quoted after review.`,
-  ],
-  [
-    'How much does a logo or brand identity cost?',
-    `Logo design costs ${priceOf('branding', 'Logo Design')} ${vatSuffix}, including three concepts and three revision rounds. A logo with full brand guidelines costs ${priceOf('branding', 'Full Brand Identity')} ${vatSuffix}. Stationery, marketing and social media design sets start at ${money(designSet)} ${vatSuffix} for three items.`,
-  ],
-  [
-    'How much does it cost to build a mobile app?',
-    `A FinTaxTech mobile app starts at ${priceOf('mobile-apps', 'Starter App')} ${vatSuffix} for one platform with up to five designed screens. The same scope on both iOS and Android starts at ${priceOf('mobile-apps', 'iOS and Android App')} ${vatSuffix}. Features such as login, payments and push notifications, a back end and store publishing are added to that price.`,
-  ],
-  [
-    'How much does AI automation cost for a small business?',
-    `AI automation starts at ${money(starter.price)} ${vatSuffix} for one workflow with up to ${starter.includedStandardSteps} steps and ${starter.includedSupportedConnections} tool connections, delivered in ${starter.targetDeliveryWorkingDays.min}–${starter.targetDeliveryWorkingDays.max} working days. Optional monitoring costs from ${money(care)} a month. Third-party AI usage fees are separate.`,
-  ],
-  [
-    'Do the prices include VAT?',
-    'No. Every price on this page excludes VAT. The tax treatment for your project is confirmed in the written proposal and on the invoice.',
-  ],
-  [
-    'Are there monthly costs after launch?',
-    `Only if you choose them. Website hosting and care plans start at ${money(webPlan('hosting_essentials'))} a month, automation monitoring at ${money(care)} a month and app maintenance at ${money(app('maintenance.basic'))} a month. Domain, hosting, app-store and third-party platform fees are paid to those providers in your own name.`,
-  ],
-  [
-    'Can I choose the design of my website?',
-    'Yes. Browse the FinTaxTech website designs, choose your favourite and we adapt it to your brand, content and pages. You can also supply your own design direction.',
-  ],
+  ['What affects the scope of a website?', 'We look at the pages, content, design and features your customers need, including any booking, shop or other tools the site should connect to.'],
+  ['What is included in branding?', 'We agree the logo, guidelines and artwork you need before starting. FinTaxTech provides design files for you and your chosen suppliers.'],
+  ['How do you scope a mobile app?', 'We discuss the platforms, screens, device features and integrations your users need, along with testing and support.'],
+  ['How do you scope AI automation?', 'We review the workflow, tools, source information and points where a person needs to approve the result.'],
+  ['Can I choose the design of my website?', 'Yes. Browse the FinTaxTech website designs, choose your favourite and we adapt it to your brand, content and pages. You can also supply your own design direction.'],
 ];
 
-/** Plain-text summary for llms.txt. */
 export const pricingSummaryText = () =>
   [
-    '## Pricing',
+    '## Project packages',
     '',
-    `[Pricing and packages](https://fintaxtech.co.uk/pricing/): published starting prices in GBP. ${pricingCopy.basis}`,
+    '[Project packages](https://fintaxtech.co.uk/pricing/): compare scope and ask for a written proposal.',
     '',
-    ...pricingGroups.flatMap((g) => [
-      `- ${g.name}, ${startingLabel(g)}: ${g.packages
-        .map((pkg) => `${pkg.name} (${priceLabel(pkg)})`)
-        .join(
-          '; ',
-        )}. [${g.name.replace(' packages', '')} service](https://fintaxtech.co.uk${g.service}).`,
-    ]),
+    ...pricingGroups.map(
+      (group) => `- ${group.name}: ${group.packages.map(({ name }) => name).join('; ')}. [About this service](https://fintaxtech.co.uk${group.service}).`,
+    ),
   ].join('\n');

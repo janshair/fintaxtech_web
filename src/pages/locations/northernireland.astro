@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import StaticRedirect from '../../components/StaticRedirect.astro';
+import { northernIrelandRedirect as redirect } from '../../content/locations';
+---
+
+<SiteLayout title={redirect.title} noindex>
+  <meta http-equiv="refresh" content={`0; url=${redirect.destination}`} slot="head" />
+  <StaticRedirect
+    title={redirect.title}
+    message={redirect.message}
+    destination={redirect.destination}
+    label="Continue to Northern Ireland"
+    id="northern-ireland-redirect"
+  />
+</SiteLayout>

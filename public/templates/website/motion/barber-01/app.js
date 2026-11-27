@@ -40,7 +40,7 @@
     const words = name.match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) || [];
     const initials = words.slice(0, 2).map(word => Array.from(word.toUpperCase())[0]).join(' / ');
     document.querySelectorAll('[data-monogram]').forEach(el => { el.textContent = name && initials ? initials : 'B / S'; });
-    document.title = businessName + copy.client.titleSuffix;
+    document.title = name ? businessName + copy.client.titleSuffix : document.querySelector('meta[property="og:title"]').content;
     document.querySelectorAll('[data-personalise]').forEach(button => {
       button.firstChild.textContent = name ? copy.client.changeName : copy.client.tryName;
     });

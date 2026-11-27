@@ -88,7 +88,6 @@ export async function createPDF({ journey, customer, partial = false }: PDFInput
   text(service.ownership);
   if (promoAllowed(promoStatus, journey.promo)) {
     heading(promoCopy.title);
-    text(promoCopy.price);
     text(promoCopy.intro);
     heading(promoCopy.scopeTitle);
     promoCopy.scope.forEach((x) => text('• ' + x));

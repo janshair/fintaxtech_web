@@ -18,7 +18,7 @@ describe('company identity and discovery', () => {
       '@id': `${company.url}/#organization`,
       name: company.name,
       legalName: company.legal,
-      description: pages.about.intro,
+      description: `${company.description} ${company.scope}`,
       slogan: company.tagline,
       identifier: {
         '@type': 'PropertyValue',

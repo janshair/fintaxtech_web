@@ -20,7 +20,7 @@ export const treatments = [
     name: 'Gel manicure',
     description: 'Nails shaped and finished in a gel colour of your choice with a glossy top coat.',
     duration: '45 min',
-    price: '£28',
+    price: 'Enquire',
   },
   {
     id: 'biab',
@@ -28,7 +28,7 @@ export const treatments = [
     name: 'BIAB overlay',
     description: 'A builder gel overlay on your natural nails, in a sheer or full colour finish.',
     duration: '60 min',
-    price: '£35',
+    price: 'Enquire',
   },
   {
     id: 'acrylic',
@@ -36,7 +36,7 @@ export const treatments = [
     name: 'Acrylic full set',
     description: 'Acrylic extensions shaped to the length and shape you choose.',
     duration: '90 min',
-    price: '£40',
+    price: 'Enquire',
   },
   {
     id: 'nail-art',
@@ -44,7 +44,7 @@ export const treatments = [
     name: 'Nail art',
     description: 'Add to any set: dots, French tips, chrome or hand-painted designs.',
     duration: '+15 min',
-    price: 'From £5',
+    price: 'Enquire',
   },
   {
     id: 'classic',
@@ -52,7 +52,7 @@ export const treatments = [
     name: 'Classic lash extensions',
     description: 'One extension on each natural lash, for a soft, natural look.',
     duration: '90 min',
-    price: '£45',
+    price: 'Enquire',
   },
   {
     id: 'hybrid',
@@ -60,7 +60,7 @@ export const treatments = [
     name: 'Hybrid lash extensions',
     description: 'A mix of classic and volume lashes for a little extra texture.',
     duration: '105 min',
-    price: '£55',
+    price: 'Enquire',
   },
   {
     id: 'volume',
@@ -68,7 +68,7 @@ export const treatments = [
     name: 'Volume lash extensions',
     description: 'Fans of fine lashes on each natural lash, for a fuller look.',
     duration: '120 min',
-    price: '£65',
+    price: 'Enquire',
   },
   {
     id: 'lift',
@@ -76,7 +76,7 @@ export const treatments = [
     name: 'Lash lift & tint',
     description: 'Your own lashes lifted and tinted. A patch test may be needed first.',
     duration: '60 min',
-    price: '£40',
+    price: 'Enquire',
   },
   {
     id: 'shape',
@@ -84,7 +84,7 @@ export const treatments = [
     name: 'Brow shape',
     description: 'Waxed or threaded and tidied into a shape that suits you.',
     duration: '20 min',
-    price: '£14',
+    price: 'Enquire',
   },
   {
     id: 'tint',
@@ -92,7 +92,7 @@ export const treatments = [
     name: 'Brow tint',
     description: 'A tint matched to your colouring. A patch test may be needed first.',
     duration: '15 min',
-    price: '£10',
+    price: 'Enquire',
   },
   {
     id: 'lamination',
@@ -100,7 +100,7 @@ export const treatments = [
     name: 'Brow lamination',
     description: 'Brow hairs set in place, finished with a shape and tint.',
     duration: '50 min',
-    price: '£38',
+    price: 'Enquire',
   },
   {
     id: 'removal',
@@ -108,7 +108,7 @@ export const treatments = [
     name: 'Gel or BIAB removal',
     description: 'Careful removal, with nails tidied and oiled afterwards.',
     duration: '20 min',
-    price: '£10',
+    price: 'Enquire',
   },
   {
     id: 'repair',
@@ -116,7 +116,7 @@ export const treatments = [
     name: 'Single nail repair',
     description: 'One nail rebuilt or replaced between appointments.',
     duration: '10 min',
-    price: '£4',
+    price: 'Enquire',
   },
   {
     id: 'lash-removal',
@@ -124,7 +124,7 @@ export const treatments = [
     name: 'Lash extension removal',
     description: 'Extensions gently removed with a professional remover.',
     duration: '20 min',
-    price: '£12',
+    price: 'Enquire',
   },
   {
     id: 'hand-care',
@@ -132,7 +132,7 @@ export const treatments = [
     name: 'Hand & cuticle care',
     description: 'A short hand massage, cuticle tidy and nourishing oil. Add to any visit.',
     duration: '+10 min',
-    price: '£8',
+    price: 'Enquire',
   },
 ] as const;
 
@@ -150,7 +150,7 @@ export const beautyDemo = {
     description:
       'A calm little studio with late evenings, friendly technicians and online booking in a few taps.',
     action: 'Book an appointment',
-    note: 'A fictional salon. Example treatments, prices and opening hours.',
+    note: 'A fictional salon. Example treatments and opening hours.',
   },
   story: [
     ['Shape & prep', 'Nails filed to your chosen shape and cuticles tidied, ready for colour.'],
@@ -188,26 +188,6 @@ export const beautyDemo = {
     'Please don’t pick or peel gel. Book a removal instead.',
     'Brush laminated brows into place each morning.',
   ],
-  reviews: [
-    {
-      initials: 'MR',
-      name: 'Megan R.',
-      date: '2 weeks ago',
-      text: 'Such a calm, friendly visit. Amira took her time getting the shape right, and the colour is exactly what I asked for.',
-    },
-    {
-      initials: 'AK',
-      name: 'Aisha K.',
-      date: '1 month ago',
-      text: 'My first lash lift. They explained the patch test, answered all my questions and I left feeling great.',
-    },
-    {
-      initials: 'LT',
-      name: 'Lauren T.',
-      date: '3 months ago',
-      text: 'Easy to book a late slot after work, and my nail art came out even better than the photo I brought.',
-    },
-  ],
   hours: [
     ['Monday', 'Closed'],
     ['Tuesday – Wednesday', '09:30 – 18:00'],
@@ -230,8 +210,8 @@ export const beautyDemo = {
     text: 'Example: a small deposit secures your appointment and comes off your bill. Please give 24 hours’ notice to move or cancel. Your own policy goes here.',
   },
   voucher: {
-    value: '£25',
-    note: 'Gift vouchers from £20, for any treatment. Example values.',
+    value: 'Gift voucher',
+    note: 'Ask the salon about gift vouchers for treatments.',
   },
   contactNotes: {
     call: 'On your finished website, Call would ring your salon directly. Add your number to the preview link to try it.',

@@ -1,8 +1,10 @@
 ---
+import GoogleTag from '../../../../../components/GoogleTag.astro';
 import '@fontsource/archivo/latin-800.css';
 import { templateTheme } from '../../../../../lib/template-theme';
 import { THEME, gymDemo as c } from '../../../../../content/gym-demo';
 import { motionTemplates, motionGallery, templateSocial } from '../../../../../content/templates';
+import { motionTrades } from '../../../../../content/motion-catalogue';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import GymArtwork from '../../../../../components/templates/GymArtwork.astro';
@@ -19,8 +21,9 @@ const asset = (file: string) => `${c.route}${file}`;
 <!doctype html>
 <html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
+    <GoogleTag />
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="no-referrer" />
     <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
@@ -74,7 +77,7 @@ const asset = (file: string) => `${c.route}${file}`;
         ></a
       >
       <nav aria-label="Gym navigation">
-        <a href="#train">Train</a><a href="#timetable">Timetable</a><a href="#prices">Prices</a><a
+        <a href="#train">Train</a><a href="#timetable">Timetable</a><a href="#prices">Memberships</a><a
           href="#visit">Visit</a
         >
       </nav>
@@ -89,6 +92,7 @@ const asset = (file: string) => `${c.route}${file}`;
             <span>Your local gym in <span data-hero-area>{c.area}</span></span>
           </p>
           <h1>Stronger starts <span class="mark">round the corner.</span></h1>
+          <p>{motionTrades['gym-06'].intro}</p>
           <p class="lead">{c.hero.description}</p>
           <div class="hero-actions">
             <a class="button accent" href="#visit" data-book data-capture="demo"
@@ -145,7 +149,7 @@ const asset = (file: string) => `${c.route}${file}`;
             <h2 id="train-title">Your gym, <span class="mark">your pace.</span></h2>
           </div>
           <p>
-            Lift, ride, stretch or try a class. These are sample services and prices, ready to
+            Lift, ride, stretch or try a class. These are sample services, ready to
             become your own.
           </p>
         </header>
@@ -313,9 +317,9 @@ const asset = (file: string) => `${c.route}${file}`;
           <header class="section-heading" data-reveal>
             <div>
               <p class="eyebrow">04 / MEMBERSHIPS</p>
-              <h2 id="prices-title">Simple prices. <span class="mark">No guesswork.</span></h2>
+              <h2 id="prices-title">Membership options</h2>
             </div>
-            <p>Example memberships only. Your real prices, joining fees and terms go here.</p>
+            <p>Example memberships. Your own terms and joining information go here.</p>
           </header>
           <div class="membership-grid">
             {
@@ -398,45 +402,10 @@ const asset = (file: string) => `${c.route}${file}`;
           }
         </div>
       </section>
-      <section class="reviews section" data-capture="reviews" aria-labelledby="reviews-title">
+      <section class="reviews section" aria-labelledby="reviews-title" data-capture="reviews">
         <div class="wrap">
-          <header class="section-heading" data-reveal>
-            <div>
-              <p class="eyebrow">06 / FROM THE GYM FLOOR</p>
-              <h2 id="reviews-title">Members who <span class="mark">keep coming back.</span></h2>
-            </div>
-            <p>Example reviews — your real Google reviews appear here.</p>
-          </header>
-          <div class="review-grid">
-            {
-              c.reviews.map((r) => (
-                <article class="review-card" data-sample-review data-reveal>
-                  <>
-                    <div class="review-top">
-                      <>
-                        <span class="avatar" aria-hidden="true">
-                          {r.initials}
-                        </span>
-                        <div>
-                          <>
-                            <h3>{r.name}</h3>
-                            <p class="review-date">{r.date}</p>
-                          </>
-                        </div>
-                        <span class="review-tag">Example review</span>
-                      </>
-                    </div>
-                    <p class="stars" role="img" aria-label="5 out of 5 stars (example)">
-                      {[1, 2, 3, 4, 5].map(() => (
-                        <span aria-hidden="true">★</span>
-                      ))}
-                    </p>
-                    <p>{r.text}</p>
-                  </>
-                </article>
-              ))
-            }
-          </div>
+          <h2 id="reviews-title">Customer feedback</h2>
+          <p>Your own customer feedback can appear here.</p>
         </div>
       </section>
       <section

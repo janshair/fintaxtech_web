@@ -4,8 +4,10 @@ import assert from 'node:assert/strict';
 import { join } from 'node:path';
 const origin = 'https://fintaxtech.co.uk';
 const redirectDestinations = {
+  '/locations/northernireland/': '/locations/northern-ireland/',
   '/website/motion/templates/barber-01/': '/templates/website/motion/barber-01/',
-  '/templates/website/placeholder/placeholder-10/': '/templates/website/placeholder/placeholder-11/',
+  '/templates/website/placeholder/placeholder-10/':
+    '/templates/website/placeholder/placeholder-11/',
   '/privacy.html': '/privacy/',
   '/portfolio.html': '/work/',
   '/showcase/': '/work/',
@@ -79,6 +81,11 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     assert.equal(meta(name).length, 1, `${path}: ${name}`);
   assert.equal(meta('og:url')[0], canonical[0]);
   assert.equal(meta('og:title')[0], titles[0]);
+  if (path.startsWith('/templates/website/motion/') && path !== '/templates/website/motion/') {
+    assert.equal(noindex, false, path);
+    assert(titles[0].length < 60, path);
+    assert.match(titles[0], / Website Template, Animated \| FinTaxTech$/);
+  }
   const socialImage = new URL(meta('og:image')[0]);
   assert.equal(socialImage.origin, origin);
   assert((await stat(join('dist', decodeURIComponent(socialImage.pathname)))).isFile());
@@ -99,6 +106,25 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
   );
   assert(org.sameAs.includes(org.identifier.url), path);
   assert(org.description.includes('Dundee, Scotland'), path);
+  assert(
+    org.description.includes(
+      "FinTaxTech is a design and software studio. We don't provide accounting, tax or payroll services.",
+    ),
+    path,
+  );
+  if (path === '/templates/website/motion/') {
+    const faq = graph.find((n) => [n['@type']].flat().includes('FAQPage'));
+    const details = elements(doc, 'main').flatMap((n) => elements(n, 'details'));
+    assert.equal(faq?.mainEntity.length, 5);
+    assert.deepEqual(
+      faq.mainEntity.map(({ name }) => name),
+      details.map((n) => text(elements(n, 'summary')[0])),
+    );
+    assert.deepEqual(
+      faq.mainEntity.map(({ acceptedAnswer }) => acceptedAnswer.text),
+      details.map((n) => text(elements(n, 'p')[0])),
+    );
+  }
   assert(
     org.sameAs.some(
       (url) =>
@@ -150,6 +176,17 @@ for (const file of (await files('dist')).filter((f) => f.endsWith('.html'))) {
     assert.equal(meta('og:type')[0], 'article');
     assert.equal(article.headline, text(elements(doc, 'h1')[0]));
     assert.equal(article.url, canonical[0]);
+    const whatNext = elements(doc, 'aside').find(
+      (n) => attr(n, 'aria-labelledby') === 'blog-next-title',
+    );
+    const next = {
+      'Branding and Graphic Design': '/services/branding/',
+      'Website Design and Development': '/templates/website/motion/',
+      'AI Automation': '/services/ai-automation/',
+      'Mobile App Development': '/services/mobile-apps/',
+    }[article.articleSection];
+    assert(whatNext, `${path}: missing What next box`);
+    if (next) assert.equal(attr(elements(whatNext, 'a')[0], 'href'), next);
     if (
       [
         '/blog/ai-business-documents-to-website-content/',
@@ -211,6 +248,13 @@ assert.deepEqual(
     .sort(),
 );
 assert.equal(new Set(urls).size, urls.length);
+for (const value of urls) {
+  const url = new URL(value);
+  assert.equal(url.origin, origin);
+  assert.equal(url.search, '');
+  assert.equal(url.hash, '');
+  assert.notEqual(url.pathname, '/locations/northernireland/');
+}
 const jobURLs = rows
   .filter((row) => /^\/careers\/[^/]+\/$/.test(row.path))
   .map((row) => row.canonical)

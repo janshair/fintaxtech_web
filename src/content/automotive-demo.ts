@@ -8,14 +8,14 @@ export const THEME = {
 // on the car (brakes, clutch, exhausts, timing belt) have no entry: they always say
 // "Free quote".
 export const PRICES = {
-  mot: '£54.85',
-  full: 'From £xx',
-  interim: 'From £xx',
-  oil: 'From £xx',
-  combo: 'From £xx',
-  diagnostics: '£xx, deducted if we do the repair',
-  tyres: 'Ask for prices',
-  aircon: 'From £xx',
+  mot: 'Book an MOT',
+  full: 'Ask for a quote',
+  interim: 'Ask for a quote',
+  oil: 'Ask for a quote',
+  combo: 'Ask for a quote',
+  diagnostics: 'Ask about diagnostics',
+  tyres: 'Ask about tyres',
+  aircon: 'Ask for a quote',
 } as const;
 const FREE_QUOTE = 'Free quote';
 
@@ -37,7 +37,7 @@ export const automotiveDemo = {
   menu: 'Menu',
   navLabel: 'Garage navigation',
   nav: [
-    ['#services', 'Services & prices'],
+    ['#services', 'Services'],
     ['#mot', 'MOT'],
     ['#quote', 'Free quote'],
     ['#visit', 'Find us'],
@@ -61,7 +61,6 @@ export const automotiveDemo = {
   trustLabel: 'Why drivers choose us',
   trust: [
     'We call before any work starts',
-    'Repairs guaranteed',
     'All makes & models',
     'Cars, vans & motorhomes',
   ],
@@ -78,8 +77,8 @@ export const automotiveDemo = {
   services: {
     eyebrow: '01 / SERVICES & PRICES',
     title: 'MOT, servicing\n& car repairs.',
-    intro: 'Fixed jobs have a price. Repairs depend on your car, so we look first and quote free.',
-    note: 'Example prices. Repairs are quoted after we’ve looked at your car.',
+    intro: 'Choose a service below or describe the trouble you are having with your car.',
+    note: 'Example services. Repairs are quoted after the garage has inspected the car.',
     repairsTitle: 'Repairs & more',
     // The first six are the main cards; the rest form the compact list underneath.
     items: [
@@ -237,26 +236,6 @@ export const automotiveDemo = {
         title: 'New air filter',
         caption: 'Changed at the service.',
         alt: 'Illustration comparing a dusty air filter with a clean pleated replacement.',
-      },
-    ],
-  },
-  reviews: {
-    title: 'What drivers say.',
-    intro: 'Example reviews for this demo. Your own Google reviews go here.',
-    label: 'Example review',
-    // Example reviews only: replace with the garage's real Google reviews.
-    items: [
-      {
-        text: 'MOT and service done the same morning. They called before changing the brake pads and the price was exactly what they said.',
-        name: 'Sarah M.',
-      },
-      {
-        text: 'Warning light came on and they found the fault the same day. Clear explanation and no pressure.',
-        name: 'Daniel R.',
-      },
-      {
-        text: 'Honest garage. Showed me the old parts and the van was ready when they said it would be.',
-        name: 'Priya K.',
       },
     ],
   },

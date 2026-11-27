@@ -1,3 +1,4 @@
+import { motionFaqs } from '../content/motion-catalogue';
 import { pricingCopy, pricingFaqs, pricingGroups } from '../content/pricing';
 import { mobileAppGallery } from '../content/mobile-app-templates';
 import { industryDirectory } from '../content/automation-industries';
@@ -11,7 +12,7 @@ import { blogCopy } from '../content/blog';
 import { metoni } from '../content/metoni';
 import { safos } from '../content/safos';
 import { careersCopy } from '../content/careers';
-import { templateDirectory, websiteGallery } from '../content/templates';
+import { motionGallery, templateDirectory, websiteGallery } from '../content/templates';
 import { jobStructuredData, type JobSEO } from './job-seo';
 import { listedShowcase, showcase, showcaseIndex } from '../data/showcase';
 import { featuredWork, publishedApps } from '../content/work';
@@ -33,6 +34,8 @@ export interface SocialImage {
   alt: string;
 }
 export const absoluteURL = (path: string) => new URL(path, company.url).href;
+export const canonicalURL = (path: string) =>
+  new URL(new URL(path, company.url).pathname, company.url).href;
 const normalizeAuthor = (name: string) => name.trim().replace(/\.$/, '').toLowerCase();
 const organizationNames = [company.name, company.legal].map(normalizeAuthor);
 export function breadcrumbs(path: string, title?: string) {
@@ -85,7 +88,14 @@ export function structuredData(
   const kit = showcase.find((entry) => entry.url === path);
   const isShowcaseIndex = path === showcaseIndex.route;
   const isPricing = path === '/pricing/';
-  const pageFaqs = isPricing ? pricingFaqs : path === '/' ? home.faqs : undefined;
+  const pageFaqs =
+    path === motionGallery.route
+      ? motionFaqs.map(({ question, answer }): [string, string] => [question, answer])
+      : isPricing
+        ? pricingFaqs
+        : path === '/'
+          ? home.faqs
+          : undefined;
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -95,7 +105,7 @@ export function structuredData(
         name: company.name,
         legalName: company.legal,
         slogan: company.tagline,
-        description: company.description,
+        description: `${company.description} ${company.scope}`,
         identifier: {
           '@type': 'PropertyValue',
           propertyID: company.registryName,
@@ -181,21 +191,11 @@ export function structuredData(
                 '@type': 'OfferCatalog',
                 name: group.name,
                 url: `${url}#${group.id}`,
-                itemListElement: group.packages
-                  .filter((pkg) => pkg.price !== undefined)
-                  .map((pkg) => ({
+                itemListElement: group.packages.map((pkg) => ({
                     '@type': 'Offer',
                     name: pkg.name,
                     description: pkg.summary,
                     url: `${url}#${group.id}`,
-                    priceCurrency: 'GBP',
-                    price: pkg.price,
-                    priceSpecification: {
-                      '@type': 'PriceSpecification',
-                      priceCurrency: 'GBP',
-                      ...(pkg.from ? { minPrice: pkg.price } : { price: pkg.price }),
-                      valueAddedTaxIncluded: false,
-                    },
                     seller: { '@id': organization },
                     itemOffered: {
                       '@type': 'Service',

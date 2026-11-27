@@ -54,7 +54,7 @@ export const tailoring02: TemplateBriefSchema = {
               { key: 'description', label: 'Short description', type: 'text', maxLength: 90 },
               {
                 key: 'price',
-                label: 'Price, like From £18 or By consultation',
+                label: 'Price',
                 type: 'text',
                 maxLength: 20,
                 format: { ...price, words: ['By consultation'] },

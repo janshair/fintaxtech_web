@@ -27,10 +27,14 @@ describe('website template registry and discovery', () => {
       expect(template.route).toMatch(/^\/templates\/website\/(?:motion|3d)\/[^/]+\/$/);
     }
   });
-  it('indexes the gallery, but excludes demos and compatibility redirects', () => {
+  it('indexes the galleries and motion demos while keeping other demo crawl rules', () => {
     for (const gallery of [motionGallery, threeDGallery])
       expect(indexablePaths.filter((p) => p === gallery.route)).toHaveLength(1);
-    for (const route of [...allTemplates.map((t) => t.route), barberRedirect.route]) {
+    for (const template of motionTemplates) {
+      expect(indexablePaths).toContain(template.route);
+      expect(seoPages[template.route]?.noindex).not.toBe(true);
+    }
+    for (const route of [...threeDTemplates.map((t) => t.route), barberRedirect.route]) {
       expect(indexablePaths).not.toContain(route);
       expect(seoPages[route]).toMatchObject({ noindex: true, nofollow: true });
     }
@@ -66,11 +70,11 @@ describe('gym demonstration content', () => {
     for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
       expect(page).toContain(`data-capture="${hook}"`);
     expect(page).toContain('data-sample-price');
-    expect(page).toContain('data-sample-review');
-    expect(page).toContain('Example reviews — your real Google reviews appear here.');
+    expect(page).not.toContain('data-sample-review');
+    expect(page).toContain('Your own customer feedback can appear here.');
     expect(page).toContain('Your own photos go here.');
     expect(page).toContain('Picture your business here?');
-    expect(gymDemo.reviews).toHaveLength(3);
+    expect(gymDemo).not.toHaveProperty('reviews');
     const css = readFileSync(`public${gym.route}styles.css`, 'utf8');
     for (const hex of Object.values(THEME)) expect(css.toLowerCase()).not.toContain(hex);
     const content = page + JSON.stringify(gymDemo);
@@ -100,8 +104,7 @@ describe('consultant demonstration content', () => {
       expect(page).toContain(`data-capture="${hook}"`);
     for (const text of [
       'data-sample-price',
-      'data-sample-review',
-      'Example reviews — your real Google reviews appear here.',
+      'Your own customer feedback can appear here.',
       'Example case study',
       'Your photo here',
       'Your qualification here',
@@ -124,7 +127,7 @@ describe('consultant demonstration content', () => {
       expect(preset.promise.length).toBeGreaterThan(20);
       expect(preset.services).toHaveLength(4);
       for (const service of preset.services) {
-        expect(service.price).toMatch(/£/);
+        expect(service.price).toBe('Enquire');
         expect(service.detail).toMatch(/^Example · /);
       }
       expect(preset.cases).toHaveLength(3);
@@ -166,7 +169,7 @@ describe('beauty salon demonstration content', () => {
     for (const file of ['identity.js', 'motion.js'])
       expect(existsSync(`public${beauty.route}${file}`)).toBe(true);
   });
-  it('lists every requested treatment with a duration and an example price', async () => {
+  it('lists every requested treatment with a duration and an enquiry label', async () => {
     const { treatments, treatmentGroups } = await import('../src/content/beauty-demo');
     expect(treatmentGroups.map((group) => group.label)).toEqual([
       'Nails',
@@ -188,7 +191,7 @@ describe('beauty salon demonstration content', () => {
     expect(new Set(treatments.map((item) => item.id)).size).toBe(treatments.length);
     for (const item of treatments) {
       expect(item.duration).toMatch(/\d+ min/);
-      expect(item.price).toMatch(/£\d/);
+      expect(item.price).toBe('Enquire');
     }
   });
   it('labels samples, includes salon essentials and makes no restricted or invented claims', async () => {
@@ -202,8 +205,7 @@ describe('beauty salon demonstration content', () => {
       expect(page).toContain(`data-capture="${hook}"`);
     for (const text of [
       'data-sample-price',
-      'data-sample-review',
-      'Example reviews — your real Google reviews appear here.',
+      'Your own customer feedback can appear here.',
       'Your own photos and Instagram posts go here.',
       'Already use Fresha, Booksy or Treatwell? We’ll connect your booking link.',
       'This is where clients would book and pay a deposit on your finished website.',
@@ -248,7 +250,7 @@ describe('3D café demonstration content and budgets', () => {
       expect(statSync(`public${route}${file}`).size).toBeLessThanOrEqual(120_000);
     }
   });
-  it('provides all promotion hooks, prices, and honest placeholders', async () => {
+  it('provides promotion hooks, a menu and honest placeholders', async () => {
     const { juiceBarDemo } = await import('../src/content/juice-bar-demo');
     expect(juiceBarDemo.menu).toHaveLength(5);
     const page = readFileSync(`src/pages${route}index.astro`, 'utf8');
@@ -258,8 +260,8 @@ describe('3D café demonstration content and budgets', () => {
     // The allergen line and loyalty offer live in the content file the page renders from.
     expect(page).toContain('{c.allergens}');
     expect(juiceBarDemo.allergens).toContain('Ask us about allergens');
-    expect(page).toContain('A little neighbourhood love');
-    expect(page).toContain('Example reviews — your real Google reviews appear here.');
+    expect(page).toContain('Customer feedback');
+    expect(page).toContain('Your own customer feedback can appear here.');
     expect(page).toContain('nothing is ordered or paid');
     const content = page + JSON.stringify(juiceBarDemo);
     expect(content).not.toMatch(
@@ -286,12 +288,9 @@ describe('wedding supplier demonstration content', () => {
       expect(preset.scene.steps).toHaveLength(3);
       expect(preset.gallery).toHaveLength(6);
       expect(preset.packages).toHaveLength(3);
-      for (const item of preset.packages) expect(item.price).toMatch(/^£\d/);
+      for (const item of preset.packages) expect(item.price).toBe('Enquire');
       expect(preset.process).toHaveLength(4);
-      expect(preset.reviews).toHaveLength(3);
-      // Fictional couples: first names only.
-      for (const review of preset.reviews)
-        expect(review.name).toMatch(/^[A-Z][a-z]+ & [A-Z][a-z]+$/);
+      expect(preset).not.toHaveProperty('reviews');
       const faqs = preset.faqs.map(([q, a]) => q + ' ' + a).join(' ');
       for (const topic of [/travel|deliver/i, /deposit/i, /available/i])
         expect(faqs).toMatch(topic);
@@ -331,9 +330,8 @@ describe('wedding supplier demonstration content', () => {
       expect(page).toContain(`data-capture="${hook}"`);
     for (const text of [
       'data-sample-price',
-      'data-sample-review',
-      'Example · from',
-      'Example reviews — your real Google reviews appear here.',
+      'Example package ·',
+      'Your own customer feedback can appear here.',
       'Your own photos go here.',
       'This is where couples would check availability and send an enquiry on your finished',
       'Demo only — nothing is sent.',
@@ -377,7 +375,8 @@ describe('motion template link previews', () => {
     expect(motionTemplates.map((t) => t.id)).toEqual(Object.keys(demoNames));
     for (const template of motionTemplates) {
       const social = templateSocial(template);
-      expect(template.seoTitle).toBe(`${template.trade} website demo – by FinTaxTech`);
+      expect(template.seoTitle).toBe(`${template.trade} Website Template, Animated | FinTaxTech`);
+      expect(template.seoTitle.length).toBeLessThan(60);
       expect(seoPages[template.route].title).toBe(template.seoTitle);
       expect(social.description).toBe(
         'Preview a website made for your business. Designed by FinTaxTech.',

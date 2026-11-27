@@ -1,12 +1,5 @@
 ---
-import SiteLayout from '../../layouts/SiteLayout.astro';
-import EstimateShell from '../../components/EstimateShell.astro';
-import { mobileEstimateCopy as c } from '../../content/mobile-estimate';
+import EstimateEnquiry from '../../components/EstimateEnquiry.astro';
 ---
 
-<SiteLayout title={c.title} description={c.description} noindex>
-  <EstimateShell kind="mobile" copy={{ ...c, contactLink: c.contact }} />
-</SiteLayout>
-<script>
-  import '../../scripts/mobile-estimate';
-</script>
+<EstimateEnquiry kind="mobile" />

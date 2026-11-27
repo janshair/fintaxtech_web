@@ -60,7 +60,7 @@ test('link values apply before first paint, stay local, and metadata remains can
     'content',
     `https://fintaxtech.co.uk${route}`,
   );
-  await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,nofollow');
+  await expect(page.locator('meta[name=robots]')).toHaveCount(0);
   await expect(page.locator('h1')).toHaveCount(1);
   for (const link of await page.locator('[data-agency-link]').all())
     expect(new URL((await link.getAttribute('href'))!, page.url()).searchParams.get('ref')).toBe(
@@ -69,9 +69,8 @@ test('link values apply before first paint, stay local, and metadata remains can
   expect(await page.locator('body').innerText()).not.toContain('LETTER07');
   for (const hook of ['hero', 'services', 'gallery', 'motion', 'demo', 'reviews', 'contact'])
     await expect(page.locator(`[data-capture="${hook}"]`)).toHaveCount(1);
-  await expect(page.locator('[data-sample-review] .review-tag')).toHaveText(
-    Array(3).fill('Example review'),
-  );
+  await expect(page.locator('[data-capture=reviews]')).toContainText('Your own customer feedback can appear here.');
+  await expect(page.locator('[data-sample-review]')).toHaveCount(0);
   await expect(page.locator('.case-tag')).toHaveText(Array(3).fill('Example case study'));
   await expect(page.locator('.portrait-label')).toHaveText('Your photo here');
   await expect(page.locator('.logo-row li')).toHaveText(Array(4).fill('Client logo'));

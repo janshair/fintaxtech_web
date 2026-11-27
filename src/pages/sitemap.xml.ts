@@ -1,5 +1,5 @@
 import { indexablePaths } from '../content/seo';
-import { company } from '../content/site';
+import { canonicalURL } from '../lib/seo';
 import { getPublishedPosts } from '../lib/blog';
 import { postURL } from '../lib/blog-posts';
 import { getActiveJobs } from '../lib/jobs';
@@ -10,8 +10,9 @@ export async function GET() {
     ...(await getPublishedPosts()).map(postURL),
     ...(await getActiveJobs()).map(jobURL),
   ];
+  const urls = [...new Set(paths.map(canonicalURL))];
   return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map((p) => `<url><loc>${company.url}${p}</loc></url>`).join('')}</urlset>`,
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((url) => `<url><loc>${url}</loc></url>`).join('')}</urlset>`,
     { headers: { 'Content-Type': 'application/xml' } },
   );
 }

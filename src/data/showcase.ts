@@ -1,4 +1,7 @@
 import type { ServiceId } from '../lib/types';
+import { motionTemplates } from '../content/templates';
+
+export const garageWebsite = motionTemplates.find(({ id }) => id === 'automotive-03')!;
 
 /** One part of a kit, listed in the page's structured data (an ItemList). */
 export interface ShowcasePart {
@@ -115,7 +118,7 @@ export const showcase: ShowcaseEntry[] = [
         anchor: 'website',
         name: 'A website that turns visits into bookings',
         service: 'websites',
-        image: '/showcase/garage/website-showcase.png',
+        image: garageWebsite.preview.src,
       },
       {
         anchor: 'brand',

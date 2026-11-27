@@ -20,6 +20,13 @@ export interface LocationPage {
 
 export const locationCopy = { areasTitle: 'Areas We Serve' };
 
+export const northernIrelandRedirect = {
+  route: '/locations/northernireland/',
+  destination: '/locations/northern-ireland/',
+  title: 'Northern Ireland',
+  message: 'Continue to the Northern Ireland service page.',
+};
+
 // Edit shared wording here once. Add a city to the array to generate its page.
 export const locations: LocationPage[] = [
   'London',
@@ -65,7 +72,6 @@ export const locations: LocationPage[] = [
   'Scotland',
   'Wales',
   'Northern Ireland',
-  'NorthernIreland',
   'NI',
 ].map((name): LocationPage => {
   const city = {

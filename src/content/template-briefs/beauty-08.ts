@@ -56,7 +56,7 @@ export const beauty08: TemplateBriefSchema = {
               },
               {
                 key: 'price',
-                label: 'Price, like £28, From £5 or POA',
+                label: 'Price',
                 type: 'text',
                 maxLength: 16,
                 format: { ...price, words: ['POA'] },
@@ -104,7 +104,7 @@ export const beauty08: TemplateBriefSchema = {
           type: 'long',
           maxLength: 280,
           when: whenOwn('beautyPolicySource'),
-          help: 'Like: a £10 deposit secures your appointment. Please give 24 hours’ notice to cancel.',
+          help: 'Describe your deposit, cancellation and rescheduling policy.',
         },
         {
           id: 'beautyPatchTest',
@@ -120,7 +120,7 @@ export const beauty08: TemplateBriefSchema = {
         },
         {
           id: 'beautyVoucherFrom',
-          label: 'Vouchers from, like £20 (optional)',
+          label: 'Vouchers from',
           type: 'text',
           optional: true,
           maxLength: 10,

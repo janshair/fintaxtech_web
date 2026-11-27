@@ -17,7 +17,7 @@ export const cleaningDemo = {
     description:
       'The weekly reset. The big fresh start. A little help making space for the things you love.',
     action: 'Find your clean',
-    note: 'A fictional business. Example services, prices and availability.',
+    note: 'A fictional business. Example services and availability.',
   },
   // The service types a typical local cleaning company offers, in our own words. Prices
   // are "Free quote", as many cleaners quote per job. frequency is the quote demo's

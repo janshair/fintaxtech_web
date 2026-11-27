@@ -58,7 +58,7 @@ export const cleaning04: TemplateBriefSchema = {
               { key: 'description', label: 'Short description', type: 'text', maxLength: 110 },
               {
                 key: 'price',
-                label: 'Price, like £20 / hour, From £120 or By quotation',
+                label: 'Price',
                 type: 'text',
                 maxLength: 24,
                 format: { ...price, per: true, words: ['By quotation'] },

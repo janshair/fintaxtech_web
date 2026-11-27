@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { PRICES, automotiveDemo as c } from '../src/content/automotive-demo';
 
-describe('Vector Motorworks services and prices', () => {
+describe('Vector Motorworks demonstration services', () => {
   it('lists the services in the agreed order', () => {
     expect(c.services.items.map((item) => item.name)).toEqual([
       'MOT',
@@ -34,11 +34,12 @@ describe('Vector Motorworks services and prices', () => {
       expect(item.code in PRICES).toBe(false);
     }
   });
-  it('takes every shown price from the one PRICES config', () => {
+  it('uses enquiry and booking labels in place of prices', () => {
     const prices: readonly string[] = Object.values(PRICES);
     for (const item of c.services.items.filter((item) => !item.repair))
       expect(prices).toContain(item.price);
-    expect(PRICES.mot).toBe('£54.85');
+    expect(PRICES.mot).toBe('Book an MOT');
+    expect(JSON.stringify(c)).not.toMatch(/[£€$]\s*\d/);
   });
   it('uses plain UK garage wording and realistic example content', () => {
     const copy = JSON.stringify(c);
@@ -49,8 +50,7 @@ describe('Vector Motorworks services and prices', () => {
       'We check and call you',
       'Fixed and ready',
     ]);
-    expect(c.reviews.items).toHaveLength(3);
-    expect(c.reviews.label).toBe('Example review');
+    expect(c).not.toHaveProperty('reviews');
   });
   it('keeps accreditation slots switched off by default', () => {
     expect(c.accreditations.map((item) => item.name)).toEqual([

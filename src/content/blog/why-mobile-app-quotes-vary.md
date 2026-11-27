@@ -97,7 +97,7 @@ The build is a project. Running an app is a commitment. Worth separating the two
 
 Things that may recur, depending on the app:
 
-**Store accounts.** Apple charges an annual membership for its Developer Program, [currently 99 USD per membership year](https://developer.apple.com/programs/enroll/), with prices varying by region and shown in local currency at enrolment. Google Play charges a [one-time registration fee of US$25](https://support.google.com/googleplay/android-developer/answer/6112435) for a full-distribution developer account, with no annual renewal.
+**Store accounts.** Apple charges an annual membership for its Developer Program, [as described on its enrolment page](https://developer.apple.com/programs/enroll/), with prices varying by region and shown in local currency at enrolment. Google Play charges a [one-time registration fee](https://support.google.com/googleplay/android-developer/answer/6112435) for a full-distribution developer account, with no annual renewal.
 
 **Hosting and backend services.** Only if your app has a backend. Costs scale with usage.
 

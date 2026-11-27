@@ -1,11 +1,5 @@
 ---
-import {
-  pricingCopy as c,
-  pricingFaqs,
-  pricingGroups,
-  priceLabel,
-  startingLabel,
-} from '../content/pricing';
+import { pricingCopy as c, pricingFaqs, pricingGroups } from '../content/pricing';
 import ServiceGlyph from './ServiceGlyph.astro';
 import '../styles/home-motion.css';
 ---
@@ -21,8 +15,7 @@ import '../styles/home-motion.css';
         rel="noopener"
         data-motion-end={i === pricingGroups.length - 1 ? '' : undefined}
       >
-        <span>{group.name.replace(' packages', '')}</span>
-        <strong data-count-price={group.startingPrice}>{startingLabel(group)}</strong>
+        <strong>{group.name}</strong>
         <i aria-hidden="true">↗</i>
         <span class="sr-only">(opens in a new tab)</span>
       </a>
@@ -37,9 +30,7 @@ import '../styles/home-motion.css';
         <span class="price-icon" aria-hidden="true">
           <ServiceGlyph service={group.id} />
         </span>
-        <h2 id={`${group.id}-title`}>
-          {group.name} <span>{startingLabel(group)}</span>
-        </h2>
+        <h2 id={`${group.id}-title`}>{group.name}</h2>
       </div>
       <p class="price-intro">{group.intro}</p>
       <ul class="price-grid home-motion" data-home-motion>
@@ -54,7 +45,6 @@ import '../styles/home-motion.css';
                 {pkg.name} <span class="sr-only">(opens in a new tab)</span>
               </a>
             </h3>
-            <p class="price">{priceLabel(pkg)}</p>
             <p>{pkg.summary}</p>
             <ul>
               {pkg.includes.map((item) => (
@@ -75,7 +65,7 @@ import '../styles/home-motion.css';
           {group.examples.label} <span class="sr-only">(opens in a new tab)</span>
         </a>
         <a class="button primary" href={group.estimate.href}>
-          {group.estimate.label}
+          Discuss your project
         </a>
         <a href={group.service}>
           {c.serviceLink}: {group.name.replace(' packages', '').toLowerCase()}
@@ -98,31 +88,6 @@ import '../styles/home-motion.css';
 
 <script>
   import '../scripts/home-motion';
-  // Count each starting price up once, when its tile first scrolls into view.
-  const format = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 });
-  const still = matchMedia('(prefers-reduced-motion: reduce)');
-  const counters = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      counters.unobserve(entry.target);
-      const node = entry.target as HTMLElement;
-      const target = Number(node.dataset.countPrice);
-      const final = node.textContent ?? '';
-      if (still.matches || !target) continue;
-      const started = performance.now();
-      const tick = (now: number) => {
-        const progress = Math.min(1, (now - started) / 900);
-        const eased = 1 - (1 - progress) ** 3;
-        node.textContent =
-          progress === 1
-            ? final
-            : final.replace(/£[\d,]+/, `£${format.format(Math.round(target * eased))}`);
-        if (progress < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    }
-  });
-  document.querySelectorAll('[data-count-price]').forEach((node) => counters.observe(node));
 </script>
 
 <style>
@@ -222,12 +187,6 @@ import '../styles/home-motion.css';
       --motion-y: 18px;
     }
   }
-  .price-summary span {
-    font: var(--weight-medium) var(--caption) / var(--line) var(--font-mono);
-    letter-spacing: var(--tracking-eyebrow);
-    text-transform: uppercase;
-    color: var(--muted);
-  }
   .price-summary strong {
     font: var(--weight-strong) var(--h3) / var(--line-heading) var(--font-heading);
   }
@@ -293,10 +252,6 @@ import '../styles/home-motion.css';
   .price-card p {
     margin: 0;
     color: var(--muted);
-  }
-  .price-card .price {
-    font: var(--weight-strong) var(--prose-heading) / var(--line-heading) var(--font-heading);
-    color: var(--text);
   }
   .price-card ul {
     margin: var(--space-2) 0 0;

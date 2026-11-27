@@ -51,7 +51,7 @@ const sections: BriefSection[] = [
             },
             {
               key: 'price',
-              label: 'Price, like £30 or From £30',
+              label: 'Price',
               type: 'text',
               maxLength: 20,
               format: price,

@@ -1,5 +1,5 @@
 ---
-import { money, pricingCopy as c, pricingGroups, vatSuffix } from '../content/pricing';
+import { pricingCopy as c, pricingGroups } from '../content/pricing';
 import ServiceGlyph from './ServiceGlyph.astro';
 import '../styles/home-motion.css';
 const rowTop = (i: number) => 86 + i * 46;
@@ -31,9 +31,6 @@ const rowTop = (i: number) => 86 + i * 46;
         <text class="label" x="110" y={rowTop(i) + 21}>
           {group.name.replace(' packages', '')}
         </text>
-        <text class="amount" x="336" y={rowTop(i) + 21} text-anchor="end">
-          {money(group.startingPrice)}
-        </text>
       </g>
     ))
   }
@@ -43,10 +40,6 @@ const rowTop = (i: number) => 86 + i * 46;
     <text class="on-pill" x="126" y="292" text-anchor="middle">{c.estimateTitle}</text>
     <circle class="pill" cx="323" cy="288" r="12"></circle>
     <path class="check" d="m317 288 4 4 8-8"></path>
-  </g>
-  <g class="motion-part" style="--motion-order:7;--motion-y:-8px">
-    <rect class="pill" x="292" y="14" width="84" height="28" rx="14"></rect>
-    <text class="on-pill" x="334" y="33" text-anchor="middle">{vatSuffix}</text>
   </g>
 </svg>
 

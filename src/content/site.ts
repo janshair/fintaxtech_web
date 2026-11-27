@@ -3,6 +3,8 @@ export const company = {
   name: 'FinTaxTech',
   legal: 'Fintaxtech Ltd',
   tagline: 'Smarter systems. Human standards.',
+  scope:
+    "FinTaxTech is a design and software studio. We don't provide accounting, tax or payroll services.",
   email: 'ask@fintaxtech.co.uk',
   phone: '+44 7442 906018',
   whatsapp: '447442906018',
@@ -64,6 +66,7 @@ export const navigation = [
   ['/', 'Home'],
   // ['/services/', 'Services'],
   ['/work/', 'Our work'],
+  ['/templates/website/motion/', 'Website templates'],
   // ['/how-it-works/', 'How It Works'],
   ['/pricing/', 'Pricing'],
   // ['/about/', 'About'],
@@ -134,16 +137,16 @@ export const home = {
 export const consentCopy = {
   title: 'Your privacy, your choice.',
   description:
-    'Draft questionnaire answers stay in page memory until you choose to share or submit them. Optional analytics helps us understand how the site is used, only with your consent.',
-  accept: 'Accept analytics',
-  reject: 'Reject analytics',
+    'Draft questionnaire answers stay in page memory until you choose to share or submit them. With your consent, Google tags help us measure site use and advertising, and can personalise ads.',
+  accept: 'Accept analytics and advertising',
+  reject: 'Reject optional cookies',
   manage: 'Manage cookies',
   save: 'Save preferences',
   essential: 'Essential preferences',
   essentialDetail:
     'Theme, consent and Project Assistant display preferences stay on this device. Your answers are kept only in memory while this page is open.',
-  analytics: 'Optional analytics',
-  analyticsDetail: 'Anonymous journey events only. No answers, contact details, or PDF contents.',
+  analytics: 'Optional analytics and advertising',
+  analyticsDetail: 'Google tags can measure visits and interactions, measure advertising and personalise ads. We do not send form answers, contact details or PDF contents in these events.',
   close: 'Close preferences',
   link: 'Cookie policy',
 };

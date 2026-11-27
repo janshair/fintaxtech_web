@@ -31,7 +31,7 @@
     document.querySelectorAll('[data-monogram]').forEach((node) => {
       node.textContent = initials;
     });
-    document.title = business + c.titleSuffix;
+    document.title = name ? business + c.titleSuffix : document.querySelector('meta[property="og:title"]').content;
     const area = clean(query.get('area'), 100);
     document.querySelectorAll('[data-area]').forEach((node) => {
       node.textContent = area || c.visit.location;

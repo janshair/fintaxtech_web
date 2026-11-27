@@ -3,12 +3,20 @@ import { appKnowledge } from '../content/app-knowledge';
 import { locationFromPath, locationStartURL } from '../content/locations';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { seoPages, seoCopy } from '../content/seo';
-import { structuredData, absoluteURL, type ArticleSEO, type SocialImage } from '../lib/seo';
+import { searchMetadata } from '../content/search-metadata';
+import {
+  structuredData,
+  absoluteURL,
+  canonicalURL,
+  type ArticleSEO,
+  type SocialImage,
+} from '../lib/seo';
 import type { JobSEO } from '../lib/job-seo';
 import { blogCopy } from '../content/blog';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Consent from '../components/Consent.astro';
+import GoogleTag from '../components/GoogleTag.astro';
 import AssistantInvitation from '../components/project-assistant/AssistantInvitation.astro';
 import AssistantPanel from '../components/project-assistant/AssistantPanel.astro';
 import { company } from '../content/site';
@@ -38,10 +46,12 @@ const allowAssistantInvitation = !/^\/(?:start|enquiry|client|estimate)(?:\/|$)/
 const locationPage = locationFromPath(pathname);
 const startHref = locationPage ? locationStartURL(locationPage) : '/start/';
 const configured = seoPages[pathname];
+const search = searchMetadata[pathname];
 const title = configured?.title ?? Astro.props.title;
-const description = configured?.description ?? Astro.props.description ?? company.description;
+const description =
+  search?.description ?? configured?.description ?? Astro.props.description ?? company.description;
 const noindex = Astro.props.noindex || configured?.noindex || false;
-const canonical = new URL(configured?.canonical ?? pathname, company.url);
+const canonical = canonicalURL(configured?.canonical ?? pathname);
 const { article, job, standalone = false } = Astro.props;
 const catalogueRoutes = new Set([
   templateDirectory.route,
@@ -58,8 +68,9 @@ const [lightBackground, darkBackground] = [...themeColors.matchAll(/--bg:\s*([^;
   (match) => match[1],
 );
 // Articles drop the brand when it would push the title past what search results show.
-const pageTitle = article ? searchTitle(title, company.name) : `${title} | ${company.name}`;
-const socialDescription = Astro.props.socialDescription ?? description;
+const pageTitle =
+  search?.title ?? (article ? searchTitle(title, company.name) : `${title} | ${company.name}`);
+const socialDescription = search?.description ?? Astro.props.socialDescription ?? description;
 const socialImage = Astro.props.socialImage ?? {
   url: '/social.png',
   width: 1200,
@@ -74,10 +85,9 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
 <!doctype html>
 <html lang="en" data-site-theme={useBrandTheme ? 'brand' : 'legacy'}>
   <head
-    ><meta charset="UTF-8" /><meta
-      name="viewport"
-      content="width=device-width,initial-scale=1"
-    /><title>{pageTitle}</title><meta name="description" content={description} /><meta
+    ><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />{
+      !pathname.startsWith('/client/') && <GoogleTag />
+    }<title>{pageTitle}</title><meta name="description" content={description} /><meta
       name="color-scheme"
       content="light dark"
     /><link rel="canonical" href={canonical} />{
@@ -159,6 +169,7 @@ const appInformation = appKnowledge.find((app) => pathname.startsWith(app.route)
         structuredData(pathname, pageTitle, description, article, imageURL, job),
       ).replace(/</g, '\\u003c')}
     />
+    <slot name="head" />
     <noscript
       ><style>
         .main-nav {

@@ -1,0 +1,21 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import {
+  proposalDescription,
+  proposalServices,
+  type EstimateKind,
+} from '../content/estimate-currency';
+
+interface Props {
+  kind: EstimateKind;
+}
+const { title, service } = proposalServices[Astro.props.kind];
+---
+
+<SiteLayout title={title} noindex>
+  <section class="container page-head">
+    <h1>{title}</h1>
+    <p class="lead">{proposalDescription}</p>
+    <a class="button primary" href={`/enquiry/?service=${service}`}>Start your enquiry</a>
+  </section>
+</SiteLayout>

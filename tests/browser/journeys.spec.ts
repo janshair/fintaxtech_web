@@ -114,7 +114,7 @@ test('promo status, sitemap and static fallbacks', async ({ page, request }) => 
     await expect(page.getByRole('heading', { name: promoCopy.closedTitle })).toBeVisible();
   } else {
     await expect(page.getByRole('heading', { name: promoCopy.title })).toBeVisible();
-    await expect(page.locator('.price')).toHaveText(promoCopy.price);
+    await expect(page.locator('main')).not.toContainText(/[£€$]\s*\d/);
   }
   await expect(page.locator('meta[name=robots]')).toHaveCount(0);
   const sitemap = await (await request.get('/sitemap.xml')).text();

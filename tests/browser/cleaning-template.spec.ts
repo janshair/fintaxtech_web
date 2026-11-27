@@ -42,7 +42,7 @@ test('link values apply before first paint, stay local, and metadata remains can
     'content',
     `https://fintaxtech.co.uk${route}`,
   );
-  await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,nofollow');
+  await expect(page.locator('meta[name=robots]')).toHaveCount(0);
   await expect(page.locator('h1')).toHaveCount(1);
   const enquiry = page.locator('[data-agency-link]').first();
   expect(new URL((await enquiry.getAttribute('href'))!).searchParams.get('ref')).toBe('LETTER04');

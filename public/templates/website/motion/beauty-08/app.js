@@ -229,7 +229,7 @@
     }),
   );
   // Options show only the name, so they fit a 320px phone; the duration and
-  // example price show on the line below.
+  // enquiry label appear on the line below.
   const price = $('#book-price [data-sample-price]');
   const duration = $('[data-book-duration]');
   function showPrice() {
@@ -268,7 +268,7 @@
       kind === 'directions'
         ? current.area || 'Your address here'
         : kind === 'voucher'
-          ? 'Vouchers from £20 (example)'
+          ? 'Gift vouchers (example)'
           : 'Your number here';
     open(contactDialog, trigger);
   }

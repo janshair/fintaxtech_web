@@ -17,7 +17,11 @@ import { company } from '../../content/site';
     <p class="gym-supporting">
       {metoniGym.summary}
     </p>
-    <a class="template-link" href="https://fintaxtech.co.uk/templates/website/motion/gym-06/">
+    <a
+      class="template-link"
+      href="https://fintaxtech.co.uk/templates/website/motion/gym-06/"
+      data-template-preview
+    >
       Preview the gym website template <span aria-hidden="true">↗</span>
     </a>
   </div>
@@ -37,15 +41,6 @@ import { company } from '../../content/site';
           <div class="package-heading">
             <h3>{plan.name}</h3>
             {plan.name === 'Own Brand' && <span class="package-badge">Your own app</span>}
-          </div>
-          <div class="package-pricing">
-            <p class="monthly-price">
-              <>
-                <strong>£{plan.monthly}</strong>
-                <span>/month</span>
-              </>
-            </p>
-            <p class="setup-price">£{plan.setup} one-time setup</p>
           </div>
           <p class="package-description">{plan.description}</p>
           <div class="package-inclusions">
@@ -167,26 +162,6 @@ import { company } from '../../content/site';
     border-radius: 999px;
     background: var(--blaze);
     color: #20110b;
-  }
-  .monthly-price {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-  .monthly-price strong {
-    font:
-      400 56px/1.1 Anton,
-      Impact,
-      sans-serif;
-  }
-  .monthly-price span {
-    color: var(--muted);
-    font-size: 14px;
-  }
-  .setup-price {
-    margin-top: 10px;
-    font-size: 15px;
-    font-weight: 600;
   }
   .package-description {
     color: var(--muted);

@@ -13,19 +13,19 @@ imageAlt: Flat illustration of a sheet of artwork with crop marks and a ruler be
 faqs:
   - question: 'What does print-ready mean?'
     answer: 'It means ready for a particular printer''s process, not a universal standard. A print-ready file is usually built to the trim size with bleed added, keeps key content inside the safe area, uses the colour mode the printer asks for, and has fonts embedded or converted to shapes.'
-  - question: 'What is bleed in printing?'
+  - question: 'What is bleed in print production?'
     answer: 'Bleed is the extra background colour or image that extends beyond the trim line, so a slightly off cut does not leave a white sliver at the edge. The amount varies between printers, so use the measurement given by the printer you are actually using.'
   - question: 'Why do printed colours look duller than on screen?'
-    answer: 'Screens mix light and most printing mixes inks, so bright screen colours, especially strong blues and greens, can look duller on paper. That is physics, not a mistake. If your brand colours matter, accept a close match or ask the printer about spot colour or a printed colour reference.'
-  - question: 'Is a digital proof enough before printing?'
+    answer: 'Screens mix light and most print production mixes inks, so bright screen colours, especially strong blues and greens, can look duller on paper. That is physics, not a mistake. If your brand colours matter, accept a close match or ask the printer about spot colour or a printed colour reference.'
+  - question: 'Is a digital proof enough before print production?'
     answer: 'For layout and text, yes. A digital proof does not reliably show colour, because every screen differs, and it cannot show how the paper feels. If exact colour or finish matters, ask whether a printed proof or a physical sample is possible, even at extra cost.'
-  - question: 'Can I use a PNG logo for printing?'
+  - question: 'Can I use a PNG logo for print production?'
     answer: 'It is better not to. Logos should be supplied as vector artwork so they stay sharp at any size, and a PNG taken from a website can look soft when enlarged. Ask your designer for the vector versions before the artwork is prepared.'
 draft: false
 cta: general
 ---
 
-Many design studios, including ours, produce the artwork and stop there. We design; we do not print. The printing is done by a supplier you choose — a local print shop, an online printer, a signage company — and the artwork passes from one to the other.
+Many design studios, including ours, produce the artwork and stop there. We design; we do not print. The print production is done by a supplier you choose — a local print shop, an online printer, a signage company — and the artwork passes from one to the other.
 
 That hand-off is where a surprising number of small problems begin. The designer assumes the printer will flag anything wrong. The printer assumes the file is exactly what you meant. Nobody has asked the other the awkward questions, and the first you see of the gap is a box of cards with the logo too close to the edge.
 
@@ -42,7 +42,7 @@ It helps to be plain about the split.
 | Designing the artwork to those requirements | Your designer |
 | Supplying print-ready files | Your designer |
 | Checking the proof and approving the run | You |
-| Printing, trimming, finishing and delivery | The printer |
+| Production, trimming, finishing and delivery | The printer |
 
 The point is not to pass blame around. It is that two of those steps — choosing the supplier and approving the proof — belong to you, and both are much easier when you know what to look for.
 
@@ -76,7 +76,7 @@ The artwork is built to the trim size, with bleed added outside it and key conte
 
 ### Colour
 
-Screens mix light (RGB); most printing mixes inks (CMYK). Bright screen colours, especially strong blues and greens, can look duller when printed. That is physics, not a mistake. If your brand colours matter, you have two options: accept a close match, or ask the printer about spot colour or a printed colour reference. For more on why colours shift, [Which Logo File Formats Does Your Business Need?](https://fintaxtech.co.uk/blog/logo-file-formats-explained/) covers RGB, CMYK and Pantone in plain terms.
+Screens mix light (RGB); most print production mixes inks (CMYK). Bright screen colours, especially strong blues and greens, can look duller when printed. That is physics, not a mistake. If your brand colours matter, you have two options: accept a close match, or ask the printer about spot colour or a printed colour reference. For more on why colours shift, [Which Logo File Formats Does Your Business Need?](https://fintaxtech.co.uk/blog/logo-file-formats-explained/) covers RGB, CMYK and Pantone in plain terms.
 
 ### Fonts and images
 

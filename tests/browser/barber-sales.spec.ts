@@ -175,6 +175,6 @@ test('all ritual steps and demo labels are present without JavaScript', async ({
     await expect(page.locator('.ritual-steps')).toContainText(description);
   }
   await expect(page.getByText(copy.reviewNote, { exact: true })).toBeVisible();
-  await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,nofollow');
+  await expect(page.locator('meta[name=robots]')).toHaveCount(0);
   await context.close();
 });

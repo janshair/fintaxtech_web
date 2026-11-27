@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import { motionFaqs, motionSteps, motionTrades } from '../../../../content/motion-catalogue';
 import TemplateCard from '../../../../components/templates/TemplateCard.astro';
 import { motionGallery as c, motionTemplates, threeDGallery } from '../../../../content/templates';
 ---
@@ -19,9 +20,56 @@ import { motionGallery as c, motionTemplates, threeDGallery } from '../../../../
         ))
       }
     </ul>
-    <div class="gallery-note">
+    <div class="gallery-note prose">
+      {
+        motionTemplates.map((template) => (
+          <section>
+            <h2>{motionTrades[template.id].heading}</h2>
+            <p>{motionTrades[template.id].intro}</p>
+            <a href={template.route} data-template-preview>
+              Preview {template.name}
+            </a>
+          </section>
+        ))
+      }
+      <section aria-labelledby="motion-how">
+        <h2 id="motion-how">How it works</h2>
+        <ol class="steps">
+          {
+            motionSteps.map(([title, detail]) => (
+              <li>
+                <>
+                  <strong>{title}</strong>
+                  <p>{detail}</p>
+                </>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+      <section aria-labelledby="motion-faq">
+        <h2 id="motion-faq">Frequently asked questions</h2>
+        {
+          motionFaqs.map(({ question, answer }) => (
+            <details>
+              <>
+                <summary>{question}</summary>
+                <p>{answer}</p>
+              </>
+            </details>
+          ))
+        }
+      </section>
+      <section>
+        <h2>Explore more examples</h2>
+        <ul>
+          <li><a href={threeDGallery.route}>Explore 3D website templates</a></li>
+          <li><a href="/showcase/garage/">See the garage showcase</a></li>
+          <li><a href="/showcase/plumbing/">See the plumbing showcase</a></li>
+        </ul>
+        <a class="button primary" href="/start/">Start your project</a>
+      </section>
       <p class="muted">{c.note}</p>
-      <p><a href={threeDGallery.route}>Explore 3D website templates ↗</a></p>
       <a class="button primary" href="/contact/">{c.contactLabel}</a>
     </div>
   </div>

@@ -1,7 +1,9 @@
 ---
+import GoogleTag from '../../../../../components/GoogleTag.astro';
 import { templateTheme } from '../../../../../lib/template-theme';
 import { THEME, cleaningDemo as baseCopy } from '../../../../../content/cleaning-demo';
 import { motionTemplates, motionGallery, templateSocial } from '../../../../../content/templates';
+import { motionTrades } from '../../../../../content/motion-catalogue';
 import { seoPages } from '../../../../../content/seo';
 import { absoluteURL, structuredData } from '../../../../../lib/seo';
 import CleaningArtwork from '../../../../../components/templates/CleaningArtwork.astro';
@@ -19,8 +21,9 @@ const theme = templateTheme('cleaning-04', THEME);
 <!doctype html>
 <html lang="en" style={theme.style} data-custom-theme={theme.custom || undefined}>
   <head>
+    <GoogleTag />
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex,nofollow" /><meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="no-referrer" />
     <meta name="theme-color" content={theme.pageBackground} />
     <title>{title}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" href="/mark.svg" />
@@ -89,6 +92,7 @@ const theme = templateTheme('cleaning-04', THEME);
             A fresh start for <span data-hero-area>Dundee & Tayside</span>
           </p>
           <h1>A clean home.<br />A little more <em>Sunday.</em></h1>
+          <p>{motionTrades['cleaning-04'].intro}</p>
           <p class="lead">{c.hero.description}</p>
           <a class="button coral" href="#quote" data-quote data-capture="demo"
             >{c.hero.action}<span aria-hidden="true">↗</span></a

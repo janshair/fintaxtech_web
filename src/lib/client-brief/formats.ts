@@ -52,7 +52,7 @@ export function normalizePrice(raw: string, rule: PriceRule = {}): string | null
   return `${match[1] ? 'From ' : ''}£${match[2]}${match[3] ?? ''}${match[4] ? ` / ${match[4].toLowerCase()}` : ''}`;
 }
 export const priceMessage = (rule: PriceRule = {}) =>
-  `Enter a price like £30 or From £30${rule.per ? ', or £20 / hour' : ''}${
+  `Enter a pound sterling amount${rule.per ? ' with a unit if needed' : ''}${
     rule.words?.length ? `, or ${rule.words.map((word) => `“${word}”`).join(' or ')}` : ''
   }.`;
 

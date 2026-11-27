@@ -1,13 +1,9 @@
-import { estimateKinds, estimateCurrencyPaths } from './estimate-currency';
+import { estimateKinds, estimateCurrencyPaths, proposalDescription, proposalServices } from './estimate-currency';
 import { mobileConcepts, mobileConceptRoute } from './mobile-concepts';
 import { mobileAppGallery, bookingConcept } from './mobile-app-templates';
 import { industryDirectory, retailGuide, industryGuides } from './automation-industries';
 import { brandingGallery, logoGallery, minimalismGuide, designGuides } from './branding-gallery';
-import { aiEstimateCopy } from './ai-automation-estimate';
-import { locations } from './locations';
-import { websiteEstimateCopy } from './website-estimate';
-import { mobileEstimateCopy } from './mobile-estimate';
-import { brandingEstimateCopy } from './branding-estimate';
+import { locations, northernIrelandRedirect } from './locations';
 import {
   templateDirectory,
   websiteGallery,
@@ -52,11 +48,11 @@ export interface PageSEO {
   canonical?: string;
 }
 export const seoPages: Record<string, PageSEO> = {
-  [aiEstimateCopy.route]: {
-    title: aiEstimateCopy.title,
-    description: aiEstimateCopy.description,
+  [northernIrelandRedirect.route]: {
+    title: northernIrelandRedirect.title,
+    description: northernIrelandRedirect.message,
+    canonical: northernIrelandRedirect.destination,
     noindex: true,
-    nofollow: true,
   },
   ...Object.fromEntries(
     locations.map((location) => [
@@ -68,24 +64,6 @@ export const seoPages: Record<string, PageSEO> = {
       },
     ]),
   ),
-  [websiteEstimateCopy.route]: {
-    title: websiteEstimateCopy.title,
-    description: websiteEstimateCopy.description,
-    noindex: true,
-    nofollow: true,
-  },
-  [mobileEstimateCopy.route]: {
-    title: mobileEstimateCopy.title,
-    description: mobileEstimateCopy.description,
-    noindex: true,
-    nofollow: true,
-  },
-  [brandingEstimateCopy.route]: {
-    title: brandingEstimateCopy.title,
-    description: brandingEstimateCopy.description,
-    noindex: true,
-    nofollow: true,
-  },
   [mobileAppGallery.route]: mobileAppGallery,
   [bookingConcept.route]: bookingConcept,
   ...Object.fromEntries(
@@ -129,8 +107,7 @@ export const seoPages: Record<string, PageSEO> = {
       {
         title: template.seoTitle,
         description: template.seoDescription,
-        noindex: true,
-        nofollow: true,
+        ...(template.route.startsWith(motionGallery.route) ? {} : { noindex: true, nofollow: true }),
       },
     ]),
   ),
@@ -328,16 +305,19 @@ export const seoPages: Record<string, PageSEO> = {
     description: 'Read the terms governing use of Metoni, a workout tracker by Fintaxtech Ltd.',
   },
 };
-for (const kind of estimateKinds)
+for (const kind of estimateKinds) {
+  const base = `/estimate/${kind}/`;
+  seoPages[base] = {
+    title: proposalServices[kind].title,
+    description: proposalDescription,
+    noindex: true,
+    nofollow: true,
+  };
   for (const currency of estimateCurrencyPaths) {
-    const base = `/estimate/${kind}/`;
-    seoPages[`${base}${currency}/`] = {
-      ...seoPages[base],
-      canonical: `${base}${currency}/`,
-      noindex: true,
-      nofollow: true,
-    };
+    const path = `${base}${currency}/`;
+    seoPages[path] = { ...seoPages[base], canonical: path };
   }
+}
 export const indexablePaths = Object.keys(seoPages).filter((path) => !seoPages[path].noindex);
 
 export const appPolicyPaths = indexablePaths.filter(

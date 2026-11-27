@@ -68,7 +68,7 @@ export const gym06: TemplateBriefSchema = {
               { key: 'description', label: 'Short description', type: 'text', maxLength: 90 },
               {
                 key: 'price',
-                label: 'Price, like £32 / session or Free',
+                label: 'Price',
                 type: 'text',
                 maxLength: 22,
                 format: { ...price, per: true, words: ['Free'] },
@@ -103,7 +103,7 @@ export const gym06: TemplateBriefSchema = {
               { key: 'name', label: 'Name, like Anytime', type: 'text', maxLength: 16 },
               {
                 key: 'price',
-                label: 'Price, like £34',
+                label: 'Price',
                 type: 'text',
                 maxLength: 10,
                 format: price,
@@ -149,7 +149,7 @@ export const gym06: TemplateBriefSchema = {
         },
         {
           id: 'gymDayPass',
-          label: 'Day pass price, like £8',
+          label: 'Day pass price',
           type: 'text',
           maxLength: 10,
           format: price,

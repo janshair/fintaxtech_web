@@ -123,7 +123,7 @@ A new look does not have to appear everywhere on the same day. Many businesses s
 3. **Replace public-facing items next:** Signage, vehicles and packaging follow, ideally as they come up for renewal.
 4. **Tell people:** A short note to customers explaining the change avoids confusion, especially if the name or logo is noticeably different.
 
-Printing and fabrication are done by suppliers you choose. FinTaxTech designs the assets and supplies print-ready files for your chosen printer, but does not print.
+Production and fabrication are done by suppliers you choose. FinTaxTech designs the assets and supplies print-ready files for your chosen printer, but does not print.
 
 ## A word on names, rights and ownership
 

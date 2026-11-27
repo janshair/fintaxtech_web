@@ -35,7 +35,7 @@
       node.textContent = current.phone ? current.phone.display : 'Your number here';
     });
     links(current.phone);
-    document.title = name + c.titleSuffix;
+    document.title = current.name ? name + c.titleSuffix : document.querySelector('meta[property="og:title"]').content;
     // The final offer opens the template brief with this preview's values.
     const brief = new URL('/client/website-brief/templates/?template=gym-06', location.origin);
     if (current.name) brief.searchParams.set('name', current.name);

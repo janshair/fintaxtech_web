@@ -43,21 +43,21 @@ export const presets = {
       {
         id: 'elopement',
         name: 'Elopement & small weddings',
-        price: '£650',
+        price: 'Enquire',
         detail: 'Up to 3 hours',
         items: ['Ceremony and portraits', 'Online gallery to share', 'Ideal for up to 30 guests'],
       },
       {
         id: 'half-day',
         name: 'Half day',
-        price: '£1,150',
+        price: 'Enquire',
         detail: 'Up to 6 hours',
         items: ['Ceremony to the speeches', 'Short planning call', 'Online gallery to share'],
       },
       {
         id: 'full-day',
         name: 'Full day',
-        price: '£1,700',
+        price: 'Enquire',
         detail: 'Up to 10 hours',
         items: [
           'Getting ready to first dance',
@@ -67,7 +67,7 @@ export const presets = {
         popular: true,
       },
     ],
-    packageNote: 'Example packages and prices · Your own coverage, add-ons and travel go here.',
+    packageNote: 'Example packages · Your own coverage, add-ons and travel go here.',
     process: [
       ['Say hello', 'Send your date and venue. You hear back with availability and a brochure.'],
       ['Meet for a coffee', 'A relaxed call or coffee to talk through your plans and timings.'],
@@ -98,26 +98,6 @@ export const presets = {
         'Can we add a second photographer?',
         'Example answer: yes, as an add-on for larger weddings or two getting-ready locations.',
       ],
-    ],
-    reviews: [
-      {
-        initials: 'ES',
-        name: 'Ellie & Sam',
-        date: '2 months ago',
-        text: 'We hardly noticed the camera on the day, then cried at the gallery. The getting-ready photos are our favourites.',
-      },
-      {
-        initials: 'PT',
-        name: 'Priya & Tom',
-        date: '5 months ago',
-        text: 'So calm and organised. The timeline call made the whole day feel easy, and the dance floor shots are brilliant.',
-      },
-      {
-        initials: 'MC',
-        name: 'Mhairi & Callum',
-        date: '8 months ago',
-        text: 'Kind, funny and great with our families. We got our previews within the week, just as promised.',
-      },
     ],
     tools:
       'Already use Pixieset or ShootProof for galleries, or HoneyBook for bookings? We’ll link them.',
@@ -159,14 +139,14 @@ export const presets = {
       {
         id: 'bridal-party',
         name: 'Bridal party',
-        price: '£350',
+        price: 'Enquire',
         detail: 'Bouquets & buttonholes',
         items: ['Bridal bouquet', 'Two bridesmaid bouquets', 'Four buttonholes'],
       },
       {
         id: 'ceremony-reception',
         name: 'Ceremony & reception',
-        price: '£950',
+        price: 'Enquire',
         detail: 'Personal & venue flowers',
         items: ['Bridal party flowers', 'Two ceremony arrangements', 'Table centrepieces'],
         popular: true,
@@ -174,12 +154,12 @@ export const presets = {
       {
         id: 'full-styling',
         name: 'Full venue styling',
-        price: '£2,200',
+        price: 'Enquire',
         detail: 'Designed around your venue',
         items: ['Everything above', 'Arch or installation', 'Set-up and collection'],
       },
     ],
-    packageNote: 'Example packages and prices · Your own flower menu and minimum spend go here.',
+    packageNote: 'Example packages · Your own flower menu and minimum spend go here.',
     process: [
       ['Enquire', 'Send your date and venue. You hear back with availability and a price guide.'],
       ['Consultation', 'Talk through colours, mood and the flowers you love, in person or online.'],
@@ -213,26 +193,6 @@ export const presets = {
         'Can you reuse ceremony flowers at the reception?',
         'Example answer: often, yes — arrangements can be moved between the ceremony and reception.',
       ],
-    ],
-    reviews: [
-      {
-        initials: 'HJ',
-        name: 'Hannah & Jack',
-        date: '1 month ago',
-        text: 'The bouquet was exactly the colours we talked about, and so much better in real life. Guests kept asking about the tables.',
-      },
-      {
-        initials: 'AR',
-        name: 'Amara & Ross',
-        date: '4 months ago',
-        text: 'We didn’t know much about flowers. They suggested what would be in season and it all looked beautiful together.',
-      },
-      {
-        initials: 'KL',
-        name: 'Kirsty & Lewis',
-        date: '7 months ago',
-        text: 'Everything arrived on time and was set up before we got there. The arch made our ceremony photos.',
-      },
     ],
     tools:
       'Already use HoneyBook or Dubsado for proposals and invoices? We’ll link your enquiry form.',
@@ -274,14 +234,14 @@ export const presets = {
       {
         id: 'two-tier',
         name: 'Two-tier cake',
-        price: '£320',
+        price: 'Enquire',
         detail: 'Serves about 50',
         items: ['Two flavours of your choice', 'Buttercream or semi-naked', 'Fresh flower finish'],
       },
       {
         id: 'three-tier',
         name: 'Three-tier cake',
-        price: '£480',
+        price: 'Enquire',
         detail: 'Serves about 90',
         items: ['Three flavours', 'Design consultation', 'Delivery and set-up'],
         popular: true,
@@ -289,12 +249,12 @@ export const presets = {
       {
         id: 'dessert-table',
         name: 'Cake & dessert table',
-        price: '£650',
+        price: 'Enquire',
         detail: 'Serves about 120',
         items: ['Two-tier cake', 'Cupcakes and treats', 'Table styling and set-up'],
       },
     ],
-    packageNote: 'Example packages and prices · Your own flavours, sizes and delivery go here.',
+    packageNote: 'Example packages · Your own flavours, sizes and delivery go here.',
     process: [
       ['Enquire', 'Send your date, venue and guest numbers. You hear back with availability.'],
       ['Tasting', 'Try a box of sample flavours at home, or book a tasting in person.'],
@@ -326,26 +286,6 @@ export const presets = {
         'Example answer: yes — tasting boxes are available to order before you book.',
       ],
     ],
-    reviews: [
-      {
-        initials: 'SD',
-        name: 'Sophie & Dan',
-        date: '3 weeks ago',
-        text: 'The tasting box made choosing so much fun. The cake looked exactly like the sketch and every slice went.',
-      },
-      {
-        initials: 'RA',
-        name: 'Rachel & Aaron',
-        date: '3 months ago',
-        text: 'They talked us through our dietary needs carefully and the dessert table was the talk of the evening.',
-      },
-      {
-        initials: 'LJ',
-        name: 'Laura & Jamie',
-        date: '6 months ago',
-        text: 'Delivered and set up before the ceremony, with fresh flowers that matched our bouquets. Delicious too.',
-      },
-    ],
     tools: 'Already take orders through HoneyBook or a Google Form? We’ll link it to your website.',
     demo: {
       packageLabel: 'Cake',
@@ -371,7 +311,7 @@ export const weddingDemo = {
   badge: 'Now booking 2027 weddings · example',
   hero: {
     action: 'Check your date',
-    note: 'A fictional business. Example packages, prices and dates.',
+    note: 'A fictional business. Example packages and dates.',
   },
   hours: [
     ['Monday – Thursday', '10:00 – 18:00 (consultations)'],

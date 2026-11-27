@@ -39,7 +39,6 @@ export function appLLMSText(app: AppKnowledge) {
           ...app.businessOffering.packages.flatMap((plan) => [
             `### ${plan.name}`,
             '',
-            `Proposed price: £${plan.monthly}/month plus £${plan.setup} one-time setup.`,
             '',
             plan.description,
             '',
@@ -88,7 +87,7 @@ export function appIndexText() {
             `- [${app.businessOffering.title}](${absolute(app.businessOffering.route)}): ${app.businessOffering.summary} ${app.businessOffering.status}`,
             ...app.businessOffering.packages.map(
               (plan) =>
-                `  - ${plan.name}: proposed £${plan.monthly}/month plus £${plan.setup} setup. ${plan.description}${plan.note ? ` ${plan.note}` : ''}`,
+                `  - ${plan.name}: ${plan.description}${plan.note ? ` ${plan.note}` : ''}`,
             ),
             `  - ${app.businessOffering.commercialDetails[0]}`,
           ]

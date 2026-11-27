@@ -17,7 +17,7 @@ export const gymDemo = {
     description:
       'An open gym floor, small group classes and coaches who help you find your feet. Beginners very welcome.',
     action: 'Book a free visit',
-    note: 'A fictional gym. Example classes, prices and opening hours.',
+    note: 'A fictional gym. Example classes and opening hours.',
   },
   services: [
     {
@@ -25,7 +25,7 @@ export const gymDemo = {
       name: 'Open gym floor',
       type: 'TRAIN YOUR WAY',
       description: 'Free weights, racks, cardio and resistance machines, ready when you are.',
-      price: 'From £24 / month',
+      price: 'Enquire',
       detail: 'Example · off-peak membership',
     },
     {
@@ -33,7 +33,7 @@ export const gymDemo = {
       name: 'Small group classes',
       type: 'TRAIN TOGETHER',
       description: 'Circuits, spin, kettlebells and mobility, kept small so coaches can help.',
-      price: '£6 drop-in',
+      price: 'Enquire',
       detail: 'Example · included with Anytime',
     },
     {
@@ -41,7 +41,7 @@ export const gymDemo = {
       name: 'Personal training',
       type: 'ONE TO ONE',
       description: 'A plan built around you, with a coach checking in and adjusting as you go.',
-      price: '£32 / session',
+      price: 'Enquire',
       detail: 'Example · blocks of 5 available',
     },
     {
@@ -49,21 +49,21 @@ export const gymDemo = {
       name: 'Beginner induction',
       type: 'START HERE',
       description: 'A relaxed walk-through of the kit and a simple first plan. No pressure.',
-      price: 'Free',
+      price: 'Taster visit',
       detail: 'Example · with any membership',
     },
   ],
   memberships: [
     {
       name: 'Off-peak',
-      price: '£24',
+      price: 'Ask about membership',
       period: '/ month',
       note: 'Weekdays 09:30 – 16:00 and weekends',
       perks: ['Gym floor & cardio', 'Free induction', '30-day rolling'],
     },
     {
       name: 'Anytime',
-      price: '£34',
+      price: 'Ask about membership',
       period: '/ month',
       note: 'All opening hours',
       perks: ['Gym floor & cardio', 'All group classes', 'Free induction'],
@@ -71,7 +71,7 @@ export const gymDemo = {
     },
     {
       name: 'Day pass',
-      price: '£8',
+      price: 'Ask about membership',
       period: '/ visit',
       note: 'Visiting or just trying it out',
       perks: ['Gym floor & cardio', 'One class', 'No sign-up'],
@@ -163,26 +163,6 @@ export const gymDemo = {
     ['weights', 'The weights floor', 'Racks, benches and room to move.'],
     ['studio', 'The class studio', 'Space for circuits, kettlebells and stretch.'],
     ['cardio', 'The cardio corner', 'Bikes, rowers and treadmills by the window.'],
-  ],
-  reviews: [
-    {
-      initials: 'AK',
-      name: 'Aisha K.',
-      date: '2 weeks ago',
-      text: 'I was nervous walking in as a complete beginner, but the induction was relaxed and nobody made me feel out of place. I actually look forward to Tuesday nights now.',
-    },
-    {
-      initials: 'CM',
-      name: 'Craig M.',
-      date: '1 month ago',
-      text: 'Good kit, clean changing rooms and I rarely wait for a rack at lunchtime. Easy to fit in before work.',
-    },
-    {
-      initials: 'MD',
-      name: 'Morven D.',
-      date: '3 months ago',
-      text: 'The kettlebell class is the friendliest hour of my week. The coach checks your form and remembers how you got on last time.',
-    },
   ],
   hours: [
     ['Monday – Friday', '06:00 – 21:30'],
